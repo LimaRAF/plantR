@@ -18,6 +18,7 @@ Capitalize the name of the collector or determiner of a biological specimen.
 \details{
 The function works for simple names and compound names which are separated by
 a space or by the character '-'. It also works for names that are entirely capitalized.
+This function was inspired in function simpleCap from package hpoPlot v2.4 by Daniel Greene
 }
 \examples{
 # Simple name
@@ -27,4 +28,7 @@ a space or by the character '-'. It also works for names that are entirely capit
   capName("leitao filho")
 # Compound name
   capName("saint-hilaire")
+}
+\author{
+Lima, R.A.F.
 }

@@ -8,6 +8,9 @@
 #'
 #' @details The function works for simple names and compound names which are separated by
 #' a space or by the character '-'. It also works for names that are entirely capitalized.
+#' This function was inspired in function simpleCap from package hpoPlot v2.4 by Daniel Greene
+#'
+#' @author Lima, R.A.F.
 #'
 #' @export capName
 #'
@@ -21,9 +24,7 @@
 #'   capName("saint-hilaire")
 capName <- function(x) {
   # check input:
-  if (length(x)>1) {
-    stop("currently, 'x' cannot be a vector of strings!")
-  }
+  if (length(x)>1) { stop("currently, 'x' cannot be a vector of strings!") }
 
   # identifying compound names:
   if(grepl('-',x)) {
