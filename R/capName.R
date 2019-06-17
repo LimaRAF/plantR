@@ -1,19 +1,20 @@
 #' @title Capitalize Name
 #'
-#' @description Capitalize the name of the person that collected or identified a biological specimen.
+#' @description Capitalize the name of the collector or determiner of a biological specimen.
 #'
-#' @param x a character string to be capitalized.
+#' @param x the character string to be capitalized.
 #'
-#' @return a character string equal to \code{x} with the first letter capitalized.
+#' @return the character string equal to \code{x} with the first letter capitalized.
 #'
-#' @details The function works for simple names and coumpound names which are separated by
-#' a space or by thecharacter '-'.
+#' @details The function works for simple names and compound names which are separated by
+#' a space or by the character '-'. It also works for names that are entirely capitalized.
 #'
-#' @export
+#' @export capName
 #'
 #' @examples
 #' # Simple name
 #'   capName("gentry")
+#'   capName("HATSCHBACH")
 #' # Names with generational suffixes
 #'   capName("leitao filho")
 #' # Compound name
@@ -21,7 +22,7 @@
 capName <- function(x) {
   # check input:
   if (length(x)>1) {
-    stop("'x' cannot be a vector of strings!")
+    stop("currently, 'x' cannot be a vector of strings!")
   }
 
   # identifying compound names:

@@ -7,21 +7,22 @@
 capName(x)
 }
 \arguments{
-\item{x}{a character string to be capitalized.}
+\item{x}{the character string to be capitalized.}
 }
 \value{
-a character string equal to \code{x} with the first letter capitalized.
+the character string equal to \code{x} with the first letter capitalized.
 }
 \description{
-Capitalize the name of the person that collected or identified a biological specimen.
+Capitalize the name of the collector or determiner of a biological specimen.
 }
 \details{
-The function works for simple names and coumpound names which are separated by
-a space or by thecharacter '-'.
+The function works for simple names and compound names which are separated by
+a space or by the character '-'. It also works for names that are entirely capitalized.
 }
 \examples{
 # Simple name
   capName("gentry")
+  capName("HATSCHBACH")
 # Names with generational suffixes
   capName("leitao filho")
 # Compound name
