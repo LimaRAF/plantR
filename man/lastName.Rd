@@ -24,11 +24,13 @@ If only one name is given, the function returns the same name in lower case.
 }
 \examples{
 # Simple last name
+  lastName("Al Gentry")
   lastName("Gert Guenther Hatschbach")
   lastName("Gert G. Hatschbach")
   lastName("GERT GUENTHER HATSCHBACH")
   lastName("HATSCHBACH, G.G.")
   lastName("HATSCHBACH, G. G.")
+  lastName("G. G. HATSCHBACH")
 # Last name with generational suffixes
   lastName("Hermogenes Leitao Filho")
   lastName("Leitao Filho, H.")
@@ -42,8 +44,8 @@ If only one name is given, the function returns the same name in lower case.
   lastName("Mendonca Filho, C.V. Neto, F.C.C.")
   lastName("Sa, C.V.F.C.C.")
   lastName("Sa, Cyril")
-
-
+  lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
+  lastName("Sa, Cyl") # small last name, no comma: output correct
 }
 \author{
 Lima, R.A.F. & ter Steege, H.

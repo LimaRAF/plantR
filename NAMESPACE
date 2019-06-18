@@ -2,3 +2,4 @@
 
 export(capName)
 export(lastName)
+export(tdwgName)

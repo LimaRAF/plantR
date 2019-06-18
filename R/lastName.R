@@ -18,11 +18,13 @@
 #'
 #' @examples
 #' # Simple last name
+#'   lastName("Al Gentry")
 #'   lastName("Gert Guenther Hatschbach")
 #'   lastName("Gert G. Hatschbach")
 #'   lastName("GERT GUENTHER HATSCHBACH")
 #'   lastName("HATSCHBACH, G.G.")
 #'   lastName("HATSCHBACH, G. G.")
+#'   lastName("G. G. HATSCHBACH")
 #' # Last name with generational suffixes
 #'   lastName("Hermogenes Leitao Filho")
 #'   lastName("Leitao Filho, H.")
@@ -36,8 +38,8 @@
 #'   lastName("Mendonca Filho, C.V. Neto, F.C.C.")
 #'   lastName("Sa, C.V.F.C.C.")
 #'   lastName("Sa, Cyril")
-#'
-#'
+#'   lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
+#'   lastName("Sa, Cyl") # small last name, no comma: output correct
 lastName = function(name) {
   # check input:
   if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }

@@ -18,7 +18,7 @@ Capitalize the name of the collector or determiner of a biological specimen.
 \details{
 The function works for simple names and compound names which are separated by
 a space or by the character '-'. It also works for names that are entirely capitalized.
-This function was inspired in function simpleCap from package hpoPlot v2.4 by Daniel Greene
+This function was adapted from function simpleCap from package hpoPlot by Daniel Greene
 }
 \examples{
 # Simple name
