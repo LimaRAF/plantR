@@ -3,7 +3,30 @@
 plantR
 ======
 
-The goal of plantR is to to retrieve, clean and validate records from biological collections typically obtained from herbarium occurrences
+Management of Plant Occurrence Records.
+
+Description
+-----------
+
+The package plantR provides tools for retrieving, processing, cleaning and validating occurrence records of plant species.
+
+Details
+-------
+
+Managing the information linked to species records from herbarium collections is an important but often difficult task. The notation often differ between collections and even within collections because collection authors often provide information in different formats. In addition, it is often difficult to validate the geographical locality and taxonomy of individual records, especially when working with thousands of records. Thus, having tools to perform the (fast) processing and validation of herbarium records can be quite handy for collection curators, taxonomists, ecologists and conservationists.
+
+The package plantR was developed to deal with data typically obtained from herbarium collections and it provides tools to perform: 1) the download of herbarium data for a list of species names or collections codes; 2) the batch processing of typical herbarium fields (e.g. collector name); 3) geographical and taxonomic validation of herbarium records.
+
+Currently, the download of records is available for speciesLink (website) and GBIF (website), but the user can also provide its own dataset as an input. Field editing covers most of the typical variation in the notation of author and determiner names, trying to provide standardized ouputs in the TDWG format. Currently, geographical validation can be performed at county-level for Latin American countries and at country level for the rest of the world. We provide a gazetteer to retrieve and check geographical coordinates, which is currenlty biased towards Latin American countries, particularly for Brazil. Taxonomical validation is performed based on a compilation of plant taxonomist names from all over the world.
+
+Authors
+-------
+
+References
+----------
+
+See Also
+--------
 
 Installation
 ------------

@@ -60,7 +60,7 @@ lastName = function(name) {
 
   # identifying names with generational suffixes
   # Add suffixs: II, fils, Sr.
-  # Re-check encoding problems related to cp equals to 'Junior' and 'Junior,' com acento agudo no u
+  # Re-check encoding problems related to cp equals to 'Junior' and 'Junior,' com acento agudos no u
   cp = c("Filho","Filho,","Neto","Neto,","Jr.","Jr.,","Junior","Junior,","Sobrinho","Sobrinho,") #compound names
   if (sum(names %in% cp)>0) {
     lastname = tail(names[!names %in% cp],1)
