@@ -48,6 +48,7 @@ particularly if the string provided already contain commas.
   tdwgName("Sa, Cyl") # small last name, no comma: output incorrect (inverted)
 }
 \references{
+Brummitt, R.K. & Powell, C.E. (1992). Authors of Plant Names. 732 pp. Kew: Royal Botanic Gardens.   
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
 }
 \author{
