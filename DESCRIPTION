@@ -15,7 +15,7 @@ Description: The package plantR provides tools for
     retrieving, processing, cleaning and validating occurrence records of plant species.
 License: What license is it under?
 Encoding: UTF-8
-URL: https://github.com/raflima1981/plantR
-BugReports: https://github.com/raflima1981/plantR/issues
+URL: https://github.com/LimaRAF/plantR
+BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
 RoxygenNote: 6.1.1
