@@ -36,10 +36,10 @@
 #' # Unusual formatting
 #'   lastName("Cesar Sandro, Esteves, F")
 #'   lastName("Mendonca Filho, C.V. Neto, F.C.C.")
-#'   lastName("Sa, C.V.F.C.C.")
-#'   lastName("Sa, Cyril")
 #'   lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
-#'   lastName("Sa, Cyl") # small last name, no comma: output correct
+#'   lastName("Sa, Cyl") # small last name, with comma: output correct
+#'   lastName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separated by comma: output correct
+#'   lastName("Karl Emrich & Balduino Rambo") # two or more names, separated by comma: output incorrect (give names of authors)
 lastName = function(name) {
   # check input:
   if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }

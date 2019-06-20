@@ -2,16 +2,16 @@
 % Please edit documentation in R/tdwgName.R
 \name{tdwgName}
 \alias{tdwgName}
-\title{Format Name To TDWG Standard}
+\title{Format People's Name To TDWG Standard}
 \usage{
-tdwgName(name)
+tdwgName(x)
 }
 \arguments{
-\item{name}{the character string.}
+\item{x}{the character string.}
 }
 \value{
-the character string \code{name} in the TDWG format. If only one name
-is given, the function returns \code{name} with the first letter capitalized.
+the character string \code{x} in the TDWG format. If only one name
+is given, the function returns \code{x} with the first letter capitalized.
 }
 \description{
 Put the the collector or determiner name in the TDWG format.
@@ -28,7 +28,7 @@ particularly if the string provided already contain commas.
 \examples{
 # Simple name
   tdwgName("Al Gentry")
-  tdwgName("Gert Guenther Hatschbach")
+  tdwgName("Alwyn Howard Gentry")
   tdwgName("Gert G. Hatschbach")
   tdwgName("HATSCHBACH, G.G.")
   tdwgName("HATSCHBACH, G. G.")
@@ -37,15 +37,21 @@ particularly if the string provided already contain commas.
   tdwgName("Hermogenes Leitao Filho")
   tdwgName("Leitao Filho, H.")
   tdwgName("Leitao Filho, H.F.")
+  tdwgName("Leitao Filho, HF")
   tdwgName("S.J. Filho Neto")
 # Compound last name
   tdwgName("Augustin Saint-hilaire")
   tdwgName("Saint-Hilaire A.")
 # Unusual formatting (function won't always work)
-  tdwgName("Cesar Sandro, Esteves, F") # one author, two commas: fails to get the right last name
-  tdwgName("Mendonca Filho, C.V. Neto, F.C.C.") # two authors not properly separated: combine names of both authors
+  tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
-  tdwgName("Sa, Cyl") # small last name, no comma: output incorrect (inverted)
+  tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
+  tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
+  tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
+  tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
+  tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
+  tdwgName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
+  tdwgName("Karl Emrich & Balduino Rambo") # two names, not separeted by comma: output incorrect (combine names of authors)
 }
 \references{
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.

@@ -69,3 +69,12 @@ You can also embed plots, for example:
 ```
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+
+## Funding
+
+The development of this package was possible under ...
+
+## Acknowledgements
+
+The construction of the some functions and dictionaries provided by ... 
+

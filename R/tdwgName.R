@@ -1,11 +1,11 @@
-#' @title Format Name To TDWG Standard
+#' @title Format People's Name To TDWG Standard
 #'
 #' @description Put the the collector or determiner name in the TDWG format.
 #'
-#' @param name the character string.
+#' @param x the character string.
 #'
-#' @return the character string \code{name} in the TDWG format. If only one name
-#' is given, the function returns \code{name} with the first letter capitalized.
+#' @return the character string \code{x} in the TDWG format. If only one name
+#' is given, the function returns \code{x} with the first letter capitalized.
 #'
 #' @details The function puts the name of a person into the format suggested by
 #' the TDWG <International Working Group on Taxonomic Databases for Plant Sciences>.
@@ -24,7 +24,7 @@
 #' @examples
 #' # Simple name
 #'   tdwgName("Al Gentry")
-#'   tdwgName("Gert Guenther Hatschbach")
+#'   tdwgName("Alwyn Howard Gentry")
 #'   tdwgName("Gert G. Hatschbach")
 #'   tdwgName("HATSCHBACH, G.G.")
 #'   tdwgName("HATSCHBACH, G. G.")
@@ -33,26 +33,43 @@
 #'   tdwgName("Hermogenes Leitao Filho")
 #'   tdwgName("Leitao Filho, H.")
 #'   tdwgName("Leitao Filho, H.F.")
+#'   tdwgName("Leitao Filho, HF")
 #'   tdwgName("S.J. Filho Neto")
 #' # Compound last name
 #'   tdwgName("Augustin Saint-hilaire")
 #'   tdwgName("Saint-Hilaire A.")
 #' # Unusual formatting (function won't always work)
-#'   tdwgName("Cesar Sandro, Esteves, F") # one author, two commas: fails to get the right last name
-#'   tdwgName("Mendonca Filho, C.V. Neto, F.C.C.") # two authors not properly separated: combine names of both authors
+#'   tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
 #'   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
-#'   tdwgName("Sa, Cyl") # small last name, no comma: output incorrect (inverted)
-tdwgName = function(name) {
+#'   tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
+#'   tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
+#'   tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
+#'   tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
+#'   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
+#'   tdwgName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
+#'   tdwgName("Karl Emrich & Balduino Rambo") # two names, not separeted by comma: output incorrect (combine names of authors)
+tdwgName = function(x) {
   # check input:
-  if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }
+  if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }
+
+  # name inside brackets? removing here and adding after editions
+  bracks = grepl('^\\[',x) & grepl('\\]$',x)
+  x = gsub("^\\[|\\]$", "", x)
 
   # first edits:
-  name = gsub("[.]", ". ", name)                         # adding a space between points
-  name = gsub("  ", " ", name)                           # removing double spaces
+  if(grepl(", [A-Z]",x)) x = fixName(x)            # fixing names already in the TDWG format
+  x = gsub("[.]", ". ", x)                         # adding a space between points
+  x = gsub("  ", " ", x)                           # removing double spaces
+
+  # removing unwanted characters
+  x = gsub(", --$| --, --|^-\\. ||^--\\. |^-- |^\\* ", "", x)
+
+  # removing treatment prepositions (e.g. Dr., Prof., Pe., ...)
+  x = gsub("^Dr\\. |Pe\\. |Prof\\. ", "", x)
 
   # spliting the name
-  names = unlist(strsplit(name," "))                     # split o names and initials
-  names = as.character(unlist(sapply(names,capName)))    # capitalizing first letter of each name
+  names = unlist(strsplit(x, " "))                     # split o names and initials
+  names = as.character(unlist(sapply(names, FUN= capName)))    # capitalizing first letter of each name
 
   if (length(names) < 2) return(names)				    # stop if there is only one name
 
@@ -90,14 +107,24 @@ tdwgName = function(name) {
     lastname = lastname
     other.names = other.names
   }
+
+  #Creating and editing the name initials
   initials = sapply(other.names, function(x) toupper(strsplit(x,"")[[1]][1]))
+
+  #Editing the name initials
+  if(any(initials=="-")) initials[initials=="-"] = substr(names(initials[initials=="-"]),1,2)
   initials = initials[!grepl("^De$|^Dos$|^Do$|^Da$|^Das$|^Von$|^Van$|^Van Der$|^Van Den$|^Ter$",names(initials))]
   initials = paste(initials,collapse=".")
   initials = paste(initials,".",sep="")
 
   # Creating the name in the TDWG format
   name.correct = paste(lastname,initials,sep=", ")
-  # Removing possible duplicated commas
-  name.correct = gsub(",,",",",name.correct)
+  # Final edits (removing duplicated commas and bad name endings)
+  name.correct = gsub(",,", ",",name.correct)
+  name.correct = gsub(", \\.$", "",name.correct)
+
+  # Adding brackets (if needed)
+  if(bracks==TRUE) name.correct = paste("[",name.correct,"]",sep="")
+
   return(name.correct)
 }
