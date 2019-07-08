@@ -24,6 +24,12 @@
 #' # Using the function with a different character to indicate missing dates
 #' getYear(dates, noYear = "n.d.")
 #'
+#' #not working for
+#' dates = c("31.12.1982","1982.31.12", '31/12')
+#' getYear(dates, noYear = 'pouette')
+#'
+#'
+#'
 getYear = function (x, noYear = "s.d.") {
 
   ### tmp = gsub('Data:|Date:',"", tmp, ignore.case=T)
@@ -38,8 +44,9 @@ getYear = function (x, noYear = "s.d.") {
   tmp1 = noYear
   if(length(tmp1)>0) tmp[!grepl('\\d',tmp)] = tmp1
 
-  # Converting names of months
-  meses = c(month.name,"Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro")
+  # Converting names of months (add month names in Spanish)
+  meses = c(month.name,
+            "Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro")
   meses1 = paste(meses," ", sep= "")
   meses2 = paste(unique(substr(meses,1,3)),"\\. ", sep= "")
   meses3 = paste(unique(substr(meses,1,3))," ", sep= "")
@@ -57,12 +64,12 @@ getYear = function (x, noYear = "s.d.") {
 
   #years separated by points or commas
   tmp1 = tmp[grepl('^[0-9]\\.|^[0-9],',tmp)]
-  tmp1 = as.character(sapply(strsplit(tmp1,"\\.|,"),function(x) paste(x,collapse = "")))
+  tmp1 = as.character(sapply(strsplit(tmp1,"\\.|,"), function(x) paste(x,collapse = "")))
   if(length(tmp1)>0) tmp[grepl('^[0-9]\\.|^[0-9],',tmp)] = tmp1
 
   #complete dates, separated by slashs
   tmp1 = tmp[grepl('\\/',tmp)]
-  tmp1 = as.character(sapply(strsplit(tmp1,"\\/"),function(x) x[nchar(x)>=4]))
+  tmp1 = as.character(sapply(strsplit(tmp1,"\\/"), function(x) x[nchar(x)>=4]))
   if(length(tmp1)>0) tmp[grepl('\\/',tmp)] = tmp1
 
   #complete dates in a sequence, not separated by '-'
@@ -81,12 +88,12 @@ getYear = function (x, noYear = "s.d.") {
 
   #datea separeted by '-'
   tmp1 = tmp[grepl("-",tmp)]
-  tmp1 = as.character(sapply(strsplit(tmp1,"-"),function(x) unique(x[nchar(str_trim(x))>=4])))
+  tmp1 = as.character(sapply(strsplit(tmp1,"-"), function(x) unique(x[nchar(str_trim(x))>=4])))
   if(length(tmp1)>0) tmp[grepl("-",tmp)] = tmp1
 
   #dates separated by spaces
   tmp1 = tmp[grepl(" ",tmp)]
-  tmp1 = as.character(sapply(strsplit(tmp1," "),function(x) unique(x[nchar(x)>=4])))
+  tmp1 = as.character(sapply(strsplit(tmp1," "), function(x) unique(x[nchar(x)>=4])))
   if(length(tmp1)>0) tmp[grepl(" ",tmp)] = tmp1
 
   return(tmp)

@@ -28,6 +28,12 @@ getYear(dates)
 # Using the function with a different character to indicate missing dates
 getYear(dates, noYear = "n.d.")
 
+#not working for
+dates = c("31.12.1982","1982.31.12", '31/12')
+getYear(dates, noYear = 'pouette')
+
+
+
 }
 \references{
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.

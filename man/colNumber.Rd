@@ -21,7 +21,7 @@ The function puts
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
 numbers = c("3467","3467 "," 3467","ALCB3467","Gentry 3467","ALCB-3467","3467a","3467A","3467 A",
-"3467-A","PL671","57-685","685 - 4724","1-80","-4724","(80)","(80","80)","32-3-77",
+"3467-A","PL671","57-685","685 - 4724","1-80","-4724","(3467)","(3467","3467)","32-3-77",
 "s/n.","s.n.","s.n","s/nº","",NA)
 # Using the function defaults
 colNumber(numbers)

@@ -29,15 +29,24 @@
 #'   tdwgName("HATSCHBACH, G.G.")
 #'   tdwgName("HATSCHBACH, G. G.")
 #'   tdwgName("G. G. HATSCHBACH")
+#' # Name with prepositions
+#'   tdwgName("Carl Friedrich Philipp von Martius")
+#'   tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
+#'   tdwgName("Simon Jan van Ooststroom")
+#'   tdwgName("Jan van der Hoeven") ##CHECK!
+#'   tdwgName("Maria da Silva")
+#'   tdwgName("Silva, M. da")
+#'   tdwgName("da Silva, M.")
 #' # Name with generational suffixes
 #'   tdwgName("Hermogenes Leitao Filho")
 #'   tdwgName("Leitao Filho, H.")
 #'   tdwgName("Leitao Filho, H.F.")
 #'   tdwgName("Leitao Filho, HF")
 #'   tdwgName("S.J. Filho Neto")
-#' # Compound last name
+#'#' # Compound last name (needs to be marked with a '-')
 #'   tdwgName("Augustin Saint-hilaire")
 #'   tdwgName("Saint-Hilaire A.")
+#'   tdwgName("Augustin Saint Hilaire") # compound name missing '-'
 #' # Unusual formatting (function won't always work)
 #'   tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
 #'   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
@@ -53,11 +62,11 @@ tdwgName = function(x) {
   if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }
 
   # name inside brackets? removing here and adding after editions
-  bracks = grepl('^\\[',x) & grepl('\\]$',x)
+  bracks = grepl('^\\[', x) & grepl('\\]$', x)
   x = gsub("^\\[|\\]$", "", x)
 
   # first edits:
-  if(grepl(", [A-Z]",x)) x = fixName(x)            # fixing names already in the TDWG format
+  if(grepl(", [A-Z]", x)) x = fixName(x)           # fixing names already in the TDWG format
   x = gsub("[.]", ". ", x)                         # adding a space between points
   x = gsub("  ", " ", x)                           # removing double spaces
 
@@ -69,7 +78,7 @@ tdwgName = function(x) {
 
   # spliting the name
   names = unlist(strsplit(x, " "))                     # split o names and initials
-  names = as.character(unlist(sapply(names, FUN= capName)))    # capitalizing first letter of each name
+  names = as.character(unlist(sapply(names, FUN = capName)))    # capitalizing first letter of each name
 
   if (length(names) < 2) return(names)				    # stop if there is only one name
 
@@ -81,7 +90,7 @@ tdwgName = function(x) {
   cp = c("Filho","Filho,","Neto","Neto,","Jr.","Jr.,","Junior","Junior,","Sobrinho","Sobrinho,") #compound names
   if (any(names %in% cp)) {
     lastname = tail(names[!names %in% cp],1)
-    cp.nome = paste(names[names %in% cp],collapse = " ") #collapse if there are two gen. suffixes
+    cp.nome = paste(names[names %in% cp], collapse = " ") #collapse if there are two gen. suffixes
     other.names = names[!names %in% cp & !names %in% lastname]
   } else {
     lastname = lastname
@@ -96,12 +105,12 @@ tdwgName = function(x) {
     i = i + 1
   }
 
-  lastname = gsub("\\.$","",lastname)
+  lastname = gsub("\\.$", "", lastname)
   # making sure gen. suffixes did not got mixed up
   if(any(names %in% cp)) {
-    cp.nome = gsub("\\.$","",cp.nome)
-    lastname = paste(lastname,cp.nome,sep=" ")
-    lastname = paste(unique(strsplit(lastname," ")[[1]]),collapse =" ")
+    cp.nome = gsub("\\.$", "", cp.nome)
+    lastname = paste(lastname, cp.nome, sep=" ")
+    lastname = paste(unique(strsplit(lastname, " ")[[1]]), collapse =" ")
     other.names = other.names[!other.names %in% names[names %in% cp]]
   } else {
     lastname = lastname

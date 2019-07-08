@@ -33,15 +33,24 @@ particularly if the string provided already contain commas.
   tdwgName("HATSCHBACH, G.G.")
   tdwgName("HATSCHBACH, G. G.")
   tdwgName("G. G. HATSCHBACH")
+# Name with prepositions
+  tdwgName("Carl Friedrich Philipp von Martius")
+  tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
+  tdwgName("Simon Jan van Ooststroom")
+  tdwgName("Jan van der Hoeven") ##CHECK!
+  tdwgName("Maria da Silva")
+  tdwgName("Silva, M. da")
+  tdwgName("da Silva, M.")
 # Name with generational suffixes
   tdwgName("Hermogenes Leitao Filho")
   tdwgName("Leitao Filho, H.")
   tdwgName("Leitao Filho, H.F.")
   tdwgName("Leitao Filho, HF")
   tdwgName("S.J. Filho Neto")
-# Compound last name
+#' # Compound last name (needs to be marked with a '-')
   tdwgName("Augustin Saint-hilaire")
   tdwgName("Saint-Hilaire A.")
+  tdwgName("Augustin Saint Hilaire") # compound name missing '-'
 # Unusual formatting (function won't always work)
   tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
@@ -54,7 +63,6 @@ particularly if the string provided already contain commas.
   tdwgName("Karl Emrich & Balduino Rambo") # two names, not separeted by comma: output incorrect (combine names of authors)
 }
 \references{
-Brummitt, R.K. & Powell, C.E. (1992). Authors of Plant Names. 732 pp. Kew: Royal Botanic Gardens.   
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
 }
 \author{

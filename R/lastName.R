@@ -49,13 +49,13 @@ lastName = function(name) {
   name = gsub("  ", " ", name)                           # removing double spaces
 
   # spliting the name
-  names = unlist(strsplit(name," "))                     # split of names and its initials
-  names = as.character(unlist(sapply(names,capName)))    # capitalizing first letter of each name
+  names = unlist(strsplit(name, " "))                     # split of names and its initials
+  names = as.character(unlist(sapply(names, FUN = capName)))    # capitalizing first letter of each name
   if (length(names) < 2) return(tolower(names))		       # stop if there is only one name
 
   # identifying names with last name coming first and separated by a comma
   if(any(grepl(",",names))) {
-    lastname = head(names[grep(",",names)],1)
+    lastname = head(names[grep(",", names)],1)
   } else {
     lastname = names[[length(names)]]
   }
@@ -81,21 +81,21 @@ lastName = function(name) {
     i = i + 1
   }
 
-  lastname = gsub("\\.$","",lastname) # Removing the point at the end of the string
+  lastname = gsub("\\.$","", lastname) # Removing the point at the end of the string
   if(sum(names %in% cp)==0) {
     lastname = lastname
     other.names = other.names
   } else {
-    cp.nome = gsub("\\.$","",cp.nome)
-    lastname = paste(lastname,cp.nome,sep=" ")
+    cp.nome = gsub("\\.$","", cp.nome)
+    lastname = paste(lastname,cp.nome, sep=" ")
     other.names = other.names[!other.names %in% cp.nome]
   }
 
   if (length(lastname)>1) {
-    lastname = lastname[grepl(",",lastname)]
+    lastname = lastname[grepl(",", lastname)]
     lastname = head(lastname,1)
   } else { lastname = lastname }
-  lastname = tolower(gsub('\\.|,',"",lastname))
+  lastname = tolower(gsub('\\.|,',"", lastname))
 
   return(lastname)
 }

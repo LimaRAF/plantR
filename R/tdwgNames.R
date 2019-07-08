@@ -34,6 +34,7 @@
 #' # Simple names
 #'   tdwgNames("Karl Emrich & Balduino Rambo")
 #'   tdwgNames("R. Reitz; R.M. Klein")
+#'   tdwgNames("R. Reitz; R.M. Klein", sep.out= " & ")
 #'   tdwgNames("Alwyn H. Gentry|Elsa M. Zardini")
 #'   tdwgNames("Gert G. Hatschbach")
 #' # Names with generational suffixes
@@ -76,7 +77,7 @@ tdwgNames = function(x, sep.in = c(";","&"," e "," et ","\\|"), sep.out = " | ")
   x = gsub(" \\(\\?\\) ","; ",x)
 
   # Spliting the list of names into a list
-  autores = as.character(unlist(sapply(strsplit(x,";|; "), FUN = str_trim)))
+  autores = as.character(unlist(sapply(strsplit(x,";|; "), FUN = stringr::str_trim)))
 
   # Converting names to TDWG format
   autores.tdwg = sapply(autores, FUN = tdwgName)

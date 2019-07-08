@@ -26,17 +26,17 @@ for names provided already in the TDWG format (i.e. last name + comma + initials
   fixName("GENTRY, AH")
   fixName("Gentry, A H")
   fixName("Gentry, Alwyn Howard")
-  fixName("Gentry AH")
-  fixName("Soares R.P.")
+  fixName("Gentry AH") # does nothing (not in TDWG format)
+  fixName("Gentry A.H.") # does nothing (not in TDWG format)
 # Name with generational suffixes
   fixName("Leitao Filho, HF")
   fixName("Filho Neto, S J")
   fixName("Leitao filho, H. F.")
 # Compound last name
-  fixName("Saint-Hilaire A.")
   fixName("Saint-Hilaire, Augustin")
   fixName("Ziffer Berger, Richter")
   fixName("Saint-hilaire, A.")
+  fixName("Saint-Hilaire A.")
 # Unusual formatting (function won't always work)
   fixName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
   fixName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get all names

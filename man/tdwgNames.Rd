@@ -39,6 +39,7 @@ notation contains the scape symbols required when using regular expressions in R
 # Simple names
   tdwgNames("Karl Emrich & Balduino Rambo")
   tdwgNames("R. Reitz; R.M. Klein")
+  tdwgNames("R. Reitz; R.M. Klein", sep.out= " & ")
   tdwgNames("Alwyn H. Gentry|Elsa M. Zardini")
   tdwgNames("Gert G. Hatschbach")
 # Names with generational suffixes

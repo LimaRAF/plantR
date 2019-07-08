@@ -1,0 +1,85 @@
+---
+title: "plantR Tutorial"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1 - Introduction
+
+## 2 - Data entry  (FUNCTIONS NOT CREATED YET)
+
+  2.1 List of collections available for download
+	
+  2.2 Obtaining the links for the DwC, EML and RTF files and other collection metadata
+	
+  2.3 Downloading the content for each collection
+	
+    2.3.1 speciesLink
+		
+    2.3.2 Jabot
+		
+    2.3.3 GBIF
+		
+  2.4. Filtering of the downloaded data? By names or other fields...
+
+
+## 3 - Data processing
+
+  3.1 Names, collector number and dates: function ``` formatOcc ```
+	
+  3.2 Editing localities and match with gazetteer information: function ``` formatLoc ```
+	
+  3.3 Editing coordinates and defining working coordinates: function ``` formatCoord ``` (TO BE CHECKED)
+
+
+## 4 - Data validation
+
+  4.1 Taxonomic validation: function ``` validateTax ```
+	
+  4.2 Geographical validation: function ``` validateCoord ```
+	
+
+## 5 - Duplicated specimens (FUNCTIONS NOT CREATED YET)
+
+  5.1 Prepare to merge: function ``` dupPrep ```
+	
+  5.2 Find duplicates across collections: function ``` dupSearch ```
+	
+  5.3 Homogenizing information within dupliactes: function ``` dupInfo ```
+	
+
+## 6 - Data description  (NEED TO CHECK)
+
+  6.1 Number of collections, specimens and duplicates retrieved: 
+	
+
+
+
+
+
+
+
+
+
+## REMOVE LATER
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+#summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+#plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
