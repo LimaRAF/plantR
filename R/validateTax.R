@@ -79,6 +79,7 @@ validateTax = function(x) {
 # autores = autores[!is.na(autores$tdwg.name),]
 # autores = autores[!is.na(autores$family),]
 # autores = autores[!grepl('\\?',autores$family),]
+# autores = autores[!grepl('Floristics/Generalist (all families)|Wood anatomist, autores$family'),]
 #
 # #Standardizing family names
 # families.apg = read.csv("families_synonyms.csv", as.is=TRUE,na.string=c(NA,""," "))
@@ -131,7 +132,7 @@ validateTax = function(x) {
 #   ##Removing unwanted columns
 #   cols = c("family","familia",
 #            "scientificName","scientificname",
-#            "determinador.name",
+#            "determinador.name","coletor.name",
 #            "typeStatus","typestatus","nat_typus")
 #   #"dateIdentified","yearidentified,"anodeterm") #columns not present in GBIF
 #   cls =  c(unique(cols[cols %in% names(herb.data)]),"order")
@@ -195,14 +196,21 @@ validateTax = function(x) {
 #   #	herb.data1$tax.check.new = herb.data1$combo %in% combo
 #   #}
 #   ##Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
-#   herb.data1$tax.check[!is.na(herb.data1$typeStatus)&!grepl("not a type|notatype|probable type|tipo provavel|tipo prov?vel",herb.data1$typeStatus,ignore.case = TRUE)] = TRUE
+#     herb.data1$tax.check[!is.na(herb.data1$typeStatus)&!grepl("not a type|notatype|probable type|tipo provavel|tipo prov?vel",herb.data1$typeStatus,ignore.case = TRUE)] = TRUE
 #   ##Specifying why taxonomy was not validated
-#   herb.data1$tax.check[herb.data1$tax.check == FALSE &
-#                          herb.data1$determinador.name %in% c("Semdeterminador","SemDeterminador","Anonymus","Anonymous","Anonimo","Incognito","Unknown")] = "cannot_check"
+#    herb.data1$tax.check[herb.data1$tax.check == FALSE &
+#                          herb.data1$determinador.name %in% c("Semdeterminador","SemDeterminador","Anonymus","Anonymous","Anonimo","Incognito","Unknown","s.d.")] = "cannot_check"
+#   ##Validating all specimens collected by the family specialist but with the determiner field empty
+#    herb.data1$combo1 = paste(herb.data1$family.correct,herb.data1$coletor.name,sep="_")
+#    herb.data1$combo1 = str_trim(herb.data1$combo1)
+#    #Crossing the occurrence and reference family-specialist combinations
+#    herb.data1$tax.check1 = herb.data1$combo1 %in% combo
+#    #Replacing the specimens that could by validated
+#    herb.data1$tax.check[herb.data1$tax.check %in% c("cannot_check") & herb.data1$tax.check1 %in% TRUE] = TRUE
 #   ##Saving the filtered data
-#   herb.data = merge(herb.data,herb.data1[,c("order","family.correct","species.correct","name.status","notes","source","status","tax.check")],by="order",all.x=T)
-#   herb.data = herb.data[!duplicated(herb.data$order),]
-#   path.csv = gsub("coord.csv","coord-tax.csv",myfiles0)
-#   write.csv(x=herb.data,file=path.csv, row.names = FALSE)
-#   cat(i,"\n")
+#     herb.data = merge(herb.data,herb.data1[,c("order","family.correct","species.correct","name.status","notes","source","status","tax.check")],by="order",all.x=T)
+#     herb.data = herb.data[!duplicated(herb.data$order),]
+#     path.csv = gsub("coord.csv","coord-tax.csv",myfiles0)
+#     write.csv(x=herb.data,file=path.csv, row.names = FALSE)
+#     cat(i,"\n")
 # }
