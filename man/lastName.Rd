@@ -24,28 +24,28 @@ If only one name is given, the function returns the same name in lower case.
 }
 \examples{
 # Simple last name
-  lastName("Al Gentry")
-  lastName("Gert Guenther Hatschbach")
-  lastName("Gert G. Hatschbach")
-  lastName("GERT GUENTHER HATSCHBACH")
-  lastName("HATSCHBACH, G.G.")
-  lastName("HATSCHBACH, G. G.")
-  lastName("G. G. HATSCHBACH")
+ lastName("Al Gentry")
+ lastName("Gert Guenther Hatschbach")
+ lastName("Gert G. Hatschbach")
+ lastName("GERT GUENTHER HATSCHBACH")
+ lastName("HATSCHBACH, G.G.")
+ lastName("HATSCHBACH, G. G.")
+ lastName("G. G. HATSCHBACH")
 # Last name with generational suffixes
-  lastName("Hermogenes Leitao Filho")
-  lastName("Leitao Filho, H.")
-  lastName("Leitao Filho, H.F.")
-  lastName("Filho Neto, S.J.")
+ lastName("Hermogenes Leitao Filho")
+ lastName("Leitao Filho, H.")
+ lastName("Leitao Filho, H.F.")
+ lastName("Filho Neto, S.J.")
 # Compound last name
-  lastName("Augustin Saint-hilaire")
-  lastName("Saint-Hilaire A.")
+ lastName("Augustin Saint-hilaire")
+ lastName("Saint-Hilaire A.")
 # Unusual formatting
-  lastName("Cesar Sandro, Esteves, F")
-  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
-  lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
-  lastName("Sa, Cyl") # small last name, with comma: output correct
-  lastName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separated by comma: output correct
-  lastName("Karl Emrich & Balduino Rambo") # two or more names, separated by comma: output incorrect (give names of authors)
+ lastName("Cesar Sandro, Esteves, F")
+ lastName("Mendonca Filho, C.V. Neto, F.C.C.")
+ lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
+ lastName("Sa, Cyl") # small last name, with comma: output correct
+ lastName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separated by comma: output correct
+ lastName("Karl Emrich & Balduino Rambo") # two or more names, separated by comma: output incorrect (give names of authors)
 }
 \author{
 Lima, R.A.F. & ter Steege, H.

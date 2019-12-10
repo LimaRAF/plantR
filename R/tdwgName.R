@@ -1,6 +1,6 @@
 #' @title Format People's Name To TDWG Standard
 #'
-#' @description Put the the collector or determiner name in the TDWG format.
+#' @description Put the collector or determiner name in the TDWG format.
 #'
 #' @param x the character string.
 #'

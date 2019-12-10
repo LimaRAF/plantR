@@ -14,7 +14,7 @@ the character string \code{x} in the TDWG format. If only one name
 is given, the function returns \code{x} with the first letter capitalized.
 }
 \description{
-Put the the collector or determiner name in the TDWG format.
+Put the collector or determiner name in the TDWG format.
 }
 \details{
 The function puts the name of a person into the format suggested by

@@ -2,49 +2,34 @@
 % Please edit documentation in R/fixName.R
 \name{fixName}
 \alias{fixName}
-\title{Fix People's Name In TDWG Format}
+\title{Preparing People's Name}
 \usage{
-fixName(x)
+fixName(x, special.char = FALSE, from = "UTF-8",
+  to = "windows-1252//TRANSLIT")
 }
 \arguments{
 \item{x}{the character string.}
 }
 \value{
-the character string \code{x} in the fixed TDWG format. If
-\code{x} is not in the TDWG format, the function returns \code{x}.
+the character string \code{x} in the starndard needed for further processing.
 }
 \description{
-Fix problems on names already provided in the TDWG format.
+Fix problems and stadardize name notation
 }
 \details{
-The function fixes problems (e.g. missing points between name initials)
-for names provided already in the TDWG format (i.e. last name + comma + initials).
+The function fixes problems in name notation (e.g. orfan spaces) and
+standardized the notation (i.e. Faria Jr. to Faria Junior). Due to encoding
+problems, names are return without accents by default. But user can choose
+between outputs with and without accents and species characters.
 }
 \examples{
-# Simple name
-  fixName("Gentry, AH")
-  fixName("GENTRY, AH")
-  fixName("Gentry, A H")
-  fixName("Gentry, Alwyn Howard")
-  fixName("Gentry AH") # does nothing (not in TDWG format)
-  fixName("Gentry A.H.") # does nothing (not in TDWG format)
-# Name with generational suffixes
-  fixName("Leitao Filho, HF")
-  fixName("Filho Neto, S J")
-  fixName("Leitao filho, H. F.")
-# Compound last name
-  fixName("Saint-Hilaire, Augustin")
-  fixName("Ziffer Berger, Richter")
-  fixName("Saint-hilaire, A.")
-  fixName("Saint-Hilaire A.")
-# Unusual formatting (function won't always work)
-  fixName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
-  fixName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get all names
-  fixName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
-  fixName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
-}
-\references{
-Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
+  fixName("J.E.Q. Faria Jr.")
+  fixName("J.E.Q. Faria Jr.", special.char = TRUE)
+  fixName("LeitÃ£o FÂ°, H.F.")
+  fixName("Gert G. Hatschbach, et al.")
+  fixName("Karl Emrich & Balduino Rambo")
+  fixName('F. da S.N. Thom\\xe9')
+  fixName('Pedro L.R.de MorÃ£es')
 }
 \author{
 Lima, R.A.F.

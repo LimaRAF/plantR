@@ -2,8 +2,11 @@
 
 export(capName)
 export(colNumber)
+export(fixField)
 export(fixName)
+export(formatName)
 export(getYear)
 export(lastName)
+export(missName)
 export(tdwgName)
 export(tdwgNames)

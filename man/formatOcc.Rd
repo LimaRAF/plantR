@@ -4,7 +4,12 @@
 \alias{formatOcc}
 \title{Format Names, Numbers and Dates}
 \usage{
-formatOcc(x)
+formatOcc(x, noNumb, noYear, noName)
+}
+\arguments{
+\item{x}{a data frame or data table.}
+
+\item{noName}{}
 }
 \description{
 

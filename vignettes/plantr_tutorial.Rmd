@@ -22,6 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
     2.3.2 Jabot
 		
     2.3.3 GBIF
+    
+    2.3.4 SiBBr
 		
   2.4. Filtering of the downloaded data? By names or other fields...
 
