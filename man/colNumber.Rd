@@ -7,7 +7,11 @@
 colNumber(x, colCodes = NULL, noNumb = "s.n.")
 }
 \arguments{
-\item{x}{the character string.}
+\item{x}{the character string}
+
+\item{colCodes}{colection Codes}
+
+\item{noNumb}{desired standart to identify abscence data in Collector Number}
 }
 \value{
 the character string \code{x}

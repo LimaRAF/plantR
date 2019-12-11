@@ -1,4 +1,9 @@
+# general R stuff
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 vignettes/tutorial.R
+
+# so far ignoring zip data and dictionaries
+^.zip
+dictionaries/

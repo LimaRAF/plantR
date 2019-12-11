@@ -7,7 +7,9 @@
 fixField(x, origin = NULL)
 }
 \arguments{
-\item{x}{a data frame.}
+\item{x}{a data frame}
+
+\item{origin}{collection which the data comes from}
 }
 \value{
 the data frame \code{x} in the proper format. It also returns the

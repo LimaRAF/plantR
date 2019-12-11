@@ -1,17 +1,22 @@
 #' @title Format Names, Numbers and Dates
 #'
-#' @description
+#' @description This function standardizes names, number and dates from data obtained from on-line data bases such as GBIF and speciesLink
 #'
-#' @param x a data frame or data table.
-#' @param noNumb
-#' @param noYear
-#' @param noName
+#' @param x a data frame or data table
+#' @param noNumb standard for missing data in Number
+#' @param noYear standard for missing data in Number
+#' @param noName standard for missing data in Number
+#'
+#' @importFrom data.table data.table
+#' @importFrom data.table setkeyv
+#'
+#' @export formatOcc
 #'
 formatOcc = function(x, noNumb, noYear, noName) {
-  require(data.table)
+  #require(data.table)
   x$order = 1:dim(x)[1]
-  occs = data.table(x)
-  setkeyv(occs, c("order"))
+  occs = data.table::data.table(x)
+  data.table::setkeyv(occs, c("order"))
 
   #For the year of collection, sometimes the information is stored on the field 'evenDate' and not on the field 'year'
   occs$year[is.na(occs$year) & !is.na(occs$eventDate)] = occs$eventDate[is.na(occs$year) & !is.na(occs$eventDate)]

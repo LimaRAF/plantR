@@ -2,9 +2,9 @@
 #'
 #' @description Standardize the different notation of missing collector or identifier names
 #'
-#' @param x the character string.
-#' @param type
-#' @param noName
+#' @param x the character string
+#' @param type type of ...
+#' @param noName standard for missing data in Name
 #'
 #' @return the character string \code{x} in the fixed TDWG format.
 #'
@@ -17,7 +17,7 @@
 #' @export missName
 #'
 #' @examples
-#'   missName(c("Gentry, AH", "s/col.", NA)) # Error: need to chose between 'collector' or 'identificator'
+#   missName(c("Gentry, AH", "s/col.", NA)) # Error: need to chose between 'collector' or 'identificator'
 #'   missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "s./c.")
 #'   missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "Anonymous")
 #'   missName(c("Gentry, AH", "s/det.","s/det","s/d","Determiner unknown"), type="identificator", noName = "Anonymous")

@@ -2,7 +2,9 @@
 #'
 #' @description Cleans the the collector number field from herbarium labels.
 #'
-#' @param x the character string.
+#' @param x the character string
+#' @param colCodes colection Codes
+#' @param noNumb desired standart to identify abscence data in Collector Number
 #'
 #' @return the character string \code{x}
 #'
@@ -11,6 +13,8 @@
 #' @author Lima, R.A.F.
 #'
 #' @references Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
+#'
+#'@importFrom stringr str_trim
 #'
 #' @export colNumber
 #'

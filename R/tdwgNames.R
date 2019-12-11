@@ -31,6 +31,8 @@
 #'
 #' @references Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
 #'
+#' @importFrom stringr str_trim
+#'
 #' @export tdwgNames
 #'
 #' @seealso \code{tdwgName}

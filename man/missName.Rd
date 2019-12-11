@@ -7,9 +7,11 @@
 missName(x, type = NULL, noName = "Anonymous")
 }
 \arguments{
-\item{x}{the character string.}
+\item{x}{the character string}
 
-\item{noName}{}
+\item{type}{type of ...}
+
+\item{noName}{standard for missing data in Name}
 }
 \value{
 the character string \code{x} in the fixed TDWG format.
@@ -21,7 +23,6 @@ Standardize the different notation of missing collector or identifier names
 
 }
 \examples{
-  missName(c("Gentry, AH", "s/col.", NA)) # Error: need to chose between 'collector' or 'identificator'
   missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "s./c.")
   missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "Anonymous")
   missName(c("Gentry, AH", "s/det.","s/det","s/d","Determiner unknown"), type="identificator", noName = "Anonymous")

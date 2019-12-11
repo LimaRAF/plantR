@@ -49,10 +49,10 @@ the function returns all names.
   tdwgNames("Alwyn H. Gentry|Elsa M. Zardini")
   tdwgNames("Gert G. Hatschbach")
 # Names with generational suffixes
-  tdwgNames("LeitÃ£o Filho, H.F.; Shepherd, G.J.")
+  tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
   tdwgNames("Leitao Filho, HF")
 # Compound last names
-  tdwgNames("A. Ducke; DÃ¡rdano de Andrade-Lima")
+  tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
 # Multiple names separated by commas
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "first")

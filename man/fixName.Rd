@@ -25,11 +25,10 @@ between outputs with and without accents and species characters.
 \examples{
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("LeitÃ£o FÂ°, H.F.")
+  fixName("Leitão F°, H.F.")
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
-  fixName('F. da S.N. Thom\\xe9')
-  fixName('Pedro L.R.de MorÃ£es')
+  fixName('Pedro L.R.de Morães')
 }
 \author{
 Lima, R.A.F.
