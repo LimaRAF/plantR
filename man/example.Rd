@@ -4,7 +4,7 @@
 \name{example}
 \alias{example}
 \title{Occurrence data of 300 species/morphospecies downloaded from speciesLink blabla}
-\format{An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 504 rows and 35 columns.}
+\format{An object of class \code{data.frame} with 504 rows and 35 columns.}
 \usage{
 example
 }
