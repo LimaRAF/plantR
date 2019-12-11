@@ -19,13 +19,18 @@ the character string \code{x} in the fixed TDWG format.
 \description{
 Standardize the different notation of missing collector or identifier names
 }
-\details{
-
-}
 \examples{
-  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "s./c.")
-  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"), type="collector", noName = "Anonymous")
-  missName(c("Gentry, AH", "s/det.","s/det","s/d","Determiner unknown"), type="identificator", noName = "Anonymous")
+# Error: need to chose between 'collector' or 'identificator'
+ missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
+           type = "collector",
+           noName = "s./c.")
+
+ missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
+         type = "collector",
+         noName = "Anonymous")
+ missName(c("Gentry, AH", "s/det.","s/det","s/d","Determiner unknown"),
+          type = "identificator",
+          noName = "Anonymous")
 }
 \references{
 

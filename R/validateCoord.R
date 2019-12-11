@@ -2,6 +2,8 @@
 #'
 #' @description
 #'
+#' @param x Coordinates in decimal degrees
+#'
 validateCoord = function(x) {
   loc = x
   return(loc)

@@ -14,9 +14,13 @@
 #'
 #' @author Lima, R.A.F. & ter Steege, H.
 #'
+#' @importFrom utils head
+#' @importFrom utils tail
+#'
 #' @export lastName
 #'
 #' @examples
+#'
 #' # Simple last name
 #'  lastName("Al Gentry")
 #'  lastName("Gert Guenther Hatschbach")
@@ -25,21 +29,28 @@
 #'  lastName("HATSCHBACH, G.G.")
 #'  lastName("HATSCHBACH, G. G.")
 #'  lastName("G. G. HATSCHBACH")
-#' # Last name with generational suffixes
+#'
+#'  # Last name with generational suffixes
 #'  lastName("Hermogenes Leitao Filho")
 #'  lastName("Leitao Filho, H.")
 #'  lastName("Leitao Filho, H.F.")
 #'  lastName("Filho Neto, S.J.")
-#' # Compound last name
+#'
+#'    # Compound last name
 #'  lastName("Augustin Saint-hilaire")
 #'  lastName("Saint-Hilaire A.")
-#' # Unusual formatting
+#'
+#'  # Unusual formatting
 #'  lastName("Cesar Sandro, Esteves, F")
 #'  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
-#'  lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
-#'  lastName("Sa, Cyl") # small last name, with comma: output correct
-#'  lastName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separated by comma: output correct
-#'  lastName("Karl Emrich & Balduino Rambo") # two or more names, separated by comma: output incorrect (give names of authors)
+#'  # small last name, no comma: output incorrect
+#'  lastName("Cyl Farney Catarino de Sa")
+#'  # small last name, with comma: output correct
+#'  lastName("Sa, Cyl")
+#'  # two or more names, separated by comma: output correct
+#'  lastName("A. Alvarez, A. Zamora & V. Huaraca")
+#'  # two or more names, separated by comma: output incorrect (give names of authors)
+#'  lastName("Karl Emrich & Balduino Rambo")
 lastName = function(name) {
   # check input:
   if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }

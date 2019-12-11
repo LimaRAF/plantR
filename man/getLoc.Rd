@@ -6,6 +6,9 @@
 \usage{
 getLoc(x)
 }
+\arguments{
+\item{x}{data.frame}
+}
 \description{
 Obtain the complete information for a given locality from the gazetteer.
 }

@@ -13,6 +13,7 @@
 #' @author Lima, R.A.F.
 #'
 #' @importFrom countrycode countrycode
+#' @importFrom utils read.csv
 #'
 #' @export fixField
 #'

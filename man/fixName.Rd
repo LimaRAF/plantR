@@ -8,7 +8,13 @@ fixName(x, special.char = FALSE, from = "UTF-8",
   to = "windows-1252//TRANSLIT")
 }
 \arguments{
-\item{x}{the character string.}
+\item{x}{the character string}
+
+\item{special.char}{logical}
+
+\item{from}{original encoding}
+
+\item{to}{final encoding}
 }
 \value{
 the character string \code{x} in the starndard needed for further processing.

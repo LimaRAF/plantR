@@ -2,7 +2,8 @@
 #'
 #' @description Extracts the year of collection or determination from a field containing dates.
 #'
-#' @param x the character string.
+#' @param x the character string
+#' @param noYear Character. Standard for missing data in Year
 #'
 #' @return the character string \code{x}
 #'

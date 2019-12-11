@@ -6,6 +6,9 @@
 \usage{
 validateTax(x)
 }
+\arguments{
+\item{x}{Character. Species name}
+}
 \description{
 
 }

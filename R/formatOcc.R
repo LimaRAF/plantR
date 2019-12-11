@@ -4,16 +4,19 @@
 #'
 #' @param x a data frame or data table
 #' @param noNumb standard for missing data in Number
-#' @param noYear standard for missing data in Number
-#' @param noName standard for missing data in Number
+#' @param noYear standard for missing data in Year
+#' @param noName standard for missing data in Name
 #'
-#' @importFrom data.table data.table
-#' @importFrom data.table setkeyv
+#' @import data.table
 #'
 #' @export formatOcc
 #'
 formatOcc = function(x, noNumb, noYear, noName) {
   #require(data.table)
+ "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
+ "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
+ "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
+ "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
   x$order = 1:dim(x)[1]
   occs = data.table::data.table(x)
   data.table::setkeyv(occs, c("order"))

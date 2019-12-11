@@ -2,7 +2,10 @@
 #'
 #' @description Fix problems and stadardize name notation
 #'
-#' @param x the character string.
+#' @param x the character string
+#' @param special.char logical
+#' @param from original encoding
+#' @param to final encoding
 #'
 #' @return the character string \code{x} in the starndard needed for further processing.
 #'

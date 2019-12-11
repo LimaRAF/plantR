@@ -21,27 +21,35 @@ The function fixes problems (e.g. missing points between name initials)
 for names provided already in the TDWG format (i.e. last name + comma + initials).
 }
 \examples{
-# Simple name
+  # Simple name
   formatName("Gentry, AH")
   formatName("GENTRY, AH")
   formatName("Gentry, A H")
   formatName("Gentry, Alwyn Howard")
-  formatName("Gentry AH") # does nothing (not in TDWG format)
-  formatName("Gentry A.H.") # does nothing (not in TDWG format)
-# Names with generational suffixes
+
+  # does nothing (not in TDWG format)
+  formatName("Gentry AH")
+  formatName("Gentry A.H.")
+
+  # Names with generational suffixes
   formatName("Leitao Filho, HF")
   formatName("Filho Neto, S J")
   formatName("Leitao filho, H. F.")
-# Compound last name
+
+  # Compound last name
   formatName("Saint-Hilaire, Augustin")
   formatName("Ziffer Berger, Richter")
   formatName("Saint-hilaire, A.")
   formatName("Saint-Hilaire A.")
-# Unusual formatting (function won't work always...)
-  formatName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
-  formatName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get all names
-  formatName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
-  formatName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
+
+  # Unusual formatting (function won't work always...)
+  formatName("Sa, Cyl")
+  # one name, two commas: fails to get all names
+  formatName("Cesar Sandro, Esteves, F")
+  # two or more names: output incorrect (combine names of authors)
+  formatName("Mendonca Filho, C.V.; Neto, F.C.C.")
+  # two or more names, separeted by comma: output incorrect (combine names of authors)
+  formatName("A. Alvarez, A. Zamora & V. Huaraca")
 }
 \references{
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
