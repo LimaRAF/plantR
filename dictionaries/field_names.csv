@@ -20,13 +20,13 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 117,scientificName,scientificName,scientificname,scientificName,scientifname,scientificName,Morella cerifera,"A scientific name from the GBIF backbone. All included and synonym taxa are included in the search. Under the hood a call to the species match service is done first to retrieve a taxonKey. Only unique scientific names will return results, homonyms (many monomials) return nothing! Consider to use the taxonKey parameter instead and the species match service directly",input_required
 118,scientificNameAuthorship,scientificNameAuthorship,scientificnameauthor,scientificNameAuthorship,scientificNameAuthorship,autorsp,Burret,,input_required
 75,institutionCode,institutioncode,institutioncode,institutioncode,institutionCode,intituto,USCH,An identifier of any form assigned by the source to identify the institution the record belongs to. Not guaranteed to be unique.,input_required
-22,datasetkey,datasetkey,NA,datasetkey,NA,NA,a92de2e1-647c-43f2-a8b7-ab1c1a6453dd,The occurrence dataset key (a uuid).,input_optional
+22,datasetKey,datasetkey,NA,datasetkey,NA,NA,a92de2e1-647c-43f2-a8b7-ab1c1a6453dd,The occurrence dataset key (a uuid).,input_optional
 99,occurrenceRemarks,occurrenceRemarks,notes,occurrenceRemarks,occurrenceRemarks,notas,"Estipe, 4m, frutos acastanhandos",,input_optional
 1,acceptedScientificName,acceptedScientificName,NA,NA,NA,NA,Syagrus hoehnei Burret,,output
 2,altprof,NA,NA,NA,NA,altprof,800,,input_unnecessary
 3,altura,NA,NA,NA,NA,altura,,,input_unnecessary
 4,aux_nomecompunidgeo_invertido,NA,NA,NA,NA,aux_nomecompunidgeo_invertido,"Brasil, Bahia, Poções",,input_unnecessary
-5,basisofrecord,basisofrecord,basisofrecord,basisofrecord,NA,tipoespecime,PRESERVED_SPECIMEN,"Basis of record, as defined in our BasisOfRecord enum",input_optional
+5,basisOfRecord,basisOfRecord,basisofrecord,basisofrecord,NA,tipoespecime,PRESERVED_SPECIMEN,"Basis of record, as defined in our BasisOfRecord enum",input_optional
 6,bibliographicCitation,bibliographicCitation,NA,NA,NA,NA,http://www.tropicos.org/Specimen/3028386,,input_unnecessary
 7,boundingbox,NA,boundingbox,NA,NA,NA,,,input_unnecessary
 9,clade,NA,NA,NA,Clado,NA,Angiospermas,,input_unnecessary
@@ -37,7 +37,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 15,continent,continent,continentocean,continent,NA,NA,SOUTH_AMERICA,"Continent, as defined in our Continent enum",output?
 16,coordinatePrecision,coordinatePrecision,coordinateprecision,coordinatePrecision,NA,coordinateprecision,41034,,input_optional
 17,coordinateUncertaintyInMeters,coordinateUncertaintyInMeters,NA,NA,NA,NA,NA,,input_optional
-19,countrycode,countrycode,NA,countrycode,NA,NA,US,,input_optional
+19,countryCode,countrycode,NA,countrycode,NA,NA,US,,input_optional
 20,county,county,county,NA,NA,NA,Adrianópolis,,input_optional
 21,datacoleta,NA,NA,NA,NA,datacoleta,05-IV-1988,,input_optional
 23,datasetName,datasetName,NA,datasetName,NA,NA,ESA - Herbário da Escola Superior de Agricultura Luiz de Queiroz,,input_optional
@@ -95,10 +95,10 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 82,language,language,NA,language,NA,NA,pt,,input_unnecessary
 83,license,license,NA,license,NA,NA,CC_BY_4_0,The type license applied to the dataset or record.,input_unnecessary
 85,locationRemarks,locationRemarks,NA,NA,NA,NA,NA,,input_unnecessary
-86,maximumDepthInMeters,NA,maximumdepth,maximumDepthInMeters,NA,NA,,,input_unnecessary
+86,maximumDepthInMeters,maximumDepthInMeters,maximumdepth,maximumDepthInMeters,NA,NA,,,input_unnecessary
 87,maximumDistanceAboveSurfaceInMeters,maximumDistanceAboveSurfaceInMeters,NA,NA,NA,NA,NA,,input_unnecessary
 88,maximumElevationInMeters,maximumElevationInMeters,maximumelevation,minimumElevationInMeters,maximumElevationInMeters,minimumelevation,893,,input_optional
-89,minimumDepthInMeters,NA,minimumdepth,minimumDepthInMeters,NA,NA,,,input_unnecessary
+89,minimumDepthInMeters,minimumDepthInMeters,minimumdepth,minimumDepthInMeters,NA,NA,,,input_unnecessary
 90,minimumDistanceAboveSurfaceInMeters,minimumDistanceAboveSurfaceInMeters,NA,NA,NA,NA,NA,,input_unnecessary
 91,minimumElevationInMeters,minimumElevationInMeters,minimumelevation,maximumElevationInMeters,minimumElevationInMeters,maximumelevation,890,,input_optional
 92,modified,modified,datelastmodified,modified,modified,datelastmodified,2019-07-11T13:05:14Z,,input_optional
@@ -119,7 +119,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 113,relatedcatalogitem,NA,relatedcatalogitem,NA,NA,NA,,,input_unnecessary
 114,relationshiptype,NA,relationshiptype,NA,NA,NA,,,input_unnecessary
 115,rights,rights,NA,NA,right,NA,http://creativecommons.org/licenses/by-nc/3.0/,,input_unnecessary
-116,rightsholder,rightsholder,NA,rightsholder,rightsHolder,NA,RB,,input_unnecessary
+116,rightsHolder,rightsholder,NA,rightsholder,rightsHolder,NA,RB,,input_unnecessary
 119,sex,sex,sex,sex,NA,sex,NA,,input_unnecessary
 120,species,species,NA,species,NA,sp,Morella cerifera,,input_optional
 121,specificEpithet,specificEpithet,species,specificEpithet,specificEpithet,NA,hoehnei,,input_optional
