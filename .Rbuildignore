@@ -12,3 +12,6 @@ accessory_files/
 # ignoring local files to pass on check
 teste.R
 check_output.txt
+
+# ignoring file that generates sysdata
+00_generating_sysdata.R
