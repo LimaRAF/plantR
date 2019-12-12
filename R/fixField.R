@@ -2,8 +2,8 @@
 #'
 #' @description Put the occurrence data frame in the right format for data processing and validation
 #'
-#' @param x a data frame
-#' @param origin collection which the data comes from
+#' @param x a data frame.
+#' @param origin collection from which the input data was downloaded.
 #'
 #' @return the data frame \code{x} in the proper format. It also returns the
 #' required field names that are missing and those that were replaced or dropped.
@@ -28,7 +28,9 @@ fixField = function(x, origin = NULL) {
   #require(countrycode)
 
   # Getting the fields that are essential for the validation
-  fields = read.csv("./dictionaries/field_names.csv", as.is = TRUE, na.string = c(""," ",NA), encoding = "UTF-8")
+  #fields = read.csv("./dictionaries/field_names.csv", as.is = TRUE, na.string = c(""," ",NA), encoding = "UTF-8")
+  load("./R/sysdata.rda")
+  fields = field_names
 
   # Checking if all essential fields are provided in x
   df.names = colnames(x)

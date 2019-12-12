@@ -1,15 +1,4 @@
-## 2 - Data entry  (FUNCTIONS NOT CREATED YET)
-
-
-
 ### 3 - Data processing ###
-
-# We first load an example dataset, with typical fields and format used by herbaria
-occs <- example
-# Then, we remove the fields without essential information for the data processing and validation (function `fixField()`)
-occs.clean <- fixField(occs, origin = "jabot")
-
-#Note that, ....
 
 ## 3.1 Names, numbers and dates
 

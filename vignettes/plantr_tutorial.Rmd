@@ -26,7 +26,7 @@ devtools::load_all()
 
 # Introduction
 
-# Data entry  (FUNCTIONS NOT CREATED YET)
+# Data entry  (FUNCTIONS BEING CREATED BY SARA)
 
 ## List of collections available for download
 	
@@ -47,11 +47,33 @@ devtools::load_all()
 
 # Data processing
 
+## Setting up the input data: function `fixField()`
+
+Before we can start our data processing and validation routines, 
+we need to sure that our input data has all the required fields.
+
+We will use as an example a dataset downloaded from JABOT, which
+has the typical fields and format used by different herbaria.
+
+```{r, eval = FALSE}
+data(example)
+```
+
+Then, we use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function with a different name ('occs').
+
+```{r, eval = FALSE}
+occs <- fixField(example, origin = "jabot")
+```
+
+Note that the function returns some warning meassages. It is **VERY** important to carefully understand these warnings before we can continue. 
+
+The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was
+replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
+
 ## Names, collector number and dates: function `formatOcc()`
 
 
 ```{r, eval = FALSE}
-occs <- example
 occs.clean <- fixField(occs, origin = "jabot")
 occs.clean2 <- formatOcc(occs.clean)
 ```
