@@ -6,6 +6,9 @@
 \usage{
 validateCoord(x)
 }
+\arguments{
+\item{x}{Coordinates in decimal degrees}
+}
 \description{
 
 }

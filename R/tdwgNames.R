@@ -31,36 +31,47 @@
 #'
 #' @references Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
 #'
+#' @importFrom stringr str_trim
+#'
 #' @export tdwgNames
 #'
 #' @seealso \code{tdwgName}
 #'
 #' @examples
-#' # Simple names
+#'
+#'   # Simple names
 #'   tdwgNames("Karl Emrich & Balduino Rambo")
 #'   tdwgNames("R. Reitz; R.M. Klein")
 #'   tdwgNames("Raulino Reitz; R.M. Klein", sep.out= " & ")
 #'   tdwgNames("Alwyn H. Gentry|Elsa M. Zardini")
 #'   tdwgNames("Gert G. Hatschbach")
-#' # Names with generational suffixes
+#'
+#'   # Names with generational suffixes
 #'   tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
 #'   tdwgNames("Leitao Filho, HF")
-#' # Compound last names
+#'
+#'   # Compound last names
 #'   tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
-#' # Multiple names separated by commas
+#'
+#'   # Multiple names separated by commas
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "first")
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = "; ")
-#' # Multiple names separated by commas (does not always work)
+#'
+#'   # Multiple names separated by commas (does not always work)
 #'   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect (combine names of authors)
 #'   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca", sep.in=c(",","&")) # output correct
-#'   tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&")) # output incorrect (make initials separate names)
+#'   # output incorrect (make initials separate names)
+#'   tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))
 #'   tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c("\\.,","&")) # output correct
-#' # Unusual formatting (function won't always work)
+#'   # Unusual formatting (function won't always work)
 #'   tdwgNames("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 #'
-tdwgNames = function(x, sep.in = c(";","&"," e "," et ","\\|"), sep.out = " | ", out = c("all")) {
+tdwgNames = function(x,
+                     sep.in = c(";","&"," e "," et ","\\|"),
+                     sep.out = " | ",
+                     out = c("all")) {
 
   # check input:
   if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }

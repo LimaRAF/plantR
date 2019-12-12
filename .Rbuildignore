@@ -1,4 +1,14 @@
+# general R stuff
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 vignettes/tutorial.R
+
+# so far ignoring zip data and dictionaries
+^.zip
+dictionaries/
+accessory_files/
+
+# ignoring local files to pass on check
+teste.R
+check_output.txt

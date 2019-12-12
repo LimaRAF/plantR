@@ -2,7 +2,10 @@
 #'
 #' @description Fix problems and stadardize name notation
 #'
-#' @param x the character string.
+#' @param x the character string
+#' @param special.char logical
+#' @param from original encoding
+#' @param to final encoding
 #'
 #' @return the character string \code{x} in the starndard needed for further processing.
 #'
@@ -13,6 +16,8 @@
 #'
 #' @author Lima, R.A.F.
 #'
+#'@importFrom stringr str_trim
+#'
 #' @export fixName
 #'
 #' @examples
@@ -21,10 +26,10 @@
 #'   fixName("Leitão F°, H.F.")
 #'   fixName("Gert G. Hatschbach, et al.")
 #'   fixName("Karl Emrich & Balduino Rambo")
-#'   fixName('F. da S.N. Thom\xe9')
+#   fixName('F. da S.N. Thom\xe9') #does not work on unix
 #'   fixName('Pedro L.R.de Morães')
 fixName = function(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT") {
-    require(stringr)
+    #require(stringr)  #just never user require
     nomes = x
 
     #Separation between multiple authors
@@ -87,11 +92,11 @@ fixName = function(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//
     nomes = gsub("    "," ",nomes)
     nomes = gsub("   "," ",nomes)
     nomes = gsub("  "," ",nomes)
-    nomes = str_trim(nomes)
+    nomes = stringr::str_trim(nomes)
     nomes = gsub('^\\.|^,','',nomes)
     nomes = gsub(',$','',nomes)
     nomes = gsub('-$','',nomes)
-    nomes = str_trim(nomes)
+    nomes = stringr::str_trim(nomes)
 
     #Try to solve encoding problems?
     #nomes = as.character(iconv(nomes, from= from, to= to))

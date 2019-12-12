@@ -2,7 +2,7 @@
 #'
 #' @description Create the locality string used to search missing coordinates and to validade original coordinates.
 #'
-#'
+#' @param x locality string
 #'
 strLoc = function(x) {
   loc = x

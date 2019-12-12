@@ -6,6 +6,9 @@
 \usage{
 formatCoord(x)
 }
+\arguments{
+\item{x}{data.frame}
+}
 \description{
 
 }

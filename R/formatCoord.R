@@ -2,6 +2,8 @@
 #'
 #' @description
 #'
+#' @param x data.frame
+#'
 formatCoord = function(x) {
   loc = x
   return(loc)

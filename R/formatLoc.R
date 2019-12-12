@@ -2,6 +2,8 @@
 #'
 #' @description
 #'
+#' @param x Character
+#'
 formatLoc = function(x) {
   loc = x
   return(loc)

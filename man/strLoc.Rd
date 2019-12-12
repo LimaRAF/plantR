@@ -6,6 +6,9 @@
 \usage{
 strLoc(x)
 }
+\arguments{
+\item{x}{locality string}
+}
 \description{
 Create the locality string used to search missing coordinates and to validade original coordinates.
 }
