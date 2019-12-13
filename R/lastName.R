@@ -14,32 +14,43 @@
 #'
 #' @author Lima, R.A.F. & ter Steege, H.
 #'
+#' @importFrom utils head
+#' @importFrom utils tail
+#'
 #' @export lastName
 #'
 #' @examples
+#'
 #' # Simple last name
-#'   lastName("Al Gentry")
-#'   lastName("Gert Guenther Hatschbach")
-#'   lastName("Gert G. Hatschbach")
-#'   lastName("GERT GUENTHER HATSCHBACH")
-#'   lastName("HATSCHBACH, G.G.")
-#'   lastName("HATSCHBACH, G. G.")
-#'   lastName("G. G. HATSCHBACH")
-#' # Last name with generational suffixes
-#'   lastName("Hermogenes Leitao Filho")
-#'   lastName("Leitao Filho, H.")
-#'   lastName("Leitao Filho, H.F.")
-#'   lastName("Filho Neto, S.J.")
-#' # Compound last name
-#'   lastName("Augustin Saint-hilaire")
-#'   lastName("Saint-Hilaire A.")
-#' # Unusual formatting
-#'   lastName("Cesar Sandro, Esteves, F")
-#'   lastName("Mendonca Filho, C.V. Neto, F.C.C.")
-#'   lastName("Cyl Farney Catarino de Sa") # small last name, no comma: output incorrect
-#'   lastName("Sa, Cyl") # small last name, with comma: output correct
-#'   lastName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separated by comma: output correct
-#'   lastName("Karl Emrich & Balduino Rambo") # two or more names, separated by comma: output incorrect (give names of authors)
+#'  lastName("Al Gentry")
+#'  lastName("Gert Guenther Hatschbach")
+#'  lastName("Gert G. Hatschbach")
+#'  lastName("GERT GUENTHER HATSCHBACH")
+#'  lastName("HATSCHBACH, G.G.")
+#'  lastName("HATSCHBACH, G. G.")
+#'  lastName("G. G. HATSCHBACH")
+#'
+#'  # Last name with generational suffixes
+#'  lastName("Hermogenes Leitao Filho")
+#'  lastName("Leitao Filho, H.")
+#'  lastName("Leitao Filho, H.F.")
+#'  lastName("Filho Neto, S.J.")
+#'
+#'    # Compound last name
+#'  lastName("Augustin Saint-hilaire")
+#'  lastName("Saint-Hilaire A.")
+#'
+#'  # Unusual formatting
+#'  lastName("Cesar Sandro, Esteves, F")
+#'  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
+#'  # small last name, no comma: output incorrect
+#'  lastName("Cyl Farney Catarino de Sa")
+#'  # small last name, with comma: output correct
+#'  lastName("Sa, Cyl")
+#'  # two or more names, separated by comma: output correct
+#'  lastName("A. Alvarez, A. Zamora & V. Huaraca")
+#'  # two or more names, separated by comma: output incorrect (give names of authors)
+#'  lastName("Karl Emrich & Balduino Rambo")
 lastName = function(name) {
   # check input:
   if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }
@@ -51,7 +62,8 @@ lastName = function(name) {
   # spliting the name
   names = unlist(strsplit(name, " "))                     # split of names and its initials
   names = as.character(unlist(sapply(names, FUN = capName)))    # capitalizing first letter of each name
-  if (length(names) < 2) return(tolower(names))		       # stop if there is only one name
+  #if (length(names) < 2) return(tolower(names))		       # stop if there is only one name
+  if (length(names) < 2) return(names)		                 # stop if there is only one name
 
   # identifying names with last name coming first and separated by a comma
   if(any(grepl(",",names))) {
@@ -95,7 +107,8 @@ lastName = function(name) {
     lastname = lastname[grepl(",", lastname)]
     lastname = head(lastname,1)
   } else { lastname = lastname }
-  lastname = tolower(gsub('\\.|,',"", lastname))
+  #lastname = tolower(gsub('\\.|,',"", lastname))
+  lastname = gsub('\\.|,',"", lastname)
 
   return(lastname)
 }

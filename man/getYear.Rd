@@ -7,7 +7,9 @@
 getYear(x, noYear = "s.d.")
 }
 \arguments{
-\item{x}{the character string.}
+\item{x}{the character string}
+
+\item{noYear}{Character. Standard for missing data in Year}
 }
 \value{
 the character string \code{x}

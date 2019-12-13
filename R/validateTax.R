@@ -2,6 +2,8 @@
 #'
 #' @description
 #'
+#' @param x Character. Species name
+#'
 validateTax = function(x) {
   loc = x
   return(loc)

@@ -5,21 +5,23 @@
 \title{Format Multiple People's Names To TDWG Standard}
 \usage{
 tdwgNames(x, sep.in = c(";", "&", " e ", " et ", "\\\\|"),
-  sep.out = " | ")
+  sep.out = " | ", out = c("all"))
 }
 \arguments{
 \item{x}{the character string.}
 
-\item{sep.in}{the character string.}
+\item{sep.in}{a vector with the symbols separing multiple names in the input string.}
 
-\item{sep.out}{the character string.}
+\item{sep.out}{a character string with the symbols separing multiple names in the output string.}
+
+\item{out}{a character string with the type of output desired: all names, first name or auxiliary names.}
 }
 \value{
 the character string \code{x} in the TDWG format. If the names of
 only one nperson is given, the function returns the same as function \code{tdwgName}.
 }
 \description{
-Put the the multiple collector or determiner names in the TDWG format.
+Put multiple collector or determiner names in the TDWG format.
 }
 \details{
 The function puts the name of multiple persons into the format suggested by
@@ -30,29 +32,44 @@ prefixs or prepositions (e.g. de, dos, van, ter, ...). The function is relativel
 stable regarding the input format and spacing, but it may not work in all cases,
 particularly if the string provided already contain commas.
 
-The user must chose the input and output character separating the multiple names.
+The user must choose the input and output character separating the multiple names.
 By default, the function uses ';', ' e ', ' et ' '&' and '|' as input and '|' as output
 separators between names. If special separators are used (e.g. '.,'), make sure that their
 notation contains the scape symbols required when using regular expressions in R (e.g. '\\.,').
+
+The user can also choose the output character to be all names in the input character (out = "all"),
+only the name (out = "first") or only the auxiliary/secondary names (out = "aux"). By default,
+the function returns all names.
 }
 \examples{
-# Simple names
+
+  # Simple names
   tdwgNames("Karl Emrich & Balduino Rambo")
   tdwgNames("R. Reitz; R.M. Klein")
-  tdwgNames("R. Reitz; R.M. Klein", sep.out= " & ")
+  tdwgNames("Raulino Reitz; R.M. Klein", sep.out= " & ")
   tdwgNames("Alwyn H. Gentry|Elsa M. Zardini")
   tdwgNames("Gert G. Hatschbach")
-# Names with generational suffixes
-  tdwgNames("LeitÃ£o Filho, H.F.; Shepherd, G.J.")
+
+  # Names with generational suffixes
+  tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
   tdwgNames("Leitao Filho, HF")
-# Compound last names
-  tdwgNames("A. Ducke; DÃ¡rdano de Andrade-Lima")
-# Multiple names separated by commas
+
+  # Compound last names
+  tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
+
+  # Multiple names separated by commas
+  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
+  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "first")
+  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
+  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = "; ")
+
+  # Multiple names separated by commas (does not always work)
   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect (combine names of authors)
   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca", sep.in=c(",","&")) # output correct
-  tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&")) # output incorrect (make initials separate names)
+  # output incorrect (make initials separate names)
+  tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))
   tdwgNames("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c("\\\\.,","&")) # output correct
-# Unusual formatting (function won't always work)
+  # Unusual formatting (function won't always work)
   tdwgNames("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 
 }

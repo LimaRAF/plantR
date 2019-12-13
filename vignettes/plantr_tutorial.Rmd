@@ -1,85 +1,105 @@
 ---
 title: "plantR Tutorial"
-output: html_document
+date: "`r Sys.Date()`"
+output:
+    rmarkdown::html_vignette:
+        toc: true
+        number_sections: true
+    md_document:
+      variant: gfm
+vignette: >
+  %\VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{plantR tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+    \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 1 - Introduction
-
-## 2 - Data entry  (FUNCTIONS NOT CREATED YET)
-
-  2.1 List of collections available for download
-	
-  2.2 Obtaining the links for the DwC, EML and RTF files and other collection metadata
-	
-  2.3 Downloading the content for each collection
-	
-    2.3.1 speciesLink
-		
-    2.3.2 Jabot
-		
-    2.3.3 GBIF
-		
-  2.4. Filtering of the downloaded data? By names or other fields...
-
-
-## 3 - Data processing
-
-  3.1 Names, collector number and dates: function ``` formatOcc ```
-	
-  3.2 Editing localities and match with gazetteer information: function ``` formatLoc ```
-	
-  3.3 Editing coordinates and defining working coordinates: function ``` formatCoord ``` (TO BE CHECKED)
-
-
-## 4 - Data validation
-
-  4.1 Taxonomic validation: function ``` validateTax ```
-	
-  4.2 Geographical validation: function ``` validateCoord ```
-	
-
-## 5 - Duplicated specimens (FUNCTIONS NOT CREATED YET)
-
-  5.1 Prepare to merge: function ``` dupPrep ```
-	
-  5.2 Find duplicates across collections: function ``` dupSearch ```
-	
-  5.3 Homogenizing information within dupliactes: function ``` dupInfo ```
-	
-
-## 6 - Data description  (NEED TO CHECK)
-
-  6.1 Number of collections, specimens and duplicates retrieved: 
-	
-
-
-
-
-
-
-
-
-
-## REMOVE LATER
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-#summary(cars)
+```{r, echo = FALSE, message= TRUE}
+#aqui carrega o pacote que está no seu HD, não precisa instalar ele para trabalhar
+devtools::load_all()
 ```
 
-## Including Plots
+# Introduction
 
-You can also embed plots, for example:
+# Data entry  (FUNCTIONS BEING CREATED BY SARA)
 
-```{r pressure, echo=FALSE}
-#plot(pressure)
+## List of collections available for download
+	
+## Obtaining the links for the DwC, EML and RTF files and other collection metadata
+	
+## Downloading the content for each collection
+	
+### speciesLink
+		
+### Jabot
+		
+### GBIF
+    
+### SiBBr
+		
+## Filtering of the downloaded data? By names or other fields...
+
+
+# Data processing
+
+## Setting up the input data: function `fixField()`
+
+Before we can start our data processing and validation routines, 
+we need to sure that our input data has all the required fields.
+
+We will use as an example a dataset downloaded from JABOT, which
+has the typical fields and format used by different herbaria.
+
+```{r, eval = FALSE}
+data(example)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Then, we use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function with a different name ('occs').
+
+```{r, eval = FALSE}
+occs <- fixField(example, origin = "jabot")
+```
+
+Note that the function returns some warning meassages. It is **VERY** important to carefully understand these warnings before we can continue. 
+
+The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was
+replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
+
+## Names, collector number and dates: function `formatOcc()`
+
+
+```{r, eval = FALSE}
+occs.clean <- fixField(occs, origin = "jabot")
+occs.clean2 <- formatOcc(occs.clean)
+```
+
+
+## Editing localities and match with gazetteer information: function `formatLoc()`
+	
+## Editing coordinates and defining working coordinates: function `formatCoord()` (TO BE CHECKED)
+
+
+# Data validation
+
+## Taxonomic validation: function `validateTax()`
+	
+## Geographical validation: function `validateCoord()`
+	
+
+# Duplicated specimens (FUNCTIONS NOT CREATED YET)
+
+## Prepare to merge: function `dupPrep()`
+	
+## Find duplicates across collections: function `dupSearch()`
+	
+## Homogenizing information within duplicates: function `dupInfo()`
+	
+
+# Data description  (NEED TO CHECK)
+
+## Number of collections, specimens and duplicates retrieved: 
+	

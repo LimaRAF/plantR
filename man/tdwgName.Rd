@@ -14,7 +14,7 @@ the character string \code{x} in the TDWG format. If only one name
 is given, the function returns \code{x} with the first letter capitalized.
 }
 \description{
-Put the the collector or determiner name in the TDWG format.
+Put the collector or determiner name in the TDWG format.
 }
 \details{
 The function puts the name of a person into the format suggested by
@@ -26,14 +26,16 @@ stable regarding the input format and spacing, but it may not work in all cases,
 particularly if the string provided already contain commas.
 }
 \examples{
-# Simple name
+
+  # Simple name
   tdwgName("Al Gentry")
   tdwgName("Alwyn Howard Gentry")
   tdwgName("Gert G. Hatschbach")
   tdwgName("HATSCHBACH, G.G.")
   tdwgName("HATSCHBACH, G. G.")
   tdwgName("G. G. HATSCHBACH")
-# Name with prepositions
+
+  # Name with prepositions
   tdwgName("Carl Friedrich Philipp von Martius")
   tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
   tdwgName("Simon Jan van Ooststroom")
@@ -41,26 +43,33 @@ particularly if the string provided already contain commas.
   tdwgName("Maria da Silva")
   tdwgName("Silva, M. da")
   tdwgName("da Silva, M.")
-# Name with generational suffixes
+
+  # Name with generational suffixes
   tdwgName("Hermogenes Leitao Filho")
   tdwgName("Leitao Filho, H.")
   tdwgName("Leitao Filho, H.F.")
   tdwgName("Leitao Filho, HF")
   tdwgName("S.J. Filho Neto")
-#' # Compound last name (needs to be marked with a '-')
+
+  # Compound last name (needs to be marked with a '-')
   tdwgName("Augustin Saint-hilaire")
   tdwgName("Saint-Hilaire A.")
   tdwgName("Augustin Saint Hilaire") # compound name missing '-'
-# Unusual formatting (function won't always work)
+
+  # Unusual formatting (function won't always work)
   tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
   tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
   tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
   tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
   tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
-  tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
-  tdwgName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
-  tdwgName("Karl Emrich & Balduino Rambo") # two names, not separeted by comma: output incorrect (combine names of authors)
+  # two or more names: output incorrect (combine names of authors)
+  tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")
+  # two or more names, separeted by comma: output incorrect (combine names of authors)
+  tdwgName("A. Alvarez, A. Zamora & V. Huaraca")
+  # two names, not separeted by comma: output incorrect (combine names of authors)
+  tdwgName("Karl Emrich & Balduino Rambo")
+
 }
 \references{
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.

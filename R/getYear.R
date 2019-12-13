@@ -2,7 +2,8 @@
 #'
 #' @description Extracts the year of collection or determination from a field containing dates.
 #'
-#' @param x the character string.
+#' @param x the character string
+#' @param noYear Character. Standard for missing data in Year
 #'
 #' @return the character string \code{x}
 #'
@@ -73,23 +74,28 @@ getYear = function (x, noYear = "s.d.") {
   if(length(tmp1)>0) tmp[grepl('\\/',tmp)] = tmp1
 
   #complete dates in a sequence, not separated by '-'
-  tmp1 = tmp[nchar(tmp)%in%8 & !grepl("-",tmp)]
+  tmp1 = tmp[nchar(tmp) %in% 8 & !grepl("-",tmp)]
   tmp1 = substr(tmp1,5,8)
   if(length(tmp1)>0) tmp[nchar(tmp)%in%8 & !grepl("-",tmp)] = tmp1
-  tmp1 = tmp[nchar(tmp)%in%7]
+  tmp1 = tmp[nchar(tmp)%in%7 & !grepl("-",tmp)]
   tmp1 = substr(tmp1,4,7)
   if(length(tmp1)>0) tmp[nchar(tmp)%in%7 & !grepl("-",tmp)] = tmp1
-  tmp1 = tmp[nchar(tmp)%in%6]
+  tmp1 = tmp[nchar(tmp)%in%6 & !grepl("-",tmp)]
   tmp1 = substr(tmp1,3,6)
   if(length(tmp1)>0) tmp[nchar(tmp)%in%6 & !grepl("-",tmp)] = tmp1
-  tmp1 = tmp[nchar(tmp)%in%5]
+  tmp1 = tmp[nchar(tmp)%in%5 & !grepl("-",tmp)]
   tmp1 = substr(tmp1,2,5)
   if(length(tmp1)>0) tmp[nchar(tmp)%in%5 & !grepl("-",tmp)] = tmp1
 
-  #datea separeted by '-'
-  tmp1 = tmp[grepl("-",tmp)]
+  #dates separeted by '-' (only numbers)
+  tmp1 = tmp[grepl("-",tmp) & !grepl('[a-z]', tmp, ignore.case = TRUE)]
   tmp1 = as.character(sapply(strsplit(tmp1,"-"), function(x) unique(x[nchar(str_trim(x))>=4])))
-  if(length(tmp1)>0) tmp[grepl("-",tmp)] = tmp1
+  if(length(tmp1)>0) tmp[grepl("-",tmp) & !grepl('[a-z]', tmp, ignore.case = TRUE)] = tmp1
+
+  #dates separeted by '-' (numbers and letters)
+  tmp1 = tmp[grepl("-",tmp) & grepl('[a-z]', tmp, ignore.case = TRUE)]
+  tmp1 = as.character(sapply(strsplit(tmp1,"-"), function(x) x[grepl('\\d', x, ignore.case = TRUE)]))
+  if(length(tmp1)>0) tmp[grepl("-",tmp) & grepl('[a-z]', tmp, ignore.case = TRUE)] = tmp1
 
   #dates separated by spaces
   tmp1 = tmp[grepl(" ",tmp)]

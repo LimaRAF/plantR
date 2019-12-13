@@ -2,6 +2,8 @@
 #'
 #' @description
 #'
+#' @param x data.frame
+#'
 formatCoord = function(x) {
   loc = x
   return(loc)
@@ -31,6 +33,9 @@ formatCoord = function(x) {
 #   ##Obtaining the columns with coordinates
 #   lat = herb.data1[,1]; long = herb.data1[,2]
 #   ##Preliminary editing
+#   #coordinates without numbers
+#   lat[!grepl('\\d',lat)|!grepl('\\d',long)] = NA
+#   long[!grepl('\\d',lat)|!grepl('\\d',long)] = NA
 #   #zero coordinates as missing
 #   lat[lat%in%0 & long%in%0] = NA
 #   long[(is.na(lat)|lat%in%0) & long%in%0] = NA

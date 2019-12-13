@@ -1,6 +1,6 @@
 #' @title Format People's Name To TDWG Standard
 #'
-#' @description Put the the collector or determiner name in the TDWG format.
+#' @description Put the collector or determiner name in the TDWG format.
 #'
 #' @param x the character string.
 #'
@@ -10,10 +10,10 @@
 #' @details The function puts the name of a person into the format suggested by
 #' the TDWG <International Working Group on Taxonomic Databases for Plant Sciences>.
 #' The standard notation is: last name, followed by a comma and then the initials,
-#' separated by points (e.g. Hatschbach, G.G.). Currenlty, the function remove name
-#' prefixs or prepositions (e.g. de, dos, van, ter, ...). The function is relatively
+#' separated by points (e.g. Hatschbach, G.G.). Currently, the function removes name
+#' prefixes or prepositions (e.g. de, dos, van, ter, ...). The function is relatively
 #' stable regarding the input format and spacing, but it may not work in all cases,
-#' particularly if the string provided already contain commas.
+#' particularly if the string provided already contains commas.
 #'
 #' @author Lima, R.A.F. & ter Steege, H.
 #'
@@ -22,14 +22,16 @@
 #' @export tdwgName
 #'
 #' @examples
-#' # Simple name
+#'
+#'   # Simple name
 #'   tdwgName("Al Gentry")
 #'   tdwgName("Alwyn Howard Gentry")
 #'   tdwgName("Gert G. Hatschbach")
 #'   tdwgName("HATSCHBACH, G.G.")
 #'   tdwgName("HATSCHBACH, G. G.")
 #'   tdwgName("G. G. HATSCHBACH")
-#' # Name with prepositions
+#'
+#'   # Name with prepositions
 #'   tdwgName("Carl Friedrich Philipp von Martius")
 #'   tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
 #'   tdwgName("Simon Jan van Ooststroom")
@@ -37,26 +39,33 @@
 #'   tdwgName("Maria da Silva")
 #'   tdwgName("Silva, M. da")
 #'   tdwgName("da Silva, M.")
-#' # Name with generational suffixes
+#'
+#'   # Name with generational suffixes
 #'   tdwgName("Hermogenes Leitao Filho")
 #'   tdwgName("Leitao Filho, H.")
 #'   tdwgName("Leitao Filho, H.F.")
 #'   tdwgName("Leitao Filho, HF")
 #'   tdwgName("S.J. Filho Neto")
-#'#' # Compound last name (needs to be marked with a '-')
+#'
+#'   # Compound last name (needs to be marked with a '-')
 #'   tdwgName("Augustin Saint-hilaire")
 #'   tdwgName("Saint-Hilaire A.")
 #'   tdwgName("Augustin Saint Hilaire") # compound name missing '-'
-#' # Unusual formatting (function won't always work)
+#'
+#'   # Unusual formatting (function won't always work)
 #'   tdwgName("[D. Hugh-Jones]") #names inside bracket: output correct
 #'   tdwgName("Cyl Farney Catarino de Sa") # small last name, no comma: output correct
 #'   tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
 #'   tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
 #'   tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
 #'   tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
-#'   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.") # two or more names: output incorrect (combine names of authors)
-#'   tdwgName("A. Alvarez, A. Zamora & V. Huaraca") # two or more names, separeted by comma: output incorrect (combine names of authors)
-#'   tdwgName("Karl Emrich & Balduino Rambo") # two names, not separeted by comma: output incorrect (combine names of authors)
+#'   # two or more names: output incorrect (combine names of authors)
+#'   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")
+#'   # two or more names, separeted by comma: output incorrect (combine names of authors)
+#'   tdwgName("A. Alvarez, A. Zamora & V. Huaraca")
+#'   # two names, not separeted by comma: output incorrect (combine names of authors)
+#'   tdwgName("Karl Emrich & Balduino Rambo")
+#'
 tdwgName = function(x) {
   # check input:
   if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }

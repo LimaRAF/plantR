@@ -4,8 +4,8 @@ Title: Management of Plant Occurrence Records
 Version: 0.1.0
 Author: 
   - name: Renato A.F. Lima
-  - name: Author Two
-  - name: Author Three
+  - name: Sara R. Mortara
+  - name: Andrea Sanchéz-Tapia
   - name: Author Four
   - name: Author Five
 Maintainer: Renato A.F. Lima <renato.lima@naturalis.nl>
@@ -14,11 +14,16 @@ Import: List of acessory packages
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
     occurrence records of plant species.
-License: What license is it under?
+License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://github.com/LimaRAF/plantR
 BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
+    countrycode,
+    devtools,
+    data.table,
+    knitr,
     stringr
+VignetteBuilder: knitr

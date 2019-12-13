@@ -4,8 +4,17 @@
 \alias{formatOcc}
 \title{Format Names, Numbers and Dates}
 \usage{
-formatOcc(x)
+formatOcc(x, noNumb, noYear, noName)
+}
+\arguments{
+\item{x}{a data frame or data table}
+
+\item{noNumb}{standard for missing data in Number}
+
+\item{noYear}{standard for missing data in Year}
+
+\item{noName}{standard for missing data in Name}
 }
 \description{
-
+This function standardizes names, number and dates from data obtained from on-line data bases such as GBIF and speciesLink
 }

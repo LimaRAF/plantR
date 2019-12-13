@@ -6,6 +6,9 @@
 \usage{
 formatLoc(x)
 }
+\arguments{
+\item{x}{Character}
+}
 \description{
 
 }
