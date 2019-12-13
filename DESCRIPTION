@@ -4,8 +4,8 @@ Title: Management of Plant Occurrence Records
 Version: 0.1.0
 Author: 
   - name: Renato A.F. Lima
-  - name: Author Two
-  - name: Author Three
+  - name: Sara R. Mortara
+  - name: Andrea Sanchéz-Tapia
   - name: Author Four
   - name: Author Five
 Maintainer: Renato A.F. Lima <renato.lima@naturalis.nl>
@@ -22,5 +22,8 @@ LazyData: true
 RoxygenNote: 6.1.1
 Imports: 
     countrycode,
+    devtools,
     data.table,
+    knitr,
     stringr
+VignetteBuilder: knitr

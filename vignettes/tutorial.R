@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+# first load the package
+load_all()
+## 2 - Data entry  (FUNCTIONS NOT CREATED YET)
+
+>>>>>>> eec2364b1743e5f1ebee4338d8a724947f25cd43
 ### 3 - Data processing ###
 
 ## 3.1 Names, numbers and dates
