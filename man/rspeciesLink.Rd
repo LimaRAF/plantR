@@ -52,8 +52,8 @@ occurrence data of species.
 \examples{
 
 ex01 <- rspeciesLink(filename = "ex01",
-scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
-Scope="plants")
+                    scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+                    Scope = "plants")
 
 }
 \author{

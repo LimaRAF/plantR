@@ -7,24 +7,22 @@
 #' @param collectionCode any herbarium in the Jabot system (http://jabot.jbrj.gov.br/v3/herbarios.php)
 #'#' @return A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
 #' @author Sara Mortara
+#'
 #' @examples
 #'
 #'ex_jabot <- rjabot(filename = "ex-jabot",
-#'scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"))
+#'                   scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"))
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils write.table
-#' @export
 #'
-#' @importFrom jsonlite fromJSON
-#' @importFrom utils write.table
 #' @export
-rjabot <-function(dir = "results/",
-                  filename = "output",
-                  scientificName = NULL,
-                  collectionCode = NULL,
-                  stateProvince = NULL,
-                  county = NULL
+rjabot <- function(dir = "results/",
+                   filename = "output",
+                   scientificName = NULL,
+                   collectionCode = NULL,
+                   stateProvince = NULL,
+                   county = NULL
 ) {
   # jabot url
   my_url <- "https://model-r.jbrj.gov.br/modelr-web/execjabot.php?"

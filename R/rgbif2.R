@@ -14,13 +14,18 @@
 #' @param scientificName Genus and epithet separated by space
 #' @param ... any arguments from occ_search in rgbif package
 #' @return A data.frame with the search result. Also saves the output on disk.
-#' @author Sara Mortara
-# @examples
 #'
+#' @author Sara Mortara
+#'
+#' @examples
+#'
+#' ex_rgbif <- rgbif2(filename = "ex-gbif",
+#'                    scientificName =  c("Asplenium truncorum"))
 #' @importFrom rgbif name_backbone
 #' @importFrom rgbif occ_search
 #' @importFrom utils write.table
 #' @export
+#'
 rgbif2 <- function(dir = "results/",
                    filename = "output",
                    scientificName,
@@ -39,7 +44,11 @@ rgbif2 <- function(dir = "results/",
     gbif_data <- gbif_data[!is.na(gbif_data$decimalLongitude) & !is.na(gbif_data$decimalLatitude),]
     fullname <- paste0(dir, filename, ".csv")
     message(paste0("Writing ", fullname, " on disk."))
-    write.table(gbif_data, fullname, sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(gbif_data,
+                fullname,
+                sep = ",",
+                row.names = FALSE,
+                col.names = TRUE)
     return(gbif_data)
   } else {
     message(paste0("Please insert a valid scientific name."))

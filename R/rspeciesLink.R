@@ -22,11 +22,12 @@
 #' @param MaxRecords Numeric. Maximum number of records to be required
 #' @return A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
 #' @author Sara Mortara
+#'
 #' @examples
 #'
 #'ex01 <- rspeciesLink(filename = "ex01",
-#'scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
-#'Scope="plants")
+#'                     scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+#'                     Scope = "plants")
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils write.table

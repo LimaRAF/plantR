@@ -21,6 +21,11 @@ A data.frame with the search result. Also saves the output on disk.
 \description{
 This function uses the rgbif package to get occurrence data of a species.
 }
+\examples{
+
+ex_rgbif <- rgbif2(filename = "ex-gbif",
+                   scientificName =  c("Asplenium truncorum"))
+}
 \author{
 Sara Mortara
 }

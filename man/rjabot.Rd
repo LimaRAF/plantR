@@ -27,7 +27,7 @@ This function gets occurrence data in the Jabot database (http://jabot.jbrj.gov.
 \examples{
 
 ex_jabot <- rjabot(filename = "ex-jabot",
-scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"))
+                  scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"))
 
 }
 \author{
