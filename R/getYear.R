@@ -87,12 +87,12 @@ getYear = function (x, noYear = "s.d.") {
   tmp1 = substr(tmp1,2,5)
   if(length(tmp1)>0) tmp[nchar(tmp)%in%5 & !grepl("-",tmp)] = tmp1
 
-  #datea separeted by '-' (only numbers)
+  #dates separeted by '-' (only numbers)
   tmp1 = tmp[grepl("-",tmp) & !grepl('[a-z]', tmp, ignore.case = TRUE)]
   tmp1 = as.character(sapply(strsplit(tmp1,"-"), function(x) unique(x[nchar(str_trim(x))>=4])))
   if(length(tmp1)>0) tmp[grepl("-",tmp) & !grepl('[a-z]', tmp, ignore.case = TRUE)] = tmp1
 
-  #datea separeted by '-' (numbers and letters)
+  #dates separeted by '-' (numbers and letters)
   tmp1 = tmp[grepl("-",tmp) & grepl('[a-z]', tmp, ignore.case = TRUE)]
   tmp1 = as.character(sapply(strsplit(tmp1,"-"), function(x) x[grepl('\\d', x, ignore.case = TRUE)]))
   if(length(tmp1)>0) tmp[grepl("-",tmp) & grepl('[a-z]', tmp, ignore.case = TRUE)] = tmp1

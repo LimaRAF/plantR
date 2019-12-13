@@ -26,7 +26,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 2,altprof,NA,NA,NA,NA,altprof,800,,input_unnecessary
 3,altura,NA,NA,NA,NA,altura,,,input_unnecessary
 4,aux_nomecompunidgeo_invertido,NA,NA,NA,NA,aux_nomecompunidgeo_invertido,"Brasil, Bahia, Poções",,input_unnecessary
-5,basisofrecord,basisofrecord,basisofrecord,basisofrecord,NA,tipoespecime,PRESERVED_SPECIMEN,"Basis of record, as defined in our BasisOfRecord enum",input_optional
+5,basisOfRecord,basisofrecord,basisofrecord,basisofrecord,NA,tipoespecime,PRESERVED_SPECIMEN,"Basis of record, as defined in our BasisOfRecord enum",input_optional
 6,bibliographicCitation,bibliographicCitation,NA,NA,NA,NA,http://www.tropicos.org/Specimen/3028386,,input_unnecessary
 7,boundingbox,NA,boundingbox,NA,NA,NA,,,input_unnecessary
 9,clade,NA,NA,NA,Clado,NA,Angiospermas,,input_unnecessary
@@ -66,7 +66,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 51,fieldNumber,fieldNumber,fieldnumber,fieldNumber,fieldnumber,fieldnumber,NA,,input_unnecessary
 52,format,format,NA,NA,NA,NA,NA,,input_unnecessary
 53,formation,formation,NA,NA,NA,NA,NA,,input_unnecessary
-54,gbifid,gbifid,NA,gbifid,NA,NA,1880442295,,input_optional
+54,gbifID,gbifid,NA,gbifid,NA,NA,1880442295,,input_optional
 55,genericName,genericName,NA,NA,NA,NA,Syagrus,,input_unnecessary
 57,georeferencedBy,georeferencedBy,NA,NA,NA,NA,alorozco,,output
 58,georeferencedDate,georeferencedDate,NA,NA,NA,NA,NA,,output
@@ -119,7 +119,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 113,relatedcatalogitem,NA,relatedcatalogitem,NA,NA,NA,,,input_unnecessary
 114,relationshiptype,NA,relationshiptype,NA,NA,NA,,,input_unnecessary
 115,rights,rights,NA,NA,right,NA,http://creativecommons.org/licenses/by-nc/3.0/,,input_unnecessary
-116,rightsholder,rightsholder,NA,rightsholder,rightsHolder,NA,RB,,input_unnecessary
+116,rightsHolder,rightsholder,NA,rightsholder,rightsHolder,NA,RB,,input_unnecessary
 119,sex,sex,sex,sex,NA,sex,NA,,input_unnecessary
 120,species,species,NA,species,NA,sp,Morella cerifera,,input_optional
 121,specificEpithet,specificEpithet,species,specificEpithet,specificEpithet,NA,hoehnei,,input_optional
