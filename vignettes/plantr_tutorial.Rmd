@@ -23,7 +23,6 @@ knitr::opts_chunk$set(echo = TRUE)
 devtools::load_all()
 ```
 
-
 # Introduction
 
 # Data entry  (FUNCTIONS BEING CREATED BY SARA)
