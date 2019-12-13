@@ -1,6 +1,6 @@
+# first load the package
+load_all()
 ## 2 - Data entry  (FUNCTIONS NOT CREATED YET)
-
-
 
 ### 3 - Data processing ###
 

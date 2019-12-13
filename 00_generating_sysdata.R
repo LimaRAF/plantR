@@ -2,6 +2,7 @@
 
 # loading packages
 library(stringr)
+library(readr)
 
 # testei com todos as opções de ANSI disponível em iconvlist
 all_incov <- iconvlist()
@@ -13,26 +14,37 @@ dic_files <- list.files(path = "dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
-encoding <- "UTF-8" # substituir aqui pelo encoding correto
+encoding <- "ISO-8859-15" # substituir aqui pelo encoding correto
 
 dic <- lapply(dic_files, read_csv, locale = locale(encoding = encoding))
 
 lapply(dic, head)
 
+        # transforma em data.frame
+dic <- lapply(dic, as.data.frame)
+
 # dai imagino que usaria o iconv para transformar em UTF-8
-encoding_to <- "UTF-8"
-dic <- lapply(dic, iconv, from = encoding, to = encoding_to)
+#encoding_to <- "UTF-8"
+#dic <- lapply(dic, iconv, from = encoding, to = encoding_to)
 
 # aqui to fazendo na mao para manter o nome dos objetos
 autores <- dic[[1]]
 collectionCodes <- dic[[2]]
 families_synonyms <- dic[[3]]
-field_names <- dic[[3]]
-gazetteer <- dic[[4]]
+field_names <- dic[[4]]
+gazetteer <- dic[[5]]
+
+head(autores)
+head(collectionCodes)
+head(families_synonyms)
+head(field_names)
+head(gazetteer)
+collectionCodes$section
 
 save(autores,
      collectionCodes,
      families_synonyms,
      field_names,
      gazetteer,
-     file = "R/sysdata.rda")
+     file = "R/sysdata.rda",
+     compress = "xz")
