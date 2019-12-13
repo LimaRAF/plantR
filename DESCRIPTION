@@ -24,6 +24,8 @@ Imports:
     countrycode,
     devtools,
     data.table,
+    jsonlite,
     knitr,
+    rgbif,
     stringr
 VignetteBuilder: knitr

@@ -5,10 +5,10 @@ library(stringr)
 library(readr)
 
 # testei com todos as opções de ANSI disponível em iconvlist
-all_incov <- iconvlist()
+# all_incov <- iconvlist()
 # nenhum dos ANSI ou WINDOWS funcionam
-ansi <- all_incov[str_detect(all_incov, "ANSI")]
-ruwin <- all_incov[str_detect(all_incov, "WINDOWS")]
+# ansi <- all_incov[str_detect(all_incov, "ANSI")]
+# ruwin <- all_incov[str_detect(all_incov, "WINDOWS")]
 
 dic_files <- list.files(path = "dictionaries",
                         pattern = "csv",
@@ -41,6 +41,7 @@ gazetteer <- dic[[5]][,c("order","status","source","country_code","NAME_0","NAME
                          "loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
+# só checando como estao os arquivos
 head(autores)
 head(collectionCodes)
 head(families_synonyms)
@@ -55,3 +56,5 @@ save(autores,
      gazetteer,
      file = "R/sysdata.rda",
      compress = "xz")
+
+
