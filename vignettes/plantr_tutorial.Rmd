@@ -48,11 +48,9 @@ devtools::load_all()
 
 ## Setting up the input data: function `fixField()`
 
-Before we can start our data processing and validation routines, 
-we need to sure that our input data has all the required fields.
+Before we can start our data processing and validation routines, we need to sure that our input data has all the required fields.
 
-We will use as an example a dataset downloaded from JABOT, which
-has the typical fields and format used by different herbaria.
+We will use as an example a dataset downloaded from JABOT, which has the typical fields and format used by different herbaria.
 
 ```{r, eval = FALSE}
 data(example)
@@ -66,19 +64,103 @@ occs <- fixField(example, origin = "jabot")
 
 Note that the function returns some warning meassages. It is **VERY** important to carefully understand these warnings before we can continue. 
 
-The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was
-replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
+The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
 
 ## Names, collector number and dates: function `formatOcc()`
 
+We first create the new columns that will receive the edited fields
 
 ```{r, eval = FALSE}
-occs.clean <- fixField(occs, origin = "jabot")
-occs.clean2 <- formatOcc(occs.clean)
+occs$recordedBy.new = occs$recordedBy
+occs$recordNumber.new = occs$recordNumber
+occs$identifiedBy.new = occs$identifiedBy
+occs$year.new = occs$year
+occs$dateIdentified.new = occs$dateIdentified
 ```
 
+For the year of collection, sometimes the information is stored on the field 'eventDate' and not on the field 'year'. So, we replace all missing information from the field 'year' by the informations stored in the field 'eventDate'
 
-## Editing localities and match with gazetteer information: function `formatLoc()`
+```{r, eval = FALSE}
+occs$year.new[is.na(occs$year.new)] = occs$eventDate[is.na(occs$year.new)]
+```
+
+We then prepare the new fields we created using functions `fixName()`, `colNumber()` and `getYear()`. We chose to remove all species characters from authors and identicador names (argument `special.char = FALSE`), which is the indicated option for further data processing and validation. We also set the characters that will represent occurrences without number of collection ("s.n.") and without the year of collection and identification ("n.d.").  
+
+```{r, eval = FALSE}
+occs$recordedBy.new = unlist(lapply(occs$recordedBy.new, fixName, special.char = FALSE))
+occs$identifiedBy.new = unlist(lapply(occs$identifiedBy.new, fixName, special.char = FALSE))
+occs$recordNumber.new = unlist(lapply(occs$recordNumber.new, colNumber, noNumb = "s.n."))
+occs$year.new = unlist(lapply(occs$year.new, getYear, noYear = "n.d."))
+occs$dateIdentified.new = unlist(lapply(occs$dateIdentified.new, getYear, noYear = "n.d."))
+```
+
+Next, we format the names of the collector and identificator (function `formatName()`)
+```{r, eval = FALSE}
+occs$recordedBy.new = unlist(lapply(occs$recordedBy.new, formatName))
+occs$identifiedBy.new = unlist(lapply(occs$identifiedBy.new, formatName))
+```
+
+We then separate first and auxiliary names for multiple names and then convert them to the TDWG format (function `tdwgNames()`). To do so, we set the argument 'out' of function `tdwgNames()` to "aux" and "first" (by default `tdwgNames()` edits and returns all names from multiple name strings).
+
+We also define that the symbol that will separate different names, which in our example will be a semi-colon followed by a space.
+
+```{r, eval = FALSE}
+occs$recordedBy.aux = unlist(lapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = "; "))
+occs$identifiedBy.aux = unlist(lapply(occs$identifiedBy.new, tdwgNames, out = "aux", sep.out = "; "))
+occs$recordedBy.new = unlist(lapply(occs$recordedBy.new, tdwgNames, out = "first"))
+occs$identifiedBy.new = unlist(lapply(occs$identifiedBy.new, tdwgNames, out = "first"))
+```
+
+We can inspect what is the result of this separation between first and auxiliary names:
+```{r, eval = FALSE}
+head(occs[,c("recordedBy","recordedBy.new","recordedBy.aux")], 3)
+```
+
+It is also useful for the validation process to standardize the notation for missing collector and identificator names. To do so, we use the function `missName()` and again we set missing names as "s.n.".
+
+```{r, eval = FALSE}
+occs$recordedBy.new = missName(occs$recordedBy.new, type = "collector", noName = "s.n.")
+occs$identifiedBy.new = missName(occs$identifiedBy.new, type = "identificator", noName = "s.n.")
+```
+
+For some of the operations we will performe, it is also useful to extract the last name of the first collector, that is stored in our formated field 'recordedBy.new'
+
+```{r, eval = FALSE}
+occs$last.name = unlist(lapply(occs$recordedBy.new, lastName))
+```
+
+We can inspect what these functions are doing by comparing the original and edit columns (only the first 15 records)
+
+```{r, eval = FALSE}
+head(cbind(occs$recordedBy, occs$recordedBy.new, occs$recordedBy.aux), n = 15)
+head(cbind(occs$recordedBy, occs$last.name), n = 15)
+head(cbind(occs$identifiedBy, occs$identifiedBy.new), n = 15)
+head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
+head(cbind(occs$dateIdentified, occs$dateIdentified.new), n = 15)
+```
+
+Note that the function handles well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). Anyways, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
+
+All the previous steps are important to understand the edtiton of each field. But, `plantR` can execute all these steps at once using the wrapper function `formatOcc()`:
+
+```{r, eval = FALSE}
+occs1 = fixField(occs, origin = "jabot")
+occs1 = formatOcc(occs1)
+```
+
+Let's compare if the output of the two approaches are the same
+
+```{r, eval = FALSE}
+table(occs$recordedBy.new == occs1$recordedBy.new)
+table(occs$identifiedBy.new == occs1$identifiedBy.new)
+table(occs$year.new == occs1$year.new)
+table(occs$dateIdentified.new == occs1$dateIdentified.new)
+table(occs$last.name == occs1$last.name)
+```
+
+Yes! So, the new data frame created contain the original and edited/formatted information regarding the name of the collector and of the identificator, the dates of collection and identification, and number of collection. 
+
+## Editing localities and crossing with gazetteer information: function `formatLoc()`
 	
 ## Editing coordinates and defining working coordinates: function `formatCoord()` (TO BE CHECKED)
 
