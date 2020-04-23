@@ -4,11 +4,24 @@
 \alias{rspeciesLink}
 \title{Gets occurrence data from speciesLink}
 \usage{
-rspeciesLink(dir = "results/", filename = "output",
-  basisOfRecord = NULL, scientificName = NULL, collectionCode = NULL,
-  country = NULL, stateProvince = NULL, county = NULL,
-  Coordinates = NULL, CoordinatesQuality = NULL, Scope = NULL,
-  Typus = FALSE, Images = NULL, RedList = FALSE, MaxRecords = NULL)
+rspeciesLink(
+  dir = "results/",
+  filename = "output",
+  basisOfRecord = NULL,
+  scientificName = NULL,
+  collectionCode = NULL,
+  country = NULL,
+  stateProvince = NULL,
+  county = NULL,
+  Coordinates = NULL,
+  CoordinatesQuality = NULL,
+  Scope = NULL,
+  Synonyms = "no synomyms",
+  Typus = FALSE,
+  Images = NULL,
+  RedList = FALSE,
+  MaxRecords = NULL
+)
 }
 \arguments{
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
@@ -33,6 +46,8 @@ rspeciesLink(dir = "results/", filename = "output",
 \item{CoordinatesQuality}{Any character in "Good" or "Bad" to select specific type of coordinates}
 
 \item{Scope}{Group to be required. If NULL searches all groups. Any in "plants", "animals", "microrganisms" or "fossils"}
+
+\item{Synonyms}{If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms". It does not support more than nine species to check (length of scientificName vector must be < 10)}
 
 \item{Typus}{Logic. If TRUE select only typus}
 
