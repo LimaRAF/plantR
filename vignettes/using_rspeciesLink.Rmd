@@ -15,7 +15,7 @@ knitr::opts_chunk$set(collapse = TRUE,
 
 Installing and loading the package:
 
-`devtools::install_github("limaRAF/plantR")`
+`devtools::install_github("LimaRAF/plantR")`
 
 ```{r setup}
 #library(rocc)
@@ -129,7 +129,7 @@ ex03 <- rspeciesLink(filename = "ex03",
 Checking if species is in the output.
 
 ```{r ex03-check01}
-"Tillandsia stricta"%in%ex03$data$scientificName
+"Tillandsia stricta" %in% ex03$data$scientificName
 ```
 
 Checking url and output.
@@ -165,12 +165,12 @@ This example searches for 100 herbarium plants collected in Mariana county (Mina
 
 ```{r ex04}
 ex04 <- rspeciesLink(filename = "ex04",
-                     Scope="plants", 
+                     Scope = "plants", 
                      basisOfRecord = "PreservedSpecimen",
-                     county="Mariana", 
+                     county = "Mariana", 
                      stateProvince = c("Minas Gerais", "MG"),
-                     country=c("Brazil", "Brasil"),
-                     RedList=TRUE,
+                     country = c("Brazil", "Brasil"),
+                     RedList = TRUE,
                      MaxRecords = 100)
 ```
 
@@ -189,28 +189,6 @@ ex05 <- rspeciesLink(filename = "ex05",
                      Synonyms = "flora2020")
 ```
 
-There is a limit of nine species for requiring to check for synonyms.  If the lenght of species name vector is > 9, function stops.
-
-```{r ninesp}
-tensp <- c(
-  "Tillandsia stricta", "Rauvolfia sellowii", "Cantinoa althaeifolia",
-  "Eugenia platyphylla","Chaetocalyx acutifolia", "Asplenium serra", 
-  "Asplenium truncorum", "Prepusa montana", "Ocotea catharinensis",
-  "Asplenium triquetrum"
-            )
-```
-
-Function stops if argument `Synonyms` is used with more than nine species. If 
-
-```{r ex05b, eval = FALSE}
-ex05 <- rspeciesLink(filename = "ex05",
-                     scientificName = tensp, 
-                     Synonyms = "flora2020")
-```
-
-Returns error:
-
-`Function does not support synonym check of more than nine species`
 
 ## General check 
 
@@ -228,4 +206,10 @@ All outputs are readable.
 all.resu <- lapply(resu, read.csv)
 ```
 
+
+All outputs have the same columns. If not, use functions from packages **data.table** or **dplyr** to bind rows. 
+
+```{r}
+all.df <- rbind(all.resu)
+```
 
