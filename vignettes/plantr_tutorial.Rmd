@@ -66,9 +66,11 @@ Note that the function returns some warning meassages. It is **VERY** important 
 
 The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
 
-## Names, collector number and dates: function `formatOcc()`
+## Standardizing names, collector number and dates: function `formatOcc()`
 
-We first create the new columns that will receive the edited fields
+Particularly when working with data coming from multiple secondary sources, it is important to standardize the notation used by different collections and sometimes by different collectors within the same collection.
+
+We first create the new columns that will receive the edited fields.
 
 ```{r, eval = FALSE}
 occs$recordedBy.new = occs$recordedBy
@@ -123,7 +125,7 @@ occs$recordedBy.new = missName(occs$recordedBy.new, type = "collector", noName =
 occs$identifiedBy.new = missName(occs$identifiedBy.new, type = "identificator", noName = "s.n.")
 ```
 
-For some of the operations we will performe, it is also useful to extract the last name of the first collector, that is stored in our formated field 'recordedBy.new'
+For some of the operations we will perform, it is also useful to extract the last name of the first collector, that is stored in our formated field 'recordedBy.new'
 
 ```{r, eval = FALSE}
 occs$last.name = unlist(lapply(occs$recordedBy.new, lastName))
@@ -139,16 +141,16 @@ head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
 head(cbind(occs$dateIdentified, occs$dateIdentified.new), n = 15)
 ```
 
-Note that the function handles well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). Anyways, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
+Note that the function handles well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). Although not perfect, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
 
 All the previous steps are important to understand the edtiton of each field. But, `plantR` can execute all these steps at once using the wrapper function `formatOcc()`:
 
 ```{r, eval = FALSE}
-occs1 = fixField(occs, origin = "jabot")
+occs1 = fixField(example, origin = "jabot")
 occs1 = formatOcc(occs1)
 ```
 
-Let's compare if the output of the two approaches are the same
+Let's compare if the output of the two approaches are the same, column by column:
 
 ```{r, eval = FALSE}
 table(occs$recordedBy.new == occs1$recordedBy.new)
@@ -156,13 +158,59 @@ table(occs$identifiedBy.new == occs1$identifiedBy.new)
 table(occs$year.new == occs1$year.new)
 table(occs$dateIdentified.new == occs1$dateIdentified.new)
 table(occs$last.name == occs1$last.name)
+rm(occs1)
 ```
 
 Yes! So, the new data frame created contain the original and edited/formatted information regarding the name of the collector and of the identificator, the dates of collection and identification, and number of collection. 
 
-## Editing localities and crossing with gazetteer information: function `formatLoc()`
+
+## Editing locality information and crossing with gazetteer information: function `formatLoc()`
+
+One important step to find missing geographical coordinates and to validate those coordinates provided with the occurrence is to standardize the fields containing locatity information, namely "country", "stateProvince", "municipality" and "locality".
+
+`plantR` have a function to edit and standardize locality fields: function `fixLoc()`. By default, this function formats all four locality fields simultaneously (returns the entry data.frame with the new columns), but the user can chose one field at a time by changing the function argument 'adm.levels' (returns a vector). However, some of the editing processes become more complete if all the information is available for the four fields.
+
+To exemplify, we will use all locality fields:
+
+```{r, eval = FALSE}
+locals = fixLoc(occs, adm.levels = c("country","stateProvince","municipality","locality"), scrap = TRUE)
+locals1 = fixLoc(occs, adm.levels = c("country","stateProvince","municipality","locality"), scrap = FALSE)
+```
+Note that we performed two different ways to edit the locality fields. The argument 'scrap' controls the search for missing municipality information from the field locality. It also performs some extra editing and croping of the locality field in order to obtain more standardized locality descriptions. We can compare the original and the edited locality fields:    
 	
-## Editing coordinates and defining working coordinates: function `formatCoord()` (TO BE CHECKED)
+```{r, eval = FALSE}	
+head(cbind(occs$country, locals$country.new, locals1$country.new), n = 5)
+head(cbind(occs$stateProvince, locals$stateProvince.new, locals1$stateProvince.new), n = 5)
+head(cbind(occs$municipality, locals$municipality.new, locals1$municipality.new), n = 5)
+head(cbind(occs$locality, locals$locality.new, locals$locality.scrap, locals1$locality.new), n = 5)
+```
+
+Note that if the country, state and municipality fields are given, they remain unaltered. Only missing information in this fields are completed bu the editing and scrapping process.
+
+Although the search for missing municipalities results in no NAs, it does not mean that the information retrieved are valid. It depends if the information is actually available in the locality field and how it is arranged. To make sure that the missing information obtained is indeed valid, we need to cross it with a gazetteer. If the municipality exists for a given state and country, then it is deemed as being a valid municipality, which will be further used on the coordinate validation process. If it doesnot exist, then a higher administrative level is used as the reference 'resolution' of the locality information. 
+
+```{r, eval = FALSE}	
+locals  = getLoc(locals)
+locals1 = getLoc(locals1)
+```	
+
+Note that the edited version of the localities has some improve regarding the number of localities provided at "stateProvince" level and that some of the localities provided could be retrieved in the default gazetteer. 
+
+Finally, we merge the data frame with the previous data processing (function `formatOcc()`) with the output of the locality data processing:
+
+```{r, eval = FALSE}	
+occs  = cbind.data.frame(occs, locals[,c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer","loc.check")])
+```	
+
+Besides the coordinates of all localities at the best locality resolution available, these procedure also performs a initial checking of the locality names provided, which is stored in the column 'loc.check': 
+
+```{r, eval = FALSE}	
+table(occs$loc.check)
+```	
+
+In this column, specimens for which the locality information provided could not be found in the gazetteer are flagged with a "check_" and thus they have their resolution downgraded. We also flag all the specimens that retained their resoltution (i.e. "ok_same") and those that could be validate at a better locality resolution, flagged with a "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now at the 'municipality' level).
+
+## Editing original coordinates and defining working coordinates: function `formatCoord()` (TO BE CHECKED)
 
 
 # Data validation
