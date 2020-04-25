@@ -4,8 +4,7 @@
 \alias{fixName}
 \title{Preparing People's Name}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8",
-  to = "windows-1252//TRANSLIT")
+fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
 }
 \arguments{
 \item{x}{the character string}

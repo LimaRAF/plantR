@@ -4,8 +4,12 @@
 \alias{tdwgNames}
 \title{Format Multiple People's Names To TDWG Standard}
 \usage{
-tdwgNames(x, sep.in = c(";", "&", " e ", " et ", "\\\\|"),
-  sep.out = " | ", out = c("all"))
+tdwgNames(
+  x,
+  sep.in = c(";", "&", " e ", " et ", "\\\\|"),
+  sep.out = " | ",
+  out = c("all")
+)
 }
 \arguments{
 \item{x}{the character string.}
