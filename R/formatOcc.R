@@ -1,6 +1,6 @@
 #' @title Format Names, Numbers and Dates
 #'
-#' @description This function standardizes names, number and dates from data obtained from on-line data bases such as GBIF and speciesLink
+#' @description This function standardizes names and collection number and dates from herbarium occurrences obtained from on-line data bases such as GBIF and speciesLink
 #'
 #' @param x a data frame or data table
 #' @param noNumb standard for missing data in Number
