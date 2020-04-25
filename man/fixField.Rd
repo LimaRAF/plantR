@@ -7,16 +7,16 @@
 fixField(x, origin = NULL)
 }
 \arguments{
-\item{x}{a data frame.}
+\item{x}{a data frame}
 
-\item{origin}{collection from which the input data was downloaded.}
+\item{origin}{collection from which the input data was downloaded}
 }
 \value{
 the data frame \code{x} in the proper format. It also returns the
 required field names that are missing and those that were replaced or dropped.
 }
 \description{
-Put the occurrence data frame in the right format for data processing and validation
+Puts the occurrence data frame in the right format for data processing and validation
 }
 \details{
 
