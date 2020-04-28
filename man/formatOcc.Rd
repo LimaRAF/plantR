@@ -16,5 +16,5 @@ formatOcc(x, noNumb, noYear, noName)
 \item{noName}{standard for missing data in Name}
 }
 \description{
-This function standardizes names, number and dates from data obtained from on-line data bases such as GBIF and speciesLink
+This function standardizes names and collection number and dates from herbarium occurrences obtained from on-line data bases such as GBIF and speciesLink
 }

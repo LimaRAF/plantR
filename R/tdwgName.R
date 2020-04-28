@@ -10,10 +10,10 @@
 #' @details The function puts the name of a person into the format suggested by
 #' the TDWG <International Working Group on Taxonomic Databases for Plant Sciences>.
 #' The standard notation is: last name, followed by a comma and then the initials,
-#' separated by points (e.g. Hatschbach, G.G.). Currenlty, the function remove name
-#' prefixs or prepositions (e.g. de, dos, van, ter, ...). The function is relatively
+#' separated by points (e.g. Hatschbach, G.G.). Currently, the function removes name
+#' prefixes or prepositions (e.g. de, dos, van, ter, ...). The function is relatively
 #' stable regarding the input format and spacing, but it may not work in all cases,
-#' particularly if the string provided already contain commas.
+#' particularly if the string provided already contains commas.
 #'
 #' @author Lima, R.A.F. & ter Steege, H.
 #'
