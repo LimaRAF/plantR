@@ -3,15 +3,13 @@
 #' @description
 #'
 #' @param x a data.frame
-#' @adm.levels
-#' @scrap
 #'
 #'
 fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", "locality"), scrap = TRUE) {
   ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
-
   require(stringr)
   require(countrycode)
+
   ## check input:
   if (!class(x) == "data.frame") { stop("input object needs to be a data frame!") }
   if (any(names(x) %in% c("countryCode"))) { colnames(x)[which(colnames(x) == "countryCode")] = "country" }

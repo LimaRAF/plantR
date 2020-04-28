@@ -25,23 +25,39 @@ devtools::load_all()
 
 # Introduction
 
-# Data entry  (FUNCTIONS BEING CREATED BY SARA)
+# Data entry
 
-## List of collections available for download
-	
-## Obtaining the links for the DwC, EML and RTF files and other collection metadata
+## Tools available for data download
+
+You can download species occurrence data directly from R, using existing functions of other packages or function provided by `plantR`. For this tutorial, we are going to use the function `rspeciesLink` that downloads data from [CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental). You can check a detailed tutorial of how to download data from different sources here. #INCLUDE LINK TO SARA'S DETAILED TUTORIAL# 
+
+You can also use files containing personal data or data downloaded manually from other online data repositories, as long as the haeaders of the files match those accepted in `plantR` (e.g. DarwinCore). See function `fixField()` below for details.
 	
 ## Downloading the content for each collection
-	
-### speciesLink
-		
-### Jabot
-		
-### GBIF
-    
-### SiBBr
-		
-## Filtering of the downloaded data? By names or other fields...
+
+We will use as an example a dataset downloaded from speciesLink, using the function `rspeciesLink` which allows a wide variety of ways on how to search for data. In this tutorial, we will use data for four very common Neotropical trees:
+
+```{r, eval = FALSE}
+spp <- c("Trema micrantha",
+        "Myrcia splendens",
+        "Casearia sylvestris")
+```
+
+After definig the list of species we want to download data, we proceed to the download itself. Here we will use all herbarium plant specimens (i.e. vouchers) for the names listed above and their synonyms accepted in the Brazlian Flora 2020 project:
+
+```{r, eval = FALSE}
+example <- rspeciesLink(scientificName =  spp,
+                     Scope = "plants",
+                     basisOfRecord = "PreservedSpecimen",
+                     Synonyms = "flora2020"
+                     )
+```
+
+If the connection to the server fails, you can use the data downloaded usign the same specifications in 28/04/2020: 
+
+```{r, eval = FALSE}
+data(example)
+```
 
 
 # Data processing
@@ -50,11 +66,6 @@ devtools::load_all()
 
 Before we can start our data processing and validation routines, we need to sure that our input data has all the required fields.
 
-We will use as an example a dataset downloaded from JABOT, which has the typical fields and format used by different herbaria.
-
-```{r, eval = FALSE}
-data(example)
-```
 
 Then, we use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function with a different name ('occs').
 
@@ -189,12 +200,14 @@ Note that if the country, state and municipality fields are given, they remain u
 
 Although the search for missing municipalities results in no NAs, it does not mean that the information retrieved are valid. It depends if the information is actually available in the locality field and how it is arranged. To make sure that the missing information obtained is indeed valid, we need to cross it with a gazetteer. If the municipality exists for a given state and country, then it is deemed as being a valid municipality, which will be further used on the coordinate validation process. If it doesnot exist, then a higher administrative level is used as the reference 'resolution' of the locality information. 
 
+#### ADD ARGUMENT TO GET THE FILE CONTAINING THE DICTIONARY ####
+
 ```{r, eval = FALSE}	
 locals  = getLoc(locals)
 locals1 = getLoc(locals1)
 ```	
 
-Note that the edited version of the localities has some improve regarding the number of localities provided at "stateProvince" level and that some of the localities provided could be retrieved in the default gazetteer. 
+Note that the edited version of the localities has some improve regarding the number of localities provided at "stateProvince" level and that some of the localities provided were retrieved in the default gazetteer. 
 
 Finally, we merge the data frame with the previous data processing (function `formatOcc()`) with the output of the locality data processing:
 
@@ -210,12 +223,35 @@ table(occs$loc.check)
 
 In this column, specimens for which the locality information provided could not be found in the gazetteer are flagged with a "check_" and thus they have their resolution downgraded. We also flag all the specimens that retained their resoltution (i.e. "ok_same") and those that could be validate at a better locality resolution, flagged with a "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now at the 'municipality' level).
 
-## Editing original coordinates and defining working coordinates: function `formatCoord()` (TO BE CHECKED)
+## Editing original coordinates and defining working coordinates: function `formatCoord()`
 
+Previous to the validation of the orginal geographical coordinates, it is important to make sure that they are given and if they are in the required format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), with decimal digits separated by points.
+
+```{r, eval = FALSE}	
+occs = prepCoord(occs)
+```	
+
+Geographical coordinates are often missing or are provided in a format that the function `prepCoord` cannot convert to decimal degrees. For the dataset we are using in this tutorial, we can inspect the proportion of occurrences without geographical coordinates: 
+
+```{r, eval = FALSE}	
+table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
+```	
+
+As we can see, only about 30% of the occurrences records have coordinates. Therefore, one may want to use the coordinates obtained from the gazetteer to replace the missing coordinates. In `plantR` we use the function `workCoord` to do this procedure. This function also flags the origin and the probable resolution of the original coordinates: 
+
+```{r, eval = FALSE}	
+occs = workCoord(occs)
+```	
 
 # Data validation
 
 ## Taxonomic validation: function `validateTax()`
+
+### Species names spelling, format and synonyms 
+
+
+### Confidence level of species determinations
+
 	
 ## Geographical validation: function `validateCoord()`
 	
