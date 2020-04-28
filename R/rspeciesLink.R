@@ -50,7 +50,7 @@ rspeciesLink <- function(dir = "results/",
                          MaxRecords = NULL #		n > 0	 all records
 ) { # Yes | No | Live | Polen | Wood
   # speciesLink url
-  my_url <- "http://api.splink.org.br/records/"
+  my_url <- "https://api.splink.org.br/records/"
   # creting dir
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   # helper function
