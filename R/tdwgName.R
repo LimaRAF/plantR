@@ -138,8 +138,9 @@ tdwgName = function(x) {
   # Creating the name in the TDWG format
   name.correct = paste(lastname,initials,sep=", ")
   # Final edits (removing duplicated commas and bad name endings)
-  name.correct = gsub(",,", ",",name.correct)
-  name.correct = gsub(", \\.$", "",name.correct)
+  name.correct = gsub(",,", ",", name.correct)
+  name.correct = gsub(", \\.$", "", name.correct)
+  #name.correct = gsub("NANA", NA, name.correct)
 
   # Adding brackets (if needed)
   if(bracks==TRUE) name.correct = paste("[",name.correct,"]",sep="")

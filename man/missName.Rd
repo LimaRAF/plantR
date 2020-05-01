@@ -11,7 +11,7 @@ missName(x, type = NULL, noName = "Anonymous")
 
 \item{type}{type of ...}
 
-\item{noName}{standard for missing data in Name}
+\item{noName}{standard notation for missing names in x}
 }
 \value{
 the character string \code{x} in the fixed TDWG format.

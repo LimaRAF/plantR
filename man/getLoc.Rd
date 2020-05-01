@@ -4,7 +4,7 @@
 \alias{getLoc}
 \title{Get Locality and Coordinates}
 \usage{
-getLoc(x)
+getLoc(x, gazet = "plantR")
 }
 \arguments{
 \item{x}{data frame with the columns: "country.new","stateProvince.new","municipality.new","locality.new"}

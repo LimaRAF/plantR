@@ -37,8 +37,8 @@ colNumber = function(x, colCodes = NULL, noNumb = "s.n.") {
   #if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }
 
   # first edits
-  x = gsub("  ","",x)
-  x = gsub("  ","",x)
+  x = gsub("  ", "", x)
+  x = gsub("  ", "", x)
   numbs = x
 
   # Number not given
@@ -50,28 +50,28 @@ colNumber = function(x, colCodes = NULL, noNumb = "s.n.") {
   numbs[numbs %in% "sn"] = "SemNumero"
   numbs[is.na(numbs)|numbs %in% c("")] = "SemNumero"
   numbs[numbs %in% c("Number unspecified")] = "SemNumero"
-  numbs[is.na(numbs)&grepl(" s.n. ",numbs)] = "SemNumero"
+  numbs[is.na(numbs) & grepl(" s.n. ", numbs)] = "SemNumero"
 
   # Removing the collection code from the beggining of the collection number
   if(!is.null(colCodes)) numbs[!is.na(numbs) & grepl(paste("^", colCodes, collapse = "|", sep=""),numbs, ignore.case = TRUE)] =
     gsub(paste("^",colCodes,collapse = "|",sep=""),"",numbs[!is.na(numbs) & grepl(paste("^", colCodes, collapse = "|", sep=""), numbs, ignore.case = TRUE)])
 
   # Removing names of collectors and others codes from the beginning of the numbers
-  numbs[!is.na(numbs)&grepl("[a-z][a-z][a-z] ",numbs, ignore.case = TRUE)] =
-    as.character(sapply(strsplit(numbs[!is.na(numbs)&grepl("[a-z][a-z][a-z] ",numbs,ignore.case = TRUE)], " "),function(x) x[grepl('[0-9]|SemNumero',x)]))
-  numbs[!is.na(numbs)&grepl("SemNumero",numbs)] = "SemNumero"
-  numbs[!is.na(numbs)&grepl("character\\(0\\)",numbs)] = "SemNumero"
+  numbs[!is.na(numbs) & grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE)] =
+    as.character(sapply(sapply(strsplit(numbs[!is.na(numbs) & grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE)], " "), function(x) x[grepl('[0-9]|SemNumero', x)]), tail,1))
+  numbs[!is.na(numbs) & grepl("SemNumero", numbs)] = "SemNumero"
+  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs)] = "SemNumero"
 
   #Removing unwanted characters ans spacing
-  numbs = gsub(' - ',"-",numbs)
+  numbs = gsub(' - ', "-", numbs)
 
   #Removing misplaced parenteses
-  numbs = gsub(' \\(',"\\(",numbs)
-  numbs = gsub('\\) ',"\\)",numbs)
-  numbs[grepl('^\\(',numbs) & ! grepl('\\)$',numbs)] =
-    gsub('^\\(', '', numbs[grepl('^\\(',numbs) & ! grepl('\\)$',numbs)])
-  numbs[!grepl('^\\(',numbs) &  grepl('\\)$',numbs)] =
-    gsub('\\)$', '', numbs[!grepl('^\\(',numbs) &  grepl('\\)$',numbs)])
+  numbs = gsub(' \\(', "\\(", numbs)
+  numbs = gsub('\\) ', "\\)", numbs)
+  numbs[grepl('^\\(', numbs) & ! grepl('\\)$', numbs)] =
+    gsub('^\\(', '', numbs[grepl('^\\(', numbs) & ! grepl('\\)$', numbs)])
+  numbs[!grepl('^\\(', numbs) &  grepl('\\)$', numbs)] =
+    gsub('\\)$', '', numbs[!grepl('^\\(', numbs) &  grepl('\\)$', numbs)])
 
   #Replacing orfan spaces by separators
   numbs = gsub(' ',"-",numbs)
@@ -80,11 +80,20 @@ colNumber = function(x, colCodes = NULL, noNumb = "s.n.") {
   numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE)] =
     gsub(' ',"-",numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE)])
   #PUT THIS FUNCTION IN PACKAGE DOCUMENTATION?
+  #NEED TO BE FIXED: CONVERTING 116F4 TO 1164-F!
   f1 = function(x) {
     x1 = strsplit(x,"")[[1]]
-    x2 = as.character(paste(x1[grepl('[0-9]',x1)],sep="",collapse = ""))
-    x3 = as.character(paste(x1[grepl('[a-z]',x1, ignore.case = TRUE)],sep="",collapse = ""))
-    x4 = paste(x2,toupper(x3),sep="-")
+    names(x1) = 1:length(x1)
+    x2 = as.character(paste(x1[grepl('[0-9]', x1)], sep="", collapse = ""))
+    m.x2 = min(as.double(names(x1[grepl('[0-9]', x1)])))
+    x3 = as.character(paste(x1[grepl('[a-z]', x1, ignore.case = TRUE)], sep="",collapse = ""))
+    m.x3 = min(as.double(names(x1[grepl('[a-z]', x1, ignore.case = TRUE)])))
+    if(m.x2 < m.x3) {
+      x4 = paste(x2, toupper(x3), sep="-")
+    } else {
+      x4 = paste(toupper(x3), x2, sep="-")
+    }
+    return(x4)
   }
   numbs[grepl('[0-9][A-Z]', numbs, ignore.case = TRUE)] =
     sapply(numbs[grepl('[0-9][A-Z]', numbs, ignore.case = TRUE)], FUN = f1)

@@ -4,10 +4,12 @@
 \alias{lastName}
 \title{Get Last Name}
 \usage{
-lastName(name)
+lastName(name, noName = "s.n.")
 }
 \arguments{
 \item{name}{the character string.}
+
+\item{noName}{standard notation for missing names in x}
 }
 \value{
 the character string in lower case with the last name of \code{name}.

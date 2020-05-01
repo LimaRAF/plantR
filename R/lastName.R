@@ -3,6 +3,7 @@
 #' @description Extract the last name of the collector or determiner of a biological specimen.
 #'
 #' @param name the character string.
+#' @param noName standard notation for missing names in x
 #'
 #' @return the character string in lower case with the last name of \code{name}.
 #'
@@ -51,9 +52,12 @@
 #'  lastName("A. Alvarez, A. Zamora & V. Huaraca")
 #'  # two or more names, separated by comma: output incorrect (give names of authors)
 #'  lastName("Karl Emrich & Balduino Rambo")
-lastName = function(name) {
+lastName = function(name, noName = "s.n.") {
   # check input:
   if (length(name)>1) { stop("input 'name' cannot be a vector of strings!") }
+
+  # missing names
+  if(name == "NA" | is.na(name) | name == noName) return(name) # stop in the case of NA as entry names
 
   # first edits:
   name = gsub("[.]", ". ", name)                         # adding a space between points

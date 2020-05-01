@@ -27,19 +27,70 @@ dic <- lapply(dic, as.data.frame)
 
 # sara: aqui to fazendo na mao para manter o nome dos objetos
 # renato: acrescentei uma filtragem para tirar colunas/linhas desnecessárias e diminuir o tamanho dos arquivos
-autores <- dic[[1]][,c("order","source","family","family.obs","full.name1","tdwg.name")]
-autores <- autores[!is.na(autores$tdwg.name),]
-autores <- autores[!is.na(autores$family),]
-autores <- autores[!grepl('\\?|,',autores$family),]
-autores <- autores[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', autores$family),]
-collectionCodes <- dic[[2]][,c("order","collection.string","collectioncode.gbif",
-                               "institutioncode.gbif","name","index.herbariorum.or.working.code",
-                               "organization","OBS")]
+# taxonomists:
+autores <- dic[[1]][ ,c("order","source","family","family.obs","full.name1","tdwg.name")]
+autores <- autores[!is.na(autores$tdwg.name), ]
+autores <- autores[!is.na(autores$family), ]
+autores <- autores[!grepl('\\?|,',autores$family), ]
+autores <- autores[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', autores$family), ]
+# dictionary of herbarium codes:
+collectionCodes <- dic[[2]][ ,c("order","collection.string","collectioncode.gbif",
+                                "institutioncode.gbif","name","index.herbariorum.or.working.code",
+                                "organization","OBS")]
+# dictionary of plant families and their synonyms
 families_synonyms <- dic[[3]]
-field_names <- dic[[4]]
-gazetteer <- dic[[5]][,c("order","status","source","country_code","NAME_0","NAME_1","NAME_2","NAME_3","NAME_4",
-                         "loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+# names of the columns names form differnt data sources and their equivalencies:
+field_names <- dic[[4]][ ,c("order","standard_name","gbif","splink","splink2gbif","jabot","jabot_old",
+                            "example","plantR_status")]
+
+# gazetteer
+gazetteer <- dic[[5]][ ,c("order","status","source","loc","loc.correct",
+                          "latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
+### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
+gazetteer$priority <- as.double(as.character(factor(gazetteer$source, levels = unique(gazetteer$source),
+                                                     labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+gazetteer <- gazetteer[order(gazetteer$priority), ]
+gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
+
+# administrative descriptors
+adm.levels <- dic[[5]][ ,c("order","status","source","country_code",
+                           "NAME_0","state_code","NAME_1","NAME_2","NAME_3","NAME_4",
+                           "loc","loc.correct","resolution.gazetteer")]
+adm.levels <- adm.levels[adm.levels$status %in% "ok", ]
+adm.levels$priority <- as.double(as.character(factor(adm.levels$source, levels = unique(adm.levels$source),
+                                                     labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+adm.levels <- adm.levels[order(adm.levels$priority), ]
+adm.levels <- adm.levels[order(adm.levels$loc.correct),]
+adm.levels <- adm.levels[!duplicated(adm.levels$loc.correct),] # removing duplicated localities
+adm.levels <- adm.levels[adm.levels$resolution.gazetteer %in% c("country","state","county","localidade"),] # removing localities below locality level (i.e. sublocalities)
+adm.levels <- adm.levels[, c("order","loc.correct","country_code","state_code",
+                             "NAME_0","NAME_1","NAME_2","NAME_3","source")]
+
+# names and abbreviation of localities to be replaced
+replace_names <- dic[[6]]
+replace_names[] <- lapply(replace_names, gsub, pattern = "Ã¡", replacement = "á", ignore.case = TRUE, perl = TRUE)
+replace_names[] <- lapply(replace_names, gsub, pattern = "Ã©", replacement = "é", ignore.case = TRUE, perl = TRUE)
+replace_names[] <- lapply(replace_names, gsub, pattern = "Ã£", replacement = "ã", ignore.case = TRUE, perl = TRUE)
+replace_names[] <- lapply(replace_names, gsub, pattern = "ÃŽ", replacement = "ô", ignore.case = TRUE, perl = TRUE)
+replace_names[] <- lapply(replace_names, gsub, pattern = "\u00AD", replacement = "??", perl = TRUE) # hidden breaking space
+replace_names[] <- lapply(replace_names, gsub, pattern = "Ã\\?\\?", replacement = "í", ignore.case = TRUE, perl = TRUE)
+replace_names[] <- lapply(replace_names, gsub, pattern = "ÂŠ", replacement = "ª", ignore.case = TRUE, perl = TRUE)
+
+
+# other objects necessary fot the data processing and validation
+unwanted_array = list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
+                      'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
+                      'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
+                      'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
+                      'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
+missLocs = c("^\\?$","^s\\/localidade","^indeterminada$","^indeterminado$","^s\\.d\\.$","^desconhecido$","^sin loc\\.$","^sin\\. loc\\.$",
+             "^ignorado$","^sem informacao$","^n\\.i\\.","^nao especificado$","^nao informado$","^bloqueado$",
+             "no locality information available","^protected due to name conservation status","^completar datos",
+             "^no disponible$","^not available$","^loc\\.ign$","local ignorado")
+wordsForSearch = c("^prov\\. ","^dep\\. ","^depto\\. ","^prov\\.","^mun\\. ","^dept\\.","^dpto\\.","^depto\\.","^dept.",
+                   "^departamento ","^departamento de ","^provincia de ","^província de ","^estado do ","^estado de ")
+
 
 # só checando como estao os arquivos
 head(autores)
@@ -47,6 +98,8 @@ head(collectionCodes)
 head(families_synonyms)
 head(field_names)
 head(gazetteer)
+head(adm.levels)
+head(replace_names)
 
 #Saving the sysdata
 save(autores,
@@ -54,6 +107,11 @@ save(autores,
      families_synonyms,
      field_names,
      gazetteer,
+     adm.levels,
+     replace_names,
+     unwanted_array,
+     missLocs,
+     wordsForSearch,
      file = "R/sysdata.rda",
      compress = "xz")
 

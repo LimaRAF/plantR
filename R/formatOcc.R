@@ -13,23 +13,25 @@
 #'
 formatOcc = function(x, noNumb, noYear, noName) {
   #require(data.table)
- "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
- "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
- "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
- "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
+  "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
+  "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
+  "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
+  "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
   x$order = 1:dim(x)[1]
   occs = data.table::data.table(x)
   data.table::setkeyv(occs, c("order"))
 
   #For the year of collection, sometimes the information is stored on the field 'evenDate' and not on the field 'year'
-  occs$year[is.na(occs$year) & !is.na(occs$eventDate)] = occs$eventDate[is.na(occs$year) & !is.na(occs$eventDate)]
+  if("eventDate" %in% names(occs)) {
+    occs$year[is.na(occs$year) & !is.na(occs$eventDate)] = occs$eventDate[is.na(occs$year) & !is.na(occs$eventDate)] }
 
   #We then prepare the new fields for further processing
   occs[, recordedBy.new := fixName(recordedBy, special.char = FALSE),  by = order]
-  occs[, identifiedBy.new := fixName(identifiedBy, special.char = FALSE),  by = order]
   occs[, recordNumber.new := colNumber(recordNumber, noNumb = "s.n."),  by = order]
+  occs[, identifiedBy.new := fixName(identifiedBy, special.char = FALSE),  by = order]
   occs[, year.new := getYear(year, noYear = "n.d."),  by = order]
-  occs[, dateIdentified.new := getYear(dateIdentified, noYear = "n.d."),  by = order]
+  if("dateIdentified" %in% names(occs)) occs[, dateIdentified.new := getYear(dateIdentified, noYear = "n.d."),  by = order]
+  if("yearIdentified" %in% names(occs)) occs[, yearIdentified.new := getYear(yearIdentified, noYear = "n.d."),  by = order]
 
   #Next, we format the names
   occs[, recordedBy.new := formatName(recordedBy.new), by = order]
@@ -46,32 +48,10 @@ formatOcc = function(x, noNumb, noYear, noName) {
   occs[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = "s.n."), by = order]
 
   #And to extract the last name of the collector
-  occs[, last.name := lastName(recordedBy.new), by = order]
+  occs[, last.name := lastName(recordedBy.new, noName = "s.n."), by = order]
 
   #Removing the ordering column created
   occs[, order := NULL,]
-
-  #(Add a final correctionsfunction)
-  #   #Final corrections
-  #   nomes = gsub('\\. \\.',".",nomes)
-  #   nomes = gsub('\\(\\.\\)',".",nomes)
-  #   nomes = gsub("\\.\\'\\.",".",nomes)
-  #   nomes = gsub('\\.\\.\\.',".",nomes)
-  #   nomes = gsub('\\.\\.',".",nomes)
-  #   nomes = gsub('\\/,',",",nomes)
-  #   nomes = gsub('\\/-,',',',nomes)
-  #   nomes = gsub(',,',",",nomes)
-  #   nomes = str_trim(nomes)
-  #   #final edits
-  #   nomes = gsub('a?',"o",nomes)
-  #   nomes = gsub('a?|a?',"e",nomes)
-  #   nomes = gsub('a?',"o",nomes)
-  #   nomes = gsub("a?","a",nomes)
-  #   nomes = gsub('a?|a?|a?',"u",nomes)
-  #   nomes = gsub("a?","c",nomes)
-  #   nomes = gsub("a?","o",nomes)
-  #   nomes = gsub("a?|a?|a?|a?","a",nomes)
-
   df <- as.data.frame(occs)
   return(df)
 }

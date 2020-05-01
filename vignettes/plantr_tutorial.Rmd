@@ -18,59 +18,68 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo = FALSE, message= TRUE}
-#aqui carrega o pacote que está no seu HD, não precisa instalar ele para trabalhar
-devtools::load_all()
-```
 
 # Introduction
 
-# Data entry
+This tutorial provides basic explanations on the functions related to data download, processing and validation using `plantR`. For each of these steps, there is a more specific tutorial presenting all functionalities more in detail.
 
-## Tools available for data download
-
-You can download species occurrence data directly from R, using existing functions of other packages or function provided by `plantR`. For this tutorial, we are going to use the function `rspeciesLink` that downloads data from [CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental). You can check a detailed tutorial of how to download data from different sources here. #INCLUDE LINK TO SARA'S DETAILED TUTORIAL# 
-
-You can also use files containing personal data or data downloaded manually from other online data repositories, as long as the haeaders of the files match those accepted in `plantR` (e.g. DarwinCore). See function `fixField()` below for details.
-	
-## Downloading the content for each collection
-
-We will use as an example a dataset downloaded from speciesLink, using the function `rspeciesLink` which allows a wide variety of ways on how to search for data. In this tutorial, we will use data for four very common Neotropical trees:
+Let's first install and load the package from [CRAN](https://CRAN.R-project.org) with:
 
 ```{r, eval = FALSE}
-spp <- c("Trema micrantha",
-        "Myrcia splendens",
-        "Casearia sylvestris")
+install.packages("plantR")
+library(plantR)
 ```
 
-After definig the list of species we want to download data, we proceed to the download itself. Here we will use all herbarium plant specimens (i.e. vouchers) for the names listed above and their synonyms accepted in the Brazlian Flora 2020 project:
+or from [GitHub](https://github.com) with:
+```{r, eval = FALSE}
+library("devtools")
+install_github("LimaRAF/plantR")
+library("plantR")
+```
+
+
+# Data entry
+
+You can download species occurrence data directly from R, using the functions provided by `plantR` or by other R packages. For this tutorial, we are going to use the `plantR` function `rspeciesLink`, which downloads data from [CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental). For a detailed tutorial of how to download data from different sources, check a more detailed tutorial [here](#INCLUDE HERE LINK TO SARA'S DETAILED TUTORIAL). 
+
+You can also use .csv files containing personal data or data downloaded manually from online data repositories, as long as the the column names match those accepted by `plantR` (e.g. DarwinCore). See function `fixField()` below for more details on standandard columns names.
+	
+## Downloading occurrence data with `plantR`
+
+We will use as an example a dataset downloaded from speciesLink, using the function `rspeciesLink`, which allows a variety of ways on how to search for data. In this tutorial, we will use data for (one/some) common Neotropical tree(s):
+
+```{r, eval = FALSE}
+#spp <- c("Trema micrantha",
+#        "Myrcia splendens",
+#        "Casearia sylvestris")
+spp <- c("Trema micrantha")
+```
+
+After defining the species name we want to obtain occurrence data, we proceed to the download itself. Here, we will use only herbarium plant specimens (i.e. vouchers) for the names listed above, iincluding the list of synonyms accepted in the Brazlian Flora 2020 project (this may take a few minutes):
 
 ```{r, eval = FALSE}
 example <- rspeciesLink(scientificName =  spp,
                      Scope = "plants",
                      basisOfRecord = "PreservedSpecimen",
-                     Synonyms = "flora2020"
-                     )
+                     Synonyms = "flora2020")
 ```
 
-If the connection to the server fails, you can use the data downloaded usign the same specifications in 28/04/2020: 
+The occurrence data is now stored in the object `example`. We can inspect how many occurrences were downloaded (about 4500 records and over 40 fields):
 
 ```{r, eval = FALSE}
-data(example)
+dim(example$data)
 ```
-
 
 # Data processing
 
-## Setting up the input data: function `fixField()`
+## Preparing the input data: function `fixField()`
 
-Before we can start our data processing and validation routines, we need to sure that our input data has all the required fields.
+Before we can start to process the input data, we need to be sure that our input data has all the required fields and that they are in the required format.
 
-
-Then, we use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function with a different name ('occs').
+We use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name ('occs').
 
 ```{r, eval = FALSE}
-occs <- fixField(example, origin = "jabot")
+occs <- fixField(example$data, origin = "splink")
 ```
 
 Note that the function returns some warning meassages. It is **VERY** important to carefully understand these warnings before we can continue. 
@@ -88,23 +97,19 @@ occs$recordedBy.new = occs$recordedBy
 occs$recordNumber.new = occs$recordNumber
 occs$identifiedBy.new = occs$identifiedBy
 occs$year.new = occs$year
-occs$dateIdentified.new = occs$dateIdentified
+occs$yearIdentified.new = occs$yearIdentified
 ```
 
-For the year of collection, sometimes the information is stored on the field 'eventDate' and not on the field 'year'. So, we replace all missing information from the field 'year' by the informations stored in the field 'eventDate'
-
-```{r, eval = FALSE}
-occs$year.new[is.na(occs$year.new)] = occs$eventDate[is.na(occs$year.new)]
-```
+The year of collection is sometimes stored on the field 'eventDate' and not on the field 'year'. In this case, we should replace all missing information from the field 'year' by the informations stored in the field 'eventDate'. Since this is not the case here, we procees to the next data processing step.
 
 We then prepare the new fields we created using functions `fixName()`, `colNumber()` and `getYear()`. We chose to remove all species characters from authors and identicador names (argument `special.char = FALSE`), which is the indicated option for further data processing and validation. We also set the characters that will represent occurrences without number of collection ("s.n.") and without the year of collection and identification ("n.d.").  
 
 ```{r, eval = FALSE}
 occs$recordedBy.new = unlist(lapply(occs$recordedBy.new, fixName, special.char = FALSE))
-occs$identifiedBy.new = unlist(lapply(occs$identifiedBy.new, fixName, special.char = FALSE))
 occs$recordNumber.new = unlist(lapply(occs$recordNumber.new, colNumber, noNumb = "s.n."))
+occs$identifiedBy.new = unlist(lapply(occs$identifiedBy.new, fixName, special.char = FALSE))
 occs$year.new = unlist(lapply(occs$year.new, getYear, noYear = "n.d."))
-occs$dateIdentified.new = unlist(lapply(occs$dateIdentified.new, getYear, noYear = "n.d."))
+occs$yearIdentified.new = unlist(lapply(occs$yearIdentified.new, getYear, noYear = "n.d."))
 ```
 
 Next, we format the names of the collector and identificator (function `formatName()`)
@@ -136,10 +141,10 @@ occs$recordedBy.new = missName(occs$recordedBy.new, type = "collector", noName =
 occs$identifiedBy.new = missName(occs$identifiedBy.new, type = "identificator", noName = "s.n.")
 ```
 
-For some of the operations we will perform, it is also useful to extract the last name of the first collector, that is stored in our formated field 'recordedBy.new'
+For some of the operations we will perform, it is also useful to extract the last name of the first collector, that is stored in our formated field 'recordedBy.new'.
 
 ```{r, eval = FALSE}
-occs$last.name = unlist(lapply(occs$recordedBy.new, lastName))
+occs$last.name = unlist(lapply(occs$recordedBy.new, lastName, noName = "s.n."))
 ```
 
 We can inspect what these functions are doing by comparing the original and edit columns (only the first 15 records)
@@ -149,15 +154,15 @@ head(cbind(occs$recordedBy, occs$recordedBy.new, occs$recordedBy.aux), n = 15)
 head(cbind(occs$recordedBy, occs$last.name), n = 15)
 head(cbind(occs$identifiedBy, occs$identifiedBy.new), n = 15)
 head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
-head(cbind(occs$dateIdentified, occs$dateIdentified.new), n = 15)
+head(cbind(occs$yearIdentified, occs$yearIdentified.new), n = 15)
 ```
 
-Note that the function handles well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). Although not perfect, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
+These functions handle well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). However, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
 
 All the previous steps are important to understand the edtiton of each field. But, `plantR` can execute all these steps at once using the wrapper function `formatOcc()`:
 
 ```{r, eval = FALSE}
-occs1 = fixField(example, origin = "jabot")
+occs1 = fixField(example$data, origin = "splink")
 occs1 = formatOcc(occs1)
 ```
 
@@ -167,7 +172,7 @@ Let's compare if the output of the two approaches are the same, column by column
 table(occs$recordedBy.new == occs1$recordedBy.new)
 table(occs$identifiedBy.new == occs1$identifiedBy.new)
 table(occs$year.new == occs1$year.new)
-table(occs$dateIdentified.new == occs1$dateIdentified.new)
+table(occs$yearIdentified.new == occs1$yearIdentified.new)
 table(occs$last.name == occs1$last.name)
 rm(occs1)
 ```
@@ -175,7 +180,7 @@ rm(occs1)
 Yes! So, the new data frame created contain the original and edited/formatted information regarding the name of the collector and of the identificator, the dates of collection and identification, and number of collection. 
 
 
-## Editing locality information and crossing with gazetteer information: function `formatLoc()`
+## Editing locality information: function `formatLoc()`
 
 One important step to find missing geographical coordinates and to validate those coordinates provided with the occurrence is to standardize the fields containing locatity information, namely "country", "stateProvince", "municipality" and "locality".
 
@@ -187,27 +192,25 @@ To exemplify, we will use all locality fields:
 locals = fixLoc(occs, adm.levels = c("country","stateProvince","municipality","locality"), scrap = TRUE)
 locals1 = fixLoc(occs, adm.levels = c("country","stateProvince","municipality","locality"), scrap = FALSE)
 ```
-Note that we performed two different ways to edit the locality fields. The argument 'scrap' controls the search for missing municipality information from the field locality. It also performs some extra editing and croping of the locality field in order to obtain more standardized locality descriptions. We can compare the original and the edited locality fields:    
+Note that we performed two different ways to edit the locality fields. The argument 'scrap' controls the search for missing municipality information from the field locality. It also performs some extra editing and croping of the locality field in order to obtain more standardized locality descriptions. We can compare the original and the edited locality fields, by inspecting the number of records in each class of resolution: 
 	
 ```{r, eval = FALSE}	
-head(cbind(occs$country, locals$country.new, locals1$country.new), n = 5)
-head(cbind(occs$stateProvince, locals$stateProvince.new, locals1$stateProvince.new), n = 5)
-head(cbind(occs$municipality, locals$municipality.new, locals1$municipality.new), n = 5)
-head(cbind(occs$locality, locals$locality.new, locals$locality.scrap, locals1$locality.new), n = 5)
+table(locals$resol.orig, useNA = "always")
+table(locals1$resol.orig, useNA = "always")
 ```
 
-Note that if the country, state and municipality fields are given, they remain unaltered. Only missing information in this fields are completed bu the editing and scrapping process.
+If the country, state and municipality fields are given, they remain unaltered. Only missing information in this fields are completed by the editing and scrapping process.
 
-Although the search for missing municipalities results in no NAs, it does not mean that the information retrieved are valid. It depends if the information is actually available in the locality field and how it is arranged. To make sure that the missing information obtained is indeed valid, we need to cross it with a gazetteer. If the municipality exists for a given state and country, then it is deemed as being a valid municipality, which will be further used on the coordinate validation process. If it doesnot exist, then a higher administrative level is used as the reference 'resolution' of the locality information. 
-
-#### ADD ARGUMENT TO GET THE FILE CONTAINING THE DICTIONARY ####
+Although the search for missing localities results in no NAs, it does not mean that the information retrieved is valid. It depends if the information is actually available in the locality field and how it is arranged. To make sure that the missing information obtained is indeed valid, we need to cross it with a gazetteer. If the municipality exists for a given state and country, then it is deemed as being a valid municipality, which will be further used on the coordinate validation process. If it does not exist, then a higher administrative level is used as the reference 'resolution' of the locality information. 
 
 ```{r, eval = FALSE}	
-locals  = getLoc(locals)
-locals1 = getLoc(locals1)
+locals  = getLoc(locals, gazet = "plantR")
+locals1 = getLoc(locals1, gazet = "plantR")
 ```	
 
-Note that the edited version of the localities has some improve regarding the number of localities provided at "stateProvince" level and that some of the localities provided were retrieved in the default gazetteer. 
+Note that the edited version of the localities is different from the original localities regarding their resolution. Many information provided at locality level was only retrieved at municipality level, which is expected due to the completeness of the gazetteer used (not all possible localities are stored in the standard `plantR` gazetteer). But many of them were only retrieved at state/province level, meaning that fields cointainig state and municipality information may need to be checked. 
+
+Some of the localities were retrieved in the default gazetteer provided with plantR, which is more complete for Latin America and has more detailed information at locality level mainly for Brazil. You can use the argument `gazet` to use your personal gazetteer instead of `plantR` default, as long as it contains the same fields.
 
 Finally, we merge the data frame with the previous data processing (function `formatOcc()`) with the output of the locality data processing:
 
@@ -221,7 +224,7 @@ Besides the coordinates of all localities at the best locality resolution availa
 table(occs$loc.check)
 ```	
 
-In this column, specimens for which the locality information provided could not be found in the gazetteer are flagged with a "check_" and thus they have their resolution downgraded. We also flag all the specimens that retained their resoltution (i.e. "ok_same") and those that could be validate at a better locality resolution, flagged with a "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now at the 'municipality' level).
+In this column, specimens for which the locality information provided could not be found in the gazetteer are flagged with a "check_" and thus they had their resolution downgraded. We also flag all the specimens that retained their resoltution (i.e. "ok_same") and those that could be validate at a better locality resolution, flagged with a "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now at the 'municipality' level).
 
 ## Editing original coordinates and defining working coordinates: function `formatCoord()`
 
@@ -237,11 +240,14 @@ Geographical coordinates are often missing or are provided in a format that the 
 table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 ```	
 
-As we can see, only about 30% of the occurrences records have coordinates. Therefore, one may want to use the coordinates obtained from the gazetteer to replace the missing coordinates. In `plantR` we use the function `workCoord` to do this procedure. This function also flags the origin and the probable resolution of the original coordinates: 
+As we can see, about 20% of the occurrences records have no coordinates. Therefore, one may want to use the coordinates obtained from the gazetteer to replace the missing coordinates. In `plantR` we use the function `workCoord` to do this procedure. This function also flags the origin and the probable resolution of the original coordinates: 
 
 ```{r, eval = FALSE}	
 occs = workCoord(occs)
+table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 ```	
+
+Now, there is a geographical coordinate at the best resolution available for almost all occurrences.
 
 # Data validation
 

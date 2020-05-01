@@ -8,12 +8,12 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 27,day,day,daycollected,day,day,diacoleta,26,,input_optional
 18,country,country,country,country,country,pais,Brasil,The 2-letter country code (as per ISO-3166-1) of the country in which the occurrence was recorded.,input_required
 122,stateProvince,stateProvince,stateprovince,stateProvince,stateProvince,estado_prov,São Paulo,"he name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs.",input_required
-95,municipality,municipality,NA,municipality,municipality,cidade,Tapiraí,,input_required
+95,municipality,municipality,county,municipality,municipality,cidade,Tapiraí,,input_required
 84,locality,locality,locality,locality,locality,descrlocal,Cape Romain National Wildlife Refuge,The specific description of the place.,input_optional
 29,decimalLatitude,decimallatitude,latitude,decimalLatitude,decimalLatitude,latitude,-32.912776,Latitude in decimals between -90 and 90 based on WGS 84.. Supports range queries.,input_required
 30,decimalLongitude,decimallongitude,longitude,decimalLongitude,decimalLongitude,longitude,-79.58104,Longitude in decimals between -180 and 180 based on WGS 84.. Supports range queries.,input_required
 70,identifiedBy,identifiedby,identifiedby,identifiedBy,identifiedBy,determinador,"Bradley, Keith",,input_required
-26,dateIdentified,dateIdentified,NA,dateIdentified,dateIdentified,NA,2018-05-01T00:00:00Z,,input_required
+26,dateIdentified,dateIdentified,yearidentified,dateIdentified,dateIdentified,NA,2018-05-01T00:00:00Z,,input_required
 129,typeStatus,typestatus,typestatus,typeStatus,typeStatus,nat_typus,Paratype,"Nomenclatural type (type status, typified scientific name, publication) applied to the subject.",input_required
 49,family,family,family,family,family,familia,Myricaceae,,input_optional
 56,genus,genus,genus,genus,genus,genero,Morella,,input_optional
@@ -132,4 +132,4 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,gbif_descrip
 130,verbatimLatitude,verbatimLatitude,latitude_mun,verbatimLatitude,verbatimLatitude,latitude_mun,-46.613056,,input_optional
 131,verbatimLocality,verbatimLocality,NA,NA,NA,NA,Brazil,,input_optional
 132,verbatimLongitude,verbatimLongitude,longitude_mun,verbatimLongitude,verbatimLongitude,longitude_mun,-23.638056,,input_optional
-134,yearIdentified,NA,yearidentified,NA,NA,anodeterm,1977,,input_optional
+134,yearIdentified,NA,NA,NA,NA,anodeterm,1977,,input_optional
