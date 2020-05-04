@@ -54,17 +54,17 @@ gazetteer <- gazetteer[order(gazetteer$priority), ]
 gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
-adm.levels <- dic[[5]][ ,c("order","status","source","country_code",
+admin <- dic[[5]][ ,c("order","status","source","country_code",
                            "NAME_0","state_code","NAME_1","NAME_2","NAME_3","NAME_4",
                            "loc","loc.correct","resolution.gazetteer")]
-adm.levels <- adm.levels[adm.levels$status %in% "ok", ]
-adm.levels$priority <- as.double(as.character(factor(adm.levels$source, levels = unique(adm.levels$source),
+admin <- admin[admin$status %in% "ok", ]
+admin$priority <- as.double(as.character(factor(admin$source, levels = unique(admin$source),
                                                      labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
-adm.levels <- adm.levels[order(adm.levels$priority), ]
-adm.levels <- adm.levels[order(adm.levels$loc.correct),]
-adm.levels <- adm.levels[!duplicated(adm.levels$loc.correct),] # removing duplicated localities
-adm.levels <- adm.levels[adm.levels$resolution.gazetteer %in% c("country","state","county","localidade"),] # removing localities below locality level (i.e. sublocalities)
-adm.levels <- adm.levels[, c("order","loc.correct","country_code","state_code",
+admin <- admin[order(admin$priority), ]
+admin <- admin[order(admin$loc.correct),]
+admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
+admin <- admin[admin$resolution.gazetteer %in% c("country","state","county","localidade"),] # removing localities below locality level (i.e. sublocalities)
+admin <- admin[, c("order","loc.correct","country_code","state_code",
                              "NAME_0","NAME_1","NAME_2","NAME_3","source")]
 
 # names and abbreviation of localities to be replaced
@@ -98,7 +98,7 @@ head(collectionCodes)
 head(families_synonyms)
 head(field_names)
 head(gazetteer)
-head(adm.levels)
+head(admin)
 head(replace_names)
 
 #Saving the sysdata
@@ -107,7 +107,7 @@ save(autores,
      families_synonyms,
      field_names,
      gazetteer,
-     adm.levels,
+     admin,
      replace_names,
      unwanted_array,
      missLocs,

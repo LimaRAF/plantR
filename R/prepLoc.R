@@ -1,6 +1,6 @@
 #' @title Format Locality String
 #'
-#' @description Edit and simplify the notation plantR locality search string
+#' @description Simplify the notation plantR locality search string
 #'
 #' @param x the concatenated string of localities to be edited.
 #'
@@ -18,6 +18,7 @@
 #'
 prepLoc <- function(x) {
   # Removing unwanted characters
+  load("./R/sysdata.rda")
   unwanted_array <- unwanted_array
 
   # Removing unwanted characters
