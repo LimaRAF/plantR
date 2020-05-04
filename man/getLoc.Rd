@@ -2,13 +2,15 @@
 % Please edit documentation in R/getLoc.R
 \name{getLoc}
 \alias{getLoc}
-\title{Get Locality Information}
+\title{Get Locality and Coordinates}
 \usage{
-getLoc(x)
+getLoc(x, gazet = "plantR")
 }
 \arguments{
-\item{x}{data.frame}
+\item{x}{data frame with the columns: "country.new","stateProvince.new","municipality.new","locality.new"}
 }
 \description{
-Obtain the complete information for a given locality from the gazetteer.
+Create the locality string used to search for coordinates in a gazetteer. This information is
+used to obtain missing coordinates based on locality descriptions and in the process of validation of the
+geographical coordinates.
 }

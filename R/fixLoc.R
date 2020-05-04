@@ -3,15 +3,13 @@
 #' @description
 #'
 #' @param x a data.frame
-#' @adm.levels
-#' @scrap
 #'
 #'
 fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", "locality"), scrap = TRUE) {
   ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
-
   require(stringr)
   require(countrycode)
+
   ## check input:
   if (!class(x) == "data.frame") { stop("input object needs to be a data frame!") }
   if (any(names(x) %in% c("countryCode"))) { colnames(x)[which(colnames(x) == "countryCode")] = "country" }
@@ -30,30 +28,33 @@ fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", 
   x1[] <- lapply(x1, gsub, pattern = "ã\u008d", replacement = "i", ignore.case = TRUE, perl = TRUE)
   x1[] <- lapply(x1, gsub, pattern = "\u00AD", replacement = "", perl = TRUE) # soft hyphen
   x1[] <- lapply(x1, gsub, pattern = "\u00AO", replacement = "", perl = TRUE) # hidden breaking space
+  x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
 
   ## Loading the dictionary of names, terms and abbreviations to be replaced
-  dic = read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//replace_names.csv",as.is=TRUE,fileEncoding="UTF-8-BOM")
+  dic <- replace_names
 
-  ## Creating the objects that will be used in the formatting process
-  unwanted_array = list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
-                        'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
-                        'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
-                        'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
-                        'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
-  missLocs = c("^\\?$","^s\\/localidade","^indeterminada$","^indeterminado$","^s\\.d\\.$","^desconhecido$","^sin loc\\.$","^sin\\. loc\\.$",
-               "^ignorado$","^sem informacao$","^n\\.i\\.","^nao especificado$","^nao informado$","^bloqueado$",
-               "no locality information available","^protected due to name conservation status","^completar datos",
-               "^no disponible$","^not available$","^loc\\.ign$","local ignorado")
-  wordsForSearch = c("^prov\\. ","^dep\\. ","^depto\\. ","^prov\\.","^mun\\. ","^dept\\.","^dpto\\.","^depto\\.","^dept.",
-                     "^departamento ","^departamento de ","^provincia de ","^província de ","^estado do ","^estado de ")
+  ## Loading the objects that will be used in the formatting process
+  unwanted_array <- unwanted_array
+  missLocs <- missLocs
+  wordsForSearch <- wordsForSearch
+
+
+  ### TRY TO GET FROM FILED LOCALITY INFOS FOM MISSING STATE AND COUNTY CONTAINING THE FOLLOWING TERMS:
+  #departamento del
+  #department of
+  #departamiento de
+  #province of
+  #departemento del
+  ### in addition, check why thereare edits like 'departamento detolima' in the data
+
 
   ## ADM0: Country level
   if(any(c("country", "countryCode") %in% adm.levels)) {
     # Converting any country codes into country names
-    x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] =
-      countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
-    x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"] =
-      countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
+    # x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] =
+    #   countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
+    # x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"] =
+    #   countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
     # Removing unwanted characters
     x1[ ,"country"] = tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), x1[ ,"country"]))
     # Replacing '&' by 'and' in compound country names
@@ -66,7 +67,7 @@ fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", 
     tmp1 = dic[dic$class %in% "country" & apply(is.na(dic[,2:4]), 1, all),]
     tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
     names(tmp2) = gsub("\\\\", "", names(tmp2))
-    x1[ ,1] = str_replace_all(x1[ ,1], tmp2)
+    x1[ ,"country"] = str_replace_all(x1[ ,"country"], tmp2)
     # Missing country for non missing states and counties (only for uniquivocal states)
     tmp1 = dic[dic$class %in% "country" & dic$condition2 %in% "not_is.na",]
     reps = unique(tmp1$replace)
@@ -112,33 +113,33 @@ fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", 
     x1[ ,"municipality"][grepl("desconhecid|unknown", x1[, "municipality"])] = NA
     # Removing unwanted prefixes and abbreviations
     tmp1 = dic[dic$class %in% "county" & apply(is.na(dic[,2:4]), 1, all),]
-      tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
-      names(tmp2) = gsub('\\.',"\\\\.",names(tmp2))
-      x1[ ,"municipality"] = str_replace_all(x1[ ,"municipality"], tmp2)
-    }
+    tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
+    names(tmp2) = gsub('\\.',"\\\\.",names(tmp2))
+    x1[ ,"municipality"] = str_replace_all(x1[ ,"municipality"], tmp2)
+  }
 
-    ## ADM3: locality (park, farm, etc.)
-    if(any(c("locality") %in% adm.levels)) {
-      # Removing unwanted characters
-      x1[ ,"locality"] = tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), x1[ ,"locality"]))
-      # Removing unwanted prefixes and abbreviations (1st round)
-      tmp1 = dic[dic$class %in% "locality1" & apply(is.na(dic[,2:4]), 1, all),]
-      tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
-      names(tmp2) = gsub('\\.',"\\\\.", names(tmp2))
-      names(tmp2) = gsub('\\(',"\\\\(", names(tmp2))
-      names(tmp2) = gsub('\\)',"\\\\)", names(tmp2))
-      x1[ ,"locality"] = str_replace_all(x1[ ,"locality"], tmp2)
-      # solving some substitution problems
-      x1[ ,"locality"] = gsub(" de de | de of ", " de ", x1[ ,"locality"], perl = TRUE)
-      x1[ ,"locality"] = gsub(" de do ",	" do ", x1[ ,"locality"], perl = TRUE)
-      # Removing unwanted prefixes and abbreviations (2nd round)
-      tmp1 = dic[dic$class %in% "locality2" & apply(is.na(dic[,2:4]), 1, all),]
-      tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
-      names(tmp2) = gsub('\\.',"\\\\.", names(tmp2))
-      names(tmp2) = gsub('\\(',"\\\\(", names(tmp2))
-      names(tmp2) = gsub('\\)',"\\\\)", names(tmp2))
-      x1[ ,"locality"] = str_replace_all(x1[ ,"locality"], tmp2)
-    }
+  ## ADM3: locality (park, farm, etc.)
+  if(any(c("locality") %in% adm.levels)) {
+    # Removing unwanted characters
+    x1[ ,"locality"] = tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), x1[ ,"locality"]))
+    # Removing unwanted prefixes and abbreviations (1st round)
+    tmp1 = dic[dic$class %in% "locality1" & apply(is.na(dic[,2:4]), 1, all),]
+    tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
+    names(tmp2) = gsub('\\.',"\\\\.", names(tmp2))
+    names(tmp2) = gsub('\\(',"\\\\(", names(tmp2))
+    names(tmp2) = gsub('\\)',"\\\\)", names(tmp2))
+    x1[ ,"locality"] = str_replace_all(x1[ ,"locality"], tmp2)
+    # solving some substitution problems
+    x1[ ,"locality"] = gsub(" de de | de of ", " de ", x1[ ,"locality"], perl = TRUE)
+    x1[ ,"locality"] = gsub(" de do ",	" do ", x1[ ,"locality"], perl = TRUE)
+    # Removing unwanted prefixes and abbreviations (2nd round)
+    tmp1 = dic[dic$class %in% "locality2" & apply(is.na(dic[,2:4]), 1, all),]
+    tmp2 = tmp1$replace; names(tmp2) = tmp1$pattern
+    names(tmp2) = gsub('\\.',"\\\\.", names(tmp2))
+    names(tmp2) = gsub('\\(',"\\\\(", names(tmp2))
+    names(tmp2) = gsub('\\)',"\\\\)", names(tmp2))
+    x1[ ,"locality"] = str_replace_all(x1[ ,"locality"], tmp2)
+  }
 
   if(c("locality") %in% names(x1) & scrap == TRUE) {
     # Spliting the locality vector to find missing information
@@ -176,25 +177,15 @@ fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", 
     x1[ ,"locality"][is.na(n4.3)] = as.character(sapply(n4[is.na(n4.3)], function(x) x[1]))
   }
 
-  # Trimming the edited columns
+  ## Trimming and editing the edited columns
   for (i in 1:length(adm.levels)) x1[ ,i] = as.character(str_trim(x1[ ,i]))
-
-  # Assigning the resolution of the original locality info
-  # check = matrix(NA, nrow = nrow(x), ncol = ncol(x1), dimnames = list(NULL, adm.levels))
-  # for(i in 1:length(adm.levels)) {
-  #   check[,adm.levels[i]][!is.na(x[,adm.levels[i]])] = "provided"
-  #   check[,adm.levels[i]][is.na(x[,adm.levels[i]]) & !is.na(x1[i])] = "replaced_NA"
-  # }
-  # res.check = vector("list", length(adm.levels))
-  # for(i in 1:length(adm.levels)) res.check[[i]] = as.data.frame.list(table(check[,adm.levels[i]], useNA="always"))
-  # allNames <- unique(unlist(lapply(res.check, names)))
-  # res.check = do.call(rbind, c(lapply(res.check,
-  #                                     function(x) data.frame(c(x, sapply(setdiff(allNames, names(x)), function(y) NA)))), make.row.names=FALSE))
-  # colnames(check) = row.names(res.check) = paste0(colnames(check),".new")
+  for (i in 1:length(adm.levels)) x1[ ,i] = gsub("^-$", NA, x1[ ,i])
 
   # Resolution of the locality information provided
-  resol.orig = adm.levels[apply(x[,adm.levels], 1, function(x) which(is.na(x))[1]-1)]
-  resol.orig[is.na(resol.orig)] = adm.levels[length(adm.levels)-1]
+  tmp = apply(x1[,adm.levels], 1, function(x) which(is.na(x))[1]-1)
+  tmp[tmp %in% 0] = length(adm.levels) + 1
+  tmp[is.na(tmp)] = length(adm.levels)
+  resol.orig = c(adm.levels,"no_info")[tmp]
 
   # Preparing the output
   if(length(adm.levels)==1) {
@@ -205,6 +196,5 @@ fixLoc = function(x, adm.levels = c("country", "stateProvince", "municipality", 
     if(c("locality.new") %in% names(x1) & scrap == TRUE) res$locality.scrap = n4.2.1
     res$resol.orig = resol.orig
   }
-  #print(res.check)
   return(res)
 }

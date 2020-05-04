@@ -121,6 +121,9 @@ tdwgNames = function(x,
   if(out == "aux") name.correct.out = name.aux
   if(out == "all" | !out %in% c("first", "aux")) name.correct.out = name.correct
 
+  # Final corrections
+  #name.correct = gsub("NANA", NA, name.correct)
+
   # Adding brackets (if needed)
   if(bracks == TRUE) name.correct.out = paste("[", name.correct.out, "]", sep="")
 

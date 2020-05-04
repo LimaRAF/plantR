@@ -4,7 +4,7 @@
 #'
 #' @param x the character string
 #' @param type type of ...
-#' @param noName standard for missing data in Name
+#' @param noName standard notation for missing names in x
 #'
 #' @return the character string \code{x} in the fixed TDWG format.
 #'
