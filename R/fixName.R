@@ -16,7 +16,7 @@
 #'
 #' @author Lima, R.A.F.
 #'
-#'@importFrom stringr str_trim
+#' @importFrom stringr str_trim
 #'
 #' @export fixName
 #'
@@ -26,7 +26,7 @@
 #'   fixName("Leitão F°, H.F.")
 #'   fixName("Gert G. Hatschbach, et al.")
 #'   fixName("Karl Emrich & Balduino Rambo")
-#   fixName('F. da S.N. Thom\xe9') #does not work on unix
+#'   fixName('F. da S.N. Thom\xe9') #does not work on unix
 #'   fixName('Pedro L.R.de Morães')
 fixName = function(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT") {
     #require(stringr)  #just never user require

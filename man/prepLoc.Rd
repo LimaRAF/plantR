@@ -13,7 +13,7 @@ prepLoc(x)
 the edited locality strings.
 }
 \description{
-Edit and simplify the notation plantR locality search string
+Simplify the notation plantR locality search string
 }
 \details{
 The function removes unwanted hifens and prepositions of locality names

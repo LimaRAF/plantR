@@ -105,7 +105,7 @@ prepCoord <- function(x) {
 
   ## Preparing the output
     new.cls = paste(cls[1:2], ".new", sep="")
-    x1 = cbind.data.frame(x, lat2, long2, stringsAsFactors = FALSE)
-    names(x1)[dim(x)[2] + c(1:2)] = new.cls
-    return(x1)
+    result = cbind.data.frame(x, lat2, long2, stringsAsFactors = FALSE)
+    names(result)[dim(x)[2] + c(1:2)] = new.cls
+    return(result)
 }
