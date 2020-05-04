@@ -5,8 +5,8 @@
 #' geographical coordinates.
 #'
 #' @param x a data.frame containig the strings for locality search
-#' @param gazet a data.frame containing the gazetteer; the default is "plantR", the default gazetteer provided
-#' with the package (biases towards Latin America)
+#' @param gazet a data.frame containing the gazetteer; the default is "plantR", the default gazetteer (biased
+#' towards Latin America)
 #'
 #' @return the data frame \code{x} with new columns obtained from the gazetteer.
 #'

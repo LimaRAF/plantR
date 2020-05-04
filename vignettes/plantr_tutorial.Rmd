@@ -227,6 +227,14 @@ Finally, we merge the data frame with the previous data processing (function `fo
 occs = cbind.data.frame(occs, locs[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")])
 ```	
 
+Finally, it can be useful to trace back the full names of the localities retrieved from the gazetteer. 
+This can be performed using the function `getAdmin`, which returns the names of the subdivisions of each locality:
+
+```{r, eval = FALSE}	
+head(getAdmin(occs))
+```
+
+
 ## Editing geographical coordinates: function `formatCoord()`
 
 Previous to the validation of the orginal geographical coordinates, it is important to make sure that they are given and if they are in the required format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), with decimal digits separated by points.
