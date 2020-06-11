@@ -2,14 +2,26 @@
 % Please edit documentation in R/validateLoc.R
 \name{validateLoc}
 \alias{validateLoc}
-\title{Validate Occurrence Locality Information}
+\title{Validate Specimen Locality Information}
 \usage{
 validateLoc(x)
 }
 \arguments{
-\item{x}{Data frame.}
+\item{x}{a data frame.}
+}
+\value{
+the data frame \code{x} with a new column with the result of the checking process.
 }
 \description{
 Compare the resolution of the original locality information provided with the
-one retrieved from the locality gazetteer.
+one retrieved from the gazetteer.
+}
+\details{
+The function simply compares if the original information provided with each specimen is found
+in the locality gazetteer and at which resolution (i.e. country, state, municipality). This comparison
+is strongly dependent on the completeness of the gazetteer used and please remind that the gazetteer
+provided with `plantR` is srongly biased towards Latin America, particularly Brazil.
+}
+\author{
+Lima, R.A.F.
 }

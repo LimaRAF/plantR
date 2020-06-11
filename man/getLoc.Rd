@@ -7,10 +7,10 @@
 getLoc(x, gazet = "plantR")
 }
 \arguments{
-\item{x}{data frame with the columns: "country.new","stateProvince.new","municipality.new","locality.new"}
+\item{x}{a data.frame containig the strings for locality search}
 
-\item{gazet}{a data.frame containing the gazetteer; the default is "plantR", the default gazetteer provided
-with the package (biases towards Latin America)}
+\item{gazet}{a data.frame containing the gazetteer; the default is "plantR", the default gazetteer (biased
+towards Latin America)}
 }
 \value{
 the data frame \code{x} with new columns obtained from the gazetteer.
@@ -23,8 +23,8 @@ geographical coordinates.
 \details{
 The function ...
 
-If the columns 'locality.new' and 'locality.scrap' are present in the input data frame, they are also
-used to produce alternative locality strings which are crossed against the gazetteers, to potentialize
+If the column 'locality.scrap' is present in the input data frame, it is also used to produce
+alternative locality strings, which are crossed against the gazetteers, to potentialize
 the retrieval of locality information from the gazetteer.
 }
 \author{
