@@ -2,13 +2,31 @@
 % Please edit documentation in R/getLoc.R
 \name{getLoc}
 \alias{getLoc}
-\title{Get Locality Information}
+\title{Get Locality and Coordinates}
 \usage{
-getLoc(x)
+getLoc(x, gazet = "plantR")
 }
 \arguments{
-\item{x}{data.frame}
+\item{x}{a data.frame containig the strings for locality search}
+
+\item{gazet}{a data.frame containing the gazetteer; the default is "plantR", the default gazetteer (biased
+towards Latin America)}
+}
+\value{
+the data frame \code{x} with new columns obtained from the gazetteer.
 }
 \description{
-Obtain the complete information for a given locality from the gazetteer.
+Create the locality string used to search for coordinates in a gazetteer. This information is
+used to obtain missing coordinates based on locality descriptions and in the process of validation of the
+geographical coordinates.
+}
+\details{
+The function ...
+
+If the column 'locality.scrap' is present in the input data frame, it is also used to produce
+alternative locality strings, which are crossed against the gazetteers, to potentialize
+the retrieval of locality information from the gazetteer.
+}
+\author{
+Lima, R.A.F.
 }

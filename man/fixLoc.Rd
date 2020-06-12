@@ -2,14 +2,47 @@
 % Please edit documentation in R/fixLoc.R
 \name{fixLoc}
 \alias{fixLoc}
-\title{Edit and Format Locality Information}
+\title{Format Locality Information}
 \usage{
-fixLoc(x, adm.levels = c("country", "stateProvince", "municipality",
+fixLoc(x, admin.levels = c("country", "stateProvince", "municipality",
   "locality"), scrap = TRUE)
 }
 \arguments{
-\item{x}{a data.frame}
+\item{x}{a data frame}
+
+\item{admin.levels}{a vector containing the fields to be formatted}
+
+\item{scrap}{logical. Should search of missing locality information be performed?}
+}
+\value{
+the data frame \code{x} with new columns containing the formated fields.
 }
 \description{
+Standardize the notation of the locality fields country, stateProvince, municipality
+and locality.
+}
+\details{
+The function performs several edits and replacements. Country names are
+formated in the international format, letters are lower-cased, and special characters
+and common abbreviations are removed.
 
+By default, this function formats all
+four locality fields simultaneously (returns the entry data.frame with the new columns), but the
+user can chose fields by changing the function argument `admin.levels`. However, the editing
+processes is more complete if all the information is available for the four fields.
+
+The argument `scrap` of the function controls the search for missing municipality information
+from the field 'locality'. It also performs some extra editing and croping of the field 'locality'
+in order to obtain more standardized locality descriptions. This argument uses different ways of
+splitting and cropping the locality descripton in order to find missing information. Although it does
+not always result in an accurate extraction of the infromation, it provides an extra tool to organize
+locality information which are not provided in the right columns.
+
+The function automatically returns the original resolution of the information provided. For instance,
+if only country information is provided (i.e. field is not empty), then the resolution is flagged as
+'country'; if country and stateProvince are given, then the resolution is flagged as 'stateProvince',
+and so on.
+}
+\author{
+Lima, R.A.F.
 }

@@ -4,7 +4,8 @@
 \alias{fixName}
 \title{Preparing People's Name}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
+fixName(x, special.char = FALSE, from = "UTF-8",
+  to = "windows-1252//TRANSLIT")
 }
 \arguments{
 \item{x}{the character string}
@@ -30,10 +31,11 @@ between outputs with and without accents and species characters.
 \examples{
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("Leitão F°, H.F.")
+  fixName("LeitÃ£o FÂ°, H.F.")
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
-  fixName('Pedro L.R.de Morães')
+  fixName('F. da S.N. Thom\\xe9') #does not work on unix
+  fixName('Pedro L.R.de MorÃ£es')
 }
 \author{
 Lima, R.A.F.

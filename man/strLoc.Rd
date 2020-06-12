@@ -2,13 +2,39 @@
 % Please edit documentation in R/strLoc.R
 \name{strLoc}
 \alias{strLoc}
-\title{Format Locality}
+\title{Construct Locality String}
 \usage{
 strLoc(x)
 }
 \arguments{
-\item{x}{locality string}
+\item{x}{a data frame.}
+}
+\value{
+a data frame with the locality fields and the the locality strings.
 }
 \description{
-Create the locality string used to search missing coordinates and to validade original coordinates.
+Combine locality fields to create the standard plantR locality string
+}
+\details{
+The function combines the information provided in the locality fields to create
+a standard string that `plantR` uses to retrieve information from gazetteers. This string
+consists is build by concatenating the country, state, municipality and locality fields at
+the best resolution available. This hierarchical format decreases the chances of retrieving
+information from localities with same names in different regions. The standard gazetteer
+provided with `plantR` uses this standard locality string to make queries (see `plantR`
+function `getLoc` for details).
+
+The input data frame should preferably be the output of the `plantR` function `fixLoc`.
+This function returns the edited standard locality fields (i.e. country.new, stateProvince.new,
+municipality.new, and locality.new) and, if chosen, the extra edtied locality field 'locality.scrap'.
+If this is the case, `strLoc` will also return an alternative string based on missing locality
+information extracted from the field 'locality'.
+}
+\examples{
+...
+
+
+}
+\author{
+Lima, R.A.F.
 }
