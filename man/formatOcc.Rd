@@ -7,14 +7,43 @@
 formatOcc(x, noNumb, noYear, noName)
 }
 \arguments{
-\item{x}{a data frame or data table}
+\item{x}{a data frame, containing typical fields from occurrence records from
+herbarium specimens.}
 
-\item{noNumb}{standard for missing data in Number}
+\item{noNumb}{standard notation for missing data in Number}
 
-\item{noYear}{standard for missing data in Year}
+\item{noYear}{standard notation for missing data in Year}
 
-\item{noName}{standard for missing data in Name}
+\item{noName}{standard notation for missing data in Name}
+}
+\value{
+The input data frame \code{x}, plus the new columns with the formatted
+  fields.
 }
 \description{
-This function standardizes names and collection number and dates from herbarium occurrences obtained from on-line data bases such as GBIF and speciesLink
+This function standardizes collector names, determinator names,
+  and collection number and date from herbarium occurrences obtained from
+  on-line databases, such as GBIF or speciesLink.
+}
+\details{
+The function works similarly to a wrapper function, where many
+  individuals steps of the proposed `plantR` workflow for editing some
+  important fields are performed at once (see the Data Editing vignette).
+
+  The input data frame must contain at least the following fields:
+  'eventDate' and/or 'year' (date/year of the collection); 'recordedBy'
+  (collector(s) name(s)); 'recordNumber'; (collector number) 'identifiedBy'
+  (identificator name); 'dateIdentified' or 'yearIdentified' (date or year of
+  identification).
+
+  The function uses the R package `data.table` in the attempt to speed up the
+  processing of larger data sets.
+}
+\seealso{
+\link[plantR]{fixName}, \link[plantR]{colNumber}, \link[plantR]{getYear},
+ \link[plantR]{tdwgNames}, \link[plantR]{formatName}, \link[plantR]{missName}
+ and \link[plantR]{lastName}.
+}
+\author{
+Renato A. F. de Lima
 }

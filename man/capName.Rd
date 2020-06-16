@@ -16,19 +16,22 @@ the character string equal to \code{x} with the first letter capitalized.
 Capitalize the name of the collector or determiner of a biological specimen.
 }
 \details{
-The function works for simple names and compound names which are separated by
+The function works for simple names and compound names that are separated by
 a space or by the character '-'. It also works for names that are entirely capitalized.
-This function was adapted from function simpleCap from package hpoPlot by Daniel Greene
+This function was adapted from the function `simpleCap` from package `hpoPlot` by Daniel Greene.
 }
 \examples{
 # Simple name
   capName("gentry")
   capName("HATSCHBACH")
+
 # Names with generational suffixes
   capName("leitao filho")
-# Compound name
+
+# Compound names
   capName("saint-hilaire")
+
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima (after Daniel Greene)
 }

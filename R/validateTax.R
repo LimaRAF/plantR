@@ -1,6 +1,6 @@
 #' @title Validate Specimen Taxonomy
 #'
-#' @description
+#' @description This function ...
 #'
 #' @param x Character. Species name
 #'

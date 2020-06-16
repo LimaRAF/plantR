@@ -10,5 +10,5 @@ validateTax(x)
 \item{x}{Character. Species name}
 }
 \description{
-
+This function ...
 }

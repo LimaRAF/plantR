@@ -1,6 +1,6 @@
 #' @title Validate Geographical Coordinates
 #'
-#' @description
+#' @description This function...
 #'
 #' @param x Coordinates in decimal degrees
 #'

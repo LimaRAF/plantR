@@ -7,24 +7,24 @@
 prepLoc(x)
 }
 \arguments{
-\item{x}{the concatenated string of localities to be edited.}
+\item{x}{character. The concatenated locality string to be simplified.}
 }
 \value{
-the edited locality strings.
+The edited locality strings.
 }
 \description{
-Simplify the notation plantR locality search string
+Simplify the notation of the `plantR` string of locality search
 }
 \details{
 The function removes unwanted hifens and prepositions of locality names
 }
 \examples{
   prepLoc("Brazil_Rio de Janeiro")
-  prepLoc("Brazil_São Paulo_São José do Rio Preto")
+  prepLoc("Brazil_Rio Grande do Sul_Coqueiros do Sul")
   prepLoc("Brazil_Bahia_Arraial d'Ajuda")
   prepLoc("Brazil_São Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
 
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

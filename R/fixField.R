@@ -3,12 +3,12 @@
 #' @description Puts the occurrence data frame in the right format for data processing and validation
 #'
 #' @param x a data frame
-#' @param origin collection from which the input data was downloaded
+#' @param origin code of collection from which the input data was downloaded
 #'
 #' @return the data frame \code{x} in the proper format. It also returns the
 #' required field names that are missing and those that were replaced or dropped.
 #'
-#' @details
+#' @details This function ...
 #'
 #' @author Lima, R.A.F.
 #'
@@ -18,6 +18,7 @@
 #' @export fixField
 #'
 #' @examples
+#'  ## Example currently not available ##
 #'
 #'
 fixField = function(x, origin = NULL) {

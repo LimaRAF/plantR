@@ -10,5 +10,5 @@ validateCoord(x)
 \item{x}{Coordinates in decimal degrees}
 }
 \description{
-
+This function...
 }

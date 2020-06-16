@@ -45,7 +45,7 @@ library("plantR")
 
 You can download species occurrence data directly from R, using the functions provided by `plantR` or by other R packages. For this tutorial, we are going to use the `plantR` function `rspeciesLink`, which downloads data from [CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental). For a detailed tutorial of how to download data from different sources, check a more detailed tutorial [here](#INCLUDE HERE LINK TO SARA'S DETAILED TUTORIAL). 
 
-You can also use .csv files containing personal data or data downloaded manually from online data repositories, as long as the the column names match those accepted by `plantR` (e.g. DarwinCore). See function `fixField()` below for more details on standandard columns names.
+You can also use .csv files containing personal data or data downloaded manually from online data repositories, as long as the column names match those accepted by `plantR` (e.g. DarwinCore). See function `fixField()` below for more details on standard columns names.
 	
 ## Downloading occurrence data with `plantR`
 
@@ -58,7 +58,7 @@ We will use as an example a dataset downloaded from speciesLink, using the funct
 spp <- c("Trema micrantha")
 ```
 
-After defining the species name we want to obtain occurrence data, we proceed to the download itself. Here, we will use only herbarium plant specimens (i.e. vouchers) for the names listed above, iincluding the list of synonyms accepted in the Brazlian Flora 2020 project (this may take a few minutes):
+After defining the species name we want to obtain occurrence data, we proceed to the download itself. Here, we will use only herbarium plant specimens (i.e. vouchers) for the names listed above, including the list of synonyms accepted in the Brazilian Flora 2020 project (this may take a few minutes):
 
 ```{r, eval = FALSE}
 example <- rspeciesLink(scientificName =  spp,
@@ -79,15 +79,15 @@ dim(example$data)
 
 Before we can start to process the input data, we need to be sure that our input data has all the required fields and that they are in the required format.
 
-We use the function `fixField()` to set up the require and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name ('occs').
+We use the function `fixField()` to set up the required and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name ('occs').
 
 ```{r, eval = FALSE}
 occs <- fixField(example$data, origin = "splink")
 ```
 
-Note that the function returns some warning meassages. It is **VERY** important to carefully understand these warnings before we can continue. 
+Note that the function returns some warning messages. It is **very** important to carefully understand these warnings before we can continue. 
 
-The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was replaced by a standard header name, 'occurrenceID' in this case. Third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important hearders.
+The first warning says that the name of the column header 'scientifname', provided in the input data, was replaced by the standard name 'scientificName', the standard name used by `plantR`. The second warning also reports that a header name was replaced by a standard header name, 'occurrenceID' in this case. The third warning is less important because it relates to optional fields. The last warning is more important, since they may indicate typos in the names of important headers.
 
 ## Standardizing people names, collector number and dates: function `formatOcc()`
 
@@ -103,7 +103,7 @@ occs$year.new = occs$year
 occs$yearIdentified.new = occs$yearIdentified
 ```
 
-The year of collection is sometimes stored on the field 'eventDate' and not on the field 'year'. In this case, we should replace all missing information from the field 'year' by the informations stored in the field 'eventDate'. Since this is not the case here, we procees to the next data processing step.
+The year of collection is sometimes stored on the field 'eventDate' and not on the field 'year'. In this case, we should replace all missing information from the field 'year' by the information stored in the field 'eventDate'. Since this is not the case here, we process to the next data processing step.
 
 We then prepare the new fields we created using functions `fixName()`, `colNumber()` and `getYear()`. We chose to remove all species characters from authors and identicador names (argument `special.char = FALSE`), which is the indicated option for further data processing and validation. We also set the characters that will represent occurrences without number of collection ("s.n.") and without the year of collection and identification ("n.d.").  
 
@@ -185,27 +185,27 @@ Yes! So, the new data frame created contain the original and edited/formatted in
 
 ## Editing locality information: function `formatLoc()`
 
-One important step to find missing geographical coordinates and to validate those coordinates provided with the occurrence is to standardize the fields containing locatity information, namely "country", "stateProvince", "municipality" and "locality".
+One important step to find missing geographical coordinates and to validate those coordinates provided with the occurrence is to standardize the fields containing locality information, namely "country", "stateProvince", "municipality" and "locality".
 
-`plantR` have a function to edit and standardize locality fields: function `fixLoc()`. By default, this function formats all four locality fields simultaneously (returns the entry data.frame with the new columns), but the user can chose one field at a time by changing the function argument 'admin.levels' (in this case the function returns a vector). However, some of the editing processes become more complete if all the information is available for the four fields.
+`plantR` have a function to edit and standardize locality fields: function `fixLoc()`. By default, this function formats all four locality fields simultaneously (returns the entry data.frame with the new columns), but the user can choose one field at a time by changing the function argument 'admin.levels' (in this case, the function returns a vector). However, some of the editing processes become more complete if all the information is available for the four fields.
 
 To exemplify, we will use all locality fields:
 
 ```{r, eval = FALSE}
 occs  = fixLoc(occs, admin.levels = c("country","stateProvince","municipality","locality"), scrap = TRUE)
 ```
-Note that we performed the editing of the locality fields using the argument `scrap = TRUE`. This argument controls the search for missing information from the field locality (i.e. text mining). It also performs some extra editing and croping of the locality field in order to obtain more standardized locality descriptions. If the country, state and municipality fields are given, they remain unaltered. Only missing information in this fields are completed by the editing and scrapping process.
+Note that we performed the editing of the locality fields using the argument `scrap = TRUE`. This argument controls the search for missing information from the field locality (i.e. text mining). It also performs some extra editing and cropping of the locality field in order to obtain more standardized locality descriptions. If the country, state and municipality fields are given, they remain unaltered. Only missing information in these fields are completed by the editing and scrapping process.
 
-Although the search for missing localities generally results in no empty fields (i.e. NAs), it does not mean that the information retrieved from this search is accurate. It depends if the information is actually available in the field 'locality' and how it is arranged. To make sure that the missing information obtained is indeed a locality, we need to cross it with a gazetteer. In `plantR` the search for missing information from a gazetteer is based on a standard locality string. This string simply is the concatenation of the country, state, municipality and locality fields, at the best resolution available. This string is create using the function `strLoc`:
+Although the search for missing localities generally results in no empty fields (i.e. NAs), it does not mean that the information retrieved from this search is accurate. It depends if the information is actually available in the field 'locality' and how it is arranged. To make sure that the missing information obtained is indeed a locality, we need to cross it with a gazetteer. In `plantR` the search for missing information from a gazetteer is based on a standard locality string. This string simply is the concatenation of the country, state, municipality and locality fields, at the best resolution available. This string is created using the function `strLoc`:
 
 ```{r, eval = FALSE}	
 locs = strLoc(occs)
 head(locs, 5)
 ```
 
-If the municipality exists for a given state and country, then it is deemed as being a good locality name, and the locality string associated with it is given priority for the validation of the locality information (see below). If there is missing information, than the alternative locality string (obtained using argument `scrap` of function `fixLoc`) is used in a final attempt to search for missing information in the gazetteer. If these alternatives do not work, then the upper administrative level available is used as the reference locality information. 
+If the municipality exists for a given state and country, then it is deemed as being a good locality name, and the locality string associated with it is given priority for the validation of the locality information (see below). If there is missing information, than the alternative locality string (obtained using argument `scrap` of function `fixLoc`) is used in a final attempt to search for missing information in the gazetteer. If these alternatives do not work, than the upper administrative level available is used as the reference locality information. 
 
-The notation of locality information varies a lot, and there is many mistakes regarding the notation of some localities (e.g. "Balneário do Camboriú" instead of "Balneário Camboriú"). Therefore, it is useful to further simplify the locality strings, by reducing all name variants into the same locality string. This simplication is perfomed by the function `prepLoc`:
+The notation of locality information varies a lot, and there are many mistakes regarding the notation of some localities (e.g. "Balneário do Camboriú" instead of "Balneário Camboriú"). Therefore, it is useful to further simplify the locality strings, by reducing all name variants into the same locality string. This simplification is performed by the function `prepLoc`:
 
 ```{r, eval = FALSE}	
 locs$loc.string  = prepLoc(locs$loc.string) # priority string
@@ -213,13 +213,13 @@ locs$loc.string1  = prepLoc(locs$loc.string1) # alternative string
 locs$loc.string2  = prepLoc(locs$loc.string2) # alternative string
 ```
 
-After the construction and simplification of the locality strings, we can finally cross it with the gazetteer, uaing function `getLoc`.
+After the construction and simplification of the locality strings, we can finally cross it with the gazetteer, using function `getLoc`.
 
 ```{r, eval = FALSE}	
 locs  = getLoc(locs, gazet = "plantR")
 ```	
 
-Some of the locality strings were retrieved in the default `plantR` gazetteer at the locality level (e.g. park, farm). The gazetteer is more complete for Latin America and has much more information at locality level for Brazil. Therefore, info retrieval at locality level should be biased towards specimesn collected in Brazil. You can use the argument `gazet` to use your personal gazetteer instead of `plantR` default, as long as it contains the same fields. Note that the function also returns the geographical coordinates from the gazetteer. Note as well that the edited version of the localities is different from the original localities regarding their resolution (see details in the next section, 'Data validation').  
+Some of the locality strings were retrieved in the default `plantR` gazetteer at the locality level (e.g. park, farm). The gazetteer is more complete for Latin America and has much more information at the locality level for Brazil. Therefore, info retrieval at the locality level should be biased towards specimens collected in Brazil. You can use the argument `gazet` to use your personal gazetteer instead of `plantR` default, as long as it contains the same fields. Note that the function also returns the geographical coordinates from the gazetteer. Note as well that the edited version of the localities is different from the original localities regarding their resolution (see details in the next section, 'Data validation').  
 
 Finally, we merge the data frame with the previous data processing (function `formatOcc()`) with the output of the locality data processing:
 
@@ -237,7 +237,7 @@ head(getAdmin(occs))
 
 ## Editing geographical coordinates: function `formatCoord()`
 
-Previous to the validation of the orginal geographical coordinates, it is important to make sure that they are given and if they are in the required format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), with decimal digits separated by points.
+Previous to the validation of the original geographical coordinates, it is important to make sure that they are given and if they are in the required format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), with decimal digits separated by points.
 
 ```{r, eval = FALSE}	
 occs = prepCoord(occs)
@@ -266,21 +266,29 @@ Now, there is a geographical coordinate at the best resolution available for alm
 
 # Data validation
 
-In `plantR`, all validation steps add new columns to the occurrence data, flagging possible problems. Depending on
-the study aims and spatial scale, one can chose to try to correct some of the problems or drop them from the final data set.
+In `plantR`, all validation steps add new columns to the occurrence data,
+flagging possible problems. Depending on the study aims and spatial scale, one
+can choose to try to correct some of the problems or drop them from the final
+data set.
 
 ## Locality validation: function `validateLoc()`
 
-The editing process of locality information and its comparison against the gazetteer, returns the localities (and coordinates) at the best locality resolution available. In this comparison, many information provided at locality level is only retrieved at municipality level, which is expected due to the completeness of the gazetteer used (not all localities are stored in the standard `plantR` gazetteer). But many of them are only retrieved at state/province level, meaning that fields cointaining state and municipality information may need to be checked. 
+The editing process of locality information and its comparison against the gazetteer, return the localities (and coordinates) at the best resolution available. In this comparison, much information provided at the locality level is only retrieved at the municipality level, which is expected due to the completeness of the gazetteer used (not all localities are stored in the standard `plantR` gazetteer). But many of them are only retrieved at state/province level, meaning that fields containing state and municipality information may need to be checked. 
 
-In `plantR` the resolution of the locality information provided with the specimen and the one found in the gazetteer is described using the function `validateLoc`, which compares the two resolutions and store the result of this comparison in a new columns called 'loc.check': 
+In `plantR` the resolution of the locality information provided with the specimen and the one found in the gazetteer is described using the function `validateLoc`, which compares the two resolutions and store the result of this comparison in a new column called 'loc.check': 
 
 ```{r, eval = FALSE}
 occs = validateLoc(occs)
 table(occs$loc.check)
 ```	
-In this column, specimens for which the locality provided could not be found in the gazetteer at the same resolution 
-are flagged with a "check_". In these cases, the locality resolution is downgraded until a locality is found. If even at country level the locality is not found, then it is flagged as "no_info". We also flag all the specimens that retained their resoltution (i.e. "ok_same") and those that could be retrieved at a better locality resolution, also flagged with an "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now at the 'municipality' level).
+In this column, specimens for which the locality provided could not be found in
+the gazetteer at the same resolution are flagged with a "check_". In these
+cases, the locality resolution is downgraded until a locality is found. If even
+at the country level the locality is not found, then it is flagged as "no_info".
+We also flag all the specimens that retained their resolution (i.e. "ok_same")
+and those that could be retrieved at a better locality resolution, also flagged
+with an "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now
+at the 'municipality' level).
 
 
 ## Geographical validation: function `validateCoord()`

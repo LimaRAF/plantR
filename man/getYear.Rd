@@ -2,44 +2,74 @@
 % Please edit documentation in R/getYear.R
 \name{getYear}
 \alias{getYear}
-\title{Get Year}
+\title{Get Year From Date}
 \usage{
 getYear(x, noYear = "s.d.")
 }
 \arguments{
-\item{x}{the character string}
+\item{x}{the character string containing a date.}
 
-\item{noYear}{Character. Standard for missing data in Year}
+\item{noYear}{Character. Standard for missing data in Year.}
 }
 \value{
-the character string \code{x}
+The year contained in the character string \code{x}.
 }
 \description{
-Extracts the year of collection or determination from a field containing dates.
+Extracts the year of collection or determination from dates.
 }
 \details{
-The function puts...
+The function extracts the year from a given date in various
+  different formats, but not all of them (see examples below). So, please
+  consider putting your vector of dates in a standardized format (see note
+  below).
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
-dates = c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,1981",
-"25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
-"March 1981","Mar. 1981","n.d.","s.d.","s/d","",NA)
+dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,1981",
+          "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
+          "March 1981","Mar. 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
+
 # Using the function to extract the year
 getYear(dates)
+
 # Using the function with a different character to indicate missing dates
 getYear(dates, noYear = "n.d.")
 
-#not working for
-dates = c("31.12.1982","1982.31.12", '31/12')
+# Currently, the function does not work for (needs checking):
+dates <- c("31.12.1982","1982.31.12", '31/12')
 getYear(dates, noYear = 'pouette')
 
+# Note: If your dates are all stored in some specific format, you can convert
+#them to the ISO 8601 format (YYYY-MM-DD, e.g. 1981-03-25), which is the
+#standard format suggested by the Biodiversity Information Standards (TDWG). To
+#do so you have to provide your vector of dates and its format to the as.Date
+#function from the base R package. Some examples:
 
+# The date format in this case is '\%d/\%m/\%y', i.e. day, month, two-digits year, separated by slashs:
+
+dates <- c("25/03/81", "05/12/81")
+as.Date(dates, format = "\%d/\%m/\%y")
+
+# or, date format is "\%d/\%b/\%Y", i.e. day, month, four-digits year, separated by slashs:
+
+dates <- c("25/03/1981", "05/12/1981")
+as.Date(dates, format = "\%d/\%m/\%Y")
+
+# or, date format is '\%d \%b \%y', i.e. day, abbreviated month, four-digits year, separated by spaces:
+
+dates <- c("25 Mar 1981", "05 Dec 1981")
+as.Date(dates, format = "\%d \%b \%Y")
 
 }
 \references{
-Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
+Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
+  Protocols for Interchange of Data. Herbarium Information Systems Committee'
+  (HISCOM). https://www.tdwg.org/standards/hispid3/
+
+Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
+  Standardisation in data-entry across databases: Avoiding Babylonian
+  confusion. Taxon 57(2): 343-345.
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

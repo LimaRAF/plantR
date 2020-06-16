@@ -3,6 +3,7 @@
 # loading packages
 library(stringr)
 library(readr)
+library(usethis)
 
 # testei com todos as opções de ANSI disponível em iconvlist
 # all_incov <- iconvlist()
@@ -102,17 +103,32 @@ head(admin)
 head(replace_names)
 
 #Saving the sysdata
-save(autores,
-     collectionCodes,
-     families_synonyms,
-     field_names,
-     gazetteer,
-     admin,
-     replace_names,
-     unwanted_array,
-     missLocs,
-     wordsForSearch,
-     file = "R/sysdata.rda",
-     compress = "xz")
+usethis::use_data(autores,
+                  collectionCodes,
+                  families_synonyms,
+                  field_names,
+                  gazetteer,
+                  admin,
+                  replace_names,
+                  unwanted_array,
+                  missLocs,
+                  wordsForSearch,
+                  internal = TRUE,
+                  overwrite = TRUE,
+                  compress = "xz")
+
+#Saving the sysdata
+# save(autores,
+#      collectionCodes,
+#      families_synonyms,
+#      field_names,
+#      gazetteer,
+#      admin,
+#      replace_names,
+#      unwanted_array,
+#      missLocs,
+#      wordsForSearch,
+#      file = "R/sysdata.rda",
+#      compress = "xz")
 
 

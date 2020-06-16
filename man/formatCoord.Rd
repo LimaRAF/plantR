@@ -10,5 +10,5 @@ formatCoord(x)
 \item{x}{data.frame}
 }
 \description{
-
+This function...
 }
