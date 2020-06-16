@@ -22,8 +22,9 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
     countrycode,
-    devtools,
     data.table,
+    devtools,
+    dplyr,
     jsonlite,
     knitr,
     rgbif,

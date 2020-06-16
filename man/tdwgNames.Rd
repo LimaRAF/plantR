@@ -4,8 +4,12 @@
 \alias{tdwgNames}
 \title{Format Multiple People's Names To TDWG Standard}
 \usage{
-tdwgNames(x, sep.in = c(";", "&", " e ", " et ", "\\\\|"),
-  sep.out = " | ", out = c("all"))
+tdwgNames(
+  x,
+  sep.in = c(";", "&", " e ", " et ", "\\\\|"),
+  sep.out = " | ",
+  out = c("all")
+)
 }
 \arguments{
 \item{x}{the character string.}
@@ -51,11 +55,11 @@ the function returns all names.
   tdwgNames("Gert G. Hatschbach")
 
   # Names with generational suffixes
-  tdwgNames("LeitÃ£o Filho, H.F.; Shepherd, G.J.")
+  tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
   tdwgNames("Leitao Filho, HF")
 
   # Compound last names
-  tdwgNames("A. Ducke; DÃ¡rdano de Andrade-Lima")
+  tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
 
   # Multiple names separated by commas
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
