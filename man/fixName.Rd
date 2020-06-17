@@ -4,8 +4,7 @@
 \alias{fixName}
 \title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8",
-  to = "windows-1252//TRANSLIT")
+fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
 }
 \arguments{
 \item{x}{a character string with a name.}
@@ -37,12 +36,19 @@ The function fixes problems in name notation (e.g. orphan spaces) and
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
   fixName("Leitão F°, H.F.")
+<<<<<<< HEAD
   fixName("Leitão F°, H.F.", special.char = TRUE)
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
   fixName('F. da S.N. Thomé')
   fixName('Pedro L.R.de Morães')
 
+=======
+  fixName("Gert G. Hatschbach, et al.")
+  fixName("Karl Emrich & Balduino Rambo")
+  fixName('F. da S.N. Thom\xe9') #does not work on unix
+  fixName('Pedro L.R.de Morães')
+>>>>>>> dc288ccaa0416967b3954cfe52460e5861cbd9a5
 }
 \author{
 Renato A. F. de Lima
