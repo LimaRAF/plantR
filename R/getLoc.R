@@ -106,7 +106,7 @@ getLoc <- function(x,
 
   ## Getting coordinates from the gazetteer - county level or lower (provided in the occuurrence labels)
   if(all(gazet %in% c("plantR","plantr"))) {
-     dic <- plantR:::gazetteer
+     dic <- gazetteer
   } else {
     dic <- gazet
     if(!"resolution.gazetteer" %in% names(dic))

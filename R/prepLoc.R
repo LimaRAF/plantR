@@ -23,7 +23,7 @@
 prepLoc <- function(x) {
 
   # Removing unwanted characters
-  unwanted_array <- plantR:::unwanted_array
+  unwanted_array <- unwanted_array
   x <-
     tolower(chartr(
       paste(names(unwanted_array), collapse = ''),

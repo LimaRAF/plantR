@@ -12,7 +12,7 @@ Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
 Author: 
   Renato A. F. de Lima [aut, cre]
   Sara R. Mortara [aut]
-  Andrea Sanchéz-Tapia [ctb]
+  Andrea Sánchez-Tapia [ctb]
 Maintainer: Renato A. F. de Lima <renato.lima@naturalis.nl>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
@@ -32,6 +32,5 @@ Imports:
     jsonlite,
     knitr,
     rgbif,
-    stringr,
-    dplyr
+    stringr
 VignetteBuilder: knitr
