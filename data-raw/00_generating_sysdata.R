@@ -151,6 +151,10 @@ lapply(dic, head)
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
 
+# replace_names is missing, taking it from current sysdata.R
+devtools::load_all()#to take replace_names
+head(replace_names)
+write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")
 
 
 usethis::use_data(autores,
