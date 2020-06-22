@@ -104,10 +104,10 @@ fixLoc <- function(x,
   x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
 
   ## Loading the dictionary of names, terms and abbreviations to be replaced
-  dic <- plantR:::replace_names
-  unwanted_array <- plantR:::unwanted_array
-  missLocs <- plantR:::missLocs
-  wordsForSearch <- plantR:::wordsForSearch
+  dic <- replace_names
+  unwanted_array <- unwanted_array
+  missLocs <- missLocs
+  wordsForSearch <- wordsForSearch
 
   ### TRY TO GET FROM FILED LOCALITY INFOS FOM MISSING STATE AND COUNTY CONTAINING THE FOLLOWING TERMS:
   #departamento del
