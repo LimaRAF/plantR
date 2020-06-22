@@ -70,13 +70,8 @@ The function puts the name of multiple persons into the format as
   tdwgNames("Gert G. Hatschbach")
 
   # Names with generational suffixes
-<<<<<<< HEAD
-  tdwgNames("LeitÃ£o Filho, H.F.; Shepherd, G.J.")
-  tdwgNames("Leitao Filho, HF") ## CHECK!
-=======
   tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
-  tdwgNames("Leitao Filho, HF")
->>>>>>> dc288ccaa0416967b3954cfe52460e5861cbd9a5
+  tdwgNames("Leitao Filho, HF") ## CHECK!
 
   # Compound last names
   tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
