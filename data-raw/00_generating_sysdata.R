@@ -3,26 +3,36 @@
 # loading packages
 library(stringr)
 library(readr)
-library(usethis)
-
-# testei com todos as opções de ANSI disponível em iconvlist
+library(dplyr)
 # all_incov <- iconvlist()
 # nenhum dos ANSI ou WINDOWS funcionam
 # ansi <- all_incov[str_detect(all_incov, "ANSI")]
 # ruwin <- all_incov[str_detect(all_incov, "WINDOWS")]
 
-dic_files <- list.files(path = "dictionaries",
+#ast: this should be in data-raw/dictionaries
+dic_files <- list.files(path = "./data-raw",
                         pattern = "csv",
                         full.names = TRUE)
 
-encoding <- "ISO-8859-15" # substituir aqui pelo encoding correto
+#ast: usando guess_encoding para entender.
+loc_list <- purrr::map(dic_files,
+                       ~readr::guess_encoding(.))
+# hmmm
+# dic <- purrr::map2(.x = dic_files,
+#                    .y = loc_list,
+#                    .f = read_csv,
+#                    locale = locale(encoding = encoding))
+# but the ideal way is having correct enconding from the source
+
+encoding <- "ISO-8859-15" # substituir aqui pelo encoding correto #ast no such thing for now
 dic <- lapply(dic_files, read_csv, locale = locale(encoding = encoding))
 lapply(dic, head)
-
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
 
 # dai imagino que usaria o iconv para transformar em UTF-8
+# ast: não precisa transformar - a leitura vai permitir usar o arquivo tranquilo e suas opções predeterminadas de encoding para salvar deveriam ser UTF-8 anyway - no R e Rsatudio mesmo.
+
 #encoding_to <- "UTF-8"
 #dic <- lapply(dic, iconv, from = encoding, to = encoding_to)
 
@@ -30,6 +40,7 @@ dic <- lapply(dic, as.data.frame)
 # renato: acrescentei uma filtragem para tirar colunas/linhas desnecessárias e diminuir o tamanho dos arquivos
 # taxonomists:
 autores <- dic[[1]][ ,c("order","source","family","family.obs","full.name1","tdwg.name")]
+
 autores <- autores[!is.na(autores$tdwg.name), ]
 autores <- autores[!is.na(autores$family), ]
 autores <- autores[!grepl('\\?|,',autores$family), ]
@@ -65,8 +76,17 @@ admin <- admin[order(admin$priority), ]
 admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[admin$resolution.gazetteer %in% c("country","state","county","localidade"),] # removing localities below locality level (i.e. sublocalities)
-admin <- admin[, c("order","loc.correct","country_code","state_code",
-                             "NAME_0","NAME_1","NAME_2","NAME_3","source")]
+admin <- admin[, c(
+  "order",
+  "loc.correct",
+  "country_code",
+  "state_code",
+  "NAME_0",
+  "NAME_1",
+  "NAME_2",
+  "NAME_3",
+  "source"
+)]
 
 # names and abbreviation of localities to be replaced
 replace_names <- dic[[6]]
@@ -102,7 +122,28 @@ head(gazetteer)
 head(admin)
 head(replace_names)
 
-#Saving the sysdata
+#ast: se os arquivos ficaram bons vou salvar como csv e ler o encoding de novo :shrugs:
+dir.create("./data-raw/dictionaries")
+write_csv(autores, "./data-raw/dictionaries/autores.csv")
+write_csv(collectionCodes, "./data-raw/dictionaries/families_synonyms.csv")
+write_csv(families_synonyms, "./data-raw/dictionaries/collectionCodes.csv")
+write_csv(field_names, "./data-raw/dictionaries/field_names.csv")
+write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
+write_csv(admin, "./data-raw/dictionaries/admin.csv")
+
+###tentar ver se o encoding se resolveu mesmo:
+dic_files <- list.files(path = "./data-raw/dictionaries",
+                        pattern = "csv",
+                        full.names = TRUE)
+
+#ast: usando guess_encoding para entender.
+loc_list <- purrr::map(dic_files,
+                       ~readr::guess_encoding(.))
+
+loc_list
+#nelhorou mas ainda dá erros -UTF-8 agora
+
+
 usethis::use_data(autores,
                   collectionCodes,
                   families_synonyms,
@@ -113,22 +154,7 @@ usethis::use_data(autores,
                   unwanted_array,
                   missLocs,
                   wordsForSearch,
-                  internal = TRUE,
                   overwrite = TRUE,
+                  internal = TRUE,
                   compress = "xz")
-
-#Saving the sysdata
-# save(autores,
-#      collectionCodes,
-#      families_synonyms,
-#      field_names,
-#      gazetteer,
-#      admin,
-#      replace_names,
-#      unwanted_array,
-#      missLocs,
-#      wordsForSearch,
-#      file = "R/sysdata.rda",
-#      compress = "xz")
-
 
