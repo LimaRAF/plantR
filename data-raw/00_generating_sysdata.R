@@ -156,14 +156,19 @@ devtools::load_all()#to take replace_names
 head(replace_names)
 write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")
 
+guess_encoding("./data-raw/dictionaries/replace_names.csv")
+replace_names <- read_csv("./data-raw/dictionaries/replace_names.csv", locale = locale(encoding = "UTF-8"))
+replace_names <- data.frame(replace_names)
+write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")#doesn't change in disk, good.
 
+# Saving data
 usethis::use_data(autores,
                   collectionCodes,
                   families_synonyms,
                   field_names,
                   gazetteer,
                   admin,
-                  #replace_names,
+                  replace_names,
                   unwanted_array,
                   missLocs,
                   wordsForSearch,
