@@ -143,6 +143,15 @@ loc_list <- purrr::map(dic_files,
 loc_list
 #nelhorou mas ainda dá erros -UTF-8 agora
 
+encoding <- "UTF-8"
+dic <- lapply(dic_files,
+              read_csv,
+              locale = locale(encoding = encoding))
+lapply(dic, head)
+# transforma em data.frame
+dic <- lapply(dic, as.data.frame)
+
+
 
 usethis::use_data(autores,
                   collectionCodes,
@@ -150,7 +159,7 @@ usethis::use_data(autores,
                   field_names,
                   gazetteer,
                   admin,
-                  replace_names,
+                  #replace_names,
                   unwanted_array,
                   missLocs,
                   wordsForSearch,
