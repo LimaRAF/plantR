@@ -10,19 +10,21 @@ library(dplyr)
 # ruwin <- all_incov[str_detect(all_incov, "WINDOWS")]
 
 #ast: this should be in data-raw/dictionaries
-dic_files <- list.files(path = "./data-raw",
+dic_files <- list.files(path = "./data-raw/raw",
                         pattern = "csv",
                         full.names = TRUE)
 
 #ast: usando guess_encoding para entender.
 loc_list <- purrr::map(dic_files,
                        ~readr::guess_encoding(.))
+#esperando o upload das novas versões cruas desde o servidor da usp para verificar.
+
 # hmmm
 # dic <- purrr::map2(.x = dic_files,
 #                    .y = loc_list,
 #                    .f = read_csv,
 #                    locale = locale(encoding = encoding))
-# but the ideal way is having correct enconding from the source
+# but the ideal way is having correct encoding from the source
 
 encoding <- "ISO-8859-15" # substituir aqui pelo encoding correto #ast no such thing for now
 dic <- lapply(dic_files, read_csv, locale = locale(encoding = encoding))
@@ -61,17 +63,17 @@ gazetteer <- dic[[5]][ ,c("order","status","source","loc","loc.correct",
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
 gazetteer$priority <- as.double(as.character(factor(gazetteer$source, levels = unique(gazetteer$source),
-                                                     labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+                                                    labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
 gazetteer <- gazetteer[order(gazetteer$priority), ]
 gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
 admin <- dic[[5]][ ,c("order","status","source","country_code",
-                           "NAME_0","state_code","NAME_1","NAME_2","NAME_3","NAME_4",
-                           "loc","loc.correct","resolution.gazetteer")]
+                      "NAME_0","state_code","NAME_1","NAME_2","NAME_3","NAME_4",
+                      "loc","loc.correct","resolution.gazetteer")]
 admin <- admin[admin$status %in% "ok", ]
 admin$priority <- as.double(as.character(factor(admin$source, levels = unique(admin$source),
-                                                     labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+                                                labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
 admin <- admin[order(admin$priority), ]
 admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
@@ -157,7 +159,8 @@ head(replace_names)
 write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")
 
 guess_encoding("./data-raw/dictionaries/replace_names.csv")
-replace_names <- read_csv("./data-raw/dictionaries/replace_names.csv", locale = locale(encoding = "UTF-8"))
+replace_names <- read_csv("./data-raw/dictionaries/replace_names.csv",
+                          locale = locale(encoding = "UTF-8"))
 replace_names <- data.frame(replace_names)
 write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")#doesn't change in disk, good.
 
