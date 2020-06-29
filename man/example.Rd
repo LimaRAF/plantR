@@ -3,12 +3,17 @@
 \docType{data}
 \name{example}
 \alias{example}
-\title{Occurrence data of 300 species/morphospecies downloaded from speciesLink blabla}
-\format{An object of class \code{data.frame} with 504 rows and 35 columns.}
+\title{Dataset to illustrate the data editing and validation}
+\format{A data frame with 16,491 rows and 51 variables}
+\source{
+\url{http://splink.cria.org.br}
+}
 \usage{
-example
+data(example)
 }
 \description{
-Occurrence data of 300 species/morphospecies downloaded from speciesLink blabla
+A dataset containing the retrieved records of the species \italic{Trema
+micranta} and \italic{Casearia sylvestris} downloaded from the speciesLink network
+in June 2020.
 }
 \keyword{datasets}
