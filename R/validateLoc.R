@@ -82,8 +82,8 @@ validateLoc = function(x) {
                    resol.gazet %in% "country" &
                    x1$resol.orig %in% "stateProvince"] = "check_state2country"
 
-    # No changes (ok_same) and inofrmation not found even at country level (no_info)
-    x1$loc.check[x1$loc.check == TRUE] = "ok_same"
+    # No changes and information not found even at country level (no_info)
+    x1$loc.check[x1$loc.check == TRUE] = "ok_same_resolution"
     x1$loc.check[is.na(x1$loc.check)] = "no_info"
 
   ## Reporting the validation results

@@ -155,7 +155,7 @@ fixLoc <- function(x,
       reps1 = reps[reps %in% unique(x1[, "country"])]
       for(i in 1:length(reps)) x1[is.na(x1[ ,"country"]) & !is.na(x1[, "municipality"]) &
                                     x1[ ,"stateProvince"] %in% tmp1$condition1[tmp1$replace %in% reps1[i]], "country"] <-
-                                      reps1[i]
+          reps1[i]
     }
   }
 
@@ -184,7 +184,7 @@ fixLoc <- function(x,
     names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
     cond0 <- unique(tmp1$condition0)
     if("country" %in% names(x1)) {
-        if(any(cond0 %in% unique(x1[, "country"]))) {
+      if(any(cond0 %in% unique(x1[, "country"]))) {
           cond1 <- cond0[cond0 %in% unique(x1[, "country"])]
           for(i in 1:length(cond1))  x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] =
               stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2)

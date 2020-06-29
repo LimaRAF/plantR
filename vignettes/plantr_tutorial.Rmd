@@ -49,13 +49,11 @@ You can also use .csv files containing personal data or data downloaded manually
 	
 ## Downloading occurrence data with `plantR`
 
-We will use as an example a dataset downloaded from speciesLink, using the function `rspeciesLink`, which allows a variety of ways on how to search for data. In this tutorial, we will use data for (one/some) common Neotropical tree(s):
+We will use as an example a dataset downloaded from speciesLink, using the function `rspeciesLink`, which allows a variety of ways on how to search for data. In this tutorial, we will use data for two common Neotropical trees:
 
 ```{r, eval = FALSE}
-#spp <- c("Trema micrantha",
-#        "Myrcia splendens",
-#        "Casearia sylvestris")
-spp <- c("Trema micrantha")
+spp <- c("Trema micrantha",
+        "Casearia sylvestris")
 ```
 
 After defining the species name we want to obtain occurrence data, we proceed to the download itself. Here, we will use only herbarium plant specimens (i.e. vouchers) for the names listed above, including the list of synonyms accepted in the Brazilian Flora 2020 project (this may take a few minutes):
@@ -67,11 +65,14 @@ example <- rspeciesLink(scientificName =  spp,
                      Synonyms = "flora2020")
 ```
 
-The occurrence data is now stored in the object `example`. We can inspect how many occurrences were downloaded (about 4500 records and 50 fields):
+The occurrence data is now stored in the object `example`. We can inspect how many occurrences were downloaded:
 
 ```{r, eval = FALSE}
 dim(example$data)
 ```
+
+If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within `plantR` using the command `data(example)`.
+
 
 # Data processing
 
@@ -160,7 +161,7 @@ head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
 head(cbind(occs$yearIdentified, occs$yearIdentified.new), n = 15)
 ```
 
-These functions handle well most formats but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). However, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
+These functions handle well most formats, but not all of them  (e.g. name format 'A. Custódio, Filho' or date format "Jul-02"). However, this standardization will be very useful for the search of duplicated specimens across herbaria (see below).
 
 All the previous steps are important to understand the edtiton of each field. But, `plantR` can execute all these steps at once using the wrapper function `formatOcc()`:
 
@@ -256,12 +257,59 @@ occs = workCoord(occs)
 table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 ```	
 
-Now, there is a geographical coordinate at the best resolution available for almost all occurrences.
+Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.
 
 
 ## Editing species names: function `formatTax()`
 
-### Species names spelling, format/modificators and synonyms 
+### Species names format 
+Although we downloaded occurrences for only two species names (i.e.
+\italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
+`rspeciesLink` returned (as required) all synonyms accepted by the Brazilian
+Flora 2020 (\url{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}) were
+also downloaded. In addition, the speciesLink network
+(\url{http://splink.cria.org.br/}) stores the information as provided by the
+collections, which may vary in the way the scientific names are stored. For data
+downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
+since GBIF already stores data in a more standardized way.
+
+```{r, eval = FALSE}	
+sort(table(occs$scientificName))
+```
+
+There are many R packages that edit taxonomical information (e.g. `taxize` or
+`Taxonstand`). For species listed in the Brazilian Flora 2020, the package `flora` provides
+different tools to format and validate plant species names, folllowing the accepted nomenclature of the Brazilian Flora 2020 project. We will use it to do some formatting of species names.
+
+```{r, eval = FALSE}
+install.packages("flora")
+library(flora)
+occs$scientificName.new <- sapply(occs$scientificName, trim)
+occs$scientificName.new <- sapply(occs$scientificName.new, standardize.names)
+occs$scientificName.new <- sapply(occs$scientificName.new, remove.authors)
+```
+
+In `plantR` we offer a new function that perform all these step and an extra step, which is the extraction
+of the name modificators: "cf." and "aff.":
+
+#### FUNCTION TO BE CREATED? SARA/ANDREA, VCS JÁ TEM ALGO NESSA LINHA? QUAL O PADRÃO DARWINCORE NESSES CASOS?
+```{r, eval = FALSE}
+occs$scientificName.new <- gsub(" cf\\. | aff\\. ", " ", occs$scientificName.new)
+```
+
+### Species names spelling
+
+#### CHECK HERE: SÓ INCLUI AQUI UMA IMPROVISAÇÃO PARA PENSARMOS NO TUTORIAL... ACO QUE VCS JÁ DEVEM TER ALGO NESSA LINHA...
+The package `flora` and other packages provide tools to find typos in species names:
+```{r, eval = FALSE}
+name.list <- sapply(unique(occs$scientificName.new), suggest.names, max.distance = 0.85, return.na = TRUE)
+name.list <- name.list[!is.na(name.list) & !names(name.list) %in% name.list]
+for(i in 1:length(name.list)) occs$scientificName.new <- replace(occs$scientificName.new, grep(paste0("^",names(name.list)[i],"$"), occs$scientificName.new), name.list[i])
+```
+
+### Taxon rank
+
+#### REMOVE/STANDARDIZE INFRA-SPECIFIC RANKS
 
 
 # Data validation
@@ -282,20 +330,35 @@ occs = validateLoc(occs)
 table(occs$loc.check)
 ```	
 In this column, specimens for which the locality provided could not be found in
-the gazetteer at the same resolution are flagged with a "check_". In these
-cases, the locality resolution is downgraded until a locality is found. If even
-at the country level the locality is not found, then it is flagged as "no_info".
-We also flag all the specimens that retained their resolution (i.e. "ok_same")
-and those that could be retrieved at a better locality resolution, also flagged
-with an "ok_" (e.g. 'ok_state2municipality': 'stateProvince' level that is now
-at the 'municipality' level).
+the gazetteer at the same resolution are flagged with a "check_...". In these
+cases, the locality resolution is downgraded until a locality is found in the
+gazetteer. In the case that even the country is not found, then the locality is
+flagged as "no_info". We also flag all the specimens that retained their
+resolution (i.e. "ok_same_resolution") and those that could be retrieved at a better
+locality resolution, also flagged with an "ok_" (e.g. 'ok_state2municipality':
+'stateProvince' level that is now at the 'municipality' level).
+
+Note that many occurrences were flagged with a "check_...". The class "check_local.2municip."
+should not be a problem, since the internal `plantR` gazetteer does not contain a comprehensive
+list of names at the locality level. However, other "check_..." classes (e.g. "check_local.2country") may indicate missing information or typos that may need some more careful inspection.
 
 
 ## Geographical validation: function `validateCoord()`
 
 
-
 ## Taxonomic validation: function `validateTax()`
+
+### Species synonyms
+occs <- backup
+
+#### REVER AQUI: CRIAR FUNCOES? SINONIMOS É FORMATAÇÃO OU VALIDAÇÃO DOS NOMES?? 
+```{r, eval = FALSE}
+synonyms <- get.taxa(unique(occs$scientificName.new), suggestion.distance = 0.85, drop = NULL)
+synonyms <- synonyms[synonyms$notes %in% "replaced synonym",]
+for(i in 1:length(synonyms)) occs$scientificName.new <- gsub(paste0("^", synonyms$original.search[i],"$"), synonyms$search.str[i], occs$scientificName.new, perl = TRUE)
+```
+
+### Botanical family standardization
 
 ### Confidence level of species determinations
 
