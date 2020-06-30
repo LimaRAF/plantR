@@ -1,5 +1,5 @@
 ---
-title: "plantR Tutorial"
+title: "plantR tutorial"
 date: "`r Sys.Date()`"
 output:
     rmarkdown::html_vignette:
@@ -18,18 +18,66 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r, echo = FALSE, eval = TRUE}
+```{r load, echo = FALSE, eval = TRUE}
 devtools::load_all() # for development
 ```
 
 # Introduction
 
+## Problemática e objetivo do pacote
 
-plantR is an R package meant to format  <!-- ö acrescentar um objetivo mais   --> 
-+ noisy data from collections +
-+ gbif large totalizing project (bdd)
++ GBIF large totalizing project gathers data from collections around the world
+ + no correction from source
+ + no common format in spite of standard (darwinCore)
+ + changing standard (DarwinCore) versions
 
+
++ __within collections__
+  + each collector decides what info goes to the exsiccata
+  + changing traditions with time
+  + changing toponymes (names of localities)
+  + different decisions when digitalizing: which fields ($)
+  + human errors
+  + chronically underfunded: no way to update periodically what has been digitalized or to update to a changing standard
+  + TAMANHO da coleção
+  + filtros às vezes
+
++ Evolving taxonomy: synonyms
++ typographic errors
++ Multiplicity of notations regarding author names, localities, taxa names.
++ Lack of gazetteers
+
+JUST TO NAME A FEW
+  
+## Aim
+
+__plantR__ is an R package meant to format, standardize and validate the information that comes from different biodiversity databases, such as GBIF, species link,    <!-- ö acrescentar um objetivo mais   --> 
+
+## Público alvo/target users
+
++ Collections/curators
++ GBIF final users
+
+
+ 
 # Workflow overview 
+<!-- Estrutura do workflow (módulos, funções, a sequência) --> 
+
+## Dados/dicionário de dados/bases de dados 
+ <!-- a fonte criação e formatação de todas as bases de dados deveria estar documentada
+ descrita e se possível justificada-->
+ 
+ ## Dados: (reordenar à vontade)
+ + admin
+ + collectionCodes
+ + field_name
+ + replace_names
+ + autores
+ + families_synonyms
+ + gazetteer
+ 
+
+
 
 
 This tutorial provides basic explanations on the functions related to data 
@@ -391,7 +439,11 @@ almost all occurrences.
 
 ## Editing species names: function `formatTax()`
 
-### Species names spelling, format/modificators and synonyms 
+Species names spelling - tipográficos
+format/modificators
+synonyms 
+replace_names/suggest_name
+
 
 
 # Data validation
@@ -436,6 +488,7 @@ at the 'municipality' level).
 
 
 ## Taxonomic validation: function `validateTax()`
+
 
 ### Confidence level of species determinations
 
