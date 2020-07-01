@@ -63,6 +63,7 @@ example <- rspeciesLink(scientificName =  spp,
                      Scope = "plants",
                      basisOfRecord = "PreservedSpecimen",
                      Synonyms = "flora2020")
+
 ```
 
 The occurrence data is now stored in the object `example`. We can inspect how many occurrences were downloaded:
@@ -262,6 +263,13 @@ Now, missing coordinates were obtained from a gazetteer and there is a coordinat
 
 ## Editing species names: function `formatTax()`
 
+Suggestion of items adapted from the original workflow:
+4.0 Firt editing (flag indets, class taxon rank, remove authors)
+4.1 Remove cf. e aff. (and create a clomun for the name modificators?)
+4.2 Option to consider or not names at infraspecific level at specific level (e.g. remove ‘var.’, ‘subsp.’, ‘forma’, etc)
+4.3 Standardize the nomenclature (typos, synonyms and ortographical variants) -> Data editing or Data Validation??
+4.4 Edit family names to APG (plantR function `formatFamily`: step currently done using ‘flora’ and taxonStand packages)
+
 ### Species names format 
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
@@ -299,7 +307,7 @@ occs$scientificName.new <- gsub(" cf\\. | aff\\. ", " ", occs$scientificName.new
 
 ### Species names spelling
 
-#### CHECK HERE: SÓ INCLUI AQUI UMA IMPROVISAÇÃO PARA PENSARMOS NO TUTORIAL... ACO QUE VCS JÁ DEVEM TER ALGO NESSA LINHA...
+#### CHECK HERE: SÓ INCLUI AQUI UMA IMPROVISAÇÃO PARA PENSARMOS NO TUTORIAL... ACHO QUE VCS JÁ DEVEM TER ALGO NESSA LINHA...
 The package `flora` and other packages provide tools to find typos in species names:
 ```{r, eval = FALSE}
 name.list <- sapply(unique(occs$scientificName.new), suggest.names, max.distance = 0.85, return.na = TRUE)
@@ -309,7 +317,7 @@ for(i in 1:length(name.list)) occs$scientificName.new <- replace(occs$scientific
 
 ### Taxon rank
 
-#### REMOVE/STANDARDIZE INFRA-SPECIFIC RANKS
+#### REMOVE/STANDARDIZE INFRA-SPECIFIC RANKS?
 
 
 # Data validation
@@ -349,7 +357,6 @@ list of names at the locality level. However, other "check_..." classes (e.g. "c
 ## Taxonomic validation: function `validateTax()`
 
 ### Species synonyms
-occs <- backup
 
 #### REVER AQUI: CRIAR FUNCOES? SINONIMOS É FORMATAÇÃO OU VALIDAÇÃO DOS NOMES?? 
 ```{r, eval = FALSE}
@@ -358,12 +365,40 @@ synonyms <- synonyms[synonyms$notes %in% "replaced synonym",]
 for(i in 1:length(synonyms)) occs$scientificName.new <- gsub(paste0("^", synonyms$original.search[i],"$"), synonyms$search.str[i], occs$scientificName.new, perl = TRUE)
 ```
 
-### Botanical family standardization
+Note that there are more species names than the ones used to search for occurences. Some are due to name format and other are due to differences in the assignnemt of synonyms between speciesLink and the Brazilian Flora interface used here, the package `flora`.
 
-### Confidence level of species determinations
+### Botanical family synonyms and standardization (function `formatFamily`)
+The classification of the taxonomic confidence in species determination of each
+occurrence is currently performed based on a global list of taxonomists per
+family (see details below). Because different plant classification systems can
+use different names to the same family, we need to standardize family names. The
+standard used by `plantR` to obtain valid family names is the APG IV and the PPG
+I, which can be obtained using the function `formatFamily`:
 
+```{r, eval = FALSE}
+occs = formatFamily(occs)
+```
+
+Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
+
+### Confidence level of species determinations 
+backup <- occs
+
+Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.
+
+```{r, eval = FALSE}
+occs = validateTax(occs)
+table(occs$tax.check)/dim(occs)[1]
+```
+
+As expected, only ca. 15% of the specimesn were identified by a family specialist. Note that the function also returns a list with up to 10 names in the TDWG format that have more identifications. Maybe this name could represent a missing taxonomist from the database of taxonomists. If this is the case, one can add taxonomist to the validation using the argument `miss.taxonomist`:
+
+```{r, eval = FALSE}
+occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G.")
+table(occs1$tax.check)/dim(occs)[1]
+```
 	
-	
+This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the `plantR` default taxonist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalists is biased towards South America, particularly Brazil.
 
 
 # Duplicated specimens (FUNCTIONS NOT CREATED YET)

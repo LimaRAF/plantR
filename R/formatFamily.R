@@ -1,27 +1,36 @@
 #' @title Standardize Botanical Family
 #'
-#' @description The functions use the
+#' @description The functions use the ...
 #'
 #' @param x a data frame containing at least the columns `family`, `genus` and
 #'   `speciesName`.
 #'
 #' @return the data frame \code{x} with an additional column called 'family.new'.
 #'
-#' @details
-#'
-#' First search of names is based on the list of families and accepted synonyms
-#' from APG (version 14). If the family name is not found in the APG list, a
-#' search is carried in the Brazilian Flora 2020 (BF-2020), using package
-#' `flora`. If the family name is still not found in BF-2020, then a final try
-#' is performed in The Plant List (TPL), using package `Taxonstand`. Family
-#' names retrieved from BF-2020 and TPL are finally converted to the names
-#' accepted by APG.
+#' @details First search of names is based on the list of families and accepted synonyms
+#' for vascular plants obtained from the APG website
+#' (\href{http://www.mobot.org/MOBOT/research/APweb/}), which includes families
+#' cited in the APG IV (2016) and in the PPG I (2016). If the family name is not
+#' found in the APG list, a search is carried in the Brazilian Flora 2020
+#' (BF-2020), using package `flora`. If the family name is still not found in
+#' BF-2020, then a final try is performed in The Plant List (TPL), using package
+#' `Taxonstand`. Family names retrieved from BF-2020 and TPL are finally
+#' converted to the names accepted by the APG IV or PPG I.
 #'
 #' In case there is a conflict in the original family name and the name found
-#' based on the genus name, the original name is replaced by the name from APG
-#' with a warning.
+#' based on the genus name, the original name is replaced by the name from the
+#' APG IV or PPG I with a warning.
 #'
 #' @author Renato A. F. de Lima
+#'
+#' @references
+#'
+#' Angiosperm Phylogeny Group (2016). An update of the Angiosperm
+#' Phylogeny Group classification for the orders and families of flowering
+#' plants: APG IV. Bot. J. Linnean Soc. 181: 1-20.
+#'
+#' PPG I (2016). A community-derived classification for extant lycophytes and
+#' ferns. Journal of Systematics and Evolution. 54 (6): 563–603.
 #'
 #' @import data.table
 #' @importFrom flora get.taxa
@@ -31,16 +40,17 @@
 #'
 #' @examples
 #'
-#' occs <- data.frame(family = c("Ulmaceae", "Cannabaceae", "Salicaceae", "Flacourtiaceae", "Vivianiaceae"),
-#'                    genus = c("Trema", "Trema", "Casearia", "Casearia", "Casearia"),
-#'                    speciesName = c("Trema micrantha", "Trema micrantha", "Casearia sylvestris", "Casearia sylvestris","Casearia sylvestris"),
-#'                    stringsAsFactor = FALSE)
+#' occs <- data.frame(family = c("Ulmaceae", "Cannabaceae", "Salicaceae",
+#' "Flacourtiaceae", "Vivianiaceae"), genus = c("Trema", "Trema", "Casearia",
+#' "Casearia", "Casearia"), speciesName = c("Trema micrantha", "Trema
+#' micrantha", "Casearia sylvestris","Casearia sylvestris","Casearia
+#' sylvestris"), stringsAsFactor = FALSE)
 #' formatFamily(occs)
 #'
 formatFamily <- function(x) {
 
   # Getting the dictionaries
-  families.apg <- plantR:::families_synonyms
+  families.apg <- families_synonyms
 
   # Getting the list of families and their respective genera
   dt <- data.table::data.table(x)
@@ -61,14 +71,16 @@ formatFamily <- function(x) {
   # Any conflicts between original names and the ones retrieved in BF-2020?
   print.problems <- unique(families.data[!is.na(flora.br) & name.correct != flora.br, , ])
 
-  if(dim(print.problems)[1]>0) {
-    warning(paste("The following family names are problematic and were automatically replaced: \n",
-                  paste0(print.problems$genus,": ", print.problems$family, " -> ", print.problems$flora)))
+  if (dim(print.problems)[1] > 0) {
+    warning("The following family names are problematic and were automatically replaced:",
+            call. = FALSE)
+    warning(paste0(print.problems$genus,": ", print.problems$family, " -> ", print.problems$flora,"\n"),
+            call. = FALSE)
   }
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 
-  if(families.data[,any(is.na(name.correct))]) {
-    miss.families <- families.data[is.na(name.correct), family, ]
+  if (families.data[, any(is.na(name.correct))]) {
+    miss.families <- families.data[is.na(name.correct), family, F]
     genus.data <- dt[family %in% miss.families,
                      list(genus = unique(genus), species = unique(scientificName)),
                      by = "family"]
@@ -82,6 +94,10 @@ formatFamily <- function(x) {
   families.data <- merge(families.data,
                          families.apg[, c("name", "name.correct")],
                          by.x = "name.correct", by.y = "name", all.x = TRUE)
+
+  # If nothing was found, keep the original family
+  families.data[is.na(name.correct.y), name.correct.y := name.correct ]
+  families.data[is.na(name.correct.y), name.correct.y := family ]
 
   # Merging the results by family X genus with the occurrence data
   dt[, string.plantr := paste(family, genus, sep="_"), ]
