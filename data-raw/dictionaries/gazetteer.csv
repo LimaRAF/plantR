@@ -16566,7 +16566,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 16199,ok,splink_jabot,brazil_mato grosso_sao goncalo rio preto,brazil_minas gerais_sao goncalo rio preto,-18.07634488,-43.35850326,county,4
 16238,ok,splink_jabot,brazil_mato grosso_tarupah,brazil_mato grosso_tapurah,-12.45617408,-56.07302153,county,4
 16257,ok,splink_jabot,brazil_mato grosso_vila bela santa trindade,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
-16258,ok,splink_jabot,brazil_mato grosso_vila bela santŠ trindade,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
+16258,ok,splink_jabot,brazil_mato grosso_vila bela sant¦ trindade,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
 16259,ok,splink_jabot,brazil_mato grosso_vila bela santissima,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
 16260,ok,splink_jabot,brazil_mato grosso_vila bela santissima trind,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
 16261,ok,splink_jabot,brazil_mato grosso_vila bela santissima trinda,brazil_mato grosso_vila bela santissima trindade,-15.18949844,-59.99007708,county,4
@@ -16771,9 +16771,9 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 17264,ok,splink_jabot,brazil_minas gerais_serra ibitipoca,brazil_minas gerais_lima duarte_serra ibitipoca,-21.700496,-43.899251,localidade,4
 17276,ok,splink_jabot,brazil_minas gerais_serranopolis,brazil_minas gerais_serranopolis minas,-15.85684929,-42.8622205,county,4
 17287,ok,splink_jabot,brazil_minas gerais_sta pirapama,brazil_minas gerais_santana pirapama,-18.91887039,-43.90477072,county,4
-17288,ok,splink_jabot,brazil_minas gerais_stŠ pirapama,brazil_minas gerais_santana pirapama,-18.91887039,-43.90477072,county,4
-17289,ok,splink_jabot,brazil_minas gerais_stŠ rita jacutinga,brazil_minas gerais_santa rita jacutinga,-22.09930145,-44.09596628,county,4
-17291,ok,splink_jabot,brazil_minas gerais_stŠa rita jacutinga,brazil_minas gerais_santa rita jacutinga,-22.09930145,-44.09596628,county,4
+17288,ok,splink_jabot,brazil_minas gerais_st¦ pirapama,brazil_minas gerais_santana pirapama,-18.91887039,-43.90477072,county,4
+17289,ok,splink_jabot,brazil_minas gerais_st¦ rita jacutinga,brazil_minas gerais_santa rita jacutinga,-22.09930145,-44.09596628,county,4
+17291,ok,splink_jabot,brazil_minas gerais_st¦a rita jacutinga,brazil_minas gerais_santa rita jacutinga,-22.09930145,-44.09596628,county,4
 17297,ok,splink_jabot,brazil_minas gerais_taiobeira,brazil_minas gerais_taiobeiras,-15.82241487,-42.05331845,county,4
 17301,ok,splink_jabot,brazil_minas gerais_taquaracu,brazil_minas gerais_taquaracu minas,-19.6343133,-43.68629564,county,4
 17305,ok,splink_jabot,brazil_minas gerais_teixeira,brazil_minas gerais_teixeiras,-20.63230565,-42.86305695,county,4
@@ -17524,7 +17524,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 21800,ok,splink_jabot,brazil_sao paulo_sjrio preto,brazil_sao paulo_sao jose rio preto,-20.79748841,-49.35832492,county,4
 21801,ok,splink_jabot,brazil_sao paulo_sjrp,brazil_sao paulo_sao jose rio preto,-20.79748841,-49.35832492,county,4
 21807,ok,splink_jabot,brazil_sao paulo_sta rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county,4
-21808,ok,splink_jabot,brazil_sao paulo_stŠ rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county,4
+21808,ok,splink_jabot,brazil_sao paulo_st¦ rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county,4
 21809,ok,splink_jabot,brazil_sao paulo_sta.rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county,4
 21810,ok,splink_jabot,brazil_sao paulo_sto antonio pinhal,brazil_sao paulo_santo antonio pinhal,-22.83155421,-45.69786919,county,4
 21813,ok,splink_jabot,brazil_sao paulo_subauma,brazil_sao paulo_iguape,-24.54595667,-47.47318778,county,4

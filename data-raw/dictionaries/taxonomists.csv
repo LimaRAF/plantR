@@ -900,7 +900,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 900,huh,Cactaceae,NA,Roy Mottram,"Mottram, R."
 901,huh,Cactaceae,NA,Nigel Paul Taylor,"Taylor, N.P."
 902,huh,Cactaceae,NA,Nicolai,Nicolai
-903,huh,Cactaceae,NA,Otakar ída,"Sida, O."
+903,huh,Cactaceae,NA,Otakar Šída,"Sida, O."
 904,huh,Cactaceae,NA,Paolo Panarotto,"Panarotto, P."
 905,huh,Cactaceae,NA,Pablo Picca,"Picca, P."
 906,huh,Cactaceae,NA,Patoni,Patoni
@@ -5575,9 +5575,9 @@ order,source,family,family.obs,full.name1,tdwg.name
 5577,huh,Bromeliaceae,NA,John F. Utley,"Utley, J.F."
 5578,huh,Malvaceae,NA,Gerleni Lopes Esteves,"Esteves, G.L."
 5579,huh,Malvaceae,Bombacoideae,Gerleni Lopes Esteves,"Esteves, G.L."
-5580,huh,Malvaceae,"Pavonia,ÿCavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
-5581,huh,Malvaceae,"Pavonia,ÿCavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
-5582,huh,Malvaceae,"Pavonia,ÿCavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
+5580,huh,Malvaceae,"Pavonia, Cavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
+5581,huh,Malvaceae,"Pavonia, Cavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
+5582,huh,Malvaceae,"Pavonia, Cavanilles",Paul Arnold Fryxell,"Fryxell, P.A."
 5583,huh,Aquifoliaceae,NA,Milton Groppo Junior,"Groppo, M."
 5584,huh,Celastraceae,NA,Milton Groppo Junior,"Groppo, M."
 5585,huh,Poaceae,NA,Diego Giraldo-Cañas,"Giraldo-Canas, D."
@@ -6850,8 +6850,8 @@ order,source,family,family.obs,full.name1,tdwg.name
 7110,aspt,Campanulaceae,NA,Ki Oug Yoo,"Yoo, K.O."
 7111,aspt,Violaceae,NA,Ki Oug Yoo,"Yoo, K.O."
 7112,aspt,Pteridophyta,NA,Elizabeth A. Zimmer,"Zimmer, E.A."
-7113,flora_neotropica,Siparunaceae,"Siparuna,ÿGlossocalyx",Susanne S. Renner,"Renner, S.S."
-7114,flora_neotropica,Siparunaceae,"Siparuna,ÿGlossocalyx",G. Hausner,"Hausner, G."
+7113,flora_neotropica,Siparunaceae,"Siparuna, Glossocalyx",Susanne S. Renner,"Renner, S.S."
+7114,flora_neotropica,Siparunaceae,"Siparuna, Glossocalyx",G. Hausner,"Hausner, G."
 7115,flora_neotropica,Cecropiaceae,Cecropia,Cornelis C. Berg,"Berg, C.C."
 7116,flora_neotropica,Cecropiaceae,Cecropia,Pilar Franco Rosselli,"Rosselli, P.F."
 7117,flora_neotropica,Cecropiaceae,Cecropia,Pilar Franco Rosselli,"Franco Rosselli, P."
@@ -6864,27 +6864,27 @@ order,source,family,family.obs,full.name1,tdwg.name
 7124,flora_neotropica,Pinaceae,Pinus,Aljos Farjon,"Farjon, A."
 7125,flora_neotropica,Pinaceae,Pinus,Brian Thomas Styles,"Styles, B.T."
 7126,flora_neotropica,Arecaceae,Allagoptera,Monica Moraes Ramírez,"Monica, M.R."
-7127,flora_neotropica,Arecaceae,"Euterpe,ÿPrestoea, andÿNeonicholsonia",Gloria Galeano (Gloria Galeano Garcs),"Galeano, G."
+7127,flora_neotropica,Arecaceae,"Euterpe, Prestoea, and Neonicholsonia",Gloria Galeano (Gloria Galeano Garc‚s),"Galeano, G."
 7128,flora_neotropica,Juncaceae,NA,Henrik Balslev,"Balslev, H."
 7129,flora_neotropica,Alismataceae,NA,Robert R. Haynes,"Haynes, R.R."
 7130,flora_neotropica,Alismataceae,NA,Lauritz B. Holm-Nielsen,"Holm-Nielsen, L.B."
 7131,flora_neotropica,Limnocharitaceae,NA,Robert R. Haynes,"Haynes, R.R."
 7132,flora_neotropica,Limnocharitaceae,NA,Lauritz B. Holm-Nielsen,"Holm-Nielsen, L.B."
-7133,flora_neotropica,Cecropiaceae,"Coussapoa,ÿPourouma",Reinier W. A. P. Akkermans,"Akkermans, R.W.A.P."
-7134,flora_neotropica,Cecropiaceae,"Coussapoa,ÿPourouma",E. C. H. van Heusden,"Heusden, E.C.H.V."
-7135,flora_neotropica,Cecropiaceae,"Coussapoa,ÿPourouma",E. C. H. van Heusden,"Heusden, E.C.H."
+7133,flora_neotropica,Cecropiaceae,"Coussapoa, Pourouma",Reinier W. A. P. Akkermans,"Akkermans, R.W.A.P."
+7134,flora_neotropica,Cecropiaceae,"Coussapoa, Pourouma",E. C. H. van Heusden,"Heusden, E.C.H.V."
+7135,flora_neotropica,Cecropiaceae,"Coussapoa, Pourouma",E. C. H. van Heusden,"Heusden, E.C.H."
 7136,flora_neotropica,Krameriaceae,NA,Beryl B. Simpson,"Simpson, B.B."
 7137,flora_neotropica,Chloranthaceae,NA,Carol A. Todzia,"Todzia, C.A."
 7138,flora_neotropica,Burmanniaceae,NA,H. Maas-van de Kamer,"Kamer, H.M."
 7139,flora_neotropica,Burmanniaceae,NA,J. van Benthem,"Benthem, J."
 7140,flora_neotropica,Burmanniaceae,NA,H. C. M. Snelders,"Snelders, H.C.M."
 7141,flora_neotropica,Burmanniaceae,NA,T. Rübsamen,"Rubsamen, T."
-7142,flora_neotropica,Gentianaceae,VoyriaÿandÿVoyriella,P. Ruyters,"Ruyters, P."
+7142,flora_neotropica,Gentianaceae,Voyria and Voyriella,P. Ruyters,"Ruyters, P."
 7143,flora_neotropica,Triuridaceae,NA,T. Rübsamen,"Rubsamen, T."
-7144,flora_neotropica,Rubiaceae,"Gleasonia,ÿHenriquezia, andÿPlatycarpum",George King Rogers,"Rogers, G.K."
+7144,flora_neotropica,Rubiaceae,"Gleasonia, Henriquezia, and Platycarpum",George King Rogers,"Rogers, G.K."
 7145,flora_neotropica,Olacaceae,NA,Hermann Otto Sleumer,"Sleumer, H.O."
 7146,flora_neotropica,Rutaceae,Pilocarpinae,Roel C. Kaastra,"Kaastra, R.C."
-7147,flora_neotropica,Lauraceae,"Aniba,ÿAiouea",Susanne S. Renner,"Renner, S.S."
+7147,flora_neotropica,Lauraceae,"Aniba, Aiouea",Susanne S. Renner,"Renner, S.S."
 7148,flora_neotropica,Meliaceae,NA,Terence Dale Pennington,"Pennington, T.D."
 7149,flora_neotropica,Meliaceae,NA,Terence Dale Pennington,"J. R. Pennington, T.D."
 7150,flora_neotropica,Cochlospermaceae,NA,Hans-Helmut Poppendieck,"Poppendieck, H."
@@ -7252,7 +7252,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 7710,herbaria,Melastomataceae,Ossaea,Maria Leonor D'El Rei Souza,"Souza, M.L."
 7711,herbaria,Melastomataceae,Ossaea,Maria Leonor D'El Rei Souza,"Souza, M.L.R."
 7713,herbaria,Meliaceae,NA,João Aurélio Pastore,"Pastore, J.A."
-7714,herbaria,Menispermaceae,NA,Rupert CharlesÿBarneby,"Barneby, R.C."
+7714,herbaria,Menispermaceae,NA,Rupert Charles Barneby,"Barneby, R.C."
 7715,herbaria,Menispermaceae,NA,B.A. Krukoff,"Krukoff, B.A."
 7716,aspt,Menispermaceae,NA,Rosa Del Carmen Ortiz-Gentry,"Ortiz, R."
 7717,herbaria,Metteniusaceae,NA,NA,"Mazine, F.F."
@@ -7505,7 +7505,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8062,huh,Annonaceae,NA,Paulus Johannes Maria Maas,"Maas, P."
 8063,aspt,Rubiaceae,NA,David H. Lorence,"Lorence, D."
 8064,rbh,Rubiaceae,NA,Jomar Gomes Jardim,"Jardim, J."
-8065,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E.F."
+8065,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraœes, E.F."
 8066,huh,Lauraceae,NA,Jens Gunter Rohwer,"Rohwer, J."
 8067,huh,Meliaceae,NA,Walter A. Palacios,"Palacios, W."
 8068,huh,Sapindaceae,NA,Pieter Willem Leenhouts,"Leenhouts, P."
@@ -7528,18 +7528,18 @@ order,source,family,family.obs,full.name1,tdwg.name
 8085,herbaria,Fabaceae,Bauhinia/Schnella,Angela Maria Studart da Fonseca Vaz,"Vaz, A."
 8086,huh,Myrtaceae,NA,Rogers McVaugh,"McVaugh, R."
 8087,huh,Rutaceae,NA,Jacquelyn Ann Kallunki,"Kallunki, J."
-8088,huh,Malvaceae,"Pavonia,ÿCavanilles",Paul Arnold Fryxell,"Fryxell, P."
+8088,huh,Malvaceae,"Pavonia, Cavanilles",Paul Arnold Fryxell,"Fryxell, P."
 8089,huh,Myrtaceae,NA,Joao Rodrigues Mattos,"Mattos, J."
 8090,huh,Fabaceae,NA,James Walter Grimes,"Grimes, J."
 8091,huh,Rubiaceae,NA,Charlotte Morley Taylor,Taylor C.
 8092,huh,Rubiaceae,NA,Charlotte Morley Taylor,Taylor C.
 8093,huh,Rubiaceae,NA,Brian Morley Boom,"Boom, B."
-8094,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao, A."
+8094,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobaœo, A."
 8095,huh,Malpighiaceae,NA,William Russell Anderson,"Anderson, W."
 8096,aspt,Rubiaceae,NA,Joseph Harold Kirkbride Junior,"""Kirkbride Junior, J.H."
 8097,huh,Lauraceae,NA,Henk van der Werff,"van der Werff, H."
 8098,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Espirito-Santo, F.S."
-8099,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E."
+8099,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraœes, E."
 8100,flora_neotropica,Chloranthaceae,NA,Carol A. Todzia,"Todzia, C."
 8101,aspt,Piperaceae,Piper,Allan Bornstein,"Bornstein, A.J."
 8102,herbaria,Clusiaceae,NA,John James Pipoly,"Pipoly, J."
@@ -7651,7 +7651,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8208,renato,Heliotropiaceae,NA,María Goreti Campos Ríos,"Campos, G."
 8209,renato,Boraginaceae,NA,María Goreti Campos Ríos,"Campos, G."
 8210,herbaria,Verbenaceae,NA,Barry E. Hammel,"Hammel, B."
-8211,herbaria,Menispermaceae,NA,Rupert CharlesÿBarneby,"Barneby, R."
+8211,herbaria,Menispermaceae,NA,Rupert Charles Barneby,"Barneby, R."
 8212,herbaria,Fabaceae,NA,Bente B. Klitgaard,"Klitgard, B.B."
 8213,herbaria,Primulaceae,NA,John James Pipoly,Pipoly J.
 8214,herbaria,Euphorbiaceae,NA,Hans Joachim Esser,"Esser, H.-J."
@@ -7679,7 +7679,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8236,rbh,Bignoniaceae,NA,Lucia G. Lohmann,"Lohmann, L."
 8237,huh,Clusiaceae,NA,Lucas Cardoso Marinho,"Marinho, L."
 8238,rbh,Fabaceae,NA,Maria Conceição de Souza,"Souza, M."
-8239,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao, A.Q."
+8239,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobaœo, A.Q."
 8240,huh,Euphorbiaceae,NA,José Carmelo Murillo-Aldan,Murillo J.
 8241,herbaria,Myrtaceae,NA,Bruno Sampaio Amorim,Amorim
 8242,flora_neotropica,Fabaceae,Swartzia,Richard S. Cowan,Cowan
@@ -7779,7 +7779,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8336,herbaria,Sterculiaceae,NA,Janice G. Saunders,"Saunders, J."
 8337,herbaria,Urticaceae,NA,Cornelis C. Berg,Berg
 8338,huh,Lauraceae,NA,Henk van der Werff,Werff
-8339,huh,Malvaceae,"Pavonia,ÿCavanilles",Paul Arnold Fryxell,Fryxell
+8339,huh,Malvaceae,"Pavonia, Cavanilles",Paul Arnold Fryxell,Fryxell
 8340,huh,Arecaceae,NA,William James Hahn,"Hahn, W."
 8341,herbaria,Ebenaceae,NA,Cynthia A. Sothers,"Sothers, C."
 8342,aspt,Rubiaceae,NA,Joseph Harold Kirkbride Junior,"Kirkbride, J."
@@ -7858,7 +7858,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8415,huh,Acanthaceae,NA,L. H. Durkee,"Durkee, L."
 8416,herbaria,Annonaceae,NA,Heimo Rainer,Rainer
 8417,huh,Myrtaceae,NA,Carolyn Elinore Barnes Proenca,Proenca C.
-8418,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao, A."
+8418,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao, A."
 8419,flora_neotropica,Chloranthaceae,NA,Carol A. Todzia,Todzia
 8420,herbaria,Euphorbiaceae,NA,Hans Joachim Esser,Esser H.
 8421,huh,Malpighiaceae,NA,William Russell Anderson,Anderson W.R.
@@ -7972,7 +7972,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8530,rbh,Fabaceae,NA,Haroldo C. Lima,"Lima, H.C"
 8531,huh,Piperaceae,NA,Ricardo Callejas-Posada,Callejas
 8532,huh,Piperaceae,NA,Ricardo Callejas-Posada,"Callejas, P.R."
-8533,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E.F."
+8533,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E.F."
 8534,aspt,Cyatheaceae,NA,Robbin C. Moran,"Moran, R."
 8535,herbaria,Dicksoniaceae,"Cyathea, Dicksonia",R. Tryon,Tryon
 8536,rbh,Fabaceae,Mimosa,Marcelo Fragomeni Simon,"Simon, M."
@@ -8069,7 +8069,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8627,rbh,Euphorbiaceae,NA,Ricardo S. Secco,Secco
 8628,herbaria,Fabaceae,NA,John E. Ebinger,"Ebinger, J."
 8629,rbh,Myrtaceae,NA,Fiorella Fernanda Mazine-Capelo,"Mazine-Capelo, F."
-8630,flora_neotropica,Rubiaceae,"Gleasonia,ÿHenriquezia, andÿPlatycarpum",George King Rogers,"Rogers, G."
+8630,flora_neotropica,Rubiaceae,"Gleasonia, Henriquezia, and Platycarpum",George King Rogers,"Rogers, G."
 8631,huh,Solanaceae,NA,William Gerald D'Arcy,"D\\arcy, W.G."
 8633,aspt,Malvaceae,NA,Massimo G. Bovini,"Bovini, M."
 8634,huh,Rubiaceae,NA,Charlotte Morley Taylor,"Taylor, C.M..."
@@ -8114,7 +8114,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8673,aspt,Euphorbiaceae,"Euphorbia, Croton",Paul Edward Berry,"P. Berry, /"
 8674,huh,Malvaceae,Bombacoideae,Gerleni Lopes Esteves,"Esteves, G."
 8675,huh,Solanaceae,NA,William Gerald D'Arcy,"Arcy, W.G.D."
-8676,rbh,Trigoniaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E.F."
+8676,rbh,Trigoniaceae,NA,Elsie Franklin Guimarães,"Guimaraœes, E.F."
 8677,herbaria,Celastraceae,NA,Alberta Maria Wilhelmina Mennega,Mennega
 8678,herbaria,Lamiaceae,NA,Amy Pool,Pool
 8679,rbh,Lauraceae,NA,Pedro Luís Rodrígues de Moraes,"Moraes/-, P."
@@ -8252,7 +8252,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 8815,huh,Melastomataceae,NA,Renato Goldenberg,"Goldenber, R."
 8816,aspt,Menispermaceae,NA,Rosa Del Carmen Ortiz-Gentry,"Ortiz-Gentry, R."
 8817,huh,Myrtaceae,NA,Carolyn Elinore Barnes Proenca,Proenca
-8818,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao, A."
+8818,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobaœo, A."
 8819,aspt,Thelypteridaceae,Thelypteris,Alan R. Smith,"Smith, A."
 8820,huh,Velloziaceae,NA,Renato de Mello-Silva,Mello-Silva
 8821,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lobao/-, A."
@@ -8300,8 +8300,8 @@ order,source,family,family.obs,full.name1,tdwg.name
 8863,huh,Piperaceae,NA,Elsie Franklin Guimarães,"""Guimaraes, E.F."
 8864,huh,Piperaceae,NA,Elsie Franklin Guimarães,"E.F, Guimaraes"
 8865,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Gimaraes, E.F."
-8866,huh,Piperaceae,NA,Elsie Franklin Guimarães,"GuimarAes, E.F"
-8867,huh,Piperaceae,NA,Elsie Franklin Guimarães,"GuimarAes, E.F."
+8866,huh,Piperaceae,NA,Elsie Franklin Guimarães,"GuimarAœes, E.F"
+8867,huh,Piperaceae,NA,Elsie Franklin Guimarães,"GuimarAœes, E.F."
 8868,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E.F"
 8869,huh,Piperaceae,NA,Elsie Franklin Guimarães,"Gumaraes, E.F."
 8870,huh,Fabaceae,NA,Rupert Charles Barneby,Barneby
@@ -8314,12 +8314,12 @@ order,source,family,family.obs,full.name1,tdwg.name
 8877,huh,Fabaceae,Caesalpinioideae,Edson Paula Nunes,"Nunes, E."
 8878,huh,Rubiaceae,NA,Charlotte Morley Taylor,Taylor
 8879,huh,Rubiaceae,NA,Charlotte Morley Taylor,"Taylor, C.'."
-8880,rbh,Annonaceae,NA,Adriana Quintella Lobão,"LobAo, A."
+8880,rbh,Annonaceae,NA,Adriana Quintella Lobão,"LobAœo, A."
 8881,rbh,Annonaceae,NA,Adriana Quintella Lobão,"Lob?o, A."
 8882,renato,Melastomataceae,Leandra,Marcelo Reginato,"Reginato, M."
 8883,herbaria,Monimiaceae,NA,Elton John de Lírio,"La?rio, E.J."
 8884,herbaria,Monimiaceae,NA,Elton John de Lírio,"LA?rio, E.J."
-8885,rbh,Trigoniaceae,NA,Elsie Franklin Guimarães,"Guimaraes, E."
+8885,rbh,Trigoniaceae,NA,Elsie Franklin Guimarães,"Guimaraœes, E."
 8887,aspt,Amaryllidaceae,NA,Bee F. Gunn,"Gunn, B.F."
 8888,aspt,Euphorbiaceae,Macaranga,Frank R. Blattner,"Blattner, F.R."
 8889,aspt,Iridaceae,Crocus,Frank R. Blattner,"Blattner, F.R."
@@ -8451,7 +8451,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 9138,huh,Asteraceae,NA,Marta Lucia Bueno,"Bueno, M."
 9142,huh,Rubiaceae,NA,Rocio del Pilar Cortés-Ballen,"Ballen, R.D.P.C."
 9144,huh,Asteraceae,NA,Santiago Diaz Piedrahita,"Piedrahita, S."
-9146,https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Colombia,Arecaceae,"Euterpe,ÿPrestoea, andÿNeonicholsonia",Gloria Galeano (Gloria Galeano Garcés),"Garcs, G.G."
+9146,https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Colombia,Arecaceae,"Euterpe, Prestoea, and Neonicholsonia",Gloria Galeano (Gloria Galeano Garcés),"Garc‚s, G.G."
 9149,renato,Melastomataceae,NA,Gustavo Lozano Contreras,"Contreras, G.L."
 9151,huh,Asteraceae,NA,Gina Paola Mendez,"Mendez, G."
 9154,huh,Myrtaceae,NA,Maria Eugenia Morales-Puentes,"Morales-Puentes, M."
@@ -8508,3 +8508,12 @@ order,source,family,family.obs,full.name1,tdwg.name
 9284,herbaria,Euphorbiaceae,Croton,Rainan Matos Deda,"Deda, R.M."
 9285,herbaria,Lauraceae,NA,Henrique Lauand Ribeiro,"Ribeiro, H.L."
 9286,rbh,Lauraceae,NA,Leandro Cezanne de Souza Assis,"Cezanne, L."
+9287,herbaria,Quillajaceae,NA,Federico Luebert,"Luebert, F."
+9288,herbaria,Quillajaceae,NA,NA,"Fuks, R."
+9289,flora_neotropica,Opiliaceae,NA,Paul Hiepko,Hiepko
+9290,flora_neotropica,Opiliaceae,NA,Paul Hiepko,"Heipko, P."
+9291,flora_neotropica,Opiliaceae,NA,Paul Hiepko,"Hiepko, P.H."
+9292,herbaria,Bignoniaceae,NA,Milene Maria da Silva Castro,"Silva, M.M."
+9293,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Espirito Santo, F.S."
+9294,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Santo, F.E."
+9295,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Santo, F.S.E."
