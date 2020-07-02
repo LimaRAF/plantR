@@ -36,17 +36,16 @@ names(wo@data)[2] <- "NAME_0"
 wo.simp <- gSimplify(wo, tol=0.001, topologyPreserve = TRUE)
 wo.simp <- gBuffer(wo.simp, byid=TRUE, width=0)
 wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
-wo.simp1 <- sf::st_as_sf(wo.simp1)
+worldMap <- sf::st_as_sf(wo.simp1)
 #wo.simp2 <- sf::st_buffer(wo.simp1, dist = 0)
 
 #Inspecting
 plot(wo[1,])
 plot(wo.simp[1,], border = "red")
-plot(wo.simp1[1,1], border = "green")
+plot(worldMap[1,1], border = "green")
 
 #Saving
-#save(wo.simp, file = "./data/worldMap.rda", compress = "xz")
-save(wo.simp1, file = "./data/worldMap.rda", compress = "xz")
+save(worldMap, file = "./data/worldMap.rda", compress = "xz")
 
 
 ### LATIN AMERICAN MAP FOR VALIDATION ###
