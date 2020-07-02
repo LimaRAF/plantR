@@ -1,4 +1,4 @@
-order,source,name,name.correct,order.correct
+ï»¿order,source,name,name.correct,order.correct
 1,apg_v14,Abietaceae,Pinaceae,Pinales
 2,apg_v14,Abolbodaceae,Xyridaceae,Poales
 3,apg_v14,Abrophyllaceae,Rousseaceae,Asterales
@@ -214,7 +214,7 @@ order,source,name,name.correct,order.correct
 213,apg_v14,Blitaceae,Amaranthaceae,Caryophyllales
 214,apg_v14,Blyxaceae,Hydrocharitaceae,Alismatales
 215,apg_v14,Boerlagellaceae,Sapotaceae,Ericales
-216,apg_v14,Bogutchanthaceae,Bogutchanthaceae,"fossil ??""Hamamelidales"""
+216,apg_v14,Bogutchanthaceae,Bogutchanthaceae,Hamamelidales
 217,apg_v14,Bolbitidaceae,Dryopteridaceae,Polypodiales (Eupolypod I)
 218,apg_v14,Bolivaraceae,Oleaceae,Lamiales
 219,apg_v14,Bombacaceae,Malvaceae,Malvales
@@ -820,7 +820,7 @@ order,source,name,name.correct,order.correct
 819,apg_v14,Irvingiaceae,Irvingiaceae,Malpighiales
 820,apg_v14,Isatidaceae,Brassicaceae,Brassicales
 821,apg_v14,Isnardiaceae,Onagraceae,Myrtales
-822,apg_v14,Isoëtaceae,Isoëtaceae,Lycopodiales
+822,apg_v14,IsoÃ«taceae,IsoÃ«taceae,Lycopodiales
 823,apg_v14,Isophysidaceae,Iridaceae,Asparagales
 824,apg_v14,Iteaceae,Iteaceae,Saxifragales
 825,apg_v14,Ivaceae,Asteraceae,Asterales

@@ -8897,14 +8897,14 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 8922,ok,gdam,guyana_upper demerara berbice_mabura hills,guyana_upper demerara berbice_mabura hills,5.186324529,-58.52084882,county,2
 8923,ok,gdam,guyana_upper demerara berbice_makouria river,guyana_upper demerara berbice_makouria river,6.118874923,-58.4990429,county,2
 8924,ok,gdam,guyana_upper demerara berbice_rest of region 10,guyana_upper demerara berbice_rest of region 10,5.299540206,-58.38909003,county,2
-8925,ok,gdam,"guyana_upper takutu upper essequibo_aishalton   karaudanawa, achiwib","guyana_upper takutu upper essequibo_aishalton   karaudanawa, achiwib",2.263843641,-59.45740602,county,2
+8925,ok,gdam,"guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib","guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib",2.263843641,-59.45740602,county,2
 8926,ok,gdam,guyana_upper takutu upper essequibo_ireng / sawariwau (including  st. ignatius),guyana_upper takutu upper essequibo_ireng / sawariwau (including  st. ignatius),3.259916484,-59.70611834,county,2
 8927,ok,gdam,guyana_upper takutu upper essequibo_marudi,guyana_upper takutu upper essequibo_marudi,2.007330327,-59.45304724,county,2
 8928,ok,gdam,guyana_upper takutu upper essequibo_rest of region 9,guyana_upper takutu upper essequibo_rest of region 9,2.70465464,-58.72555546,county,2
-8929,ok,gdam,"guyana_upper takutu upper essequibo_sand creek   dadanawa, catunarib, sawariwau","guyana_upper takutu upper essequibo_sand creek   dadanawa, catunarib, sawariwau",2.847349084,-59.41573647,county,2
-8930,ok,gdam,guyana_upper takutu upper essequibo_toka   jakaretinga,guyana_upper takutu upper essequibo_toka   jakaretinga,3.727505972,-59.52519053,county,2
-8931,ok,gdam,"guyana_upper takutu upper essequibo_yakarinta   wowetta, surama","guyana_upper takutu upper essequibo_yakarinta   wowetta, surama",3.966970804,-59.1538653,county,2
-8932,ok,gdam,guyana_upper takutu upper essequibo_yarong paru   good hope,guyana_upper takutu upper essequibo_yarong paru   good hope,4.221775669,-59.53271438,county,2
+8929,ok,gdam,"guyana_upper takutu upper essequibo_sand creek dadanawa, catunarib, sawariwau","guyana_upper takutu upper essequibo_sand creek dadanawa, catunarib, sawariwau",2.847349084,-59.41573647,county,2
+8930,ok,gdam,guyana_upper takutu upper essequibo_toka jakaretinga,guyana_upper takutu upper essequibo_toka jakaretinga,3.727505972,-59.52519053,county,2
+8931,ok,gdam,"guyana_upper takutu upper essequibo_yakarinta wowetta, surama","guyana_upper takutu upper essequibo_yakarinta wowetta, surama",3.966970804,-59.1538653,county,2
+8932,ok,gdam,guyana_upper takutu upper essequibo_yarong paru good hope,guyana_upper takutu upper essequibo_yarong paru good hope,4.221775669,-59.53271438,county,2
 8933,ok,gdam,haiti_centre_cerca la source,haiti_centre_cerca la source,19.14423547,-71.77674376,county,2
 8934,ok,gdam,haiti_centre_hinche,haiti_centre_hinche,19.13988229,-72.04078901,county,2
 8935,ok,gdam,haiti_centre_lascahobas,haiti_centre_lascahobas,18.83844178,-71.8647101,county,2
@@ -12440,22 +12440,22 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22211,ok,gdam,anguilla,anguilla,18.21473629,-63.05439849,country,2
 22212,ok,gdam,antarctica,antarctica,-80.56189203,20.81412516,country,2
 22213,ok,gdam,antigua and barbuda,antigua and barbuda,17.07729258,-61.79838806,country,2
-22214,ok,gdam,antigua and barbuda_barbuda,antigua & barbuda_barbuda,17.63153069,-61.79337819,state,2
-22215,ok,gdam,antigua and barbuda_redonda,antigua & barbuda_redonda,16.93850255,-62.34538783,state,2
-22216,ok,gdam,antigua and barbuda_saint george,antigua & barbuda_saint george,17.12249311,-61.79612992,state,2
-22217,ok,gdam,antigua and barbuda_saint john,antigua & barbuda_saint john,17.11280876,-61.83638186,state,2
-22218,ok,gdam,antigua and barbuda_saint mary,antigua & barbuda_saint mary,17.05178487,-61.85618081,state,2
-22219,ok,gdam,antigua and barbuda_saint paul,antigua & barbuda_saint paul,17.0333942,-61.77298293,state,2
-22220,ok,gdam,antigua and barbuda_saint peter,antigua & barbuda_saint peter,17.09214097,-61.76062187,state,2
-22221,ok,gdam,antigua and barbuda_saint philip,antigua & barbuda_saint philip,17.06516821,-61.71070689,state,2
-22222,ok,gdam,antigua & barbuda_barbuda,antigua & barbuda_barbuda,17.63153069,-61.79337819,state,2
-22223,ok,gdam,antigua & barbuda_redonda,antigua & barbuda_redonda,16.93850255,-62.34538783,state,2
-22224,ok,gdam,antigua & barbuda_saint george,antigua & barbuda_saint george,17.12249311,-61.79612992,state,2
-22225,ok,gdam,antigua & barbuda_saint john,antigua & barbuda_saint john,17.11280876,-61.83638186,state,2
-22226,ok,gdam,antigua & barbuda_saint mary,antigua & barbuda_saint mary,17.05178487,-61.85618081,state,2
-22227,ok,gdam,antigua & barbuda_saint paul,antigua & barbuda_saint paul,17.0333942,-61.77298293,state,2
-22228,ok,gdam,antigua & barbuda_saint peter,antigua & barbuda_saint peter,17.09214097,-61.76062187,state,2
-22229,ok,gdam,antigua & barbuda_saint philip,antigua & barbuda_saint philip,17.06516821,-61.71070689,state,2
+22214,ok,gdam,antigua and barbuda_barbuda,antigua and barbuda_barbuda,17.63153069,-61.79337819,state,2
+22215,ok,gdam,antigua and barbuda_redonda,antigua and barbuda_redonda,16.93850255,-62.34538783,state,2
+22216,ok,gdam,antigua and barbuda_saint george,antigua and barbuda_saint george,17.12249311,-61.79612992,state,2
+22217,ok,gdam,antigua and barbuda_saint john,antigua and barbuda_saint john,17.11280876,-61.83638186,state,2
+22218,ok,gdam,antigua and barbuda_saint mary,antigua and barbuda_saint mary,17.05178487,-61.85618081,state,2
+22219,ok,gdam,antigua and barbuda_saint paul,antigua and barbuda_saint paul,17.0333942,-61.77298293,state,2
+22220,ok,gdam,antigua and barbuda_saint peter,antigua and barbuda_saint peter,17.09214097,-61.76062187,state,2
+22221,ok,gdam,antigua and barbuda_saint philip,antigua and barbuda_saint philip,17.06516821,-61.71070689,state,2
+22222,ok,gdam,antigua & barbuda_barbuda,antigua and barbuda_barbuda,17.63153069,-61.79337819,state,2
+22223,ok,gdam,antigua & barbuda_redonda,antigua and barbuda_redonda,16.93850255,-62.34538783,state,2
+22224,ok,gdam,antigua & barbuda_saint george,antigua and barbuda_saint george,17.12249311,-61.79612992,state,2
+22225,ok,gdam,antigua & barbuda_saint john,antigua and barbuda_saint john,17.11280876,-61.83638186,state,2
+22226,ok,gdam,antigua & barbuda_saint mary,antigua and barbuda_saint mary,17.05178487,-61.85618081,state,2
+22227,ok,gdam,antigua & barbuda_saint paul,antigua and barbuda_saint paul,17.0333942,-61.77298293,state,2
+22228,ok,gdam,antigua & barbuda_saint peter,antigua and barbuda_saint peter,17.09214097,-61.76062187,state,2
+22229,ok,gdam,antigua & barbuda_saint philip,antigua and barbuda_saint philip,17.06516821,-61.71070689,state,2
 22230,ok,gdam,argentina,argentina,-35.18963704,-65.14467524,country,2
 22231,ok,gdam,armenia,armenia,40.29474145,44.93856667,country,2
 22232,ok,gdam,aruba,aruba,12.50931542,-69.97027576,country,2
@@ -12527,14 +12527,6 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22298,ok,gdam,bermuda_warwick,bermuda_warwick,32.26658928,-64.80845522,state,2
 22299,ok,gdam,bhutan,bhutan,27.39567171,90.4284074,country,2
 22300,ok,gdam,bolivia,bolivia,-16.71333828,-64.6567571,country,2
-22301,ok,gdam,bonaire,caribbean netherlands_bonaire,12.184523,-68.28963424,state,2
-22302,ok,gdam,caribbean netherlands,caribbean netherlands,12.184523,-68.28963424,country,2
-22303,ok,gdam,"bonaire, sint eustatius and saba_bonaire",caribbean netherlands_bonaire,12.184523,-68.28963424,state,2
-22304,ok,gdam,"bonaire, sint eustatius and saba_saba",caribbean netherlands_saba,17.6314693,-63.23752741,state,2
-22305,ok,gdam,"bonaire, sint eustatius and saba_sint eustatius",caribbean netherlands_sint eustatius,17.49084228,-62.9762828,state,2
-22306,ok,gdam,"bonaire, sint eustatius & saba_bonaire",caribbean netherlands_bonaire,12.184523,-68.28963424,state,2
-22307,ok,gdam,"bonaire, sint eustatius & saba_saba",caribbean netherlands_saba,17.6314693,-63.23752741,state,2
-22308,ok,gdam,"bonaire, sint eustatius & saba_sint eustatius",caribbean netherlands_sint eustatius,17.49084228,-62.9762828,state,2
 22309,ok,gdam,bosnia and herzegovina,bosnia and herzegovina,44.17563915,17.78875896,country,2
 22310,ok,gdam,botswana,botswana,-22.18806067,23.81353332,country,2
 22311,ok,gdam,bouvet island,bouvet island,-54.4282904,3.382254473,country,2
@@ -12580,7 +12572,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22351,ok,gdam,curacao,curacao,12.19406422,-68.97262524,country,2
 22352,ok,gdam,cyprus,cyprus,34.92339247,32.96835013,country,2
 22353,ok,gdam,czechia,czech republic,49.74058805,15.33026616,country,2
-22354,ok,gdam,democratic republic of the congo,congo (dem. rep.),-2.881191132,23.660750319999998,country,2
+22354,ok,gdam,democratic republic congo,democratic republic congo,-2.881191132,23.660750319999998,country,2
 22355,ok,gdam,denmark,denmark,56.0319245,9.317572,country,2
 22356,ok,gdam,djibouti,djibouti,11.74185231,42.57154935,country,2
 22357,ok,gdam,dominica,dominica,15.43455148,-61.34998778,country,2
@@ -12679,7 +12671,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22450,ok,gdam,iran,iran,32.56484895,54.30435432,country,2
 22451,ok,gdam,iraq,iraq,32.99988333,43.75478366,country,2
 22452,ok,gdam,ireland,ireland,53.17990533,-8.146707991,country,2
-22453,ok,gdam,isle of man,isle of man,54.2284069,-4.537847554,country,2
+22453,ok,gdam,isle man,isle man,54.2284069,-4.537847554,country,2
 22454,ok,gdam,israel,israel,31.45568158,35.01316867,country,2
 22455,ok,gdam,italy,italy,43.52489,12.16252216,country,2
 22456,ok,gdam,jamaica,jamaica,18.15707142,-77.31048448,country,2
@@ -12715,7 +12707,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22486,ok,gdam,martinique_fort france_fort france,martinique_fort france_fort france,14.63862078,-61.06876905,county,2
 22487,ok,gdam,martinique_fort france_le lamentin,martinique_fort france_le lamentin,14.62570078,-60.99317476,county,2
 22488,ok,gdam,martinique_fort france_saint joseph,martinique_fort france_saint joseph,14.67660892,-61.04606976,county,2
-22489,ok,gdam,martinique_fort france_sch?lcher,martinique_fort france_sch?lcher,14.64863829,-61.10211389,county,2
+22489,ok,gdam,martinique_fort france_sch?lcher,martinique_fort france_schœlcher,14.64863829,-61.10211389,county,2
 22490,ok,gdam,martinique_le marin_ducos,martinique_le marin_ducos,14.57609208,-60.96549861,county,2
 22491,ok,gdam,martinique_le marin_le diamant,martinique_le marin_le diamant,14.486944190000001,-61.01757297,county,2
 22492,ok,gdam,martinique_le marin_le francois,martinique_le marin_le francois,14.60550732,-60.90734872,county,2
@@ -12791,83 +12783,82 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22562,ok,gdam,portugal,portugal,39.68611973,-7.963009474,country,2
 22563,ok,gdam,puerto rico,puerto rico,18.22424497,-66.47951235,country,2
 22564,ok,gdam,qatar,qatar,25.28211117,51.19024007,country,2
-22565,ok,gdam,republic of congo,congo (rep.),-0.833252732,15.24467021,country,2
+22565,ok,gdam,republic congo,republic congo,-0.833252732,15.24467021,country,2
 22566,ok,gdam,reunion,reunion,-21.13334828,55.53268484,country,2
 22567,ok,gdam,romania,romania,45.83972269,24.98553402,country,2
 22568,ok,gdam,russia,russia,61.65192298,99.07781664,country,2
 22569,ok,gdam,rwanda,rwanda,-2.000463388,29.92641989,country,2
-22570,ok,gdam,saba,caribbean netherlands_saba,17.635454,-63.232675,state,2
-22571,ok,gdam,st. helena,st. helena,-15.96521111,-5.707424574,country,2
-22572,ok,gdam,saint helena,st. helena,-15.96521111,-5.707424574,country,2
+22571,ok,gdam,st. helena,saint helena,-15.96521111,-5.707424574,country,2
+22572,ok,gdam,saint helena,saint helena,-15.96521111,-5.707424574,country,2
 22573,ok,gdam,saint kitts and nevis,saint kitts and nevis,17.33922727,-62.76505924,country,2
 22574,ok,gdam,st. kitts and nevis,saint kitts and nevis,17.33922727,-62.76505924,country,2
-22575,ok,gdam,saint kitts and nevis_christ church nichola town,saint kitts & nevis_christ church nichola town,17.36258243,-62.76820208,state,2
-22576,ok,gdam,saint kitts and nevis_saint anne sandy point,saint kitts & nevis_saint anne sandy point,17.37011655,-62.8421419,state,2
-22577,ok,gdam,saint kitts and nevis_saint george basseterre,saint kitts & nevis_saint george basseterre,17.27009711,-62.68315742,state,2
-22578,ok,gdam,saint kitts and nevis_saint george gingerland,saint kitts & nevis_saint george gingerland,17.129302590000002,-62.56310225,state,2
-22579,ok,gdam,saint kitts and nevis_saint james windward,saint kitts & nevis_saint james windward,17.1780514,-62.57373165,state,2
-22580,ok,gdam,saint kitts and nevis_saint john capisterre,saint kitts & nevis_saint john capisterre,17.38646724,-62.79636831,state,2
-22581,ok,gdam,saint kitts and nevis_saint john figtree,saint kitts & nevis_saint john figtree,17.11992197,-62.60073838,state,2
-22582,ok,gdam,saint kitts and nevis_saint mary cayon,saint kitts & nevis_saint mary cayon,17.3509359,-62.73822129,state,2
-22583,ok,gdam,saint kitts and nevis_saint paul capisterre,saint kitts & nevis_saint paul capisterre,17.39749718,-62.8323472,state,2
-22584,ok,gdam,saint kitts and nevis_saint paul charlestown,saint kitts & nevis_saint paul charlestown,17.14047651,-62.61309941,state,2
-22585,ok,gdam,saint kitts and nevis_saint peter basseterre,saint kitts & nevis_saint peter basseterre,17.32000949,-62.71821649,state,2
-22586,ok,gdam,saint kitts and nevis_saint thomas lowland,saint kitts & nevis_saint thomas lowland,17.16449032,-62.60994538,state,2
-22587,ok,gdam,saint kitts and nevis_saint thomas middle island,saint kitts & nevis_saint thomas middle island,17.34161518,-62.80668039,state,2
-22588,ok,gdam,saint kitts and nevis_trinity palmetto point,saint kitts & nevis_trinity palmetto point,17.31236383,-62.76766904,state,2
-22589,ok,gdam,st. kitts and nevis_christ church nichola town,saint kitts & nevis_christ church nichola town,17.36258243,-62.76820208,state,2
-22590,ok,gdam,st. kitts and nevis_saint anne sandy point,saint kitts & nevis_saint anne sandy point,17.37011655,-62.8421419,state,2
-22591,ok,gdam,st. kitts and nevis_saint george basseterre,saint kitts & nevis_saint george basseterre,17.27009711,-62.68315742,state,2
-22592,ok,gdam,st. kitts and nevis_saint george gingerland,saint kitts & nevis_saint george gingerland,17.129302590000002,-62.56310225,state,2
-22593,ok,gdam,st. kitts and nevis_saint james windward,saint kitts & nevis_saint james windward,17.1780514,-62.57373165,state,2
-22594,ok,gdam,st. kitts and nevis_saint john capisterre,saint kitts & nevis_saint john capisterre,17.38646724,-62.79636831,state,2
-22595,ok,gdam,st. kitts and nevis_saint john figtree,saint kitts & nevis_saint john figtree,17.11992197,-62.60073838,state,2
-22596,ok,gdam,st. kitts and nevis_saint mary cayon,saint kitts & nevis_saint mary cayon,17.3509359,-62.73822129,state,2
-22597,ok,gdam,st. kitts and nevis_saint paul capisterre,saint kitts & nevis_saint paul capisterre,17.39749718,-62.8323472,state,2
-22598,ok,gdam,st. kitts and nevis_saint paul charlestown,saint kitts & nevis_saint paul charlestown,17.14047651,-62.61309941,state,2
-22599,ok,gdam,st. kitts and nevis_saint peter basseterre,saint kitts & nevis_saint peter basseterre,17.32000949,-62.71821649,state,2
-22600,ok,gdam,st. kitts and nevis_saint thomas lowland,saint kitts & nevis_saint thomas lowland,17.16449032,-62.60994538,state,2
-22601,ok,gdam,st. kitts and nevis_saint thomas middle island,saint kitts & nevis_saint thomas middle island,17.34161518,-62.80668039,state,2
-22602,ok,gdam,st. kitts and nevis_trinity palmetto point,saint kitts & nevis_trinity palmetto point,17.31236383,-62.76766904,state,2
-22603,ok,gdam,st. lucia,st. lucia,13.8984334,-60.96677349,country,2
-22604,ok,gdam,saint lucia,st. lucia,13.8984334,-60.96677349,country,2
-22605,ok,gdam,saint lucia_anse la raye,st. lucia_anse la raye,13.91190114,-61.01030401,state,2
-22606,ok,gdam,saint lucia_canaries,st. lucia_canaries,13.90911808,-61.04410603,state,2
-22607,ok,gdam,saint lucia_castries,st. lucia_castries,13.9683015,-60.97805699,state,2
-22608,ok,gdam,saint lucia_choiseul,st. lucia_choiseul,13.80023183,-61.03693729,state,2
-22609,ok,gdam,saint lucia_dennery,st. lucia_dennery,13.9190006,-60.91858435,state,2
-22610,ok,gdam,saint lucia_gros islet,st. lucia_gros islet,14.03238921,-60.92393876,state,2
-22611,ok,gdam,saint lucia_laborie,st. lucia_laborie,13.77872788,-61.0045395,state,2
-22612,ok,gdam,saint lucia_micoud,st. lucia_micoud,13.82734181,-60.93353066,state,2
-22613,ok,gdam,saint lucia_soufriere,st. lucia_soufriere,13.8527217,-61.04022832,state,2
-22614,ok,gdam,saint lucia_vieux fort,st. lucia_vieux fort,13.77049562,-60.96608697,state,2
-22615,ok,gdam,st. lucia_anse la raye,st. lucia_anse la raye,13.91190114,-61.01030401,state,2
-22616,ok,gdam,st. lucia_canaries,st. lucia_canaries,13.90911808,-61.04410603,state,2
-22617,ok,gdam,st. lucia_castries,st. lucia_castries,13.9683015,-60.97805699,state,2
-22618,ok,gdam,st. lucia_choiseul,st. lucia_choiseul,13.80023183,-61.03693729,state,2
-22619,ok,gdam,st. lucia_dennery,st. lucia_dennery,13.9190006,-60.91858435,state,2
-22620,ok,gdam,st. lucia_gros islet,st. lucia_gros islet,14.03238921,-60.92393876,state,2
-22621,ok,gdam,st. lucia_laborie,st. lucia_laborie,13.77872788,-61.0045395,state,2
-22622,ok,gdam,st. lucia_micoud,st. lucia_micoud,13.82734181,-60.93353066,state,2
-22623,ok,gdam,st. lucia_soufriere,st. lucia_soufriere,13.8527217,-61.04022832,state,2
-22624,ok,gdam,st. lucia_vieux fort,st. lucia_vieux fort,13.77049562,-60.96608697,state,2
-22625,ok,gdam,st. pierre and miquelon,st. pierre and miquelon,46.95071152,-56.32249869,country,2
-22626,ok,gdam,saint pierre and miquelon,st. pierre and miquelon,46.95071152,-56.32249869,country,2
-22627,ok,gdam,st. vincent and grenadines,st. vincent and grenadines,13.25130905,-61.18897523,country,2
-22628,ok,gdam,st. vincent grenadines,st. vincent and grenadines,13.25130905,-61.18897523,country,2
-22629,ok,gdam,saint vincent and grenadines,st. vincent and grenadines,13.25130905,-61.18897523,country,2
-22630,ok,gdam,saint vincent and grenadines_charlotte,st. vincent & grenadines_charlotte,13.26906769,-61.15333327,state,2
-22631,ok,gdam,saint vincent and grenadines_grenadines,st. vincent & grenadines_grenadines,13.01161767,-61.23236035,state,2
-22632,ok,gdam,saint vincent and grenadines_saint andrew,st. vincent & grenadines_saint andrew,13.19623328,-61.23446682,state,2
-22633,ok,gdam,saint vincent and grenadines_saint david,st. vincent & grenadines_saint david,13.30766248,-61.20364356,state,2
-22634,ok,gdam,saint vincent and grenadines_saint george,st. vincent & grenadines_saint george,13.16006224,-61.19126079,state,2
-22635,ok,gdam,saint vincent and grenadines_saint patrick,st. vincent & grenadines_saint patrick,13.23788976,-61.24177436,state,2
-22636,ok,gdam,st. vincent and grenadines_charlotte,st. vincent & grenadines_charlotte,13.26906769,-61.15333327,state,2
-22637,ok,gdam,st. vincent and grenadines_grenadines,st. vincent & grenadines_grenadines,13.01161767,-61.23236035,state,2
-22638,ok,gdam,st. vincent and grenadines_saint andrew,st. vincent & grenadines_saint andrew,13.19623328,-61.23446682,state,2
-22639,ok,gdam,st. vincent and grenadines_saint david,st. vincent & grenadines_saint david,13.30766248,-61.20364356,state,2
-22640,ok,gdam,st. vincent and grenadines_saint george,st. vincent & grenadines_saint george,13.16006224,-61.19126079,state,2
-22641,ok,gdam,st. vincent and grenadines_saint patrick,st. vincent & grenadines_saint patrick,13.23788976,-61.24177436,state,2
+22575,ok,gdam,saint kitts and nevis_christ church nichola town,saint kitts and nevis_christ church nichola town,17.36258243,-62.76820208,state,2
+22576,ok,gdam,saint kitts and nevis_saint anne sandy point,saint kitts and nevis_saint anne sandy point,17.37011655,-62.8421419,state,2
+22577,ok,gdam,saint kitts and nevis_saint george basseterre,saint kitts and nevis_saint george basseterre,17.27009711,-62.68315742,state,2
+22578,ok,gdam,saint kitts and nevis_saint george gingerland,saint kitts and nevis_saint george gingerland,17.129302590000002,-62.56310225,state,2
+22579,ok,gdam,saint kitts and nevis_saint james windward,saint kitts and nevis_saint james windward,17.1780514,-62.57373165,state,2
+22580,ok,gdam,saint kitts and nevis_saint john capisterre,saint kitts and nevis_saint john capisterre,17.38646724,-62.79636831,state,2
+22581,ok,gdam,saint kitts and nevis_saint john figtree,saint kitts and nevis_saint john figtree,17.11992197,-62.60073838,state,2
+22582,ok,gdam,saint kitts and nevis_saint mary cayon,saint kitts and nevis_saint mary cayon,17.3509359,-62.73822129,state,2
+22583,ok,gdam,saint kitts and nevis_saint paul capisterre,saint kitts and nevis_saint paul capisterre,17.39749718,-62.8323472,state,2
+22584,ok,gdam,saint kitts and nevis_saint paul charlestown,saint kitts and nevis_saint paul charlestown,17.14047651,-62.61309941,state,2
+22585,ok,gdam,saint kitts and nevis_saint peter basseterre,saint kitts and nevis_saint peter basseterre,17.32000949,-62.71821649,state,2
+22586,ok,gdam,saint kitts and nevis_saint thomas lowland,saint kitts and nevis_saint thomas lowland,17.16449032,-62.60994538,state,2
+22587,ok,gdam,saint kitts and nevis_saint thomas middle island,saint kitts and nevis_saint thomas middle island,17.34161518,-62.80668039,state,2
+22588,ok,gdam,saint kitts and nevis_trinity palmetto point,saint kitts and nevis_trinity palmetto point,17.31236383,-62.76766904,state,2
+22589,ok,gdam,st. kitts and nevis_christ church nichola town,saint kitts and nevis_christ church nichola town,17.36258243,-62.76820208,state,2
+22590,ok,gdam,st. kitts and nevis_saint anne sandy point,saint kitts and nevis_saint anne sandy point,17.37011655,-62.8421419,state,2
+22591,ok,gdam,st. kitts and nevis_saint george basseterre,saint kitts and nevis_saint george basseterre,17.27009711,-62.68315742,state,2
+22592,ok,gdam,st. kitts and nevis_saint george gingerland,saint kitts and nevis_saint george gingerland,17.129302590000002,-62.56310225,state,2
+22593,ok,gdam,st. kitts and nevis_saint james windward,saint kitts and nevis_saint james windward,17.1780514,-62.57373165,state,2
+22594,ok,gdam,st. kitts and nevis_saint john capisterre,saint kitts and nevis_saint john capisterre,17.38646724,-62.79636831,state,2
+22595,ok,gdam,st. kitts and nevis_saint john figtree,saint kitts and nevis_saint john figtree,17.11992197,-62.60073838,state,2
+22596,ok,gdam,st. kitts and nevis_saint mary cayon,saint kitts and nevis_saint mary cayon,17.3509359,-62.73822129,state,2
+22597,ok,gdam,st. kitts and nevis_saint paul capisterre,saint kitts and nevis_saint paul capisterre,17.39749718,-62.8323472,state,2
+22598,ok,gdam,st. kitts and nevis_saint paul charlestown,saint kitts and nevis_saint paul charlestown,17.14047651,-62.61309941,state,2
+22599,ok,gdam,st. kitts and nevis_saint peter basseterre,saint kitts and nevis_saint peter basseterre,17.32000949,-62.71821649,state,2
+22600,ok,gdam,st. kitts and nevis_saint thomas lowland,saint kitts and nevis_saint thomas lowland,17.16449032,-62.60994538,state,2
+22601,ok,gdam,st. kitts and nevis_saint thomas middle island,saint kitts and nevis_saint thomas middle island,17.34161518,-62.80668039,state,2
+22602,ok,gdam,st. kitts and nevis_trinity palmetto point,saint kitts and nevis_trinity palmetto point,17.31236383,-62.76766904,state,2
+22603,ok,gdam,st. lucia,saint lucia,13.8984334,-60.96677349,country,2
+22604,ok,gdam,saint lucia,saint lucia,13.8984334,-60.96677349,country,2
+22605,ok,gdam,saint lucia_anse la raye,saint lucia_anse la raye,13.91190114,-61.01030401,state,2
+22606,ok,gdam,saint lucia_canaries,saint lucia_canaries,13.90911808,-61.04410603,state,2
+22607,ok,gdam,saint lucia_castries,saint lucia_castries,13.9683015,-60.97805699,state,2
+22608,ok,gdam,saint lucia_choiseul,saint lucia_choiseul,13.80023183,-61.03693729,state,2
+22609,ok,gdam,saint lucia_dennery,saint lucia_dennery,13.9190006,-60.91858435,state,2
+22610,ok,gdam,saint lucia_gros islet,saint lucia_gros islet,14.03238921,-60.92393876,state,2
+22611,ok,gdam,saint lucia_laborie,saint lucia_laborie,13.77872788,-61.0045395,state,2
+22612,ok,gdam,saint lucia_micoud,saint lucia_micoud,13.82734181,-60.93353066,state,2
+22613,ok,gdam,saint lucia_soufriere,saint lucia_soufriere,13.8527217,-61.04022832,state,2
+22614,ok,gdam,saint lucia_vieux fort,saint lucia_vieux fort,13.77049562,-60.96608697,state,2
+22615,ok,gdam,st. lucia_anse la raye,saint lucia_anse la raye,13.91190114,-61.01030401,state,2
+22616,ok,gdam,st. lucia_canaries,saint lucia_canaries,13.90911808,-61.04410603,state,2
+22617,ok,gdam,st. lucia_castries,saint lucia_castries,13.9683015,-60.97805699,state,2
+22618,ok,gdam,st. lucia_choiseul,saint lucia_choiseul,13.80023183,-61.03693729,state,2
+22619,ok,gdam,st. lucia_dennery,saint lucia_dennery,13.9190006,-60.91858435,state,2
+22620,ok,gdam,st. lucia_gros islet,saint lucia_gros islet,14.03238921,-60.92393876,state,2
+22621,ok,gdam,st. lucia_laborie,saint lucia_laborie,13.77872788,-61.0045395,state,2
+22622,ok,gdam,st. lucia_micoud,saint lucia_micoud,13.82734181,-60.93353066,state,2
+22623,ok,gdam,st. lucia_soufriere,saint lucia_soufriere,13.8527217,-61.04022832,state,2
+22624,ok,gdam,st. lucia_vieux fort,saint lucia_vieux fort,13.77049562,-60.96608697,state,2
+22625,ok,gdam,st. pierre and miquelon,saint pierre and miquelon,46.95071152,-56.32249869,country,2
+22626,ok,gdam,saint pierre and miquelon,saint pierre and miquelon,46.95071152,-56.32249869,country,2
+22627,ok,gdam,st. vincent and grenadines,saint vincent and grenadines,13.25130905,-61.18897523,country,2
+22628,ok,gdam,st. vincent grenadines,saint vincent and grenadines,13.25130905,-61.18897523,country,2
+22629,ok,gdam,saint vincent and grenadines,saint vincent and grenadines,13.25130905,-61.18897523,country,2
+22630,ok,gdam,saint vincent and grenadines_charlotte,saint vincent and grenadines_charlotte,13.26906769,-61.15333327,state,2
+22631,ok,gdam,saint vincent and grenadines_grenadines,saint vincent and grenadines_grenadines,13.01161767,-61.23236035,state,2
+22632,ok,gdam,saint vincent and grenadines_saint andrew,saint vincent and grenadines_saint andrew,13.19623328,-61.23446682,state,2
+22633,ok,gdam,saint vincent and grenadines_saint david,saint vincent and grenadines_saint david,13.30766248,-61.20364356,state,2
+22634,ok,gdam,saint vincent and grenadines_saint george,saint vincent and grenadines_saint george,13.16006224,-61.19126079,state,2
+22635,ok,gdam,saint vincent and grenadines_saint patrick,saint vincent and grenadines_saint patrick,13.23788976,-61.24177436,state,2
+22636,ok,gdam,st. vincent and grenadines_charlotte,saint vincent and grenadines_charlotte,13.26906769,-61.15333327,state,2
+22637,ok,gdam,st. vincent and grenadines_grenadines,saint vincent and grenadines_grenadines,13.01161767,-61.23236035,state,2
+22638,ok,gdam,st. vincent and grenadines_saint andrew,saint vincent and grenadines_saint andrew,13.19623328,-61.23446682,state,2
+22639,ok,gdam,st. vincent and grenadines_saint david,saint vincent and grenadines_saint david,13.30766248,-61.20364356,state,2
+22640,ok,gdam,st. vincent and grenadines_saint george,saint vincent and grenadines_saint george,13.16006224,-61.19126079,state,2
+22641,ok,gdam,st. vincent and grenadines_saint patrick,saint vincent and grenadines_saint patrick,13.23788976,-61.24177436,state,2
 22642,ok,gdam,saint martin,saint martin,18.07818235,-63.06297299,country,2
 22643,ok,gdam,samoa,samoa,-13.62085961,-172.4473612,country,2
 22644,ok,gdam,san marino,san marino,43.93905241,12.46099941,country,2
@@ -12879,7 +12870,6 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22650,ok,gdam,seychelles,seychelles,-4.677154328,55.46793308,country,2
 22651,ok,gdam,sierra leone,sierra leone,8.565487383,-11.78136588,country,2
 22652,ok,gdam,singapore,singapore,1.357828265,103.806635,country,2
-22653,ok,gdam,sint eustatius,caribbean netherlands_sint eustatius,17.481431,-62.967558,state,2
 22654,ok,gdam,sint maarten,sint maarten,18.0382621,-63.06239158,country,2
 22655,ok,gdam,slovakia,slovakia,48.70953634,19.48343744,country,2
 22656,ok,gdam,slovenia,slovenia,46.12447411,14.81812914,country,2
@@ -12893,8 +12883,8 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22664,ok,gdam,spain,spain,40.39052566,-3.554163628,country,2
 22665,ok,gdam,spratly islands,spratly islands,11.05262766,114.284212,country,2
 22666,ok,gdam,sri lanka,sri lanka,7.615577434,80.69933101,country,2
-22667,ok,gdam,saint barthelemy,st. barthelemy,17.90197775,-62.82969804,country,2
-22668,ok,gdam,st. barthelemy,st. barthelemy,17.90197775,-62.82969804,country,2
+22667,ok,gdam,saint barthelemy,saint barthelemy,17.90197775,-62.82969804,country,2
+22668,ok,gdam,st. barthelemy,saint barthelemy,17.90197775,-62.82969804,country,2
 22669,ok,gdam,sudan,sudan,16.04917245,30.00518645,country,2
 22670,ok,gdam,suriname,suriname,4.136217149,-55.91596904,country,2
 22671,ok,gdam,svalbard and jan mayen,svalbard and jan mayen,78.60821358,15.82785214,country,2
@@ -12912,52 +12902,52 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22683,ok,gdam,tonga,tonga,-21.174082339999998,-175.1918611,country,2
 22684,ok,gdam,trinidad and tobago,trinidad and tobago,10.42390417,-61.29644745,country,2
 22685,ok,gdam,trinidad tobago,trinidad and tobago,10.42390417,-61.29644745,country,2
-22686,ok,gdam,trinidad and tobago_arima,trinidad & tobago_arima,10.62762716,-61.2798587,state,2
-22687,ok,gdam,trinidad and tobago_chaguanas,trinidad & tobago_chaguanas,10.53610565,-61.41050667,state,2
-22688,ok,gdam,trinidad and tobago_couva tabaquite talparo,trinidad & tobago_couva tabaquite talparo,10.43926705,-61.33626167,state,2
-22689,ok,gdam,trinidad and tobago_diego martin,trinidad & tobago_diego martin,10.7126918,-61.57447316,state,2
-22690,ok,gdam,trinidad and tobago_mayaro/rio claro,trinidad & tobago_mayaro/rio claro,10.27834991,-61.10601162,state,2
-22691,ok,gdam,trinidad and tobago_penal debe,trinidad & tobago_penal debe,10.16114017,-61.4386988,state,2
-22692,ok,gdam,trinidad and tobago_point fortin,trinidad & tobago_point fortin,10.17473968,-61.67106606,state,2
-22693,ok,gdam,trinidad and tobago_port of spain,trinidad & tobago_port of spain,10.66230125,-61.51677932,state,2
-22694,ok,gdam,trinidad and tobago_princes town,trinidad & tobago_princes town,10.20283638,-61.29599109,state,2
-22695,ok,gdam,trinidad and tobago_san fernando,trinidad & tobago_san fernando,10.28199661,-61.4552091,state,2
-22696,ok,gdam,trinidad and tobago_san juan laventille,trinidad & tobago_san juan laventille,10.68536674,-61.44524783,state,2
-22697,ok,gdam,trinidad and tobago_sangre grande,trinidad & tobago_sangre grande,10.64732085,-61.09959123,state,2
-22698,ok,gdam,trinidad and tobago_siparia,trinidad & tobago_siparia,10.136206,-61.64083905,state,2
-22699,ok,gdam,trinidad and tobago_tobago,trinidad & tobago_tobago,11.24149081,-60.66635063,state,2
-22700,ok,gdam,trinidad and tobago_tunapuna/piarco,trinidad & tobago_tunapuna/piarco,10.68624092,-61.3073758,state,2
-22701,ok,gdam,trinidad tobago_arima,trinidad & tobago_arima,10.62762716,-61.2798587,state,2
-22702,ok,gdam,trinidad tobago_chaguanas,trinidad & tobago_chaguanas,10.53610565,-61.41050667,state,2
-22703,ok,gdam,trinidad tobago_couva tabaquite talparo,trinidad & tobago_couva tabaquite talparo,10.43926705,-61.33626167,state,2
-22704,ok,gdam,trinidad tobago_diego martin,trinidad & tobago_diego martin,10.7126918,-61.57447316,state,2
-22705,ok,gdam,trinidad tobago_mayaro/rio claro,trinidad & tobago_mayaro/rio claro,10.27834991,-61.10601162,state,2
-22706,ok,gdam,trinidad tobago_penal debe,trinidad & tobago_penal debe,10.16114017,-61.4386988,state,2
-22707,ok,gdam,trinidad tobago_point fortin,trinidad & tobago_point fortin,10.17473968,-61.67106606,state,2
-22708,ok,gdam,trinidad tobago_port of spain,trinidad & tobago_port of spain,10.66230125,-61.51677932,state,2
-22709,ok,gdam,trinidad tobago_princes town,trinidad & tobago_princes town,10.20283638,-61.29599109,state,2
-22710,ok,gdam,trinidad tobago_san fernando,trinidad & tobago_san fernando,10.28199661,-61.4552091,state,2
-22711,ok,gdam,trinidad tobago_san juan laventille,trinidad & tobago_san juan laventille,10.68536674,-61.44524783,state,2
-22712,ok,gdam,trinidad tobago_sangre grande,trinidad & tobago_sangre grande,10.64732085,-61.09959123,state,2
-22713,ok,gdam,trinidad tobago_siparia,trinidad & tobago_siparia,10.136206,-61.64083905,state,2
-22714,ok,gdam,trinidad tobago_tobago,trinidad & tobago_tobago,11.24149081,-60.66635063,state,2
-22715,ok,gdam,trinidad tobago_tunapuna/piarco,trinidad & tobago_tunapuna/piarco,10.68624092,-61.3073758,state,2
+22686,ok,gdam,trinidad and tobago_arima,trinidad and tobago_arima,10.62762716,-61.2798587,state,2
+22687,ok,gdam,trinidad and tobago_chaguanas,trinidad and tobago_chaguanas,10.53610565,-61.41050667,state,2
+22688,ok,gdam,trinidad and tobago_couva tabaquite talparo,trinidad and tobago_couva tabaquite talparo,10.43926705,-61.33626167,state,2
+22689,ok,gdam,trinidad and tobago_diego martin,trinidad and tobago_diego martin,10.7126918,-61.57447316,state,2
+22690,ok,gdam,trinidad and tobago_mayaro/rio claro,trinidad and tobago_mayaro/rio claro,10.27834991,-61.10601162,state,2
+22691,ok,gdam,trinidad and tobago_penal debe,trinidad and tobago_penal debe,10.16114017,-61.4386988,state,2
+22692,ok,gdam,trinidad and tobago_point fortin,trinidad and tobago_point fortin,10.17473968,-61.67106606,state,2
+22693,ok,gdam,trinidad and tobago_port of spain,trinidad and tobago_port of spain,10.66230125,-61.51677932,state,2
+22694,ok,gdam,trinidad and tobago_princes town,trinidad and tobago_princes town,10.20283638,-61.29599109,state,2
+22695,ok,gdam,trinidad and tobago_san fernando,trinidad and tobago_san fernando,10.28199661,-61.4552091,state,2
+22696,ok,gdam,trinidad and tobago_san juan laventille,trinidad and tobago_san juan laventille,10.68536674,-61.44524783,state,2
+22697,ok,gdam,trinidad and tobago_sangre grande,trinidad and tobago_sangre grande,10.64732085,-61.09959123,state,2
+22698,ok,gdam,trinidad and tobago_siparia,trinidad and tobago_siparia,10.136206,-61.64083905,state,2
+22699,ok,gdam,trinidad and tobago_tobago,trinidad and tobago_tobago,11.24149081,-60.66635063,state,2
+22700,ok,gdam,trinidad and tobago_tunapuna/piarco,trinidad and tobago_tunapuna/piarco,10.68624092,-61.3073758,state,2
+22701,ok,gdam,trinidad tobago_arima,trinidad and tobago_arima,10.62762716,-61.2798587,state,2
+22702,ok,gdam,trinidad tobago_chaguanas,trinidad and tobago_chaguanas,10.53610565,-61.41050667,state,2
+22703,ok,gdam,trinidad tobago_couva tabaquite talparo,trinidad and tobago_couva tabaquite talparo,10.43926705,-61.33626167,state,2
+22704,ok,gdam,trinidad tobago_diego martin,trinidad and tobago_diego martin,10.7126918,-61.57447316,state,2
+22705,ok,gdam,trinidad tobago_mayaro/rio claro,trinidad and tobago_mayaro/rio claro,10.27834991,-61.10601162,state,2
+22706,ok,gdam,trinidad tobago_penal debe,trinidad and tobago_penal debe,10.16114017,-61.4386988,state,2
+22707,ok,gdam,trinidad tobago_point fortin,trinidad and tobago_point fortin,10.17473968,-61.67106606,state,2
+22708,ok,gdam,trinidad tobago_port of spain,trinidad and tobago_port of spain,10.66230125,-61.51677932,state,2
+22709,ok,gdam,trinidad tobago_princes town,trinidad and tobago_princes town,10.20283638,-61.29599109,state,2
+22710,ok,gdam,trinidad tobago_san fernando,trinidad and tobago_san fernando,10.28199661,-61.4552091,state,2
+22711,ok,gdam,trinidad tobago_san juan laventille,trinidad and tobago_san juan laventille,10.68536674,-61.44524783,state,2
+22712,ok,gdam,trinidad tobago_sangre grande,trinidad and tobago_sangre grande,10.64732085,-61.09959123,state,2
+22713,ok,gdam,trinidad tobago_siparia,trinidad and tobago_siparia,10.136206,-61.64083905,state,2
+22714,ok,gdam,trinidad tobago_tobago,trinidad and tobago_tobago,11.24149081,-60.66635063,state,2
+22715,ok,gdam,trinidad tobago_tunapuna/piarco,trinidad and tobago_tunapuna/piarco,10.68624092,-61.3073758,state,2
 22716,ok,gdam,tunisia,tunisia,34.11108623,9.572831711,country,2
 22717,ok,gdam,turkey,turkey,38.98799889,35.43686723,country,2
 22718,ok,gdam,turkmenistan,turkmenistan,39.192602,59.18029946,country,2
 22719,ok,gdam,turks and caicos islands,turks and caicos islands,21.77520931,-71.75810832,country,2
-22720,ok,gdam,turks and caicos islands_grand turk,turks & caicos islands_grand turk,21.46599368,-71.13948399,state,2
-22721,ok,gdam,turks and caicos islands_middle caicos,turks & caicos islands_middle caicos,21.77520931,-71.75810833,state,2
-22722,ok,gdam,turks and caicos islands_north caicos,turks & caicos islands_north caicos,21.88034058,-71.96288474,state,2
-22723,ok,gdam,turks and caicos islands_providenciales and west caicos,turks & caicos islands_providenciales & west caicos,21.78925077,-72.2692913,state,2
-22724,ok,gdam,turks and caicos islands_salt cay,turks & caicos islands_salt cay,21.32706411,-71.20457347,state,2
-22725,ok,gdam,turks and caicos islands_south caicos and east caicos,turks & caicos islands_south caicos & east caicos,21.67943136,-71.5492108,state,2
-22726,ok,gdam,turks & caicos islands_grand turk,turks & caicos islands_grand turk,21.46599368,-71.13948399,state,2
-22727,ok,gdam,turks & caicos islands_middle caicos,turks & caicos islands_middle caicos,21.77520931,-71.75810833,state,2
-22728,ok,gdam,turks & caicos islands_north caicos,turks & caicos islands_north caicos,21.88034058,-71.96288474,state,2
-22729,ok,gdam,turks & caicos islands_providenciales & west caicos,turks & caicos islands_providenciales & west caicos,21.78925077,-72.2692913,state,2
-22730,ok,gdam,turks & caicos islands_salt cay,turks & caicos islands_salt cay,21.32706411,-71.20457347,state,2
-22731,ok,gdam,turks & caicos islands_south caicos & east caicos,turks & caicos islands_south caicos & east caicos,21.67943136,-71.5492108,state,2
+22720,ok,gdam,turks and caicos islands_grand turk,turks and caicos islands_grand turk,21.46599368,-71.13948399,state,2
+22721,ok,gdam,turks and caicos islands_middle caicos,turks and caicos islands_middle caicos,21.77520931,-71.75810833,state,2
+22722,ok,gdam,turks and caicos islands_north caicos,turks and caicos islands_north caicos,21.88034058,-71.96288474,state,2
+22723,ok,gdam,turks and caicos islands_providenciales and west caicos,turks and caicos islands_providenciales and west caicos,21.78925077,-72.2692913,state,2
+22724,ok,gdam,turks and caicos islands_salt cay,turks and caicos islands_salt cay,21.32706411,-71.20457347,state,2
+22725,ok,gdam,turks and caicos islands_south caicos and east caicos,turks and caicos islands_south caicos and east caicos,21.67943136,-71.5492108,state,2
+22726,ok,gdam,turks & caicos islands_grand turk,turks and caicos islands_grand turk,21.46599368,-71.13948399,state,2
+22727,ok,gdam,turks & caicos islands_middle caicos,turks and caicos islands_middle caicos,21.77520931,-71.75810833,state,2
+22728,ok,gdam,turks & caicos islands_north caicos,turks and caicos islands_north caicos,21.88034058,-71.96288474,state,2
+22729,ok,gdam,turks & caicos islands_providenciales & west caicos,turks and caicos islands_providenciales and west caicos,21.78925077,-72.2692913,state,2
+22730,ok,gdam,turks & caicos islands_salt cay,turks and caicos islands_salt cay,21.32706411,-71.20457347,state,2
+22731,ok,gdam,turks & caicos islands_south caicos & east caicos,turks and caicos islands_south caicos and east caicos,21.67943136,-71.5492108,state,2
 22732,ok,gdam,tuvalu,tuvalu,-7.479712587,178.6799222,country,2
 22733,ok,gdam,uganda,uganda,1.28096789,32.39193151,country,2
 22734,ok,gdam,ukraine,ukraine,49.00944367,31.4053643,country,2
@@ -12971,27 +12961,27 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 22742,ok,gdam,vatican city,vatican city,41.90354024,12.45286091,country,2
 22743,ok,gdam,venezuela,venezuela,7.125257885,-66.15055685,country,2
 22744,ok,gdam,vietnam,vietnam,16.65063247,106.3087816,country,2
-22745,ok,gdam,u.s. virgin islands,u.s. virgin islands,17.73285963,-64.76845598,country,2
-22746,ok,gdam,u.s. virgin islands_saint croix_anna's hope village,u.s. virgin islands_saint croix_anna's hope village,17.72303472,-64.69943782,county,2
-22747,ok,gdam,u.s. virgin islands_saint croix_christiansted,u.s. virgin islands_saint croix_christiansted,17.74354108,-64.70843345,county,2
-22748,ok,gdam,u.s. virgin islands_saint croix_east end,u.s. virgin islands_saint croix_east end,17.74520071,-64.63741739,county,2
-22749,ok,gdam,u.s. virgin islands_saint croix_frederiksted,u.s. virgin islands_saint croix_frederiksted,17.70667287,-64.87694384,county,2
-22750,ok,gdam,u.s. virgin islands_saint croix_northcentral,u.s. virgin islands_saint croix_northcentral,17.75378076,-64.79248941,county,2
-22751,ok,gdam,u.s. virgin islands_saint croix_northwest,u.s. virgin islands_saint croix_northwest,17.73794031,-64.85358485,county,2
-22752,ok,gdam,u.s. virgin islands_saint croix_sion farm,u.s. virgin islands_saint croix_sion farm,17.74910221,-64.74665792,county,2
-22753,ok,gdam,u.s. virgin islands_saint croix_southcentral,u.s. virgin islands_saint croix_southcentral,17.70917373,-64.77800906,county,2
-22754,ok,gdam,u.s. virgin islands_saint croix_southwest,u.s. virgin islands_saint croix_southwest,17.69335467,-64.85751049,county,2
-22755,ok,gdam,u.s. virgin islands_saint john_central,u.s. virgin islands_saint john_central,18.34094944,-64.73607703,county,2
-22756,ok,gdam,u.s. virgin islands_saint john_coral bay,u.s. virgin islands_saint john_coral bay,18.33630065,-64.71316958,county,2
-22757,ok,gdam,u.s. virgin islands_saint john_cruz bay,u.s. virgin islands_saint john_cruz bay,18.32630336,-64.7788617,county,2
-22758,ok,gdam,u.s. virgin islands_saint john_east end,u.s. virgin islands_saint john_east end,18.33985935,-64.67042336,county,2
-22759,ok,gdam,u.s. virgin islands_saint thomas_charlotte amalie,u.s. virgin islands_saint thomas_charlotte amalie,18.3383611,-64.94853136,county,2
-22760,ok,gdam,u.s. virgin islands_saint thomas_east end,u.s. virgin islands_saint thomas_east end,18.33058549,-64.8642623,county,2
-22761,ok,gdam,u.s. virgin islands_saint thomas_northside,u.s. virgin islands_saint thomas_northside,18.35623275,-64.93720795,county,2
-22762,ok,gdam,u.s. virgin islands_saint thomas_southside,u.s. virgin islands_saint thomas_southside,18.32196892,-64.89774613,county,2
-22763,ok,gdam,u.s. virgin islands_saint thomas_tutu,u.s. virgin islands_saint thomas_tutu,18.34081872,-64.88803086,county,2
-22764,ok,gdam,u.s. virgin islands_saint thomas_water island,u.s. virgin islands_saint thomas_water island,18.3183825,-64.95085928,county,2
-22765,ok,gdam,u.s. virgin islands_saint thomas_west end,u.s. virgin islands_saint thomas_west end,18.35583444,-65.00712044,county,2
+22745,ok,gdam,united states virgin islands,united states virgin islands,17.73285963,-64.76845598,country,2
+22746,ok,gdam,united states virgin islands_saint croix_anna's hope village,united states virgin islands_saint croix_anna's hope village,17.72303472,-64.69943782,county,2
+22747,ok,gdam,united states virgin islands_saint croix_christiansted,united states virgin islands_saint croix_christiansted,17.74354108,-64.70843345,county,2
+22748,ok,gdam,united states virgin islands_saint croix_east end,united states virgin islands_saint croix_east end,17.74520071,-64.63741739,county,2
+22749,ok,gdam,united states virgin islands_saint croix_frederiksted,united states virgin islands_saint croix_frederiksted,17.70667287,-64.87694384,county,2
+22750,ok,gdam,united states virgin islands_saint croix_northcentral,united states virgin islands_saint croix_northcentral,17.75378076,-64.79248941,county,2
+22751,ok,gdam,united states virgin islands_saint croix_northwest,united states virgin islands_saint croix_northwest,17.73794031,-64.85358485,county,2
+22752,ok,gdam,united states virgin islands_saint croix_sion farm,united states virgin islands_saint croix_sion farm,17.74910221,-64.74665792,county,2
+22753,ok,gdam,united states virgin islands_saint croix_southcentral,united states virgin islands_saint croix_southcentral,17.70917373,-64.77800906,county,2
+22754,ok,gdam,united states virgin islands_saint croix_southwest,united states virgin islands_saint croix_southwest,17.69335467,-64.85751049,county,2
+22755,ok,gdam,united states virgin islands_saint john_central,united states virgin islands_saint john_central,18.34094944,-64.73607703,county,2
+22756,ok,gdam,united states virgin islands_saint john_coral bay,united states virgin islands_saint john_coral bay,18.33630065,-64.71316958,county,2
+22757,ok,gdam,united states virgin islands_saint john_cruz bay,united states virgin islands_saint john_cruz bay,18.32630336,-64.7788617,county,2
+22758,ok,gdam,united states virgin islands_saint john_east end,united states virgin islands_saint john_east end,18.33985935,-64.67042336,county,2
+22759,ok,gdam,united states virgin islands_saint thomas_charlotte amalie,united states virgin islands_saint thomas_charlotte amalie,18.3383611,-64.94853136,county,2
+22760,ok,gdam,united states virgin islands_saint thomas_east end,united states virgin islands_saint thomas_east end,18.33058549,-64.8642623,county,2
+22761,ok,gdam,united states virgin islands_saint thomas_northside,united states virgin islands_saint thomas_northside,18.35623275,-64.93720795,county,2
+22762,ok,gdam,united states virgin islands_saint thomas_southside,united states virgin islands_saint thomas_southside,18.32196892,-64.89774613,county,2
+22763,ok,gdam,united states virgin islands_saint thomas_tutu,united states virgin islands_saint thomas_tutu,18.34081872,-64.88803086,county,2
+22764,ok,gdam,united states virgin islands_saint thomas_water island,united states virgin islands_saint thomas_water island,18.3183825,-64.95085928,county,2
+22765,ok,gdam,united states virgin islands_saint thomas_west end,united states virgin islands_saint thomas_west end,18.35583444,-65.00712044,county,2
 22766,ok,gdam,wallis and futuna,wallis and futuna,-13.2854275,-176.2045805,country,2
 22767,ok,gdam,western sahara,western sahara,24.67902694,-13.13472469,country,2
 22768,ok,gdam,yemen,yemen,15.93460802,47.53603758,country,2
@@ -15743,6 +15733,15 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 34805,ok,gdam,guyana_potaro siparuni,guyana_potaro siparuni,4.859767592,-59.30103734,state,2
 34806,ok,gdam,guyana_upper demerara berbice,guyana_upper demerara berbice,5.364041704,-58.29353183,state,2
 34807,ok,gdam,guyana_upper takutu upper essequibo,guyana_upper takutu upper essequibo,2.83599612,-58.97180239,state,2
+22302,ok,gdam,caribbean netherlands,caribbean netherlands,12.184523,-68.28963424,country,2
+22301,ok,gdam,bonaire,caribbean netherlands_bonaire,12.184523,-68.28963424,state,2
+22303,ok,gdam,caribbean netherlands_bonaire,caribbean netherlands_bonaire,12.184523,-68.28963424,state,2
+22304,ok,gdam,caribbean netherlands_saba,caribbean netherlands_saba,17.6314693,-63.23752741,state,2
+22305,ok,gdam,caribbean netherlands_sint eustatius,caribbean netherlands_sint eustatius,17.49084228,-62.9762828,state,2
+22570,ok,gdam,saba,caribbean netherlands_saba,17.635454,-63.232675,state,2
+22653,ok,gdam,sint eustatius,caribbean netherlands_sint eustatius,17.481431,-62.967558,state,2
+NA,ok,gdam,"bonaire, sint eustatius and saba",caribbean netherlands,12.184523,-68.28963424,country,2
+NA,ok,gdam,martinique_fort france_schoelcher,martinique_fort france_schœlcher,14.64863829,-61.10211389,county,2
 31393,ok,ibge?,brazil_amazonas_sao gabriel cachoeira_icana,brazil_amazonas_sao gabriel cachoeira_icana,1.480144731,-67.78296397,distrito|bairro,3
 31394,ok,ibge?,brazil_amazonas_sao gabriel cachoeira_sao felipe,brazil_amazonas_sao gabriel cachoeira_sao felipe,0.466790025,-67.50448108,distrito|bairro,3
 31395,ok,ibge?,brazil_bahia_feira santana_governador dr. joao durval carneiro,brazil_bahia_feira santana_governador dr. joao durval carneiro,-12.31575187,-39.07150803,distrito|bairro,3
@@ -21556,9 +21555,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 27706,ok,cncflora,brazil_minas gerais_extrema_pedra sacerdotisa,brazil_minas gerais_extrema_pedra sacerdotisa,-22.87050668,-46.30404909,localidade,4
 27707,ok,cncflora,brazil_minas gerais_extrema_pedra sapo,brazil_minas gerais_extrema_pedra sapo,-22.87011448,-46.31134224,localidade,4
 27708,ok,cncflora,brazil_sao paulo_campinas_pedreira chapadao,brazil_sao paulo_campinas_pedreira chapadao,-22.891652,-47.090177,localidade,4
-27709,ok,cncflora,"brazil_minas gerais_grao mogol_pedreira grao mogol
- fazenda jambeiro","brazil_minas gerais_grao mogol_pedreira grao mogol
- fazenda jambeiro",-16.593023,-42.903022,localidade,4
+27709,ok,cncflora,"brazil_minas gerais_grao mogol_pedreira grao mogol  fazenda jambeiro","brazil_minas gerais_grao mogol_pedreira grao mogol  fazenda jambeiro",-16.593023,-42.903022,localidade,4
 27710,ok,cncflora,brazil_rio janeiro_macae_peito pombo,brazil_rio janeiro_macae_peito pombo,-22.308333,-42.213611,localidade,4
 27711,ok,cncflora,brazil_minas gerais_turmalina_peixe cru,brazil_minas gerais_turmalina_peixe cru,-17.10611627,-42.96030109,localidade,4
 27712,ok,cncflora,brazil_acre_senador guiomard_peixes amazonia centro tecnologico producao alevinos,brazil_acre_senador guiomard_peixes amazonia centro tecnologico producao alevinos,-10.08678751,-67.53761327,localidade,4

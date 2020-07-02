@@ -7,9 +7,12 @@ library(dplyr)
 
 #1. from raw files to processed csv in dictionaries----
 
-dic_files <- list.files(path = "./data-raw/raw",
+#dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders
+dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
+
+
 #nome das tabelas
 data_names <- basename(dic_files) %>%
   stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
@@ -25,7 +28,7 @@ encoding <- "UTF-8" #ast we are getting somewhere
 dic <- lapply(dic_files,
               read_csv,
               guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding),
+              locale = locale(encoding = encoding)
               )
 
 names(dic) <- data_names
@@ -39,7 +42,8 @@ taxonomists <- dic$taxonomists[ ,c("order", "source", "family", "family.obs", "f
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
-taxonomists <- taxonomists[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', taxonomists$family), ]
+#taxonomists <- taxonomists[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', taxonomists$family), ]
+taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
 
 # dictionary of herbarium codes:
 collectionCodes <- dic$collectionCodes[ ,c("order",
@@ -113,12 +117,10 @@ admin <- admin[, c("order",
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
+for(i in 1:length(replaceNames))
+  replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
 
-replaceNames <- apply(replaceNames,
-                      MARGIN = 2,
-                      textclean::replace_non_ascii)
 # other objects necessary fot the data processing and validation
-
 missLocs <- c("^\\?$",
               "^s\\/localidade",
               "^indeterminada$",
@@ -158,16 +160,16 @@ wordsForSearch <- c("^prov\\. ",
                    "^estado de ")
 
 ## Vector to remove accents and special characters
-# unwanted_array <- list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
-#                       'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
-#                       'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
-#                       'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
-#                       'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
+unwanted_array <- list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
+                      'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
+                      'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
+                      'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
+                      'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
 
 # só checando como estao os arquivos
 head(taxonomists)
-head(collectionCodes)
 head(familiesSynonyms)
+head(collectionCodes)
 head(fieldNames)
 head(gazetteer)
 head(admin)
@@ -180,9 +182,9 @@ write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
 write_csv(fieldNames, "./data-raw/dictionaries/fieldNames.csv")
 write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
 write_csv(admin, "./data-raw/dictionaries/admin.csv")
+write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 
 # 2. from processed csv files to sysdata.rda ----
-
 dic_files <- list.files(path = "./data-raw/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
@@ -205,7 +207,7 @@ encoding <- "UTF-8"
 dic <- lapply(dic_files,
               read_csv,
               guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding),
+              locale = locale(encoding = encoding)
 )
 
 names(dic) <- data_names
@@ -224,7 +226,7 @@ usethis::use_data(
                   gazetteer,
                   replaceNames,
                   taxonomists,
-                  #unwanted_array,
+                  unwanted_array,
                   missLocs,
                   wordsForSearch,
                   overwrite = TRUE,

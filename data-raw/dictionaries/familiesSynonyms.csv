@@ -214,11 +214,7 @@ order,source,name,name.correct,order.correct
 213,apg_v14,Blitaceae,Amaranthaceae,Caryophyllales
 214,apg_v14,Blyxaceae,Hydrocharitaceae,Alismatales
 215,apg_v14,Boerlagellaceae,Sapotaceae,Ericales
-<<<<<<< HEAD:data-raw/raw/familiesSynonyms_utf8-win.csv
 216,apg_v14,Bogutchanthaceae,Bogutchanthaceae,Hamamelidales
-=======
-216,apg_v14,Bogutchanthaceae,Bogutchanthaceae,fossil near Hamamelidales
->>>>>>> 04058cdd89a6772da6f5b4a6e0d0dffc24e41b24:data-raw/dictionaries/familiesSynonyms.csv
 217,apg_v14,Bolbitidaceae,Dryopteridaceae,Polypodiales (Eupolypod I)
 218,apg_v14,Bolivaraceae,Oleaceae,Lamiales
 219,apg_v14,Bombacaceae,Malvaceae,Malvales
@@ -850,7 +846,7 @@ order,source,name,name.correct,order.correct
 845,apg_v14,Kaliphoraceae,Montiniaceae,Solanales
 846,apg_v14,Kalmiaceae,Ericaceae,Ericales
 847,apg_v14,Kaniaceae,Myrtaceae,Myrtales
-848,apg_v14,Kasicarpaceae,Kasicarpaceae,fossil Sarbaicarpales near Hamamelidales
+848,apg_v14,Kasicarpaceae,Kasicarpaceae,"fossil Sarbaicarpales, ??near ""Hamamelidales"""
 849,apg_v14,Kewaceae,Kewaceae,Caryophyllales
 850,apg_v14,Kiggelariaceae,Achariaceae,Malpighiales
 851,apg_v14,Kingdoniaceae,Circaeasteraceae,Ranunculales
@@ -1380,7 +1376,7 @@ order,source,name,name.correct,order.correct
 1375,apg_v14,Santolinaceae,Asteraceae,Asterales
 1376,apg_v14,Sapindaceae,Sapindaceae,Sapindales
 1377,apg_v14,Sapotaceae,Sapotaceae,Ericales
-1378,apg_v14,Sarbaicarpaceae,Sarbaicarpaceae,fossil near Hamamelidales
+1378,apg_v14,Sarbaicarpaceae,Sarbaicarpaceae,"fossil near ""Hamamelidales"""
 1379,apg_v14,Sarcobataceae,Sarcobataceae,Caryophyllales
 1380,apg_v14,Sarcocaceae,Phytolaccaceae,Caryophyllales
 1381,apg_v14,Sarcolaenaceae,Sarcolaenaceae,Malvales

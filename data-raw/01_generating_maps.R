@@ -18,7 +18,7 @@ wo@data$pais <- gsub("^st. ", "saint ", wo@data$pais)
 wo@data$pais <- gsub(" of the ", " ", wo@data$pais)
 wo@data$pais <- gsub(" of ", " ", wo@data$pais)
 
-tmp1 <- replace_names[replace_names$class %in% "country" & apply(is.na(replace_names[, 2:4]), 1, all), ]
+tmp1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
 tmp2 <- as.character(tmp1$replace)
 names(tmp2) = as.character(tmp1$pattern)
 #names(tmp2) <- gsub("\\\\", "", names(tmp2))
@@ -40,9 +40,9 @@ worldMap <- sf::st_as_sf(wo.simp1)
 #wo.simp2 <- sf::st_buffer(wo.simp1, dist = 0)
 
 #Inspecting
-plot(wo[1,])
-plot(wo.simp[1,], border = "red")
-plot(worldMap[1,1], border = "green")
+# plot(wo[1,])
+# plot(wo.simp[1,], border = "red")
+# plot(worldMap[1,1], border = "green")
 
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
@@ -52,16 +52,16 @@ save(worldMap, file = "./data/worldMap.rda", compress = "xz")
 
 ##List of Neotropical countries
 iso3 <- countrycode::countrycode(c("Anguilla","Antigua and Barbuda","Argentina","Aruba","Bahamas",
-"Barbados","Belize","Bermuda","Bolivia","Brazil","British Virgin Islands",
-"Caribbean Netherlands","Cayman Islands","Chile",
-"Colombia","Costa Rica","Cuba","Curaçao","Dominica","Dominican Republic",
-"Ecuador","El Salvador","Falkland Islands",
-"French Guiana","Grenada","Guadeloupe","Guatemala","Guyana","Haiti",
-"Honduras","Jamaica","Martinique","Mexico","Montserrat","Nicaragua",
-"Panama","Paraguay","Peru","Puerto Rico","Saint Barthélemy",
-"Saint Kitts and Nevis","Saint Lucia","Saint Martin (French part)","Saint Vincent and the Grenadines",
-"Sint Maarten","Suriname","Trinidad and Tobago","Turks and Caicos Islands",
-"United States Virgin Islands","Uruguay","Venezuela"), "country.name", "iso3c")
+                      "Barbados","Belize","Bermuda","Bolivia","Brazil","British Virgin Islands",
+                      "Caribbean Netherlands","Cayman Islands","Chile",
+                      "Colombia","Costa Rica","Cuba","Curaçao","Dominica","Dominican Republic",
+                      "Ecuador","El Salvador","Falkland Islands",
+                      "French Guiana","Grenada","Guadeloupe","Guatemala","Guyana","Haiti",
+                      "Honduras","Jamaica","Martinique","Mexico","Montserrat","Nicaragua",
+                      "Panama","Paraguay","Peru","Puerto Rico","Saint Barthélemy",
+                      "Saint Kitts and Nevis","Saint Lucia","Saint Martin (French part)","Saint Vincent and the Grenadines",
+                      "Sint Maarten","Suriname","Trinidad and Tobago","Turks and Caicos Islands",
+                      "United States Virgin Islands","Uruguay","Venezuela"), "country.name", "iso3c")
 
 ##Loading, editing and converting the world country shapefile
 path0 <- "E://ownCloud//W_GIS//Am_Lat_ADM_GADM_v3.6//"
@@ -93,7 +93,7 @@ for (i in 1:length(country.list)) {
   tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
   tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
 
-  toto1 <- replace_names[replace_names$class %in% "country" & apply(is.na(replace_names[, 2:4]), 1, all), ]
+  toto1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
   toto2 <- as.character(toto1$replace)
   names(toto2) = as.character(toto1$pattern)
   names(toto2) <- gsub("\\\\", "", names(toto2))
@@ -136,7 +136,8 @@ names(country.list) = pais
 ## Standardizing the shapefile and gazetteer names (for Brazil only)
 
 #loading the gazetteer and removing possible duplicated localities
-dic <- read.csv("data-raw//raw//gazetteer_utf8-win.csv",as.is=TRUE)
+#dic <- read.csv("data-raw//raw//gazetteer_utf8-win.csv",as.is=TRUE)
+dic <- read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//dictionaries//gazetteer.csv",as.is=TRUE)
 dic <- dic[dic$status %in% "ok",]
 dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
 
@@ -193,8 +194,16 @@ for(i in 1:length(country.list)){
   country.list[[i]] <- tmp1
 }
 
-## Saving
+## Inspecting
 latamMap <- country.list
+names(latamMap) <- pais
+plot(latamMap["belize"][[1]][,1])
+plot(latamMap["colombia"][[1]][,1])
+plot(latamMap["french guiana"][[1]][,1])
+plot(latamMap["paraguay"][[1]][,1])
+plot(latamMap["venezuela"][[1]][,1])
+
+## Saving
 save(latamMap, file = "./data/latamMap.rda", compress = "xz")
 
 

@@ -2,13 +2,14 @@ class,condition0,condition1,condition2,pattern,replace
 country,NA,NA,NA,^alemanha|^alemania,germany
 country,NA,NA,NA,^bolavia,bolivia
 country,NA,NA,NA,^brasil|bresil,brazil
+country,NA,NA,NA,^colombie,colombia
 country,NA,NA,NA,^equador,ecuador
-country,NA,NA,NA,^estados unidos$,usa
+country,NA,NA,NA,^usa$|^u.s.a.$,united states
 country,NA,NA,NA,^franca|francia,france
 country,NA,NA,NA,^guadalupe,guadeloupe
 country,NA,NA,NA,^guiana$,guyana
 country,NA,NA,NA,^guiana francesa|^guyane francaise,french guiana
-country,NA,NA,NA,^guiana inglesa|^british guiana,guyana
+country,NA,NA,NA,^guiana inglesa|^british guiana|^guyane angloise,guyana
 country,NA,NA,NA,^inglaterra,england
 country,NA,NA,NA,^martinica,martinique
 country,NA,NA,NA,^japao|^japon,japan
@@ -25,45 +26,70 @@ country,NA,NA,NA,^burma,myanmar
 country,NA,NA,NA,^macau sar china,macau
 country,NA,NA,NA,^macao$,macau
 country,NA,NA,NA,^hong kong sar china,hong kong
-country,NA,NA,NA,^congo - kinshasa,democratic republic of the congo
-country,NA,NA,NA,^congo - brazzaville,republic of congo
+country,NA,NA,NA,^congo - kinshasa,democratic republic congo
+country,NA,NA,NA,^congo - brazzaville,republic congo
+country,NA,NA,NA,^cocos$,cocos islands
+country,NA,NA,NA,^czechia$,czech republic
+country,NA,NA,NA,^u.s.,united states
+country,NA,NA,NA,^u.k.,united kingdom
+country,NA,NA,NA,^brunei darussalam,brunei
+country,NA,NA,NA,^channel islands,united kingdom
+country,NA,NA,NA,^democratic people's republic korea,north korea
+country,NA,NA,NA,^faeroe islands,faroe islands
+country,NA,NA,NA,^falkland islands (malvinas),falkland islands
+country,NA,NA,NA,^holy see,vatican city
+country,NA,NA,NA,^ilhas marshall,marshall islands
+country,NA,NA,NA,^ivory coast,cote ivoire
+country,NA,NA,NA,^lao people's democratic republic,laos
+country,NA,NA,NA,^libyan arab jamahiriya,libya
+country,NA,NA,NA,^federated states micronesia,micronesia
+country,NA,NA,NA,^netherlands antilles,caribbean netherlands
+country,NA,NA,NA,^occupied palestinian territory,palestinian territories
+country,NA,NA,NA,^pitcairn$,pitcairn islands
+country,NA,NA,NA,^republic korea,south korea
+country,NA,NA,NA,^russian federation,russia
+country,NA,NA,NA,^svalbard and jan mayen islands,svalbard and jan mayen
+country,NA,NA,NA,^syrian arab republic,syria
+country,NA,NA,NA,^the netherlands$,netherlands
+country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
+country,NA,NA,NA,^united republic tanzania,tanzania
 country,NA,Acre,not_is.na,NA,brazil
 country,NA,Alagoas,not_is.na,NA,brazil
-country,NA,Amapá,not_is.na,NA,brazil
+country,NA,Amapa,not_is.na,NA,brazil
 country,NA,Bahia,not_is.na,NA,brazil
-country,NA,Ceará,not_is.na,NA,brazil
-country,NA,Espírito Santo,not_is.na,NA,brazil
-country,NA,Goiás,not_is.na,NA,brazil
-country,NA,Maranhão,not_is.na,NA,brazil
+country,NA,Ceara,not_is.na,NA,brazil
+country,NA,Espirito Santo,not_is.na,NA,brazil
+country,NA,Goias,not_is.na,NA,brazil
+country,NA,Maranhao,not_is.na,NA,brazil
 country,NA,Minas Gerais,not_is.na,NA,brazil
 country,NA,Mato Grosso do Sul,not_is.na,NA,brazil
-country,NA,Pará,not_is.na,NA,brazil
-country,NA,Paraíba,not_is.na,NA,brazil
+country,NA,Para,not_is.na,NA,brazil
+country,NA,Paraiba,not_is.na,NA,brazil
 country,NA,Pernambuco,not_is.na,NA,brazil
-country,NA,Piauí,not_is.na,NA,brazil
+country,NA,Piaui,not_is.na,NA,brazil
 country,NA,Rio de Janeiro,not_is.na,NA,brazil
 country,NA,Rio Grande do Norte,not_is.na,NA,brazil
 country,NA,Rio Grande do Sul,not_is.na,NA,brazil
-country,NA,Rondônia,not_is.na,NA,brazil
+country,NA,Rondonia,not_is.na,NA,brazil
 country,NA,Roraima,not_is.na,NA,brazil
 country,NA,Santa Catarina,not_is.na,NA,brazil
 country,NA,Sergipe,not_is.na,NA,brazil
-country,NA,São Paulo,not_is.na,NA,brazil
+country,NA,Sao Paulo,not_is.na,NA,brazil
 country,NA,Tocantins,not_is.na,NA,brazil
 country,NA,Catamarca,not_is.na,NA,argentina
 country,NA,Chubut,not_is.na,NA,argentina
 country,NA,Corrientes,not_is.na,NA,argentina
-country,NA,Entre Ríos,not_is.na,NA,argentina
+country,NA,Entre Rios,not_is.na,NA,argentina
 country,NA,Formosa,not_is.na,NA,argentina
 country,NA,Jujuy,not_is.na,NA,argentina
 country,NA,La Pampa,not_is.na,NA,argentina
 country,NA,La Rioja,not_is.na,NA,argentina
 country,NA,Misiones,not_is.na,NA,argentina
-country,NA,Neuquén,not_is.na,NA,argentina
+country,NA,Neuquen,not_is.na,NA,argentina
 country,NA,Salta,not_is.na,NA,argentina
 country,NA,Santiago del Estero,not_is.na,NA,argentina
 country,NA,Tierra del Fuego,not_is.na,NA,argentina
-country,NA,Tucumán,not_is.na,NA,argentina
+country,NA,Tucuman,not_is.na,NA,argentina
 stateProvince,brazil,NA,NA,^ac$,acre
 stateProvince,brazil,NA,NA,^al$|alagaoas,alagoas
 stateProvince,brazil,NA,NA,^am$|^amozonas$|^territorio federal amazonas$,amazonas
@@ -128,7 +154,7 @@ county,NA,NA,NA,^s. bento|^s.bento,sao bento
 county,NA,NA,NA,^s. luis,sao luis
 county,NA,NA,NA,^s. miguel|^s.miguel,sao miguel
 county,NA,NA,NA,s. f. Paula,sao francisco paula
-county,NA,NA,NA,nÂª sÂª|nossa sra.,nossa senhora
+county,NA,NA,NA,n s|nossa sra.,nossa senhora
 county,NA,NA,NA,^s. luiz,sao luiz
 county,NA,NA,NA,^s. mateus,sao mateus
 county,NA,NA,NA,^s. francisco,sao francisco
@@ -165,7 +191,7 @@ locality2,NA,NA,NA,s.bento|s. bento,sao bento
 locality2,NA,NA,NA,s. luis,sao luis
 locality2,NA,NA,NA,s. miguel,sao miguel
 locality2,NA,NA,NA,s. f. paula,sao francisco paula
-locality2,NA,NA,NA,nÂª sÂª|nossa sra.,nossa senhora
+locality2,NA,NA,NA,n s|nossa sra.,nossa senhora
 locality2,NA,NA,NA,s. luiz,sao luiz
 locality2,NA,NA,NA,s. mateus,sao mateus
 locality2,NA,NA,NA,s. francisco,sao francisco

@@ -9,15 +9,15 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22210,angola,AO,NA,Angola,NA,NA,NA,gdam
 22211,anguilla,AI,NA,Anguilla,NA,NA,NA,gdam
 22212,antarctica,AQ,NA,Antarctica,NA,NA,NA,gdam
-22214,antigua & barbuda_barbuda,AG,NA,Antigua and Barbuda,Barbuda,NA,NA,gdam
-22215,antigua & barbuda_redonda,AG,NA,Antigua and Barbuda,Redonda,NA,NA,gdam
-22216,antigua & barbuda_saint george,AG,NA,Antigua and Barbuda,Saint George,NA,NA,gdam
-22217,antigua & barbuda_saint john,AG,NA,Antigua and Barbuda,Saint John,NA,NA,gdam
-22218,antigua & barbuda_saint mary,AG,NA,Antigua and Barbuda,Saint Mary,NA,NA,gdam
-22219,antigua & barbuda_saint paul,AG,NA,Antigua and Barbuda,Saint Paul,NA,NA,gdam
-22220,antigua & barbuda_saint peter,AG,NA,Antigua and Barbuda,Saint Peter,NA,NA,gdam
-22221,antigua & barbuda_saint philip,AG,NA,Antigua and Barbuda,Saint Philip,NA,NA,gdam
 22213,antigua and barbuda,AG,NA,Antigua and Barbuda,NA,NA,NA,gdam
+22214,antigua and barbuda_barbuda,AG,NA,Antigua and Barbuda,Barbuda,NA,NA,gdam
+22215,antigua and barbuda_redonda,AG,NA,Antigua and Barbuda,Redonda,NA,NA,gdam
+22216,antigua and barbuda_saint george,AG,NA,Antigua and Barbuda,Saint George,NA,NA,gdam
+22217,antigua and barbuda_saint john,AG,NA,Antigua and Barbuda,Saint John,NA,NA,gdam
+22218,antigua and barbuda_saint mary,AG,NA,Antigua and Barbuda,Saint Mary,NA,NA,gdam
+22219,antigua and barbuda_saint paul,AG,NA,Antigua and Barbuda,Saint Paul,NA,NA,gdam
+22220,antigua and barbuda_saint peter,AG,NA,Antigua and Barbuda,Saint Peter,NA,NA,gdam
+22221,antigua and barbuda_saint philip,AG,NA,Antigua and Barbuda,Saint Philip,NA,NA,gdam
 22230,argentina,AR,NA,Argentina,NA,NA,NA,gdam
 1,argentina_buenos aires,AR,BA,Argentina,Buenos Aires,NA,NA,gdam
 2,argentina_buenos aires_adolfo alsina,AR,BA,Argentina,Buenos Aires,Adolfo Alsina,NA,gdam
@@ -626,8 +626,8 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22290,bermuda_hamilton municipality,BM,NA,Bermuda,Hamilton Municipality,NA,NA,gdam
 22291,bermuda_paget,BM,NA,Bermuda,Paget,NA,NA,gdam
 22292,bermuda_pembroke,BM,NA,Bermuda,Pembroke,NA,NA,gdam
-22293,bermuda_saint george municipality,BM,NA,Bermuda,Saint George municipality,NA,NA,gdam
 22294,bermuda_saint george's,BM,NA,Bermuda,Saint George's,NA,NA,gdam
+22293,bermuda_saint george municipality,BM,NA,Bermuda,Saint George municipality,NA,NA,gdam
 22295,bermuda_sandys,BM,NA,Bermuda,Sandys,NA,NA,gdam
 22296,bermuda_smiths,BM,NA,Bermuda,Smiths,NA,NA,gdam
 22297,bermuda_southampton,BM,NA,Bermuda,Southampton,NA,NA,gdam
@@ -4405,8 +4405,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 2579,brazil_minas gerais_grao mogol,BR,MG,Brazil,Minas Gerais,Grão Mogol,NA,ibge
 25079,brazil_minas gerais_grao mogol_ap uh santa marta,BR,MG,Brazil,Minas Gerais,Grão Mogol,AP UH Santa Marta,treeco
 26768,brazil_minas gerais_grao mogol_fazenda tamandua pocoes,BR,MG,Brazil,Minas Gerais,Grão Mogol,Fazenda Tamanduá dos Poções,cncflora
-27709,"brazil_minas gerais_grao mogol_pedreira grao mogol
- fazenda jambeiro",BR,MG,Brazil,Minas Gerais,Grão Mogol,Pedreira Grão Mogol - Fazenda Jambeiro,cncflora
+27709,"brazil_minas gerais_grao mogol_pedreira grao mogol  fazenda jambeiro",BR,MG,Brazil,Minas Gerais,Grão Mogol,Pedreira Grão Mogol - Fazenda Jambeiro,cncflora
 28093,brazil_minas gerais_grao mogol_riacho ribeirao,BR,MG,Brazil,Minas Gerais,Grão Mogol,Riacho Ribeirão,cncflora
 28094,brazil_minas gerais_grao mogol_ribeirao inferno,BR,MG,Brazil,Minas Gerais,Grão Mogol,Ribeirao do Inferno,cncflora
 28206,brazil_minas gerais_grao mogol_rio extrema,BR,MG,Brazil,Minas Gerais,Grão Mogol,Rio Extrema,cncflora
@@ -11162,10 +11161,10 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22325,cameroon,CM,NA,Cameroon,NA,NA,NA,gdam
 22326,canada,CA,NA,Canada,NA,NA,NA,gdam
 22327,cape verde,CV,NA,Cape Verde,NA,NA,NA,gdam
-22302,caribbean netherlands,BQ,NA,"Bonaire, Sint Eustatius and Saba",NA,NA,NA,gdam
-22301,caribbean netherlands_bonaire,BQ,NA,"Bonaire, Sint Eustatius and Saba",Bonaire,NA,NA,gdam
-22304,caribbean netherlands_saba,BQ,NA,"Bonaire, Sint Eustatius and Saba",Saba,NA,NA,gdam
-22305,caribbean netherlands_sint eustatius,BQ,NA,"Bonaire, Sint Eustatius and Saba",Sint Eustatius,NA,NA,gdam
+22302,caribbean netherlands,BQ,NA,Caribbean Netherlands,NA,NA,NA,gdam
+22301,caribbean netherlands_bonaire,BQ,NA,Caribbean Netherlands,Bonaire,NA,NA,gdam
+22304,caribbean netherlands_saba,BQ,NA,Caribbean Netherlands,Saba,NA,NA,gdam
+22305,caribbean netherlands_sint eustatius,BQ,NA,Caribbean Netherlands,Sint Eustatius,NA,NA,gdam
 22328,caspian sea,XCA,NA,Caspian Sea,NA,NA,NA,gdam
 22329,cayman islands,KY,NA,Cayman Islands,NA,NA,NA,gdam
 22330,cayman islands_bodden town,KY,NA,Cayman Islands,Bodden Town,NA,NA,gdam
@@ -11197,10 +11196,10 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 6444,chile_atacama_chanaral,CL,AT,Chile,Atacama,Chañaral,NA,gdam
 6445,chile_atacama_copiapo,CL,AT,Chile,Atacama,Copiapó,NA,gdam
 6446,chile_atacama_huasco,CL,AT,Chile,Atacama,Huasco,NA,gdam
+34417,chile_bio-bio,CL,BI,Chile,Bío-Bío,NA,NA,gdam
 6447,chile_bio bio_arauco,CL,BI,Chile,Bío-Bío,Arauco,NA,gdam
 6448,chile_bio bio_biobio,CL,BI,Chile,Bío-Bío,Biobío,NA,gdam
 6449,chile_bio bio_concepcion,CL,BI,Chile,Bío-Bío,Concepción,NA,gdam
-34417,chile_bio-bio,CL,BI,Chile,Bío-Bío,NA,NA,gdam
 34418,chile_coquimbo,CL,CO,Chile,Coquimbo,NA,NA,gdam
 6450,chile_coquimbo_choapa,CL,CO,Chile,Coquimbo,Choapa,NA,gdam
 6451,chile_coquimbo_elqui,CL,CO,Chile,Coquimbo,Elqui,NA,gdam
@@ -12352,8 +12351,6 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 7550,colombia_vichada_santa rita,CO,VID,Colombia,Vichada,Santa Rita,NA,gdam
 7551,colombia_vichada_santa rosalia,CO,VID,Colombia,Vichada,Santa Rosalía,NA,gdam
 22345,comoros,KM,NA,Comoros,NA,NA,NA,gdam
-22354,congo (dem. rep.),CD,NA,Democratic Republic of the Congo,NA,NA,NA,gdam
-22565,congo (rep.),CG,NA,Republic of Congo,NA,NA,NA,gdam
 22346,cook islands,CK,NA,Cook Islands,NA,NA,NA,gdam
 22347,costa rica,CR,NA,Costa Rica,NA,NA,NA,gdam
 34461,costa rica_alajuela,CR,A,Costa Rica,Alajuela,NA,NA,gdam
@@ -12637,6 +12634,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22351,curacao,CW,NA,Curaçao,NA,NA,NA,gdam
 22352,cyprus,CY,NA,Cyprus,NA,NA,NA,gdam
 22353,czech republic,CZ,NA,Czech Republic,NA,NA,NA,gdam
+22354,democratic republic congo,CD,NA,Democratic Republic of the Congo,NA,NA,NA,gdam
 22355,denmark,DK,NA,Denmark,NA,NA,NA,gdam
 22356,djibouti,DJ,NA,Djibouti,NA,NA,NA,gdam
 22357,dominica,DM,NA,Dominica,NA,NA,NA,gdam
@@ -13393,6 +13391,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8454,french guiana_cayenne_saint elie,GF,NA,French Guiana,Cayenne,Saint-Elie,NA,gdam
 8455,french guiana_cayenne_saint georges (de l'oyapock),GF,NA,French Guiana,Cayenne,Saint-Georges (de l'Oyapock),NA,gdam
 8456,french guiana_cayenne_sinnamary,GF,NA,French Guiana,Cayenne,Sinnamary,NA,gdam
+34568,french guiana_saint-laurent-du-maroni,GF,NA,French Guiana,Saint-Laurent-du-Maroni,NA,NA,gdam
 8457,french guiana_saint laurent du maroni_apatou,GF,NA,French Guiana,Saint-Laurent-du-Maroni,Apatou,NA,gdam
 8458,french guiana_saint laurent du maroni_awala yalimapo,GF,NA,French Guiana,Saint-Laurent-du-Maroni,Awala-Yalimapo,NA,gdam
 8459,french guiana_saint laurent du maroni_grand santi,GF,NA,French Guiana,Saint-Laurent-du-Maroni,Grand-Santi,NA,gdam
@@ -13401,7 +13400,6 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8462,french guiana_saint laurent du maroni_papaichton,GF,NA,French Guiana,Saint-Laurent-du-Maroni,Papaïchton,NA,gdam
 8463,french guiana_saint laurent du maroni_saint laurent (du maroni),GF,NA,French Guiana,Saint-Laurent-du-Maroni,Saint-Laurent (du Maroni),NA,gdam
 8464,french guiana_saint laurent du maroni_saul,GF,NA,French Guiana,Saint-Laurent-du-Maroni,Saül,NA,gdam
-34568,french guiana_saint-laurent-du-maroni,GF,NA,French Guiana,Saint-Laurent-du-Maroni,NA,NA,gdam
 22384,french polynesia,PF,NA,French Polynesia,NA,NA,NA,gdam
 22385,french southern territories,TF,NA,French Southern Territories,NA,NA,NA,gdam
 22386,gabon,GA,NA,Gabon,NA,NA,NA,gdam
@@ -13835,13 +13833,14 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22438,guinea,GN,NA,Guinea,NA,NA,NA,gdam
 22439,guinea bissau,GW,NA,Guinea-Bissau,NA,NA,NA,gdam
 22440,guyana,GY,NA,Guyana,NA,NA,NA,gdam
+34569,guyana_barima-waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
 34798,guyana_barima waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
 8817,guyana_barima waini_barima / amakura,GY,NA,Guyana,Barima-Waini,Barima / Amakura,NA,gdam
 8818,guyana_barima waini_mabaruma / kumaka / hosororo,GY,NA,Guyana,Barima-Waini,Mabaruma / Kumaka / Hosororo,NA,gdam
 8819,guyana_barima waini_matthews ridge / arakaka (matakai) / port kaituma,GY,NA,Guyana,Barima-Waini,Matthews Ridge / Arakaka (Matakai) / Port Kaituma,NA,gdam
 8820,guyana_barima waini_rest of region 1,GY,NA,Guyana,Barima-Waini,Rest of Region 1,NA,gdam
 8821,guyana_barima waini_waini,GY,NA,Guyana,Barima-Waini,Waini,NA,gdam
-34569,guyana_barima-waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
+34570,guyana_cuyuni-mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
 34799,guyana_cuyuni mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
 8822,guyana_cuyuni mazaruni_agatash,GY,NA,Guyana,Cuyuni-Mazaruni,Agatash,NA,gdam
 8823,guyana_cuyuni mazaruni_arau,GY,NA,Guyana,Cuyuni-Mazaruni,Arau,NA,gdam
@@ -13852,7 +13851,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8828,guyana_cuyuni mazaruni_paruima,GY,NA,Guyana,Cuyuni-Mazaruni,Paruima,NA,gdam
 8829,guyana_cuyuni mazaruni_rest of region 7,GY,NA,Guyana,Cuyuni-Mazaruni,Rest of Region 7,NA,gdam
 8830,guyana_cuyuni mazaruni_waramadan,GY,NA,Guyana,Cuyuni-Mazaruni,Waramadan,NA,gdam
-34570,guyana_cuyuni-mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
+34571,guyana_demerara-mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
 34800,guyana_demerara mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
 8831,guyana_demerara mahaica_cane grove land development scheme,GY,NA,Guyana,Demerara-Mahaica,Cane Grove Land Development Scheme,NA,gdam
 8832,guyana_demerara mahaica_city of georgetown,GY,NA,Guyana,Demerara-Mahaica,City of Georgetown,NA,gdam
@@ -13873,7 +13872,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8847,guyana_demerara mahaica_te huist coverden / soesdyke,GY,NA,Guyana,Demerara-Mahaica,Te Huist Coverden / Soesdyke,NA,gdam
 8848,guyana_demerara mahaica_triumph / beterverwagting,GY,NA,Guyana,Demerara-Mahaica,Triumph / Beterverwagting,NA,gdam
 8849,guyana_demerara mahaica_vereeniging / unity,GY,NA,Guyana,Demerara-Mahaica,Vereeniging / Unity,NA,gdam
-34571,guyana_demerara-mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
+34572,guyana_east berbice-corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
 34801,guyana_east berbice corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
 8850,guyana_east berbice corentyne_black bush polder land development scheme,GY,NA,Guyana,East Berbice-Corentyne,Black Bush Polder land Development Scheme,NA,gdam
 8851,guyana_east berbice corentyne_borlam ( no.37 ) / kintyre,GY,NA,Guyana,East Berbice-Corentyne,Borlam ( No.37 ) / Kintyre,NA,gdam
@@ -13896,7 +13895,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8868,guyana_east berbice corentyne_rose hall,GY,NA,Guyana,East Berbice-Corentyne,Rose Hall,NA,gdam
 8869,guyana_east berbice corentyne_tarlogie / maida,GY,NA,Guyana,East Berbice-Corentyne,Tarlogie / Maida,NA,gdam
 8870,guyana_east berbice corentyne_whim / bloomfield,GY,NA,Guyana,East Berbice-Corentyne,Whim / Bloomfield,NA,gdam
-34572,guyana_east berbice-corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
+34573,guyana_essequibo islands-west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
 34802,guyana_essequibo islands west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
 8871,guyana_essequibo islands west demerara_amsterdam (demerara river) / vriesland,GY,NA,Guyana,Essequibo Islands-West Demerara,Amsterdam (Demerara River) / Vriesland,NA,gdam
 8872,guyana_essequibo islands west demerara_blankenburg / hague,GY,NA,Guyana,Essequibo Islands-West Demerara,Blankenburg / Hague,NA,gdam
@@ -13917,7 +13916,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8887,guyana_essequibo islands west demerara_uitvlugt / tuschen,GY,NA,Guyana,Essequibo Islands-West Demerara,Uitvlugt / Tuschen,NA,gdam
 8888,guyana_essequibo islands west demerara_vergenoegen / greenwich park,GY,NA,Guyana,Essequibo Islands-West Demerara,Vergenoegen / Greenwich Park,NA,gdam
 8889,guyana_essequibo islands west demerara_wakenaam (essequibo islands),GY,NA,Guyana,Essequibo Islands-West Demerara,Wakenaam (Essequibo Islands),NA,gdam
-34573,guyana_essequibo islands-west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
+34574,guyana_mahaica-berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
 34803,guyana_mahaica berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
 8890,guyana_mahaica berbice_abary / mahaicony,GY,NA,Guyana,Mahaica-Berbice,Abary / Mahaicony,NA,gdam
 8891,guyana_mahaica berbice_bel air / woodlands,GY,NA,Guyana,Mahaica-Berbice,Bel Air / Woodlands,NA,gdam
@@ -13931,7 +13930,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8899,guyana_mahaica berbice_tempe / seafield,GY,NA,Guyana,Mahaica-Berbice,Tempe / Seafield,NA,gdam
 8900,guyana_mahaica berbice_west bank berbice,GY,NA,Guyana,Mahaica-Berbice,West bank Berbice,NA,gdam
 8901,guyana_mahaica berbice_woodley park / bath,GY,NA,Guyana,Mahaica-Berbice,Woodley Park / Bath,NA,gdam
-34574,guyana_mahaica-berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
+34575,guyana_pomeroon-supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
 34804,guyana_pomeroon supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
 8902,guyana_pomeroon supenaam_anna regina,GY,NA,Guyana,Pomeroon-Supenaam,Anna Regina,NA,gdam
 8903,guyana_pomeroon supenaam_charity / urasara,GY,NA,Guyana,Pomeroon-Supenaam,Charity / Urasara,NA,gdam
@@ -13940,7 +13939,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8906,guyana_pomeroon supenaam_riverstown / annandale,GY,NA,Guyana,Pomeroon-Supenaam,Riverstown / Annandale,NA,gdam
 8907,"guyana_pomeroon supenaam_supernaam river, bethany and mashabo villages",GY,NA,Guyana,Pomeroon-Supenaam,"Supernaam River, Bethany and Mashabo Villages",NA,gdam
 8908,guyana_pomeroon supenaam_zorg en vlygt / aberdeen,GY,NA,Guyana,Pomeroon-Supenaam,Zorg-en-Vlygt / Aberdeen,NA,gdam
-34575,guyana_pomeroon-supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
+34576,guyana_potaro-siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
 34805,guyana_potaro siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
 8909,guyana_potaro siparuni_chenapau river,GY,NA,Guyana,Potaro-Siparuni,Chenapau River,NA,gdam
 8910,guyana_potaro siparuni_kaibarupai,GY,NA,Guyana,Potaro-Siparuni,Kaibarupai,NA,gdam
@@ -13950,7 +13949,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8914,guyana_potaro siparuni_monkey mountain,GY,NA,Guyana,Potaro-Siparuni,Monkey Mountain,NA,gdam
 8915,guyana_potaro siparuni_paramakatoi,GY,NA,Guyana,Potaro-Siparuni,Paramakatoi,NA,gdam
 8916,guyana_potaro siparuni_rest of region 8,GY,NA,Guyana,Potaro-Siparuni,Rest of Region 8,NA,gdam
-34576,guyana_potaro-siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
+34577,guyana_upper demerara-berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
 34806,guyana_upper demerara berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
 8917,guyana_upper demerara berbice_berbice river settlements,GY,NA,Guyana,Upper Demerara-Berbice,Berbice River Settlements,NA,gdam
 8918,guyana_upper demerara berbice_coomaka lands,GY,NA,Guyana,Upper Demerara-Berbice,Coomaka Lands,NA,gdam
@@ -13960,17 +13959,16 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8922,guyana_upper demerara berbice_mabura hills,GY,NA,Guyana,Upper Demerara-Berbice,Mabura Hills,NA,gdam
 8923,guyana_upper demerara berbice_makouria river,GY,NA,Guyana,Upper Demerara-Berbice,Makouria River,NA,gdam
 8924,guyana_upper demerara berbice_rest of region 10,GY,NA,Guyana,Upper Demerara-Berbice,Rest of Region 10,NA,gdam
-34577,guyana_upper demerara-berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
+34578,guyana_upper takutu-upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
 34807,guyana_upper takutu upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
-8925,"guyana_upper takutu upper essequibo_aishalton   karaudanawa, achiwib",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Aishalton - Karaudanawa, Achiwib",NA,gdam
+8925,"guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Aishalton - Karaudanawa, Achiwib",NA,gdam
 8926,guyana_upper takutu upper essequibo_ireng / sawariwau (including  st. ignatius),GY,NA,Guyana,Upper Takutu-Upper Essequibo,Ireng / Sawariwau (Including  St. Ignatius),NA,gdam
 8927,guyana_upper takutu upper essequibo_marudi,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Marudi,NA,gdam
 8928,guyana_upper takutu upper essequibo_rest of region 9,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Rest of Region 9,NA,gdam
-8929,"guyana_upper takutu upper essequibo_sand creek   dadanawa, catunarib, sawariwau",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Sand Creek - Dadanawa, Catunarib, Sawariwau",NA,gdam
-8930,guyana_upper takutu upper essequibo_toka   jakaretinga,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Toka - Jakaretinga,NA,gdam
-8931,"guyana_upper takutu upper essequibo_yakarinta   wowetta, surama",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Yakarinta - Wowetta, Surama",NA,gdam
-8932,guyana_upper takutu upper essequibo_yarong paru   good hope,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Yarong Paru - Good Hope,NA,gdam
-34578,guyana_upper takutu-upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
+8929,"guyana_upper takutu upper essequibo_sand creek dadanawa, catunarib, sawariwau",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Sand Creek - Dadanawa, Catunarib, Sawariwau",NA,gdam
+8930,guyana_upper takutu upper essequibo_toka jakaretinga,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Toka - Jakaretinga,NA,gdam
+8931,"guyana_upper takutu upper essequibo_yakarinta wowetta, surama",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Yakarinta - Wowetta, Surama",NA,gdam
+8932,guyana_upper takutu upper essequibo_yarong paru good hope,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Yarong Paru - Good Hope,NA,gdam
 22441,haiti,HT,NA,Haiti,NA,NA,NA,gdam
 34597,haiti_centre,HT,NA,Haiti,Centre,NA,NA,gdam
 8933,haiti_centre_cerca la source,HT,NA,Haiti,Centre,Cerca La Source,NA,gdam
@@ -13991,6 +13989,8 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8945,haiti_nippes_l'anse a veau,HT,NA,Haiti,Nippes,l'Anse-à-Veau,NA,gdam
 8946,haiti_nippes_miragoane,HT,NA,Haiti,Nippes,Miragoâne,NA,gdam
 34601,haiti_nord,HT,NA,Haiti,Nord,NA,NA,gdam
+34602,haiti_nord-est,HT,NA,Haiti,Nord-Est,NA,NA,gdam
+34603,haiti_nord-ouest,HT,NA,Haiti,Nord-Ouest,NA,NA,gdam
 8947,haiti_nord est_fort liberte,HT,NA,Haiti,Nord-Est,Fort-Liberté,NA,gdam
 8948,haiti_nord est_le trou du nord,HT,NA,Haiti,Nord-Est,le Trou-du-Nord,NA,gdam
 8949,haiti_nord est_ouanaminthe,HT,NA,Haiti,Nord-Est,Ouanaminthe,NA,gdam
@@ -14005,8 +14005,6 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8958,haiti_nord_le limbe,HT,NA,Haiti,Nord,le Limbé,NA,gdam
 8959,haiti_nord_plaisance,HT,NA,Haiti,Nord,Plaisance,NA,gdam
 8960,haiti_nord_saint raphael,HT,NA,Haiti,Nord,Saint-Raphaël,NA,gdam
-34602,haiti_nord-est,HT,NA,Haiti,Nord-Est,NA,NA,gdam
-34603,haiti_nord-ouest,HT,NA,Haiti,Nord-Ouest,NA,NA,gdam
 34604,haiti_ouest,HT,NA,Haiti,Ouest,NA,NA,gdam
 8961,haiti_ouest_croix bouquets,HT,NA,Haiti,Ouest,Croix-des-Bouquets,NA,gdam
 8962,haiti_ouest_l'arcahaie,HT,NA,Haiti,Ouest,l'Arcahaie,NA,gdam
@@ -14014,6 +14012,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8964,haiti_ouest_leogane,HT,NA,Haiti,Ouest,Léogâne,NA,gdam
 8965,haiti_ouest_port au prince,HT,NA,Haiti,Ouest,Port-au-Prince,NA,gdam
 34605,haiti_sud,HT,NA,Haiti,Sud,NA,NA,gdam
+34606,haiti_sud-est,HT,NA,Haiti,Sud-Est,NA,NA,gdam
 8966,haiti_sud est_bainet,HT,NA,Haiti,Sud-Est,Bainet,NA,gdam
 8967,haiti_sud est_belle anse,HT,NA,Haiti,Sud-Est,Belle-Anse,NA,gdam
 8968,haiti_sud est_jacmel,HT,NA,Haiti,Sud-Est,Jacmel,NA,gdam
@@ -14022,7 +14021,6 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8971,haiti_sud_les chardonnieres,HT,NA,Haiti,Sud,les Chardonnières,NA,gdam
 8972,haiti_sud_les coteaux,HT,NA,Haiti,Sud,les Côteaux,NA,gdam
 8973,haiti_sud_port salut,HT,NA,Haiti,Sud,Port-Salut,NA,gdam
-34606,haiti_sud-est,HT,NA,Haiti,Sud-Est,NA,NA,gdam
 22442,heard and mcdonald islands,HM,NA,Heard and McDonald Islands,NA,NA,NA,gdam
 22445,honduras,HN,NA,Honduras,NA,NA,NA,gdam
 34579,honduras_atlantida,HN,NA,Honduras,Atlántida,NA,NA,gdam
@@ -14349,7 +14347,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22450,iran,IR,NA,Iran,NA,NA,NA,gdam
 22451,iraq,IQ,NA,Iraq,NA,NA,NA,gdam
 22452,ireland,IE,NA,Ireland,NA,NA,NA,gdam
-22453,isle of man,IM,NA,Isle of Man,NA,NA,NA,gdam
+22453,isle man,IM,NA,Isle of Man,NA,NA,NA,gdam
 22454,israel,IL,NA,Israel,NA,NA,NA,gdam
 22455,italy,IT,NA,Italy,NA,NA,NA,gdam
 22456,jamaica,JM,NA,Jamaica,NA,NA,NA,gdam
@@ -14399,7 +14397,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22486,martinique_fort france_fort france,MQ,NA,Martinique,Fort-de-France,Fort-de-France,NA,gdam
 22487,martinique_fort france_le lamentin,MQ,NA,Martinique,Fort-de-France,Le Lamentin,NA,gdam
 22488,martinique_fort france_saint joseph,MQ,NA,Martinique,Fort-de-France,Saint-Joseph,NA,gdam
-22489,martinique_fort france_sch?lcher,MQ,NA,Martinique,Fort-de-France,Schœlcher,NA,gdam
+22489,martinique_fort france_schœlcher,MQ,NA,Martinique,Fort-de-France,Schœlcher,NA,gdam
 34769,martinique_le marin,MQ,NA,Martinique,Le Marin,NA,NA,gdam
 22490,martinique_le marin_ducos,MQ,NA,Martinique,Le Marin,Ducos,NA,gdam
 22491,martinique_le marin_le diamant,MQ,NA,Martinique,Le Marin,Le Diamant,NA,gdam
@@ -17186,26 +17184,48 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 11866,puerto rico_yabucoa,PR,NA,Puerto Rico,Yabucoa,NA,NA,gdam
 11867,puerto rico_yauco,PR,NA,Puerto Rico,Yauco,NA,NA,gdam
 22564,qatar,QA,NA,Qatar,NA,NA,NA,gdam
+22565,republic congo,CG,NA,Republic of Congo,NA,NA,NA,gdam
 22566,reunion,RE,NA,Reunion,NA,NA,NA,gdam
 22567,romania,RO,NA,Romania,NA,NA,NA,gdam
 22568,russia,RU,NA,Russia,NA,NA,NA,gdam
 22569,rwanda,RW,NA,Rwanda,NA,NA,NA,gdam
-22575,saint kitts & nevis_christ church nichola town,KN,NA,Saint Kitts and Nevis,Christ Church Nichola Town,NA,NA,gdam
-22576,saint kitts & nevis_saint anne sandy point,KN,NA,Saint Kitts and Nevis,Saint Anne Sandy Point,NA,NA,gdam
-22577,saint kitts & nevis_saint george basseterre,KN,NA,Saint Kitts and Nevis,Saint George Basseterre,NA,NA,gdam
-22578,saint kitts & nevis_saint george gingerland,KN,NA,Saint Kitts and Nevis,Saint George Gingerland,NA,NA,gdam
-22579,saint kitts & nevis_saint james windward,KN,NA,Saint Kitts and Nevis,Saint James Windward,NA,NA,gdam
-22580,saint kitts & nevis_saint john capisterre,KN,NA,Saint Kitts and Nevis,Saint John Capisterre,NA,NA,gdam
-22581,saint kitts & nevis_saint john figtree,KN,NA,Saint Kitts and Nevis,Saint John Figtree,NA,NA,gdam
-22582,saint kitts & nevis_saint mary cayon,KN,NA,Saint Kitts and Nevis,Saint Mary Cayon,NA,NA,gdam
-22583,saint kitts & nevis_saint paul capisterre,KN,NA,Saint Kitts and Nevis,Saint Paul Capisterre,NA,NA,gdam
-22584,saint kitts & nevis_saint paul charlestown,KN,NA,Saint Kitts and Nevis,Saint Paul Charlestown,NA,NA,gdam
-22585,saint kitts & nevis_saint peter basseterre,KN,NA,Saint Kitts and Nevis,Saint Peter Basseterre,NA,NA,gdam
-22586,saint kitts & nevis_saint thomas lowland,KN,NA,Saint Kitts and Nevis,Saint Thomas Lowland,NA,NA,gdam
-22587,saint kitts & nevis_saint thomas middle island,KN,NA,Saint Kitts and Nevis,Saint Thomas Middle Island,NA,NA,gdam
-22588,saint kitts & nevis_trinity palmetto point,KN,NA,Saint Kitts and Nevis,Trinity Palmetto Point,NA,NA,gdam
+22667,saint barthelemy,BL,NA,St. Barthélemy,NA,NA,NA,gdam
+22571,saint helena,SH,NA,Saint Helena,NA,NA,NA,gdam
 22573,saint kitts and nevis,KN,NA,Saint Kitts and Nevis,NA,NA,NA,gdam
+22575,saint kitts and nevis_christ church nichola town,KN,NA,Saint Kitts and Nevis,Christ Church Nichola Town,NA,NA,gdam
+22576,saint kitts and nevis_saint anne sandy point,KN,NA,Saint Kitts and Nevis,Saint Anne Sandy Point,NA,NA,gdam
+22577,saint kitts and nevis_saint george basseterre,KN,NA,Saint Kitts and Nevis,Saint George Basseterre,NA,NA,gdam
+22578,saint kitts and nevis_saint george gingerland,KN,NA,Saint Kitts and Nevis,Saint George Gingerland,NA,NA,gdam
+22579,saint kitts and nevis_saint james windward,KN,NA,Saint Kitts and Nevis,Saint James Windward,NA,NA,gdam
+22580,saint kitts and nevis_saint john capisterre,KN,NA,Saint Kitts and Nevis,Saint John Capisterre,NA,NA,gdam
+22581,saint kitts and nevis_saint john figtree,KN,NA,Saint Kitts and Nevis,Saint John Figtree,NA,NA,gdam
+22582,saint kitts and nevis_saint mary cayon,KN,NA,Saint Kitts and Nevis,Saint Mary Cayon,NA,NA,gdam
+22583,saint kitts and nevis_saint paul capisterre,KN,NA,Saint Kitts and Nevis,Saint Paul Capisterre,NA,NA,gdam
+22584,saint kitts and nevis_saint paul charlestown,KN,NA,Saint Kitts and Nevis,Saint Paul Charlestown,NA,NA,gdam
+22585,saint kitts and nevis_saint peter basseterre,KN,NA,Saint Kitts and Nevis,Saint Peter Basseterre,NA,NA,gdam
+22586,saint kitts and nevis_saint thomas lowland,KN,NA,Saint Kitts and Nevis,Saint Thomas Lowland,NA,NA,gdam
+22587,saint kitts and nevis_saint thomas middle island,KN,NA,Saint Kitts and Nevis,Saint Thomas Middle Island,NA,NA,gdam
+22588,saint kitts and nevis_trinity palmetto point,KN,NA,Saint Kitts and Nevis,Trinity Palmetto Point,NA,NA,gdam
+22603,saint lucia,LC,NA,Saint Lucia,NA,NA,NA,gdam
+22605,saint lucia_anse la raye,LC,NA,Saint Lucia,Anse-la-Raye,NA,NA,gdam
+22606,saint lucia_canaries,LC,NA,Saint Lucia,Canaries,NA,NA,gdam
+22607,saint lucia_castries,LC,NA,Saint Lucia,Castries,NA,NA,gdam
+22608,saint lucia_choiseul,LC,NA,Saint Lucia,Choiseul,NA,NA,gdam
+22609,saint lucia_dennery,LC,NA,Saint Lucia,Dennery,NA,NA,gdam
+22610,saint lucia_gros islet,LC,NA,Saint Lucia,Gros Islet,NA,NA,gdam
+22611,saint lucia_laborie,LC,NA,Saint Lucia,Laborie,NA,NA,gdam
+22612,saint lucia_micoud,LC,NA,Saint Lucia,Micoud,NA,NA,gdam
+22613,saint lucia_soufriere,LC,NA,Saint Lucia,Soufrière,NA,NA,gdam
+22614,saint lucia_vieux fort,LC,NA,Saint Lucia,Vieux Fort,NA,NA,gdam
 22642,saint martin,MF,NA,Saint-Martin,NA,NA,NA,gdam
+22625,saint pierre and miquelon,PM,NA,Saint Pierre and Miquelon,NA,NA,NA,gdam
+22627,saint vincent and grenadines,VC,NA,Saint Vincent and the Grenadines,NA,NA,NA,gdam
+22630,saint vincent and grenadines_charlotte,VC,NA,Saint Vincent and the Grenadines,Charlotte,NA,NA,gdam
+22631,saint vincent and grenadines_grenadines,VC,NA,Saint Vincent and the Grenadines,Grenadines,NA,NA,gdam
+22632,saint vincent and grenadines_saint andrew,VC,NA,Saint Vincent and the Grenadines,Saint Andrew,NA,NA,gdam
+22633,saint vincent and grenadines_saint david,VC,NA,Saint Vincent and the Grenadines,Saint David,NA,NA,gdam
+22634,saint vincent and grenadines_saint george,VC,NA,Saint Vincent and the Grenadines,Saint George,NA,NA,gdam
+22635,saint vincent and grenadines_saint patrick,VC,NA,Saint Vincent and the Grenadines,Saint Patrick,NA,NA,gdam
 22643,samoa,WS,NA,Samoa,NA,NA,NA,gdam
 22644,san marino,SM,NA,San Marino,NA,NA,NA,gdam
 22645,sao tome and principe,ST,NA,São Tomé and Príncipe,NA,NA,NA,gdam
@@ -17227,27 +17247,6 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22664,spain,ES,NA,Spain,NA,NA,NA,gdam
 22665,spratly islands,XSP,NA,Spratly Islands,NA,NA,NA,gdam
 22666,sri lanka,LK,NA,Sri Lanka,NA,NA,NA,gdam
-22667,st. barthelemy,BL,NA,St. Barthélemy,NA,NA,NA,gdam
-22571,st. helena,SH,NA,Saint Helena,NA,NA,NA,gdam
-22603,st. lucia,LC,NA,Saint Lucia,NA,NA,NA,gdam
-22605,st. lucia_anse la raye,LC,NA,Saint Lucia,Anse-la-Raye,NA,NA,gdam
-22606,st. lucia_canaries,LC,NA,Saint Lucia,Canaries,NA,NA,gdam
-22607,st. lucia_castries,LC,NA,Saint Lucia,Castries,NA,NA,gdam
-22608,st. lucia_choiseul,LC,NA,Saint Lucia,Choiseul,NA,NA,gdam
-22609,st. lucia_dennery,LC,NA,Saint Lucia,Dennery,NA,NA,gdam
-22610,st. lucia_gros islet,LC,NA,Saint Lucia,Gros Islet,NA,NA,gdam
-22611,st. lucia_laborie,LC,NA,Saint Lucia,Laborie,NA,NA,gdam
-22612,st. lucia_micoud,LC,NA,Saint Lucia,Micoud,NA,NA,gdam
-22613,st. lucia_soufriere,LC,NA,Saint Lucia,Soufrière,NA,NA,gdam
-22614,st. lucia_vieux fort,LC,NA,Saint Lucia,Vieux Fort,NA,NA,gdam
-22625,st. pierre and miquelon,PM,NA,Saint Pierre and Miquelon,NA,NA,NA,gdam
-22630,st. vincent & grenadines_charlotte,VC,NA,Saint Vincent and the Grenadines,Charlotte,NA,NA,gdam
-22631,st. vincent & grenadines_grenadines,VC,NA,Saint Vincent and the Grenadines,Grenadines,NA,NA,gdam
-22632,st. vincent & grenadines_saint andrew,VC,NA,Saint Vincent and the Grenadines,Saint Andrew,NA,NA,gdam
-22633,st. vincent & grenadines_saint david,VC,NA,Saint Vincent and the Grenadines,Saint David,NA,NA,gdam
-22634,st. vincent & grenadines_saint george,VC,NA,Saint Vincent and the Grenadines,Saint George,NA,NA,gdam
-22635,st. vincent & grenadines_saint patrick,VC,NA,Saint Vincent and the Grenadines,Saint Patrick,NA,NA,gdam
-22627,st. vincent and grenadines,VC,NA,Saint Vincent and the Grenadines,NA,NA,NA,gdam
 22669,sudan,SD,NA,Sudan,NA,NA,NA,gdam
 22670,suriname,SR,NA,Suriname,NA,NA,NA,gdam
 34686,suriname_brokopondo,SR,NA,Suriname,Brokopondo,NA,NA,gdam
@@ -17335,60 +17334,60 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22681,togo,TG,NA,Togo,NA,NA,NA,gdam
 22682,tokelau,TK,NA,Tokelau,NA,NA,NA,gdam
 22683,tonga,TO,NA,Tonga,NA,NA,NA,gdam
-22686,trinidad & tobago_arima,TT,NA,Trinidad and Tobago,Arima,NA,NA,gdam
-22687,trinidad & tobago_chaguanas,TT,NA,Trinidad and Tobago,Chaguanas,NA,NA,gdam
-22688,trinidad & tobago_couva tabaquite talparo,TT,NA,Trinidad and Tobago,Couva-Tabaquite-Talparo,NA,NA,gdam
-22689,trinidad & tobago_diego martin,TT,NA,Trinidad and Tobago,Diego Martin,NA,NA,gdam
-22690,trinidad & tobago_mayaro/rio claro,TT,NA,Trinidad and Tobago,Mayaro/Rio Claro,NA,NA,gdam
-22691,trinidad & tobago_penal debe,TT,NA,Trinidad and Tobago,Penal-Debe,NA,NA,gdam
-22692,trinidad & tobago_point fortin,TT,NA,Trinidad and Tobago,Point Fortin,NA,NA,gdam
-22693,trinidad & tobago_port of spain,TT,NA,Trinidad and Tobago,Port of Spain,NA,NA,gdam
-22694,trinidad & tobago_princes town,TT,NA,Trinidad and Tobago,Princes Town,NA,NA,gdam
-22695,trinidad & tobago_san fernando,TT,NA,Trinidad and Tobago,San Fernando,NA,NA,gdam
-22696,trinidad & tobago_san juan laventille,TT,NA,Trinidad and Tobago,San Juan-Laventille,NA,NA,gdam
-22697,trinidad & tobago_sangre grande,TT,NA,Trinidad and Tobago,Sangre Grande,NA,NA,gdam
-22698,trinidad & tobago_siparia,TT,NA,Trinidad and Tobago,Siparia,NA,NA,gdam
-22699,trinidad & tobago_tobago,TT,NA,Trinidad and Tobago,Tobago,NA,NA,gdam
-22700,trinidad & tobago_tunapuna/piarco,TT,NA,Trinidad and Tobago,Tunapuna/Piarco,NA,NA,gdam
 22684,trinidad and tobago,TT,NA,Trinidad and Tobago,NA,NA,NA,gdam
+22686,trinidad and tobago_arima,TT,NA,Trinidad and Tobago,Arima,NA,NA,gdam
+22687,trinidad and tobago_chaguanas,TT,NA,Trinidad and Tobago,Chaguanas,NA,NA,gdam
+22688,trinidad and tobago_couva tabaquite talparo,TT,NA,Trinidad and Tobago,Couva-Tabaquite-Talparo,NA,NA,gdam
+22689,trinidad and tobago_diego martin,TT,NA,Trinidad and Tobago,Diego Martin,NA,NA,gdam
+22690,trinidad and tobago_mayaro/rio claro,TT,NA,Trinidad and Tobago,Mayaro/Rio Claro,NA,NA,gdam
+22691,trinidad and tobago_penal debe,TT,NA,Trinidad and Tobago,Penal-Debe,NA,NA,gdam
+22692,trinidad and tobago_point fortin,TT,NA,Trinidad and Tobago,Point Fortin,NA,NA,gdam
+22693,trinidad and tobago_port of spain,TT,NA,Trinidad and Tobago,Port of Spain,NA,NA,gdam
+22694,trinidad and tobago_princes town,TT,NA,Trinidad and Tobago,Princes Town,NA,NA,gdam
+22695,trinidad and tobago_san fernando,TT,NA,Trinidad and Tobago,San Fernando,NA,NA,gdam
+22696,trinidad and tobago_san juan laventille,TT,NA,Trinidad and Tobago,San Juan-Laventille,NA,NA,gdam
+22697,trinidad and tobago_sangre grande,TT,NA,Trinidad and Tobago,Sangre Grande,NA,NA,gdam
+22698,trinidad and tobago_siparia,TT,NA,Trinidad and Tobago,Siparia,NA,NA,gdam
+22699,trinidad and tobago_tobago,TT,NA,Trinidad and Tobago,Tobago,NA,NA,gdam
+22700,trinidad and tobago_tunapuna/piarco,TT,NA,Trinidad and Tobago,Tunapuna/Piarco,NA,NA,gdam
 22716,tunisia,TN,NA,Tunisia,NA,NA,NA,gdam
 22717,turkey,TR,NA,Turkey,NA,NA,NA,gdam
 22718,turkmenistan,TM,NA,Turkmenistan,NA,NA,NA,gdam
-22720,turks & caicos islands_grand turk,TC,NA,Turks and Caicos Islands,Grand Turk,NA,NA,gdam
-22721,turks & caicos islands_middle caicos,TC,NA,Turks and Caicos Islands,Middle Caicos,NA,NA,gdam
-22722,turks & caicos islands_north caicos,TC,NA,Turks and Caicos Islands,North Caicos,NA,NA,gdam
-22723,turks & caicos islands_providenciales & west caicos,TC,NA,Turks and Caicos Islands,Providenciales and West Caicos,NA,NA,gdam
-22724,turks & caicos islands_salt cay,TC,NA,Turks and Caicos Islands,Salt Cay,NA,NA,gdam
-22725,turks & caicos islands_south caicos & east caicos,TC,NA,Turks and Caicos Islands,South Caicos and East Caicos,NA,NA,gdam
 22719,turks and caicos islands,TC,NA,Turks and Caicos Islands,NA,NA,NA,gdam
+22720,turks and caicos islands_grand turk,TC,NA,Turks and Caicos Islands,Grand Turk,NA,NA,gdam
+22721,turks and caicos islands_middle caicos,TC,NA,Turks and Caicos Islands,Middle Caicos,NA,NA,gdam
+22722,turks and caicos islands_north caicos,TC,NA,Turks and Caicos Islands,North Caicos,NA,NA,gdam
+22723,turks and caicos islands_providenciales and west caicos,TC,NA,Turks and Caicos Islands,Providenciales and West Caicos,NA,NA,gdam
+22724,turks and caicos islands_salt cay,TC,NA,Turks and Caicos Islands,Salt Cay,NA,NA,gdam
+22725,turks and caicos islands_south caicos and east caicos,TC,NA,Turks and Caicos Islands,South Caicos and East Caicos,NA,NA,gdam
 22732,tuvalu,TV,NA,Tuvalu,NA,NA,NA,gdam
-22745,u.s. virgin islands,VI,NA,U.S. Virgin Islands,NA,NA,NA,gdam
-22746,u.s. virgin islands_saint croix_anna's hope village,VI,NA,U.S. Virgin Islands,Saint Croix,Anna's Hope Village,NA,gdam
-22747,u.s. virgin islands_saint croix_christiansted,VI,NA,U.S. Virgin Islands,Saint Croix,Christiansted,NA,gdam
-22748,u.s. virgin islands_saint croix_east end,VI,NA,U.S. Virgin Islands,Saint Croix,East End,NA,gdam
-22749,u.s. virgin islands_saint croix_frederiksted,VI,NA,U.S. Virgin Islands,Saint Croix,Frederiksted,NA,gdam
-22750,u.s. virgin islands_saint croix_northcentral,VI,NA,U.S. Virgin Islands,Saint Croix,Northcentral,NA,gdam
-22751,u.s. virgin islands_saint croix_northwest,VI,NA,U.S. Virgin Islands,Saint Croix,Northwest,NA,gdam
-22752,u.s. virgin islands_saint croix_sion farm,VI,NA,U.S. Virgin Islands,Saint Croix,Sion Farm,NA,gdam
-22753,u.s. virgin islands_saint croix_southcentral,VI,NA,U.S. Virgin Islands,Saint Croix,Southcentral,NA,gdam
-22754,u.s. virgin islands_saint croix_southwest,VI,NA,U.S. Virgin Islands,Saint Croix,Southwest,NA,gdam
-22755,u.s. virgin islands_saint john_central,VI,NA,U.S. Virgin Islands,Saint John,Central,NA,gdam
-22756,u.s. virgin islands_saint john_coral bay,VI,NA,U.S. Virgin Islands,Saint John,Coral Bay,NA,gdam
-22757,u.s. virgin islands_saint john_cruz bay,VI,NA,U.S. Virgin Islands,Saint John,Cruz Bay,NA,gdam
-22758,u.s. virgin islands_saint john_east end,VI,NA,U.S. Virgin Islands,Saint John,East End,NA,gdam
-22759,u.s. virgin islands_saint thomas_charlotte amalie,VI,NA,U.S. Virgin Islands,Saint Thomas,Charlotte Amalie,NA,gdam
-22760,u.s. virgin islands_saint thomas_east end,VI,NA,U.S. Virgin Islands,Saint Thomas,East End,NA,gdam
-22761,u.s. virgin islands_saint thomas_northside,VI,NA,U.S. Virgin Islands,Saint Thomas,Northside,NA,gdam
-22762,u.s. virgin islands_saint thomas_southside,VI,NA,U.S. Virgin Islands,Saint Thomas,Southside,NA,gdam
-22763,u.s. virgin islands_saint thomas_tutu,VI,NA,U.S. Virgin Islands,Saint Thomas,Tutu,NA,gdam
-22764,u.s. virgin islands_saint thomas_water island,VI,NA,U.S. Virgin Islands,Saint Thomas,Water Island,NA,gdam
-22765,u.s. virgin islands_saint thomas_west end,VI,NA,U.S. Virgin Islands,Saint Thomas,West End,NA,gdam
 22733,uganda,UG,NA,Uganda,NA,NA,NA,gdam
 22734,ukraine,UA,NA,Ukraine,NA,NA,NA,gdam
 22735,united arab emirates,AE,NA,United Arab Emirates,NA,NA,NA,gdam
 22736,united kingdom,GB,NA,United Kingdom,NA,NA,NA,gdam
 22737,united states,US,NA,United States,NA,NA,NA,gdam
 22738,united states minor outlying islands,UM,NA,United States Minor Outlying Islands,NA,NA,NA,gdam
+22745,united states virgin islands,VI,NA,United States Virgin Islands,NA,NA,NA,gdam
+22746,united states virgin islands_saint croix_anna's hope village,VI,NA,United States Virgin Islands,Saint Croix,Anna's Hope Village,NA,gdam
+22747,united states virgin islands_saint croix_christiansted,VI,NA,United States Virgin Islands,Saint Croix,Christiansted,NA,gdam
+22748,united states virgin islands_saint croix_east end,VI,NA,United States Virgin Islands,Saint Croix,East End,NA,gdam
+22749,united states virgin islands_saint croix_frederiksted,VI,NA,United States Virgin Islands,Saint Croix,Frederiksted,NA,gdam
+22750,united states virgin islands_saint croix_northcentral,VI,NA,United States Virgin Islands,Saint Croix,Northcentral,NA,gdam
+22751,united states virgin islands_saint croix_northwest,VI,NA,United States Virgin Islands,Saint Croix,Northwest,NA,gdam
+22752,united states virgin islands_saint croix_sion farm,VI,NA,United States Virgin Islands,Saint Croix,Sion Farm,NA,gdam
+22753,united states virgin islands_saint croix_southcentral,VI,NA,United States Virgin Islands,Saint Croix,Southcentral,NA,gdam
+22754,united states virgin islands_saint croix_southwest,VI,NA,United States Virgin Islands,Saint Croix,Southwest,NA,gdam
+22755,united states virgin islands_saint john_central,VI,NA,United States Virgin Islands,Saint John,Central,NA,gdam
+22756,united states virgin islands_saint john_coral bay,VI,NA,United States Virgin Islands,Saint John,Coral Bay,NA,gdam
+22757,united states virgin islands_saint john_cruz bay,VI,NA,United States Virgin Islands,Saint John,Cruz Bay,NA,gdam
+22758,united states virgin islands_saint john_east end,VI,NA,United States Virgin Islands,Saint John,East End,NA,gdam
+22759,united states virgin islands_saint thomas_charlotte amalie,VI,NA,United States Virgin Islands,Saint Thomas,Charlotte Amalie,NA,gdam
+22760,united states virgin islands_saint thomas_east end,VI,NA,United States Virgin Islands,Saint Thomas,East End,NA,gdam
+22761,united states virgin islands_saint thomas_northside,VI,NA,United States Virgin Islands,Saint Thomas,Northside,NA,gdam
+22762,united states virgin islands_saint thomas_southside,VI,NA,United States Virgin Islands,Saint Thomas,Southside,NA,gdam
+22763,united states virgin islands_saint thomas_tutu,VI,NA,United States Virgin Islands,Saint Thomas,Tutu,NA,gdam
+22764,united states virgin islands_saint thomas_water island,VI,NA,United States Virgin Islands,Saint Thomas,Water Island,NA,gdam
+22765,united states virgin islands_saint thomas_west end,VI,NA,United States Virgin Islands,Saint Thomas,West End,NA,gdam
 34368,united states_NA_NA_honolulu,US,NA,United States,NA,NA,united states,gbif
 22739,uruguay,UY,NA,Uruguay,NA,NA,NA,gdam
 34696,uruguay_artigas,UY,AR,Uruguay,Artigas,NA,NA,gdam
