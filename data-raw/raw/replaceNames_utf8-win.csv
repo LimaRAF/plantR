@@ -2,13 +2,14 @@
 country,NA,NA,NA,^alemanha|^alemania,germany
 country,NA,NA,NA,^bolavia,bolivia
 country,NA,NA,NA,^brasil|bresil,brazil
+country,NA,NA,NA,^colombie,colombia
 country,NA,NA,NA,^equador,ecuador
 country,NA,NA,NA,^estados unidos$,usa
 country,NA,NA,NA,^franca|francia,france
 country,NA,NA,NA,^guadalupe,guadeloupe
 country,NA,NA,NA,^guiana$,guyana
 country,NA,NA,NA,^guiana francesa|^guyane francaise,french guiana
-country,NA,NA,NA,^guiana inglesa|^british guiana,guyana
+country,NA,NA,NA,^guiana inglesa|^british guiana|^guyane angloise,guyana
 country,NA,NA,NA,^inglaterra,england
 country,NA,NA,NA,^martinica,martinique
 country,NA,NA,NA,^japao|^japon,japan
@@ -25,8 +26,33 @@ country,NA,NA,NA,^burma,myanmar
 country,NA,NA,NA,^macau sar china,macau
 country,NA,NA,NA,^macao$,macau
 country,NA,NA,NA,^hong kong sar china,hong kong
-country,NA,NA,NA,^congo - kinshasa,democratic republic of the congo
-country,NA,NA,NA,^congo - brazzaville,republic of congo
+country,NA,NA,NA,^congo - kinshasa,democratic republic congo
+country,NA,NA,NA,^congo - brazzaville,republic congo
+country,NA,NA,NA,^cocos$,cocos islands
+country,NA,NA,NA,^czechia$,czech republic
+country,NA,NA,NA,^u.s.,united states
+country,NA,NA,NA,^u.k.,united kingdom
+country,NA,NA,NA,^brunei darussalam,brunei
+country,NA,NA,NA,^channel islands,united kingdom
+country,NA,NA,NA,^democratic people's republic  korea,north korea
+country,NA,NA,NA,^faeroe islands,faroe islands
+country,NA,NA,NA,^falkland islands (malvinas),falkland islands
+country,NA,NA,NA,^holy see,vatican city
+country,NA,NA,NA,^ilhas marshall,marshall islands
+country,NA,NA,NA,^ivory coast,cote ivoire
+country,NA,NA,NA,^lao people's democratic republic,laos
+country,NA,NA,NA,^libyan arab jamahiriya,libya
+country,NA,NA,NA,^federated states micronesia,micronesia
+country,NA,NA,NA,^netherlands antilles,caribbean netherlands
+country,NA,NA,NA,^occupied palestinian territory,palestinian territories
+country,NA,NA,NA,^pitcairn$,pitcairn islands
+country,NA,NA,NA,^republic korea,south korea
+country,NA,NA,NA,^russian federation,russia
+country,NA,NA,NA,^svalbard and jan mayen islands,svalbard and jan mayen
+country,NA,NA,NA,^syrian arab republic,syria
+country,NA,NA,NA,^the netherlands$,netherlands
+country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
+country,NA,NA,NA,^united republic tanzania,tanzania
 country,NA,Acre,not_is.na,NA,brazil
 country,NA,Alagoas,not_is.na,NA,brazil
 country,NA,Amapá,not_is.na,NA,brazil

@@ -353,6 +353,24 @@ list of names at the locality level. However, other "check_..." classes (e.g. "c
 
 ## Geographical validation: function `validateCoord()`
 
+Check here other possible steps that can use coordinateCleaner or other packages
+
+### Flag occurrences from cultivated individuals
+
+### Load and inspect the `plantR` default world map
+
+### Validate original coordinates at country, state and county level
+
+### Coordinates falling into the sea or bays
+
+### How distant original coordinates are from the county centroid?
+
+### Verification of inverted and swaped coordinates
+
+### Flagging based on coordinate resoltuion and distance from the target county
+
+### Replacing coordinates accordin to the verified classes 
+
 
 ## Taxonomic validation: function `validateTax()`
 
@@ -410,7 +428,18 @@ This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Sa
 ## Homogenizing information within duplicates: function `dupInfo()`
 	
 
-# Data description  (NEED TO CHECK)
+# Data description  and summary (NEED TO CHECK)
 
-## Number of collections, specimens and duplicates retrieved: 
+### Number of collections, specimens and duplicates retrieved: 
+
+### Number of families, genera and species retrieved: 
+
+### Summary of flags and other issues
 	
+### Generating checklists
+
+### Saving outputs to the format of other related packages
+
+#### MODEL-R
+
+#### ConR

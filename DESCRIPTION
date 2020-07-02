@@ -35,5 +35,7 @@ Imports:
     jsonlite,
     knitr,
     rgbif,
-    stringr
+    stringr,
+    flora,
+    Taxonstand
 VignetteBuilder: knitr

@@ -17,15 +17,15 @@ the data frame \code{x} with an additional column called 'family.new'.
 The functions use the ...
 }
 \details{
-First search of names is based on the list of families and accepted synonyms
-for vascular plants obtained from the APG website
-(\href{http://www.mobot.org/MOBOT/research/APweb/}), which includes families
-cited in the APG IV (2016) and in the PPG I (2016). If the family name is not
-found in the APG list, a search is carried in the Brazilian Flora 2020
-(BF-2020), using package `flora`. If the family name is still not found in
-BF-2020, then a final try is performed in The Plant List (TPL), using package
-`Taxonstand`. Family names retrieved from BF-2020 and TPL are finally
-converted to the names accepted by the APG IV or PPG I.
+First search of names is based on the list of families and accepted
+  synonyms for vascular plants obtained from the
+  \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website}, which
+  includes families cited in the APG IV (2016) and in the PPG I (2016). If
+  the family name is not found in the APG list, a search is carried in the
+  Brazilian Flora 2020 (BF-2020), using package `flora`. If the family name
+  is still not found in BF-2020, then a final try is performed in The Plant
+  List (TPL), using package `Taxonstand`. Family names retrieved from BF-2020
+  and TPL are finally converted to the names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the name found
 based on the genus name, the original name is replaced by the name from the

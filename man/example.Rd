@@ -12,8 +12,8 @@
 data(example)
 }
 \description{
-A dataset containing the retrieved records of the species \italic{Trema
-micranta} and \italic{Casearia sylvestris} downloaded from the speciesLink network
-in June 2020.
+A dataset containing the retrieved records of the species *Trema micranta*
+and *Casearia sylvestris* downloaded from the speciesLink network in June
+2020.
 }
 \keyword{datasets}

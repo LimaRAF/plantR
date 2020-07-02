@@ -136,6 +136,13 @@ fixLoc <- function(x,
     # Replacing '&' by 'and' in compound country names
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
 
+    # Replacing abbreviated 'Saint' names
+    x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"])
+
+    # Removing some prepositions from country names
+    x1[, "country"] <- gsub(" of the ", " ", x1[, "country"])
+    x1[, "country"] <- gsub(" of ", " ", x1[, "country"])
+
     # Replacing missing info by NA
     pattern = paste(missLocs, collapse = "|")
     x1[, "country"] <- gsub(pattern, NA, x1[, "country"], perl = TRUE)
