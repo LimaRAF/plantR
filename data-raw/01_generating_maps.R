@@ -19,9 +19,9 @@ wo@data$pais <- gsub(" of the ", " ", wo@data$pais)
 wo@data$pais <- gsub(" of ", " ", wo@data$pais)
 
 tmp1 <- replace_names[replace_names$class %in% "country" & apply(is.na(replace_names[, 2:4]), 1, all), ]
-tmp2 <- tmp1$replace
-names(tmp2) = tmp1$pattern
-names(tmp2) <- gsub("\\\\", "", names(tmp2))
+tmp2 <- as.character(tmp1$replace)
+names(tmp2) = as.character(tmp1$pattern)
+#names(tmp2) <- gsub("\\\\", "", names(tmp2))
 wo@data$pais <- sapply(strsplit(wo@data$pais,' \\('), function(x) x[[1]][1])
 wo@data$pais <- stringr::str_replace_all(wo@data$pais, tmp2)
 wo@data$pais <- plantR::prepLoc(wo@data$pais)
@@ -94,8 +94,8 @@ for (i in 1:length(country.list)) {
   tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
 
   toto1 <- replace_names[replace_names$class %in% "country" & apply(is.na(replace_names[, 2:4]), 1, all), ]
-  toto2 <- toto1$replace
-  names(toto2) = toto1$pattern
+  toto2 <- as.character(toto1$replace)
+  names(toto2) = as.character(toto1$pattern)
   names(toto2) <- gsub("\\\\", "", names(toto2))
   tmp1$NAME_0 <- sapply(strsplit(tmp1$NAME_0,' \\('), function(x) x[[1]][1])
   tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0, toto2)
@@ -141,7 +141,7 @@ dic <- dic[dic$status %in% "ok",]
 dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
 
 j=8
-for(j in 31:length(country.list)) {
+#for(j in 31:length(country.list)) {
   #Creating the locality strings for the shapefile dataframe
   tmp = country.list[[j]]@data
   for(i in 1:dim(tmp)[2]) tmp[,i] <- as.character(tmp[,i])
@@ -172,19 +172,19 @@ for(j in 31:length(country.list)) {
   if(any(id)) {
     cat(paste(i,": ",unique(tmp$NAME_0),table(id)),"\n")
 
-    # table(tmp[id,1] == tmp2[id,c("country")])
-    # tmp[id,1] = tmp2[id,c("country")]
-    # table(tmp[id,2] == tmp2[id,c("state")]) #all differences were double-checked and the gazetteer is right!
-    # cbind(tmp[id,c(2)], tmp2[id,c("state","county")])[tmp[id,2] == tmp2[id,c("state")],]
-    # tmp[id,2] = tmp2[id,c("state")]
-    # table(!tmp[id,3] == tmp2[id,c("county")]) #all differences were double-checked and the gazetteer is right!
-    # cbind(tmp[id,c(2,3)], tmp2[id,c("county")])[!tmp[id,3] == tmp2[id,c("county")],]
-    # tmp[id,3] = tmp2[id,c("county")]
-    #
-    # #Saving the changes
-    # country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
+    table(tmp[id,1] == tmp2[id,c("country")])
+    #tmp[id,1] = tmp2[id,c("country")]
+    table(tmp[id,2] == tmp2[id,c("state")]) #all differences were double-checked and the gazetteer is right!
+    cbind(tmp[id,c(2)], tmp2[id,c("state","county")])[tmp[id,2] == tmp2[id,c("state")],]
+    #tmp[id,2] = tmp2[id,c("state")]
+    table(!tmp[id,3] == tmp2[id,c("county")]) #all differences were double-checked and the gazetteer is right!
+    cbind(tmp[id,c(2,3)], tmp2[id,c("county")])[!tmp[id,3] == tmp2[id,c("county")],]
+    tmp[id,3] = tmp2[id,c("county")]
+
+    #Saving the changes
+    country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
   }
-}
+#}
 
 ## Converting all maps to 'sf'
 for(i in 1:length(country.list)){
@@ -194,6 +194,7 @@ for(i in 1:length(country.list)){
 }
 
 ## Saving
-save(country.list, file = "./data/latamMap.rda", compress = "xz")
+latamMap <- country.list
+save(latamMap, file = "./data/latamMap.rda", compress = "xz")
 
 
