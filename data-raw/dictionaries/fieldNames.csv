@@ -41,7 +41,7 @@ order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,plantR_statu
 20,county,county,county,NA,NA,NA,Adrianópolis,input_optional
 21,datacoleta,NA,NA,NA,NA,datacoleta,05-IV-1988,input_optional
 23,datasetName,datasetName,NA,datasetName,NA,NA,ESA - Herbário da Escola Superior de Agricultura Luiz de Queiroz,input_optional
-24,dataultalter,NA,NA,NA,NA,dataultalter,19/11/2017,input_unnecessary
+24,dataultalter,NA,NA,NA,NA,dataultalter,11/19/2017,input_unnecessary
 25,date,date,NA,NA,NA,NA,NA,input_optional
 28,dayIdentified,NA,dayidentified,NA,NA,diadeterm,2,input_optional
 31,depth,depth,NA,NA,NA,NA,NA,input_unnecessary
