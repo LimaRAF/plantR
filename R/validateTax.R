@@ -12,7 +12,7 @@
 #'   generalists. Default to "medium".
 #' @param miss.taxonomist Vector. Any missing combination of family x taxonomist
 #'   that should be added to the validation?
-#' @param taxonomists a data.frame containing the list of taxonomist names. The
+#' @param taxonomist.list a data.frame containing the list of taxonomist names. The
 #'   default is "plantR", the internal `plantR` global database of plant
 #'   taxonomists (see Details).
 #'
@@ -36,7 +36,7 @@
 #'   A.H.").
 #'
 #' A database of taxonomists different than the `plantR` default can be used.
-#'  This database must be provided using the argument `taxonomists` and it must
+#'  This database must be provided using the argument `taxonomist.list` and it must
 #'  contain the columns 'family' and 'tdwg.name'. The first column is the family
 #'  of speciality of the taxonomist and the second one is her/his name in the TDWG
 #'  format. See `plantR` function tdwgName or tdwgNames on how to get names in
@@ -51,11 +51,10 @@ validateTax = function(x,
                        generalist = FALSE,
                        generalist.class = "medium",
                        miss.taxonomist = NULL,
-                       taxonomists = "plantR")
+                       taxonomist.list = "plantR")
 {
 
   ### INCLUDE STEP TO VALIDATE OCCURRENCES THAT ARE NOT FROM CLASS 'PreservedSpecimen'
-
 
   #Checking the input
   if (!class(x) == "data.frame")
@@ -72,10 +71,10 @@ validateTax = function(x,
   # x1 <- x[which(colnames(x) %in% cls.nms)]
 
   #Getting the dictionaries
-  families.apg <- families_synonyms
-  if (all(taxonomists %in% c("plantR", "plantr"))) {
+  families.apg <- familiesSynonyms
+  if (all(taxonomist.list %in% c("plantR", "plantr"))) {
 
-    autores <- autores
+    autores <- taxonomists
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
                      by.x = "family", by.y = "name", all.x = TRUE)
@@ -83,11 +82,11 @@ validateTax = function(x,
 
   } else {
 
-    if(!class(taxonomists) == "data.frame")
+    if(!class(taxonomist.list) == "data.frame")
       stop("The list of taxonomists must be provided as a data frame")
-    if(!all(c("family", "tdwg.name") %in% names(taxonomists)))
+    if(!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
       stop("The list of taxonomists must contain at least two columns: 'family' and 'tdwg.name'")
-    autores <- taxonomists
+    autores <- taxonomist.list
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
                      by.x = "family", by.y = "name", all.x = TRUE)
@@ -111,7 +110,7 @@ validateTax = function(x,
   if (!is.null(miss.taxonomist))
     combo <- c(combo, miss.taxonomist)
 
-  if (all(taxonomists %in% c("plantR", "plantr"))) {
+  if (all(taxonomist.list %in% c("plantR", "plantr"))) {
     tmp <- unique(paste(autores$name.correct[!is.na(autores$name.correct)],
                    autores$tdwg.name[!is.na(autores$name.correct)],
                    sep = "_"))

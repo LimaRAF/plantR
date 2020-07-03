@@ -37,5 +37,6 @@ Imports:
     rgbif,
     stringr,
     flora,
-    Taxonstand
+    Taxonstand,
+    CoordinateCleaner
 VignetteBuilder: knitr

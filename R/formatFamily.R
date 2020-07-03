@@ -55,7 +55,7 @@ formatFamily <- function(x) {
   "scientificName" <- "string.plantr" <- NULL
 
   # Getting the dictionaries
-  families.apg <- families_synonyms
+  families.apg <- familiesSynonyms
 
   # Getting the list of families and their respective genera
   dt <- data.table::data.table(x)
