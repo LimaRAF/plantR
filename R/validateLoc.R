@@ -23,7 +23,7 @@ validateLoc = function(x) {
   if (!all(c("resol.orig","resolution.gazetteer") %in% colnames(x))) { stop("input object needs to have the following fields: resol.orig, resolution.gazetteer") }
 
   ## putting the input data in the right order
-  x1 = x[which(colnames(x) %in% c("resol.orig","resolution.gazetteer"))]
+  x1 <- x[which(colnames(x) %in% c("resol.orig","resolution.gazetteer"))]
 
   ## Flagging localities with changes in their resolution
   resol.gazet = gsub("state", "stateProvince", x1$resolution.gazetteer)

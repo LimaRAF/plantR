@@ -6,7 +6,7 @@
 \usage{
 validateTax(x, special.collector = TRUE, generalist = FALSE,
   generalist.class = "medium", miss.taxonomist = NULL,
-  taxonomists = "plantR")
+  taxonomist.list = "plantR")
 }
 \arguments{
 \item{x}{a data frame with the occurrence data.}
@@ -24,7 +24,7 @@ generalists. Default to "medium".}
 \item{miss.taxonomist}{Vector. Any missing combination of family x taxonomist
 that should be added to the validation?}
 
-\item{taxonomists}{a data.frame containing the list of taxonomist names. The
+\item{taxonomist.list}{a data.frame containing the list of taxonomist names. The
 default is "plantR", the internal `plantR` global database of plant
 taxonomists (see Details).}
 }
@@ -52,7 +52,7 @@ If you miss the validation from one or more taxonomists, you can provide one
   A.H.").
 
 A database of taxonomists different than the `plantR` default can be used.
- This database must be provided using the argument `taxonomists` and it must
+ This database must be provided using the argument `taxonomist.list` and it must
  contain the columns 'family' and 'tdwg.name'. The first column is the family
  of speciality of the taxonomist and the second one is her/his name in the TDWG
  format. See `plantR` function tdwgName or tdwgNames on how to get names in
