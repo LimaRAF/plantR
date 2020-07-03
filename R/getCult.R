@@ -13,7 +13,7 @@
 #'
 #' @importFrom CoordinateCleaner cc_inst
 #'
-#' @export validateTax
+#' @export getCult
 #'
 getCult <- function(x, cc_inst = FALSE) {
 
