@@ -108,6 +108,13 @@ getLoc <- function(x,
   if(all(gazet %in% c("plantR","plantr"))) {
      dic <- gazetteer
   } else {
+
+    if(!class(gazet) == "data.frame")
+      stop("The gazetteer must be provided as a data frame")
+    if(!all(c("family", "tdwg.name") %in% names(gazet)))
+      stop("The gazetteer must contain at least the following columns: loc', 'loc.correct',
+          'latitude.gazetteer' and 'longitude.gazetteer'")
+
     dic <- gazet
     if(!"resolution.gazetteer" %in% names(dic))
       dic$resolution.gazetteer = NA

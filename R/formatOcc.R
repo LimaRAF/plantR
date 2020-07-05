@@ -38,9 +38,9 @@
 #' @export formatOcc
 #'
 formatOcc <- function(x,
-                     noNumb,
-                     noYear,
-                     noName) {
+                      noNumb,
+                      noYear,
+                      noName) {
 
   "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
   "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
@@ -55,7 +55,7 @@ formatOcc <- function(x,
   #For the year of collection, sometimes the information is stored on the field 'evenDate' and not on the field 'year'
   if ("eventDate" %in% names(occs))
     occs$year[is.na(occs$year) & !is.na(occs$eventDate)] <-
-      occs$eventDate[is.na(occs$year) & !is.na(occs$eventDate)]
+    occs$eventDate[is.na(occs$year) & !is.na(occs$eventDate)]
 
   #We then prepare the new fields for further processing
   occs[, recordedBy.new := fixName(recordedBy, special.char = FALSE),  by = order]

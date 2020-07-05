@@ -104,7 +104,7 @@ fixLoc <- function(x,
   x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
 
   ## Loading the dictionary of names, terms and abbreviations to be replaced
-  dic <- replace_names
+  dic <- replaceNames
   unwanted_array <- unwanted_array
   missLocs <- missLocs
   wordsForSearch <- wordsForSearch
@@ -136,6 +136,13 @@ fixLoc <- function(x,
     # Replacing '&' by 'and' in compound country names
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
 
+    # Replacing abbreviated 'Saint' names
+    x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"])
+
+    # Removing some prepositions from country names
+    x1[, "country"] <- gsub(" of the ", " ", x1[, "country"])
+    x1[, "country"] <- gsub(" of ", " ", x1[, "country"])
+
     # Replacing missing info by NA
     pattern = paste(missLocs, collapse = "|")
     x1[, "country"] <- gsub(pattern, NA, x1[, "country"], perl = TRUE)
@@ -155,7 +162,7 @@ fixLoc <- function(x,
       reps1 = reps[reps %in% unique(x1[, "country"])]
       for(i in 1:length(reps)) x1[is.na(x1[ ,"country"]) & !is.na(x1[, "municipality"]) &
                                     x1[ ,"stateProvince"] %in% tmp1$condition1[tmp1$replace %in% reps1[i]], "country"] <-
-                                      reps1[i]
+          reps1[i]
     }
   }
 
@@ -184,7 +191,7 @@ fixLoc <- function(x,
     names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
     cond0 <- unique(tmp1$condition0)
     if("country" %in% names(x1)) {
-        if(any(cond0 %in% unique(x1[, "country"]))) {
+      if(any(cond0 %in% unique(x1[, "country"]))) {
           cond1 <- cond0[cond0 %in% unique(x1[, "country"])]
           for(i in 1:length(cond1))  x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] =
               stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2)

@@ -26,7 +26,7 @@ fixField = function(x, origin = NULL) {
   if (!class(x) == "data.frame") { stop("input object needs to be a data frame!") }
 
   # Getting the fields that are essential for the validation
-  fields <- field_names
+  fields <- fieldNames
 
   # Checking if all essential fields are provided in x
   df.names <- colnames(x)

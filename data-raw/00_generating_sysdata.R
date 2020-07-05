@@ -4,117 +4,113 @@
 library(stringr)
 library(readr)
 library(dplyr)
-# all_incov <- iconvlist()
-# nenhum dos ANSI ou WINDOWS funcionam
-# ansi <- all_incov[str_detect(all_incov, "ANSI")]
-# ruwin <- all_incov[str_detect(all_incov, "WINDOWS")]
 
-#ast: this should be in data-raw/dictionaries
-dic_files <- list.files(path = "./data-raw/raw",
+
+#1. from raw files to processed csv in dictionaries----
+
+#dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders
+dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
-#ast: usando guess_encoding para entender.
+
+#nome das tabelas
+data_names <- basename(dic_files) %>%
+  stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
+  data.frame() %>%
+  select(1) %>%
+  pull()
+
+#guess encoding
 loc_list <- purrr::map(dic_files,
                        ~readr::guess_encoding(.))
-#R/ainda está ruim.
-encoding <- c("windows-1252",
-              "windows-1252",
-              "ISO-8859-1",
-              "ISO-8859-1",
-              "ISO-8859-2",
-              "UTF-8")
-dic <- list()
-dic[[1]] <- read_csv(dic_files[[1]], locale = locale(encoding = encoding[1]))
-dic[[2]] <- read_csv(dic_files[[2]], locale = locale(encoding = encoding[2]), col_types = list("c", "c", "c", "c", "c"))
- dic <- purrr::map2(.x = dic_files,
-                    .y = encoding,
-                    .f = function(x = .x,
-                                  y = .y) {
-                      read_csv(file = x,
-                                  locale = locale(encoding = y))
-                               }
-                     )
 
-# but the ideal way is having correct encoding from the source
+encoding <- "UTF-8" #ast we are getting somewhere
+dic <- lapply(dic_files,
+              read_csv,
+              guess_max = 30000,#this has to be large
+              locale = locale(encoding = encoding)
+              )
 
-encoding <- "ISO-8859-15" # substituir aqui pelo encoding correto #ast no such thing for now
-dic <- lapply(dic_files, read_csv, locale = locale(encoding = encoding))
-lapply(dic, head)
+names(dic) <- data_names
+lapply(dic, nrow)
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
 
-# dai imagino que usaria o iconv para transformar em UTF-8
-# ast: não precisa transformar - a leitura vai permitir usar o arquivo tranquilo e suas opções predeterminadas de encoding para salvar deveriam ser UTF-8 anyway - no R e Rsatudio mesmo.
 
-#encoding_to <- "UTF-8"
-#dic <- lapply(dic, iconv, from = encoding, to = encoding_to)
-
-# sara: aqui to fazendo na mao para manter o nome dos objetos
-# renato: acrescentei uma filtragem para tirar colunas/linhas desnecessárias e diminuir o tamanho dos arquivos
 # taxonomists:
-autores <- dic[[1]][ ,c("order", "source", "family", "family.obs", "full.name1", "tdwg.name")]
+taxonomists <- dic$taxonomists[ ,c("order", "source", "family", "family.obs", "full.name1", "tdwg.name")]
+taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
+taxonomists <- taxonomists[!is.na(taxonomists$family), ]
+taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
+#taxonomists <- taxonomists[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', taxonomists$family), ]
+taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
 
-autores <- autores[!is.na(autores$tdwg.name), ]
-autores <- autores[!is.na(autores$family), ]
-autores <- autores[!grepl('\\?|,',autores$family), ]
-autores <- autores[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', autores$family), ]
-# dictionary of herbarium codes:
-collectionCodes <- dic[[2]][ ,c("order",
-                                "collection.string",
-                                "collectioncode.gbif",
-                                "institutioncode.gbif",
-                                "name",
-                                "index.herbariorum.or.working.code",
-                                "organization",
-                                "OBS")]
+
+collectionCodes <- dic$collectionCodes[ ,c("order",
+                                           "collection.string",
+                                           "collectioncode.gbif",
+                                           "institutioncode.gbif",
+                                           "name",
+                                           "index.herbariorum.or.working.code",
+                                           "organization",
+                                           "OBS")]
 # dictionary of plant families and their synonyms
-families_synonyms <- dic[[3]]
+familiesSynonyms <- dic$familiesSynonyms
 # names of the columns names form different data sources and their equivalencies:
-field_names <- dic[[4]][ ,c("order",
-                            "standard_name",
-                            "gbif",
-                            "splink",
-                            "splink2gbif",
-                            "jabot",
-                            "jabot_old",
-                            "example",
-                            "plantR_status")]
-
+fieldNames <- dic$fieldNames[ ,c("order",
+                                  "standard_name",
+                                  "gbif",
+                                  "splink",
+                                  "splink2gbif",
+                                  "jabot",
+                                  "jabot_old",
+                                  "example",
+                                  "plantR_status")]
 # gazetteer
-dim(gazetteer)
-gazetteer <- dic[[5]][ ,c("order",
-                          "status",
-                          "source",
-                          "loc",
-                          "loc.correct",
-                          "latitude.gazetteer",
-                          "longitude.gazetteer",
-                          "resolution.gazetteer")]
+gazetteer <- dic$gazetteer[ ,c("order",
+                               "status",
+                               "source",
+                               "loc",
+                               "loc.correct",
+                               "latitude.gazetteer",
+                               "longitude.gazetteer",
+                               "resolution.gazetteer")]
+
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
+
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
 
-#ast: isto da prioridade deveria estar documentado como decisões. aliás, todas
-#as decisões referentes à construção destas tabelas deveriam estar em algum lugar.
-
-gazetteer$priority <- as.double(as.character(factor(gazetteer$source,
-                                                    levels = unique(gazetteer$source),
-                                                    labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+priorities <- data.frame(source = unique(gazetteer$source), priority =
+                           c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
+#ast ö checar que a ordem seja esta
+gazetteer <- left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
 dplyr::count(gazetteer, source, priority) %>% arrange(priority)
 gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
-admin <- dic[[5]][ ,c("order","status","source","country_code",
-                      "NAME_0","state_code","NAME_1","NAME_2","NAME_3","NAME_4",
-                      "loc","loc.correct","resolution.gazetteer")]
+
+admin <- dic$gazetteer[ ,c("order",
+                           "status",
+                           "source",
+                           "country_code",
+                           "NAME_0",
+                           "state_code",
+                           "NAME_1",
+                           "NAME_2",
+                           "NAME_3",
+                           "NAME_4",
+                           "loc",
+                           "loc.correct",
+                           "resolution.gazetteer")]
 admin <- admin[admin$status %in% "ok", ]
-admin$priority <- as.double(as.character(factor(admin$source, levels = unique(admin$source),
-                                                labels = c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))))
+admin <- left_join(admin, priorities)
 admin <- admin[order(admin$priority), ]
 admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
-admin <- admin[admin$resolution.gazetteer %in% c("country","state","county","localidade"),] # removing localities below locality level (i.e. sublocalities)
+admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
+
 admin <- admin[, c("order",
                    "loc.correct",
                    "country_code",
@@ -123,43 +119,36 @@ admin <- admin[, c("order",
                    "NAME_1",
                    "NAME_2",
                    "NAME_3",
-                   "source"
-)]
+                   "source")]
 
 # names and abbreviation of localities to be replaced
-replace_names <- dic[[6]]
-replace_names[] <- lapply(replace_names, gsub, pattern = "Ã¡", replacement = "á", ignore.case = TRUE, perl = TRUE)
-replace_names[] <- lapply(replace_names, gsub, pattern = "Ã©", replacement = "é", ignore.case = TRUE, perl = TRUE)
-replace_names[] <- lapply(replace_names, gsub, pattern = "Ã£", replacement = "ã", ignore.case = TRUE, perl = TRUE)
-replace_names[] <- lapply(replace_names, gsub, pattern = "ÃŽ", replacement = "ô", ignore.case = TRUE, perl = TRUE)
-replace_names[] <- lapply(replace_names, gsub, pattern = "\u00AD", replacement = "??", perl = TRUE) # hidden breaking space
-replace_names[] <- lapply(replace_names, gsub, pattern = "Ã\\?\\?", replacement = "í", ignore.case = TRUE, perl = TRUE)
-replace_names[] <- lapply(replace_names, gsub, pattern = "ÂŠ", replacement = "ª", ignore.case = TRUE, perl = TRUE)
-
+replaceNames <- dic$replaceNames
+for (i in 1:length(replaceNames))
+  replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
 
 # other objects necessary fot the data processing and validation
 
-missLocs <-  c("^\\ ? $",
-               " ^ s\\ / localidade",
-               " ^ indeterminada$",
-               " ^ indeterminado$",
-               " ^ s\\.d\\.$",
-               " ^ desconhecido$",
-               " ^ sin loc\\.$",
-               " ^ sin\\. loc\\.$",
-               " ^ ignorado$",
-               " ^ sem informacao$",
-               " ^ n\\.i\\.",
-               " ^ nao especificado$",
-               " ^ nao informado$",
-               " ^ bloqueado$",
-               "no locality information available",
-               " ^ protected due to name conservation status",
-               " ^ completar datos",
-               " ^ no disponible$",
-               " ^ not available$",
-               " ^ loc\\.ign$",
-               "local ignorado")
+missLocs <- c("^\\?$",
+              "^s\\/localidade",
+              "^indeterminada$",
+              "^indeterminado$",
+              "^s\\.d\\.$",
+              "^desconhecido$",
+              "^sin loc\\.$",
+              "^sin\\. loc\\.$",
+              "^ignorado$",
+              "^sem informacao$",
+              "^n\\.i\\.",
+              "^nao especificado$",
+              "^nao informado$",
+              "^bloqueado$",
+              "no locality information available",
+              "^protected due to name conservation status",
+              "^completar datos",
+              "^no disponible$",
+              "^not available$",
+              "^loc\\.ign$",
+              "local ignorado")
 
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",
@@ -180,62 +169,65 @@ wordsForSearch <- c("^prov\\. ",
 
 
 # só checando como estao os arquivos
-head(autores)
+head(taxonomists)
+head(familiesSynonyms)
 head(collectionCodes)
-head(families_synonyms)
-head(field_names)
+head(fieldNames)
 head(gazetteer)
 head(admin)
-head(replace_names)
+head(replaceNames)
 
-#ast: se os arquivos ficaram bons vou salvar como csv e ler o encoding de novo :shrugs:
 dir.create("./data-raw/dictionaries")
-write_csv(autores, "./data-raw/dictionaries/autores.csv")
-write_csv(collectionCodes, "./data-raw/dictionaries/families_synonyms.csv")
-write_csv(families_synonyms, "./data-raw/dictionaries/collectionCodes.csv")
-write_csv(field_names, "./data-raw/dictionaries/field_names.csv")
+write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
+write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
+write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
+write_csv(fieldNames, "./data-raw/dictionaries/fieldNames.csv")
 write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
 write_csv(admin, "./data-raw/dictionaries/admin.csv")
+write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 
-###tentar ver se o encoding se resolveu mesmo:
+# 2. from processed csv files to sysdata.rda ----
 dic_files <- list.files(path = "./data-raw/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
-#ast: usando guess_encoding para entender.
+#nome das tabelas
+data_names <- basename(dic_files) %>%
+  stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
+  data.frame() %>%
+  select(1) %>%
+  pull()
+
+#guess encoding
 loc_list <- purrr::map(dic_files,
                        ~readr::guess_encoding(.))
 
-loc_list
-#nelhorou mas ainda dá erros -UTF-8 agora
+loc_list# best so far
 
 encoding <- "UTF-8"
+
 dic <- lapply(dic_files,
               read_csv,
-              locale = locale(encoding = encoding))
-lapply(dic, head)
+              guess_max = 30000,#this has to be large
+              locale = locale(encoding = encoding)
+)
+
+names(dic) <- data_names
+lapply(dic, nrow) #new dims! especially gazetteer from 34807 to 23436
+#taxonomists from 9297 to 8518 (01/07/2020)
+
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
 
-# replace_names is missing, taking it from current sysdata.R
-devtools::load_all()#to take replace_names
-head(replace_names)
-write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")
-
-guess_encoding("./data-raw/dictionaries/replace_names.csv")
-replace_names <- read_csv("./data-raw/dictionaries/replace_names.csv",
-                          locale = locale(encoding = "UTF-8"))
-replace_names <- data.frame(replace_names)
-write_csv(replace_names, "./data-raw/dictionaries/replace_names.csv")#doesn't change in disk, good.
-
 # Saving data
-usethis::use_data(autores,
-                  collectionCodes,
-                  families_synonyms,
-                  field_names,
-                  gazetteer,
+usethis::use_data(
                   admin,
-                  replace_names,
+                  collectionCodes,
+                  familiesSynonyms,
+                  fieldNames,
+                  gazetteer,
+                  replaceNames,
+                  taxonomists,
                   unwanted_array,
                   missLocs,
                   wordsForSearch,

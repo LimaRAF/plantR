@@ -1,0 +1,275 @@
+class,condition0,condition1,condition2,pattern,replace
+country,NA,NA,NA,^alemanha|^alemania,germany
+country,NA,NA,NA,^bolavia,bolivia
+country,NA,NA,NA,^brasil|bresil,brazil
+country,NA,NA,NA,^colombie,colombia
+country,NA,NA,NA,^equador,ecuador
+country,NA,NA,NA,^usa$|^u.s.a.$,united states
+country,NA,NA,NA,^franca|francia,france
+country,NA,NA,NA,^guadalupe,guadeloupe
+country,NA,NA,NA,^guiana$,guyana
+country,NA,NA,NA,^guiana francesa|^guyane francaise,french guiana
+country,NA,NA,NA,^guiana inglesa|^british guiana|^guyane angloise,guyana
+country,NA,NA,NA,^inglaterra,england
+country,NA,NA,NA,^martinica,martinique
+country,NA,NA,NA,^japao|^japon,japan
+country,NA,NA,NA,^paraguai,paraguay
+country,NA,NA,NA,^peru oriental,peru
+country,NA,NA,NA,^port rico$,puerto rico
+country,NA,NA,NA,^portugual,portugal
+country,NA,NA,NA,^republica dominicana|rep. dominicana,dominican republic
+country,NA,NA,NA,^suaca$,switzerland
+country,NA,NA,NA,^suica| ^suiza,switzerland
+country,NA,NA,NA,^surinam$,suriname
+country,NA,NA,NA,^uruguai,uruguay
+country,NA,NA,NA,^burma,myanmar
+country,NA,NA,NA,^macau sar china,macau
+country,NA,NA,NA,^macao$,macau
+country,NA,NA,NA,^hong kong sar china,hong kong
+country,NA,NA,NA,^congo - kinshasa,democratic republic congo
+country,NA,NA,NA,^congo - brazzaville,republic congo
+country,NA,NA,NA,^cocos$,cocos islands
+country,NA,NA,NA,^czechia$,czech republic
+country,NA,NA,NA,^u.s.,united states
+country,NA,NA,NA,^u.k.,united kingdom
+country,NA,NA,NA,^brunei darussalam,brunei
+country,NA,NA,NA,^channel islands,united kingdom
+country,NA,NA,NA,^democratic people's republic korea,north korea
+country,NA,NA,NA,^faeroe islands,faroe islands
+country,NA,NA,NA,^falkland islands (malvinas),falkland islands
+country,NA,NA,NA,^holy see,vatican city
+country,NA,NA,NA,^ilhas marshall,marshall islands
+country,NA,NA,NA,^ivory coast,cote ivoire
+country,NA,NA,NA,^lao people's democratic republic,laos
+country,NA,NA,NA,^libyan arab jamahiriya,libya
+country,NA,NA,NA,^federated states micronesia,micronesia
+country,NA,NA,NA,^netherlands antilles,caribbean netherlands
+country,NA,NA,NA,^occupied palestinian territory,palestinian territories
+country,NA,NA,NA,^pitcairn$,pitcairn islands
+country,NA,NA,NA,^republic korea,south korea
+country,NA,NA,NA,^russian federation,russia
+country,NA,NA,NA,^svalbard and jan mayen islands,svalbard and jan mayen
+country,NA,NA,NA,^syrian arab republic,syria
+country,NA,NA,NA,^the netherlands$,netherlands
+country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
+country,NA,NA,NA,^united republic tanzania,tanzania
+country,NA,Acre,not_is.na,NA,brazil
+country,NA,Alagoas,not_is.na,NA,brazil
+country,NA,Amapa,not_is.na,NA,brazil
+country,NA,Bahia,not_is.na,NA,brazil
+country,NA,Ceara,not_is.na,NA,brazil
+country,NA,Espirito Santo,not_is.na,NA,brazil
+country,NA,Goias,not_is.na,NA,brazil
+country,NA,Maranhao,not_is.na,NA,brazil
+country,NA,Minas Gerais,not_is.na,NA,brazil
+country,NA,Mato Grosso do Sul,not_is.na,NA,brazil
+country,NA,Para,not_is.na,NA,brazil
+country,NA,Paraiba,not_is.na,NA,brazil
+country,NA,Pernambuco,not_is.na,NA,brazil
+country,NA,Piaui,not_is.na,NA,brazil
+country,NA,Rio de Janeiro,not_is.na,NA,brazil
+country,NA,Rio Grande do Norte,not_is.na,NA,brazil
+country,NA,Rio Grande do Sul,not_is.na,NA,brazil
+country,NA,Rondonia,not_is.na,NA,brazil
+country,NA,Roraima,not_is.na,NA,brazil
+country,NA,Santa Catarina,not_is.na,NA,brazil
+country,NA,Sergipe,not_is.na,NA,brazil
+country,NA,Sao Paulo,not_is.na,NA,brazil
+country,NA,Tocantins,not_is.na,NA,brazil
+country,NA,Catamarca,not_is.na,NA,argentina
+country,NA,Chubut,not_is.na,NA,argentina
+country,NA,Corrientes,not_is.na,NA,argentina
+country,NA,Entre Rios,not_is.na,NA,argentina
+country,NA,Formosa,not_is.na,NA,argentina
+country,NA,Jujuy,not_is.na,NA,argentina
+country,NA,La Pampa,not_is.na,NA,argentina
+country,NA,La Rioja,not_is.na,NA,argentina
+country,NA,Misiones,not_is.na,NA,argentina
+country,NA,Neuquen,not_is.na,NA,argentina
+country,NA,Salta,not_is.na,NA,argentina
+country,NA,Santiago del Estero,not_is.na,NA,argentina
+country,NA,Tierra del Fuego,not_is.na,NA,argentina
+country,NA,Tucuman,not_is.na,NA,argentina
+stateProvince,brazil,NA,NA,^ac$,acre
+stateProvince,brazil,NA,NA,^al$|alagaoas,alagoas
+stateProvince,brazil,NA,NA,^am$|^amozonas$|^territorio federal amazonas$,amazonas
+stateProvince,brazil,NA,NA,^ap$|^territorio do amapa$,amapa
+stateProvince,brazil,NA,NA,^ba$,bahia
+stateProvince,brazil,NA,NA,^df$|^brasilia$|^brasilia (df)$|^distrito fedreal$|^distrito fedral$,distrito federal
+stateProvince,brazil,NA,NA,^ce$|^ceara$,ceara
+stateProvince,brazil,NA,NA,^es$|^espiritu santo$|^espirito sanrto$|^espirito santos$|^espirito sato$|^espitiro santo$|^esparito santo$|^esao pauloirito santo$,espirito santo
+stateProvince,brazil,NA,NA,^go$|^goais$|^goiais$,goias
+stateProvince,brazil,NA,NA,^ma$,maranhao
+stateProvince,brazil,NA,NA,^mg$|^minas gerias$|^mnas gerais$|^m. gerais$|^minas geraes$,minas gerais
+stateProvince,brazil,NA,NA,^ms$|^ms.$,mato grosso sul
+stateProvince,brazil,NA,NA,^mt$,mato grosso
+stateProvince,brazil,NA,NA,^pa$,para
+stateProvince,brazil,NA,NA,^pi$|^paiui$|^piauy$|^piauhy$,piaui
+stateProvince,brazil,NA,NA,^pe$|^permambuco$|^pernammbuco$|^pernanbuco$|^pernmabuco$|^prenambuco$,pernambuco
+stateProvince,brazil,NA,NA,^pb$,paraiba
+stateProvince,brazil,NA,NA,^pr$,parana
+stateProvince,brazil,NA,NA,^rj$|^ri de janeiro$|^rio de janiero$|^rio de janejro$|^rio de janiro$|^rio de jnaeiro$|^guanabara$,rio janeiro
+stateProvince,brazil,NA,NA,^rn$|^rio gande do norte$|^rio grade do norte$,rio grande norte
+stateProvince,brazil,NA,NA,^rs$|^rio grando do sul$,rio grande sul
+stateProvince,brazil,NA,NA,^ro$|^rodonia$|^rondonica$,rondonia
+stateProvince,brazil,NA,NA,^rr$|^roraima t.f.$,roraima
+stateProvince,brazil,NA,NA,^sc$|^santa caratina$|^santa catarinaa$|^santa cataria$|^s. catarina$,santa catarina
+stateProvince,brazil,NA,NA,^se$|^segipe$|^serjipe$,sergipe
+stateProvince,brazil,NA,NA,^sp$|^s. paulo$,sao paulo
+stateProvince,brazil,NA,NA,^to$|^tocantis$|^tocatins$,tocantins
+stateProvince,argentina,NA,NA,^ba$,buenos aires
+stateProvince,argentina,NA,NA,^ca$,catamarca
+stateProvince,argentina,NA,NA,^ch$,chaco
+stateProvince,argentina,NA,NA,^ct$,chubut
+stateProvince,argentina,NA,NA,^cb$,cordoba
+stateProvince,argentina,NA,NA,^cr$,corrientes
+stateProvince,argentina,NA,NA,^er$,entre rios
+stateProvince,argentina,NA,NA,^fo$,formosa
+stateProvince,argentina,NA,NA,^jy$,jujuy
+stateProvince,argentina,NA,NA,^lp$,la pampa
+stateProvince,argentina,NA,NA,^lr$,la rioja
+stateProvince,argentina,NA,NA,^mz$,mendoza
+stateProvince,argentina,NA,NA,^mi$|^missiones$,misiones
+stateProvince,argentina,NA,NA,^nq$,neuquen
+stateProvince,argentina,NA,NA,^rn$,rio negro
+stateProvince,argentina,NA,NA,^sa$,salta
+stateProvince,argentina,NA,NA,^sj$,san juan
+stateProvince,argentina,NA,NA,^sl$,san luis
+stateProvince,argentina,NA,NA,^sc$,santa cruz
+stateProvince,argentina,NA,NA,^sf$,santa fe
+stateProvince,argentina,NA,NA,^se$,santiago del estero
+stateProvince,argentina,NA,NA,^tf$,tierra del fuego
+stateProvince,argentina,NA,NA,^tu$,tucuman
+stateProvince,paraguay,NA,NA,^canendeyu$,canindeyu
+county,NA,NA,NA,^gral.,general
+county,NA,NA,NA,^rod.,rodovia
+county,NA,NA,NA,sma.,santissima
+county,NA,NA,NA,st. antonio,santo antonio
+county,NA,NA,NA,^s.jose,sao jose
+county,NA,NA,NA,^sta. elena,santa elena
+county,NA,NA,NA,^sta. rita,santa rita
+county,NA,NA,NA,^s. jose,sao jose
+county,NA,NA,NA,^s. joao,sao joao
+county,NA,NA,NA,^s. bento|^s.bento,sao bento
+county,NA,NA,NA,^s. luis,sao luis
+county,NA,NA,NA,^s. miguel|^s.miguel,sao miguel
+county,NA,NA,NA,s. f. Paula,sao francisco paula
+county,NA,NA,NA,n s|nossa sra.,nossa senhora
+county,NA,NA,NA,^s. luiz,sao luiz
+county,NA,NA,NA,^s. mateus,sao mateus
+county,NA,NA,NA,^s. francisco,sao francisco
+county,NA,NA,NA,dr.,doutor
+county,NA,NA,NA,^sta. maria,santa maria
+county,NA,NA,NA,^s. j. da lage|^s. j. da laje|^s.j da lage|^s.j. da lage|^s.j. da laje|^s.j.da laje|^s.j.da lage,sao jose laje
+county,NA,NA,NA,^vila .b.s. trindade|^vila bela s. trindade|^vila bela santis. trindade|^vila bela santis.trindade|^vila bela sant. trindade|^vila bela sm. trindade|^vila bela stma. trindade,vila bela santissima trindade
+county,NA,NA,NA,^sjrpreto$,sao jose rio preto
+locality1,NA,NA,NA,^mun. |^mun.: |^mpio. |^mpio: |^mpio.:,municipio de
+locality1,NA,NA,NA,mun. | mun.: | mpio. | mpio: | mpio.:,municipio de
+locality1,NA,NA,NA,^mun.|^mun.:|^mpio |^mpio.|^mpio:|^mpio.:,municipio
+locality1,NA,NA,NA,mun. |mpio |mpio. |municipio de :,municipio de
+locality1,NA,NA,NA,mun.:|mpio:|mpio.:,municipio de
+locality1,NA,NA,NA,(mun.,(municipio de
+locality1,NA,NA,NA,municipio de sto.,municipio de santo
+locality1,NA,NA,NA,municipio de sta.,municipio de santa
+locality1,NA,NA,NA,^prov.,provincia de
+locality1,NA,NA,NA,prov.,provincia de
+locality1,NA,NA,NA,^dep. |^dept. |^dpto. |dtto. |^depto.,departamento de
+locality1,NA,NA,NA,dep. | dept. | dpto. | depto.,departamento de
+locality1,NA,NA,NA,provincia de :,provincia de
+locality2,NA,NA,NA,^gral.,general
+locality2,NA,NA,NA,^rod.,rodovia
+locality2,NA,NA,NA,^est.,estado
+locality2,NA,NA,NA,^dr.,doutor
+locality2,NA,NA,NA,sma.,santissima
+locality2,NA,NA,NA,st. antonio,santo antonio
+locality2,NA,NA,NA,sta. elena,santa elena
+locality2,NA,NA,NA,sta. rita,santa rita
+locality2,NA,NA,NA,sta. maria,santa maria
+locality2,NA,NA,NA,s.jose|s. jose,sao jose
+locality2,NA,NA,NA,s.joao|s. joao,sao joao
+locality2,NA,NA,NA,s.bento|s. bento,sao bento
+locality2,NA,NA,NA,s. luis,sao luis
+locality2,NA,NA,NA,s. miguel,sao miguel
+locality2,NA,NA,NA,s. f. paula,sao francisco paula
+locality2,NA,NA,NA,n s|nossa sra.,nossa senhora
+locality2,NA,NA,NA,s. luiz,sao luiz
+locality2,NA,NA,NA,s. mateus,sao mateus
+locality2,NA,NA,NA,s. francisco,sao francisco
+locality2,NA,NA,NA,dr.,doutor
+locality2,NA,NA,NA,do sr.,do senhor
+locality2,NA,NA,NA,faz.,fazenda
+locality2,NA,NA,NA,estr.,estrada
+locality2,NA,NA,NA,"p.e.serra do mar,|p.e.serra do mar.",parque estadual serra mar
+locality2,NA,NA,NA,p.e.serra do mar$|p.e.serra do mar,parque estadual serra mar
+locality2,NA,NA,NA,"parque estadual da serra do mar,|parque estadual da serra do mar.",parque estadual serra mar
+locality2,NA,NA,NA,"serra do mar, nucleo |serra do mar (nucleo",serra do mar nucleo
+locality2,NA,NA,NA,e.f.b. |e. f. b.,estacao de ferro de braganca
+locality2,NA,NA,NA,r.f.ducke|r.f. ducke,reserva florestal ducke
+locality2,NA,NA,NA,r.f.bananal,reserva florestal bananal
+locality2,NA,NA,NA,r.f.,reserva florestal
+locality2,NA,NA,NA,parque est.|parq. est.|p. est.|p.est.|p. e.|p.e.,parque estadual
+locality2,NA,NA,NA,parque nac.|p. nac.|p. n.|p.n.,parque nacional
+locality2,NA,NA,NA,p. nac.|p. n.|p.n.,parque nacional
+locality2,NA,NA,NA,est. ecologica|est. ecol.|estacao ecol.|e. ecologica|e.ecologica|e.ecol.|e. ecol.|e.ecologica|e.ec.,estacao ecologica
+locality2,NA,NA,NA,est. experimental|est. exp.|estacao exp.|e. experimental|e.experimental|e.exp.|e. exp.,estacao experimental
+locality2,NA,NA,NA,e. experimental|e.experimental|e.exp.|e. exp.,estacao experimental
+locality2,NA,NA,NA,e.b. |e. b. |e. biol. |est. biol. |est. biologica |e. biologica,estacao biologica
+locality2,NA,NA,NA,^ca.,circa
+locality2,NA,NA,NA,", ca.",", circa"
+locality2,NA,NA,NA,c. 1,circa 1
+locality2,NA,NA,NA,c. 2,circa 2
+locality2,NA,NA,NA,c. 3,circa 3
+locality2,NA,NA,NA,c. 4,circa 4
+locality2,NA,NA,NA,c. 5,circa 5
+locality2,NA,NA,NA,c. 6,circa 6
+locality2,NA,NA,NA,c. 7,circa 7
+locality2,NA,NA,NA,c. 8,circa 8
+locality2,NA,NA,NA,c. 9,circa 9
+locality2,NA,NA,NA,^s. of,south of
+locality2,NA,NA,NA,s. of,south of
+locality2,NA,NA,NA,^n. of,north of
+locality2,NA,NA,NA,n. of,north of
+locality2,NA,NA,NA,^e. of,east of
+locality2,NA,NA,NA,e. of,east of
+locality2,NA,NA,NA,^w. of,west of
+locality2,NA,NA,NA,w. of,west of
+locality2,NA,NA,NA,^s.e. of,southeast of
+locality2,NA,NA,NA,s.e. of,southeast of
+locality2,NA,NA,NA,^n.e. of,northeast of
+locality2,NA,NA,NA,n.e. of,northeast of
+locality2,NA,NA,NA,^s.w. of,southwest of
+locality2,NA,NA,NA,s.w. of,soutwest of
+locality2,NA,NA,NA,^n.w. of,northwest of
+locality2,NA,NA,NA,n.w. of,northwest of
+locality2,NA,NA,NA,^s.t.,saint
+locality2,NA,NA,NA,^st.,saint
+locality2,NA,NA,NA,", s.t.",", saint"
+locality2,NA,NA,NA,prop. sr.,propriedade senhor
+locality2,NA,NA,NA,p. n. d|p.n. d,parque nacional d
+locality2,NA,NA,NA,^p.n. |^p. n.,parque nacional
+locality2,NA,NA,NA,^p.n.n.,parque nacional natural
+locality2,NA,NA,NA,p. e. d|p.e. d,parque estadual d
+locality2,NA,NA,NA,^p.e.,parque estadual
+locality2,NA,NA,NA,p. i. |p.i.,posto indigena
+locality2,NA,NA,NA,p.i.,posto indigena
+locality2,NA,NA,NA,i.n.p.|i. n. p.,instituto nacional pinho
+locality2,NA,NA,NA,distr. |^dist.,distrito
+locality2,NA,NA,NA,vic. of,vicinity of
+locality2,NA,NA,NA,^vic.,vicinity
+locality2,NA,NA,NA,r. jari,rio jari
+locality2,NA,NA,NA,r. xingu,rio xingu
+locality2,NA,NA,NA,r. juruena,rio juruena
+locality2,NA,NA,NA,r. uaupes,rio uaupes
+locality2,NA,NA,NA,r. negro,rio negro
+locality2,NA,NA,NA,r. trombetas,rio trombetas
+locality2,NA,NA,NA,r. tapajoz|r. tapajos,rio tapajos
+locality2,NA,NA,NA,(esec),esec
+locality2,NA,NA,NA,(flona),flona
+locality2,NA,NA,NA,(horto florestal),horto florestal
+locality2,NA,NA,NA,^s.,s
+locality2,NA,NA,NA,^r.,r
+locality2,NA,NA,NA,^prox.,proximo
+locality2,NA,NA,NA,^p.n.i.,pni
+locality2,NA,NA,NA,^p.n.s.o.,pnso
+locality2,NA,NA,NA,^p.,p
+locality2,NA,NA,NA,^loc. |^loc:,loc

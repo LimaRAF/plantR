@@ -11,10 +11,9 @@ The package plantR provides tools for retrieving, processing, cleaning
 and validating occurrence records of plant species from biological
 collections.
 
-## Installation
+### Installation
 
-You can install the released version of plantR from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the plantR from [github](https://github.com/) with:
 
 ``` r
 library("devtools")
@@ -43,24 +42,23 @@ collections, providing tools to perform:
   - the batch processing of typical herbarium fields (e.g. collector
     name);
 
-  - the geographical validation of herbarium records, based on maps and 
-  gazetteers.
-  
-  - the taxonomical validation of herbarium records, based on a global 
-  list of taxonomists names. 
-    
-    Currently, the download of records is available for speciesLink
-    (website) and GBIF (website), but the user can also provide its own
-    dataset as an input. Field editing covers most of the typical
-    variation in the notation of author and determiner names, trying to
-    provide standardized outputs in the TDWG format. Currently,
-    geographical validation can be performed at county-level for Latin
-    American countries and at the country level for the rest of the world.
-    We provide a gazetteer to retrieve and check geographical
-    coordinates, which is currently biased towards Latin American
-    countries, particularly for Brazil. Taxonomical validation is
-    performed based on a compilation of plant taxonomist names from all
-    over the world.
+  - the geographical validation of herbarium records, based on maps and
+    gazetteers.
+
+  - the taxonomical validation of herbarium records, based on a global
+    list of taxonomists names.
+
+Currently, the download of records is available for speciesLink
+(website) and GBIF (website), but the user can also provide its own
+dataset as an input. Field editing covers most of the typical variation
+in the notation of author and determiner names, trying to provide
+standardized outputs in the TDWG format. Currently, geographical
+validation can be performed at county-level for Latin American countries
+and at the country level for the rest of the world. We provide a
+gazetteer to retrieve and check geographical coordinates, which is
+currently biased towards Latin American countries, particularly for
+Brazil. Taxonomical validation is performed based on a compilation of
+plant taxonomist names from all over the world.
 
 ## Basic assumptions of the data validation
 
@@ -69,21 +67,21 @@ state, county (and locality) given in the specimen label are correct
 (i.e. locality prevails over coordinates), and so the working
 coordinates are taken from a gazetteer instead.
 
-We ignore records with coordinates given only at the county level, assuming
-that our gazetteer is a more complete and/or safe source of county
-coordinates (this may not be the case for sites outside Latin America).
-It is also important to note that if the occurrence information on the
-localities are indeed mistaken (eg. wrong/missing county name), then the
-locality will not be found in the gazetteer and thus, even if the
-original coordinates are good, they may be replaced by other coordinates
-taken from the gazetteer.
+We ignore records with coordinates given only at the county level,
+assuming that our gazetteer is a more complete and/or safe source of
+county coordinates (this may not be the case for sites outside Latin
+America). It is also important to note that if the occurrence
+information on the localities are indeed mistaken (eg. wrong/missing
+county name), then the locality will not be found in the gazetteer and
+thus, even if the original coordinates are good, they may be replaced by
+other coordinates taken from the gazetteer.
 
 During taxonomic validation, we did not attempt to set priorities for
 different specialists within a given family. That is, all the specimens
-determined by the specialist within their family of expertise
-were taken as being validated. Although we recognize that there are
-specialists from one or a few genera within a family, the current
-validation process is only carried at the family level.
+determined by the specialist within their family of expertise were taken
+as being validated. Although we recognize that there are specialists
+from one or a few genera within a family, the current validation process
+is only carried at the family level.
 
 In the case of conflicting species identification among specialists for
 duplicates across different collections, we simply assume the most
@@ -94,14 +92,23 @@ assign the most up-to-date identification for a group of duplicates.
 
 ## Authors
 
+Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Hans ter
+Steege & Marinez de Siqueira Ferreira
+
 ## References
 
 ## See Also
 
 ## Funding
 
-The development of this package was possible under …
+The development of this package was supported by the European Union’s
+Horizon 2020 research and innovation program under the Marie
+Skłodowska-Curie grant agreement No 795114.
 
 ## Acknowledgements
 
-The construction of the some functions and dictionaries provided by …
+We thank Sidnei Souza from speciesLink for his help with the network
+API.
+
+Many localities used to construct the gazetteer used by the package were
+provided from CNCFlora (JBRJ) and TreeCo database.
