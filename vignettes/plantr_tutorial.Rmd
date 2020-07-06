@@ -26,21 +26,28 @@ devtools::load_all() # for development
 
 ## Problemática e objetivo do pacote
 
+The information on each specimen is the responsability of the collector, who decides which information is relevant and records the collection locality with the precision available. The traditions regarding information that is recorded have changed with time, for example nowadasys it is a common practice to record coordinates taken with a GPS. 
+
+Collection managing and digitalizing is a hard task, often led by underfunded institutions 
+Although GBIF gathers information for collections all around the world, it does
+not perform correction of the source data.
 + GBIF large totalizing project gathers data from collections around the world
  + no correction from source
  + no common format in spite of standard (darwinCore)
  + changing standard (DarwinCore) versions
 
-
-+ __within collections__
+* collectors
   + each collector decides what info goes to the exsiccata
   + changing traditions with time
   + changing toponymes (names of localities)
-  + different decisions when digitalizing: which fields ($)
   + human errors
++ collections
+  + different decisions when digitalizing: which fields ($)
   + chronically underfunded: no way to update periodically what has been digitalized or to update to a changing standard
   + TAMANHO da coleção
   + filtros às vezes
+  + human errors
+
 
 + Evolving taxonomy: synonyms
 + typographic errors
@@ -51,20 +58,22 @@ JUST TO NAME A FEW
   
 ## Aim
 
-__plantR__ is an R package meant to format, standardize and validate the information that comes from different biodiversity databases, such as GBIF, species link,    <!-- ö acrescentar um objetivo mais   --> 
+__plantR__ is an R package meant to format, standardize and validate the information that comes from different biodiversity databases, such as GBIF, species link, and herbaria collections in general. __plantR__ will return standardized information from the original database, correcting for differences in each field and allowing for comparison between databases.   
 
-## Público alvo/target users
-
-+ Collections/curators
-+ GBIF final users
-
+The package can be used by collection curators that wish to standardize the fields after digitalization and to the databases final users, that wish to compare information between collections, for example when information is downloaded from GBIF. 
 
  
 # Workflow overview 
-<!-- Estrutura do workflow (módulos, funções, a sequência) --> 
+
+The workflow is structured in four steps that are: 
+field editing,
+locality formating,
+geographic validation and
+taxonomical validation.
 
 ## Dados/dicionário de dados/bases de dados 
- <!-- a fonte criação e formatação de todas as bases de dados deveria estar documentada
+
+The source data that composes this package <!-- a fonte criação e formatação de todas as bases de dados deveria estar documentada
  descrita e se possível justificada-->
  
  ## Dados: (reordenar à vontade)
