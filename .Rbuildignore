@@ -12,6 +12,8 @@ accessory_files/
 # ignoring local files to pass on check
 teste.R
 check_output.txt
+R/validateCoord2.R
+result/output.csv
 
 # ignoring file that generates sysdata
 data-raw/
