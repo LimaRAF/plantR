@@ -1,16 +1,23 @@
 Package: plantR
-Type: Package
-Title: Management of Plant Occurrence Records
 Version: 0.1.0
+Date: 2020-07-30
+Title: Management of Plant Occurrence Records
+Type: Package
+Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
+                     email = "renato.lima@naturalis.nl", 
+	                   comment = c(ORCID = "0000-0002-1048-0138")),
+              person("Sara", "R. Mortara", role = "aut", 
+                     email = "saramortara@gmail.com"),
+              person("Andrea", "Sánchez-Tapia", role = "aut",
+                     email = "andreasancheztapia@gmail.com"))
 Author: 
-  - name: Renato A.F. Lima
-  - name: Sara R. Mortara
-  - name: Andrea Sanchéz-Tapia
-  - name: Author Four
-  - name: Author Five
-Maintainer: Renato A.F. Lima <renato.lima@naturalis.nl>
-Dependes: List of packages needed (e.g. stats)
-Import: List of acessory packages
+  Renato A. F. de Lima [aut, cre]
+  Sara R. Mortara [aut]
+  Andrea Sánchez-Tapia [aut]
+  Hans ter Steege [ctb]
+  Marinez de Siqueira Ferreira [ctb]
+Maintainer: Renato A. F. de Lima <renato.lima@naturalis.nl>
+Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
     occurrence records of plant species.
@@ -22,10 +29,14 @@ LazyData: true
 RoxygenNote: 7.1.0
 Imports: 
     countrycode,
-    devtools,
     data.table,
+    devtools,
+    dplyr,
     jsonlite,
     knitr,
     rgbif,
-    stringr
+    stringr,
+    flora,
+    Taxonstand,
+    CoordinateCleaner
 VignetteBuilder: knitr

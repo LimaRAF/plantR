@@ -2,13 +2,98 @@
 % Please edit documentation in R/getLoc.R
 \name{getLoc}
 \alias{getLoc}
-\title{Get Locality Information}
+\title{Get Locality and Coordinates}
 \usage{
-getLoc(x)
+getLoc(x, gazet = "plantR")
 }
 \arguments{
-\item{x}{data.frame}
+\item{x}{a data.frame containing the strings for locality search. See details
+for the specifications of this data frame.}
+
+\item{gazet}{a data.frame containing the gazetteer. The default is "plantR",
+the internal `plantR` gazetteer (biased towards Latin America)}
+}
+\value{
+The data frame \code{x}, with the new columns retrieved from the
+  gazetteer. More specifically, it returns the string used for the search in
+  the gazetteer (column 'loc'), the string retrieved (if any, column
+  'loc.correct'), the geographical coordinates (in decimal degrees) and the
+  resolution associated with the string retrieved (columns
+  'latitude.gazetteer', 'longitude.gazetteer', and 'resolution.gazetteer',
+  respectively). and the associated resolution.
 }
 \description{
-Obtain the complete information for a given locality from the gazetteer.
+This function uses locality strings to search for existing
+  localities and their respective coordinates in a \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer}, which can be
+  used to replace missing coordinates and in the validation process of the
+  locality information and geographical coordinates provided.
+}
+\details{
+The function was initially designed as part of a larger routine to
+  edit and validate locality information from plant occurrence data. It is
+  possible to use it separately, but it may be easier to use it under the
+  workflow presented in `plantR` manual. If used separately, users must
+  provide a data frame with at least two columns ('resol.orig' and
+  'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
+  also be provided and,  in this case, these additional strings are used to
+  search for information under the municipality/county level, that is, to
+  retrieve from the gazetteer information at the locality level or below. See
+  the examples below.
+
+  A different gazetteer than the `plantR` default can be used. This gazetteer
+  must be provided using the argument `gazet` and it must contain the
+  columns 'loc' (search string), 'loc.correct' (correct string),
+  'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
+  'resolution.gazetteer' (e.g. country, state, etc).
+
+  It is important to stress that the retrieval of locality information
+  depends on the completeness of the gazetteer itself. So, if a query does
+  not find a "valid" locality, it does not necessarily mean that the locality
+  does not exist or that its notation is wrong. It can simply mean that the
+  gazetteer is incomplete for the region you are working with. The gazetteer
+  is permanently being improved. If you find an error or if you want to
+  contribute with region-specific gazetteers, please send an email to
+  <renato.lima@naturalis.nl>.
+}
+\examples{
+
+## Using the function separately (need to provide a data in a specific format)
+# Creating a data frame with locality information
+(loc.str <- data.frame(resol.orig = c("municipality","locality"),
+                  loc.string = c("brazil_rio janeiro_parati","brazil_rio janeiro_paraty"),
+                  loc.string1 = c(NA, "brazil_rio janeiro_paraty_paraty mirim"),
+                  stringsAsFactors = FALSE))
+# Making the query of the strings in the gazetter
+getLoc(loc.str)
+
+
+## Using the function under the `plantR` cleaning workflow (may be easier
+# than using the function separatedely)
+
+# Creating a data frame with locality information
+(occs <- data.frame(country = c("BR", "Brazil", "Brasil", "USA"),
+                     stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro","Florida"),
+                     municipality = c("Paraty", "Paraty", "Parati", NA),
+                     locality = c(NA,"Paraty-Mirim", NA, NA),
+                     stringsAsFactors = FALSE
+                     ))
+
+# Formating the locality information
+occs.fix <- fixLoc(occs)
+
+# Creating locality strings used to query the gazetteer
+occs.locs <- strLoc(occs.fix)
+
+# Final editing the locality strings (reduces variation in locality notation)
+occs.locs$loc.string <- prepLoc(occs.locs$loc.string)
+occs.locs$loc.string1 <- prepLoc(occs.locs$loc.string1)
+occs.locs$loc.string2 <- prepLoc(occs.locs$loc.string2)
+
+# Making the query of the edited strings in the gazetter
+getLoc(occs.locs)
+
+
+}
+\author{
+Renato A. F. de Lima
 }

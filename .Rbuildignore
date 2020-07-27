@@ -14,4 +14,4 @@ teste.R
 check_output.txt
 
 # ignoring file that generates sysdata
-00_generating_sysdata.R
+data-raw/

@@ -2,13 +2,59 @@
 % Please edit documentation in R/validateTax.R
 \name{validateTax}
 \alias{validateTax}
-\title{Validate Specimen Taxonomy}
+\title{Validate Species Indentification}
 \usage{
-validateTax(x)
+validateTax(x, special.collector = TRUE, generalist = FALSE,
+  generalist.class = "medium", miss.taxonomist = NULL,
+  taxonomist.list = "plantR")
 }
 \arguments{
-\item{x}{Character. Species name}
+\item{x}{a data frame with the occurrence data.}
+
+\item{special.collector}{Logical. Specimens collected by the family
+specialist but with empty determiner field, should be classified as high
+confidence level? Default to TRUE.}
+
+\item{generalist}{Logical. Should family generalists be considered for
+taxonomic validation? Default to FALSE.}
+
+\item{generalist.class}{Character. Confidence level to be assigned to family
+generalists. Default to "medium".}
+
+\item{miss.taxonomist}{Vector. Any missing combination of family x taxonomist
+that should be added to the validation?}
+
+\item{taxonomist.list}{a data.frame containing the list of taxonomist names. The
+default is "plantR", the internal `plantR` global database of plant
+taxonomists (see Details).}
 }
 \description{
+This function ...
+}
+\details{
+The input data frame \code{x} must contain at least the columns
+'family.new' and 'identifiedBy.new'. Preferably, this data frame should also contain
+the columns 'typeStatus' and 'recordedBy.new'.
 
+By default the function classifies as high confidence level all
+  species identifications performed by the family specialist or any type
+  specimens (isotype, paratypes, etc).
+
+(DESCRIBE ARGUMENT special.collector)
+
+(DESCRIBE ARGUMENT generalist and generalist.class)
+
+
+If you miss the validation from one or more taxonomists, you can provide one
+  or more taxonomists using argument `miss.taxonomist`. The format that should
+  be provided is the name of her/his family of speciality followed by an
+  undersoce and then his name on the TDWG format (e.g. "Bignoniaceae_Gentry,
+  A.H.").
+
+A database of taxonomists different than the `plantR` default can be used.
+ This database must be provided using the argument `taxonomist.list` and it must
+ contain the columns 'family' and 'tdwg.name'. The first column is the family
+ of speciality of the taxonomist and the second one is her/his name in the TDWG
+ format. See `plantR` function tdwgName or tdwgNames on how to get names in
+ the TDWG format from a list of people's name.
 }

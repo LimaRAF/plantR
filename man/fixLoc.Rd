@@ -2,14 +2,72 @@
 % Please edit documentation in R/fixLoc.R
 \name{fixLoc}
 \alias{fixLoc}
-\title{Edit and Format Locality Information}
+\title{Format Locality Information}
 \usage{
-fixLoc(x, adm.levels = c("country", "stateProvince", "municipality",
+fixLoc(x, admin.levels = c("country", "stateProvince", "municipality",
   "locality"), scrap = TRUE)
 }
 \arguments{
-\item{x}{a data.frame}
+\item{x}{a data frame}
+
+\item{admin.levels}{a vector containing the fields (i.e. administrative
+levels) to be formatted.}
+
+\item{scrap}{logical. Should the search of missing locality information be
+performed?}
+}
+\value{
+The input data frame \code{x}, plus the new columns with the formatted
+  fields.
 }
 \description{
+Standardize the notation of the locality fields country,
+  stateProvince, municipality and locality.
+}
+\details{
+The function performs several edits and replacements. Country names
+  are formated in the international format, letters are lower-cased, and
+  special characters and common abbreviations are removed.
 
+  By default, this function formats all four locality fields simultaneously
+  (i.e. country, stateProvince, municipality, locality), but the user can
+  chose among these fields through the argument `admin.levels`. However, the
+  editing process is more complete if all the information is available for
+  the four fields administrative levels mentioned above.
+
+  The argument `scrap` controls the search for missing municipality
+  information from the field 'locality'. It also performs some extra editing
+  and croping of the field 'locality' in order to obtain more standardized
+  locality descriptions. This argument uses different ways of splitting and
+  cropping the locality descripton in order to find missing information.
+  Although it does not always result in an accurate extraction of the
+  information, it provides an extra tool to organize locality information
+  which are not provided in the appropriate columns.
+
+  The function automatically returns the original resolution of the
+  information provided. For instance, if only country information is provided
+  (i.e. field is not empty), then the resolution is flagged as 'country'; if
+  country and stateProvince are given, then the resolution is flagged as
+  'stateProvince', and so on.
+}
+\examples{
+# Creating a data frame with locality information
+(occs = data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
+                   stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais", "Minas Gerais"),
+                   municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
+                   locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais, municipio Lavras", NA)
+                   ))
+
+# Formating the locality information
+fixLoc(occs, scrap = FALSE)
+
+# Formating and scrapping the locality information
+fixLoc(occs, scrap = TRUE)
+
+# Formating the locality information only at country and state levels
+fixLoc(occs, admin.levels = c("country", "stateProvince"))
+
+}
+\author{
+Renato A. F. de Lima
 }

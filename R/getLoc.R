@@ -1,143 +1,195 @@
 #' @title Get Locality and Coordinates
 #'
-#' @description Create the locality string used to search for coordinates in a gazetteer. This information is
-#' used to obtain missing coordinates based on locality descriptions and in the process of validation of the
-#' geographical coordinates.
+#' @description This function uses locality strings to search for existing
+#'   localities and their respective coordinates in a \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer}, which can be
+#'   used to replace missing coordinates and in the validation process of the
+#'   locality information and geographical coordinates provided.
 #'
-#' @param x data frame with the columns: "country.new","stateProvince.new","municipality.new","locality.new"
+#' @param x a data.frame containing the strings for locality search. See details
+#'   for the specifications of this data frame.
+#' @param gazet a data.frame containing the gazetteer. The default is "plantR",
+#'   the internal `plantR` gazetteer (biased towards Latin America)
 #'
-getLoc = function(x) {
-  require(dplyr)
+#' @return The data frame \code{x}, with the new columns retrieved from the
+#'   gazetteer. More specifically, it returns the string used for the search in
+#'   the gazetteer (column 'loc'), the string retrieved (if any, column
+#'   'loc.correct'), the geographical coordinates (in decimal degrees) and the
+#'   resolution associated with the string retrieved (columns
+#'   'latitude.gazetteer', 'longitude.gazetteer', and 'resolution.gazetteer',
+#'   respectively). and the associated resolution.
+#'
+#' @details The function was initially designed as part of a larger routine to
+#'   edit and validate locality information from plant occurrence data. It is
+#'   possible to use it separately, but it may be easier to use it under the
+#'   workflow presented in `plantR` manual. If used separately, users must
+#'   provide a data frame with at least two columns ('resol.orig' and
+#'   'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
+#'   also be provided and,  in this case, these additional strings are used to
+#'   search for information under the municipality/county level, that is, to
+#'   retrieve from the gazetteer information at the locality level or below. See
+#'   the examples below.
+#'
+#'   A different gazetteer than the `plantR` default can be used. This gazetteer
+#'   must be provided using the argument `gazet` and it must contain the
+#'   columns 'loc' (search string), 'loc.correct' (correct string),
+#'   'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
+#'   'resolution.gazetteer' (e.g. country, state, etc).
+#'
+#'   It is important to stress that the retrieval of locality information
+#'   depends on the completeness of the gazetteer itself. So, if a query does
+#'   not find a "valid" locality, it does not necessarily mean that the locality
+#'   does not exist or that its notation is wrong. It can simply mean that the
+#'   gazetteer is incomplete for the region you are working with. The gazetteer
+#'   is permanently being improved. If you find an error or if you want to
+#'   contribute with region-specific gazetteers, please send an email to
+#'   <renato.lima@naturalis.nl>.
+#'
+#' @author Renato A. F. de Lima
+#'
+#' @importFrom dplyr left_join
+#' @importFrom stringr str_count
+#'
+#' @export getLoc
+#'
+#' @examples
+#'
+#' ## Using the function separately (need to provide a data in a specific format)
+#' # Creating a data frame with locality information
+#' (loc.str <- data.frame(resol.orig = c("municipality","locality"),
+#'                   loc.string = c("brazil_rio janeiro_parati","brazil_rio janeiro_paraty"),
+#'                   loc.string1 = c(NA, "brazil_rio janeiro_paraty_paraty mirim"),
+#'                   stringsAsFactors = FALSE))
+#' # Making the query of the strings in the gazetter
+#' getLoc(loc.str)
+#'
+#'
+#' ## Using the function under the `plantR` cleaning workflow (may be easier
+#' # than using the function separatedely)
+#'
+#' # Creating a data frame with locality information
+#' (occs <- data.frame(country = c("BR", "Brazil", "Brasil", "USA"),
+#'                      stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro","Florida"),
+#'                      municipality = c("Paraty", "Paraty", "Parati", NA),
+#'                      locality = c(NA,"Paraty-Mirim", NA, NA),
+#'                      stringsAsFactors = FALSE
+#'                      ))
+#'
+#' # Formating the locality information
+#' occs.fix <- fixLoc(occs)
+#'
+#' # Creating locality strings used to query the gazetteer
+#' occs.locs <- strLoc(occs.fix)
+#'
+#' # Final editing the locality strings (reduces variation in locality notation)
+#' occs.locs$loc.string <- prepLoc(occs.locs$loc.string)
+#' occs.locs$loc.string1 <- prepLoc(occs.locs$loc.string1)
+#' occs.locs$loc.string2 <- prepLoc(occs.locs$loc.string2)
+#'
+#' # Making the query of the edited strings in the gazetter
+#' getLoc(occs.locs)
+#'
+#'
+getLoc <- function(x,
+                   gazet = "plantR") {
 
   ## check input:
-    if (!class(x) == "data.frame") { stop("input object needs to be a data frame!") }
-    if (!any(c("country.new","stateProvince.new","municipality.new") %in% colnames(x))) { stop("input object needs to have at least the following fields: country.new, stateProvince.new, municipality.new") }
+  if (!class(x) == "data.frame")
+    stop("input object needs to be a data frame!")
+
+  if (!any(grepl("loc.string", names(x))))
+    stop("input object needs to have at least one locality string: loc.string, loc.string1, loc.string2")
 
   ## putting the input data in the right order
-    x1 = x[which(colnames(x) %in% c("country.new","stateProvince.new","municipality.new","locality.new","locality.scrap","resol.orig"))]
-
-  ## Definig a unique code for each county, state/province or county/commune ##
-    loc = rep(NA, dim(x1)[1])
-    # county-level
-      loc[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])] =
-        paste(
-          x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-          x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-          x1[3][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-          sep="_")
-    # state-level
-      loc[is.na(loc)&!is.na(x1[1])&!is.na(x1[2])] =
-        paste(
-          x1[1][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],
-          x1[2][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],
-          sep="_")
-    # country-level
-      loc[is.na(loc) & !is.na(x1[1])] =
-        x1[1][is.na(loc) & !is.na(x1[1])]
-
-  ## Definig a unique code for each locality (if available)
-    if("locality.new" %in% names(x1)) {
-      loc1 = rep(NA, dim(x1)[1])
-      #locality-level
-      loc1[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[3]) & !is.na(x1[4])] =
-        paste(x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-              x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-              x1[3][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-              x1[4][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-              sep="_")
-    }
-
-  ## Definig a unique code for an alternative way of getting missing counties from the locality field
-    if("locality.scrap" %in% names(x1)) {
-      loc2 = rep(NA, dim(x1)[1])
-      #county-level when county is not given
-      loc2[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])] =
-        paste(
-          x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-          x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-          x1[5][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-          sep="_")
-    }
-
-  ## Final edits to simplify the coordinate cross-checking process
-    loc  = prepLoc(loc)
-    if("locality.new" %in% names(x1)) loc1 = prepLoc(loc1)
-    if("locality.scrap" %in% names(x1)) loc2 = prepLoc(loc2)
+  cls.nms <- c("resol.orig","loc.string","loc.string1","loc.string2")
+  cls.nms <- cls.nms[cls.nms %in% colnames(x)]
+  x1 <- x[which(colnames(x) %in% cls.nms)]
 
   ## Getting coordinates from the gazetteer - county level or lower (provided in the occuurrence labels)
-    #dic = read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//gazetteer.csv",as.is=TRUE)
-    #dic = dic[dic$status %in% "ok",]
-    load("./R/sysdata.rda")
-    dic = gazetteer
+  if(all(gazet %in% c("plantR","plantr"))) {
+     dic <- gazetteer
+  } else {
 
-    tmp = left_join(data.frame(loc=loc, stringsAsFactors= FALSE),
-                  dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
-                  by="loc")
-   # Downgrading the locality resolution for the localities not found in the gazetteer
-      tmp1 = tmp[!is.na(tmp$loc) & is.na(tmp$loc.correct), ]$loc
-      if(length(tmp1)>0) {
-        if(any(str_count(tmp1,"_")==1)) tmp1[str_count(tmp1,"_")==1] = sapply(strsplit(tmp1[str_count(tmp1,"_")==1],"_"), function(x) x[1])
-        if(any(str_count(tmp1,"_")==2)) tmp1[str_count(tmp1,"_")==2] = sapply(strsplit(tmp1[str_count(tmp1,"_")==2],"_"), function(x) paste(x[1],x[2],sep="_"))
-        tmp2 = left_join(data.frame(loc=tmp1, stringsAsFactors= FALSE),
-                         dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
-                         by="loc")
-        tmp[!is.na(tmp$loc) & is.na(tmp$loc.correct), c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
-          tmp2[ ,c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
-      } else { 	}
+    if(!class(gazet) == "data.frame")
+      stop("The gazetteer must be provided as a data frame")
+    if(!all(c("family", "tdwg.name") %in% names(gazet)))
+      stop("The gazetteer must contain at least the following columns: loc', 'loc.correct',
+          'latitude.gazetteer' and 'longitude.gazetteer'")
+
+    dic <- gazet
+    if(!"resolution.gazetteer" %in% names(dic))
+      dic$resolution.gazetteer = NA
+  }
+
+  # merging the occurrence data with the gazetteer information
+  tmp <- dplyr::left_join(data.frame(loc = x1[,2], stringsAsFactors= FALSE),
+                          dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
+                          by = "loc")
+  # Downgrading the locality resolution for the localities not found in the gazetteer
+  tmp1 <- tmp$loc[!is.na(tmp$loc) & is.na(tmp$loc.correct)]
+  if(length(tmp1)>0) {
+    if (any(stringr::str_count(tmp1, "_") == 1))
+      tmp1[stringr::str_count(tmp1, "_") == 1] <-
+        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 1], "_"), function(x) x[1])
+    if (any(stringr::str_count(tmp1, "_") == 2))
+      tmp1[stringr::str_count(tmp1, "_") == 2] <-
+        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 2], "_"), function(x) paste(x[1], x[2], sep = "_"))
+
+    tmp2 <- dplyr::left_join(data.frame(loc=tmp1, stringsAsFactors= FALSE),
+                             dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
+                             by = "loc")
+
+    #if nothing is found in the gazetteer, we finally try at country level:
+    tmp3 <- tmp2$loc[is.na(tmp2$loc.correct)]
+    if (length(tmp3) > 0) {
+      tmp3 <- sapply(strsplit(tmp3,"_"), function(x) x[1])
+      tmp3 <- dplyr::left_join(data.frame(loc=tmp3, stringsAsFactors= FALSE),
+                               dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
+                               by = "loc")
+      tmp2[is.na(tmp2$loc.correct), c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
+        tmp3[ ,c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    }
+    #saving all dowgraded locality infor from the gazetteer
+    tmp[!is.na(tmp$loc) & is.na(tmp$loc.correct), c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
+      tmp2[ ,c("loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+  }
 
   ## Getting coordinates from the gazetteer - locality level
-     ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
-      dic1 = dic[!duplicated(dic$loc) & !is.na(dic$loc.correct) &
-                   dic$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra"),]
-      tmp3 = left_join(data.frame(loc=loc1, stringsAsFactors= FALSE),
-                       dic1[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
-                       by="loc")
+  if("loc.string1" %in% names(x1)) {
+    dic1 <- dic[dic$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra"),]
+    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3], stringsAsFactors= FALSE),
+                             dic1[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
+                             by = "loc")
     # Replacing coordinates at county level by those found at locality level
-        tmp[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
-          tmp3[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    tmp[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] <-
+      tmp3[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
 
     # Replacing coordinates at state level by those found at locality level (rare but can happen due to missing counties)
-        tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
-          tmp3[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
-        tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra")] = "locality"
+    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] <-
+      tmp3[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    # Replacing coordinates at country level by those found at locality level due to missing state and counties
+    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] <-
+      tmp3[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra")] = "locality"
+  }
 
-      ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation...)
-      tmp4 = left_join(data.frame(loc=loc2, stringsAsFactors= FALSE),
-                       dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
-                       by="loc")
-      # replacing coordinates at state level by those found at county level
-      tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] =
-        tmp4[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
-      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra")] = "locality"
+  ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation...)
+  if("loc.string2" %in% names(x1)) {
+    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors= FALSE),
+                             dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
+                             by = "loc")
+    # replacing coordinates at state level by those found at county level
+    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] <-
+      tmp4[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    # Replacing coordinates at country level by those found at locality level due to missing state and counties
+    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")] <-
+      tmp4[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")]
+    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% c("localidade","localidade|sublocalidade","sublocalidade","distrito|vila","distrito","distrito|bairro","bairro","cachoeira","mina","vila","serra")] = "locality"
+  }
+
+  ## Assigning the "no_info" category for localities not found at the gazetteer
+  tmp$resolution.gazetteer[is.na(tmp$resolution.gazetteer)] <- "no_info"
 
   ## Merging the entry and output data
-      x2 = cbind.data.frame(x1, tmp[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")])
-
-  ## Flagging localities with changes in their resolution
-      resol.gazet = gsub("state", "stateProvince", x2$resolution.gazetteer)
-      resol.gazet = gsub("county", "municipality", resol.gazet)
-      x2$loc.check = resol.gazet == x2$resol.orig
-      x2$loc.check[!x2$loc.check &
-                     resol.gazet %in% "locality" &
-                     x2$resol.orig %in% "municipality"] = "ok_municipality2locality"
-      x2$loc.check[x2$loc.check == FALSE &
-                     resol.gazet %in% "municipality" &
-                     x2$resol.orig %in% "stateProvince"] = "ok_state2municipality"
-      x2$loc.check[x2$loc.check == FALSE &
-                     resol.gazet %in% "locality" &
-                     x2$resol.orig %in% "stateProvince"] = "ok_state2locality"
-      x2$loc.check[x2$loc.check == FALSE &
-                     resol.gazet %in% "stateProvince" &
-                     x2$resol.orig %in% "municipality"] = "check_municipality2state"
-      x2$loc.check[x2$loc.check == FALSE &
-                     resol.gazet %in% "country" &
-                     x2$resol.orig %in% "municipality"] = "check_municipality2country"
-      x2$loc.check[x2$loc.check == FALSE &
-                     resol.gazet %in% "country" &
-                     x2$resol.orig %in% "stateProvince"] = "check_state2country"
-      x2$loc.check[x2$loc.check == TRUE] = "ok_same"
-
-      print("Resolution of the localities in the original data vs. the edited data:")
-      print(table(edited = resol.gazet, original = x2$resol.orig))
-      return(x2)
+  result <- cbind.data.frame(x, tmp)
+  return(result)
 }

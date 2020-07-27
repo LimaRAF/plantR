@@ -6,11 +6,11 @@
 #'
 #' @return the character string equal to \code{x} with the first letter capitalized.
 #'
-#' @details The function works for simple names and compound names which are separated by
+#' @details The function works for simple names and compound names that are separated by
 #' a space or by the character '-'. It also works for names that are entirely capitalized.
-#' This function was adapted from function simpleCap from package hpoPlot by Daniel Greene
+#' This function was adapted from the function `simpleCap` from package `hpoPlot` by Daniel Greene.
 #'
-#' @author Lima, R.A.F.
+#' @author Renato A. F. de Lima (after Daniel Greene)
 #'
 #' @export capName
 #'
@@ -18,21 +18,35 @@
 #' # Simple name
 #'   capName("gentry")
 #'   capName("HATSCHBACH")
+#'
 #' # Names with generational suffixes
 #'   capName("leitao filho")
-#' # Compound name
+#'
+#' # Compound names
 #'   capName("saint-hilaire")
+#'
 capName <- function(x) {
   # check input:
-  if (length(x)>1) { stop("currently, 'x' cannot be a vector of strings!") }
+  if (length(x)>1)
+    stop("currently, 'x' cannot be a vector of strings!")
 
   # identifying compound names:
-  if(grepl('-',x)) {
-      split <- strsplit(x, "-")[[1]]
-      nome = paste(toupper(substring(split, 1, 1)), tolower(substring(split, 2)), sep = "", collapse = "-")
+  if(grepl('-', x)) {
+
+    split <- strsplit(x, "-")[[1]]
+    nome <- paste(toupper(substring(split, 1, 1)),
+                  tolower(substring(split, 2)),
+                  sep = "",
+                  collapse = "-")
+
     } else {
+
       split <- strsplit(x, " ")[[1]]
-      nome = paste(toupper(substring(split, 1, 1)), tolower(substring(split, 2)), sep = "", collapse = " ")
+      nome <- paste(toupper(substring(split, 1, 1)),
+                    tolower(substring(split, 2)),
+                    sep = "",
+                    collapse = " ")
+
     }
   return(nome)
 }

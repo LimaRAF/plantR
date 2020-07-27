@@ -2,39 +2,48 @@
 % Please edit documentation in R/fixName.R
 \name{fixName}
 \alias{fixName}
-\title{Preparing People's Name}
+\title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
+fixName(x, special.char = FALSE, from = "UTF-8",
+  to = "windows-1252//TRANSLIT")
 }
 \arguments{
-\item{x}{the character string}
+\item{x}{a character string with a name.}
 
-\item{special.char}{logical}
+\item{special.char}{logical. Should special characters be maintained? Default
+to FALSE.}
 
-\item{from}{original encoding}
+\item{from}{a character string with the original/current encoding of the
+charcater. Argument currenlty not implemented.}
 
-\item{to}{final encoding}
+\item{to}{a character string with the desired/target encoding of the
+charcater. Argument currenlty not implemented.}
 }
 \value{
-the character string \code{x} in the starndard needed for further processing.
+The character string \code{x} in the standard notation necessary for
+  further processing.
 }
 \description{
-Fix problems and stadardize name notation
+Fix problems and standardize name notation
 }
 \details{
-The function fixes problems in name notation (e.g. orfan spaces) and
-standardized the notation (i.e. Faria Jr. to Faria Junior). Due to encoding
-problems, names are return without accents by default. But user can choose
-between outputs with and without accents and species characters.
+The function fixes problems in name notation (e.g. orphan spaces) and
+  standardized the notation (i.e. Faria Jr. to Faria Junior). Due to common
+  encoding problems related to Latin names, names are returned without accents
+  by default. But users can choose between outputs with and without accents
+  and species characters, using the argument `special.char`.
 }
 \examples{
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
   fixName("Leitão F°, H.F.")
+  fixName("Leitão F°, H.F.", special.char = TRUE)
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
+  fixName('F. da S.N. Thomé')
   fixName('Pedro L.R.de Morães')
+
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

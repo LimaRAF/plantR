@@ -1,6 +1,6 @@
 #' @title Format Geographical Coordinates
 #'
-#' @description
+#' @description This function...
 #'
 #' @param x data.frame
 #'

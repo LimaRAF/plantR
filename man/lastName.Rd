@@ -4,23 +4,28 @@
 \alias{lastName}
 \title{Get Last Name}
 \usage{
-lastName(name)
+lastName(name, noName = "s.n.")
 }
 \arguments{
-\item{name}{the character string.}
+\item{name}{the character string containing a name.}
+
+\item{noName}{standard notation for missing names in \code{name}.}
 }
 \value{
-the character string in lower case with the last name of \code{name}.
+A character string in lower case, with the last name provided in \code{name}.
 }
 \description{
-Extract the last name of the collector or determiner of a biological specimen.
+Extract the last name of the collector or determiner of a
+  biological specimen.
 }
 \details{
-The function works for simple last names or compund last names, independently
-if names are provided  in lower or capital letters. It is relatively stable to the format
-and spacing of the string provided, but it may not work in all cases.
+The function works for simple last names or compound last names,
+  independently if names are provided in lower or capital letters. It is
+  relatively stable to the format and spacing of the string provided, but it
+  may not work in all cases.
 
-If only one name is given, the function returns the same name in lower case.
+  If only one name is given, the function returns the same name in lower
+  case.
 }
 \examples{
 
@@ -39,7 +44,7 @@ If only one name is given, the function returns the same name in lower case.
  lastName("Leitao Filho, H.F.")
  lastName("Filho Neto, S.J.")
 
-   # Compound last name
+ # Compound last name
  lastName("Augustin Saint-hilaire")
  lastName("Saint-Hilaire A.")
 
@@ -54,7 +59,8 @@ If only one name is given, the function returns the same name in lower case.
  lastName("A. Alvarez, A. Zamora & V. Huaraca")
  # two or more names, separated by comma: output incorrect (give names of authors)
  lastName("Karl Emrich & Balduino Rambo")
+
 }
 \author{
-Lima, R.A.F. & ter Steege, H.
+Renato A. F. de Lima & Hans ter Steege
 }
