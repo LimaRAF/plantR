@@ -1,17 +1,7 @@
 ---
 title: "plantR tutorial"
 date: "`r Sys.Date()`"
-output:
-    rmarkdown::html_vignette:
-        toc: true
-        number_sections: true
-    md_document:
-      variant: gfm
-vignette: >
-  %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{plantR tutorial}
-  %\VignetteEngine{knitr::rmarkdown}
-    \usepackage[utf8]{inputenc}
+    
 ---
 
 ```{r setup, include=FALSE}
@@ -139,7 +129,7 @@ listed above, including the list of synonyms accepted in the List of Species of
 the Brazilian Flora 2020 project (this may take a few minutes):
 
 ```{r, eval = TRUE}
-example <- rspeciesLink(scientificName =  spp,
+example <- rspeciesLink(species =  spp,
                         Scope = "plants",
                         basisOfRecord = "PreservedSpecimen",
                         Synonyms = "flora2020")
@@ -247,14 +237,10 @@ We also define that the symbol that will separate different names, which in our
 example will be a semi-colon followed by a space.
 
 ```{r, eval = TRUE}
-head(occs$recordedBy.new)
-occs$recordedBy.aux <- sapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = "; ")
+occs$recordedBy.aux <- sapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = ";")
 occs$recordedBy.new <- lapply(occs$recordedBy.new, tdwgNames, out = "first")
-head(occs$recordedBy.new)
-head(occs$recordedBy.aux)
 
-
-occs$identifiedBy.aux <- lapply(occs$identifiedBy.new, tdwgNames, out = "aux", sep.out = "; ")
+occs$identifiedBy.aux <- lapply(occs$identifiedBy.new, tdwgNames, out = "aux", sep.out = ";")
 occs$identifiedBy.new <- lapply(occs$identifiedBy.new, tdwgNames, out = "first")
 ```
 
@@ -619,11 +605,6 @@ table(occs$cult.check)
 
 #### REVER AQUI: CRIAR FUNCOES? SINONIMOS É FORMATAÇÃO OU VALIDAÇÃO DOS NOMES??
 
-```{r, eval = TRUE}
-synonyms <- get.taxa(unique(occs$scientificName.new), suggestion.distance = 0.85, drop = NULL)
-synonyms <- synonyms[synonyms$notes %in% "replaced synonym",]
-for (i in 1:length(synonyms)) occs$scientificName.new <- gsub(paste0("^", synonyms$original.search[i],"$"), synonyms$search.str[i], occs$scientificName.new, perl = TRUE)
-```
 
 Note that there are more species names than the ones used to search for occurences. Some are due to name format and other are due to differences in the assignnemt of synonyms between speciesLink and the Brazilian Flora interface used here, the package __flora__.
 
@@ -637,7 +618,7 @@ standard used by __plantR__ to obtain valid family names is the APG IV and the P
 I, which can be obtained using the function `formatFamily()`:
 
 ```{r, eval = TRUE}
-occs = formatFamily(occs)
+occs <- formatFamily(occs)
 ```
 
 Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
@@ -647,8 +628,8 @@ backup <- occs
 
 Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.
 
-```{r, eval = TRUE}
-occs = validateTax(occs)
+```{r, eval = F}
+occs <-  validateTax(occs)
 table(occs$tax.check)/dim(occs)[1]
 ```
 

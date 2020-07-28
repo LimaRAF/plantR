@@ -5,14 +5,13 @@
 #' @param x Data.frame with coordinates in decimal degrees.
 #' @param parallel Logical. Parallelize or not.
 #'
-#' @ImportFrom dplyr select one_of rename mutate if_else
-#' @ImportFrom sp coordinates
-#' @importFrom sf st_crs st_as_sf st_join
+#' @importFrom dplyr select one_of rename mutate if_else
+#' @importFrom tidyr separate
+#' @importFrom sp coordinates
+#' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
 #x <- occs
 #no need to use the gazetteer
-validateCoord <- function(x,
-                          parallel = TRUE,
-                          no_cores = NULL) {
+validateCoord <- function(x) {
   # ##Getting the file paths for the herbarium data
   #   ### PRE-VALIDATION STEPS ###
   #   ##Loading the occurrence data
@@ -144,8 +143,8 @@ validateCoord <- function(x,
 
 ######fiquei aqui
 
-x3 %>% filter(country.check == "country_ok") %>%
-count(country, county.check)
+#x3 %>% filter(country.check == "country_ok") %>%
+#count(country, county.check)
 
 #longitude.gazetteer latitude.gazetter e new
 #   #1.5 Calculating the distance between the original coordinates and the gazetter
