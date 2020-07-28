@@ -155,7 +155,7 @@ many occurrences were downloaded (`r nrow(example$data)` records and
 dim(example$data)
 ```
 
-If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within `plantR` using the command `data(example)`.
+If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within __plantR__ using the command `data(example)`.
 
 
 # Data processing
@@ -198,7 +198,7 @@ to understand carefully these warnings before we can continue.
 
 The first warning says that <!--the name of the column header 'scientifname',
 provided in the input data, was replaced by the standard name 'scientificName',
-the standard name used by `plantR`. The second warning also reports that--> a
+the standard name used by __plantR__. The second warning also reports that--> a
 required header name (`'county'`) was replaced by a standard header name,
 `'municipality'` in this case.
 The second warning is less important because it relates to optional fields. 
@@ -226,8 +226,7 @@ and without the year of collection and identification ("n.d.").
 occs$recordedBy.new <- fixName(occs$recordedBy, special.char = FALSE)
 occs$identifiedBy.new <-  fixName(occs$identifiedBy, special.char = FALSE)
 
-occs$recordNumber.new <- colNumber(occs$recordNumber, noNumb = "s.n.")
-
+occs$recordNumber.new <- colNumber(x = occs$recordNumber, noNumb = "s.n.")
 occs$year.new <- getYear(occs$year, noYear = "n.d.")
 occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 ```
@@ -235,13 +234,8 @@ occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 Next, we format the names of the collector and identificator (function `formatName()`)
 
 ```{r, eval = TRUE}
-head(occs$recordedBy.new)
-occs$recordedBy.new <- formatName(occs$recordedBy.new)
-head(occs$recordedBy.new)
-
-head(occs$identifiedBy.new)
-occs$identifiedBy.new <- formatName(occs$identifiedBy.new)
-head(occs$identifiedBy.new)
+occs$recordedBy.new <- unlist(sapply(occs$recordedBy.new, formatName))
+occs$identifiedBy.new <- unlist(sapply(occs$identifiedBy.new, formatName))
 ```
 
 We then separate first and auxiliary names for multiple names and then convert
@@ -254,7 +248,7 @@ example will be a semi-colon followed by a space.
 
 ```{r, eval = TRUE}
 head(occs$recordedBy.new)
-occs$recordedBy.aux <- lapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = "; ")
+occs$recordedBy.aux <- sapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = "; ")
 occs$recordedBy.new <- lapply(occs$recordedBy.new, tdwgNames, out = "first")
 head(occs$recordedBy.new)
 head(occs$recordedBy.aux)
@@ -359,7 +353,7 @@ descriptions. If the country, state, and municipality fields are given, they
 remain unaltered. Only missing information in these fields is completed by the
 editing and scrapping process.
 
-Although the search for missing localities generally results in no empty fields
+Although the search for missing localities generally results in empty fields
 (i.e. NAs), it does not mean that the information retrieved from this search is
 accurate. It depends on the information being actually available in the field
 'locality' and how it is arranged. To make sure that the missing information
@@ -402,7 +396,7 @@ finally cross it with the gazetteer, using function `getLoc()`.
 locs <- getLoc(locs, gazet = "plantR")
 ```
 
-Some of the locality strings were retrieved in the default `plantR` gazetteer at
+Some of the locality strings were retrieved in the default __plantR__ gazetteer at
 the locality level (e.g. park, farm). The gazetteer is more complete for Latin
 America and has much more information at the locality level for Brazil.
 Therefore, info retrieval at the locality level should be biased towards
@@ -432,12 +426,16 @@ head(getAdmin(occs))
 
 ## Editing geographical coordinates: function `formatCoord()`
 
+
 Previous to the validation of the original geographical coordinates, it is
 important to make sure that they are given and if they are in the required
 format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees),
 with decimal digits separated by points.
 
+Function `prepCoord()` transforms the coordinates into decimal degrees and add the columns "decimalLatitude.new"  and "decimalLongitude.new". 
+
 ```{r, eval = TRUE}
+names(occs)
 occs <- prepCoord(occs)
 ```
 
@@ -464,27 +462,30 @@ table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.
 
 
-## Editing species names: function `formatTax()`
+## Editing species names: function `formatTaxa()`
 
 <!--Species names spelling - tipográficos
 format/modificators
 synonyms
 replace_names/suggest_name-->
 
-
 Suggestion of items adapted from the original workflow:
-4.0 Firt editing (flag indets, class taxon rank, remove authors)
-4.1 Remove cf. e aff. (and create a clomun for the name modificators?)
-4.2 Option to consider or not names at infraspecific level at specific level (e.g. remove ‘var.’, ‘subsp.’, ‘forma’, etc)
+
+- [x] 4.0 First edit (flag indets, class taxon rank, remove authors)
+- [x] 4.1 Remove cf. e aff. (and create a clomun for the name modificators?)
+- [x] 4.2 Option to consider or not names at infraspecific level at specific level (e.g. remove ‘var.’, ‘subsp.’, ‘forma’, etc)
+
 4.3 Standardize the nomenclature (typos, synonyms and ortographical variants) -> Data editing or Data Validation??
-4.4 Edit family names to APG (plantR function `formatFamily`: step currently done using ‘flora’ and taxonStand packages)
+
+4.4 Edit family names to APG (plantR function `formatFamily()`: step currently done using ‘flora’ and taxonStand packages)
+
 
 ### Species names format
+
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
-`rspeciesLink` returned (as required) all synonyms accepted by the Brazilian
-Flora 2020 (\url{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}) were
-also downloaded. In addition, the speciesLink network
+`rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
+Flora 2020 (\url{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}). In addition, the speciesLink network
 (\url{http://splink.cria.org.br/}) stores the information as provided by the
 collections, which may vary in the way the scientific names are stored. For data
 downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
@@ -506,10 +507,11 @@ occs$scientificName.new <- sapply(occs$scientificName.new, standardize.names)
 occs$scientificName.new <- sapply(occs$scientificName.new, remove.authors)
 ```
 
-In `plantR` we offer a new function that perform all these step and an extra step, which is the extraction
+In __plantR__ we offer a new function that perform all these step and an extra step, which is the extraction
 of the name modificators: "cf." and "aff.":
 
 #### FUNCTION TO BE CREATED? SARA/ANDREA, VCS JÁ TEM ALGO NESSA LINHA? QUAL O PADRÃO DARWINCORE NESSES CASOS?
+
 ```{r, eval = FALSE}
 occs$scientificName.new <- gsub(" cf\\. | aff\\. ", " ", occs$scientificName.new)
 ```
@@ -548,14 +550,13 @@ standard __plantR__ gazetteer). But many of them are only retrieved at
 state/province level, meaning that fields containing state and municipality
 information may need to be checked.
 
-In `plantR` the resolution of the locality information provided with the
-specimen and the one found in the gazetteer is described using the function
-`validateLoc()`, which compares the two resolutions and store the result of this
-comparison in a new column called `'loc.check'`:
+In __plantR__ the resolution of the locality information provided with the
+specimen and the one found in the gazetteer are described using the function
+`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called `'loc.check'`:
 
 ```{r, eval = TRUE}
 occs <- validateLoc(occs)
-table(occs$loc.check)
+unique(occs$loc.check)
 ```
 
 In this column, specimens for which the locality provided could not be found in
@@ -563,24 +564,39 @@ the gazetteer at the same resolution are flagged with a "check_...". In these
 cases, the locality resolution is downgraded until a locality is found in the
 gazetteer. In the case that even the country is not found, then the locality is
 flagged as "no_info". We also flag all the specimens that retained their
-resolution (i.e. "ok_same_resolution") and those that could be retrieved at a better
-locality resolution, also flagged with an "ok_" (e.g. 'ok_state2municipality':
-'stateProvince' level that is now at the 'municipality' level).
+resolution (i.e. "ok_same_resolution") and those that could be retrieved at a
+better locality resolution, also flagged with an "ok_" (e.g.
+'ok_state2municipality': a record which had its original resolution at the 'stateProvince' level is now at the 'municipality' level).
 
-Note that many occurrences were flagged with a "check_...". The class "check_local.2municip."
-should not be a problem, since the internal `plantR` gazetteer does not contain a comprehensive
-list of names at the locality level. However, other "check_..." classes (e.g. "check_local.2country") may indicate missing information or typos that may need some more careful inspection.
+Note that many occurrences were flagged with a "check_...". The class 
+"check_local.2municip." should not be a problem, since the internal __plantR__
+gazetteer does not contain a comprehensive list of names at the locality level.
+However, other "check_..." classes (e.g. "check_local.2country") may indicate
+missing information or typos that may need some more careful inspection.
 
 
 ## Geographical validation: function `validateCoord()`
 
-Check here other possible steps that can use coordinateCleaner or other packages
+Check here other possible steps that can use __coordinateCleaner__ or other packages
 
 ### Flag occurrences from cultivated individuals
 
-### Load and inspect the `plantR` default world map
+Function `getCult()` flags cultivated or possibly cultivated records in a new column 
+
+```{r}
+antes <- names(occs)
+occs <- getCult(occs)
+despues <- names(occs)
+setdiff(despues, antes)
+table(occs$cult.check)
+
+```
+
+### Load and inspect the __plantR__ default world map
+
 
 ### Validate original coordinates at country, state and county level
+
 
 ### Coordinates falling into the sea or bays
 
@@ -602,13 +618,14 @@ Check here other possible steps that can use coordinateCleaner or other packages
 ### Species synonyms
 
 #### REVER AQUI: CRIAR FUNCOES? SINONIMOS É FORMATAÇÃO OU VALIDAÇÃO DOS NOMES??
+
 ```{r, eval = TRUE}
 synonyms <- get.taxa(unique(occs$scientificName.new), suggestion.distance = 0.85, drop = NULL)
 synonyms <- synonyms[synonyms$notes %in% "replaced synonym",]
 for (i in 1:length(synonyms)) occs$scientificName.new <- gsub(paste0("^", synonyms$original.search[i],"$"), synonyms$search.str[i], occs$scientificName.new, perl = TRUE)
 ```
 
-Note that there are more species names than the ones used to search for occurences. Some are due to name format and other are due to differences in the assignnemt of synonyms between speciesLink and the Brazilian Flora interface used here, the package `flora`.
+Note that there are more species names than the ones used to search for occurences. Some are due to name format and other are due to differences in the assignnemt of synonyms between speciesLink and the Brazilian Flora interface used here, the package __flora__.
 
 ### Botanical family synonyms and standardization (function `formatFamily`)
 
@@ -616,8 +633,8 @@ The classification of the taxonomic confidence in species determination of each
 occurrence is currently performed based on a global list of taxonomists per
 family (see details below). Because different plant classification systems can
 use different names to the same family, we need to standardize family names. The
-standard used by `plantR` to obtain valid family names is the APG IV and the PPG
-I, which can be obtained using the function `formatFamily`:
+standard used by __plantR__ to obtain valid family names is the APG IV and the PPG
+I, which can be obtained using the function `formatFamily()`:
 
 ```{r, eval = TRUE}
 occs = formatFamily(occs)
@@ -642,7 +659,7 @@ occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G.")
 table(occs1$tax.check)/dim(occs)[1]
 ```
 
-This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the `plantR` default taxonist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalists is biased towards South America, particularly Brazil.
+This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the __plantR__ default taxonist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalists is biased towards South America, particularly Brazil.
 
 
 # Duplicated specimens
