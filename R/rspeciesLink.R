@@ -7,7 +7,7 @@
 #' @param filename Name of the output file
 #' @param basisOfRecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
 #' 'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search
-#' @param scientificName Genus and epithet separated by space. More than one should be concatenated in a vector
+#' @param species Genus and epithet separated by space. More than one should be concatenated in a vector
 #' @param collectionCode Any collection available at speciesLink. Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names
 #' @param country Any country name. No ASCII characters allowed. Accepts a vector of names
 #' @param county Any municipality name. No ASCII characters allowed. Accepts a vector of names
@@ -15,7 +15,7 @@
 #' @param Coordinates Specify if records should have coordinates. Default is "no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked" or "no check"
 #' @param CoordinatesQuality Any character in "Good" or "Bad" to select specific type of coordinates
 #' @param Scope Group to be required. If NULL searches all groups. Any in "plants", "animals", "microrganisms" or "fossils"
-#' @param Synonyms If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms". It does not support more than nine species to check (length of scientificName vector must be < 10)
+#' @param Synonyms If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms".
 #' @param Typus Logic. If TRUE select only typus
 #' @param Images If select only records with images. Default is NULL. It accepts: "Yes", "Live", "Polen", "Wood"
 #' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
@@ -24,10 +24,11 @@
 #' @author Sara Mortara
 #'
 #' @examples
-#'
+#'\dontrun{
 #'ex01 <- rspeciesLink(filename = "ex01",
-#'                     scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+#'                     species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
 #'                     Scope = "plants")
+#'}
 #'
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils write.table
@@ -35,7 +36,7 @@
 rspeciesLink <- function(dir = "results/",
                          filename = "output",
                          basisOfRecord = NULL,
-                         scientificName = NULL,
+                         species = NULL,
                          collectionCode = NULL,
                          country = NULL,
                          stateProvince = NULL,
@@ -76,17 +77,17 @@ rspeciesLink <- function(dir = "results/",
     }
   }
   # Species name
-  if (is.null(scientificName)) {
+  if (is.null(species)) {
     my_url
   }
   else  {
-    if (is.character(scientificName)) {
-      scientificName <- gsub(" ", "%20", scientificName)
-      sp <- url_query(scientificName, "scientificName")
+    if (is.character(species)) {
+      species <- gsub(" ", "%20", species)
+      sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
     }
     else {
-      stop("scientificName must be a character")
+      stop("species must be a character")
     }
   }
   # Collection code
@@ -156,7 +157,7 @@ rspeciesLink <- function(dir = "results/",
     }
   }
   #  Synonyms
-  # if (length(scientificName) > 9) {
+  # if (length(species) > 9) {
   #    stop("Function does not support synonym check of more than nine species")
   #  } else {
   if (is.null(Synonyms)) {
