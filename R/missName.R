@@ -19,7 +19,7 @@
 #' @export missName
 #'
 #' @examples
-#' # Need to chose between 'collector' or 'identificator'
+#' # Needs to chose between 'collector' or 'identificator'
 #'  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
 #'            type = "collector",
 #'            noName = "s./c.")
@@ -32,23 +32,23 @@
 #'           type = "identificator",
 #'           noName = "Anonymous")
 #'
-missName = function(x,
-                    type = NULL,
-                    noName = "Anonymous") {
+missName <- function(x,
+                     type = NULL,
+                     noName = "Anonymous") {
 
   # Checking if all arguments are provided
   if (is.null(noName))
     stop("Please provide a character to replace missing names")
 
-  if(is.null(type) | all(!type %in% c("collector","coletor","colector","identificator","identificador","determinador")))
+  if (is.null(type) | all(!type %in% c("collector","coletor","colector","identificator","identificador","determinador")))
     stop("Please chose between 'collector' or 'identificator' to replace missing names")
 
   nomes <- x
 
-  if(any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
+  if (any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
-    nomes[nomes %in% c("s/col.", "s/col", "s/c", "s/coletor", " sem col.", "s.col.")] = noName
+    nomes[nomes %in% c("s/col.", "s/col", "s/c", "s/coletor", " sem col.", "s.col.")] <- noName
     nomes[nomes %in% c("Collector unspecified", "Collector unknown")] <- noName
     nomes[nomes %in% c("?")] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
@@ -57,7 +57,6 @@ missName = function(x,
     nomes <- gsub('^Sin$', noName, nomes)
     nomes <- gsub('Anonymous', noName, nomes)
     nomes <- gsub("NANA", noName, nomes)
-
   }
 
   if (any(type %in% c("identificator", "identificador", "determinador"))) {   #No identificator's name
@@ -72,7 +71,6 @@ missName = function(x,
     nomes <- gsub('^Sin$', noName, nomes)
     nomes <- gsub('Anonymous', noName, nomes)
     nomes <- gsub("NANA", noName, nomes)
-
   }
 
   return(nomes)

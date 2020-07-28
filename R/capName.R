@@ -27,25 +27,30 @@
 #'
 capName <- function(x) {
   # check input:
-  if (length(x)>1)
+  if (length(x) > 1)
     stop("currently, 'x' cannot be a vector of strings!")
 
   # identifying compound names:
-  if(grepl('-', x)) {
+  if (grepl('-', x)) {
 
     split <- strsplit(x, "-")[[1]]
     nome <- paste(toupper(substring(split, 1, 1)),
                   tolower(substring(split, 2)),
                   sep = "",
                   collapse = "-")
-
-    } else {
-
-      split <- strsplit(x, " ")[[1]]
+#capitalizing initials
+    } else if (grepl('.', x)) {
+      split <- strsplit(x, "\\.")[[1]]
       nome <- paste(toupper(substring(split, 1, 1)),
                     tolower(substring(split, 2)),
                     sep = "",
-                    collapse = " ")
+                    collapse = ".")
+      } else {
+        split <- strsplit(x, " ")[[1]]
+        nome <- paste(toupper(substring(split, 1, 1)),
+                      tolower(substring(split, 2)),
+                      sep = "",
+                      collapse = " ")
 
     }
   return(nome)

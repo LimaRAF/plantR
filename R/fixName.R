@@ -5,10 +5,6 @@
 #' @param x a character string with a name.
 #' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
-#' @param from a character string with the original/current encoding of the
-#'   character Argument currently not implemented.
-#' @param to a character string with the desired/target encoding of the
-#'   character. Argument currently not implemented.
 #'
 #' @return The character string \code{x} in the standard notation necessary for
 #'   further processing.
@@ -37,9 +33,7 @@
 #'   fixName('Pedro L.R.de Morães')
 #'
 fixName <- function(x,
-                    special.char = FALSE,
-                    from = "UTF-8",
-                    to = "windows-1252//TRANSLIT") {
+                    special.char = FALSE) {
 
   nomes <- x
 
@@ -112,9 +106,6 @@ fixName <- function(x,
   nomes <- gsub(',$', '', nomes)
   nomes <- gsub('-$', '', nomes)
   nomes <- stringr::str_trim(nomes)
-
-  #Try to solve encoding problems?
-  #nomes <- as.character(iconv(nomes, from= from, to= to))
 
   #Remove special characters?
   if (special.char == FALSE) {
