@@ -50,13 +50,11 @@ validateCoord <- function(x,
 
    ##Creating the geo.check columns
    x1$geo.check <- NA
-   x1$geo.check[x1$origin.coord %in% c("ok_country_gazet")] <-  "ok_country_gazet"
-   x1$geo.check[x1$origin.coord %in% c("ok_state_gazet")]  <- "ok_state_gazet"
-   x1$geo.check[x1$origin.coord %in% c("ok_county_gazet")] <-  "ok_county_gazet"
-   x1$geo.check[x1$origin.coord %in% c("ok_locality_gazet")] <-  "ok_locality_gazet"
+   unique(x1$origin.coord)
+   x1$geo.check[x1$origin.coord %in% c("coord_original")] <-  "coord_original"
+   x1$geo.check[x1$origin.coord %in% c("coord_gazet")] <-  "coord_gazet"
    x1$geo.check[x1$origin.coord %in% "no_coord"] <- "no_coord"
-   x1$geo.check[is.na(x1$decimalLatitude.new) & is.na(x1$latitude.gazetteer)] <- "no_coord"
-
+   #x1$geo.check[is.na(x1$decimalLatitude.new) & is.na(x1$latitude.gazetteer)] <- "no_coord"
 
    #tmp0 <- x1[!x1$origin.coord %in% "coord_original", ]
    #tmp <- x1[x1$origin.coord %in% "coord_original", ]
@@ -94,8 +92,10 @@ validateCoord <- function(x,
    ### GEO-VALIDATION STEPS ###
    ##1- Validating the coordinates at different levels - exact matchs
    #1.1 Cases with original coordinates but without country, state or county information (cannot check)
-   x3$geo.check[is.na(x3$geo.check) & !is.na(x3$decimalLatitude.new) & !is.na(x3$pais) & is.na(x3$loc.correct)] <- "cannot_check"
-   count(x3,geo.check) #6, 76, 16460
+   count(x3, geo.check)
+   x3$cannot.check[is.na(x3$geo.check) & !is.na(x3$decimalLatitude.new) & !is.na(x3$pais) & is.na(x3$loc.correct)] <- "cannot_check"
+   #there are no NAs so this does nothing
+   count(x3,cannot.check, geo.check) #6, 76, 16460
    #   #1.2 Country-level: good country? All countries
 
    x3 <- dplyr::mutate(x3, country.check = if_else(#is.na(x3$geo.check) &               #not evaluated yet - this could be commented too perhaps but I keep the unevaluated just in case
@@ -130,6 +130,7 @@ validateCoord <- function(x,
    x3 <- dplyr::mutate(x3, county.check = if_else(
      x3$county == x3$municipio,          # with or without differences between county and mpo (from gazetteer)
      "county_ok", "county_bad")) #if OK or not
+   count(x3, county.check) #6, country_ok, no_coord 76, NA 328
    count(x3, geo.check, country.check, state.check, county.check) #6, country_ok, no_coord 76, NA 328
 #   tmp = x1[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio),]
 #   #tmp = x1[x1$country %in% c("argentina","brazil","paraguay")&!is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio),]
@@ -140,6 +141,11 @@ validateCoord <- function(x,
 #     x1$geo.check[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio)] = tmp1
 #   } else { 	}
 }
+
+######fiquei aqui
+
+x3 %>% filter(country.check == "country_ok") %>%
+count(country, county.check)
 
 #longitude.gazetteer latitude.gazetter e new
 #   #1.5 Calculating the distance between the original coordinates and the gazetter
