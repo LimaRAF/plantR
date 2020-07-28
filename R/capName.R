@@ -39,12 +39,12 @@ capName <- function(x) {
                   sep = "",
                   collapse = "-")
 #capitalizing initials
-    } else if (grepl('.', x)) {
-      split <- strsplit(x, "\\.")[[1]]
-      nome <- paste(toupper(substring(split, 1, 1)),
-                    tolower(substring(split, 2)),
-                    sep = "",
-                    collapse = ".")
+    #} else #if (grepl('.', x)) {
+     # split <- strsplit(x, "\\.")[[1]]
+      #nome <- paste(toupper(substring(split, 1, 1)),
+       #             tolower(substring(split, 2)),
+        #            sep = "",
+         #           collapse = ".")
       } else {
         split <- strsplit(x, " ")[[1]]
         nome <- paste(toupper(substring(split, 1, 1)),
