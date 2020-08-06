@@ -1,135 +1,409 @@
-order,standard_name,gbif,splink,splink2gbif,jabot,jabot_old,example,plantR_status
-13,collectionCode,collectioncode,collectioncode,collectionCode,collectionCode,siglacolecao,USCH,input_required
-8,catalogNumber,catalognumber,catalognumber,catalogNumber,catalogNumber,numtombo,727626,input_required
-111,recordNumber,recordnumber,collectornumber,recordNumber,recordNumber,numcoleta,7764,input_required
-109,recordedBy,recordedby,collector,recordedBy,recordedBy,coletor,"Bradley, Keith",input_required
-133,year,year,yearcollected,year,year,anocoleta,2017,input_required
-93,month,month,monthcollected,month,month,mescoleta,10,input_optional
-27,day,day,daycollected,day,day,diacoleta,26,input_optional
-18,country,country,country,country,country,pais,Brasil,input_required
-122,stateProvince,stateProvince,stateprovince,stateProvince,stateProvince,estado_prov,São Paulo,input_required
-95,municipality,municipality,county,municipality,municipality,cidade,Tapiraí,input_required
-84,locality,locality,locality,locality,locality,descrlocal,Cape Romain National Wildlife Refuge,input_optional
-29,decimalLatitude,decimallatitude,latitude,decimalLatitude,decimalLatitude,latitude,-32.912776,input_required
-30,decimalLongitude,decimallongitude,longitude,decimalLongitude,decimalLongitude,longitude,-79.58104,input_required
-70,identifiedBy,identifiedby,identifiedby,identifiedBy,identifiedBy,determinador,"Bradley, Keith",input_required
-26,dateIdentified,dateIdentified,yearidentified,dateIdentified,dateIdentified,NA,2018-05-01T00:00:00Z,input_required
-129,typeStatus,typestatus,typestatus,typeStatus,typeStatus,nat_typus,Paratype,input_required
-49,family,family,family,family,family,familia,Myricaceae,input_optional
-56,genus,genus,genus,genus,genus,genero,Morella,input_optional
-117,scientificName,scientificName,scientificname,scientificName,scientifname,scientificName,Morella cerifera,input_required
-118,scientificNameAuthorship,scientificNameAuthorship,scientificnameauthor,scientificNameAuthorship,scientificNameAuthorship,autorsp,Burret,input_required
-75,institutionCode,institutioncode,institutioncode,institutioncode,institutionCode,intituto,USCH,input_required
-22,datasetkey,datasetkey,NA,datasetkey,NA,NA,a92de2e1-647c-43f2-a8b7-ab1c1a6453dd,input_optional
-99,occurrenceRemarks,occurrenceRemarks,notes,occurrenceRemarks,occurrenceRemarks,notas,"Estipe, 4m, frutos acastanhandos",input_optional
-1,acceptedScientificName,acceptedScientificName,NA,NA,NA,NA,Syagrus hoehnei Burret,output
-2,altprof,NA,NA,NA,NA,altprof,800,input_unnecessary
-3,altura,NA,NA,NA,NA,altura,NA,input_unnecessary
-4,aux_nomecompunidgeo_invertido,NA,NA,NA,NA,aux_nomecompunidgeo_invertido,"Brasil, Bahia, Poções",input_unnecessary
-5,basisOfRecord,basisofrecord,basisofrecord,basisofrecord,NA,tipoespecime,PRESERVED_SPECIMEN,input_optional
-6,bibliographicCitation,bibliographicCitation,NA,NA,NA,NA,http://www.tropicos.org/Specimen/3028386,input_unnecessary
-7,boundingbox,NA,boundingbox,NA,NA,NA,NA,input_unnecessary
-9,clade,NA,NA,NA,Clado,NA,Angiospermas,input_unnecessary
-10,class,class,class,class,NA,NA,Liliopsida,output
-11,codespecime,NA,NA,NA,NA,codespecime,1305569,input_unnecessary
-12,codtestemunho,NA,NA,NA,NA,codtestemunho,1305569,input_unnecessary
-14,collectionID,collectionID,NA,NA,NA,NA,a2e32c87-d320-4a01-bafd-a9182ae2e191,input_unnecessary
-15,continent,continent,continentocean,continent,NA,NA,SOUTH_AMERICA,output?
-16,coordinatePrecision,coordinatePrecision,coordinateprecision,coordinatePrecision,NA,coordinateprecision,41034,input_optional
-17,coordinateUncertaintyInMeters,coordinateUncertaintyInMeters,NA,NA,NA,NA,NA,input_optional
-19,countrycode,countrycode,NA,countrycode,NA,NA,US,input_optional
-20,county,county,county,NA,NA,NA,Adrianópolis,input_optional
-21,datacoleta,NA,NA,NA,NA,datacoleta,05-IV-1988,input_optional
-23,datasetName,datasetName,NA,datasetName,NA,NA,ESA - Herbário da Escola Superior de Agricultura Luiz de Queiroz,input_optional
-24,dataultalter,NA,NA,NA,NA,dataultalter,11/19/2017,input_unnecessary
-25,date,date,NA,NA,NA,NA,NA,input_optional
-28,dayIdentified,NA,dayidentified,NA,NA,diadeterm,2,input_optional
-31,depth,depth,NA,NA,NA,NA,NA,input_unnecessary
-32,depthAccuracy,depthAccuracy,NA,NA,NA,NA,NA,input_unnecessary
-33,descrindividuo,NA,NA,NA,NA,descrindividuo,Scrambling shrub to 3 m. corolla bright red,input_optional
-34,description,description,NA,NA,NA,NA,NA,input_unnecessary
-35,disposition,disposition,NA,NA,NA,NA,NA,input_unnecessary
-36,distanceAboveSurface,distanceAboveSurface,NA,NA,NA,NA,NA,input_unnecessary
-37,distanceAboveSurfaceAccuracy,distanceAboveSurfaceAccuracy,NA,NA,NA,NA,NA,input_unnecessary
-38,duplicates,NA,NA,NA,NA,duplicatas,NA,output
-39,educationLevel,educationLevel,NA,NA,NA,NA,NA,input_unnecessary
-40,elevation,elevation,NA,NA,NA,altitude,800,input_optional
-41,elevationAccuracy,elevationAccuracy,NA,NA,NA,NA,NA,input_unnecessary
-42,endDayOfYear,endDayOfYear,NA,NA,NA,NA,NA,input_unnecessary
-43,establishmentMeans,establishmentMeans,NA,NA,NA,NA,NA,input_unnecessary
-44,eventDate,eventDate,NA,eventTime,eventDate,NA,2013-04-30T00:00:00Z,input_optional
-45,eventID,eventID,NA,NA,NA,NA,NA,input_unnecessary
-46,eventRemarks,eventRemarks,NA,NA,NA,NA,NA,input_unnecessary
-47,eventTime,eventTime,timeofday,NA,NA,NA,NA,input_unnecessary
-48,extent,extent,NA,NA,NA,NA,NA,input_unnecessary
-50,fieldNotes,fieldNotes,NA,NA,fieldNotes,habito,Floresta Ombrófila Densa Montana.,input_optional
-51,fieldNumber,fieldNumber,fieldnumber,fieldNumber,fieldnumber,fieldnumber,NA,input_unnecessary
-52,format,format,NA,NA,NA,NA,NA,input_unnecessary
-53,formation,formation,NA,NA,NA,NA,NA,input_unnecessary
-54,gbifID,gbifid,NA,gbifid,NA,NA,1880442295,input_optional
-55,genericName,genericName,NA,NA,NA,NA,Syagrus,input_unnecessary
-57,georeferencedBy,georeferencedBy,NA,NA,NA,NA,alorozco,output
-58,georeferencedDate,georeferencedDate,NA,NA,NA,NA,NA,output
-59,georeferenceProtocol,georeferenceProtocol,NA,NA,NA,NA,NA,output
-60,georeferenceRemarks,georeferenceRemarks,NA,NA,NA,NA,NA,output
-61,georeferenceSources,georeferenceSources,NA,NA,NA,NA,T&CW,output
-62,georeferenceVerificationStatus,georeferenceVerificationStatus,NA,NA,NA,NA,reviewed - high confidence,output
-63,habitat,habitat,NA,NA,NA,habitat,Floresta atlântica.,input_optional
-64,hasCoordinate,hasCoordinate,NA,NA,NA,NA,NA,output
-65,identificationID,identificationID,NA,NA,NA,NA,NA,input_unnecessary
-66,identificationQualifier,identificationQualifier,NA,NA,identificationQualifier,NA,cf.,input_unnecessary
-67,identificationReferences,identificationReferences,NA,NA,NA,NA,NA,input_unnecessary
-68,identificationRemarks,identificationRemarks,NA,NA,identificationRemarks,NA,NA,output
-69,identificationVerificationStatus,identificationVerificationStatus,NA,NA,NA,NA,NA,output
-71,identifier,identifier,NA,id,NA,NA,BRA:ESALQ:ESA:123667,input_optional
-98,occurrenceID,occurrenceID,NA,occurrenceID,occurrenceID_GBIF,NA,BRA:ESALQ:ESA:123667,input_optional
-72,individualCount,individualCount,individualcount,individualCount,NA,individualcount,NA,input_optional
-73,informationWithheld,informationWithheld,NA,NA,NA,NA,NA,input_unnecessary
-74,infraspecificEpithet,infraspecificepithet,subspecies,infraspecificepithet,infraspecificEpithet,infrasp,NA,output
-76,institutionID,institutionID,NA,NA,NA,NA,urn:lsid:biocol.org:col:15668,input_unnecessary
-77,instructionalMethod,instructionalMethod,NA,NA,NA,NA,NA,input_unnecessary
-78,issue,issue,NA,issue,NA,NA,GEODETIC_DATUM_ASSUMED_WGS84,input_unnecessary
-79,issued,issued,NA,NA,NA,NA,NA,input_unnecessary
-80,julianday,NA,julianday,NA,NA,NA,NA,input_unnecessary
-81,kingdom,kingdom,kingdom,kingdom,kingdom,NA,Plantae,output
-82,language,language,NA,language,NA,NA,pt,input_unnecessary
-83,license,license,NA,license,NA,NA,CC_BY_4_0,input_unnecessary
-85,locationRemarks,locationRemarks,NA,NA,NA,NA,NA,input_unnecessary
-86,maximumDepthInMeters,NA,maximumdepth,maximumDepthInMeters,NA,NA,NA,input_unnecessary
-87,maximumDistanceAboveSurfaceInMeters,maximumDistanceAboveSurfaceInMeters,NA,NA,NA,NA,NA,input_unnecessary
-88,maximumElevationInMeters,maximumElevationInMeters,maximumelevation,minimumElevationInMeters,maximumElevationInMeters,minimumelevation,893,input_optional
-89,minimumDepthInMeters,NA,minimumdepth,minimumDepthInMeters,NA,NA,NA,input_unnecessary
-90,minimumDistanceAboveSurfaceInMeters,minimumDistanceAboveSurfaceInMeters,NA,NA,NA,NA,NA,input_unnecessary
-91,minimumElevationInMeters,minimumElevationInMeters,minimumelevation,maximumElevationInMeters,minimumElevationInMeters,maximumelevation,890,input_optional
-92,modified,modified,datelastmodified,modified,modified,datelastmodified,2019-07-11T13:05:14Z,input_optional
-94,monthIdentified,NA,monthidentified,NA,NA,mesdeterm,5,input_optional
-96,nomenclaturalCode,nomenclaturalCode,NA,NA,NA,NA,ICNafp,output
-97,nomenclaturalStatus,nomenclaturalStatus,NA,NA,NA,NA,No opinion,output
-100,occurrenceStatus,occurrenceStatus,NA,NA,NA,NA,NA,input_optional
-101,order,order,ordem,order,NA,NA,Arecales,output
-102,otherCatalogNumbers,otherCatalogNumbers,previouscatalognumber,otherCatalogNumbers,otherCatalogNumbers,NA,264619,input_optional
-103,ownerInstitutionCode,ownerInstitutionCode,NA,ownerInstitutionCode,NA,NA,Universidade de São Paulo,input_optional
-104,phylum,phylum,phylum,phylum,phylum,NA,Tracheophyta,output
-105,preparations,preparations,preparationtype,preparations,NA,NA,microscope slide: pollen,input_unnecessary
-106,previousIdentifications,previousIdentifications,NA,NA,NA,NA,NA,output
-107,provenance,provenance,NA,NA,NA,NA,NA,input_unnecessary
-108,publishingCountry,publishingCountry,NA,NA,NA,NA,BR,input_optional
-110,recordedByAux,NA,NA,NA,NA,aux_coladic,J.L. Hage & E.B. dos Santos,output
-112,references,references,NA,NA,NA,NA,http://swbiodiversity.org/seinet/collections/individual/index.php?occid=3071329,input_unnecessary
-113,relatedcatalogitem,NA,relatedcatalogitem,NA,NA,NA,NA,input_unnecessary
-114,relationshiptype,NA,relationshiptype,NA,NA,NA,NA,input_unnecessary
-115,rights,rights,NA,NA,right,NA,http://creativecommons.org/licenses/by-nc/3.0/,input_unnecessary
-116,rightsHolder,rightsholder,NA,rightsholder,rightsHolder,NA,RB,input_unnecessary
-119,sex,sex,sex,sex,NA,sex,NA,input_unnecessary
-120,species,species,NA,species,NA,sp,Morella cerifera,input_optional
-121,specificEpithet,specificEpithet,species,specificEpithet,specificEpithet,NA,hoehnei,input_optional
-123,taxoncompleto,NA,NA,NA,NA,taxoncompleto,Anisacanthus brasiliensis Lindau,input_optional
-124,taxonID,taxonID,NA,NA,NA,NA,NA,output
-125,taxonomicStatus,taxonomicStatus,NA,NA,NA,NA,ACCEPTED,output
-126,taxonRank,taxonrank,NA,taxonrank,taxonRank,NA,SPECIES,output
-127,taxonRemarks,taxonRemarks,NA,NA,NA,NA,NA,input_optional
-128,type,type,NA,type,type,NA,Collection,input_optional
-130,verbatimLatitude,verbatimLatitude,latitude_mun,verbatimLatitude,verbatimLatitude,latitude_mun,-46.613056,input_optional
-131,verbatimLocality,verbatimLocality,NA,NA,NA,NA,Brazil,input_optional
-132,verbatimLongitude,verbatimLongitude,longitude_mun,verbatimLongitude,verbatimLongitude,longitude_mun,-23.638056,input_optional
-134,yearIdentified,NA,NA,NA,NA,anodeterm,1977,input_optional
+"","dwc","low_dwc","definition","plantr","speciesLink","gbif"
+"1","type","type","The nature or genre of the resource.",NA,NA,"type"
+"2","modified","modified","The most recent date-time on which the resource was changed.",NA,"modified","modified"
+"3","language","language","A language of the resource.",NA,NA,"language"
+"4","license","license","A legal document giving official permission to do something with the resource.",NA,NA,"license"
+"5","rightsHolder","rightsholder","A person or organization owning or managing rights over the resource.",NA,NA,"rightsHolder"
+"6","accessRights","accessrights","Information about who can access the resource or an indication of its security status. Access Rights may include information regarding access or restrictions based on privacy, security, or other policies.",NA,NA,"accessRights"
+"7","bibliographicCitation","bibliographiccitation","A bibliographic reference for the resource as a statement indicating how this record should be cited (attributed) when used.",NA,NA,"bibliographicCitation"
+"8","references","references","A related resource that is referenced, cited, or otherwise pointed to by the described resource.",NA,NA,"references"
+"9","institutionID","institutionid","An identifier for the institution having custody of the object(s) or information referred to in the record.",NA,NA,"institutionID"
+"10","collectionID","collectionid","An identifier for the collection or dataset from which the record was derived.",NA,NA,"collectionID"
+"11","datasetID","datasetid","An identifier for the set of data. May be a global unique identifier or an identifier specific to a collection or institution.",NA,NA,"datasetID"
+"12","institutionCode","institutioncode","The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record.","institutionCode","institutionCode","institutionCode"
+"13","collectionCode","collectioncode","The name, acronym, coden, or initialism identifying the collection or data set from which the record was derived.","collectionCode","collectionCode","collectionCode"
+"14","datasetName","datasetname","The name identifying the data set from which the record was derived.",NA,NA,"datasetName"
+"15","ownerInstitutionCode","ownerinstitutioncode","The name (or acronym) in use by the institution having ownership of the object(s) or information referred to in the record.",NA,NA,"ownerInstitutionCode"
+"16","basisOfRecord","basisofrecord","The specific nature of the data record.",NA,"basisOfRecord","basisOfRecord"
+"17","informationWithheld","informationwithheld","Additional information that exists, but that has not been shared in the given record.",NA,NA,"informationWithheld"
+"18","dataGeneralizations","datageneralizations","Actions taken to make the shared data less specific or complete than in its original form. Suggests that alternative data of higher quality may be available on request.",NA,NA,NA
+"19","dynamicProperties","dynamicproperties","A list of additional measurements, facts, characteristics, or assertions about the record. Meant to provide a mechanism for structured content.",NA,NA,"dynamicProperties"
+"20","occurrenceID","occurrenceid","An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique.",NA,NA,"occurrenceID"
+"21","catalogNumber","catalognumber","An identifier (preferably unique) for the record within the data set or collection.","catalogNumber","catalogNumber","catalogNumber"
+"22","recordNumber","recordnumber","An identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number.","recordNumber","recordNumber","recordNumber"
+"23","recordedBy","recordedby","A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original Occurrence. The primary collector or observer, especially one who applies a personal identifier (recordNumber), should be listed first.","recordedBy","recordedBy","recordedBy"
+"24","individualCount","individualcount","The number of individuals represented present at the time of the Occurrence.",NA,"individualCount","individualCount"
+"25","organismQuantity","organismquantity","A number or enumeration value for the quantity of organisms.",NA,NA,"organismQuantity"
+"26","organismQuantityType","organismquantitytype","The type of quantification system used for the quantity of organisms.",NA,NA,"organismQuantityType"
+"27","sex","sex","The sex of the biological individual(s) represented in the Occurrence.",NA,"sex",NA
+"28","lifeStage","lifestage","The age class or life stage of the biological individual(s) at the time the Occurrence was recorded.",NA,NA,"lifeStage"
+"29","reproductiveCondition","reproductivecondition","The reproductive condition of the biological individual(s) represented in the Occurrence.",NA,NA,"reproductiveCondition"
+"30","behavior","behavior","The behavior shown by the subject at the time the Occurrence was recorded.",NA,NA,NA
+"31","establishmentMeans","establishmentmeans","The process by which the biological individual(s) represented in the Occurrence became established at the location.",NA,NA,NA
+"32","occurrenceStatus","occurrencestatus","A statement about the presence or absence of a Taxon at a Location.",NA,NA,"occurrenceStatus"
+"33","preparations","preparations","A list (concatenated and separated) of preparations and preservation methods for a specimen.",NA,NA,"preparations"
+"34","disposition","disposition","The current state of a specimen with respect to the collection identified in collectionCode or collectionID.",NA,NA,"disposition"
+"35","associatedMedia","associatedmedia","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the Occurrence.",NA,NA,NA
+"36","associatedReferences","associatedreferences","A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the Occurrence.",NA,NA,NA
+"37","associatedSequences","associatedsequences","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of genetic sequence information associated with the Occurrence.",NA,NA,"associatedSequences"
+"38","associatedTaxa","associatedtaxa","A list (concatenated and separated) of identifiers or names of taxa and their associations with the Occurrence.",NA,NA,NA
+"39","otherCatalogNumbers","othercatalognumbers","A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same Occurrence, whether in the current or any other data set or collection.",NA,NA,"otherCatalogNumbers"
+"40","occurrenceRemarks","occurrenceremarks","Comments or notes about the Occurrence.",NA,"occurrenceRemarks","occurrenceRemarks"
+"41","organismID","organismid","An identifier for the Organism instance (as opposed to a particular digital record of the Organism). May be a globally unique identifier or an identifier specific to the data set.",NA,NA,"organismID"
+"42","organismName","organismname","A textual name or label assigned to an Organism instance.",NA,NA,NA
+"43","organismScope","organismscope","A description of the kind of Organism instance. Can be used to indicate whether the Organism instance represents a discrete organism or if it represents a particular type of aggregation.",NA,NA,NA
+"44","associatedOccurrences","associatedoccurrences","A list (concatenated and separated) of identifiers of other Occurrence records and their associations to this Occurrence.",NA,NA,NA
+"45","associatedOrganisms","associatedorganisms","A list (concatenated and separated) of identifiers of other Organisms and their associations to this Organism.",NA,NA,NA
+"46","previousIdentifications","previousidentifications","A list (concatenated and separated) of previous assignments of names to the Organism.",NA,NA,"previousIdentifications"
+"47","organismRemarks","organismremarks","Comments or notes about the Organism instance.",NA,NA,"organismRemarks"
+"48","materialSampleID","materialsampleid","An identifier for the MaterialSample (as opposed to a particular digital record of the material sample). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the materialSampleID globally unique.",NA,NA,"materialSampleID"
+"49","eventID","eventid","An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.",NA,NA,"eventID"
+"50","parentEventID","parenteventid","An identifier for the broader Event that groups this and potentially other Events.",NA,NA,NA
+"51","fieldNumber","fieldnumber","An identifier given to the event in the field. Often serves as a link between field notes and the Event.",NA,"fieldNumber","fieldNumber"
+"52","eventDate","eventdate","The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context.",NA,NA,"eventDate"
+"53","eventTime","eventtime","The time or interval during which an Event occurred.",NA,"eventTime","eventTime"
+"54","startDayOfYear","startdayofyear","The earliest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).",NA,NA,"startDayOfYear"
+"55","endDayOfYear","enddayofyear","The latest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).",NA,NA,"endDayOfYear"
+"56","year","year","The four-digit year in which the Event occurred, according to the Common Era Calendar.","year","year","year"
+"57","month","month","The ordinal month in which the Event occurred.",NA,"month","month"
+"58","day","day","The integer day of the month on which the Event occurred.",NA,"day","day"
+"59","verbatimEventDate","verbatimeventdate","The verbatim original representation of the date and time information for an Event.",NA,NA,"verbatimEventDate"
+"60","habitat","habitat","A category or description of the habitat in which the Event occurred.",NA,NA,"habitat"
+"61","samplingProtocol","samplingprotocol","The name of, reference to, or description of the method or protocol used during an Event.",NA,NA,"samplingProtocol"
+"62","sampleSizeValue","samplesizevalue","A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample in a sampling event.",NA,NA,"sampleSizeValue"
+"63","sampleSizeUnit","samplesizeunit","The unit of measurement of the size (time duration, length, area, or volume) of a sample in a sampling event.",NA,NA,"sampleSizeUnit"
+"64","samplingEffort","samplingeffort","The amount of effort expended during an Event.",NA,NA,"samplingEffort"
+"65","fieldNotes","fieldnotes","One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the Event.",NA,NA,"fieldNotes"
+"66","eventRemarks","eventremarks","Comments or notes about the Event.",NA,NA,"eventRemarks"
+"67","Location","location","A spatial region or named place.",NA,NA,NA
+"68","locationID","locationid","An identifier for the set of location information (data associated with dcterms:Location). May be a global unique identifier or an identifier specific to the data set.",NA,NA,"locationID"
+"69","higherGeographyID","highergeographyid","An identifier for the geographic region within which the Location occurred.",NA,NA,NA
+"70","higherGeography","highergeography","A list (concatenated and separated) of geographic names less specific than the information captured in the locality term.",NA,NA,"higherGeography"
+"71","continent","continent","The name of the continent in which the Location occurs.",NA,NA,"continent"
+"72","waterBody","waterbody","The name of the water body in which the Location occurs.",NA,NA,"waterBody"
+"73","islandGroup","islandgroup","The name of the island group in which the Location occurs.",NA,NA,"islandGroup"
+"74","island","island","The name of the island on or near which the Location occurs.",NA,NA,"island"
+"75","country","country","The name of the country or major administrative unit in which the Location occurs.","country","country","country"
+"76","countryCode","countrycode","The standard code for the country in which the Location occurs.",NA,NA,"countryCode"
+"77","stateProvince","stateprovince","The name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs.","stateProvince","stateProvince","stateProvince"
+"78","county","county","The full, unabbreviated name of the next smaller administrative region than stateProvince (county, shire, department, etc.) in which the Location occurs.","county","county","county"
+"79","municipality","municipality","The full, unabbreviated name of the next smaller administrative region than county (city, municipality, etc.) in which the Location occurs. Do not use this term for a nearby named place that does not contain the actual location.","municipality",NA,"municipality"
+"80","locality","locality","The specific description of the place. Less specific geographic information can be provided in other geographic terms (higherGeography, continent, country, stateProvince, county, municipality, waterBody, island, islandGroup). This term may contain information modified from the original to correct perceived errors or standardize the description.",NA,"locality","locality"
+"81","verbatimLocality","verbatimlocality","The original textual description of the place.",NA,NA,"verbatimLocality"
+"82","minimumElevationInMeters","minimumelevationinmeters","The lower limit of the range of elevation (altitude, usually above sea level), in meters.",NA,"minimumElevationInMeters",NA
+"83","maximumElevationInMeters","maximumelevationinmeters","The upper limit of the range of elevation (altitude, usually above sea level), in meters.",NA,"maximumElevationInMeters",NA
+"84","verbatimElevation","verbatimelevation","The original description of the elevation (altitude, usually above sea level) of the Location.",NA,NA,"verbatimElevation"
+"85","minimumDepthInMeters","minimumdepthinmeters","The lesser depth of a range of depth below the local surface, in meters.",NA,"minimumDepthInMeters",NA
+"86","maximumDepthInMeters","maximumdepthinmeters","The greater depth of a range of depth below the local surface, in meters.",NA,"maximumDepthInMeters",NA
+"87","verbatimDepth","verbatimdepth","The original description of the depth below the local surface.",NA,NA,NA
+"88","minimumDistanceAboveSurfaceInMeters","minimumdistanceabovesurfaceinmeters","The lesser distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.",NA,NA,NA
+"89","maximumDistanceAboveSurfaceInMeters","maximumdistanceabovesurfaceinmeters","The greater distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.",NA,NA,NA
+"90","locationAccordingTo","locationaccordingto","Information about the source of this Location information. Could be a publication (gazetteer), institution, or team of individuals.",NA,NA,"locationAccordingTo"
+"91","locationRemarks","locationremarks","Comments or notes about the Location.",NA,NA,"locationRemarks"
+"92","decimalLatitude","decimallatitude","The geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.","decimalLatitude","decimalLatitude","decimalLatitude"
+"93","decimalLongitude","decimallongitude","The geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.","decimalLongitude","decimalLongitude","decimalLongitude"
+"94","geodeticDatum","geodeticdatum","The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the geographic coordinates given in decimalLatitude and decimalLongitude as based.",NA,NA,"geodeticDatum"
+"95","coordinateUncertaintyInMeters","coordinateuncertaintyinmeters","The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.",NA,NA,"coordinateUncertaintyInMeters"
+"96","coordinatePrecision","coordinateprecision","A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.",NA,"coordinatePrecision",NA
+"97","pointRadiusSpatialFit","pointradiusspatialfit","The ratio of the area of the point-radius (decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given point-radius does not completely contain the original representation. The pointRadiusSpatialFit is undefined (and should be left blank) if the original representation is a point without uncertainty and the given georeference is not that same point (without uncertainty). If both the original and the given georeference are the same point, the pointRadiusSpatialFit is 1.",NA,NA,NA
+"98","verbatimCoordinates","verbatimcoordinates","The verbatim original spatial coordinates of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,NA,NA
+"99","verbatimLatitude","verbatimlatitude","The verbatim original latitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,"verbatimLatitude",NA
+"100","verbatimLongitude","verbatimlongitude","The verbatim original longitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,"verbatimLongitude",NA
+"101","verbatimCoordinateSystem","verbatimcoordinatesystem","The spatial coordinate system for the verbatimLatitude and verbatimLongitude or the verbatimCoordinates of the Location.",NA,NA,"verbatimCoordinateSystem"
+"102","verbatimSRS","verbatimsrs","The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which coordinates given in verbatimLatitude and verbatimLongitude, or verbatimCoordinates are based.",NA,NA,"verbatimSRS"
+"103","footprintWKT","footprintwkt","A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the Location. A Location may have both a point-radius representation (see decimalLatitude) and a footprint representation, and they may differ from each other.",NA,NA,NA
+"104","footprintSRS","footprintsrs","A Well-Known Text (WKT) representation of the Spatial Reference System (SRS) for the footprintWKT of the Location. Do not use this term to describe the SRS of the decimalLatitude and decimalLongitude, even if it is the same as for the footprintWKT - use the geodeticDatum instead.",NA,NA,NA
+"105","footprintSpatialFit","footprintspatialfit","The ratio of the area of the footprint (footprintWKT) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given footprint does not completely contain the original representation. The footprintSpatialFit is undefined (and should be left blank) if the original representation is a point and the given georeference is not that same point. If both the original and the given georeference are the same point, the footprintSpatialFit is 1.",NA,NA,NA
+"106","georeferencedBy","georeferencedby","A list (concatenated and separated) of names of people, groups, or organizations who determined the georeference (spatial representation) for the Location.",NA,NA,"georeferencedBy"
+"107","georeferencedDate","georeferenceddate","The date on which the Location was georeferenced.",NA,NA,"georeferencedDate"
+"108","georeferenceProtocol","georeferenceprotocol","A description or reference to the methods used to determine the spatial footprint, coordinates, and uncertainties.",NA,NA,"georeferenceProtocol"
+"109","georeferenceSources","georeferencesources","A list (concatenated and separated) of maps, gazetteers, or other resources used to georeference the Location, described specifically enough to allow anyone in the future to use the same resources.",NA,NA,"georeferenceSources"
+"110","georeferenceVerificationStatus","georeferenceverificationstatus","A categorical description of the extent to which the georeference has been verified to represent the best possible spatial description.",NA,NA,"georeferenceVerificationStatus"
+"111","georeferenceRemarks","georeferenceremarks","Notes or comments about the spatial description determination, explaining assumptions made in addition or opposition to the those formalized in the method referred to in georeferenceProtocol.",NA,NA,"georeferenceRemarks"
+"112","geologicalContextID","geologicalcontextid","An identifier for the set of information associated with a GeologicalContext (the location within a geological context, such as stratigraphy). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"113","earliestEonOrLowestEonothem","earliesteonorlowesteonothem","The full name of the earliest possible geochronologic eon or lowest chrono-stratigraphic eonothem or the informal name (""Precambrian"") attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"114","latestEonOrHighestEonothem","latesteonorhighesteonothem","The full name of the latest possible geochronologic eon or highest chrono-stratigraphic eonothem or the informal name (""Precambrian"") attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"115","earliestEraOrLowestErathem","earliesteraorlowesterathem","The full name of the earliest possible geochronologic era or lowest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"116","latestEraOrHighestErathem","latesteraorhighesterathem","The full name of the latest possible geochronologic era or highest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"117","earliestPeriodOrLowestSystem","earliestperiodorlowestsystem","The full name of the earliest possible geochronologic period or lowest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"118","latestPeriodOrHighestSystem","latestperiodorhighestsystem","The full name of the latest possible geochronologic period or highest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"119","earliestEpochOrLowestSeries","earliestepochorlowestseries","The full name of the earliest possible geochronologic epoch or lowest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"120","latestEpochOrHighestSeries","latestepochorhighestseries","The full name of the latest possible geochronologic epoch or highest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"121","earliestAgeOrLowestStage","earliestageorloweststage","The full name of the earliest possible geochronologic age or lowest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"122","latestAgeOrHighestStage","latestageorhigheststage","The full name of the latest possible geochronologic age or highest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"123","lowestBiostratigraphicZone","lowestbiostratigraphiczone","The full name of the lowest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"124","highestBiostratigraphicZone","highestbiostratigraphiczone","The full name of the highest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"125","lithostratigraphicTerms","lithostratigraphicterms","The combination of all litho-stratigraphic names for the rock from which the cataloged item was collected.",NA,NA,NA
+"126","group","group","The full name of the lithostratigraphic group from which the cataloged item was collected.",NA,NA,NA
+"127","formation","formation","The full name of the lithostratigraphic formation from which the cataloged item was collected.",NA,NA,NA
+"128","member","member","The full name of the lithostratigraphic member from which the cataloged item was collected.",NA,NA,NA
+"129","bed","bed","The full name of the lithostratigraphic bed from which the cataloged item was collected.",NA,NA,NA
+"130","identificationID","identificationid","An identifier for the Identification (the body of information associated with the assignment of a scientific name). May be a global unique identifier or an identifier specific to the data set.",NA,NA,"identificationID"
+"131","identificationQualifier","identificationqualifier","A brief phrase or a standard term (""cf."", ""aff."") to express the determiner's doubts about the Identification.",NA,NA,"identificationQualifier"
+"132","typeStatus","typestatus","A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject.","typeStatus","typeStatus",NA
+"133","identifiedBy","identifiedby","A list (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject.","identifiedBy","identifiedBy","identifiedBy"
+"134","dateIdentified","dateidentified","The date on which the subject was identified as representing the Taxon.","dateIdentified",NA,"dateIdentified"
+"135","identificationReferences","identificationreferences","A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the Identification.",NA,NA,NA
+"136","identificationVerificationStatus","identificationverificationstatus","A categorical indicator of the extent to which the taxonomic identification has been verified to be correct.",NA,NA,NA
+"137","identificationRemarks","identificationremarks","Comments or notes about the Identification.",NA,NA,"identificationRemarks"
+"138","taxonID","taxonid","An identifier for the set of taxon information (data associated with the Taxon class). May be a global unique identifier or an identifier specific to the data set.",NA,NA,"taxonID"
+"139","scientificNameID","scientificnameid","An identifier for the nomenclatural (not taxonomic) details of a scientific name.",NA,NA,NA
+"140","acceptedNameUsageID","acceptednameusageid","An identifier for the name usage (documented meaning of the name according to a source) of the currently valid (zoological) or accepted (botanical) taxon.",NA,NA,NA
+"141","parentNameUsageID","parentnameusageid","An identifier for the name usage (documented meaning of the name according to a source) of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.",NA,NA,NA
+"142","originalNameUsageID","originalnameusageid","An identifier for the name usage (documented meaning of the name according to a source) in which the terminal element of the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,NA
+"143","nameAccordingToID","nameaccordingtoid","An identifier for the source in which the specific taxon concept circumscription is defined or implied. See nameAccordingTo.",NA,NA,NA
+"144","namePublishedInID","namepublishedinid","An identifier for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,NA
+"145","taxonConceptID","taxonconceptid","An identifier for the taxonomic concept to which the record refers - not for the nomenclatural details of a taxon.",NA,NA,NA
+"146","scientificName","scientificname","The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.","scientificName","scientificName","scientificName"
+"147","acceptedNameUsage","acceptednameusage","The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.",NA,NA,"acceptedNameUsage"
+"148","parentNameUsage","parentnameusage","The full name, with authorship and date information if known, of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.",NA,NA,"parentNameUsage"
+"149","originalNameUsage","originalnameusage","The taxon name, with authorship and date information if known, as it originally appeared when first established under the rules of the associated nomenclaturalCode. The basionym (botany) or basonym (bacteriology) of the scientificName or the senior/earlier homonym for replaced names.",NA,NA,NA
+"150","nameAccordingTo","nameaccordingto","The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin ""sensu"" or ""sec."" (from secundum, meaning ""according to""). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given.",NA,NA,"nameAccordingTo"
+"151","namePublishedIn","namepublishedin","A reference for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,"namePublishedIn"
+"152","namePublishedInYear","namepublishedinyear","The four-digit year in which the scientificName was published.",NA,NA,"namePublishedInYear"
+"153","higherClassification","higherclassification","A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the taxon referenced in the taxon record.",NA,NA,"higherClassification"
+"154","kingdom","kingdom","The full scientific name of the kingdom in which the taxon is classified.",NA,"kingdom","kingdom"
+"155","phylum","phylum","The full scientific name of the phylum or division in which the taxon is classified.",NA,"phylum","phylum"
+"156","class","class","The full scientific name of the class in which the taxon is classified.",NA,"class","class"
+"157","order","order","The full scientific name of the order in which the taxon is classified.",NA,"order","order"
+"158","family","family","The full scientific name of the family in which the taxon is classified.",NA,"family","family"
+"159","genus","genus","The full scientific name of the genus in which the taxon is classified.",NA,"genus","genus"
+"160","subgenus","subgenus","The full scientific name of the subgenus in which the taxon is classified. Values should include the genus to avoid homonym confusion.",NA,NA,NA
+"161","specificEpithet","specificepithet","The name of the first or species epithet of the scientificName.",NA,"specificEpithet","specificEpithet"
+"162","infraspecificEpithet","infraspecificepithet","The name of the lowest or terminal infraspecific epithet of the scientificName, excluding any rank designation.",NA,"infraspecificEpithet","infraspecificEpithet"
+"163","taxonRank","taxonrank","The taxonomic rank of the most specific name in the scientificName.",NA,NA,"taxonRank"
+"164","verbatimTaxonRank","verbatimtaxonrank","The taxonomic rank of the most specific name in the scientificName as it appears in the original record.",NA,NA,"verbatimTaxonRank"
+"165","scientificNameAuthorship","scientificnameauthorship","The authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode.","scientificNameAuthorship","scientificNameAuthorship",NA
+"166","vernacularName","vernacularname","A common or vernacular name.",NA,NA,"vernacularName"
+"167","nomenclaturalCode","nomenclaturalcode","The nomenclatural code (or codes in the case of an ambiregnal name) under which the scientificName is constructed.",NA,NA,"nomenclaturalCode"
+"168","taxonomicStatus","taxonomicstatus","The status of the use of the scientificName as a label for a taxon. Requires taxonomic opinion to define the scope of a taxon. Rules of priority then are used to define the taxonomic status of the nomenclature contained in that scope, combined with the experts opinion. It must be linked to a specific taxonomic reference that defines the concept.",NA,NA,"taxonomicStatus"
+"169","nomenclaturalStatus","nomenclaturalstatus","The status related to the original publication of the name and its conformance to the relevant rules of nomenclature. It is based essentially on an algorithm according to the business rules of the code. It requires no taxonomic opinion.",NA,NA,"nomenclaturalStatus"
+"170","taxonRemarks","taxonremarks","Comments or notes about the taxon or name.",NA,NA,NA
+"171","measurementID","measurementid","An identifier for the MeasurementOrFact (information pertaining to measurements, facts, characteristics, or assertions). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"172","measurementType","measurementtype","The nature of the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"173","measurementValue","measurementvalue","The value of the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"174","measurementAccuracy","measurementaccuracy","The description of the potential error associated with the measurementValue.",NA,NA,NA
+"175","measurementUnit","measurementunit","The units associated with the measurementValue.",NA,NA,NA
+"176","measurementDeterminedBy","measurementdeterminedby","A list (concatenated and separated) of names of people, groups, or organizations who determined the value of the MeasurementOrFact.",NA,NA,NA
+"177","measurementDeterminedDate","measurementdetermineddate","The date on which the MeasurementOrFact was made.",NA,NA,NA
+"178","measurementMethod","measurementmethod","A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"179","measurementRemarks","measurementremarks","Comments or notes accompanying the MeasurementOrFact.",NA,NA,NA
+"180","resourceRelationshipID","resourcerelationshipid","An identifier for an instance of relationship between one resource (the subject) and another (relatedResource, the object).",NA,NA,NA
+"181","resourceID","resourceid","An identifier for the resource that is the subject of the relationship.",NA,NA,NA
+"182","relatedResourceID","relatedresourceid","An identifier for a related resource (the object, rather than the subject of the relationship).",NA,NA,NA
+"183","relationshipOfResource","relationshipofresource","The relationship of the resource identified by relatedResourceID to the subject (optionally identified by the resourceID).",NA,NA,NA
+"184","relationshipAccordingTo","relationshipaccordingto","The source (person, organization, publication, reference) establishing the relationship between the two resources.",NA,NA,NA
+"185","relationshipEstablishedDate","relationshipestablisheddate","The date-time on which the relationship between the two resources was established.",NA,NA,NA
+"186","relationshipRemarks","relationshipremarks","Comments or notes about the relationship between the two resources.",NA,NA,NA
+"187","UseWithIRI","usewithiri","The category of terms that are recommended to have an IRI as a value.",NA,NA,NA
+"188","inDescribedPlace","indescribedplace","Use to link a dcterms:Location instance subject to the lowest level standardized hierarchically-described resource.",NA,NA,NA
+"189","identifiedBy","identifiedby","A person, group, or organization who assigned the Taxon to the subject.","identifiedBy","identifiedBy","identifiedBy"
+"190","recordedBy","recordedby","A person, group, or organization responsible for recording the original Occurrence.","recordedBy","recordedBy","recordedBy"
+"191","toTaxon","totaxon","Use to link a dwc:Identification instance subject to a taxonomic entity such as a taxon, taxon concept, or taxon name use.",NA,NA,NA
+"192","inCollection","incollection","Use to link any subject resource that is part of a collection to the collection containing the resource.",NA,NA,NA
+"193","georeferencedBy","georeferencedby","A person, group, or organization who determined the georeference (spatial representation) for the Location.",NA,NA,"georeferencedBy"
+"194","behavior","behavior","A description of the behavior shown by the subject at the time the Occurrence was recorded.",NA,NA,NA
+"195","earliestGeochronologicalEra","earliestgeochronologicalera","Use to link a dwc:GeologicalContext instance to chronostratigraphic time periods at the lowest possible level in a standardized hierarchy.   Use this property to point to the earliest possible geological time period from which the cataloged item was collected.",NA,NA,NA
+"196","fromLithostratigraphicUnit","fromlithostratigraphicunit","Use to link a dwc:GeologicalContext instance to an IRI-identified lithostratigraphic unit at the lowest possible level in a hierarchy.",NA,NA,NA
+"197","georeferenceSources","georeferencesources","A map, gazetteer, or other resource used to georeference the Location.",NA,NA,"georeferenceSources"
+"198","identificationQualifier","identificationqualifier","A controlled value to express the determiner's doubts about the Identification.",NA,NA,"identificationQualifier"
+"199","inDataset","indataset","Use to link a subject dataset record to the dataset which contains it.",NA,NA,NA
+"200","latestGeochronologicalEra","latestgeochronologicalera","Use to link a dwc:GeologicalContext instance to chronostratigraphic time periods at the lowest possible level in a standardized hierarchy.   Use this property to point to the latest possible geological time period from which the cataloged item was collected.",NA,NA,NA
+"201","measurementDeterminedBy","measurementdeterminedby","A person, group, or organization who determined the value of the MeasurementOrFact.",NA,NA,NA
+"202","measurementMethod","measurementmethod","The method or protocol used to determine the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"203","preparations","preparations","A preparation or preservation method for a specimen.",NA,NA,"preparations"
+"204","samplingProtocol","samplingprotocol","The method or protocol used during an Event.",NA,NA,"samplingProtocol"
+"205","typeStatus","typestatus","A nomenclatural type (type status, typified scientific name, publication) applied to the subject.","typeStatus","typeStatus",NA
+"206","Accepted Name Usage","accepted name usage","The full name, with authorship and date information if known, of the currently valid (zoological) or accepted (botanical) taxon.",NA,NA,NA
+"207","Accepted Name Usage ID","accepted name usage id","An identifier for the name usage (documented meaning of the name according to a source) of the currently valid (zoological) or accepted (botanical) taxon.",NA,NA,NA
+"208","Associated Media","associated media","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the Occurrence.",NA,NA,NA
+"209","Associated Occurrences","associated occurrences","A list (concatenated and separated) of identifiers of other Occurrence records and their associations to this Occurrence.",NA,NA,NA
+"210","Associated Organisms","associated organisms","A list (concatenated and separated) of identifiers of other Organisms and their associations to this Organism.",NA,NA,NA
+"211","Associated References","associated references","A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the Occurrence.",NA,NA,NA
+"212","Associated Sequences","associated sequences","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of genetic sequence information associated with the Occurrence.",NA,NA,NA
+"213","Associated Taxa","associated taxa","A list (concatenated and separated) of identifiers or names of taxa and their associations with the Occurrence.",NA,NA,NA
+"214","Basis of Record","basis of record","The specific nature of the data record - a subtype of the dcterms:type. Recommended best practice is to use a controlled vocabulary such as the Darwin Core Type Vocabulary (http://rs.tdwg.org/dwc/terms/type-vocabulary/index.htm).",NA,NA,NA
+"215","Basis of Record","basis of record","The specific nature of the data record - a subtype of the dcterms:type. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"216","Basis of Record","basis of record","The specific nature of the data record. Recommended best practice is to use a controlled vocabulary such as the Darwin Core Type Vocabulary (http://rs.tdwg.org/dwc/terms/type-vocabulary/index.htm).",NA,NA,NA
+"217","Basis of Record","basis of record","The specific nature of the data record.",NA,NA,NA
+"218","Bed","bed","The full name of the lithostratigraphic bed from which the cataloged item was collected.",NA,NA,NA
+"219","Behavior","behavior","A description of the behavior shown by the subject at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"220","Catalog Number","catalog number","An identifier (preferably unique) for the record within the data set or collection.",NA,NA,NA
+"221","Class","class","The name of the class in which the scientificName is classified.",NA,"class","class"
+"222","Class","class","The full scientific name of the class in which the taxon is classified.",NA,"class","class"
+"223","Collection Code","collection code","The name (or acronym) identifying the collection or data set from which the record was derived.",NA,NA,NA
+"224","Collection Code","collection code","The name, acronym, coden, or initialism identifying the collection or data set from which the record was derived.",NA,NA,NA
+"225","Collection ID","collection id","An identifier for the collection or dataset from which the record was derived. For physical specimens, the recommended best practice is to use the identifier in a collections registry such as the Biodiversity Collections Index (http://www.biodiversitycollectionsindex.org/).",NA,NA,NA
+"226","Collection ID","collection id","An identifier for the collection or dataset from which the record was derived.",NA,NA,NA
+"227","Continent","continent","The name of the continent in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.",NA,NA,"continent"
+"228","Coordinate Precision","coordinate precision","A decimal representation of the precision of the coordinates given in the decimalLatitude and decimalLongitude.",NA,NA,NA
+"229","Coordinate Uncertainty In Meters","coordinate uncertainty in meters","The horizontal distance (in meters) from the given decimalLatitude and decimalLongitude describing the smallest circle containing the whole of the Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.",NA,NA,NA
+"230","Country","country","The name of the country or major administrative unit in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.","country","country","country"
+"231","Country Code","country code","The standard code for the country in which the Location occurs. Recommended best practice is to use ISO 3166-1-alpha-2 country codes.",NA,NA,NA
+"232","County","county","The full, unabbreviated name of the next smaller administrative region than stateProvince (county, shire, department, etc.) in which the Location occurs.","county","county","county"
+"233","Data Generalizations","data generalizations","Actions taken to make the shared data less specific or complete than in its original form. Suggests that alternative data of higher quality may be available on request.",NA,NA,NA
+"234","Dataset ID","dataset id","An identifier for the data set. May be a global unique identifier or an identifier specific to a collection or institution.",NA,NA,NA
+"235","Dataset ID","dataset id","An identifier for the set of data. May be a global unique identifier or an identifier specific to a collection or institution.",NA,NA,NA
+"236","Dataset Name","dataset name","The name identifying the data set from which the record was derived.",NA,NA,NA
+"237","Date Identified","date identified","The date on which the subject was identified as representing the taxon given in the scientificName. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"238","Date Identified","date identified","The date on which the subject was identified as representing the Taxon. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"239","Day","day","The integer day of the month on which the Event occurred.",NA,"day","day"
+"240","Decimal Latitude","decimal latitude","The geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.",NA,NA,NA
+"241","Decimal Longitude","decimal longitude","The geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.",NA,NA,NA
+"242","Disposition","disposition","The current state of a specimen with respect to the collection identified in collectionCode or collectionID. Recommended best practice is to use a controlled vocabulary.",NA,NA,"disposition"
+"243","Dynamic Properties","dynamic properties","A list (concatenated and separated) of additional measurements, facts, characteristics, or assertions about the record. Meant to provide a mechanism for structured content such as key-value pairs.",NA,NA,NA
+"244","Dynamic Properties","dynamic properties","A list of additional measurements, facts, characteristics, or assertions about the record. Meant to provide a mechanism for structured content.",NA,NA,NA
+"245","Earliest Age Or Lowest Stage","earliest age or lowest stage","The full name of the earliest possible geochronologic age or lowest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"246","Earliest Eon Or Lowest Eonothem","earliest eon or lowest eonothem","The full name of the earliest possible geochronologic eon or lowest chrono-stratigraphic eonothem or the informal name (""Precambrian"") attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"247","Earliest Epoch Or Lowest Series","earliest epoch or lowest series","The full name of the earliest possible geochronologic epoch or lowest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"248","Earliest Era Or Lowest Erathem","earliest era or lowest erathem","The full name of the earliest possible geochronologic era or lowest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"249","Earliest Period Or Lowest System","earliest period or lowest system","The full name of the earliest possible geochronologic period or lowest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"250","End Day Of Year","end day of year","The latest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).",NA,NA,NA
+"251","Establishment Means","establishment means","The process by which the biological individual(s) represented in the Occurrence became established at the location. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"252","Event Date","event date","The date-time or interval during which an Event occurred. For occurrences, this is the date-time when the event was recorded. Not suitable for a time in a geological context. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"253","Event ID","event id","An identifier for the set of information associated with an Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"254","Event Remarks","event remarks","Comments or notes about the Event.",NA,NA,NA
+"255","Event Time","event time","The time or interval during which an Event occurred. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"256","Family","family","The name of the family in which the scientificName is classified.",NA,"family","family"
+"257","Family","family","The full scientific name of the family in which the taxon is classified.",NA,"family","family"
+"258","Field Notes","field notes","One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the Event.",NA,NA,NA
+"259","Field Number","field number","An identifier given to the event in the field. Often serves as a link between field notes and the Event.",NA,NA,NA
+"260","Footprint Spatial Fit","footprint spatial fit","The ratio of the area of the footprint (footprintWKT) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given footprint does not completely contain the original representation. The footprintSpatialFit is undefined (and should be left blank) if the original representation is a point and the given georeference is not that same point. If both the original and the given georeference are the same point, the footprintSpatialFit is 1.",NA,NA,NA
+"261","Footprint SRS","footprint srs","A Well-Known Text (WKT) representation of the Spatial Reference System (SRS) for the footprintWKT of the Location. Do not use this term to describe the SRS of the decimalLatitude and decimalLongitude, even if it is the same as for the footprintWKT - use the geodeticDatum instead.",NA,NA,NA
+"262","Footprint WKT","footprint wkt","A Well-Known Text (WKT) representation of the shape (footprint, geometry) that defines the Location. A Location may have both a point-radius representation (see decimalLatitude) and a footprint representation, and they may differ from each other.",NA,NA,NA
+"263","Formation","formation","The full name of the lithostratigraphic formation from which the cataloged item was collected.",NA,NA,NA
+"264","Genus","genus","The name of the genus in which the scientificName is classified.",NA,"genus","genus"
+"265","Genus","genus","The full scientific name of the genus in which the taxon is classified.",NA,"genus","genus"
+"266","Geodetic Datum","geodetic datum","The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the geographic coordinates given in decimalLatitude and decimalLongitude as based. Recommended best practice is use the EPSG code as a controlled vocabulary to provide an SRS, if known. Otherwise use a controlled vocabulary for the name or code of the geodetic datum, if known. Otherwise use a controlled vocabulary for the name or code of the ellipsoid, if known. If none of these is known, use the value ""unknown"".",NA,NA,NA
+"267","Geological Context ID","geological context id","An identifier for the set of information associated with a GeologicalContext (the location within a geological context, such as stratigraphy). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"268","Georeferenced By","georeferenced by","A list (concatenated and separated) of names of people, groups, or organizations who determined the georeference (spatial representation) for the Location.",NA,NA,NA
+"269","Georeferenced Date","georeferenced date","The date on which the Location was georeferenced. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"270","Georeference Protocol","georeference protocol","A description or reference to the methods used to determine the spatial footprint, coordinates, and uncertainties.",NA,NA,NA
+"271","Georeference Remarks","georeference remarks","Notes or comments about the spatial description determination, explaining assumptions made in addition or opposition to the those formalized in the method referred to in georeferenceProtocol.",NA,NA,NA
+"272","Georeference Sources","georeference sources","A list (concatenated and separated) of maps, gazetteers, or other resources used to georeference the Location, described specifically enough to allow anyone in the future to use the same resources.",NA,NA,NA
+"273","Georeference Verification Status","georeference verification status","A categorical description of the extent to which the georeference has been verified to represent the best possible spatial description. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"274","Group","group","The full name of the lithostratigraphic group from which the cataloged item was collected.",NA,NA,NA
+"275","Habitat","habitat","A category or description of the habitat in which the Event occurred.",NA,NA,"habitat"
+"276","Higher Classification","higher classification","A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the taxon referenced in the taxon record. Recommended best practice is to order the list starting with the highest rank and separating the names for each rank with a semi-colon ("";"").",NA,NA,NA
+"277","Higher Classification","higher classification","A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the taxon referenced in the taxon record.",NA,NA,NA
+"278","Higher Geography","higher geography","A list (concatenated and separated) of geographic names less specific than the information captured in the locality term.",NA,NA,NA
+"279","Higher Geography ID","higher geography id","An identifier for the geographic region within which the Location occurred. Recommended best practice is to use an persistent identifier from a controlled vocabulary such as the Getty Thesaurus of Geographic Names.",NA,NA,NA
+"280","Highest Biostratigraphic Zone","highest biostratigraphic zone","The full name of the highest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"281","Identification ID","identification id","An identifier for the Identification (the body of information associated with the assignment of a scientific name). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"282","Identification Qualifier","identification qualifier","A brief phrase or a standard term (""cf."", ""aff."") to express the determiner's doubts about the Identification.",NA,NA,NA
+"283","Identification References","identification references","A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the Identification.",NA,NA,NA
+"284","Identification Remarks","identification remarks","Comments or notes about the Identification.",NA,NA,NA
+"285","Identification Verification Status","identification verification status","A categorical indicator of the extent to which the taxonomic identification has been verified to be correct. Recommended best practice is to use a controlled vocabulary such as that used in HISPID/ABCD.",NA,NA,NA
+"286","Identified By","identified by","A list (concatenated and separated) of names of people, groups, or organizations who assigned the scientificName.",NA,NA,NA
+"287","Identified By","identified by","A list (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject.",NA,NA,NA
+"288","Individual Count","individual count","The number of individuals represented present at the time of the Occurrence.",NA,NA,NA
+"289","Information Withheld","information withheld","Additional information that exists, but that has not been shared in the given record.",NA,NA,NA
+"290","Infraspecific Epithet","infraspecific epithet","The name of the second or subspecies epithet of the scientificName.",NA,NA,NA
+"291","Infraspecific Epithet","infraspecific epithet","The name of the lowest or terminal infraspecific epithet of the scientificName, excluding any rank designation.",NA,NA,NA
+"292","Institution Code","institution code","The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record.",NA,NA,NA
+"293","Institution ID","institution id","An identifier for the institution having custody of the object(s) or information referred to in the record.",NA,NA,NA
+"294","Island","island","The name of the island on or near which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.",NA,NA,"island"
+"295","Island Group","island group","The name of the island group in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.",NA,NA,NA
+"296","Kingdom","kingdom","The name of the kingdom in which the scientificName is classified.",NA,"kingdom","kingdom"
+"297","Kingdom","kingdom","The full scientific name of the kingdom in which the taxon is classified.",NA,"kingdom","kingdom"
+"298","Latest AgeOr Highest Stage","latest ageor highest stage","The full name of the latest possible geochronologic age or highest chronostratigraphic stage attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"299","Latest Eon Or Highest Eonothem","latest eon or highest eonothem","The full name of the latest possible geochronologic eon or highest chrono-stratigraphic eonothem or the informal name (""Precambrian"") attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"300","Latest Epoch Or Highest Series","latest epoch or highest series","The full name of the latest possible geochronologic epoch or highest chronostratigraphic series attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"301","Latest Era Or Highest Erathem","latest era or highest erathem","The full name of the latest possible geochronologic era or highest chronostratigraphic erathem attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"302","Latest Period Or Highest System","latest period or highest system","The full name of the latest possible geochronologic period or highest chronostratigraphic system attributable to the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"303","Life Stage","life stage","The age class or life stage of the biological individual(s) at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"304","Lithostratigraphic Terms","lithostratigraphic terms","The combination of all litho-stratigraphic names for the rock from which the cataloged item was collected.",NA,NA,NA
+"305","Locality","locality","The specific description of the place. Less specific geographic information can be provided in other geographic terms (higherGeography, continent, country, stateProvince, county, municipality, waterBody, island, islandGroup). This term may contain information modified from the original to correct perceived errors or standardize the description.",NA,"locality","locality"
+"306","Location According To","location according to","Information about the source of this Location information. Could be a publication (gazetteer), institution, or team of individuals.",NA,NA,NA
+"307","Location ID","location id","An identifier for the set of location information (data associated with dcterms:Location). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"308","Location Remarks","location remarks","Comments or notes about the Location.",NA,NA,NA
+"309","Lowest Biostratigraphic Zone","lowest biostratigraphic zone","The full name of the lowest possible geological biostratigraphic zone of the stratigraphic horizon from which the cataloged item was collected.",NA,NA,NA
+"310","Material Sample ID","material sample id","An identifier for the MaterialSample (as opposed to a particular digital record of the material sample). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the materialSampleID globally unique.",NA,NA,NA
+"311","Maximum Depth In Meters","maximum depth in meters","The greater depth of a range of depth below the local surface, in meters.",NA,NA,NA
+"312","Maximum Distance Above Surface In Meters","maximum distance above surface in meters","The greater distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.",NA,NA,NA
+"313","Maximum Elevation In Meters","maximum elevation in meters","The upper limit of the range of elevation (altitude, usually above sea level), in meters.",NA,NA,NA
+"314","Measurement Accuracy","measurement accuracy","The description of the potential error associated with the measurementValue.",NA,NA,NA
+"315","Measurement Determined By","measurement determined by","A list (concatenated and separated) of names of people, groups, or organizations who determined the value of the MeasurementOrFact.",NA,NA,NA
+"316","Measurement Determined Date","measurement determined date","The date on which the MeasurementOrFact was made. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"317","Measurement ID","measurement id","An identifier for the MeasurementOrFact (information pertaining to measurements, facts, characteristics, or assertions). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"318","Measurement Method","measurement method","A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"319","Measurement Remarks","measurement remarks","Comments or notes accompanying the MeasurementOrFact.",NA,NA,NA
+"320","Measurement Type","measurement type","The nature of the measurement, fact, characteristic, or assertion. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"321","Measurement Unit","measurement unit","The units associated with the measurementValue. Recommended best practice is to use the International System of Units (SI).",NA,NA,NA
+"322","Measurement Value","measurement value","The value of the measurement, fact, characteristic, or assertion.",NA,NA,NA
+"323","Member","member","The full name of the lithostratigraphic member from which the cataloged item was collected.",NA,NA,NA
+"324","Minimum Depth In Meters","minimum depth in meters","The lesser depth of a range of depth below the local surface, in meters.",NA,NA,NA
+"325","Minimum Distance Above Surface In Meters","minimum distance above surface in meters","The lesser distance in a range of distance from a reference surface in the vertical direction, in meters. Use positive values for locations above the surface, negative values for locations below. If depth measures are given, the reference surface is the location given by the depth, otherwise the reference surface is the location given by the elevation.",NA,NA,NA
+"326","Minimum Elevation In Meters","minimum elevation in meters","The lower limit of the range of elevation (altitude, usually above sea level), in meters.",NA,NA,NA
+"327","Month","month","The ordinal month in which the Event occurred.",NA,"month","month"
+"328","Municipality","municipality","The full, unabbreviated name of the next smaller administrative region than county (city, municipality, etc.) in which the Location occurs. Do not use this term for a nearby named place that does not contain the actual location.","municipality",NA,"municipality"
+"329","Name According To","name according to","The reference to the source in which the specific taxon concept circumscription is defined or implied - traditionally signified by the Latin ""sensu"" or ""sec."" (from secundum, meaning ""according to""). For taxa that result from identifications, a reference to the keys, monographs, experts and other sources should be given.",NA,NA,NA
+"330","Name According To ID","name according to id","An identifier for the source in which the specific taxon concept circumscription is defined or implied. See nameAccordingTo.",NA,NA,NA
+"331","Name Published In","name published in","A full reference to the original publication of the scientificName.",NA,NA,NA
+"332","Name Published In","name published in","A reference for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,NA
+"333","Name Published In ID","name published in id","An identifier for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,NA
+"334","Name Published In Year","name published in year","The four-digit year in which the scientificName was published.",NA,NA,NA
+"335","Nomenclatural Code","nomenclatural code","The nomenclatural code under which the scientificName is constructed. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"336","Nomenclatural Code","nomenclatural code","The nomenclatural code (or codes in the case of an ambiregnal name) under which the scientificName is constructed. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"337","Nomenclatural Status","nomenclatural status","The status related to the original publication of the name and its conformance to the relevant rules of nomenclature. It is based essentially on an algorithm according to the business rules of the code. It requires no taxonomic opinion.",NA,NA,NA
+"338","Occurrence ID","occurrence id","An identifier for the Occurrence (as opposed to a particular digital record of the occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the occurrenceID globally unique.",NA,NA,NA
+"339","Occurrence Remarks","occurrence remarks","Comments or notes about the Occurrence.",NA,NA,NA
+"340","Occurrence Status","occurrence status","A statement about the presence or absence of a Taxon at a Location. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"341","Order","order","The name of the order in which the scientificName is classified.",NA,"order","order"
+"342","Order","order","The full scientific name of the order in which the taxon is classified.",NA,"order","order"
+"343","Organism ID","organism id","An identifier for the Organism instance (as opposed to a particular digital record of the Organism). May be a globally unique identifier or an identifier specific to the data set.",NA,NA,NA
+"344","Organism Name","organism name","A textual name or label assigned to an Organism instance.",NA,NA,NA
+"345","Organism Quantity","organism quantity","A number or enumeration value for the quantity of organisms.",NA,NA,NA
+"346","Organism Quantity Type","organism quantity type","The type of quantification system used for the quantity of organisms.",NA,NA,NA
+"347","Organism Remarks","organism remarks","Comments or notes about the Organism instance.",NA,NA,NA
+"348","Organism Scope","organism scope","A description of the kind of Organism instance. Can be used to indicate whether the Organism instance represents a discrete organism or if it represents a particular type of aggregation. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"349","Original Name Usage","original name usage","The taxon name, with authorship and date information if known, as it originally appeared when first established under the rules of the associated nomenclaturalCode. The basionym (botany) or basonym (bacteriology) of the scientificName or the senior/earlier homonym for replaced names.",NA,NA,NA
+"350","Original Name Usage ID","original name usage id","An identifier for the name usage (documented meaning of the name according to a source) in which the terminal element of the scientificName was originally established under the rules of the associated nomenclaturalCode.",NA,NA,NA
+"351","Other Catalog Numbers","other catalog numbers","A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same Occurrence, whether in the current or any other data set or collection.",NA,NA,NA
+"352","Owner Institution Code","owner institution code","The name (or acronym) in use by the institution having ownership of the object(s) or information referred to in the record.",NA,NA,NA
+"353","Parent Event ID","parent event id","An identifier for the broader Event that groups this and potentially other Events.",NA,NA,NA
+"354","Parent Name Usage","parent name usage","The full name, with authorship and date information if known, of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.",NA,NA,NA
+"355","Parent Name Usage ID","parent name usage id","An identifier for the name usage (documented meaning of the name according to a source) of the direct, most proximate higher-rank parent taxon (in a classification) of the most specific element of the scientificName.",NA,NA,NA
+"356","Phylum","phylum","The name of the phlyum (or division) in which the scientificName is classified.",NA,"phylum","phylum"
+"357","Phylum","phylum","The full scientific name of the phylum or division in which the taxon is classified.",NA,"phylum","phylum"
+"358","Point Radius Spatial Fit","point radius spatial fit","The ratio of the area of the point-radius (decimalLatitude, decimalLongitude, coordinateUncertaintyInMeters) to the area of the true (original, or most specific) spatial representation of the Location. Legal values are 0, greater than or equal to 1, or undefined. A value of 1 is an exact match or 100% overlap. A value of 0 should be used if the given point-radius does not completely contain the original representation. The pointRadiusSpatialFit is undefined (and should be left blank) if the original representation is a point without uncertainty and the given georeference is not that same point (without uncertainty). If both the original and the given georeference are the same point, the pointRadiusSpatialFit is 1.",NA,NA,NA
+"359","Preparations","preparations","A list (concatenated and separated) of preparations and preservation methods for a specimen.",NA,NA,"preparations"
+"360","Previous Identifications","previous identifications","A list (concatenated and separated) of previous assignments of names to the subject.",NA,NA,NA
+"361","Previous Identifications","previous identifications","A list (concatenated and separated) of previous assignments of names to the Occurrence.",NA,NA,NA
+"362","Previous Identifications","previous identifications","A list (concatenated and separated) of previous assignments of names to the Organism.",NA,NA,NA
+"363","Recorded By","recorded by","A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original Occurrence. The primary collector or observer, especially one who applies a personal identifier (recordNumber), should be listed first.",NA,NA,NA
+"364","Record Number","record number","An identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number.",NA,NA,NA
+"365","Related Resource ID","related resource id","An identifier for a related resource (the object, rather than the subject of the relationship).",NA,NA,NA
+"366","Relationship According To","relationship according to","The source (person, organization, publication, reference) establishing the relationship between the two resources.",NA,NA,NA
+"367","Relationship Established Date","relationship established date","The date-time on which the relationship between the two resources was established. Recommended best practice is to use an encoding scheme, such as ISO 8601:2004(E).",NA,NA,NA
+"368","Relationship Of Resource","relationship of resource","The relationship of the resource identified by relatedResourceID to the subject (optionally identified by the resourceID). Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"369","Relationship Remarks","relationship remarks","Comments or notes about the relationship between the two resources.",NA,NA,NA
+"370","Reproductive Condition","reproductive condition","The reproductive condition of the biological individual(s) represented in the Occurrence. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"371","Resource ID","resource id","An identifier for the resource that is the subject of the relationship.",NA,NA,NA
+"372","Resource Relationship ID","resource relationship id","An identifier for an instance of relationship between one resource (the subject) and another (relatedResource, the object).",NA,NA,NA
+"373","Sample Size Unit","sample size unit","The unit of measurement of the size (time duration, length, area, or volume) of a sample in a sampling event.",NA,NA,NA
+"374","Sample Size Value","sample size value","A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample in a sampling event.",NA,NA,NA
+"375","Sampling Effort","sampling effort","The amount of effort expended during an Event.",NA,NA,NA
+"376","Sampling Protocol","sampling protocol","The name of, reference to, or description of the method or protocol used during an Event.",NA,NA,NA
+"377","Scientific Name","scientific name","The taxon name (with date and authorship information if applicable). When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.",NA,NA,NA
+"378","Scientific Name","scientific name","The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.",NA,NA,NA
+"379","Scientific Name Authorship","scientific name authorship","The authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode.",NA,NA,NA
+"380","Scientific Name ID","scientific name id","A unique identifier for the scientificName.",NA,NA,NA
+"381","Scientific Name ID","scientific name id","An identifier for the nomenclatural (not taxonomic) details of a scientific name.",NA,NA,NA
+"382","Sex","sex","The sex of the biological individual(s) represented in the Occurrence. Recommended best practice is to use a controlled vocabulary.",NA,"sex",NA
+"383","Specific Epithet","specific epithet","The name of the first or species epithet of the scientificName.",NA,NA,NA
+"384","Start Day Of Year","start day of year","The earliest ordinal day of the year on which the Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).",NA,NA,NA
+"385","State Province","state province","The name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs.",NA,NA,NA
+"386","Subgenus","subgenus","The name of the subgenus in which the scientificName is classified.",NA,NA,NA
+"387","Subgenus","subgenus","The full scientific name of the subgenus in which the taxon is classified. Values should include the genus to avoid homonym confusion.",NA,NA,NA
+"388","Taxon Concept ID","taxon concept id","A unique identifier for the taxon concept (a circumscription of a taxonName).",NA,NA,NA
+"389","Taxon Concept ID","taxon concept id","An identifier for the taxonomic concept to which the record refers - not for the nomenclatural details of a taxon.",NA,NA,NA
+"390","Taxon ID","taxon id","An identifier for the set of taxon information (data associated with the Taxon class). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA
+"391","Taxonomic Status","taxonomic status","The status of the use of the scientificName as a label for a taxon. Requires taxonomic opinion to define the scope of a taxon. Rules of priority then are used to define the taxonomic status of the nomenclature contained in that scope, combined with the experts opinion. It must be linked to a specific taxonomic reference that defines the concept. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"392","Taxon Rank","taxon rank","The taxonomic rank of the most specific name in the scientificName. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"393","Taxon Remarks","taxon remarks","Comments or notes about the taxon.",NA,NA,NA
+"394","Taxon Remarks","taxon remarks","Comments or notes about the taxon or name.",NA,NA,NA
+"395","Type Status","type status","A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject.",NA,NA,NA
+"396","Verbatim Coordinates","verbatim coordinates","The verbatim original spatial coordinates of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,NA,NA
+"397","Verbatim Coordinate System","verbatim coordinate system","The spatial coordinate system for the verbatimLatitude and verbatimLongitude or the verbatimCoordinates of the Location. Recommended best practice is to use a controlled vocabulary.",NA,NA,NA
+"398","Verbatim Depth","verbatim depth","The original description of the depth below the local surface.",NA,NA,NA
+"399","Verbatim Elevation","verbatim elevation","The original description of the elevation (altitude, usually above sea level) of the Location.",NA,NA,NA
+"400","Verbatim EventDate","verbatim eventdate","The verbatim original representation of the date and time information for an Event.",NA,NA,NA
+"401","Verbatim Latitude","verbatim latitude","The verbatim original latitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,NA,NA
+"402","Verbatim Locality","verbatim locality","The original textual description of the place.",NA,NA,NA
+"403","Verbatim Longitude","verbatim longitude","The verbatim original longitude of the Location. The coordinate ellipsoid, geodeticDatum, or full Spatial Reference System (SRS) for these coordinates should be stored in verbatimSRS and the coordinate system should be stored in verbatimCoordinateSystem.",NA,NA,NA
+"404","Verbatim SRS","verbatim srs","The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which coordinates given in verbatimLatitude and verbatimLongitude, or verbatimCoordinates are based. Recommended best practice is use the EPSG code as a controlled vocabulary to provide an SRS, if known. Otherwise use a controlled vocabulary for the name or code of the geodetic datum, if known. Otherwise use a controlled vocabulary for the name or code of the ellipsoid, if known. If none of these is known, use the value ""unknown"".",NA,NA,NA
+"405","Verbatim Taxon Rank","verbatim taxon rank","The taxonomic rank of the most specific name in the scientificName as it appears in the original record.",NA,NA,NA
+"406","Vernacular Name","vernacular name","A common or vernacular name.",NA,NA,NA
+"407","Water Body","water body","The name of the water body in which the Location occurs. Recommended best practice is to use a controlled vocabulary such as the Getty Thesaurus of Geographic Names.",NA,NA,NA
+"408","Year","year","The four-digit year in which the Event occurred, according to the Common Era Calendar.","year","year","year"

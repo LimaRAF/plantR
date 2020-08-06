@@ -14,10 +14,10 @@
 #' @importFrom countrycode countrycode
 #' @importFrom utils read.csv
 #'
-#' @export fixField
+#' @export formatDwc
 #'
 #'
-fixField <- function(x, origin = NULL) {
+formatDwc <- function(x, origin = NULL) {
   # check input:
   if (!class(x) == "data.frame") stop("input object needs to be a data frame!")
 
