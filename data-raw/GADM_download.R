@@ -10,8 +10,9 @@ library(countrycode)
 #countries <- setdiff(am$country.name.en, fora)
 #iso3 <- am %>% filter(country.name.en %in% countries) %>% distinct()
 
-iso3 <- countrycode::countrycode(
+countries <-
   c("Anguilla",
+    "Antigua and Barbuda",
     "Argentina",
     "Aruba",
     "Bahamas",
@@ -32,7 +33,7 @@ iso3 <- countrycode::countrycode(
     "Dominican Republic",
     "Ecuador",
     "El Salvador",
-    "Falkland Islands",
+    "Falkland Islands",#las Malvinas son argentinas
     "French Guiana",
     "Grenada",
     "Guadeloupe",
@@ -61,10 +62,13 @@ iso3 <- countrycode::countrycode(
     "United States Virgin Islands",
     "Uruguay",
     "Venezuela"
-  ),
-  "country.name",
-  "iso3c"
-)
+  )
+setdiff(names(latamMap), tolower(countries))
+setdiff(tolower(countries), names(latamMap))
+
+iso3 <- countrycode::countrycode(countries,
+                                 "country.name",
+                                 "iso3c")
 
 
 # function to download that is not getData from raster because we want sf files
@@ -133,3 +137,5 @@ GADM <- purrr::walk2(.x = rep(iso3, each = 5),
 unlink("./data-raw/GADM/BRA_3_sf.rds")
 getGADM(cod = "BRA", level = 2)
 #for now there's no other reason to delete any other level but this should be done here bedore going to GADM_join
+#i dont know why antigua was missing
+getGADM(cod = "ATG", level = 1) #but running the loop should do the trick
