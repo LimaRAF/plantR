@@ -129,3 +129,7 @@ GADM <- purrr::walk2(.x = rep(iso3, each = 5),
                      .y = rep(4:0, 50),
                     ~getGADM(cod = .x,
                              level = .y))
+# Brazil should be 2 for sure.
+unlink("./data-raw/GADM/BRA_3_sf.rds")
+getGADM(cod = "BRA", level = 2)
+#for now there's no other reason to delete any other level but this should be done here bedore going to GADM_join
