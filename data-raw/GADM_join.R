@@ -25,7 +25,5 @@ names(gadm_shp) <- codes
 df %>% View()
 write.csv(df, "./data-raw/best_GADM.csv")
 
-# niveis administrativos
-nomes <- gadm_shp %>% purrr::map_df(., ~head(.))
-nomes2 <- bind_rows(nomes)
-names(nomes2)
+#cheguei até aqui e deixei tudo anotado em
+# https://docs.google.com/spreadsheets/d/1vD1k4gFn5uFOCP6dznP1153vbZe-osYJMbWbeJRK1nU/edit?usp=sharing
