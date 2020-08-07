@@ -1,125 +1,94 @@
-#' @title Fixing and Formatting the Herbarium Fields
+#' @title Formatting and binding databases using DarwinCore fields
 #'
-#' @description Puts the occurrence data frame in the right format for data processing and validation
+#' @description Formats fields in the occurrence data frame -either downloaded from a database or provided by the user- according to the DarwinCore standard. Optionally, drops fields not used in data cleaning performed by plantR. In addition, this functions can bind different sources of data after formatting.
 #'
-#' @param x a data frame
-#' @param origin code of the source from which the input data was downloaded.
-#' Has to be any of thw following: "gbif", "splink", "jabot", "splink2gbif" or "jabot_old"
+#' @param splink_data A data frame as in the output from `rspeciesLink()`
+#' @param gbif_data A data frame as in the output from `rgbif()` or `rgbif2()`
+#' @param user_data A data frame provided by the user. Minimum fields are: `c("collectionCode", "catalogNumber", "recordNumber", "recordedBy", "year", "country", "stateProvince", "county", "municipality", "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified", "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")`. Fields can be placed at any order and any given name. If using `user_data` argument, the user must indicate the name of the column for each field if not already in DwC standard
+#' @param drop Logical. Either to drop fields unused by the data cleaning routine performed by plantR
+#' @param bind_data Logical. Either to bind data from differents sources after formatting
+#' @param collectionCode The name of the column containing the name, acronym, coden, or initialism identifying the collection or data set from which the record was derived
+#' @param catalogNumber The name of the column containing an identifier for the record within the data set or collection
+#' @param recordNumber The name of the column containing an identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number
+#' @param recordedBy The name of the column containing a person, group, or organization responsible for recording the original Occurrence
+#' @param year The name of the column containing the four-digit year in which the Event occurred, according to the Common Era Calendar
+#' @param country The name of the column containing the name of the country or major administrative unit in which the Location occurs
+#' @param stateProvince The name of the column containing the name of the next smaller administrative region than country (state, province, canton, department, region, etc.) in which the Location occurs
+#' @param county The name of the column containing the full, unabbreviated name of the next smaller administrative region than stateProvince (county, shire, department, etc.) in which the Location occurs
+#' @param municipality The name of the column containing the full, unabbreviated name of the next smaller administrative region than county (city, municipality, etc.) in which the Location occurs. Do not use this term for a nearby named place that does not contain the actual location
+#' @param decimalLatitude The name of the column containing the geographic latitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive
+#' @param decimalLongitude The name of the column containing the geographic longitude (in decimal degrees, using the spatial reference system given in geodeticDatum) of the geographic center of a Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive
+#' @param identifiedBy The name of the column containing alist (concatenated and separated) of names of people, groups, or organizations who assigned the Taxon to the subject
+#' @param dateIdentified The name of the column containing the date on which the subject was identified as representing the Taxon
+#' @param typeStatus The name of the column containing a nomenclatural type (type status, typified scientific name, publication) applied to the subject
+#' @param scientificName The name of the column containing the full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term
+#' @param scientificNameAuthorship The name of the column containing the authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode
+#' @param institutionCode The name of the column containing The name (or acronym) in use by the institution having custody of the object(s) or information referred to in the record
 #'
-#' @return the data frame \code{x} in the proper format. It also returns the
-#' required field names that are missing and those that were replaced or dropped.
+#' @return Either a data.frame or list with the database fields formatted following DarwinCore standards
 #'
-#' @author Lima, R.A.F.
+#' @author Lima, R. A. F. and Sara Mortara
 #'
 #' @importFrom countrycode countrycode
 #' @importFrom utils read.csv
 #'
 #' @export formatDwc
 #'
-#'
-formatDwc <- function(x, origin = NULL) {
-  # check input:
-  if (!class(x) == "data.frame") stop("input object needs to be a data frame!")
+formatDwc <- function(
+  splink_data = NULL,
+  gbif_data = NULL,
+  user_data = NULL,
+  drop = FALSE,
+  bind_data = FALSE,
+  collectionCode = "collectionCode",
+  catalogNumber = "catalogNumber",
+  recordNumber = "recordNumber",
+  recordedBy = "recordedBy",
+  year = "year",
+  country = "country",
+  stateProvince = "stateProvince",
+  county = "county",
+  municipality = "municipality",
+  decimalLatitude = "decimalLatitude",
+  decimalLongitude = "decimalLongitude",
+  identifiedBy = "identifiedBy",
+  dateIdentified = "dateIdentified",
+  typeStatus = "typeStatus",
+  scientificName = "scientificName",
+  scientificNameAuthorship = "scientificNameAuthorship",
+  institutionCode = "institutionCode",
+) {
 
-  # Getting the fields that are essential for the validation
-  fields <- fieldNames
+  # Required fields by plantR
+  must <- sort(unique(na.omit(fieldNames$plantr)))
 
-  # Checking if all essential fields are provided in x
-  df.names <- colnames(x)
-  miss.essential <- !fields$standard_name[fields$plantR_status %in%
-                                            "input_required"] %in% df.names
-
-  if (any(miss.essential)) {
-    good.names <- fields[fields$standard_name %in%
-                           fields$standard_name[fields$plantR_status %in% "input_required"][miss.essential],]
-    if (is.null(origin)) {
-      stop("please provide one of the following origins for your occurrence data:
-           'gbif', 'splink', 'jabot', 'splink2gbif' or 'jabot_old'")
-    } else {
-      good.names <- good.names[,c("standard_name", origin)]
-      problem.names <- df.names[df.names %in% good.names[,origin]]
-      #problem.names <- good.names[,origin]
-      problem.order <- match(df.names, good.names[,origin])
-      problem.order <- problem.order[!is.na(problem.order)]
-      problem.names <- problem.names[problem.order]
-      replace.names <- good.names[good.names[,origin] %in% problem.names, "standard_name"]
-      warning(paste("Required field(s) '",
-                    paste(problem.names, collapse = " "), "' was(were) replaced by '",
-                    paste(replace.names, collapse = " "), "'", sep = "", collapse = ""))
-      df.names[df.names %in% good.names[, origin]] <- replace.names[problem.order]
+  # formating user data --------------------------------------------------------
+  if (!is.null(user_data)) {
+    user_colnames <- c(collectionCode, catalogNumber, recordNumber, recordedBy,
+                       year, country, stateProvince, county, municipality,
+                       decimalLatitude, decimalLongitude, identifiedBy, dateIdentified,
+                       typeStatus, scientificName, scientificNameAuthorship, institutionCode)
+    names(user_colnames) <- c("collectionCode", "catalogNumber", "recordNumber", "recordedBy",
+                              "year", "country", "stateProvince", "county", "municipality",
+                              "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified",
+                              "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")
+    if (!names(user_data) %in% user_colnames) {
+      stop("You must provide the minimum fields required for data cleaning!")
     }
+    # First ordering data frame
+    user_data_or <- user_data[, user_colnames]
+    # Now applying DwC names
+    names(user_data_or) <- names(user_colnames)
   }
 
-  # To do: Include fuzzy grep in case all required field are not found!
-  ## SARA: something like one_of from dplyr::select
-
-  # Checking if all optional fields are provided in x
-  miss.optional <- !fields$standard_name[fields$plantR_status %in%
-                                           "input_optional"] %in% df.names
-  if (any(miss.optional)) {
-    good.names <- fields[fields$standard_name %in%
-                           fields$standard_name[fields$plantR_status %in% "
-                                                input_optional"][miss.optional], ]
-    if (is.null(origin)) {
-      stop("please provide one of the following origins for your occurrence data:
-           'gbif', 'splink', 'jabot', 'splink2gbif' or 'jabot_old'")
-    } else {
-      good.names <- good.names[!is.na(good.names[, origin]), c("standard_name", origin)]
-      problem.names <- df.names[df.names %in% good.names[,origin]]
-      if (length(problem.names) == 0 ) {
-        comment(x) <- ("No substitution of names for optional fields!")
-      } else  {
-        problem.order <- match(df.names, good.names[, origin])
-        problem.order <- problem.order[!is.na(problem.order)]
-        replace.names <- good.names[problem.order, "standard_name"]
-        warning(paste("Optional field(s) '",
-                      paste(problem.names, collapse = " "),"' was(were) replaced by '",
-                      paste(replace.names, collapse = " "),"'", sep = "", collapse = ""))
-        df.names[df.names %in% good.names[, origin]] <- replace.names
-        other.names <- good.names[-(problem.order), "standard_name"]
-        if (length(other.names) > 0) {
-          warning(paste("The following optional field(s) was(were) not found: \n",
-                        paste(other.names, collapse = "\n"), sep = "", collapse = ""))}
-      }
+  # formating speciesLink data -------------------------------------------------
+  if (!is.null(splink_data)) {
+    splink_cols <- sort(unique(na.omit(fieldNames$speciesLink)))
+    if (!names(splink_data) %in% splink_cols) {
+      stop("You must provide the minimum fields required for data cleaning!")
     }
+    fieldNames$speciesLink[!is.na(fieldNames$speciesLink)]
   }
 
-  ## Replacing and removing overlapping fields
-  #replacing  'countryCode' by 'country'
-  if (sum(df.names %in% c("county", "municipality")) == 2) {
-    code.dig <- nchar(x$countryCode)
-    x$country[is.na(x$country)
-              & !is.na(x$countryCode)
-              & code.dig %in% 2] <- countrycode::countrycode(
-                as.character(x$countryCode[is.na(x$country)
-                                           & !is.na(x$countryCode)
-                                           & code.dig %in% 2]), 'iso2c', 'country.name')
-    x$country[is.na(x$country)
-              & !is.na(x$countryCode)
-              & code.dig %in% 3] <- countrycode::countrycode(
-                as.character(x$countryCode[is.na(x$country)
-                                           & !is.na(x$countryCode)
-                                           & code.dig %in% 2]), 'iso3c', 'country.name')
-    x <- x[, -which(names(x) == "countryCode")]
-  }
-
-  #Replacing/removing locality fields: 'county' by 'municipality'
-  if (sum(df.names %in% c("county","municipality")) == 2) {
-    x$county[is.na(x$county) & !is.na(x$municipality)] <- x$municipality[is.na(x$county)
-                                                                         & !is.na(x$municipality)]
-    x$municipality[!is.na(x$county) & is.na(x$municipality)] <- x$county[!is.na(x$county)
-                                                                         & is.na(x$municipality)]
-    x <- x[, -which(names(x) == "county")]
-  }
-
-  ## Filtering and dropping unnecessary columns
-  include <- df.names %in% fields$standard_name
-  remove <- df.names[!include]
-
-  colnames(x) <- df.names
-  new.df <- x[, include]
-  if (length(remove) > 0) warning(paste("The following field(s) was(were) removed: \n",
-                                        paste(remove, collapse = "\n"), sep = "", collapse = ""))
-
-  return(new.df)
+  return(data_dwc)
 }
