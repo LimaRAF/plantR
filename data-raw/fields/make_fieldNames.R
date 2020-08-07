@@ -51,14 +51,12 @@ splink <- data.frame(low_dwc = low_splink, speciesLink = cols_splink) %>%
 cols_gbif <- names(df_gbif)
 low_gbif <- tolower(cols_gbif)
 
-field_names <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
+fieldNames <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
   left_join(splink, ., by = "low_dwc") %>%
   left_join(dwc, ., by = c("dwc", "low_dwc"))
-
-dim(gbif)
 
 # Missing fields
 setdiff(low_must, low_gbif)  #"typestatus", "scientificnameauthorship"
 setdiff(low_must, low_splink)  #"municipality", "dateidentified"
 
-write.csv(field_names, "data-raw/dictionaries/fieldNames.csv")
+write.csv(fieldNames, "data-raw/dictionaries/fieldNames.csv")
