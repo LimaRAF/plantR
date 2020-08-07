@@ -29,35 +29,34 @@
 #'
 #' @author Lima, R. A. F. and Sara Mortara
 #'
-#' @importFrom countrycode countrycode
-#' @importFrom utils read.csv
+#' @importFrom stringr str_tim
+#' @importFrom flora remove.authors
+#' @importFrom dplyr bind_rows
 #'
 #' @export formatDwc
 #'
-formatDwc <- function(
-  splink_data = NULL,
-  gbif_data = NULL,
-  user_data = NULL,
-  drop = FALSE,
-  bind_data = FALSE,
-  collectionCode = "collectionCode",
-  catalogNumber = "catalogNumber",
-  recordNumber = "recordNumber",
-  recordedBy = "recordedBy",
-  year = "year",
-  country = "country",
-  stateProvince = "stateProvince",
-  county = "county",
-  municipality = "municipality",
-  decimalLatitude = "decimalLatitude",
-  decimalLongitude = "decimalLongitude",
-  identifiedBy = "identifiedBy",
-  dateIdentified = "dateIdentified",
-  typeStatus = "typeStatus",
-  scientificName = "scientificName",
-  scientificNameAuthorship = "scientificNameAuthorship",
-  institutionCode = "institutionCode",
-) {
+formatDwc <- function(splink_data = NULL,
+                      gbif_data = NULL,
+                      user_data = NULL,
+                      drop = FALSE,
+                      bind_data = FALSE,
+                      collectionCode = "collectionCode",
+                      catalogNumber = "catalogNumber",
+                      recordNumber = "recordNumber",
+                      recordedBy = "recordedBy",
+                      year = "year",
+                      country = "country",
+                      stateProvince = "stateProvince",
+                      county = "county",
+                      municipality = "municipality",
+                      decimalLatitude = "decimalLatitude",
+                      decimalLongitude = "decimalLongitude",
+                      identifiedBy = "identifiedBy",
+                      dateIdentified = "dateIdentified",
+                      typeStatus = "typeStatus",
+                      scientificName = "scientificName",
+                      scientificNameAuthorship = "scientificNameAuthorship",
+                      institutionCode = "institutionCode") {
 
   # Required fields by plantR
   must <- sort(unique(na.omit(fieldNames$plantr)))
@@ -72,8 +71,8 @@ formatDwc <- function(
                               "year", "country", "stateProvince", "county", "municipality",
                               "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified",
                               "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")
-    if (!names(user_data) %in% user_colnames) {
-      stop("You must provide the minimum fields required for data cleaning!")
+    if (any(!user_colnames %in% names(user_data))) {
+      stop("user_data does not have the minimum fields required for data cleaning!")
     }
     # First ordering data frame
     user_data_or <- user_data[, user_colnames]
@@ -84,11 +83,44 @@ formatDwc <- function(
   # formating speciesLink data -------------------------------------------------
   if (!is.null(splink_data)) {
     splink_cols <- sort(unique(na.omit(fieldNames$speciesLink)))
-    if (!names(splink_data) %in% splink_cols) {
-      stop("You must provide the minimum fields required for data cleaning!")
+    if (all(splink_cols %in% names(splink_data))) {
+      stop("splink_data does not follow the speciesLink pattern!")
     }
-    fieldNames$speciesLink[!is.na(fieldNames$speciesLink)]
+    # absent fields in speciesLink: municipality and dateIdentified
+    # Creating field municipality
+    splink_data$municipality <- NA
+    # Creating field dateIdentified
+    splink_date <- apply(X = splink_data[, c("yearIdentified", "monthIdentified", "dayIdentified")],
+                                        MARGIN = 1,
+                                        FUN = function(x) paste(x, collapse = "-"))
+    splink_data$dateIdentified <- ifelse(grepl("NA-NA-NA", splink_date), NA, splink_date)
   }
 
-  return(data_dwc)
+  # formating gbif data --------------------------------------------------------
+  if (!is.null(gbif_data)) {
+    gbif_cols <- sort(unique(na.omit(fieldNames$gbif)))
+    if (all(gbif_cols %in% names(gbif_data))) {
+      stop("gbif_data does not follow the gbif pattern!")
+    }
+    # absent fields in speciesLink: scientificNameAuthorship and typeStatus
+    # Creating field typeStatus
+    gbif_data$typeStatus <- NA
+    # Creating field scientificNameAuthorship
+    author <- stringr::str_trim(sapply(gbif_data$scientificName, function(x) gsub(flora::remove.authors(x), "", x)))
+    gbif_data$scientificNameAuthorship <- author
+  }
+
+  # removing fields if drop = TRUE
+  if (drop) {
+    gbif_data <- gbif_data[, names(gbif_data) %in% must]
+    splink_data <- splink_data[, names(splink_data) %in% must]
+    user_data <- user_data[, names(user_data) %in% must]
+  }
+
+  # binding data if bind = TRUE
+    res <- list(gbif_data, splink_data, user_data)
+  if (bind) {
+    res <- dplyr::bind_rows(res[sapply(data_list, function(x) !is.null(x))])
+  }
+    return(res)
 }
