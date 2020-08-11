@@ -28,32 +28,21 @@ validateCoord <- function(x) {
   #cls <-   unique(cols[cols %in% names(x)])
   #x1 <- x [,cls]
   x1 <- dplyr::select(x, one_of(cols))
-  x1$order <- 1:nrow(x1) #putting the data back on its original order
+  #x1$order <- 1:nrow(x1) #putting the data back on its original order
 
 #   ##Defining the country, state and county columns
-   x1 <- tidyr::separate(data = x1, col = loc.correct,
-                          into = c("country", "state", "county", "subloc"),
+   x1 <- tidyr::separate(data = x1,
+                         col = loc.correct,
+                         sep = "_",
+                         into = c("country", "state", "county", "locality", "sublocality"),
                           remove = FALSE)
-   #tmp <- strsplit(x1$loc.correct,"_")
-   #tmp <- strsplit(x1$loc.correct,"_")
-   #id <-  sapply(tmp,length)
-   #n0 <- rep(NA, nrow(x1))
-   #n1 <- rep(NA, nrow(x1))
-   #n2 <- rep(NA, nrow(x1))
-   #n0[id >= 1] <- sapply(tmp[id >= 1], function(x) x[1])
-   #n1[id>=2] = sapply(tmp[id>=2],function(x) x[2])
-   #n2[id>=3] = sapply(tmp[id>=3],function(x) x[3])
-#   x1$country = n0
-#   x1$state = n1
-#   x1$county = n2
 
    ##Creating the geo.check columns
    x1$geo.check <- NA
-   unique(x1$origin.coord)
    x1$geo.check[x1$origin.coord %in% c("coord_original")] <-  "coord_original"
    x1$geo.check[x1$origin.coord %in% c("coord_gazet")] <-  "coord_gazet"
    x1$geo.check[x1$origin.coord %in% "no_coord"] <- "no_coord"
-   #x1$geo.check[is.na(x1$decimalLatitude.new) & is.na(x1$latitude.gazetteer)] <- "no_coord"
+   x1$geo.check[is.na(x1$decimalLatitude.new) & is.na(x1$latitude.gazetteer)] <- "no_coord"
 
    #tmp0 <- x1[!x1$origin.coord %in% "coord_original", ]
    #tmp <- x1[x1$origin.coord %in% "coord_original", ]
@@ -62,8 +51,8 @@ validateCoord <- function(x) {
    tmp <- tmp[!is.na(tmp$decimalLatitude.new),]
 
    ##Getting data frame with spatial coordinates (points) and standardizing the projection
-   coordinates(tmp) <- c("decimalLongitude.new", "decimalLatitude.new")  # set spatial coordinates
-   tmp <- st_as_sf(tmp, remove = FALSE)
+   sp::coordinates(tmp) <- c("decimalLongitude.new", "decimalLatitude.new")  # set spatial coordinates
+   tmp <- sf::st_as_sf(tmp, remove = FALSE)
 
    #@ast: assumindo que tudo é WGS84 msa isto tem que ser revisto desde prepCoord
    prj <- st_crs(worldMap)
@@ -105,12 +94,6 @@ validateCoord <- function(x) {
                                       x3$country == x3$pais,          # with or without differences between country and pais (from gazetteer)
                                     "country_ok", "country_bad")) #if OK or not
    count(x3, geo.check, country.check) #6, country_ok, no_coord 76, NA 328
-   #tmp <- x3[is.na(x3$geo.check) & !is.na(x3$latitude.gazetteer) & !is.na(x3$decimalLatitude.new) & !is.na(x3$country) & !is.na(x3$pais),]
-   #if (nrow(tmp) > 0)
-     #     levels(tmp1) = c("ok_country","no_problem") #estes niveis estao dificeis de entender parece que ambas coisas fossem boas
-     #     x1$geo.check[is.na(x1$geo.check) & !is.na(x1$latitude.gazetteer) & !is.na(x1$decimalLatitude.new) & !is.na(x1$country) & !is.na(x1$pais)] <-
-     # as.character(tmp1)# ast: botei tudo numa única linha de if_else sem criar tmp
-#   } else { 	}
 
    #1.3 State-level: good state? All countries
    x3 <- dplyr::mutate(x3, state.check = if_else(
@@ -118,33 +101,15 @@ validateCoord <- function(x) {
      "estado_ok", "estado_bad")) #if OK or not
    count(x3, state.check)
    count(x3, geo.check, country.check, state.check) #6, country_ok, no_coord 76, NA 328
-   #   tmp = x1[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer) & !is.na(x1$decimalLatitude.new) & !is.na(x1$state) & !is.na(x1$estado),]
-#   #tmp = x1[x1$country %in% c("argentina","brazil","paraguay")&!is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$state)&!is.na(x1$estado),]
-#   if(dim(tmp)[1]>0) {
-#     tmp1 = as.factor(tmp$state != tmp$estado)
-#     levels(tmp1) = c("ok_state","no_problem")
-#     x1$geo.check[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer) & !is.na(x1$decimalLatitude.new) & !is.na(x1$state) & !is.na(x1$estado)] = as.character(tmp1)
-#   } else { 	}
 #   #1.4 County-level. All countries
    x3 <- dplyr::mutate(x3, county.check = if_else(
      x3$county == x3$municipio,          # with or without differences between county and mpo (from gazetteer)
      "county_ok", "county_bad")) #if OK or not
    count(x3, county.check) #6, country_ok, no_coord 76, NA 328
    count(x3, geo.check, country.check, state.check, county.check) #6, country_ok, no_coord 76, NA 328
-#   tmp = x1[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio),]
-#   #tmp = x1[x1$country %in% c("argentina","brazil","paraguay")&!is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio),]
-#   if(dim(tmp)[1]>0) {
-#     tmp1 = as.factor(tmp$county == tmp$municipio)
-#     levels(tmp1) = c(NA,"ok_county"); tmp1 = as.character(tmp1)
-#     tmp1[is.na(tmp1)] = as.character(tmp$geo.check[is.na(tmp1)])
-#     x1$geo.check[x1$country %in% lista.paises & !is.na(x1$latitude.gazetteer)&!is.na(x1$decimalLatitude.new)&!is.na(x1$county)&!is.na(x1$municipio)] = tmp1
-#   } else { 	}
 }
-
 ######fiquei aqui
 
-#x3 %>% filter(country.check == "country_ok") %>%
-#count(country, county.check)
 
 #longitude.gazetteer latitude.gazetter e new
 #   #1.5 Calculating the distance between the original coordinates and the gazetter
