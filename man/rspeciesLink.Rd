@@ -4,12 +4,24 @@
 \alias{rspeciesLink}
 \title{Gets occurrence data from speciesLink}
 \usage{
-rspeciesLink(dir = "results/", filename = "output",
-  basisOfRecord = NULL, scientificName = NULL, collectionCode = NULL,
-  country = NULL, stateProvince = NULL, county = NULL,
-  Coordinates = NULL, CoordinatesQuality = NULL, Scope = NULL,
-  Synonyms = "no synomyms", Typus = FALSE, Images = NULL,
-  RedList = FALSE, MaxRecords = NULL)
+rspeciesLink(
+  dir = "results/",
+  filename = "output",
+  basisOfRecord = NULL,
+  scientificName = NULL,
+  collectionCode = NULL,
+  country = NULL,
+  stateProvince = NULL,
+  county = NULL,
+  Coordinates = NULL,
+  CoordinatesQuality = NULL,
+  Scope = NULL,
+  Synonyms = "no synomyms",
+  Typus = FALSE,
+  Images = NULL,
+  RedList = FALSE,
+  MaxRecords = NULL
+)
 }
 \arguments{
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}

@@ -82,7 +82,7 @@
 #'   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")
 #'   # two or more names, separeted by comma: output incorrect (combine names of authors)
 #'   tdwgName("A. Alvarez, A. Zamora & V. Huaraca")
-#'   # two names, not separeted by comma: output incorrect (combine names of authors)
+#'   # two names, not separated by comma: output incorrect (combine names of authors)
 #'   tdwgName("Karl Emrich & Balduino Rambo")
 #'
 tdwgName <- function(x) {
@@ -135,9 +135,8 @@ tdwgName <- function(x) {
   }
 
   # putting last name in the good order
-  i = 1
+  i <- 1
   while ((nchar(lastname) < 3) & (i <= length(names))) {
-
     lastname <- names[i]
     other.names <- names[!names %in% c(lastname)]
     i = i + 1

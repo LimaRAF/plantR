@@ -5,6 +5,7 @@ library(stringr)
 library(readr)
 library(dplyr)
 
+
 #1. from raw files to processed csv in dictionaries----
 
 #dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders
@@ -45,7 +46,7 @@ taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
 #taxonomists <- taxonomists[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
 
-# dictionary of herbarium codes:
+
 collectionCodes <- dic$collectionCodes[ ,c("order",
                                            "collection.string",
                                            "collectioncode.gbif",
@@ -75,17 +76,21 @@ gazetteer <- dic$gazetteer[ ,c("order",
                                "latitude.gazetteer",
                                "longitude.gazetteer",
                                "resolution.gazetteer")]
+
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
+
 priorities <- data.frame(source = unique(gazetteer$source), priority =
                            c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
 #ast ö checar que a ordem seja esta
 gazetteer <- left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
+dplyr::count(gazetteer, source, priority) %>% arrange(priority)
 gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
+
 admin <- dic$gazetteer[ ,c("order",
                            "status",
                            "source",
@@ -105,6 +110,7 @@ admin <- admin[order(admin$priority), ]
 admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
+
 admin <- admin[, c("order",
                    "loc.correct",
                    "country_code",
@@ -117,10 +123,11 @@ admin <- admin[, c("order",
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
-for(i in 1:length(replaceNames))
+for (i in 1:length(replaceNames))
   replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
 
 # other objects necessary fot the data processing and validation
+
 missLocs <- c("^\\?$",
               "^s\\/localidade",
               "^indeterminada$",
@@ -154,17 +161,12 @@ wordsForSearch <- c("^prov\\. ",
                     "^dept.",
                    "^departamento ",
                    "^departamento de ",
+                   "^departamento del ",# I would add this it probably shows up
                    "^provincia de ",
                    "^província de ",
                    "^estado do ",
                    "^estado de ")
 
-## Vector to remove accents and special characters
-unwanted_array <- list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
-                      'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
-                      'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
-                      'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
-                      'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
 
 # só checando como estao os arquivos
 head(taxonomists)
@@ -200,10 +202,22 @@ data_names <- basename(dic_files) %>%
 loc_list <- purrr::map(dic_files,
                        ~readr::guess_encoding(.))
 
-loc_list# best so far
+loc_list <- c(
+  "UTF-8",
+  "UTF-8",
+  "UTF-8",
+  "UTF-8",
+  "ASCII",
+  "ASCII",
+  "UTF-8")
 
+dic <- purrr::map2(.x = dic_files,
+                   .y = loc_list,
+                   ~read_csv(file = .x,
+                             guess_max = 30000,#this has to be large
+                             locale = locale(encoding = .y)
+))
 encoding <- "UTF-8"
-
 dic <- lapply(dic_files,
               read_csv,
               guess_max = 30000,#this has to be large
@@ -217,6 +231,15 @@ lapply(dic, nrow) #new dims! especially gazetteer from 34807 to 23436
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
 
+### create existing named objects
+admin <- dic$admin
+collectionCodes <- dic$collectionCodes
+familiesSynonyms <- dic$familiesSynonyms
+fieldNames <- dic$fieldNames
+gazetteer <- dic$gazetteer
+replaceNames <- dic$replaceNames
+taxonomists <- dic$taxonomists
+
 # Saving data
 usethis::use_data(
                   admin,
@@ -226,7 +249,6 @@ usethis::use_data(
                   gazetteer,
                   replaceNames,
                   taxonomists,
-                  unwanted_array,
                   missLocs,
                   wordsForSearch,
                   overwrite = TRUE,

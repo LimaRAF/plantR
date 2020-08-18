@@ -4,7 +4,9 @@
 \name{example}
 \alias{example}
 \title{Dataset to illustrate the data editing and validation}
-\format{A data frame with 16,491 rows and 51 variables}
+\format{
+A data frame with 16,491 rows and 51 variables
+}
 \source{
 \url{http://splink.cria.org.br}
 }
@@ -12,7 +14,7 @@
 data(example)
 }
 \description{
-A dataset containing the retrieved records of the species *Trema micranta*
+A dataset containing the retrieved records of the species *Trema micrantha*
 and *Casearia sylvestris* downloaded from the speciesLink network in June
 2020.
 }

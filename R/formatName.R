@@ -9,10 +9,10 @@
 #' @return The character string \code{x} in the fixed TDWG format.
 #'
 #' @details The function fixes simple problems (e.g. missing points between name
-#'   initials) for names provided already in the TDWG format (i.e. last name(s)
-#'   + comma + initials).
+#'   initials) for names provided already in a Last name, name format (i.e. last name(s)
+#'   + comma + name or initials)
 #'
-#'   If the name provided is not in the TDWG format, the function returns the
+#'   If the name provided is not separated by commas, the function returns the
 #'   same input character (i.e. no formatting is performed). In addition, if the
 #'   name provided has unusual formatting or if multiple names are provided,
 #'   the function may not work properly. So, the output may depend on the input
@@ -61,17 +61,14 @@
 #'   formatName("Cesar Sandro, Esteves, F")
 #'   # two or more names: output incorrect (combine names of authors)
 #'   formatName("Mendonca Filho, C.V.; Neto, F.C.C.")
-#'   # two or more names, separeted by comma: output incorrect (combine names of authors)
+#'   # two or more names, separated by comma: output incorrect (combine names of authors)
 #'   formatName("A. Alvarez, A. Zamora & V. Huaraca")
 #'
 formatName <- function(x) {
 
   if (!grepl("[a-z;A-Z], ", x)) {
-
     nome <- x
-
   } else {
-
     names <- strsplit(x, ", |; ")[[1]]
     lastname <- capName(names[1])
     initials <- strsplit(names[2], "")[[1]]

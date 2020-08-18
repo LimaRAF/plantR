@@ -3,8 +3,10 @@
 \docType{data}
 \name{example_pecb}
 \alias{example_pecb}
-\title{Another dataset to illustrate the data editing and validation}
-\format{A data frame with 504 rows and 35 variables}
+\title{Dataset to illustrate the data editing and validation}
+\format{
+A data frame with 504 rows and 35 variables
+}
 \usage{
 data(example_pecb)
 }

@@ -19,23 +19,19 @@
 #' @export prepLoc
 #'
 #' @importFrom stringr str_trim
+#' @importFrom textclean replace_non_ascii
 #'
 prepLoc <- function(x) {
 
   # Removing unwanted characters
-  unwanted_array <- unwanted_array
-  x <-
-    tolower(chartr(
-      paste(names(unwanted_array), collapse = ''),
-      paste(unwanted_array, collapse = ''),
-      x
-    ))
+  x <- tolower(textclean::replace_non_ascii(x))
+
 
   # Correcting NAs converted to lower caracters
   x <- gsub("_na_", "_NA_", x)
   x <- gsub("_na_", "_NA_", x)
 
-  # Removing prepositions and other unwanted
+  # Removing prepositions and other unwanted #@ast: aqui falta "de la", "del", "du"
   x <- gsub("-", " ", x)
   x <- gsub(" - ", " / ", x)
   x <- gsub(" do | da | de ", " ", x)
