@@ -27,8 +27,6 @@
 #'
 #' @return Either a data.frame or list with the database fields formatted following DarwinCore standards
 #'
-#' @author Lima, R. A. F. and Sara Mortara
-#'
 #' @importFrom stringr str_tim
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
