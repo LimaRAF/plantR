@@ -196,10 +196,19 @@ The second warning is less important because it relates to optional fields.
 
 ## Standardizing people names, collector number and dates: function `formatOcc()`
 
-When working with data coming from multiple secondary sources, it is important
+Particularly when working with data coming from multiple secondary sources, it is important
 to standardize the notation used by different collections and sometimes by
 different collectors within the same collection.
 
+We first create the new columns that will receive the edited fields.
+
+```{r, eval = FALSE}
+occs$recordedBy.new <- occs$recordedBy
+occs$recordNumber.new <- occs$recordNumber
+occs$identifiedBy.new <- occs$identifiedBy
+occs$year.new <- occs$year
+occs$yearIdentified.new <- occs$yearIdentified
+```
 The year of collection is sometimes stored on the field 'eventDate' and not on
 the field 'year'. In this case, we should replace all missing information from
 the field 'year' by the information stored in the field 'eventDate'. Since this
@@ -215,7 +224,6 @@ and without the year of collection and identification ("n.d.").
 ```{r, eval = TRUE}
 occs$recordedBy.new <- fixName(occs$recordedBy, special.char = FALSE)
 occs$identifiedBy.new <-  fixName(occs$identifiedBy, special.char = FALSE)
-
 occs$recordNumber.new <- colNumber(x = occs$recordNumber, noNumb = "s.n.")
 occs$year.new <- getYear(occs$year, noYear = "n.d.")
 occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
@@ -223,9 +231,9 @@ occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 
 Next, we format the names of the collector and identificator (function `formatName()`)
 
-```{r, eval = TRUE}
-occs$recordedBy.new <- unlist(sapply(occs$recordedBy.new, formatName))
-occs$identifiedBy.new <- unlist(sapply(occs$identifiedBy.new, formatName))
+```{r, eval = FALSE}
+occs$recordedBy.new <- unlist(lapply(occs$recordedBy.new, formatName))
+occs$identifiedBy.new <- unlist(lapply(occs$identifiedBy.new, formatName))
 ```
 
 We then separate first and auxiliary names for multiple names and then convert
@@ -239,7 +247,6 @@ example will be a semi-colon followed by a space.
 ```{r, eval = TRUE}
 occs$recordedBy.aux <- sapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = ";")
 occs$recordedBy.new <- lapply(occs$recordedBy.new, tdwgNames, out = "first")
-
 occs$identifiedBy.aux <- lapply(occs$identifiedBy.new, tdwgNames, out = "aux", sep.out = ";")
 occs$identifiedBy.new <- lapply(occs$identifiedBy.new, tdwgNames, out = "first")
 ```
@@ -410,7 +417,7 @@ head(getAdmin(occs))
 ```
 
 
-## Editing geographical coordinates: function `formatCoord()`
+## Editing geographical coordinates: functions `prepCoord()` and `workCoord()`
 
 
 Previous to the validation of the original geographical coordinates, it is
@@ -421,7 +428,6 @@ with decimal digits separated by points.
 Function `prepCoord()` transforms the coordinates into decimal degrees and add the columns "decimalLatitude.new"  and "decimalLongitude.new". 
 
 ```{r, eval = TRUE}
-names(occs)
 occs <- prepCoord(occs)
 ```
 
@@ -448,26 +454,9 @@ table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.
 
 
-## Editing species names: function `formatTaxa()`
-
-<!--Species names spelling - tipográficos
-format/modificators
-synonyms
-replace_names/suggest_name-->
-
-Suggestion of items adapted from the original workflow:
-
-- [x] 4.0 First edit (flag indets, class taxon rank, remove authors)
-- [x] 4.1 Remove cf. e aff. (and create a clomun for the name modificators?)
-- [x] 4.2 Option to consider or not names at infraspecific level at specific level (e.g. remove ‘var.’, ‘subsp.’, ‘forma’, etc)
-
-4.3 Standardize the nomenclature (typos, synonyms and ortographical variants) -> Data editing or Data Validation??
-
-4.4 Edit family names to APG (plantR function `formatFamily()`: step currently done using ‘flora’ and taxonStand packages)
-
+## Editing species names: function `prepSpecies()`
 
 ### Species names format
-
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
 `rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
@@ -477,46 +466,21 @@ collections, which may vary in the way the scientific names are stored. For data
 downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
 since GBIF already stores data in a more standardized way.
 
+The `plantR` function ```prepSpecies``` performs several edits, including the
+isolation of taxonomic rank abbreviations, the detection of name modificators
+("cf." and "aff.") and a suggestion for the name status:
+
 ```{r, eval = FALSE}
 sort(table(occs$scientificName))
+occs <- prepSpecies(occs)
+sort(table(occs$scientificName.new))
 ```
 
-There are many R packages that edit taxonomical information (e.g. `taxize` or
-`Taxonstand`). For species listed in the Brazilian Flora 2020, the package `flora` provides
-different tools to format and validate plant species names, folllowing the accepted nomenclature of the Brazilian Flora 2020 project. We will use it to do some formatting of species names.
+Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```
 
-```{r, eval = FALSE}
-install.packages("flora")
-library(flora)
-occs$scientificName.new <- sapply(occs$scientificName, trim)
-occs$scientificName.new <- sapply(occs$scientificName.new, standardize.names)
-occs$scientificName.new <- sapply(occs$scientificName.new, remove.authors)
+```{r, eval = FALSE}	
+sort(table(occs$scientificNameStatus))
 ```
-
-In __plantR__ we offer a new function that perform all these step and an extra step, which is the extraction
-of the name modificators: "cf." and "aff.":
-
-#### FUNCTION TO BE CREATED? SARA/ANDREA, VCS JÁ TEM ALGO NESSA LINHA? QUAL O PADRÃO DARWINCORE NESSES CASOS?
-
-```{r, eval = FALSE}
-occs$scientificName.new <- gsub(" cf\\. | aff\\. ", " ", occs$scientificName.new)
-```
-
-### Species names spelling
-
-#### CHECK HERE: SÓ INCLUI AQUI UMA IMPROVISAÇÃO PARA PENSARMOS NO TUTORIAL... ACHO QUE VCS JÁ DEVEM TER ALGO NESSA LINHA...
-
-The package `flora` and other packages provide tools to find typos in species names:
-```{r, eval = FALSE}
-name.list <- sapply(unique(occs$scientificName.new), suggest.names, max.distance = 0.85, return.na = TRUE)
-name.list <- name.list[!is.na(name.list) & !names(name.list) %in% name.list]
-for(i in 1:length(name.list)) occs$scientificName.new <- replace(occs$scientificName.new, grep(paste0("^",names(name.list)[i],"$"), occs$scientificName.new), name.list[i])
-```
-
-### Taxon rank
-
-#### REMOVE/STANDARDIZE INFRA-SPECIFIC RANKS?
-
 
 # Data validation
 
@@ -545,6 +509,11 @@ occs <- validateLoc(occs)
 unique(occs$loc.check)
 ```
 
+```{r, eval = FALSE}
+occs <- validateLoc(occs)
+table(occs$loc.check)
+```	
+
 In this column, specimens for which the locality provided could not be found in
 the gazetteer at the same resolution are flagged with a "check_...". In these
 cases, the locality resolution is downgraded until a locality is found in the
@@ -565,7 +534,7 @@ missing information or typos that may need some more careful inspection.
 
 Check here other possible steps that can use __coordinateCleaner__ or other packages
 
-### Flag occurrences from cultivated individuals
+### Flag occurrences from cultivated individuals: function `getCult()`
 
 Function `getCult()` flags cultivated or possibly cultivated records in a new column 
 
@@ -598,18 +567,31 @@ table(occs$cult.check)
 
 ## Taxonomic validation: function `validateTax()`
 
+### Species synonyms and spelling: function `formatSpecies`
+Although the function `prepSpecies` presented above formatted the species names,
+there are still many more names than the ones we downloaded. Most of them are
+names at the infra-specific level, but others are probably synonyms,
+ortographical variants or even typos. There are R packages that check species
+nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
+in the Brazilian Flora 2020, there is also the package `flora`, which follow the
+accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
+functionalities of some of these packages to inspect possible suggestions for
+species names, through the function `formatSpecies`:
 
-### Confidence level of species determinations
+```{r, eval = FALSE}
+occs <- formatSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
+table(occs$suggestedName)
+table(occs$notes)
+```
 
-### Species synonyms
+The final output of the function provide the valid names for the names that were retrieved in the two databases selected. The function also returns which names were replaced or corrected (i.e. typos). In addition, the flag 'check +1 accepted' may represent an indication of possible homonyms, i.e., different species with the same binomial but different authorities. Together with names there were not found in both databases, those possible homonyms may deserve closer attention. 
 
-#### REVER AQUI: CRIAR FUNCOES? SINONIMOS É FORMATAÇÃO OU VALIDAÇÃO DOS NOMES??
+Note that there are still more names than the ones used to search for
+occurences. Some of these differences are due to differences in the assignnemt
+of synonyms between speciesLink and the Brazilian Flora interface used here, the
+package `flora`.
 
-
-Note that there are more species names than the ones used to search for occurences. Some are due to name format and other are due to differences in the assignnemt of synonyms between speciesLink and the Brazilian Flora interface used here, the package __flora__.
-
-### Botanical family synonyms and standardization (function `formatFamily`)
-
+### Botanical family synonyms and standardization: function `formatFamily`
 The classification of the taxonomic confidence in species determination of each
 occurrence is currently performed based on a global list of taxonomists per
 family (see details below). Because different plant classification systems can
@@ -624,8 +606,6 @@ occs <- formatFamily(occs)
 Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
 
 ### Confidence level of species determinations
-backup <- occs
-
 Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.
 
 ```{r, eval = F}

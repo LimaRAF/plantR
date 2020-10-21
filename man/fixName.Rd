@@ -35,12 +35,12 @@ The function fixes problems in name notation (e.g. orphan spaces) and
 \examples{
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("Leitão F°, H.F.")
-  fixName("Leitão F°, H.F.", special.char = TRUE)
+  fixName("LeitÃ£o FÂ°, H.F.")
+  fixName("LeitÃ£o FÂ°, H.F.", special.char = TRUE)
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
-  fixName('F. da S.N. Thomé')
-  fixName('Pedro L.R.de Morães')
+  fixName('F. da S.N. ThomÃ©')
+  fixName('Pedro L.R.de MorÃ£es')
 
 }
 \author{
