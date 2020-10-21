@@ -4,7 +4,7 @@
 #'
 #' @param x data.frame
 #'
-formatCoord = function(x) {
+formatCoord <- function(x) {
   loc = x
   return(loc)
 }

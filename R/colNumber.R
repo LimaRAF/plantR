@@ -1,21 +1,21 @@
 #' @title Format Collector Number
 #'
-#' @description The function edit the field 'collector number' of the
-#'   herbarium labels.
+#' @description The function edits the field 'collector number' of the
+#'   herbarium labels
 #'
 #' @param x the character string
 #' @param colCodes a character string with the collection codes to be removed
 #'   from the collector number. Default to NULL.
 #' @param noNumb character. The desired notation to identify abscence data in
-#'   Collector Number. Default to "s.n.".
+#'   Collector Number. Defaults to "s.n."
 #'
-#' @return a character string with the same lenght of \code{x} with the edited
-#'   collector numbers.
+#' @return a character vector with the same length of \code{x} with the edited
+#'   collector numbers
 #'
-#' @details The function attempts to clean and standardize the information contained
-#'   in the field 'Collector Number', which is typical of herbarium samples. It performs
-#'   several edits such as removal of unnecessary spaces, letters, and the replacement of
-#'   missing information into a standardized notation.
+#' @details The function attempts to clean and standardize the information
+#' contained in the field 'Collector Number', which is typical of herbarium
+#' samples. It performs several edits such as removal of unnecessary spaces,
+#' letters, and the replacement of missing information into a standardized notation
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -97,7 +97,7 @@ colNumber <- function(x,
   numbs[!grepl('^\\(', numbs) &  grepl('\\)$', numbs)] <-
     gsub('\\)$', '', numbs[!grepl('^\\(', numbs) & grepl('\\)$', numbs)])
 
-  #Replacing orfan spaces by separators
+  #Replacing orphan spaces by separators
   numbs <- gsub(' ',"-",numbs)
 
   #Including separators between number qualificators

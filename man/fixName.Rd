@@ -13,10 +13,10 @@ fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
 to FALSE.}
 
 \item{from}{a character string with the original/current encoding of the
-charcater. Argument currenlty not implemented.}
+character Argument currently not implemented.}
 
 \item{to}{a character string with the desired/target encoding of the
-charcater. Argument currenlty not implemented.}
+character. Argument currently not implemented.}
 }
 \value{
 The character string \code{x} in the standard notation necessary for

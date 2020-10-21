@@ -35,7 +35,11 @@ Imports:
     jsonlite,
     knitr,
     rgbif,
+    sf,
+    sp,
     stringr,
+    textclean,
+    tidyr,
     flora,
     Taxonstand,
     CoordinateCleaner

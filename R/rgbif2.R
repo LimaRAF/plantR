@@ -4,53 +4,68 @@
 #'
 #' @param dir Path to directory where the file will be saved. Default is to create a "results/" directory
 #' @param filename Name of the output file
-# @param basisofrecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
-# 'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search
-# @param country
-# @param stateProvince
-# @param collectionCode
-# @param basisOfRecord
-# @param hasCoordinate
-#' @param scientificName Genus and epithet separated by space
-#' @param ... any arguments from occ_search in rgbif package
-#' @return A data.frame with the search result. Also saves the output on disk.
+#' @param species Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector
+#' @param force Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`
+#' @param remove_na Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude
+#' @param ... Any argument from occ_search in rgbif package
 #'
-#' @author Sara Mortara
+#' @return A data.frame with the search result. Also saves the output on disk
+#'
+#' @author Sara Mortara & Andrea Sánchez-Tapia
 #'
 #' @examples
-#'
+#' \dontrun{
 #' ex_rgbif <- rgbif2(filename = "ex-gbif",
-#'                    scientificName =  c("Asplenium truncorum"))
+#'                    species =  "Asplenium truncorum")
+#' }
 #' @importFrom rgbif name_backbone
 #' @importFrom rgbif occ_search
 #' @importFrom utils write.table
+#' @importFrom dplyr bind_rows
 #' @export
 #'
 rgbif2 <- function(dir = "results/",
                    filename = "output",
-                   scientificName,
+                   species,
+                   force = FALSE,
+                   remove_na = TRUE,
                    ...
 ) {
-  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-  key <- rgbif::name_backbone(name = scientificName)$speciesKey
-  if (!is.null(key)) {
-    message("Making request to GBIF...")
-    gbif_data <- rgbif::occ_search(
-      hasCoordinate = TRUE,
-      hasGeospatialIssue = F,
-      taxonKey = key,
-      return = "data", ...
-    )
-    gbif_data <- gbif_data[!is.na(gbif_data$decimalLongitude) & !is.na(gbif_data$decimalLatitude),]
-    fullname <- paste0(dir, filename, ".csv")
-    message(paste0("Writing ", fullname, " on disk."))
-    write.table(gbif_data,
-                fullname,
-                sep = ",",
-                row.names = FALSE,
-                col.names = TRUE)
-    return(gbif_data)
-  } else {
-    message(paste0("Please insert a valid scientific name."))
+  if (length(species) > 9) {
+    if (!force) {
+      stop("Use force = TRUE if you still want to download data for more than 10 species")
+    }
   }
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  key <- sapply(species, function(x) rgbif::name_backbone(name = x)$speciesKey)
+  key_pointer <- sapply(key, function(x) !is.null(x))
+  message("\nSpecies not found: ", species[!key_pointer],
+          "\nReturning data only for: ",
+          paste(species[key_pointer], collapse = ", "))
+  # Loop for each valid species
+  gbif_data <- list()
+  for (i in 1:length(key_pointer)) {
+    if (key_pointer[i]) {
+      message("Making request to GBIF...")
+      gbif_data[[i]] <- rgbif::occ_search(hasCoordinate = TRUE,
+                                          hasGeospatialIssue = FALSE,
+                                          taxonKey = key[i],
+                                          return = "data",
+                                          ...)
+    } else {gbif_data[[i]] <- data.frame(key = NA)}
+  }
+  names(gbif_data) <- species
+  all_data <- dplyr::bind_rows(gbif_data, .id = "species_id")
+  if (remove_na) {
+    all_data <- all_data[!is.na(all_data$decimalLongitude)
+                         & !is.na(all_data$decimalLatitude), ]
+  }
+  fullname <- paste0(dir, filename, ".csv")
+  message(paste0("Writing ", fullname, " on disk."))
+  write.table(all_data,
+              fullname,
+              sep = ",",
+              row.names = FALSE,
+              col.names = TRUE)
+  return(all_data)
 }

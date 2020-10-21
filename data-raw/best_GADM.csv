@@ -1,0 +1,52 @@
+"","pais","code","nivel","n"
+"1","Aruba","ABW","0",1
+"2","Anguilla","AIA","0",1
+"3","Argentina","ARG","2",503
+"4","Antigua & Barbuda","ATG","1",8
+"5","Caribbean Netherlands","BES","1",3
+"6","Bahamas","BHS","1",32
+"7","St. Barthélemy","BLM","0",1
+"8","Belize","BLZ","1",6
+"9","Bermuda","BMU","1",11
+"10","Bolivia","BOL","3",319
+"11","Brazil","BRA","2",5504
+"12","Barbados","BRB","1",11
+"13","Chile","CHL","3",302
+"14","Colombia","COL","2",1065
+"15","Costa Rica","CRI","2",81
+"16","Cuba","CUB","2",168
+"17","Curaçao","CUW","0",1
+"18","Cayman Islands","CYM","1",7
+"19","Dominica","DMA","1",10
+"20","Dominican Republic","DOM","2",155
+"21","Ecuador","ECU","3",1039
+"22","Falkland Islands","FLK","0",1
+"23","Guadeloupe","GLP","2",32
+"24","Grenada","GRD","1",7
+"25","Guatemala","GTM","2",354
+"26","French Guiana","GUF","2",21
+"27","Guyana","GUY","2",116
+"28","Honduras","HND","2",298
+"29","Haiti","HTI","4",542
+"30","Jamaica","JAM","1",14
+"31","St. Kitts & Nevis","KNA","1",14
+"32","St. Lucia","LCA","1",10
+"33","Saint Martin (French part)","MAF","0",1
+"34","Mexico","MEX","2",1854
+"35","Montserrat","MSR","1",3
+"36","Martinique","MTQ","2",32
+"37","Nicaragua","NIC","2",139
+"38","Panama","PAN","3",598
+"39","Peru","PER","3",1815
+"40","Puerto Rico","PRI","1",78
+"41","Paraguay","PRY","2",218
+"42","El Salvador","SLV","2",266
+"43","Suriname","SUR","2",62
+"44","Sint Maarten","SXM","0",1
+"45","Turks & Caicos Islands","TCA","1",6
+"46","Trinidad & Tobago","TTO","1",15
+"47","Uruguay","URY","2",204
+"48","St. Vincent & Grenadines","VCT","1",6
+"49","Venezuela","VEN","2",338
+"50","British Virgin Islands","VGB","1",5
+"51","U.S. Virgin Islands","VIR","2",20

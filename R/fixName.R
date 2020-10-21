@@ -5,10 +5,6 @@
 #' @param x a character string with a name.
 #' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
-#' @param from a character string with the original/current encoding of the
-#'   charcater. Argument currenlty not implemented.
-#' @param to a character string with the desired/target encoding of the
-#'   charcater. Argument currenlty not implemented.
 #'
 #' @return The character string \code{x} in the standard notation necessary for
 #'   further processing.
@@ -21,6 +17,7 @@
 #'
 #' @author Renato A. F. de Lima
 #'
+#' @importFrom textclean replace_non_ascii
 #' @importFrom stringr str_trim
 #'
 #' @export fixName
@@ -36,9 +33,7 @@
 #'   fixName('Pedro L.R.de Morães')
 #'
 fixName <- function(x,
-                    special.char = FALSE,
-                    from = "UTF-8",
-                    to = "windows-1252//TRANSLIT") {
+                    special.char = FALSE) {
 
   nomes <- x
 
@@ -112,19 +107,9 @@ fixName <- function(x,
   nomes <- gsub('-$', '', nomes)
   nomes <- stringr::str_trim(nomes)
 
-  #Try to solve encoding problems?
-  #nomes <- as.character(iconv(nomes, from= from, to= to))
-
   #Remove special characters?
-  if(special.char == FALSE) {
-    unwanted_array <- list('Š'='S', 'š'='s', 'Ž'='Z', 'ž'='z', 'À'='A', 'Á'='A', 'Â'='A', 'Ã'='A', 'Ä'='A', 'Å'='A', 'Æ'='A', 'Ç'='C', 'È'='E', 'É'='E',
-                           'Ê'='E', 'Ë'='E', 'Ì'='I', 'Í'='I', 'Î'='I', 'Ï'='I', 'Ñ'='N', 'Ò'='O', 'Ó'='O', 'Ô'='O', 'Õ'='O', 'Ö'='O', 'Ø'='O', 'Ù'='U',
-                           'Ú'='U', 'Û'='U', 'Ü'='U', 'Ý'='Y', 'Þ'='B', 'ß'='S', 'à'='a', 'á'='a', 'â'='a', 'ã'='a', 'ä'='a', 'å'='a', 'æ'='a', 'ç'='c',
-                           'è'='e', 'é'='e', 'ê'='e', 'ë'='e', 'ì'='i', 'í'='i', 'î'='i', 'ï'='i', 'ð'='o', 'ñ'='n', 'ò'='o', 'ó'='o', 'ô'='o', 'õ'='o',
-                           'ö'='o', 'ø'='o', 'ü'='u', 'ù'='u', 'ú'='u', 'û'='u', 'ý'='y', 'ý'='y', 'þ'='b', 'ÿ'='y' )
-    nomes <- chartr(paste(names(unwanted_array), collapse = ''),
-                    paste(unwanted_array, collapse = ''),
-                    nomes)
+  if (special.char == FALSE) {
+    nomes <- replace_non_ascii(nomes)
   }
 
   return(nomes)

@@ -9,7 +9,8 @@ fixField(x, origin = NULL)
 \arguments{
 \item{x}{a data frame}
 
-\item{origin}{code of collection from which the input data was downloaded}
+\item{origin}{code of the source from which the input data was downloaded.
+Has to be any of thw following: "gbif", "splink", "jabot", "splink2gbif" or "jabot_old"}
 }
 \value{
 the data frame \code{x} in the proper format. It also returns the
@@ -17,14 +18,6 @@ required field names that are missing and those that were replaced or dropped.
 }
 \description{
 Puts the occurrence data frame in the right format for data processing and validation
-}
-\details{
-This function ...
-}
-\examples{
- ## Example currently not available ##
-
-
 }
 \author{
 Lima, R.A.F.

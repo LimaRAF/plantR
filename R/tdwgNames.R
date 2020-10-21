@@ -7,11 +7,12 @@
 #' @param sep.in a vector with the symbols separating multiple names in the input
 #'   string. Default to any of the following: ";", "&", " e ", " et " and "|"
 #' @param sep.out a character string with the symbol separating multiple names in
-#'   the output string. Default to " | ".
+#'   the output string. Defaults to " | ".
 #' @param out a character string with the type of output desired: all names,
 #'   first name, or auxiliary names.
 #'
-#' @return The character string \code{x} in the TDWG format. If the names of
+#' @return The character string \code{x} in the TDWG format (Last Name {comma}
+#' First Name). If the names of
 #'   only one person is given, the function returns the same as function
 #'   \code{tdwgName}.
 #'
@@ -91,11 +92,12 @@
 #'   # Unusual formatting (function won't always work)
 #'   tdwgNames("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 #'
-tdwgNames = function(x,
+tdwgNames <- function(x,
                      sep.in = c(";","&"," e "," et ","\\|"),
-                     sep.out = " | ",
+                     sep.out = "|",
                      out = c("all")) {
 
+  sep.out <- paste0(" ", sep.out, " ") #isto é muito provisório e só pensando no usuário
   # check input:
   if (length(x) > 1)
     stop("input 'name' cannot be a vector of strings!")
