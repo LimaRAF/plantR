@@ -4,8 +4,11 @@
 \alias{fixLoc}
 \title{Format Locality Information}
 \usage{
-fixLoc(x, admin.levels = c("country", "stateProvince", "municipality",
-  "locality"), scrap = TRUE)
+fixLoc(
+  x,
+  admin.levels = c("country", "stateProvince", "municipality", "locality"),
+  scrap = TRUE
+)
 }
 \arguments{
 \item{x}{a data frame}

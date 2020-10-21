@@ -1,6 +1,6 @@
 #' Dataset to illustrate the data editing and validation
 #'
-#' A dataset containing the retrieved records of the species *Trema micranta*
+#' A dataset containing the retrieved records of the species *Trema micrantha*
 #' and *Casearia sylvestris* downloaded from the speciesLink network in June
 #' 2020.
 #'

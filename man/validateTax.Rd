@@ -4,9 +4,14 @@
 \alias{validateTax}
 \title{Validate Species Indentification}
 \usage{
-validateTax(x, special.collector = TRUE, generalist = FALSE,
-  generalist.class = "medium", miss.taxonomist = NULL,
-  taxonomist.list = "plantR")
+validateTax(
+  x,
+  special.collector = TRUE,
+  generalist = FALSE,
+  generalist.class = "medium",
+  miss.taxonomist = NULL,
+  taxonomist.list = "plantR"
+)
 }
 \arguments{
 \item{x}{a data frame with the occurrence data.}

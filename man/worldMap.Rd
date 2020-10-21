@@ -4,7 +4,9 @@
 \name{worldMap}
 \alias{worldMap}
 \title{World Map}
-\format{A Multipolygon 'sf' object with 256 features}
+\format{
+A Multipolygon 'sf' object with 256 features
+}
 \source{
 \url{https://gadm.org}
 }

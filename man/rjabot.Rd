@@ -4,8 +4,14 @@
 \alias{rjabot}
 \title{Gets occurrence data from jabot}
 \usage{
-rjabot(dir = "results/", filename = "output", scientificName = NULL,
-  collectionCode = NULL, stateProvince = NULL, county = NULL)
+rjabot(
+  dir = "results/",
+  filename = "output",
+  scientificName = NULL,
+  collectionCode = NULL,
+  stateProvince = NULL,
+  county = NULL
+)
 }
 \arguments{
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}

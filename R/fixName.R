@@ -44,7 +44,7 @@ fixName <- function(x,
 
   #Separation between multiple authors
   nomes <- gsub("  ", " ", nomes)
-  nomes <- gsub(' & | e | \\| ', "; ", nomes) #### INCLUDE HERE: ' et '
+  nomes <- gsub(' & | e | \\| ', "; ", nomes) #### INCLUDE HERE: "et", "and", "und", "y"
   nomes <- gsub("&|\\|", ";", nomes)
   nomes <- gsub("; ;", ";", nomes)
   nomes <- gsub(" ;", ";", nomes)

@@ -4,7 +4,9 @@
 \name{latamMap}
 \alias{latamMap}
 \title{Maps of Latin American countries}
-\format{A list of 44 Multipolygon 'sf' objects}
+\format{
+A list of 44 Multipolygon 'sf' objects
+}
 \source{
 \url{https://gadm.org}
 }
