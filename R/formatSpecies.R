@@ -26,7 +26,7 @@
 #' @return
 #' A data frame with the name provided by the user and ...
 #'
-#' @author Renato A. Ferreia de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @examples
 #' sp.list <- c("Casearia sylvestris","Casearia sylvestirs",

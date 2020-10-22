@@ -21,7 +21,7 @@ Standardize the different notation of missing collector or
   identifier names
 }
 \examples{
-# Need to chose between 'collector' or 'identificator'
+# Needs to chose between 'collector' or 'identificator'
  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
            type = "collector",
            noName = "s./c.")

@@ -34,13 +34,13 @@ The function performs several edits and replacements. Country names
 
   By default, this function formats all four locality fields simultaneously
   (i.e. country, stateProvince, municipality, locality), but the user can
-  chose among these fields through the argument `admin.levels`. However, the
+  choose among these fields through the argument `admin.levels`. However, the
   editing process is more complete if all the information is available for
   the four fields administrative levels mentioned above.
 
   The argument `scrap` controls the search for missing municipality
   information from the field 'locality'. It also performs some extra editing
-  and croping of the field 'locality' in order to obtain more standardized
+  and cropping of the field 'locality' in order to obtain more standardized
   locality descriptions. This argument uses different ways of splitting and
   cropping the locality descripton in order to find missing information.
   Although it does not always result in an accurate extraction of the
@@ -55,11 +55,10 @@ The function performs several edits and replacements. Country names
 }
 \examples{
 # Creating a data frame with locality information
-(occs = data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
-                   stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais", "Minas Gerais"),
-                   municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
-                   locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais, municipio Lavras", NA)
-                   ))
+(occs <- data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
+                    stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais", "Minas Gerais"),
+                    municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
+                    locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais, municipio Lavras", NA)))
 
 # Formating the locality information
 fixLoc(occs, scrap = FALSE)

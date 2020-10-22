@@ -35,8 +35,8 @@ The function was initially designed as part of a larger routine to
   workflow presented in `plantR` manual. If used separately, users must
   provide a data frame with at least two columns ('resol.orig' and
   'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
-  also be provided and,  in this case, these additional strings are used to
-  search for information under the municipality/county level, that is, to
+  also be provided and in this case, these additional strings are used to
+  search for information below the municipality/county level, that is, to
   retrieve from the gazetteer information at the locality level or below. See
   the examples below.
 

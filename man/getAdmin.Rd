@@ -2,32 +2,35 @@
 % Please edit documentation in R/getAdmin.R
 \name{getAdmin}
 \alias{getAdmin}
-\title{Get Administrative Names}
+\title{Get Administrative Subdivisions from a Gazetteer}
 \usage{
 getAdmin(x, admin.names = "plantR")
 }
 \arguments{
-\item{x}{a character or vector containing the `plantR` string to search localty information.}
+\item{x}{a dataframe or character vector formatted according to the __plantR__
+format (lowercase, separated by an underline). If x is a data frame, this
+column has to be named `loc.correct`}
 
-\item{admin.names}{a data frame containing the list of names of the locality subdivisions.
-The default is "plantR", the internal `plantR` gazetteer (biased towards Latin America)}
+\item{admin.names}{a data frame containing the gazetteer with the list of names
+and locality subdivisions. The default is "plantR", the internal __plantR__
+gazetteer (focusing on Latin America and the Caribbean)}
 }
 \value{
 A data frame containing the input locality string in the first
   column, the administrative names at the resolution retrieved (four
   following columns) and the source of the administrative names (last
-  column).
+  column)
 }
 \description{
 Obtain the names of the administrative subdivisions for a given
   locality from a \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer}.
 }
 \details{
-Although the internal gazetteer used in `plantR` can handle common
+Although the internal gazetteer used in __plantR__ can handle common
   notation variants and typos in locality names (see function `getLoc`), the
   function `getAdmin` assumes that these issues were already solved.
   Otherwise, the function may not find the information required. See examples
-  below.
+  below
 
   The retrieval of information depends on the completeness of the gazetteer
   itself. So, even if all variants and typos were solved for an existing
@@ -37,13 +40,13 @@ Although the internal gazetteer used in `plantR` can handle common
   an email to <renato.lima@naturalis.nl>.
 
   In Brazil, NAME_0, NAME_1, NAME_2, AND NAME_3 correspond to the Country,
-  State, Municipality and Locality, respectively. But these may not be the
+  State, Municipality and Locality, respectively. But this may not be the
   case of other countries if they adopt a different nomenclature. For
   instance, Argentina uses Province instead of State and Department instead
   of Municipality.
 
-  Finally, function `getAdmin` currently does not returns information below
-  the municipality level, although the default `plantR` gazetteer can retrieve
+  Finally, function `getAdmin` currently does not return information below
+  the municipality level, although the default __plantR__ gazetteer can retrieve
   information at lower administrative levels (i.e. locality and sub-locality)
 }
 \examples{
