@@ -7,14 +7,14 @@
 prepCoord(x)
 }
 \arguments{
-\item{x}{a data.frame containing the geographical coordinates.}
+\item{x}{a data.frame containing the geographical coordinates}
 }
 \value{
 The data frame \code{x} with the edited geographical coordinates, in
-  decimal degrees.
+  decimal degrees
 }
 \description{
-Format geographical coordinates do decimal degrees.
+Formats geographical coordinates to decimal degrees
 }
 \details{
 This is a simple function that works for standardizing common issues
@@ -26,7 +26,7 @@ Currently, the function does not differentiate missing coordinates from those
  provided in a format that `prepCoord` does not handle (e.g. UTM). It also
  does not differentiate original coordinates in decimal degrees in a good
  format from those that needed to be formatted (i.e. no flagging is returned).
- Function should work fine for in the degress + decimal minutes format. See
+ Function should work fine for in the degrees + decimal minutes format. See
  examples below.
 }
 \examples{

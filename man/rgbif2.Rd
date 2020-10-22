@@ -4,28 +4,40 @@
 \alias{rgbif2}
 \title{Gets occurrence data from GBIF}
 \usage{
-rgbif2(dir = "results/", filename = "output", scientificName, ...)
+rgbif2(
+  dir = "results/",
+  filename = "output",
+  species,
+  force = FALSE,
+  remove_na = TRUE,
+  ...
+)
 }
 \arguments{
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{scientificName}{Genus and epithet separated by space}
+\item{species}{Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector}
 
-\item{...}{any arguments from occ_search in rgbif package}
+\item{force}{Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`}
+
+\item{remove_na}{Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude}
+
+\item{...}{Any argument from occ_search in rgbif package}
 }
 \value{
-A data.frame with the search result. Also saves the output on disk.
+A data.frame with the search result. Also saves the output on disk
 }
 \description{
 This function uses the rgbif package to get occurrence data of a species.
 }
 \examples{
-
+\dontrun{
 ex_rgbif <- rgbif2(filename = "ex-gbif",
-                   scientificName =  c("Asplenium truncorum"))
+                   species =  "Asplenium truncorum")
+}
 }
 \author{
-Sara Mortara
+Sara Mortara & Andrea Sánchez-Tapia
 }

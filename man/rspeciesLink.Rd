@@ -8,7 +8,7 @@ rspeciesLink(
   dir = "results/",
   filename = "output",
   basisOfRecord = NULL,
-  scientificName = NULL,
+  species = NULL,
   collectionCode = NULL,
   country = NULL,
   stateProvince = NULL,
@@ -31,7 +31,7 @@ rspeciesLink(
 \item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
 'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search}
 
-\item{scientificName}{Genus and epithet separated by space. More than one should be concatenated in a vector}
+\item{species}{Genus and epithet separated by space. More than one should be concatenated in a vector}
 
 \item{collectionCode}{Any collection available at speciesLink. Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names}
 
@@ -47,7 +47,7 @@ rspeciesLink(
 
 \item{Scope}{Group to be required. If NULL searches all groups. Any in "plants", "animals", "microrganisms" or "fossils"}
 
-\item{Synonyms}{If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms". It does not support more than nine species to check (length of scientificName vector must be < 10)}
+\item{Synonyms}{If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms".}
 
 \item{Typus}{Logic. If TRUE select only typus}
 
@@ -65,10 +65,11 @@ This function access version beta 0.1 of speciesLink API and returns
 occurrence data of species.
 }
 \examples{
-
+\dontrun{
 ex01 <- rspeciesLink(filename = "ex01",
-                    scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+                    species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
                     Scope = "plants")
+}
 
 }
 \author{

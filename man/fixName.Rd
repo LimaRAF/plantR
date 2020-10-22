@@ -4,19 +4,13 @@
 \alias{fixName}
 \title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8", to = "windows-1252//TRANSLIT")
+fixName(x, special.char = FALSE)
 }
 \arguments{
 \item{x}{a character string with a name.}
 
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
-
-\item{from}{a character string with the original/current encoding of the
-character Argument currently not implemented.}
-
-\item{to}{a character string with the desired/target encoding of the
-character. Argument currently not implemented.}
 }
 \value{
 The character string \code{x} in the standard notation necessary for

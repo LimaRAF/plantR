@@ -4,37 +4,20 @@
 \alias{rjabot}
 \title{Gets occurrence data from jabot}
 \usage{
-rjabot(
-  dir = "results/",
-  filename = "output",
-  scientificName = NULL,
-  collectionCode = NULL,
-  stateProvince = NULL,
-  county = NULL
-)
+rjabot(dir = "results/", filename = "output", species = NULL)
 }
 \arguments{
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{scientificName}{Genus and epithet separated by space. More than one should be concatenated in a vector}
-
-\item{collectionCode}{any herbarium in the Jabot system (http://jabot.jbrj.gov.br/v3/herbarios.php)
-#' @return A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk}
-
-\item{stateProvince}{Any state or province. No ASCII characters allowed. Accepts a vector of names}
-
-\item{county}{Any municipality name. No ASCII characters allowed. Accepts a vector of names}
+\item{species}{Genus and epithet separated by space. More than one should be concatenated in a vector}
+}
+\value{
+A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
 }
 \description{
-This function gets occurrence data in the Jabot database (http://jabot.jbrj.gov.br/v3/consulta.php).
-}
-\examples{
-
-ex_jabot <- rjabot(filename = "ex-jabot",
-                  scientificName =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"))
-
+This function gets occurrence data in Jabot's API (http://servicos.jbrj.gov.br/jabot/). Providing a scientific name for a species is mandatory.
 }
 \author{
 Sara Mortara

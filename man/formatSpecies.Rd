@@ -62,5 +62,5 @@ formatSpecies(df, db = "tpl", sug.dist = 0.85)
 
 }
 \author{
-Renato A. Ferreia de Lima
+Renato A. Ferreira de Lima
 }

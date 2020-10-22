@@ -419,7 +419,6 @@ head(getAdmin(occs))
 
 ## Editing geographical coordinates: functions `prepCoord()` and `workCoord()`
 
-
 Previous to the validation of the original geographical coordinates, it is
 important to make sure that they are given and if they are in the required
 format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees),
@@ -616,7 +615,7 @@ table(occs$tax.check)/dim(occs)[1]
 As expected, only ca. 15% of the specimesn were identified by a family specialist. Note that the function also returns a list with up to 10 names in the TDWG format that have more identifications. Maybe this name could represent a missing taxonomist from the database of taxonomists. If this is the case, one can add taxonomist to the validation using the argument `miss.taxonomist`:
 
 ```{r, eval = TRUE}
-occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G.")
+occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G."))
 table(occs1$tax.check)/dim(occs)[1]
 ```
 
