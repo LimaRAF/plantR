@@ -623,12 +623,13 @@ This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Sa
 
 
 # Duplicated specimens
+occs <- readRDS("tmp.rds")
 
-## Prepare to merge: function `dupPrep()`
+## Prepare to merge: function `prepDup()`
 
-## Find duplicates across collections: function `dupSearch()`
+## Find duplicates across collections: function `getDup()`
 
-## Homogenizing information within duplicates: function `dupInfo()`
+## Homogenizing information within duplicates: function `mergedupInfo()`
 
 
 # Data description  and summary (NEED TO CHECK)

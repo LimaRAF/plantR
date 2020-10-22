@@ -143,7 +143,7 @@ formatSpecies <- function(x,
   if (any(db %in% c("tpl"))) {
 
     assign("last.warning", NULL, envir = baseenv())
-    if (use.authors & !is.null(authors)) {
+    if (use.authors & !is.null(x[,col.names[2]])) {
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # Species names, exact match
@@ -182,6 +182,8 @@ formatSpecies <- function(x,
       warns1 <- warnings()
       warns1 <- names(unlist(warns1))[grepl("The input author", names(unlist(warns1)))]
       warns1 <- sapply(warns1, function(x) paste(strsplit(x," ")[[1]][1:2], collapse = " "))
+    } else {
+      warns1 <- NULL
     }
 
     #Edits before merging
@@ -271,11 +273,11 @@ formatSpecies <- function(x,
   #Final edits
   final.results <- results[[1]]
   final.results <- final.results[order(final.results$ordem), ]
-  final.results <- final.results[,-which(names(final.results) %in% drop.cols)]
+  drop.cols1 <- unique(c(drop.cols, "verbatimSpecies", "author"))
+  final.results <- final.results[,-which(names(final.results) %in% drop.cols1)]
   final.results1 <- cbind.data.frame(x,
                                      final.results,
                              stringsAsFactors = FALSE)
-  final.results1 <- final.results1[,-which(names(final.results1) %in% col.names)]
 
   return(final.results1)
 }
