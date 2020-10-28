@@ -174,7 +174,7 @@ validateTax = function(x,
   x$tax.check[x$tax.check %in% "TRUE"] <- "high"
 
     non.tax.det <- sort(table(x$identifiedBy.new[x$tax.check %in% "low"]))
-    cat("People with many of determinations but not in the taxonomist list: \n",
+    cat("Top-ten people with many determinations but not in the taxonomist list: \n",
         paste(tail(paste(names(non.tax.det), non.tax.det, sep = ": "),10)), sep="\n")
 
   return(x)

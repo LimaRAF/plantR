@@ -83,61 +83,61 @@ formatSpecies <- function(x,
   # suggesting a valid name using flora pkg
   if (any(db %in% "bfo")) {
     # cleaning spaces and removing duplicated names
-      trim_sp <- flora::trim(unique(x[,col.names[1]]))
+    trim_sp <- flora::trim(unique(x[,col.names[1]]))
     # obtaining valid names from FBO-2020
-      suggest_sp <- flora::get.taxa(trim_sp, drop="", suggestion.distance = sug.dist)
-      miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
-      #Are names missing due to lack of the infra-specific rank abbreviation?
-      add.rank <- function(x, rank = NULL){
-        x_sp <- strsplit(x, " ")
-        x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
-        return(x1)
-      }
-      spcs <- stringr::str_count(miss_sp," ")
-      miss_rank <- rbind(
-        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
-        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
+    suggest_sp <- flora::get.taxa(trim_sp, drop="", suggestion.distance = sug.dist)
+    miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
+    #Are names missing due to lack of the infra-specific rank abbreviation?
+    add.rank <- function(x, rank = NULL){
+      x_sp <- strsplit(x, " ")
+      x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
+      return(x1)
+    }
+    spcs <- stringr::str_count(miss_sp," ")
+    miss_rank <- rbind(
+      cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
+      cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
 
-      #Are names missing due to authorships with the binomial?
-      no_authors <- sapply(miss_sp[spcs>= 2],
-                           function(x) flora::remove.authors(flora::fixCase(x)))
+    #Are names missing due to authorships with the binomial?
+    no_authors <- sapply(miss_sp[spcs>= 2],
+                         function(x) flora::remove.authors(flora::fixCase(x)))
 
-      #Gettting possible missing names
-      miss_spp <- rbind(miss_rank,
-                       cbind(miss_sp[spcs >= 2], no_authors))
-      miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), ]
-      suggest_miss_sp <-
-        flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
-      suggest_miss_sp <-
-        suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
-      suggest_miss_sp$original.search <-
-        miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+    #Gettting possible missing names
+    miss_spp <- rbind(miss_rank,
+                      cbind(miss_sp[spcs >= 2], no_authors))
+    miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), ]
+    suggest_miss_sp <-
+      flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
+    suggest_miss_sp <-
+      suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
+    suggest_miss_sp$original.search <-
+      miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
 
-      #Merging names found at first and second tries
-      found_ids <- suggest_sp$notes %in% "not found" &
-        suggest_sp$original.search %in% suggest_miss_sp$original.search
-      suggest_sp[found_ids, ] <- suggest_miss_sp
+    #Merging names found at first and second tries
+    found_ids <- suggest_sp$notes %in% "not found" &
+      suggest_sp$original.search %in% suggest_miss_sp$original.search
+    suggest_sp[found_ids, ] <- suggest_miss_sp
 
-      #Getting the valid name at the right rank
-      suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep=" ")
-      suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"] <-
-        paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"],
-              suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "subspecies"], sep=" subsp. ")
-      suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"] <-
-        paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"],
-              suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep=" var. ")
-      suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"] <-
-        paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"], " sp.", sep="")
-      suggest_sp$suggestedName[suggest_sp$taxon.rank %in% NA] <-
-        suggest_sp$original.search[suggest_sp$taxon.rank %in% NA]
+    #Getting the valid name at the right rank
+    suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep=" ")
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"] <-
+      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"],
+            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "subspecies"], sep=" subsp. ")
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"] <-
+      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"],
+            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep=" var. ")
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"] <-
+      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"], " sp.", sep="")
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% NA] <-
+      suggest_sp$original.search[suggest_sp$taxon.rank %in% NA]
 
-      #Merge checks with the original data
-      suggest_flora <- merge(df, suggest_sp[,c("original.search","family","suggestedName","authorship","scientific.name","notes","id")],
-                             by.x = "verbatimSpecies", "original.search", all.x = TRUE, sort = FALSE)
-      suggest_flora <- suggest_flora[order(suggest_flora$ordem),]
-      suggest_flora$source <- "BR-Flora"
+    #Merge checks with the original data
+    suggest_flora <- merge(df, suggest_sp[,c("original.search","family","suggestedName","authorship","scientific.name","notes","id")],
+                           by.x = "verbatimSpecies", "original.search", all.x = TRUE, sort = FALSE)
+    suggest_flora <- suggest_flora[order(suggest_flora$ordem),]
+    suggest_flora$source <- "BR-Flora"
 
-      results[[which(db %in% "bfo")]] <- suggest_flora
+    results[[which(db %in% "bfo")]] <- suggest_flora
   }
 
   if (any(db %in% c("tpl"))) {
@@ -162,7 +162,7 @@ formatSpecies <- function(x,
       warns <-
         names(unlist(warns))[grepl("more than one valid", names(unlist(warns)))]
       warns <- sapply(warns, function(x)
-          paste(strsplit(x, " ")[[1]][1:2], collapse = " "))
+        paste(strsplit(x, " ")[[1]][1:2], collapse = " "))
     } else {
       warns <- NULL
     }

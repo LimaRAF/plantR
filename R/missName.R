@@ -48,28 +48,29 @@ missName <- function(x,
   if (any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
-    nomes[nomes %in% c("s/col.", "s/col", "s/c", "s/coletor", " sem col.", "s.col.")] <- noName
-    nomes[nomes %in% c("Collector unspecified", "Collector unknown")] <- noName
+    nomes[nomes %in% c("s/col.", "s/col", "s/c", "s/coletor", " sem col.", "s.col.", "s.c.", "s.n.", "S.N.")] <- noName
+    nomes[nomes %in% c("Collector unspecified", "Collector unknown", "unknown")] <- noName
     nomes[nomes %in% c("?")] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
                  noName,
                  nomes)
     nomes <- gsub('^Sin$', noName, nomes)
-    nomes <- gsub('Anonymous', noName, nomes)
+    nomes <- gsub('Anonymous|anonymous', noName, nomes)
     nomes <- gsub("NANA", noName, nomes)
+
   }
 
   if (any(type %in% c("identificator", "identificador", "determinador"))) {   #No identificator's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
-    nomes[nomes %in% c("s/det.", "s/det", "s/d", "s/determinador", " sem det.", "s.det.")] <- noName
-    nomes[nomes %in% c("Determiner unspecified", "Determiner unknown")] <- noName
+    nomes[nomes %in% c("s/det.", "s/det", "s/d", "s/determinador", " sem det.", "s.det.", "s.n.", "S.N.")] <- noName
+    nomes[nomes %in% c("Determiner unspecified", "Determiner unknown", "unknown")] <- noName
     nomes[nomes %in% c("?")] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
            noName,
            nomes)
     nomes <- gsub('^Sin$', noName, nomes)
-    nomes <- gsub('Anonymous', noName, nomes)
+    nomes <- gsub('Anonymous|anonymous', noName, nomes)
     nomes <- gsub("NANA", noName, nomes)
   }
 
