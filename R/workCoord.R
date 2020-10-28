@@ -111,10 +111,10 @@ workCoord <- function(x) {
       # seconds with rounding issues?
       lat3[!lat3 %in% c("degrees_only", "minutes_only", "seconds") &
              nchar(sapply(tmp1, function(x)
-               x[2])) > 6] <- "seconds?"
+               x[2])) >= 6] <- "seconds?"
       long3[!long3 %in% c("degrees_only", "minutes_only", "seconds") &
               nchar(sapply(tmp2, function(x)
-                x[2])) > 6] <- "seconds?"
+                x[2])) >= 6] <- "seconds?"
 
     # Saving the resolution
       tmp <- x1$resolution.coord[!is.na(lat)]
@@ -135,7 +135,7 @@ workCoord <- function(x) {
 
     }
 
-  ##Replacing missing coordinates by the county coordinates from the gazetter
+    ##Replacing missing coordinates by the county coordinates from the gazetter
     x1$decimalLatitude.new[is.na(lat)] <-
       x1$latitude.gazetteer[is.na(lat)]
     x1$decimalLongitude.new[is.na(long)] <-
@@ -156,11 +156,11 @@ workCoord <- function(x) {
     # x1$origin.coord[x1$origin.coord %in% "coord_gazet" &
     #                   x1$resolution.gazetteer %in% "locality"] <- "ok_locality_gazet"
 
-  ## Preparing the output
+    ## Preparing the output
     x2 <- x[,!(names(x) %in% c("decimalLatitude.new", "decimalLongitude.new"))]
     x3 <- cbind.data.frame(x2, x1[, c("decimalLatitude.new",
-                                  "decimalLongitude.new",
-                                  "origin.coord",
-                                  "resolution.coord"), ])
+                                      "decimalLongitude.new",
+                                      "origin.coord",
+                                      "resolution.coord"), ])
     return(x3)
 }

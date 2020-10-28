@@ -9,7 +9,8 @@ getYear(x, noYear = "s.d.")
 \arguments{
 \item{x}{the character string containing a date.}
 
-\item{noYear}{Character. Standard for missing data in Year.}
+\item{noYear}{Character. Standard for missing data in Year. Default to
+"n.d.".}
 }
 \value{
 The year contained in the character string \code{x}.

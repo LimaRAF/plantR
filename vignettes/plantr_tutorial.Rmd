@@ -590,6 +590,13 @@ occurences. Some of these differences are due to differences in the assignnemt
 of synonyms between speciesLink and the Brazilian Flora interface used here, the
 package `flora`.
 
+For our example we decided to replace all edited species names (i.e. 'scientificName.new') by the suggested species names from the function `formatSpecies` (i.e. 'scientificName.new'). However,
+__plantR__ does not execute this step automatically and the decision to do it should be taken by the user:
+
+```{r, eval = FALSE}
+occs$scientificName.new <- occs$suggestedName
+```
+
 ### Botanical family synonyms and standardization: function `formatFamily`
 The classification of the taxonomic confidence in species determination of each
 occurrence is currently performed based on a global list of taxonomists per
@@ -627,12 +634,64 @@ occs <- readRDS("tmp.rds")
 
 ## Prepare to merge: function `prepDup()`
 
+```{r, eval = TRUE}
+dups <- prepDup(occs, 
+                comb.fields = list(c("family","col.last.name","col.number","municipality"),
+                                   c("family","col.last.name","col.number","col.year")))
+```
+
+Note that we used the defaults of the `prepDup` function, which exclude from the search the search strings without collector name, number or year (e.g. 's.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.) increase as well.
+
 ## Find duplicates across collections: function `getDup()`
+```{r, eval = TRUE}
+dups <- getDup(dups)
+head(dups[order(dups$dup.ID),],6)
+table(dups$dup.prop)
+```
+As a result we found about 5300 specimens with a high chance of representing true duplicates, i.e. the porpotion of search strings shred between them are maximum (dup.prop = 1). Other ~300 specimens had only one search string in common. Moreover, we have indication of possible ~4600 unicates, and for other ~6800 specimens we could not check for dupicates (i.e. all search strings used have missing information).
 
-## Homogenizing information within duplicates: function `mergedupInfo()`
+Note as well that if there are duplicated entries (i.e. same acession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
+
+It is important to notice that these results are only indications. First of all, the retrievel of duplicates depend on the dataset itself: if the collection were the dupliate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplucates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they could not enter the duplicate search.  
+
+## Homogenizing the information within duplicates: function `mergeDup()`
+
+Since the amount and quality of the information among collectiors may vary, one
+may want to homogenize the information within the duplicates. These
+homogenization can be carried out regarding the specimens identification or
+their locality and geographical coordinates. First, we need to combine the
+results of the duplicate search with out 'master' data frame:
+
+```{r, eval = FALSE}
+occs <- cbind.data.frame(occs, 
+                         dups[,c("numTombo","dup.ID","dup.numb","dup.prop")],
+                         stringsAsFactors = FALSE)
+```
+
+Next, we use function `mergeDup` to perform the homogenization itself, which aims at expanding the information with highest quality found across all specimens contained in the groups of duplicates identified above. 
+
+```{r, eval = FALSE}
+occs <- mergeDup(occs)
+table(occs$tax.check, occs$tax.check1)
+```
+
+As an example, we show that the function was able to retrieve species identifications
+with a high confidence level for about 700 specimens. Tehre was also an improvement on the stats regarding the geographical and locality checks (i.e. columns 'geo.check' vs. 'geo.check1' and 'loc.check' vs. 'loc.check1')
+
+Note that we used the function defaults, which created new columns for the merged information. If one wants to save the new information in the same columns, the argument `overwrite` should be set to `TRUE`.
+
+## Removing duplicates after homogenization: function `rmDup()`
+
+`plantR` provides a simple function for the (fast) removal of duplicates from the data. This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. Only the first specimen of each group of duplicates is maintained and the non-homogenized information contained in the other specimens is lost. 
+
+```{r, eval = FALSE}
+dim(occs)
+occs <- rmDup(occs)
+dim(occs)
+```
 
 
-# Data description  and summary (NEED TO CHECK)
+# Data description and summary (NEED TO CHECK)
 
 ### Number of collections, specimens and duplicates retrieved:
 

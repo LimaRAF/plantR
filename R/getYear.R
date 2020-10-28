@@ -3,7 +3,8 @@
 #' @description Extracts the year of collection or determination from dates.
 #'
 #' @param x the character string containing a date.
-#' @param noYear Character. Standard for missing data in Year.
+#' @param noYear Character. Standard for missing data in Year. Default to
+#'   "n.d.".
 #'
 #' @return The year contained in the character string \code{x}.
 #'
