@@ -7,7 +7,8 @@
 fixLoc(
   x,
   admin.levels = c("country", "stateProvince", "municipality", "locality"),
-  scrap = TRUE
+  scrap = TRUE,
+  ...
 )
 }
 \arguments{

@@ -23,8 +23,15 @@
 #'
 #' @export getDup
 #'
-getDup <- function(df,
-                   flag.ind = TRUE) {
+getDup <- function(df, flag.ind = TRUE, ...) {
+
+  # check input
+  if (!class(df) == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  #Escaping R CMD check notes from using data.table syntax
+  numTombo <- value <- i.memb <- new_id <- NULL
+  dup.srch.str1 <- dup.srch.str2 <- dup.srch.str3 <- dup.srch.str4 <- NULL
 
   #Getting the search string names
   str_names <- names(df)[-1]

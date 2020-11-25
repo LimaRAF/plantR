@@ -63,7 +63,7 @@
 #'
 fixLoc <- function(x,
                    admin.levels = c("country", "stateProvince", "municipality", "locality"),
-                   scrap = TRUE) {
+                   scrap = TRUE, ...) {
 
   ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
 

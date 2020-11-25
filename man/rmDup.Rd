@@ -4,7 +4,7 @@
 \alias{rmDup}
 \title{Remove Duplicates}
 \usage{
-rmDup(df, order.by = NULL)
+rmDup(df, order.by = NULL, ...)
 }
 \arguments{
 \item{df}{the input data frame.}

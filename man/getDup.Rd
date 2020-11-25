@@ -4,7 +4,7 @@
 \alias{getDup}
 \title{Search For Duplicate Specimens Among Collections}
 \usage{
-getDup(df, flag.ind = TRUE)
+getDup(df, flag.ind = TRUE, ...)
 }
 \arguments{
 \item{df}{a data frame with the colection code (first column) and the strings

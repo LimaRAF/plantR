@@ -87,36 +87,39 @@ formatSpecies <- function(x,
     # obtaining valid names from FBO-2020
     suggest_sp <- flora::get.taxa(trim_sp, drop="", suggestion.distance = sug.dist)
     miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
-    #Are names missing due to lack of the infra-specific rank abbreviation?
-    add.rank <- function(x, rank = NULL){
-      x_sp <- strsplit(x, " ")
-      x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
-      return(x1)
+
+    if (length(miss_sp) > 0) {
+      #Are names missing due to lack of the infra-specific rank abbreviation?
+      add.rank <- function(x, rank = NULL){
+        x_sp <- strsplit(x, " ")
+        x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
+        return(x1)
+      }
+      spcs <- stringr::str_count(miss_sp," ")
+      miss_rank <- rbind(
+        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
+        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
+
+      #Are names missing due to authorships with the binomial?
+      no_authors <- sapply(miss_sp[spcs>= 2],
+                           function(x) flora::remove.authors(flora::fixCase(x)))
+
+      #Gettting possible missing names
+      miss_spp <- rbind(miss_rank,
+                        cbind(miss_sp[spcs >= 2], no_authors))
+      miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), ]
+      suggest_miss_sp <-
+        flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
+      suggest_miss_sp <-
+        suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
+      suggest_miss_sp$original.search <-
+        miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+
+      #Merging names found at first and second tries
+      found_ids <- suggest_sp$notes %in% "not found" &
+        suggest_sp$original.search %in% suggest_miss_sp$original.search
+      suggest_sp[found_ids, ] <- suggest_miss_sp
     }
-    spcs <- stringr::str_count(miss_sp," ")
-    miss_rank <- rbind(
-      cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
-      cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
-
-    #Are names missing due to authorships with the binomial?
-    no_authors <- sapply(miss_sp[spcs>= 2],
-                         function(x) flora::remove.authors(flora::fixCase(x)))
-
-    #Gettting possible missing names
-    miss_spp <- rbind(miss_rank,
-                      cbind(miss_sp[spcs >= 2], no_authors))
-    miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), ]
-    suggest_miss_sp <-
-      flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
-    suggest_miss_sp <-
-      suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
-    suggest_miss_sp$original.search <-
-      miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
-
-    #Merging names found at first and second tries
-    found_ids <- suggest_sp$notes %in% "not found" &
-      suggest_sp$original.search %in% suggest_miss_sp$original.search
-    suggest_sp[found_ids, ] <- suggest_miss_sp
 
     #Getting the valid name at the right rank
     suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep=" ")

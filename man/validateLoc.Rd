@@ -27,5 +27,5 @@ provided with `plantR` is strongly biased towards Latin America, particularly
 Brazil.
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

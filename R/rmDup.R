@@ -33,12 +33,16 @@
 #'
 #' @export rmDup
 #'
-rmDup <- function(df, order.by = NULL) {
+rmDup <- function(df, order.by = NULL, ...) {
 
   ## check input
   if (!class(df) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  #Escaping R CMD check notes from using data.table syntax
+  dup.ID <- dup.ID1 <- dup.prop <- numTombo <- ordem <- NULL
+
+  #Checking
   if(!"dup.ID" %in% names(df))
     stop(paste0("Removal is only possible if the input data frame contain a columns named 'dup.ID'"))
 

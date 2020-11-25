@@ -9,7 +9,7 @@
 #'   to "s.n.".
 #' @param noNumb character. Standard for missing data in collector number. Default
 #'   to "s.n.".
-#' @param combo.fields list. A list containing a vector with the occurrence
+#' @param comb.fields list. A list containing a vector with the occurrence
 #'   information that should be used to construct the duplicate search strings.
 #'   Default to TRUE. See Details.
 #' @param ignore.miss logical. Should the duplicate search strings with
@@ -34,16 +34,12 @@
 #'
 #' @export prepDup
 #'
-prepDup <- function(x,
-                    noYear = "s.d.",
-                    noName = "s.n.",
-                    noNumb = "s.n.",
+prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
                     comb.fields = list(c("family","col.last.name","col.number","municipality"),
                                        c("family","col.year","col.number","municipality"),
                                        c("species","col.last.name","col.number","col.year"),
                                        c("col.year","col.last.name","col.number","municipality")),
-                    ignore.miss = TRUE,
-                    ignore.na = TRUE) {
+                    ignore.miss = TRUE, ignore.na = TRUE, ...) {
 
   ##Removing unwanted columns
   #List of colum names
@@ -54,7 +50,7 @@ prepDup <- function(x,
             "loc.correct","municipality","municipality.new","locality","locality.new",
             "year","year.new",
             "dateIdentified","yearIdentified","yearIdentified.new")
-  cls <-  unique(cols[cols %in% names(x)])
+  cls <- unique(cols[cols %in% names(x)])
   #Priotirizing the .new columns, if original columns are also present
   cls1 <- cls[!duplicated(gsub(".new", "", cls), fromLast = TRUE)]
   x1 <- x[, cls1]

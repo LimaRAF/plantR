@@ -89,8 +89,7 @@
 #' getLoc(occs.locs)
 #'
 #'
-getLoc <- function(x,
-                   gazet = "plantR") {
+getLoc <- function(x, gazet = "plantR", ...) {
 
   ## check input:
   if (!class(x) == "data.frame")

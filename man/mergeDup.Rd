@@ -5,15 +5,17 @@
 \title{Merge Information Within Duplicates}
 \usage{
 mergeDup(
-  df,
+  dups,
   prop = 0.75,
   info2merge = c("tax", "geo", "loc"),
+  tax.name = "scientificName.new",
   tax.level = "high",
-  overwrite = FALSE
+  overwrite = FALSE,
+  ...
 )
 }
 \arguments{
-\item{df}{the input data frame.}
+\item{dups}{the input data frame.}
 
 \item{prop}{numerical. The threshold value of proportion of duplicated values
 retrieved (i.e. dup.prop) to enter the merging routine. Default to 0.75.}
@@ -32,7 +34,7 @@ created).}
 }
 \value{
 If `overwrite == FALSE`, the function returns the input data frame
-  \code{df} and the new columns containing the homogeneized information. The
+  \code{dups} and the new columns containing the homogeneized information. The
   names of thse columns are the same of the previous one but with an added
   suffix '1'. If `overwrite == TRUE`, the homogeneized information is saved
   on the same columns of the input data and the names of the columns ramin
@@ -43,7 +45,7 @@ This function homogenize the information of different groups of
   columns (taxonomic, geographic or locality) for groups of duplicate specimens.
 }
 \details{
-The input data frame \code{df} must contain the typicall columns
+The input data frame \code{dups} must contain the typicall columns
   resulting from __plantR__ workflow and functions. The characters that
   aggregate the occurrences into duplicates must be named 'dup.ID'. Depending
   on the type of merge desired (argument `info2merge`), a different set o
@@ -80,10 +82,10 @@ The input data frame \code{df} must contain the typicall columns
  group of duplicates is the one used as the standard.
 
  The columns necessary for the merging processes are the typical outputs from
- the **plantR** workflow. They are different for the merge of each group of
+ the __plantR__ workflow. They are different for the merge of each group of
  information:
 
- + Taxonomic: family.new, scientificName.new, identifiedBy.new,
+ + Taxonomic: family.new, scientificName/scientificName.new, identifiedBy.new,
  yearIdentified.new, tax.check
 
  + Geographic: decimalLatitude.new, decimalLongitude.new, origin.coord,

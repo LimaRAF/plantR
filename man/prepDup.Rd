@@ -14,7 +14,8 @@ prepDup(
     "col.number", "col.year"), c("col.year", "col.last.name", "col.number",
     "municipality")),
   ignore.miss = TRUE,
-  ignore.na = TRUE
+  ignore.na = TRUE,
+  ...
 )
 }
 \arguments{
@@ -29,6 +30,10 @@ to "s.n.".}
 \item{noNumb}{character. Standard for missing data in collector number. Default
 to "s.n.".}
 
+\item{comb.fields}{list. A list containing a vector with the occurrence
+information that should be used to construct the duplicate search strings.
+Default to TRUE. See Details.}
+
 \item{ignore.miss}{logical. Should the duplicate search strings with
 missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
 Default to TRUE.}
@@ -36,10 +41,6 @@ Default to TRUE.}
 \item{ignore.na}{character. Should the duplicate search strings with
 missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
 Default to TRUE.}
-
-\item{combo.fields}{list. A list containing a vector with the occurrence
-information that should be used to construct the duplicate search strings.
-Default to TRUE. See Details.}
 }
 \description{
 This function ...

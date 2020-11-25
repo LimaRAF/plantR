@@ -4,7 +4,7 @@ Date: 2020-07-30
 Title: Management of Plant Occurrence Records
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
-                     email = "renato.lima@naturalis.nl", 
+                     email = "raflima@usp.br", 
 	                   comment = c(ORCID = "0000-0002-1048-0138")),
               person("Sara", "R. Mortara", role = "aut", 
                      email = "saramortara@gmail.com"),
@@ -16,7 +16,7 @@ Author:
   Andrea Sánchez-Tapia [aut]
   Hans ter Steege [ctb]
   Marinez de Siqueira Ferreira [ctb]
-Maintainer: Renato A. F. de Lima <renato.lima@naturalis.nl>
+Maintainer: Renato A. F. de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
@@ -42,5 +42,9 @@ Imports:
     tidyr,
     flora,
     Taxonstand,
-    CoordinateCleaner
+    CoordinateCleaner,
+    igraph,
+    stringi
 VignetteBuilder: knitr
+Suggests: 
+    testthat

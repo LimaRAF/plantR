@@ -55,7 +55,7 @@ getAdmin(x = c("paraguay_paraguari",
                "brazil_rio janeiro_parati", # an example of a variant in the locality name
                "brazil_rio janeiro_paraty",
                "brazil_sao paulo_sao miguel arcanjo_pe carlos botelho",
-               "united states_florida") # existing and valid location but not in the default gazetteer
+               "united states_florida") # valid location but not in the default gazetteer
                )
 
 }

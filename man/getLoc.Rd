@@ -4,7 +4,7 @@
 \alias{getLoc}
 \title{Get Locality and Coordinates}
 \usage{
-getLoc(x, gazet = "plantR")
+getLoc(x, gazet = "plantR", ...)
 }
 \arguments{
 \item{x}{a data.frame containing the strings for locality search. See details
