@@ -71,11 +71,11 @@ The function puts the name of multiple persons into the format as
   tdwgNames("Gert G. Hatschbach")
 
   # Names with generational suffixes
-  tdwgNames("LeitÃ£o Filho, H.F.; Shepherd, G.J.")
+  tdwgNames("Leitão Filho, H.F.; Shepherd, G.J.")
   tdwgNames("Leitao Filho, HF") ## CHECK!
 
   # Compound last names
-  tdwgNames("A. Ducke; DÃ¡rdano de Andrade-Lima")
+  tdwgNames("A. Ducke; Dárdano de Andrade-Lima")
 
   # Multiple names separated by commas
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")

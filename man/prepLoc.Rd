@@ -22,7 +22,7 @@ The function removes unwanted hifens and prepositions of locality names
   prepLoc("Brazil_Rio de Janeiro")
   prepLoc("Brazil_Rio Grande do Sul_Coqueiros do Sul")
   prepLoc("Brazil_Bahia_Arraial d'Ajuda")
-  prepLoc("Brazil_SÃ£o Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
+  prepLoc("Brazil_São Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
 
 }
 \author{

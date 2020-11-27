@@ -5,12 +5,9 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
   - Renato A. F. de Lima^[Naturalis Biodiversity Center and Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
 output:
-    #distill::distill_article:
     rmarkdown::html_vignette:
-    #rmarkdown::html_document:
         toc: true
         number_sections: true
-        #theme: cerulean
     md_document:
       variant: gfm
 vignette: >
