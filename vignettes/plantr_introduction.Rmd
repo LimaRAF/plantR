@@ -33,36 +33,27 @@ devtools::load_all() # for development
 
 # Introduction
 
-Biological collections around the world are being digitalized and becoming
-increasingly available through data repositories (e.g. GBIF). This unprecedented
-availability of raw data greatly contributes to the advance of biodiversity
-studies. However, biological collections are quite variable in their
-documentation and notation standards. For different reasons, neither collections
-nor data repositories perform the cleaning, formatting and stantardizing of the
-data, leaving these steps to the final users of the species occurrence records.
-
-Managing the information linked to species records from biological collections
+The databases of biological collections are becoming increasingly available
+online, providing an unprecedented amount of species occurrence records for
+biodiversity studies. Managing the information associated with species records
 is an important but difficult task. The notation of collectors' names, numbers
 and dates vary between collections, and sometimes within them. In addition, it
 is often difficult to validate the localities, geographical coordinates and
 identifications associated with individual records, especially when working with
-thousands of them. Thus, having tools to perform the automatic processing and
-validation of species records can be quite handy.
-
-## Aims
+thousands or millions of them. Thus, having tools to process and validate large
+amounts of species records can be quite handy.
 
 __plantR__ is an R package that was developed to manage, standardize and
 validate the information associated with species occurrence records from
 biological collections (e.g. herbaria). It can be used for data coming from a
-single collection or different biodiversity databases, such as GBIF. 
+single collection or different biodiversity databases, such as [GBIF](https://www.gbif.org/). Therefore,
+__plantR__ can be used by collection curators to manage their databases and
+by the final users of the occurrence data (e.g. taxonomists, ecologists and
+conservationists), allowing the comparison of data across collections.
 
 ## Main features and workflow
 
-The package __plantR__ provide tools to standardize information for different fields, that can be used by collection curators to standardize their databases. This standardization also allows the comparison of occurrence data across collections, thus helping the final users (e.g. taxonomists, ecologists and conservationists) to conduct their research. 
-
-In addition to providing standardization tools, __plantR__ also proposes a
-comprehensive and reproducible workflow to handle data from biological
-collections, which includes:
+The package __plantR__ provides tools to standardize the information from typical fields of species occurrence records, such as collectors' and species names. However, __plantR__ also proposes a comprehensive and reproducible workflow to apply those tools while handling data from biological collections, which includes the following steps:
 
 1. the download of species occurrence records for a list of species names,
     collections codes or other search fields;
@@ -87,7 +78,7 @@ collections, which includes:
     
 ## Basic assumptions and limitations
 
-The tools provided by __plantR__ do not edit the original information. All the outputs of each editing or validation step are stored in new, separated columns added to the original data. This is important for the collection curation process because it allows the comparison between the original and edited information. However, it can almost double the number of columns in the dataset, which may become a problem while managing and saving big data sets.  
+The tools provided by __plantR__ do not edit the original information. All the outputs of each editing or validation step are stored in new, separated columns added to the original data. This is important for the collection curation process because it allows the comparison between the original and edited information. However, it can almost double the number of columns in the dataset, which may become a problem while managing and saving big datasets.  
 
 __plantR__ was initially developed to manage plant records from herbaria. Therefore, some of the tools offered by the package are exclusive to plants, particularly the checking of species names. However, some of its main features are expected to work for other groups of organisms as well, as long as the data structure is similar. 
 
@@ -249,5 +240,5 @@ Finally, __plantR__ exports data into a local folder, using function `saveData`,
 
 If you use the package, please cite it as: 
 
-Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing occurrence records from biological collections. In preparation.
+Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing species occurrence records. In preparation.
 

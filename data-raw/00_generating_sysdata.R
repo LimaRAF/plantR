@@ -8,7 +8,7 @@ library(dplyr)
 
 #1. from raw files to processed csv in dictionaries----
 
-#dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders
+#dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders within a github local repository
 dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
@@ -43,7 +43,6 @@ taxonomists <- dic$taxonomists[ ,c("order", "source", "family", "family.obs", "f
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
-#taxonomists <- taxonomists[!grepl('Floristics/Generalist \\(all families\\)|Wood anatomist', taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
 
 
@@ -83,6 +82,7 @@ gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
 priorities <- data.frame(source = unique(gazetteer$source), priority =
                            c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
+priorities
 #ast ö checar que a ordem seja esta
 gazetteer <- left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
@@ -163,6 +163,7 @@ wordsForSearch <- c("^prov\\. ",
                    "^departamento de ",
                    "^departamento del ",# I would add this it probably shows up
                    "^provincia de ",
+                   "^provincia del ",
                    "^província de ",
                    "^estado do ",
                    "^estado de ")
@@ -177,7 +178,7 @@ head(gazetteer)
 head(admin)
 head(replaceNames)
 
-dir.create("./data-raw/dictionaries")
+#dir.create("./data-raw/dictionaries")
 write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
 write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
 write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")

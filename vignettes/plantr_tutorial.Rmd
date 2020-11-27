@@ -144,9 +144,9 @@ The second warning is less important because it relates to optional fields.
 
 ## Standardizing people names, collector number and dates: function `formatOcc()`
 
-Particularly when working with data coming from multiple secondary sources, it is important
-to standardize the notation used by different collections and sometimes by
-different collectors within the same collection.
+Particularly when working with data coming from multiple secondary sources, it
+is important to standardize the notation used by different collections and
+sometimes by different collectors within the same collection.
 
 We first create the new columns that will receive the edited fields.
 
@@ -365,7 +365,7 @@ head(getAdmin(occs))
 ```
 
 
-## Editing geographical coordinates: functions `prepCoord()` and `workCoord()`
+## Editing geographical coordinates: functions `prepCoord()` and `getCoord()`
 
 Previous to the validation of the original geographical coordinates, it is
 important to make sure that they are given and if they are in the required

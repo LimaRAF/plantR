@@ -109,7 +109,7 @@ fixName <- function(x,
 
   #Remove special characters?
   if (special.char == FALSE) {
-    nomes <- replace_non_ascii(nomes)
+    nomes <- textclean::replace_non_ascii(nomes)
   }
 
   return(nomes)

@@ -5,3 +5,6 @@
 teste.R
 check_output.txt
 vignettes/results/
+results/
+worldMap_full.rda
+worldMap_0001.rda

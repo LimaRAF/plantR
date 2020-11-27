@@ -54,7 +54,7 @@ occs <- getCult(occs)
 
 
 ##Vinheta
-occs <- rspeciesLink(species = "Euterpe edulis")
+occs <- rspeciesLink(species = "Trema micrantha")
 occs <- fixField(occs$data, origin = "splink")
 occs <- formatOcc(occs)
 occs <- formatLoc(occs)

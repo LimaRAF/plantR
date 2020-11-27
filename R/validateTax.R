@@ -95,7 +95,6 @@ validateTax = function(x,
 
   if(!generalist) {
 
-    #### REMOVE THIS STEP FROM THE SYSDATA CODE !!!! ####
     autores <- autores[!grepl('Generalist', autores$family),]
 
   } else {

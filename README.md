@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 # plantR
 
-An R Package for the Management of Plant Occurrence Records
+An R Package for Managing Species Records from Biological Collections
 
 ## Description
 
@@ -26,11 +26,11 @@ The package gazetteer and the list of plant taxonomists are constantly being imp
 
 ## Authors and contributors
 
-Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Hans ter Steege & Marinez de Siqueira Ferreira
+Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Hans ter Steege & Marinez F. de Siqueira
 
 ## Citation
 
-Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing occurrence records from biological collections. In preparation.
+Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing species occurrence records. In preparation.
 
 ## Funding
 

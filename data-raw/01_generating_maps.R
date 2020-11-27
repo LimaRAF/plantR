@@ -8,11 +8,14 @@ devtools::load_all()
 ### WORLD MAP FOR VALIDATION ###
 ##Loading, editing and converting the world country shapefile
 path <- "E://ownCloud//W_GIS"
-wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
+#wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
+wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep=""))
+
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
 wo@data$pais <- countrycode(as.character(wo@data$GID_0),'iso3c', 'country.name')
 wo@data$pais[is.na(wo@data$pais)] <- as.character(wo@data$NAME_0[is.na(wo@data$pais)])
-wo@data$pais <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), wo@data$pais))
+#wo@data$pais <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), wo@data$pais))
+wo@data$pais <- tolower(textclean::replace_non_ascii(wo@data$pais))
 wo@data$pais <- stringr::str_replace_all(wo@data$pais,  " & ", " and ")
 wo@data$pais <- gsub("^st. ", "saint ", wo@data$pais)
 wo@data$pais <- gsub(" of the ", " ", wo@data$pais)
@@ -37,16 +40,25 @@ wo.simp <- gSimplify(wo, tol=0.001, topologyPreserve = TRUE)
 wo.simp <- gBuffer(wo.simp, byid=TRUE, width=0)
 wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
 worldMap <- sf::st_as_sf(wo.simp1)
+
+wo.simp2 <- gSimplify(wo, tol=0.0001, topologyPreserve = TRUE)
+wo.simp2 <- gBuffer(wo.simp2, byid=TRUE, width=0)
+wo.simp3 <- SpatialPolygonsDataFrame(wo.simp2, wo@data)
+worldMap_0001 <- sf::st_as_sf(wo.simp3)
+
 #wo.simp2 <- sf::st_buffer(wo.simp1, dist = 0)
+worldMap_full <- sf::st_as_sf(wo)
 
 #Inspecting
-# plot(wo[1,])
-# plot(wo.simp[1,], border = "red")
-# plot(worldMap[1,1], border = "green")
+par(mfrow = c(2,2), mar=c(0,0,1,0))
+plot(wo[1,], main="Aruba original")
+plot(wo.simp[1,], border = "red", main="Aruba gSimp 0.001")
+plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf")
 
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
-
+save(worldMap_0001, file = "./data/worldMap_0001.rda", compress = "xz")
+save(worldMap_full, file = "./data/worldMap_full.rda", compress = "xz")
 
 ### LATIN AMERICAN MAP FOR VALIDATION ###
 
@@ -67,11 +79,15 @@ iso3 <- countrycode::countrycode(c("Anguilla","Antigua and Barbuda","Argentina",
 path0 <- "E://ownCloud//W_GIS//Am_Lat_ADM_GADM_v3.6//"
 countries <- list.files(path0, full.name=TRUE)
 countries <- countries[grep(paste(iso3, collapse = "|") ,countries)]
-countries2 <- countries[grep('_2_sp.rds',countries)]
-adm2 <- sapply(strsplit(countries2, "_"), function(x) x[7])
+countries <- countries[grep("sf.rds",countries)]
+countries2 <- countries[grep('_2_sf.rds',countries)]
+countries3 <- countries[grep('_3_sf.rds',countries)]
+adm2 <- sapply(strsplit(countries2, "//|_"), function(x) x[10])
 #adm2 <- c("ARG","BOL","BRA","CHL","COL","ECU","GUY","GUF","SUR","PRY","PER","URY","VEN","MEX")
+adm3 <- sapply(strsplit(countries3, "//|_"), function(x) x[10])
+
 #countries2 <- countries2[grep(paste0(adm2, collapse = "|"),countries2)]
-countries1 <- countries[grepl('_1_sp.rds',countries) & !grepl(paste0(adm2, collapse = "|"),countries)]
+countries1 <- countries[grepl('_1_sf.rds',countries) & !grepl(paste0(adm2, collapse = "|"), countries)]
 adm1 <- sapply(strsplit(countries1, "_"), function(x) x[7])
 countries0 <- countries[grepl('_0_sp.rds',countries)  & !grepl(paste0(c(adm1,adm2), collapse = "|"), countries)]
 all.countries <- sort(c(adm1, adm2))
