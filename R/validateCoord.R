@@ -7,7 +7,6 @@
 #'
 #' @importFrom dplyr select one_of rename mutate if_else
 #' @importFrom tidyr separate
-#' @importFrom sp coordinates
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
 #x <- occs
 #no need to use the gazetteer
@@ -16,8 +15,6 @@ validateCoord <- function(x) {
   #   ### PRE-VALIDATION STEPS ###
   #   ##Loading the occurrence data
   #   ##Removing unwanted columns
-
-
   cols <- c("loc.correct",
             "latitude.gazetteer",
             "longitude.gazetteer",
@@ -25,18 +22,16 @@ validateCoord <- function(x) {
             "resolution.coord",
             "decimalLatitude.new",
             "decimalLongitude.new")
-  #cls <-   unique(cols[cols %in% names(x)])
-  #x1 <- x [,cls]
-  x1 <- dplyr::select(x, one_of(cols))
-  #x1$order <- 1:nrow(x1) #putting the data back on its original order
-
-#   ##Defining the country, state and county columns
-   x1 <- tidyr::separate(data = x1,
-                         col = loc.correct,
-                         sep = "_",
-                         into = c("country", "state", "county", "locality", "sublocality"),
-                          remove = FALSE)
-
+  cls <-  unique(cols[cols %in% names(x)])
+  x1 <- x[,cls]
+  x1$order <- 1:nrow(x1) #putting the data back on its original order. para o join
+  ##Defining the country, state and county columns
+   x1 <- tidyr::separate(
+    data = x1,
+    col = loc.correct,
+    sep = "_",
+    into = c("country", "state", "county", "locality", "sublocality"),
+    remove = FALSE)
    ##Creating the geo.check columns
    x1$geo.check <- NA
    x1$geo.check[x1$origin.coord %in% c("coord_original")] <-  "coord_original"
@@ -48,65 +43,59 @@ validateCoord <- function(x) {
    #tmp <- x1[x1$origin.coord %in% "coord_original", ]
    tmp <- x1
    tmp <- tmp[!is.na(tmp$decimalLongitude.new),]
-   tmp <- tmp[!is.na(tmp$decimalLatitude.new),]
+   tmp <- tmp[!is.na(tmp$decimalLatitude.new), ]
 
    ##Getting data frame with spatial coordinates (points) and standardizing the projection
-   sp::coordinates(tmp) <- c("decimalLongitude.new", "decimalLatitude.new")  # set spatial coordinates
-   tmp <- sf::st_as_sf(tmp, remove = FALSE)
+   tmp <- sf::st_as_sf(tmp, coords = c("decimalLongitude.new", "decimalLatitude.new"))
+   # set spatial coordinates
 
-   #@ast: assumindo que tudo é WGS84 msa isto tem que ser revisto desde prepCoord
-   prj <- st_crs(worldMap)
+   #ö @ast: assumindo que tudo é WGS84 mas isto tem que ser revisto desde prepCoord
+   prj <- st_crs(4326) #os dados estao em 4326
    tmp <- st_set_crs(tmp, prj)  # define projection system of our data
-   over_res <- st_join(tmp, worldMap, join = st_intersects)
-   #names(over_res) #este objeto não tem as colunas decimalLatitude/longitude.new porque são as coordinates
-   over_res <- rename(over_res, pais = NAME_0) #country from world - the output is already in the desired format <3
+   #ö ast: isto aqui só será necessário enquanto worldMap não estiver em 4326
+   wproj <- sf::st_transform(worldMap, prj)
 
+   over_res <- st_join(tmp, wproj, join = st_intersects)
+   over_res <- rename(over_res, pais_wo = NAME_0)
+    over_res #we'll have NAME_0 here
    ##Comparing the spatial data frame with the selected country shapefiles
    latam_all <- bind_rows(latamMap) #there is no need to keep them apart actually
    x2 <- st_join(over_res, latam_all, join = st_intersects)
-
+   x2 <- rename(x2, pais_latam = NAME_0)
    #ambos vetores de paises sao praticamente iguais mas a melhor resolução permite que alguns NA no mundo sejam países em latam
-   x2 <- rename(x2, pais_latam = NAME_0, estado = NAME_1, municipio = NAME_2)
    #checa diferencas paises e preenche com latam se faltar no mundo
-   x2 <- mutate(x2, pais = if_else(is.na(pais) & !is.na(pais_latam), pais_latam, pais))
-   #cria o vetor para checar
-   x2$loc.coord <- paste(x2$pais, x2$estado, x2$municipio, sep = "_")
-   x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA
+   x2 <- mutate(x2, NAME_0 = if_else(is.na(pais_wo) & !is.na(pais_latam), pais_latam, pais_wo))
+
+    #cria o vetor para checar
+   #aqui eu estava fazendo com paste mas acho que unite funciona melhor pois tira os NA se é necessário- se isto for feito do mesmo jeito nos mapas, o string vai ser igual...
+   #x2$loc.coord <- paste(x2$pais, x2$NAME_1, x2$NAME_2, x2$NAME_3, x2$NAME_4, sep = "_")
+   #x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA
+   x2 <- tidyr::unite(x2, loc.correct, any_of(paste0("NAME_", 0:4)), sep = "_", remove = F, na.rm = TRUE)
    # recupera todas as linhas
-   x3 <- left_join(x1, x2) #it works now :shrugs:
-   #st_coordinates(x2)#x3 is a dataframe, it does not have coordinates anymore
-   names(x3) #her şey güzel
+   x3 <- left_join(x1, x2)#it works better with an id
 
    ### GEO-VALIDATION STEPS ###
    ##1- Validating the coordinates at different levels - exact matchs
    #1.1 Cases with original coordinates but without country, state or county information (cannot check)
-   count(x3, geo.check)
-   x3$cannot.check[is.na(x3$geo.check) & !is.na(x3$decimalLatitude.new) & !is.na(x3$pais) & is.na(x3$loc.correct)] <- "cannot_check"
-   #there are no NAs so this does nothing
-   count(x3,cannot.check, geo.check) #6, 76, 16460
+   dplyr::count(x3, geo.check, NAME_0)
+   x3$cannot.check[is.na(x3$geo.check) & !is.na(x3$decimalLatitude.new) & !is.na(x3$NAME_0) & is.na(x3$loc.correct)] <- "cannot_check"
    #   #1.2 Country-level: good country? All countries
 
-   x3 <- dplyr::mutate(x3, country.check = if_else(#is.na(x3$geo.check) &               #not evaluated yet - this could be commented too perhaps but I keep the unevaluated just in case
-                                      #!is.na(x3$latitude.gazetteer) &   # with gazetteer data - can be commented
-                                      #!is.na(x3$decimalLatitude.new) &  # with obtained from gazetteer - can be commented
-                                      #!is.na(x3$country) &              # with original country data
-                                      #!is.na(x3$pais) &                 # with gazetter country data
-                                      x3$country == x3$pais,          # with or without differences between country and pais (from gazetteer)
-                                    "country_ok", "country_bad")) #if OK or not
-   count(x3, geo.check, country.check) #6, country_ok, no_coord 76, NA 328
+   x3$country.check <- if_else(x3$country == x3$NAME_0, "country_ok", "country_bad")
+  dplyr::count(x3, geo.check, country.check) #
 
    #1.3 State-level: good state? All countries
    x3 <- dplyr::mutate(x3, state.check = if_else(
      x3$state == x3$estado,          # with or without differences between state and estado (from gazetteer)
      "estado_ok", "estado_bad")) #if OK or not
-   count(x3, state.check)
-   count(x3, geo.check, country.check, state.check) #6, country_ok, no_coord 76, NA 328
+   dplyr::count(x3, state.check)
+   dplyr::count(x3, geo.check, country.check, state.check) #6, country_ok, no_coord 76, NA 328
 #   #1.4 County-level. All countries
    x3 <- dplyr::mutate(x3, county.check = if_else(
      x3$county == x3$municipio,          # with or without differences between county and mpo (from gazetteer)
      "county_ok", "county_bad")) #if OK or not
-   count(x3, county.check) #6, country_ok, no_coord 76, NA 328
-   count(x3, geo.check, country.check, state.check, county.check) #6, country_ok, no_coord 76, NA 328
+   dplyr::count(x3, county.check) #6, country_ok, no_coord 76, NA 328
+   dplyr::count(x3, geo.check, country.check, state.check, county.check) #6, country_ok, no_coord 76, NA 328
 }
 ######fiquei aqui
 
