@@ -6,12 +6,26 @@ require(countrycode)
 devtools::load_all()
 
 ### WORLD MAP FOR VALIDATION ###
+##new sf files
+destfolder <- "vrac/latam"
+if (!exists(destfolder)) dir.create(destfolder, recursive = T)
+purrr::walk2(.x = rep(iso3, each = 5),
+             .y = rep(4:0, length(countries)),
+             ~ getGADM(
+               cod = .x,
+               level = .y,
+               best = FALSE, #importante para ter outros niveis
+               destfolder = destfolder
+             ))
+gadm_files <- list.files(destfolder, pattern = "rds$",
+                         full.names = TRUE)
+
 ##Loading, editing and converting the world country shapefile
 path <- "E://ownCloud//W_GIS"
 #wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
 wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep=""))
-
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
+
 wo@data$pais <- countrycode(as.character(wo@data$GID_0),'iso3c', 'country.name')
 wo@data$pais[is.na(wo@data$pais)] <- as.character(wo@data$NAME_0[is.na(wo@data$pais)])
 #wo@data$pais <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), wo@data$pais))
@@ -83,6 +97,7 @@ countries <- countries[grep("sf.rds",countries)]
 countries2 <- countries[grep('_2_sf.rds',countries)]
 countries3 <- countries[grep('_3_sf.rds',countries)]
 adm2 <- sapply(strsplit(countries2, "//|_"), function(x) x[10])
+
 #adm2 <- c("ARG","BOL","BRA","CHL","COL","ECU","GUY","GUF","SUR","PRY","PER","URY","VEN","MEX")
 adm3 <- sapply(strsplit(countries3, "//|_"), function(x) x[10])
 
@@ -96,15 +111,18 @@ countries <- sort(c(countries1, countries2))
 
 country.list <- vector('list', length(countries))
 pais = NULL
+wo <- readRDS(gadm_files)
+wo <- purrr::map(gadm_files, .f = function(x) readRDS(file = x))
+
 for (i in 1:length(country.list)) {
   path = countries[i]
   tmp = readRDS(path)
   tmp1 = tmp@data
   tmp1 = tmp1[,grepl("^NAME_", names(tmp1))]
 
-  #country
-  tmp1$NAME_0 <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), tmp1$NAME_0))
-  tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
+#country
+tmp1$NAME_0 <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), tmp1$NAME_0))
+tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
   tmp1$NAME_0 <- gsub("^st. ", "saint ", tmp1$NAME_0)
   tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
   tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
@@ -125,8 +143,7 @@ for (i in 1:length(country.list)) {
   tmp1$NAME_1 <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), tmp1$NAME_1))
   tmp1$NAME_1 <- plantR::prepLoc(tmp1$NAME_1)
 
-  #ADM_2
-  if("NAME_2" %in% names(tmp1)) {
+    if ("NAME_2" %in% names(tmp1)) {
     tmp1$NAME_2 <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), tmp1$NAME_2))
     tmp1$NAME_2 <- plantR::prepLoc(tmp1$NAME_2)
   }
