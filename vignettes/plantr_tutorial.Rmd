@@ -444,10 +444,8 @@ The editing process of locality information and its comparison against the
 gazetteer return the localities (and coordinates) at the best resolution
 available. In this comparison, much information provided at the locality level
 is only retrieved at the municipality level, which is expected due to the
-completeness of the gazetteer used (not all localities are stored in the
-standard __plantR__ gazetteer). But many of them are only retrieved at
-state/province level, meaning that fields containing state and municipality
-information may need to be checked.
+completeness of the gazetteer used (not all place names are stored in the
+standard __plantR__ gazetteer at the locality level). But many of them are only retrieved at state/province level, meaning that fields containing state and municipality information may need to be checked.
 
 In __plantR__ the resolution of the locality information provided with the
 specimen and the one found in the gazetteer are described using the function
@@ -503,7 +501,7 @@ table(occs$cult.check)
 
 ### Verification of inverted and swapped coordinates
 
-### Flagging based on coordinate resoltuion and distance from the target county
+### Flagging based on coordinate resolution and distance from the target county
 
 ### Replacing coordinates according to the verified classes
 
@@ -571,7 +569,7 @@ occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G."))
 table(occs1$tax.check)/dim(occs)[1]
 ```
 
-This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the __plantR__ default taxonist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalists is biased towards South America, particularly Brazil.
+This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the __plantR__ default taxonomist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalist names is biased towards South America, particularly Brazil.
 
 <br/><br/>
 
@@ -580,7 +578,7 @@ This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Sa
 ## Prepare to merge: function `prepDup()`
 
 First we need to prepare the dataset for the duplicate search. The function 
-`prepDup` basically creates concatenated strings with different set of species information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
+`prepDup` basically creates concatenated strings with different set of information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
 
 ```{r, eval = FALSE}
 dups <- prepDup(occs, 
@@ -601,7 +599,7 @@ table(dups$dup.prop)
 ```
 As a result we found about 5300 specimens with a high chance of representing true duplicates, i.e. the proportion of search strings shared between them is maximum (dup.prop = 1). Other ~300 specimens had only one search string in common. Moreover, we have indication of possible ~4600 unicates, and for other ~6800 specimens we could not check for dupicates (i.e. all search strings used have missing information).
 
-Note that if there are duplicated entries (i.e. same acession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
+Note that if there are duplicated entries (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
 
 It is important to notice that these duplicate search results are only indications. First of all, the retrievel of duplicates depend on the dataset itself: if the collection were the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they could not enter the duplicate search.  
 
@@ -619,7 +617,7 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Next, we use function `mergeDup` to perform the homogenization itself, which aims at expanding the highest-quality information found across all specimens of each group of duplicate. 
+Next, we use function `mergeDup` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
 
 ```{r, eval = FALSE}
 occs <- mergeDup(occs)
@@ -633,6 +631,7 @@ Note that we used the function defaults, which created new columns for the merge
 ## Removing duplicates after homogenization: function `rmDup()`
 
 `plantR` provides a simple function for the (fast) removal of duplicates from the data. This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. Only the first specimen of each group of duplicates is maintained and the non-homogenized information contained in the other specimens is lost. 
+
 
 ```{r, eval = FALSE}
 dim(occs)

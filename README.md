@@ -22,7 +22,7 @@ library("plantR")
 
 The plantR project is hosted on [GitHub](https://github.com/LimaRAF/plantR/). Please, report any bugs and suggestions of improvements for the package [here](https://github.com/LimaRAF/plantR/issues).
 
-The package gazetteer and the list of plant taxonomists are constantly being improved. If you want to contribute with regional gazetteers or with missing names of plant taxonomists, please e-mail to <raflima@usp.br>.
+The package gazetteer and the list of taxonomists are constantly being improved. If you want to contribute with regional gazetteers or with missing names of taxonomists, please e-mail to <raflima@usp.br>.
 
 ## Authors and contributors
 
@@ -30,7 +30,7 @@ Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Hans ter Steege & 
 
 ## Citation
 
-Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing species occurrence records. In preparation.
+Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing species records from biological collections. In preparation.
 
 ## Funding
 
@@ -38,4 +38,4 @@ The development of this package was supported by the European Union’s Horizon 
 
 ## Acknowledgements
 
-We thank Sidnei Souza from speciesLink for his help with the network API. We also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the [TreeCo database](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start) for providing many of the localities used to construct the package gazetteer.
+We thank Sidnei Souza from speciesLink for his help with the web API. We also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the [TreeCo database](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start) for providing many of the localities used to construct the package gazetteer. We also thank Vinícius C. Souza (ESALQ/USP) who helped to validate and improve the list of plant taxonomists used in the package.
