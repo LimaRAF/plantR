@@ -34,9 +34,9 @@ Currently, the function does not differentiate missing coordinates from those
 ## Creating some geographical coordinates in different formats
 (coords <- data.frame(decimalLatitude = c(-23.475389, "-23,475389",
  "23o 28' 31.40\"S", -93.475389,
- 0, "missing", "blocked", NA, "23Â° 28.5233'S","283088.52 E"),
+ 0, "missing", "blocked", NA, "23° 28.5233'S","283088.52 E"),
  decimalLongitude = c(-47.123768, "-47,123768", "47o 07' 25.56\"W", -47.123768,
- 0, "missing", "blocked", NA, "47Â° 07.4260'W","7402251.30 S")))
+ 0, "missing", "blocked", NA, "47° 07.4260'W","7402251.30 S")))
 
 ## Formatting the geographical coordinates
 prepCoord(coords)

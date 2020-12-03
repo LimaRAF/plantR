@@ -3,29 +3,18 @@
 #' @description This function...
 #'
 #' @param x Data.frame with coordinates in decimal degrees.
-#' @param parallel Logical. Parallelize or not.
 #'
 #'
-#' @importFrom dplyr select one_of rename mutate if_else
+#' @importFrom dplyr select one_of rename mutate if_else filter ends_with
 #' @importFrom tidyr separate
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
-validateCoord <- function(x,
-                          lat = "decimalLatitude.new",
-                          lon = "decimalLongitude.new") {
+validateCoord <- function(x) {
   # ##Getting the file paths for the herbarium data
   #   ### PRE-VALIDATION STEPS ###
   #   ##Loading the occurrence data
   #   ##Removing unwanted columns
-  cols <- c("loc.correct",
-            "latitude.gazetteer",
-            "longitude.gazetteer",
-            "origin.coord",
-            "resolution.coord",
-            "decimalLatitude.new",
-            "decimalLongitude.new")
-  cls <-  unique(cols[cols %in% names(x)])
-  x1 <- x[,cls]
-  x1$order <- 1:nrow(x1) #putting the data back on its original order. para o join
+  x1 <- x
+  x1$order <- 1:nrow(x) #putting the data back on its original order. para o join
   x1$loc.correct[x1$loc.correct == "no_loc"] <- NA
   ##Defining the country, state and county columns
   x1 <- tidyr::separate(
@@ -77,48 +66,42 @@ validateCoord <- function(x,
   ##1- Validating the coordinates at different levels - exact matchs
   #1.1 Cases with original coordinates but without country, state or county information
   #(cannot check)
-  #dplyr::count(x3, geo.check == "coord_original", is.na(country)) #2012, 9063, 45
-  #dplyr::count(x3, is.na(decimalLatitude.new), is.na(NAME_0)) #2012, 9063, 45
   x3$geo.check[is.na(x3$decimalLatitude.new) & is.na(x3$NAME_0) ] <- "cannot_check"
   #   #1.2 Country-level: good country? All countries
   x3$country.check <- if_else(x3$country == x3$NAME_0, "country_ok", "country_bad")
-  #x3 %>% filter(country.check == "country_bad") %>%
-   # dplyr::count(geo.check, country.check, NAME_0) #
-  bad_countries <- filter(x3, country.check == "country_bad")
-  bad_countries <<- select(bad_countries,
-                          order,
-                          NAME_0,
-                          country,
-                          decimalLatitude.new,
-                          decimalLongitude.new,
-                          latitude.gazetteer,
-                          longitude.gazetteer)
+  # bad_countries <- filter(x3, country.check == "country_bad")
+  # bad_countries <<- select(bad_countries,
+  #                         order,
+  #                         NAME_0,
+  #                         country,
+  #                         decimalLatitude.new,
+  #                         decimalLongitude.new,
+  #                         latitude.gazetteer,
+  #                         longitude.gazetteer)
    #1.3 State-level: good state? All countries
    x3$state.check <- if_else(x3$state == x3$NAME_1, "estado_ok", "estado_bad")
 
-   bad_states <- filter(x3, state.check == "estado_bad")
-   bad_states <<- select(bad_states,
-                        order,
-                        NAME_1,
-                        state,
-                        decimalLatitude.new,
-                        decimalLongitude.new,
-                        latitude.gazetteer,
-                        longitude.gazetteer)
-   #dplyr::count(x3, geo.check, country.check, state.check) #6, country_ok, no_coord 76, NA 328
+   # bad_states <- filter(x3, state.check == "estado_bad")
+   # bad_states <<- select(bad_states,
+   #                      order,
+   #                      NAME_1,
+   #                      state,
+   #                      decimalLatitude.new,
+   #                      decimalLongitude.new,
+   #                      latitude.gazetteer,
+   #                      longitude.gazetteer)
 #   #1.4 County-level. All countries
    x3$county.check <- if_else(x3$county == x3$NAME_2, "county_ok", "county_bad") #if OK or not
-   bad_counties <- filter(x3, county.check == "county_bad")
-   bad_counties <<- select(bad_counties,
-                          order, NAME_2, county, NAME_1, state, NAME_0, country,
-                          decimalLatitude.new,
-                          decimalLongitude.new,
-                          latitude.gazetteer,
-                          longitude.gazetteer)
-   #count(bad_counties, country, NAME_0) %>% arrange(desc(n))
-   #count(bad_counties, country, NAME_0, state, NAME_1) %>% arrange(desc(n))
-   #count(bad_counties, state, NAME_1, county, NAME_2) %>% arrange(desc(n))
-   x3 <- tidyr::unite(x3, coord.check, ends_with("check"), sep = "/", na.rm = TRUE)
+   #bad_counties <- dplyr::filter(x3, county.check == "county_bad")
+   #bad_counties <<- select(bad_counties,
+    #                      order, NAME_2, county, NAME_1, state, NAME_0, country,
+     #                     decimalLatitude.new,
+      #                    decimalLongitude.new,
+       #                   latitude.gazetteer,
+        #                  longitude.gazetteer)
+x3 <- tidyr::unite(x3, "coord.check", ends_with("check"), sep = "/", na.rm = TRUE)
    return(x3)
    }
 
+#occs <- readr::read_csv("data-raw/occs_for_geographic_validation.csv")
+#names(occs)

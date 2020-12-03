@@ -8,8 +8,6 @@ validateCoord(x)
 }
 \arguments{
 \item{x}{Data.frame with coordinates in decimal degrees.}
-
-\item{parallel}{Logical. Parallelize or not.}
 }
 \description{
 This function...

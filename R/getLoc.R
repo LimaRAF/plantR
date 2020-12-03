@@ -172,8 +172,8 @@ getLoc <- function(x, gazet = "plantR", ...) {
   }
 
   ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation...)
-  if("loc.string2" %in% names(x1)) {
-    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors= FALSE),
+  if ("loc.string2" %in% names(x1)) {
+    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors = FALSE),
                              dic[,c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")],
                              by = "loc")
     # replacing coordinates at state level by those found at county level

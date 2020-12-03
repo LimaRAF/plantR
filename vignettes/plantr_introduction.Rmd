@@ -179,7 +179,10 @@ occs <- validateLoc(occs)
 
 #### Geographical coordinates
 
-[TO BE FINISHED] 
+ 
+```{r}
+occs <- validateCoord(occs)
+```
 
 
 #### Species taxonomy and identification
@@ -244,7 +247,7 @@ If you use the function `prepSpecies`, please also cite the following packages (
 
 Carvalho, G. (2019) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
 
-Cayuela, L., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxo-355nomic Standardization of Plant Species Names. R package version 2.1.
+Cayuela, L., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxonomic Standardization of Plant Species Names. R package version 2.1.
   https://CRAN.R-project.org/package=Taxonstand
 
 If you use the function `rgbif2`, please also cite the following package:

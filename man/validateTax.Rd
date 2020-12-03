@@ -33,6 +33,9 @@ that should be added to the validation?}
 \item{taxonomist.list}{a data.frame containing the list of taxonomist names. The
 default is "plantR", the internal `plantR` global database of plant
 taxonomists (see Details).}
+
+\item{top.det}{numerical. How many of the top missing identifiers should be printed?
+Default to 10.}
 }
 \description{
 This function assigns different categories of confidence level
