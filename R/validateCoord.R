@@ -66,9 +66,9 @@ validateCoord <- function(x) {
   ##1- Validating the coordinates at different levels - exact matchs
   #1.1 Cases with original coordinates but without country, state or county information
   #(cannot check)
-  x3$geo.check[is.na(x3$decimalLatitude.new) & is.na(x3$NAME_0) ] <- "cannot_check"
+  x3$geo.check[is.na(x3$decimalLatitude.new) & is.na(x3$NAME_0) ] <- "no_cannot_check"
   #   #1.2 Country-level: good country? All countries
-  x3$country.check <- if_else(x3$country == x3$NAME_0, "country_ok", "country_bad")
+  x3$country.check <- if_else(x3$country == x3$NAME_0, "ok_country", "country_bad")
   # bad_countries <- filter(x3, country.check == "country_bad")
   # bad_countries <<- select(bad_countries,
   #                         order,
@@ -79,7 +79,7 @@ validateCoord <- function(x) {
   #                         latitude.gazetteer,
   #                         longitude.gazetteer)
    #1.3 State-level: good state? All countries
-   x3$state.check <- if_else(x3$state == x3$NAME_1, "estado_ok", "estado_bad")
+   x3$state.check <- if_else(x3$state == x3$NAME_1, "ok_state", "estado_bad")
 
    # bad_states <- filter(x3, state.check == "estado_bad")
    # bad_states <<- select(bad_states,
@@ -91,7 +91,7 @@ validateCoord <- function(x) {
    #                      latitude.gazetteer,
    #                      longitude.gazetteer)
 #   #1.4 County-level. All countries
-   x3$county.check <- if_else(x3$county == x3$NAME_2, "county_ok", "county_bad") #if OK or not
+   x3$county.check <- if_else(x3$county == x3$NAME_2, "ok_county", "county_bad") #if OK or not
    #bad_counties <- dplyr::filter(x3, county.check == "county_bad")
    #bad_counties <<- select(bad_counties,
     #                      order, NAME_2, county, NAME_1, state, NAME_0, country,
@@ -99,7 +99,7 @@ validateCoord <- function(x) {
       #                    decimalLongitude.new,
        #                   latitude.gazetteer,
         #                  longitude.gazetteer)
-x3 <- tidyr::unite(x3, "coord.check", ends_with("check"), sep = "/", na.rm = TRUE)
+x3 <- tidyr::unite(x3, "loc.check", ends_with("check"), sep = "/", na.rm = TRUE)
    return(x3)
    }
 
