@@ -14,6 +14,9 @@ accessory_files/
 teste.R
 check_output.txt
 R/validateCoord2.R
+R/checkInverted.R
+R/checkBorder.R
+R/test_val.R
 
 # ignoring file that generates sysdata
 data-raw/
