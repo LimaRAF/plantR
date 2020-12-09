@@ -48,9 +48,11 @@
 #' @examples
 #' # Creating a data frame with locality information
 #' (occs <- data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
-#'                     stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais", "Minas Gerais"),
-#'                     municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
-#'                     locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais, municipio Lavras", NA)))
+#' stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais",
+#' "Minas Gerais"),
+#' municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
+#' locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais,
+#' municipio Lavras", NA)))
 #'
 #' # Formating the locality information
 #' fixLoc(occs, scrap = FALSE)
@@ -63,7 +65,7 @@
 #'
 fixLoc <- function(x,
                    admin.levels = c("country", "stateProvince", "municipality", "locality"),
-                   scrap = TRUE) {
+                   scrap = TRUE, ...) {
 
   ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
 

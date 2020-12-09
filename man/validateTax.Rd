@@ -10,7 +10,8 @@ validateTax(
   generalist = FALSE,
   generalist.class = "medium",
   miss.taxonomist = NULL,
-  taxonomist.list = "plantR"
+  taxonomist.list = "plantR",
+  top.det = 10
 )
 }
 \arguments{
@@ -32,34 +33,46 @@ that should be added to the validation?}
 \item{taxonomist.list}{a data.frame containing the list of taxonomist names. The
 default is "plantR", the internal `plantR` global database of plant
 taxonomists (see Details).}
+
+\item{top.det}{numerical. How many of the top missing identifiers should be printed?
+Default to 10.}
 }
 \description{
-This function ...
+This function assigns different categories of confidence level
+(i.e. high, medium, low or unknown) to the identification of species records.
 }
 \details{
-The input data frame \code{x} must contain at least the columns
-'family.new' and 'identifiedBy.new'. Preferably, this data frame should also contain
-the columns 'typeStatus' and 'recordedBy.new'.
+The input data frame \code{x} must contain at least the columns 'family.new'
+and 'identifiedBy.new'. Preferably, this data frame should also contain the
+columns 'typeStatus' and 'recordedBy.new'.
 
-By default the function classifies as high confidence level all
-  species identifications performed by the family specialist or any type
-  specimens (isotype, paratypes, etc).
+By default, the function classifies as high confidence level all species
+identifications performed by the family specialist or any type specimens
+(isotype, paratypes, etc).
 
-(DESCRIBE ARGUMENT special.collector)
+Some specimens are collected by a specialist of the family, but the
+identifier information is missing. By default, we assume the same confidence
+level for these specimens as that assigned for specimens where the identifier
+is the family specialist. But users can choose otherwise by setting the
+argument `special.collector` to FALSE.
 
-(DESCRIBE ARGUMENT generalist and generalist.class)
-
+The arguments `generalist` and `generalist.class` define if taxonomists that
+provide identifications for many different families outside his specialty,
+often referred to as a generalist, should be considered in the validation and
+under which confidence level. There are some names of generalists in the
+__plantR__ default taxonomist database; however, this list of generalist
+names is currently biased towards South America, particularly Brazil.
 
 If you miss the validation from one or more taxonomists, you can provide one
-  or more taxonomists using argument `miss.taxonomist`. The format that should
-  be provided is the name of her/his family of speciality followed by an
-  undersoce and then his name on the TDWG format (e.g. "Bignoniaceae_Gentry,
-  A.H.").
+or more taxonomists using the argument `miss.taxonomist`. The format that should
+be provided is the name of her/his family of specialty followed by an
+underscore and then his name on the TDWG format (e.g. "Bignoniaceae_Gentry,
+A.H.").
 
 A database of taxonomists different than the `plantR` default can be used.
- This database must be provided using the argument `taxonomist.list` and it must
- contain the columns 'family' and 'tdwg.name'. The first column is the family
- of speciality of the taxonomist and the second one is her/his name in the TDWG
- format. See `plantR` function tdwgName or tdwgNames on how to get names in
- the TDWG format from a list of people's name.
+This database must be provided using the argument `taxonomist.list` and it
+must contain the columns 'family' and 'tdwg.name'. The first column is the
+family of specialty of the taxonomist and the second one is her/his name in
+the TDWG format. See `plantR` function tdwgName or tdwgNames on how to get
+names in the TDWG format from a list of people's names.
 }

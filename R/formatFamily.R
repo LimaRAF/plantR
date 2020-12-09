@@ -50,9 +50,9 @@
 formatFamily <- function(x) {
 
   #Avoiding warnings in package check when using data.table
-  "family" <- "flora.br" <- "genus" <- NULL
-  "name.correct" <- "name.correct.y" <- NULL
-  "scientificName" <- "string.plantr" <- NULL
+  family <- flora.br <- genus <- NULL
+  name.correct <- name.correct.y <- NULL
+  scientificName <- string.plantr <- NULL
 
   # Getting the dictionaries
   families.apg <- familiesSynonyms
@@ -62,14 +62,14 @@ formatFamily <- function(x) {
   data.table::setkeyv(dt, c("family"))
   families.data <- dt[, list(genus = unique(genus)), by = "family"]
   families.data <- merge(families.data,
-                          families.apg[, c("name", "name.correct")],
+                         families.apg[, c("name", "name.correct")],
                          by.x = "family", by.y = "name", all.x = TRUE)
 
   # Getting missing family names from Brazilian Flora 2020
   data.table::setkeyv(dt, c("genus"))
   families.data[, flora.br := flora::get.taxa(genus, suggestion.distance = 0.95, drop <-NULL)$family,
                 by = "genus"]
-  families.data$flora.br[5] <- NA
+  #families.data$flora.br[5] <- NA  ##Don't know why this code was here; commenting but not removing right now
   families.data[(is.na(family) | is.na(name.correct) & !is.na(flora.br)),
                 name.correct :=  flora.br, ]
 
@@ -77,7 +77,7 @@ formatFamily <- function(x) {
   print.problems <- unique(families.data[!is.na(flora.br) & name.correct != flora.br, , ])
 
   if (dim(print.problems)[1] > 0) {
-    warning("The following family names are problematic and were automatically replaced:",
+    warning("The following family names were automatically replaced:",
             call. = FALSE)
     warning(paste0(print.problems$genus,": ", print.problems$family, " -> ", print.problems$flora,"\n"),
             call. = FALSE)
@@ -90,7 +90,7 @@ formatFamily <- function(x) {
                      list(genus = unique(genus), species = unique(scientificName)),
                      by = "family"]
     families.data[family %in% miss.families,
-                     name.correct := Taxonstand::TPL(genus.data$species, corr = FALSE, drop.lower.level = TRUE)$Family, ]
+                  name.correct := Taxonstand::TPL(genus.data$species, corr = FALSE, drop.lower.level = TRUE)$Family, ]
     #Trying to solve remaining problems internally
     #families.data[family %in% miss.families, lapply(.SD, na.omit), by = list(genus)]
   }
@@ -107,9 +107,9 @@ formatFamily <- function(x) {
   # Merging the results by family X genus with the occurrence data
   dt[, string.plantr := paste(family, genus, sep="_"), ]
   families.data[, string.plantr := paste(family, genus, sep="_"), ]
-  dt <- merge(dt,
-               families.data[,c("string.plantr","name.correct.y")],
-               by = "string.plantr", all.x = TRUE)
+  dt <- data.table::merge.data.table(dt,
+                                     families.data[,c("string.plantr","name.correct.y")],
+                                     by = "string.plantr", all.x = TRUE)
   dt[, string.plantr := NULL, ]
   data.table::setnames(dt, dim(dt)[2], 'family.new')
 

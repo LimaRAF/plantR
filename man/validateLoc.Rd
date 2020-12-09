@@ -7,21 +7,25 @@
 validateLoc(x)
 }
 \arguments{
-\item{x}{a data frame.}
+\item{x}{a data frame. Needs to have the following fields: resol.orig,
+resolution.gazetteer}
 }
 \value{
-the data frame \code{x} with a new column with the result of the checking process.
+the data frame \code{x} with a new column with the result of the
+checking process.
 }
 \description{
-Compare the resolution of the original locality information provided with the
-one retrieved from the gazetteer.
+Compares the resolution of the original locality information
+provided with the one retrieved from the gazetteer.
 }
 \details{
-The function simply compares if the original information provided with each specimen is found
-in the locality gazetteer and at which resolution (i.e. country, state, municipality). This comparison
-is strongly dependent on the completeness of the gazetteer used and please remind that the gazetteer
-provided with `plantR` is srongly biased towards Latin America, particularly Brazil.
+The function simply compares if the original information provided
+with each specimen is found in the locality gazetteer and at which resolution
+(i.e. country, state, municipality). This comparison is strongly dependent on
+the completeness of the gazetteer used. Please remind that the gazetteer
+provided with `plantR` is strongly biased towards Latin America, particularly
+Brazil.
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

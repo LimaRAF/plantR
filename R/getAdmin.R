@@ -46,7 +46,7 @@
 #'                "brazil_rio janeiro_parati", # an example of a variant in the locality name
 #'                "brazil_rio janeiro_paraty",
 #'                "brazil_sao paulo_sao miguel arcanjo_pe carlos botelho",
-#'                "united states_florida") # existing and valid location but not in the default gazetteer
+#'                "united states_florida") # valid location but not in the default gazetteer
 #'                )
 #'
 #' @importFrom dplyr left_join
@@ -57,11 +57,13 @@ getAdmin <- function(x, admin.names = "plantR") {
 
   ## check input:
     if (class(x) == "data.frame") {
-      if (!any(grepl("^loc.correct$", names(x)))) { stop("input object needs to have a column loc.correct with the locality strings") }
-      x1 <- x[which(colnames(x) %in% c("loc.correct"))]
-      } else {
+      if (!any(grepl("^loc.correct", names(x))))
+        stop("input object needs to have a column loc.correct with the locality strings")
+      x1 <- x[tail(grep("^loc.correct", names(x)), 1)]
+      names(x1) <- gsub('[0-9]', '', names(x1))
+    } else {
         x1 <- data.frame(loc.correct = x, stringsAsFactors = FALSE)
-        }
+    }
 
   ## Getting the administrative levels
     if (all(admin.names %in% c("plantR","plantr"))) {
@@ -72,6 +74,30 @@ getAdmin <- function(x, admin.names = "plantR") {
 
   ## Crossing the strings with the administrative levels
     tmp <- dplyr::left_join(x1, dic, by = "loc.correct")
+
+  ## Second try, after excluding the 4th adm. level
+    if (any(is.na(tmp$NAME_0) & is.na(tmp$NAME_1))) {
+      tmp1 <- tmp[is.na(tmp$NAME_0) & is.na(tmp$NAME_1), "loc.correct"]
+      tmp1 <- data.frame(loc.correct =
+                sapply(
+                  strsplit(tmp1, "_"),
+                      function(x) paste0(head(x, -1), collapse = "_")
+      ), stringsAsFactors = FALSE)
+      tmp1 <- dplyr::left_join(tmp1, dic, by = "loc.correct")
+      tmp[is.na(tmp$NAME_0) & is.na(tmp$NAME_1), ] <- tmp1
+    }
+
+    ## Third try, after excluding the 3rd and 4th adm. level
+    if (any(is.na(tmp$NAME_0))) {
+      tmp1 <- tmp[is.na(tmp$NAME_0), "loc.correct"]
+      tmp1 <- data.frame(loc.correct =
+                           sapply(
+                             strsplit(tmp1, "_"),
+                             function(x) paste0(head(x, -2), collapse = "_")
+                           ), stringsAsFactors = FALSE)
+      tmp1 <- dplyr::left_join(tmp1, dic, by = "loc.correct")
+      tmp[is.na(tmp$NAME_0), ] <- tmp1
+    }
 
   ## Filtering the result and returning
     result <- tmp[ ,c("loc.correct","NAME_0","NAME_1","NAME_2","NAME_3","source")]

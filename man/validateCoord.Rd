@@ -7,7 +7,7 @@
 validateCoord(x)
 }
 \arguments{
-\item{x}{Coordinates in decimal degrees}
+\item{x}{Data.frame with coordinates in decimal degrees.}
 }
 \description{
 This function...

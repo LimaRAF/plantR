@@ -26,7 +26,6 @@ prepLoc <- function(x) {
   # Removing unwanted characters
   x <- tolower(textclean::replace_non_ascii(x))
 
-
   # Correcting NAs converted to lower caracters
   x <- gsub("_na_", "_NA_", x)
   x <- gsub("_na_", "_NA_", x)

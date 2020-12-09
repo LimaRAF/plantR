@@ -16,7 +16,7 @@
 #' provided with `plantR` is strongly biased towards Latin America, particularly
 #' Brazil.
 #'
-#' @author Lima, R.A.F.
+#' @author Renato A. F. de Lima
 #'
 #' @export validateLoc
 #'
@@ -25,10 +25,10 @@ validateLoc <- function(x) {
   ## check input:
   if (!class(x) == "data.frame") {
     stop("input object needs to be a data frame!")
-    }
+  }
   if (!all(c("resol.orig","resolution.gazetteer") %in% colnames(x))) {
     stop("input object needs to have the following fields: resol.orig, resolution.gazetteer")
-    }
+  }
 
   ## putting the input data in the right order
   x1 <- x[, which(colnames(x) %in% c("resol.orig","resolution.gazetteer"))]
@@ -38,61 +38,61 @@ validateLoc <- function(x) {
   resol.gazet <- gsub("county", "municipality", resol.gazet)
   resol.gazet[is.na(resol.gazet)] <- "no_info"
   x1$loc.check <- resol.gazet == x1$resol.orig
-    # OK: change to a better resolution
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "locality" &
-                   x1$resol.orig %in% "country"] = "ok_country2locality"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "municipality" &
-                   x1$resol.orig %in% "country"] = "ok_country2municip."
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "stateProvince" &
-                   x1$resol.orig %in% "country"] = "ok_country2state"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "locality" &
-                   x1$resol.orig %in% "stateProvince"] = "ok_state2locality"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "municipality" &
-                   x1$resol.orig %in% "stateProvince"] = "ok_state2municip."
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "locality" &
-                   x1$resol.orig %in% "municipality"] = "ok_municip.2locality"
+  # OK: change to a better resolution
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "locality" &
+                 x1$resol.orig %in% "country"] = "ok_country2locality"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "municipality" &
+                 x1$resol.orig %in% "country"] = "ok_country2municip."
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "stateProvince" &
+                 x1$resol.orig %in% "country"] = "ok_country2state"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "locality" &
+                 x1$resol.orig %in% "stateProvince"] = "ok_state2locality"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "municipality" &
+                 x1$resol.orig %in% "stateProvince"] = "ok_state2municip."
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "locality" &
+                 x1$resol.orig %in% "municipality"] = "ok_municip.2locality"
 
-    # Mismatches (check): locality info is given but was not found in the gazetteer
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "no_info" &
-                   x1$resol.orig %in% "country"] = "check_country2no.info"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "no_info" &
-                   x1$resol.orig %in% "stateProvince"] = "check_state2no.info"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "no_info" &
-                   x1$resol.orig %in% "municipality"] = "check_municip.2no.info"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "no_info" &
-                   x1$resol.orig %in% "locality"] = "check_local.2no.info"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "country" &
-                   x1$resol.orig %in% "locality"] = "check_local.2country"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "stateProvince" &
-                   x1$resol.orig %in% "locality"] = "check_local.2state"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "municipality" &
-                   x1$resol.orig %in% "locality"] = "check_local.2municip."
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "country" &
-                   x1$resol.orig %in% "municipality"] = "check_municip.2country"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "stateProvince" &
-                   x1$resol.orig %in% "municipality"] = "check_municip.2state"
-    x1$loc.check[x1$loc.check == FALSE &
-                   resol.gazet %in% "country" &
-                   x1$resol.orig %in% "stateProvince"] = "check_state2country"
+  # Mismatches (check): locality info is given but was not found in the gazetteer
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "no_info" &
+                 x1$resol.orig %in% "country"] = "check_country2no.info"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "no_info" &
+                 x1$resol.orig %in% "stateProvince"] = "check_state2no.info"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "no_info" &
+                 x1$resol.orig %in% "municipality"] = "check_municip.2no.info"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "no_info" &
+                 x1$resol.orig %in% "locality"] = "check_local.2no.info"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "country" &
+                 x1$resol.orig %in% "locality"] = "check_local.2country"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "stateProvince" &
+                 x1$resol.orig %in% "locality"] = "check_local.2state"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "municipality" &
+                 x1$resol.orig %in% "locality"] = "check_local.2municip."
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "country" &
+                 x1$resol.orig %in% "municipality"] = "check_municip.2country"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "stateProvince" &
+                 x1$resol.orig %in% "municipality"] = "check_municip.2state"
+  x1$loc.check[x1$loc.check == FALSE &
+                 resol.gazet %in% "country" &
+                 x1$resol.orig %in% "stateProvince"] = "check_state2country"
 
-    # No changes and information not found even at country level (no_info)
-    x1$loc.check[x1$loc.check == TRUE] = "ok_same_resolution"
-    x1$loc.check[is.na(x1$loc.check)] = "no_info"
+  # No changes and information not found even at country level (no_info)
+  x1$loc.check[x1$loc.check == TRUE] = "ok_same_resolution"
+  x1$loc.check[is.na(x1$loc.check)] = "no_info"
 
   ## Reporting the validation results
     print("Resolution of the localities in the original data vs. the edited data:")

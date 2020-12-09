@@ -78,7 +78,7 @@ The function puts the name of a person into the format suggested by
   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")
   # two or more names, separeted by comma: output incorrect (combine names of authors)
   tdwgName("A. Alvarez, A. Zamora & V. Huaraca")
-  # two names, not separeted by comma: output incorrect (combine names of authors)
+  # two names, not separated by comma: output incorrect (combine names of authors)
   tdwgName("Karl Emrich & Balduino Rambo")
 
 }

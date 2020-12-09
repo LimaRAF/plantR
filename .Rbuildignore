@@ -3,6 +3,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 vignettes/tutorial.R
+vignettes/articles
 
 # so far ignoring zip data and dictionaries
 ^.zip
@@ -13,7 +14,12 @@ accessory_files/
 teste.R
 check_output.txt
 R/validateCoord2.R
-result/output.csv
+R/checkInverted.R
+R/checkBorder.R
+R/test_val.R
 
 # ignoring file that generates sysdata
 data-raw/
+
+#created by the vignette
+results/

@@ -42,6 +42,7 @@ formatOcc <- function(x,
                       noYear,
                       noName) {
 
+  #Escaping R CMD check notes from using data.table syntax
   "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
   "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
   "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL

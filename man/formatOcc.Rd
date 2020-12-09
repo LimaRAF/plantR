@@ -8,7 +8,7 @@ formatOcc(x, noNumb, noYear, noName)
 }
 \arguments{
 \item{x}{a data frame, containing typical fields from occurrence records from
-herbarium specimens.}
+herbarium specimens}
 
 \item{noNumb}{standard notation for missing data in Number}
 
@@ -18,26 +18,26 @@ herbarium specimens.}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted
-  fields.
+  fields
 }
 \description{
-This function standardizes collector names, determinator names,
-  and collection number and date from herbarium occurrences obtained from
-  on-line databases, such as GBIF or speciesLink.
+This function standardizes collector names, determiner names,
+  collection number, and date from herbarium occurrences obtained from
+  on-line databases, such as GBIF or speciesLink
 }
 \details{
 The function works similarly to a wrapper function, where many
   individuals steps of the proposed `plantR` workflow for editing some
-  important fields are performed at once (see the Data Editing vignette).
+  important fields are performed at once (see the Data Editing vignette)
 
   The input data frame must contain at least the following fields:
   'eventDate' and/or 'year' (date/year of the collection); 'recordedBy'
   (collector(s) name(s)); 'recordNumber'; (collector number) 'identifiedBy'
   (identificator name); 'dateIdentified' or 'yearIdentified' (date or year of
-  identification).
+  identification)
 
   The function uses the R package `data.table` in the attempt to speed up the
-  processing of larger data sets.
+  processing of larger data sets
 }
 \seealso{
 \link[plantR]{fixName}, \link[plantR]{colNumber}, \link[plantR]{getYear},

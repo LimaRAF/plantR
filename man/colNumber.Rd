@@ -13,21 +13,21 @@ colNumber(x, colCodes = NULL, noNumb = "s.n.")
 from the collector number. Default to NULL.}
 
 \item{noNumb}{character. The desired notation to identify abscence data in
-Collector Number. Default to "s.n.".}
+Collector Number. Defaults to "s.n."}
 }
 \value{
-a character string with the same lenght of \code{x} with the edited
-  collector numbers.
+a character vector with the same length of \code{x} with the edited
+  collector numbers
 }
 \description{
-The function edit the field 'collector number' of the
-  herbarium labels.
+The function edits the field 'collector number' of the
+  herbarium labels
 }
 \details{
-The function attempts to clean and standardize the information contained
-  in the field 'Collector Number', which is typical of herbarium samples. It performs
-  several edits such as removal of unnecessary spaces, letters, and the replacement of
-  missing information into a standardized notation.
+The function attempts to clean and standardize the information
+contained in the field 'Collector Number', which is typical of herbarium
+samples. It performs several edits such as removal of unnecessary spaces,
+letters, and the replacement of missing information into a standardized notation
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
