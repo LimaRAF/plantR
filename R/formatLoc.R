@@ -5,7 +5,7 @@
 #'   speciesLink
 #'
 #' @return The input data frame \code{x}, plus the new columns with the formatted
-#'   fields
+#'   information.
 #'
 #' @param x a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
@@ -13,10 +13,9 @@
 #' @inheritParams fixLoc
 #' @inheritParams getLoc
 #'
-#' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for editing locality
-#'   information are performed altogether (see the __plantR__ tutorial for
-#'   details).
+#' @details The function works as a wrapper, where the individuals steps of the
+#'   proposed __plantR__ workflow for editing locality information are performed
+#'   altogether (see the __plantR__ tutorial for details).
 #'
 #'   The input data frame usually contains the following locality fields:
 #'   "country", "stateProvince", "municipality" and "locality".
@@ -24,8 +23,6 @@
 #' @seealso
 #'  \link[plantR]{fixLoc}, \link[plantR]{strLoc}, \link[plantR]{prepLoc},
 #'  and \link[plantR]{getLoc}.
-#'
-#' @author Renato A. F. de Lima
 #'
 #' @export formatLoc
 #'

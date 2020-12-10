@@ -4,39 +4,55 @@
 \alias{prepCoord}
 \title{Format Geographical Coordinates}
 \usage{
-prepCoord(x)
+prepCoord(
+  x,
+  lat = "decimalLatitude",
+  lon = "decimalLongitude",
+  flag = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a data.frame containing the geographical coordinates}
+
+\item{lat}{character. The name of the column containing the latitude. Default
+to "decimalLatitude".}
+
+\item{lon}{character. The name of the column containing the longitude.
+Default to "decimalLongitude".}
+
+\item{flag}{logical. Should the differences between the original and edited
+coordinates be flagged? Default to TRUE.}
 }
 \value{
 The data frame \code{x} with the edited geographical coordinates, in
-  decimal degrees
+  decimal degrees. The new columns have the same name followed by the suffix
+  '.new'.
 }
 \description{
-Formats geographical coordinates to decimal degrees
+This function formats geographical coordinates to decimal
+  degrees
 }
 \details{
 This is a simple function that works for standardizing common issues
  in geographical coordinates, such as format and spacing. It was designed to
- process coordinates already in decimal degrees, so, it does not handle all
- formats and may return `NAs` even if a coordinates is given and valid.
+ process coordinates already in decimal degrees. So, it does not handle all
+ formats and may return `NA` even if a coordinates are given and valid.
 
 Currently, the function does not differentiate missing coordinates from those
- provided in a format that `prepCoord` does not handle (e.g. UTM). It also
- does not differentiate original coordinates in decimal degrees in a good
- format from those that needed to be formatted (i.e. no flagging is returned).
- Function should work fine for in the degrees + decimal minutes format. See
- examples below.
+ provided in a format that `prepCoord` does not handle (e.g. UTM). Function
+ should work fine for coordinates in the degrees + decimal minutes format.
+ See examples below.
 }
 \examples{
 
 ## Creating some geographical coordinates in different formats
-(coords <- data.frame(decimalLatitude = c(-23.475389, "-23,475389",
- "23o 28' 31.40\"S", -93.475389,
- 0, "missing", "blocked", NA, "23° 28.5233'S","283088.52 E"),
- decimalLongitude = c(-47.123768, "-47,123768", "47o 07' 25.56\"W", -47.123768,
- 0, "missing", "blocked", NA, "47° 07.4260'W","7402251.30 S")))
+coords <- data.frame(decimalLatitude = c(-23.475389, "-23,475389",
+"23o 28' 31.40\"S", -93.475389, NA, 0, "missing", "blocked", NA,
+"23Â° 28.5233'S","283088.52 E","-23,475,389"), decimalLongitude = c(-47.123768,
+"-47,123768", "47o 07' 25.56\"W", -47.123768, 185.578, 0, "missing",
+"blocked", NA, "47Â° 07.4260'W","7402251.30 S","-47,123,768"),
+stringsAsFactors = FALSE)
 
 ## Formatting the geographical coordinates
 prepCoord(coords)

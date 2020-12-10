@@ -11,16 +11,18 @@ formatSpecies(
   sug.dist = 0.9,
   use.authors = TRUE,
   drop.cols = c("ordem", "family", "verbatimSpecies", "author", "full_sp",
-    "authorship", "id")
+    "authorship", "id"),
+  ...
 )
 }
 \arguments{
 \item{x}{a data.frame containing the species scientific name without authors
-and their authorship, ideally already passed by the string check in `fixSpecies`.
-The authorship is only used for solving homonyms.}
+and their authorship, ideally already passed by the string check in
+`fixSpecies`. The authorship is only used for solving homonyms.}
 
-\item{col.names}{character. Names of the columns containing the species names and authors.
-Default to 'scientificName.new' and 'scientificNameAuthorship'.}
+\item{col.names}{character. Names of the columns containing the species names
+and authors. Default to 'scientificName.new' and
+'scientificNameAuthorship'.}
 
 \item{db}{the list of database to be consulted for valid names, in their
 preferred order of priority. Only the results from Brazilian Flora 2020
@@ -38,14 +40,30 @@ longer)? Default to TRUE.}
 results.}
 }
 \value{
-A data frame with the name provided by the user and ...
+A data frame with the same columns provided by the user and some additional
+columns containing the suggested binomial ('suggestedName'), the corresponding
+scientific name ('scientific.name'), the notes and the sources used to retrieve
+the suggested binomial (columns 'notes' and 'source').
 }
 \description{
-Function that try to provide valid plant names or to correct
-  typos and ortographical variants based on the
+Provides valid plant names or corrects typos and ortographical
+  variants based on the
   \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
    Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
-  Plant List}.
+  Plant List}. It uses the fuctionalities of other R packages, namely 'flora'
+  (Carvalho 2019) and 'Taxonstand' (Cayuela et al. 2017).
+}
+\details{
+The function currentlyuses packages `flora` and `Taxonstand` to
+  provide suggested names. Not all information returned by those packages
+  are returned here, but some of them can be controlled using the argument
+  `drop.cols`.
+
+  The function does not provide the suggested names from the different
+  databases/sources. It combines into the same column ('suggestedName') the
+  suggestions from one or more databases. If more than one databases is used,
+  the suggested names are combined following the same order of the database
+  codes provided in the argument `db`. See examples for details.
 }
 \examples{
 sp.list <- c("Casearia sylvestris","Casearia sylvestirs",
@@ -56,10 +74,22 @@ df <- data.frame(scientificName.new = sp.list,
   scientificNameAuthorship = aut_list,
   stringsAsFactors = FALSE)
 formatSpecies(df)
+formatSpecies(df, db = c("tpl","bfo"))
 formatSpecies(df, db = "bfo")
 formatSpecies(df, db = "tpl")
 formatSpecies(df, db = "tpl", sug.dist = 0.85)
 
+}
+\references{
+Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
+Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
+
+Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
+Standardization of Plant Species Names. R package version 2.1.
+https://CRAN.R-project.org/package=Taxonstand
+}
+\seealso{
+\link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
 }
 \author{
 Renato A. Ferreira de Lima

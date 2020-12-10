@@ -5,6 +5,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4,VascularPlants_A,VascularPlants,A,NA,A,Harvard University,NA
 356,A_Harvard University,A,Harvard University,NA,A,Harvard University,NA
 405,A_HU,A,HU,NA,A,Harvard University,NA
+4918,HU-HERB_A,HU-HERB,A,NA,A,Harvard University,NA
 1170,AA_NA,AA,NA,NA,AA,"Ministry of Science, Academy of Sciences",NA
 1171,AAH_NA,AAH,NA,NA,AAH,"Arnold Arboretum, Harvard University",NA
 1172,AAMU_NA,AAMU,NA,NA,AAMU,Alabama Agricultural and Mechanical University,NA
@@ -103,6 +104,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 835,ALCA-BGV_RJBJCI,ALCA-BGV,RJBJCI,NA,ALCA,NA,not in IH
 20,HERB_ALCB,HERB,ALCB,NA,ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
 1062,ALCB_Universidade Federal da Bahia (UFBA),ALCB,Universidade Federal da Bahia (UFBA),ALCB - Herbário Alexandre Leal Costa,ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
+4881,ALCB_UFBA,ALCB,UFBA,ALCB - Herbário Alexandre Leal Costa,ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
 1250,ALD_NA,ALD,NA,NA,ALD,Alderney Society and Museum,NA
 1251,ALEX_NA,ALEX,NA,NA,ALEX,University of Alexandria,NA
 21,ALF_ALF,ALF,ALF,NA,ALF,CIRAD,NA
@@ -194,6 +196,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1320,ASC_NA,ASC,NA,NA,ASC,Northern Arizona University,NA
 1321,ASDM_NA,ASDM,NA,NA,ASDM,Arizona-Sonora Desert Museum,NA
 1071,"ASE_Universidade Federal de Sergipe, UFS",ASE,"Universidade Federal de Sergipe, UFS",ASE - Herbário da Universidade Federal de Sergipe,ASE,Universidade Federal de Sergipe (UFS),NA
+4939,ASE_UFS,ASE,UFS,ASE - Herbário da Universidade Federal de Sergipe,ASE,Universidade Federal de Sergipe (UFS),NA
 1322,ASH_NA,ASH,NA,NA,ASH,National Institute of Deserts Flora and Fauna,NA
 1323,ASM_NA,ASM,NA,NA,ASM,Arts and Science University,NA
 1324,ASSAM_NA,ASSAM,NA,NA,ASSAM,"Botanical Survey of India, Eastern Regional Centre",NA
@@ -386,9 +389,9 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 86,"Belo Horizonte, Herbario_BHCB","Belo Horizonte, Herbario",BHCB,NA,BHCB,Universidade Federal de Minas Gerais,NA
 87,"Belo Horizonte, Herbârio_BHCB","Belo Horizonte, Herbârio",BHCB,NA,BHCB,Universidade Federal de Minas Gerais,NA
 88,HERB_BHCB,HERB,BHCB,NA,BHCB,Universidade Federal de Minas Gerais,NA
-315,FUNED-POL_FUNED,FUNED-POL,FUNED,NA,BHCB,Universidade Federal de Minas Gerais,NA
 1067,BHCB_Universidade Federal de Minas Gerais (UFMG),BHCB,Universidade Federal de Minas Gerais (UFMG),BHCB - Herbário da Universidade Federal de Minas Gerais,BHCB,Universidade Federal de Minas Gerais,NA
 1068,BHCB-SL_Universidade Federal de Minas Gerais (UFMG),BHCB-SL,Universidade Federal de Minas Gerais (UFMG),BHCB-SL - Herbário UFMG - Samambaias e Licófitas,BHCB,Universidade Federal de Minas Gerais,NA
+4882,BHCB_UFMG,BHCB,UFMG,BHCB - Herbário da Universidade Federal de Minas Gerais,BHCB,Universidade Federal de Minas Gerais,NA
 1449,BHD_NA,BHD,NA,NA,BHD,Williamson Art Gallery and Museum,NA
 1450,BHDL_NA,BHDL,NA,NA,BHDL,Birkenhead Reference Library,NA
 1451,BHDS_NA,BHDS,NA,NA,BHDS,Birkenhead School,NA
@@ -428,6 +431,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1479,BKF_NA,BKF,NA,NA,BKF,"National Park, Wildlife and Plant Conservation Department",NA
 1480,BKL_NA,BKL,NA,NA,BKL,Brooklyn Botanic Garden,NA
 1481,BLA_NA,BLA,NA,NA,BLA,Fundação Estadual de Pesquisa Agropecuária,NA
+4910,BLA_FEPAGRO,BLA,FEPAGRO,NA,BLA,Fundação Estadual de Pesquisa Agropecuária,NA
 1482,BLAT_NA,BLAT,NA,NA,BLAT,St. Xavier's College,NA
 1483,BLFU_NA,BLFU,NA,NA,BLFU,University of the Free State,NA
 1484,BLH_NA,BLH,NA,NA,BLH,Cranbrook Institute of Science,NA
@@ -483,7 +487,9 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1521,BOSC_NA,BOSC,NA,NA,BOSC,Boston State College,NA
 106,Universidade Estadual Paulista_BOTU,Universidade Estadual Paulista,BOTU,NA,BOTU,Universidade Estadual Paulista,NA
 1060,"BOTU_Universidade Estadual Paulista, UNESP",BOTU,"Universidade Estadual Paulista, UNESP",BOTU - Herbário Irina Delanova Gemtchújnicov,BOTU,Universidade Estadual Paulista,NA
+4883,BOTU_UNESP-IBB,BOTU,UNESP-IBB,BOTU - Herbário Irina Delanova Gemtchújnicov,BOTU,Universidade Estadual Paulista,NA
 1031,BOTUW_UNESPFCA,BOTUW,UNESPFCA,NA,BOTUw,Universidade Estadual Paulista,NA
+4911,BOTUW_UNESP-IBB,BOTUW,UNESP-IBB,NA,BOTUw,Universidade Estadual Paulista,NA
 107,Collection botanique E. P. Larchevêque_Boum,Collection botanique  E. P. Larchevêque,Boum,NA,BOUM,Muséum d'Histoire Naturelle de Bourges,NA
 108,Collection botanique Jaubert et Saul_BOUM,Collection botanique Jaubert et Saul,BOUM,NA,BOUM,Muséum d'Histoire Naturelle de Bourges,NA
 109,Herbier A. Le Grand_BOUM,Herbier A. Le Grand,BOUM,NA,BOUM,Muséum d'Histoire Naturelle de Bourges,NA
@@ -700,10 +706,12 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4789,CNPJBPE_CENPAT_CONICET,CNPJBPE,CENPAT_CONICET,NA,CENPAT,CONICET,not in IH
 148,HERB_CEPEC,HERB,CEPEC,NA,CEPEC,"CEPEC, CEPLAC",NA
 199,CEPEC_Comissão Executiva do Plano da Lavoura Cacaueira (CEPLAC),CEPEC,Comissão Executiva do Plano da Lavoura Cacaueira (CEPLAC),CEPEC - Herbário do Centro de Pesquisas do Cacau,CEPEC,"CEPEC, CEPLAC",NA
+4884,CEPEC_CEPLAC,CEPEC,CEPLAC,CEPEC - Herbário do Centro de Pesquisas do Cacau,CEPEC,"CEPEC, CEPLAC",NA
 1691,CERN_NA,CERN,NA,NA,CERN,University,NA
 149,HERB_CESJ,HERB,CESJ,NA,CESJ,Universidade Federal de Juiz de Fora,NA
 150,Universidade Federal de Juiz de Fora_CESJ,Universidade Federal de Juiz de Fora,CESJ,NA,CESJ,Universidade Federal de Juiz de Fora,NA
 1065,CESJ_Universidade Federal de Juiz de Fora (UFJF),CESJ,Universidade Federal de Juiz de Fora (UFJF),CESJ - Herbário Leopoldo Krieger,CESJ,Universidade Federal de Juiz de Fora,NA
+4885,CESJ_UFJF,CESJ,UFJF,CESJ - Herbário Leopoldo Krieger,CESJ,Universidade Federal de Juiz de Fora,NA
 1692,CESK_NA,CESK,NA,NA,CESK,Muzeum Tešínska,NA
 151,CETI_CETI,CETI,CETI,NA,CETI,NA,not in IH
 447,CE-UNAM_IE-UNAM,CE-UNAM,IE-UNAM,NA,CE-UNAM,UNAM? MEXU?,NA
@@ -719,6 +727,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1699,CGE_NA,CGE,NA,NA,CGE,Cambridge University,NA
 1700,CGG_NA,CGG,NA,NA,CGG,Cambridge University Botanic Garden,NA
 311,CGMS_Fundação Universidade Federal de Mato Grosso do Sul (UFMS),CGMS,Fundação Universidade Federal de Mato Grosso do Sul (UFMS),CGMS - Herbário da Fundação Universidade Federal de Mato Grosso do Sul,CGMS,Fundação Universidade Federal de Mato Grosso do Sul,NA
+4894,CGMS_UFMS,CGMS,UFMS,CGMS - Herbário da Fundação Universidade Federal de Mato Grosso do Sul,CGMS,Fundação Universidade Federal de Mato Grosso do Sul,NA
 245,ECO-CH-H_ECOSUR,ECO-CH-H,ECOSUR,NA,CH,El Colegio de la Frontera Sur,NA
 1701,CH_NA,CH,NA,NA,CH,El Colegio de la Frontera Sur,NA
 1702,CHA_NA,CHA,NA,NA,CHA,Hebei Agrotechnical Teachers College,NA
@@ -833,6 +842,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1779,CNHM_NA,CNHM,NA,NA,CNHM,Croatian Natural History Museum,NA
 1780,CNM_NA,CNM,NA,NA,CNM,Cheltenham Naturalists' Association,NA
 1066,CNMT_Universidade Federal de Mato Grosso (UFMT),CNMT,Universidade Federal de Mato Grosso (UFMT),CNMT - Herbário Centro Norte Mato Grossense,CNMT,Universidade Federal de Mato Grosso,NA
+4938,CNMT_UFMT,CNMT,UFMT,CNMT - Herbário Centro Norte Mato Grossense,CNMT,Universidade Federal de Mato Grosso,NA
 1781,CNPO_NA,CNPO,NA,NA,CNPO,Embrapa Pecuária Sul,NA
 1782,CNR_NA,CNR,NA,NA,CNR,Crimean Natural Reserve,NA
 186,CNS_CNS,CNS,CNS,NA,CNS,Australian Tropical Herbarium,NA
@@ -885,8 +895,9 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1802,CPB_NA,CPB,NA,NA,CPB,National Institute for the Control of Pharmaceutical and Biological Products,NA
 1803,CPF_NA,CPF,NA,NA,CPF,KwaZulu-Natal Nature Conservation Service,NA
 1804,CPH_NA,CPH,NA,NA,CPH,University of the Pacific,NA
+4912,CPMA_CPQBA,CPMA,CPQBA,NA,CPMA,NA,not in IH
 1805,CPNP_NA,CPNP,NA,NA,CPNP,Cuc Phuong National Park,NA
-208,"CPR,M.E._CPR","CPR,M.E.",CPR,NA,CPR,NA,not in IH
+208,"CPR,M.E._CPR","CPR,M.E.",CPR,NA,CPR,NA,NA
 1806,CPU_NA,CPU,NA,NA,CPU,China Pharmaceutical University,NA
 1807,CPUH_NA,CPUH,NA,NA,CPUH,Career Point University Hamirpur,NA
 209,HERB_CPUN,HERB,CPUN,NA,CPUN,Universidad Nacional de Cajamarca,NA
@@ -920,6 +931,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1828,CSPU_NA,CSPU,NA,NA,CSPU,California State Polytechnic University,NA
 1829,CSR_NA,CSR,NA,NA,CSR,Caucasus State Nature Biosphere Reserve,NA
 1830,CSRS_NA,CSRS,NA,NA,CSRS,Centre Suisse de Recherches Scientifiques en Côte d’Ivoire,NA
+4913,CSTR_UFCG,CSTR,UFCG,Herbário CSTR – Rita Baltazar de Lima,CSTR,Universidade Federal de Campina Grande - Campus Patos,not in IH
 1831,CSU_NA,CSU,NA,NA,CSU,University of Central Oklahoma,NA
 1832,CSUCI_NA,CSUCI,NA,NA,CSUCI,California State University Channel Islands,NA
 1833,CSUH_NA,CSUH,NA,NA,CSUH,Chelyabinsk State University,NA
@@ -928,6 +940,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1835,CSVFC_NA,CSVFC,NA,NA,CSVFC,Caradoc and Severn Valley Field Club,NA
 1836,CT_NA,CT,NA,NA,CT,University of Cape Town,NA
 1837,CTBS_NA,CTBS,NA,NA,CTBS,Universidade Federal de Santa Catarina,NA
+4932,CTBS_UFSC,CTBS,UFSC,NA,CTBS,Universidade Federal de Santa Catarina,NA
 1838,CTC_NA,CTC,NA,NA,CTC,Chongqing Normal University,NA
 217,CTES-VASC_CTES,CTES-VASC,CTES,NA,CTES,Instituto de Botánica del Nordeste,NA
 218,HERB_CTES,HERB,CTES,NA,CTES,Instituto de Botánica del Nordeste,NA
@@ -954,9 +967,11 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1850,CUW_NA,CUW,NA,NA,CUW,Clark University,NA
 1851,CUZ_NA,CUZ,NA,NA,CUZ,Universidad Nacional San Antonio Abad del Cusco,NA
 1852,CVCW_NA,CVCW,NA,NA,CVCW,"Clinch Valley College, University of Virginia",NA
+4914,CVJBFZB_FZB-BH,CVJBFZB,FZB-BH,NA,CVJBFZB,NA,not in IH
 1853,CVM_NA,CVM,NA,NA,CVM,City Museum,NA
 832,CVRD_Reserva Natural Vale (CVRD),CVRD,Reserva Natural Vale (CVRD),CVRD - Herbário da Reserva Natural Vale,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
 4767,CVRD_NA,CVRD,NA,CVRD - Herbário da Reserva Natural Vale,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
+4908,CVRD_CVRD,CVRD,CVRD,CVRD - Herbário da Reserva Natural Vale,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
 4768,"CVRD, HUEFS_NA","CVRD, HUEFS",NA,NA,"CVRD, HUEFS",NA,NA
 1854,CWB_NA,CWB,NA,NA,CWB,Kharkov State University,NA
 1855,CWC_NA,CWC,NA,NA,CWC,Central Wyoming College,NA
@@ -1093,11 +1108,14 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1967,EA_NA,EA,NA,NA,EA,National Museums of Kenya,NA
 1968,EAA_NA,EAA,NA,NA,EAA,Estonian University of Life Sciences,NA
 1072,"EAC_Universidade Federal do Ceará, UFC",EAC,"Universidade Federal do Ceará, UFC",EAC - Herbário Prisco Bezerra,EAC,Universidade Federal do Ceará,NA
+4940,EAC_UFC,EAC,UFC,EAC - Herbário Prisco Bezerra,EAC,Universidade Federal do Ceará,NA
 1969,EAD_NA,EAD,NA,NA,EAD,Environment Agency- Abu Dhabi,NA
 499,"EAFM_Instituto Federal de Educação, Ciência e Tecnologia (IFAM)",EAFM,"Instituto Federal de Educação, Ciência e Tecnologia (IFAM)","EAFM - Herbário do Instituto Federal de Educação, Ciência e Tecnologia do Amazonas",EAFM,"Instituto Federal de Educação, Ciência e Tecnologia do Amazonas",NA
+4900,EAFM_IFAM,EAFM,IFAM,"EAFM - Herbário do Instituto Federal de Educação, Ciência e Tecnologia do Amazonas",EAFM,"Instituto Federal de Educação, Ciência e Tecnologia do Amazonas",NA
 1970,EALA_NA,EALA,NA,NA,EALA,Jardin Botanique d'Eala,NA
 1063,"EAN_Universidade Federal da Paraíba, UFPB",EAN,"Universidade Federal da Paraíba, UFPB",EAN - Herbário Jaime Coelho de Moraes,EAN,"Universidade Federal da Paraiba, Campus III - CCA",NA
 4739,NA_EAN,NA,EAN,EAN - Herbário Jaime Coelho de Moraes,EAN,"Universidade Federal da Paraiba, Campus III - CCA",NA
+4887,EAN_UFPB,EAN,UFPB,EAN - Herbário Jaime Coelho de Moraes,EAN,"Universidade Federal da Paraiba, Campus III - CCA",NA
 1971,EAP_NA,EAP,NA,NA,EAP,Escuela Agrícola Panamericana,NA
 1972,EAR_NA,EAR,NA,NA,EAR,Earlham College,NA
 1973,EBA_NA,EBA,NA,NA,EBA,Edinburgh Academy Field Centre,NA
@@ -1129,6 +1147,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 249,CEDIMA_EGIM-UDG,CEDIMA,EGIM-UDG,NA,EDIM-UDG,NA,not in IH
 1992,EDTU_NA,EDTU,NA,NA,EDTU,Trakya Üniversitesi,NA
 1074,"EFC_Universidade Federal do Paraná, UFPR",EFC,"Universidade Federal do Paraná, UFPR",EFC - Herbário Escola de Florestas Curitiba,EFC,Escola de Florestas,NA
+4942,EFC_UFPR,EFC,UFPR,EFC - Herbário Escola de Florestas Curitiba,EFC,Escola de Florestas,NA
 1993,EFH_NA,EFH,NA,NA,EFH,Forestry Commission,NA
 1994,EFM_NA,EFM,NA,NA,EFM,Epping Forest Museum,NA
 1995,EGE_NA,EGE,NA,NA,EGE,Ege University,NA
@@ -1184,6 +1203,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2038,ERZ_NA,ERZ,NA,NA,ERZ,Fürstin-Eugenie-Institut für Arzneipflanzenforschung,NA
 259,HERB_ESA,HERB,ESA,NA,ESA,Universidade de São Paulo,NA
 260,"ESA_Escola Superior de Agricultura Luiz de Queiroz, ESALQ",ESA,"Escola Superior de Agricultura Luiz de Queiroz, ESALQ",ESA - Herbário da Escola Superior de Agricultura Luiz de Queiroz,ESA,Universidade de São Paulo,NA
+4889,ESA_ESALQ,ESA,ESALQ,ESA - Herbário da Escola Superior de Agricultura Luiz de Queiroz,ESA,Universidade de São Paulo,NA
 2039,ESAL_NA,ESAL,NA,NA,ESAL,Universidade Federal de Lavras,NA
 4806,ESAL_UFLA,ESAL,UFLA,NA,ESAL,Universidade Federal de Lavras,NA
 2040,ESK_NA,ESK,NA,NA,ESK,Seker Enstitüsü,NA
@@ -1225,6 +1245,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 903,NGB_SWE,NGB,SWE,NA,EURISCO,NA,NA
 1014,UKR_UKR,UKR,UKR,NA,EURISCO,NA,NA
 1162,MNE_YUG,MNE,YUG,NA,EURISCO,NA,NA
+4915,EVB_UNILA,EVB,UNILA,Herbario Evaldo Buttura,EVB,Universidade Federal da Integração Latino Americana,NA
 2052,EVE_NA,EVE,NA,NA,EVE,The Evergreen State College,NA
 2053,EVMU_NA,EVMU,NA,NA,EVMU,Everhart Museum,NA
 2054,EWH_NA,EWH,NA,NA,EWH,Ewha Womans University,NA
@@ -1241,6 +1262,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4787,F_F_BOTANY,F,F_BOTANY,NA,F,Field Museum of Natural History,NA
 4788,F_F,F,F,NA,F,Field Museum of Natural History,NA
 4807,F_BOTANY_BR_F,F_BOTANY_BR,F,NA,F,Field Museum of Natural History,NA
+4917,FMNH-SEEDPLANTS_F,FMNH-SEEDPLANTS,F,NA,F,Field Museum of Natural History,NA
 2059,FAA_NA,FAA,NA,NA,FAA,Universidad Nacional del Centro de la Provincia de Buenos Aires,NA
 2060,FABR_NA,FABR,NA,NA,FABR,Harmas de J. H. Fabre,NA
 2061,FAN_NA,FAN,NA,NA,FAN,Museum of Fanjingshan National Nature Reserve,NA
@@ -1255,6 +1277,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2068,FBCS_NA,FBCS,NA,NA,FBCS,Universidad Autónoma de Baja California Sur,NA
 2069,FBMN_NA,FBMN,NA,NA,FBMN,Museum für Naturkunde,NA
 807,FCAB_Pontifícia Universidade Católica do Rio de Janeiro (PUC-RIO),FCAB,Pontifícia Universidade Católica do Rio de Janeiro (PUC-RIO),FCAB - Herbário Friburguense,FCAB,Pontifícia Universidade Católica do Rio de Janeiro,NA
+4935,FCAB_PUC-RIO,FCAB,PUC-RIO,FCAB - Herbário Friburguense,FCAB,Pontifícia Universidade Católica do Rio de Janeiro,NA
 275,FCME_FC-UNAM,FCME,FC-UNAM,NA,FCME,"Universidad Nacional Autónoma de México, Ciudad Universitaria",NA
 284,FCO_FCO,FCO,FCO,NA,FCO,Universidad de Oviedo,NA
 2070,FCP_NA,FCP,NA,NA,FCP,Fergusson College,NA
@@ -1283,6 +1306,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 292,HERB_FI,HERB,FI,NA,FI,Natural History Museum,NA
 2089,FIAF_NA,FIAF,NA,NA,FIAF,Università degli Studi di Firenze,NA
 2090,FINH_NA,FINH,NA,NA,FINH,The Falkland Islands National Herbarium,NA
+4916,FIOCRUZ-CBPM_Fiocruz,FIOCRUZ-CBPM,Fiocruz,NA,FIOCRUZ-CBPM,Fundação Oswaldo Cruz - FIOCRUZ,NA
 2091,FIPF_NA,FIPF,NA,NA,FIPF,Università di Firenze,NA
 2092,FIPIA_NA,FIPIA,NA,NA,FIPIA,Institut Teknologi Bandung,NA
 294,FITECMA_FITECMA-UMSNH,FITECMA,FITECMA-UMSNH,NA,FITECMA,Universidad Michoacana de San Nicolás de Hidalgo,not in IH
@@ -1296,6 +1320,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 298,FLAS_FLMNH-UF,FLAS,FLMNH-UF,NA,FLAS,Florida Museum of Natural History,NA
 4730,NA_FLAS,NA,FLAS,NA,FLAS,Florida Museum of Natural History,NA
 4808,FLAS_FLMNH,FLAS,FLMNH,NA,FLAS,Florida Museum of Natural History,NA
+4891,FLAS_FLAS,FLAS,FLAS,NA,FLAS,Florida Museum of Natural History,NA
 2097,FLD_NA,FLD,NA,NA,FLD,Fort Lewis College,NA
 2098,FLH_NA,FLH,NA,NA,FLH,Finger Lakes Community College,NA
 2099,FLK_NA,FLK,NA,NA,FLK,Falkirk District Council Museum,NA
@@ -1304,6 +1329,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 300,Universidade Federal de Santa Catarina_FLOR,Universidade Federal de Santa Catarina,FLOR,FLOR - Herbário do Departamento de Botânica da Universidade Federal de Santa Catarina,FLOR,Universidade Federal de Santa Catarina,NA
 1070,FLOR_Universidade Federal de Santa Catarina (UFSC),FLOR,Universidade Federal de Santa Catarina (UFSC),FLOR - Herbário do Departamento de Botânica da Universidade Federal de Santa Catarina,FLOR,Universidade Federal de Santa Catarina,NA
 4849,FLOR_JBRJ,FLOR,JBRJ,FLOR - Herbário do Departamento de Botânica da Universidade Federal de Santa Catarina,FLOR,Universidade Federal de Santa Catarina,NA
+4892,FLOR_UFSC,FLOR,UFSC,FLOR - Herbário do Departamento de Botânica da Universidade Federal de Santa Catarina,FLOR,Universidade Federal de Santa Catarina,NA
 2100,FLSP_NA,FLSP,NA,NA,FLSP,Oscar Scherer State Park,NA
 301,HERB_FM,HERB,FM,NA,FM,Fan Memorial Institute of Biology,NA
 429,FMB_IAvH,FMB,IAvH,NA,FMB,Instituto de Investigación de Recursos Biológicos Alexander von Humboldt,NA
@@ -1346,22 +1372,26 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2126,FSLF_NA,FSLF,NA,NA,FSLF,Rocky Mountain Forest and Range Experiment Station,NA
 2127,FSSR_NA,FSSR,NA,NA,FSSR,"Forest Service, USDA",NA
 2128,FSU_NA,FSU,NA,NA,FSU,Florida State University,NA
+4909,FSU_FSU,FSU,FSU,NA,FSU,Florida State University,NA
 2129,FT_NA,FT,NA,NA,FT,"Centro Studi Erbario Tropicale, Università degli Studi di Firenze",NA
 308,Herbarium_FTG,Herbarium,FTG,NA,FTG,Fairchild Tropical Botanic Garden,NA
 2130,FTOH_NA,FTOH,NA,NA,FTOH,"Forestry Training Institute, Olmotonyi",NA
 2131,FTS_NA,FTS,NA,NA,FTS,Fuzhou Teachers College,NA
 2132,FTU_NA,FTU,NA,NA,FTU,University of Central Florida,NA
 559,FU_KYUM,FU,KYUM,NA,FU,Kyushu University,NA
-309,HERB_FUEL,HERB,FUEL,NA,FUEL,Universidade Estadual de Londrina,NA
+309,HERB_FUEL,HERB,FUEL,FUEL - Herbário da Universidade Estadual de Londrina,FUEL,Universidade Estadual de Londrina,NA
 1058,"FUEL_Universidade Estadual de Londrina, UEL",FUEL,"Universidade Estadual de Londrina, UEL",FUEL - Herbário da Universidade Estadual de Londrina,FUEL,Universidade Estadual de Londrina,NA
 4783,NA_FUEL,NA,FUEL,FUEL - Herbário da Universidade Estadual de Londrina,FUEL,Universidade Estadual de Londrina,NA
+4893,FUEL_UEL,FUEL,UEL,FUEL - Herbário da Universidade Estadual de Londrina,FUEL,Universidade Estadual de Londrina,NA
 2133,FUGR_NA,FUGR,NA,NA,FUGR,Furman University,NA
 2134,FUH_NA,FUH,NA,NA,FUH,Firat Üniversitesi,NA
 2135,FUK_NA,FUK,NA,NA,FUK,Fukui Botanical Garden,NA
 310,sgn_digi_rhoen_fuld_FULD,sgn_digi_rhoen_fuld,FULD,NA,FULD,Verein für Naturkunde in Osthessen,NA
 2136,FUMH_NA,FUMH,NA,NA,FUMH,Ferdowsi University of Mashhad,NA
+315,FUNED-POL_FUNED,FUNED-POL,FUNED,NA,FUNED-POL,Fundação Ezequiel Dias,NA
 1077,"FURB_Universidade Regional de Blumenau, FURB",FURB,"Universidade Regional de Blumenau, FURB",FURB - Herbário Dr. Roberto Miguel Klein,FURB,Universidade Regional de Blumenau,NA
 4850,FURB_JBRJ,FURB,JBRJ,FURB - Herbário Dr. Roberto Miguel Klein,FURB,Universidade Regional de Blumenau,NA
+4902,FURB_FURB,FURB,FURB,FURB - Herbário Dr. Roberto Miguel Klein,FURB,Universidade Regional de Blumenau,NA
 2137,FUS_NA,FUS,NA,NA,FUS,Fudan University,NA
 2138,FVCC_NA,FVCC,NA,NA,FVCC,Flathead Valley Community College,NA
 303,Fw_FMNH,Fw,FMNH,NA,Fw,Field Museum of Natural History,NA
@@ -1440,6 +1470,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 359,GH_Harvard University,GH,Harvard University,NA,GH,Harvard University,NA
 406,GH_HU,GH,HU,NA,GH,Harvard University,NA
 4756,GH_NA,GH,NA,NA,GH,Harvard University,NA
+4919,HU-HERB_GH,HU-HERB,GH,NA,GH,Harvard University,NA
 2188,GHD_NA,GHD,NA,NA,GHD,Shipley Art Gallery and Saltwell Tower Museum,NA
 2189,GHPG_NA,GHPG,NA,NA,GHPG,Harold Porter National Botanical Garden,NA
 2190,GHS_NA,GHS,NA,NA,GHS,George Heriot's School,NA
@@ -1580,6 +1611,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2300,HARRAN_NA,HARRAN,NA,NA,HARRAN,Harran Üniversitesi,NA
 361,HERB_HAS,HERB,HAS,NA,HAS,Fundação Zoobotânica do Rio Grande do Sul,NA
 689,HAS_Museu de Ciências Naturais - Fundação Zoobotânica do Rio Grande do Sul (MCN-FZBRS),HAS,Museu de Ciências Naturais - Fundação Zoobotânica do Rio Grande do Sul (MCN-FZBRS),HAS - Herbário Alarich Rudolf Holger Schultz,HAS,Fundação Zoobotânica do Rio Grande do Sul,NA
+4895,HAS_MCN-FZBRS,HAS,MCN-FZBRS,HAS - Herbário Alarich Rudolf Holger Schultz,HAS,Fundação Zoobotânica do Rio Grande do Sul,NA
 2301,HASSI_NA,HASSI,NA,NA,HASSI,Universidade Estadual Paulista,NA
 2302,HAST_NA,HAST,NA,NA,HAST,Academia Sinica,NA
 2303,HASU_NA,HASU,NA,NA,HASU,Universidade do Vale do Rio dos Sinos - CCS/ Centro 2,NA
@@ -1623,6 +1655,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 377,HERB_HBR,HERB,HBR,NA,HBR,Herbário Barbosa Rodrigues,NA
 4852,HBR_JBRJ,HBR,JBRJ,NA,HBR,Herbário Barbosa Rodrigues,NA
 1073,HBRA_Universidade Federal do Pará (UFPA),HBRA,Universidade Federal do Pará (UFPA),HBRA - Herbário do Instituto de Estudos Costeiros da Universidade Federal do Pará,HBRA,"Universidade Federal do Pará, Campus Bragança",NA
+4941,HBRA_IECOS,HBRA,IECOS,HBRA - Herbário do Instituto de Estudos Costeiros da Universidade Federal do Pará,HBRA,"Universidade Federal do Pará, Campus Bragança",NA
 2321,HBSH_NA,HBSH,NA,NA,HBSH,Highlands Biological Station,NA
 462,HBw_IIF,HBw,IIF,NA,HBw,NA,not in IH
 2322,HC_NA,HC,NA,NA,HC,Hangchow Christian College,NA
@@ -1630,8 +1663,10 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2324,HCB_NA,HCB,NA,NA,HCB,Universidade de Santa Cruz do Sul,NA
 2325,HCCN_NA,HCCN,NA,NA,HCCN,National Institute of Agricultural Science and Technology,NA
 1078,HCDAL_Universidade Regional do Cariri (URCA),HCDAL,Universidade Regional do Cariri (URCA),HCDAL - Herbário Caririense Dárdano de Andrade-Lima,HCDAL,Universidade Regional do Cariri,NA
+4945,HCDAL_URCA,HCDAL,URCA,HCDAL - Herbário Caririense Dárdano de Andrade-Lima,HCDAL,Universidade Regional do Cariri,NA
 2326,HCEN_NA,HCEN,NA,NA,HCEN,Universidad Nacional del Centro del Perú,NA
 1080,HCF_Universidade Tecnológica Federal do Paraná (UTFPR),HCF,Universidade Tecnológica Federal do Paraná (UTFPR),HCF - Herbário da Universidade Tecnológica Federal do Paraná Campus Campo Mourão,HCF,Universidade Tecnológica Federal do Paraná,NA
+4947,HCF_UTFPR,HCF,UTFPR,HCF - Herbário da Universidade Tecnológica Federal do Paraná Campus Campo Mourão,HCF,Universidade Tecnológica Federal do Paraná,NA
 2327,HCH_NA,HCH,NA,NA,HCH,Lewis-Clark State College,NA
 2328,HCHM_NA,HCHM,NA,NA,HCHM,Hope College,NA
 161,HCIB_CIBNOR,HCIB,CIBNOR,NA,HCIB,"Centro de Investigaciones Biológicas del Noroeste, S. C.",NA
@@ -1650,7 +1685,9 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4813,HDCF_UFSM,HDCF,UFSM,NA,HDCF,Department of Forestry Science,NA
 2338,HDD_NA,HDD,NA,NA,HDD,Tolson Memorial Museum,NA
 2339,HDELTA_NA,HDELTA,NA,NA,HDELTA,Universidade Federal do Piauí,NA
+4934,HDELTA_UFPI-MRV,HDELTA,UFPI-MRV,NA,HDELTA,Universidade Federal do Piauí,NA
 1075,HDJF_Universidade Federal dos Vales do Jequitinhonha e Mucuri (UFVJM),HDJF,Universidade Federal dos Vales do Jequitinhonha e Mucuri (UFVJM),HDJF - Herbário Dendrológico Jeanine Felfili,HDJF,Universidade Federal dos Vales do Jequitinhonha e Mucuri,NA
+4943,HDJF_UFVJM,HDJF,UFVJM,HDJF - Herbário Dendrológico Jeanine Felfili,HDJF,Universidade Federal dos Vales do Jequitinhonha e Mucuri,NA
 2340,HDSM_NA,HDSM,NA,NA,HDSM,University of Massachusetts Dartmouth,NA
 2341,HDTC_NA,HDTC,NA,NA,HDTC,Huddersfield Technical College,NA
 444,HE_ICM,HE,ICM,NA,HE,NA,not in IH
@@ -1666,6 +1703,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2349,HEND_NA,HEND,NA,NA,HEND,Henderson State University,NA
 2350,HENU_NA,HENU,NA,NA,HENU,Henan Normal University,NA
 518,HEPH_Jardim Botânico de Brasília (JBB),HEPH,Jardim Botânico de Brasília (JBB),HEPH - Herbário Ezechias Paulo Heringer,HEPH,Jardim Botânico de Brasília,NA
+4901,HEPH_JBB,HEPH,JBB,HEPH - Herbário Ezechias Paulo Heringer,HEPH,Jardim Botânico de Brasília,NA
 2351,HER_NA,HER,NA,NA,HER,Hermanus Botanical Society,NA
 2352,HERBAM_NA,HERBAM,NA,HERBAM - Herbário da Amazônia Meridional,HERBAM,Universidade do Estado de Mato Grosso,NA
 142,CEDESU_CEDESU-UACAM,CEDESU,CEDESU-UACAM,NA,Herbario-CEDESU,Universidad Autónoma de Campeche,not in IH
@@ -1687,6 +1725,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2364,HFN_NA,HFN,NA,NA,HFN,Herbarium Frisicum,NA
 2365,HFR_NA,HFR,NA,NA,HFR,Finnish Forest Research Institute,NA
 269,HFSL_Faculdade São Lucas (FSL),HFSL,Faculdade São Lucas (FSL),HFSL - Herbário Dr. Ary Tupinambá Penna Pinheiro,HFSL,"Centro de Ensino, Faculdade São Lucas Ltda.",NA
+4890,HFSL_FSL,HFSL,FSL,HFSL - Herbário Dr. Ary Tupinambá Penna Pinheiro,HFSL,"Centro de Ensino, Faculdade São Lucas Ltda.",NA
 2366,HFV_NA,HFV,NA,NA,HFV,Universidad Austral de Chile,NA
 2367,HFX_NA,HFX,NA,NA,HFX,Bankfield Museum and Art Gallery,NA
 2368,HG_NA,HG,NA,NA,HG,Universidad de la Guajira,NA
@@ -1730,6 +1769,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2400,HIWNT_NA,HIWNT,NA,NA,HIWNT,Hampshire and Isle of Wight Naturalists' Trust Ltd.,NA
 1064,HJ_Universidade Federal de Goiás (UFG),HJ,Universidade Federal de Goiás (UFG),HJ - Herbario Jataiense Prof. Germano Guarim Neto,HJ,Universidade Federal de Jataí,NA
 4854,HJ_JBRJ,HJ,JBRJ,HJ - Herbario Jataiense Prof. Germano Guarim Neto,HJ,Universidade Federal de Jataí,NA
+4903,HJ_UFG,HJ,UFG,HJ - Herbario Jataiense Prof. Germano Guarim Neto,HJ,Universidade Federal de Jataí,NA
 2401,HJBC_NA,HJBC,NA,NA,HJBC,Jardin Botanico Culiacan,NA
 2402,HJBG_NA,HJBG,NA,NA,HJBG,Jardin botanique de Guyane,NA
 2403,HJBL_NA,HJBL,NA,NA,HJBL,Escuela Nacional de Ciencias Forestales,NA
@@ -1803,14 +1843,17 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 397,Plant_HORAIJI,Plant,HORAIJI,NA,HORAIJI,NA,not in IH
 2462,HOU_NA,HOU,NA,NA,HOU,University of Houston,NA
 2463,HOXA_NA,HOXA,NA,NA,HOXA,Estación biológica del Jardín Botánico de Missouri,NA
-1057,HPAN_Universidade do Estado de Mato Grosso (UNEMAT),HPAN,Universidade do Estado de Mato Grosso (UNEMAT),"HPAN - Herbário do Pantanal \""Vali Joana Pott\""",HPAN,"University of the State of Mato Grosso, UNEMAT",NA
+1057,HPAN_Universidade do Estado de Mato Grosso (UNEMAT),HPAN,Universidade do Estado de Mato Grosso (UNEMAT),"HPAN - Herbário do Pantanal ""Vali Joana Pott""",HPAN,"University of the State of Mato Grosso, UNEMAT",NA
+4937,HPAN_UNEMAT,HPAN,UNEMAT,"HPAN - Herbário do Pantanal ""Vali Joana Pott""",HPAN,"University of the State of Mato Grosso, UNEMAT",NA
 1079,HPBR_Universidade Regional Integrada do Alto Uruguai e das Missões (URI),HPBR,Universidade Regional Integrada do Alto Uruguai e das Missões (URI),HPBR - Herbário Padre Balduino Rambo,HPBR,Universidade Regional Integrada do Alto Uruguai e das Missões,NA
+4946,HPBR_URICER,HPBR,URICER,HPBR - Herbário Padre Balduino Rambo,HPBR,Universidade Regional Integrada do Alto Uruguai e das Missões,NA
 2464,HPC_NA,HPC,NA,NA,HPC,Howard Payne University,NA
 2465,HPD_NA,HPD,NA,NA,HPD,Hampstead Scientific Society,NA
 2466,HPDL_NA,HPDL,NA,NA,HPDL,Hampstead Public Library,NA
 2467,HPH_NA,HPH,NA,NA,HPH,Monroe County Department of Parks,NA
 398,HERB_HPL,HERB,HPL,NA,HPL,Jardim Botânico Plantarum,NA
 502,HPL_Instituto Plantarum de Estudos da Flora Ltda (HPL),HPL,Instituto Plantarum de Estudos da Flora Ltda (HPL),HPL - Herbário do Jardim Botânico Plantarum,HPL,Jardim Botânico Plantarum,NA
+4896,HPL_JBP,HPL,JBP,HPL - Herbário do Jardim Botânico Plantarum,HPL,Jardim Botânico Plantarum,NA
 2468,HPM_NA,HPM,NA,NA,HPM,Houston Museum of Natural Science,NA
 2469,HPNP_NA,HPNP,NA,NA,HPNP,Pumat National Park,NA
 2470,HPP_NA,HPP,NA,NA,HPP,University of Helsinki,NA
@@ -1826,9 +1869,11 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4855,HRB_JBRJ,HRB,JBRJ,NA,HRB,Fundação Instituto Brasileiro de Geografia e Estatística,NA
 399,HERB_HRCB,HERB,HRCB,NA,HRCB,Universidade Estadual Paulista,NA
 1061,"HRCB_Universidade Estadual Paulista, UNESP",HRCB,"Universidade Estadual Paulista, UNESP",HRCB - Herbário Rioclarense,HRCB,Universidade Estadual Paulista,NA
+4897,HRCB_UNESP-RC,HRCB,UNESP-RC,HRCB - Herbário Rioclarense,HRCB,Universidade Estadual Paulista,NA
 400,VascularPlants_HREC,VascularPlants,HREC,NA,HREC,Hopland Research & Extension Center,NA
 2477,HRJ_NA,HRJ,NA,NA,HRJ,Universidade do Estado do Rio de Janeiro,NA
 4856,HRJ_JBRJ,HRJ,JBRJ,NA,HRJ,Universidade do Estado do Rio de Janeiro,NA
+4904,HRJ_UERJ,HRJ,UERJ,NA,HRJ,Universidade do Estado do Rio de Janeiro,NA
 2478,HRNDC_NA,HRNDC,NA,NA,HRNDC,University of Zagreb Faculty of Science,NA
 401,HERB_HRP,HERB,HRP,NA,HRP,Universidad Nacional de La Patagonia,NA
 2479,HSB_NA,HSB,NA,NA,HSB,Herbario del Sur de Bolivia,NA
@@ -1843,6 +1888,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2487,HSP_NA,HSP,NA,NA,HSP,Instituto Científico Michael Owen Dillon,NA
 404,HSS_HSS,HSS,HSS,NA,HSS,"Research Centre of ""La Orden-Valdesequera""",NA
 1076,"HST_Universidade Federal Rural de Pernambuco, UFRPE",HST,"Universidade Federal Rural de Pernambuco, UFRPE",HST - Herbário Sérgio Tavares,HST,NA,not in IH
+4944,HST_UFRPE,HST,UFRPE,HST - Herbário Sérgio Tavares,HST,NA,not in IH
 2488,HSTM_NA,HSTM,NA,NA,HSTM,Universidade Federal do Oeste do Pará,NA
 4816,HSTM_UFOPA,HSTM,UFOPA,NA,HSTM,Universidade Federal do Oeste do Pará,NA
 4857,HSTM_JBRJ,HSTM,JBRJ,NA,HSTM,Universidade Federal do Oeste do Pará,NA
@@ -1857,6 +1903,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2497,HTN_NA,HTN,NA,NA,HTN,Hitchin Museum,NA
 2498,HTO_NA,HTO,NA,NA,HTO,Universidade Federal do Tocantins,NA
 253,HTSA_Empresa Brasileira de Pesquisa Agropecuária (EMBRAPA),HTSA,Empresa Brasileira de Pesquisa Agropecuária (EMBRAPA),HTSA - Herbário do Trópico Semiárido,HTSA,NA,not in IH
+4888,HTSA_CPATSA,HTSA,CPATSA,HTSA - Herbário do Trópico Semiárido,HTSA,NA,not in IH
 206,HTSA-CARPOTECA_CPATSA,HTSA-CARPOTECA,CPATSA,NA,HTSAf,NA,not in IH
 207,HTSAW_CPATSA,HTSAW,CPATSA,NA,HTSAw,NA,not in IH
 2499,HTTU_NA,HTTU,NA,NA,HTTU,Tennessee Technological University,NA
@@ -1884,6 +1931,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 967,HUCOMR_UCO,HUCOMR,UCO,NA,HUCOMR,NA,not in IH
 2507,NA_HUCP,NA,HUCP,NA,HUCP,Pontifícia Universidade Católica do Paraná,NA
 4858,HUCP_JBRJ,HUCP,JBRJ,NA,HUCP,Pontifícia Universidade Católica do Paraná,NA
+4898,HUCP_PUCPR,HUCP,PUCPR,NA,HUCP,Pontifícia Universidade Católica do Paraná,NA
 1038,HUCPE_UNICAP,HUCPE,UNICAP,HUCPE - Herbário da Universidade Católica de Pernambuco,HUCPE,NA,not in IH
 411,HERB_HUCS,HERB,HUCS,HUCS - Herbário da Universidade de Caxias do Sul,HUCS,University of  Caxias do Sul,NA
 971,HUCS_UCS,HUCS,UCS,HUCS - Herbário da Universidade de Caxias do Sul,HUCS,University of  Caxias do Sul,NA
@@ -1893,6 +1941,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 412,HERB_HUEFS,HERB,HUEFS,NA,HUEFS,Universidade Estadual de Feira de Santana,NA
 982,HUEFS_UEFS,HUEFS,UEFS,HUEFS - Herbario da Universidade Estadual de Feira de Santana,HUEFS,Universidade Estadual de Feira de Santana,NA
 983,HUEG_UEG-UNUCET,HUEG,UEG-UNUCET,HUEG - Herbário da Universidade Estadual de Goiás,HUEG,Universidade Estadual de Goiás,NA
+4936,HUEG_UEG,HUEG,UEG,HUEG - Herbário da Universidade Estadual de Goiás,HUEG,Universidade Estadual de Goiás,NA
 413,HERB_HUEM,HERB,HUEM,NA,HUEM,Universidade Estadual de Maringá,NA
 984,HUEM_UEM,HUEM,UEM,HUEM - Herbário da Universidade Estadual de Maringá,HUEM,Universidade Estadual de Maringá,NA
 4859,HUENF_JBRJ,HUENF,JBRJ,HUENF - Herbário Universidade Estadual do Norte Fluminense,HUENF,NA,not in IH
@@ -1900,6 +1949,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2511,HUESBVC_NA,HUESBVC,NA,NA,HUESBVC,Universidade Estadual do Sudoeste da Bahia-Vitória  da Conquista,NA
 2512,HUF_NA,HUF,NA,NA,HUF,Hunan Forestry School,NA
 2513,HUFABC_NA,HUFABC,NA,NA,HUFABC,Universidade Federal do ABC,NA
+4933,HUFABC_UFABC,HUFABC,UFABC,NA,HUFABC,Universidade Federal do ABC,NA
 1007,HUFSJ_UFSJ,HUFSJ,UFSJ,HUFSJ - Herbário da Universidade Federal de São João del-Rei,HUFSJ,Universidade Federal de São João del-Rei,NA
 2514,HUFSP_NA,HUFSP,NA,NA,HUFSP,Universidade Federal de São Paulo,NA
 1009,HUFU_UFU,HUFU,UFU,NA,HUFU,Universidade Federal de Uberlândia,NA
@@ -1948,6 +1998,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1048,HVASF_UNIVASF,HVASF,UNIVASF,HVASF - Herbário Vale do São Francisco,HVASF,Universidade Federal do Vale do São Francisco,NA
 316,HVAT_FUVATES,HVAT,FUVATES,HVAT - Herbário do Vale do Taquari,HVAT,University of  Vale do Taquari - Univates,NA
 4861,HVC_JBRJ,HVC,JBRJ,HVC - Universidade Federal da Bahia,HVC,Universidade Federal da Bahia,not in IH
+4905,HVC_UFBA-IMS,HVC,UFBA-IMS,HVC - Universidade Federal da Bahia,HVC,Universidade Federal da Bahia,not in IH
 2541,HVR_NA,HVR,NA,NA,HVR,Universidade de Trás-os-Montes e Alto Douro,NA
 2542,HWA_NA,HWA,NA,NA,HWA,Southwest Agricultural University,NA
 2543,HWB_NA,HWB,NA,NA,HWB,Harrow School,NA
@@ -1974,6 +2025,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2558,IAL_NA,IAL,NA,NA,IAL,EMBRAPA,NA
 425,Embrapa Amazonia Oriental_IAN,Embrapa Amazonia Oriental,IAN,NA,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
 426,Embrapa Amazônia Oriental_IAN,Embrapa Amazônia Oriental,IAN,NA,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
+4899,IAN_EAO,IAN,EAO,NA,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
 2559,IARI_NA,IARI,NA,NA,IARI,Indian Agricultural Research Institute,NA
 2560,IASI_NA,IASI,NA,NA,IASI,"University of Agricultural Sciences and Veterinary Medicine  ""Ion Ionescu de la Brad""",NA
 2561,IAUGH_NA,IAUGH,NA,NA,IAUGH,Islamic Azad University Garmsar,NA
@@ -2038,6 +2090,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2604,IFP_NA,IFP,NA,NA,IFP,"Institute of Applied Ecology, Academia Sinica",NA
 2605,IFRD_NA,IFRD,NA,NA,IFRD,Research Institute of Resource Insects,NA
 4863,IFRV_JBRJ,IFRV,JBRJ,IFRV - Herbário de Rio Verde - Instituto Federal Goiano,IFRV,Instituto Federal Goiano,not in IH
+4906,IFRV_IFGoiano,IFRV,IFGoiano,IFRV - Herbário de Rio Verde - Instituto Federal Goiano,IFRV,Instituto Federal Goiano,not in IH
 2606,IGA_NA,IGA,NA,NA,IGA,"Northeast Institute of Geography and Agroecology, Chinese Academy of Sciences",NA
 456,Plants_IGB,Plants,IGB,NA,IGB,NA,not in IH
 2607,IGGDC_NA,IGGDC,NA,NA,IGGDC,"Institute of Geology and Geophysics, Chinese Academy of Sciences",NA
@@ -2408,6 +2461,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 2885,KYO_NA,KYO,NA,NA,KYO,Kyoto University,NA
 560,HERB_L,HERB,L,NA,L,Naturalis,NA
 561,Phanerogam_L,Phanerogam,L,NA,L,Naturalis,NA
+4922,NL-BOTANY_NBC,NL-BOTANY,NBC,NA,L,Naturalis,NA
 562,VascularPlants_LA,VascularPlants,LA,NA,LA,"University of California, Los Angeles",NA
 2886,LAC_NA,LAC,NA,NA,LAC,Xian Institute of Lacquer,NA
 2887,LAE_NA,LAE,NA,NA,LAE,Papua New Guinea Forest Research Institute,NA
@@ -2636,6 +2690,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 466,MAC_IMA,MAC,IMA,MAC - Herbário do Instituto do Meio Ambiente do Estado de Alagoas,MAC,Instituto do Meio Ambiente,NA
 3063,MACB_NA,MACB,NA,NA,MACB,Universidad Complutense,NA
 594,VascularPlants_MACF,VascularPlants,MACF,NA,MACF,California State University,NA
+4920,MACK_UPM,MACK,UPM,Herbário Amélia Vera Guimarães de Sousa,MACK,Universidade Presbiteriana Mackenzie,NA
 3064,MACO_NA,MACO,NA,NA,MACO,Marlborough College,NA
 3065,MAD_NA,MAD,NA,NA,MAD,Forest Products Laboratory,NA
 3066,MADJ_NA,MADJ,NA,NA,MADJ,Jardim Botânico da Madeira,NA
@@ -2869,6 +2924,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 673,MO_MOBOT,MO,MOBOT,NA,MO,Missouri Botanical Garden,NA
 4753,MO_NA,MO,NA,NA,MO,Missouri Botanical Garden,NA
 4829,MOBOT_BR_MOBOT,MOBOT_BR,MOBOT,NA,MO,Missouri Botanical Garden,NA
+4921,MOBOT_MO,MOBOT,MO,NA,MO,Missouri Botanical Garden,NA
 3198,MOAR_NA,MOAR,NA,NA,MOAR,"Morris Arboretum, University of Pennsylvania",NA
 3199,MOBR_NA,MOBR,NA,NA,MOBR,"Estación de Investigaciones Marinas de Margarita, Fundación La Salle de Ciencias Naturales",NA
 3200,MOC_NA,MOC,NA,NA,MOC,Western Oregon University,NA
@@ -2894,6 +2950,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 3217,MPPD_NA,MPPD,NA,NA,MPPD,University of Minnesota,NA
 3218,MPR_NA,MPR,NA,NA,MPR,Mount Makulu Pasture Research Station,NA
 678,HERB_MPU,HERB,MPU,NA,MPU,Université de Montpellier,NA
+4927,RECOLNAT_UM_MPU_UM,RECOLNAT,UM_MPU_UM,NA,MPU,Université de Montpellier,NA
 679,HERB_MPUC,HERB,MPUC,MPUC - Herbário do Museu da Pontifícia Universidade Católica do Rio Grande do Sul,MPUC,Pontifícia Universidade Católica do Rio Grande do Sul,NA
 813,MPUC_PUCRS,MPUC,PUCRS,MPUC - Herbário do Museu da Pontifícia Universidade Católica do Rio Grande do Sul,MPUC,Pontifícia Universidade Católica do Rio Grande do Sul,NA
 3219,MQ_NA,MQ,NA,NA,MQ,Gansu Institute of Desert Control,NA
@@ -3089,6 +3146,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 3361,NIPR_NA,NIPR,NA,NA,NIPR,National Institute of Polar Research,NA
 3362,NIT_NA,NIT,NA,NA,NIT,Universidade Federal Fluminense (Fluminense Federal University - UFF),NA
 4869,NIT_JBRJ,NIT,JBRJ,NA,NIT,Universidade Federal Fluminense (Fluminense Federal University - UFF),NA
+4907,NIT_UFF,NIT,UFF,NA,NIT,Universidade Federal Fluminense (Fluminense Federal University - UFF),NA
 3363,NJ_NA,NJ,NA,NA,NJ,Njala University College,NA
 3364,NJM_NA,NJM,NA,NA,NJM,"Muzeum Novojièínska, p.o.",NA
 3365,NJNU_NA,NJNU,NA,NA,NJNU,Nanjing Normal University,NA
@@ -3173,6 +3231,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1028,HERBAM_UNEMAT,HERBAM,UNEMAT,NX - Herbário Nova Xavantina,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
 1029,NX_UNEMAT,NX,UNEMAT,NX - Herbário Nova Xavantina,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
 4797,NX-CRIPTOGAMOS_UNEMAT,NX-CRIPTOGAMOS,UNEMAT,NX - Herbário Nova Xavantina,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
+4923,NX-FANEROGAMAS_UNEMAT,NX-FANEROGAMAS,UNEMAT,NX - Herbário Nova Xavantina,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
 3433,NXAC_NA,NXAC,NA,NA,NXAC,Ningxia Agricultural College,NA
 3434,NXF_NA,NXF,NA,NA,NXF,Ningxia Academy of Agriculture and Forestry Sciences,NA
 756,HERB_NY,HERB,NY,NA,NY,The New York Botanical Garden,NA
@@ -3183,6 +3242,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 925,NY_The New York Botanical Garden Herbarium (NY) - Vascular Plant Collection,NY,The New York Botanical Garden Herbarium (NY) - Vascular Plant Collection,NA,NY,The New York Botanical Garden,NA
 4757,NY_NA,NY,NA,NA,NY,The New York Botanical Garden,NA
 4830,NYBG_BR_NYBG,NYBG_BR,NYBG,NA,NY,The New York Botanical Garden,NA
+4924,NYBG_NY,NYBG,NY,NA,NY,The New York Botanical Garden,NA
 3435,NYA_NA,NYA,NA,NA,NYA,Nanyue Arboretum,NA
 3436,NYAS_NA,NYAS,NA,NA,NYAS,Silvicultural Research Station,NA
 747,NY-NHP_NTSRV,NY-NHP,NTSRV,Element Occurrence” (EO) records for rare and endangered species of the United States and Canada,NY-NHP,NA,not in IH (flora)
@@ -3288,6 +3348,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 786,"Muséum National d'Histoire Naturelle, Paris_P","Muséum National d'Histoire Naturelle, Paris",P,NA,P,Muséum National d'Histoire Naturelle,NA
 4736,NA_P,NA,P,NA,P,Muséum National d'Histoire Naturelle,NA
 4831,MNHN_P_PC_BR_MNHN,MNHN_P_PC_BR,MNHN,NA,P,Muséum National d'Histoire Naturelle,NA
+4926,RECOLNAT_MNHN_P_MNHN,RECOLNAT,MNHN_P_MNHN,NA,P,Muséum National d'Histoire Naturelle,NA
 3508,PA_NA,PA,NA,NA,PA,Universidade Federal do Oeste do Pará,NA
 3509,PAC_NA,PAC,NA,NA,PAC,The Pennsylvania State University,NA
 428,PACA-AGP_IAP,PACA-AGP,IAP,PACA-AGP - Herbarium Anchieta,PACA,Instituto Anchietano de Pesquisas/UNISINOS,NA
@@ -3570,6 +3631,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 3722,RDG_NA,RDG,NA,NA,RDG,Reading Museum and Archive Service,NA
 3723,RDS_NA,RDS,NA,NA,RDS,Royal Dublin Society,NA
 3724,RE_NA,RE,NA,NA,RE,Liaoning Reed Science Institute,NA
+4925,REAL_UFSS,REAL,UFSS,NA,REAL,Universidade Federal da Fronteira Sul,not in IH
 3725,RED_NA,RED,NA,NA,RED,University of Redlands,NA
 3726,REED_NA,REED,NA,NA,REED,Reed College,NA
 830,Flora exsiccata Bavarica_REG,Flora exsiccata Bavarica,REG,NA,REG,Regensburgische Botanische Gesellschaft,NA
@@ -3695,6 +3757,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 3826,SAMES_NA,SAMES,NA,NA,SAMES,Universidade Federal do Espírito Santo,NA
 4837,SAMES_UFES,SAMES,UFES,NA,SAMES,Universidade Federal do Espírito Santo,NA
 4875,SAMES_JBRJ,SAMES,JBRJ,NA,SAMES,Universidade Federal do Espírito Santo,NA
+4928,SAMES-CARPOTECA_UFES,SAMES-CARPOTECA,UFES,NA,SAMEScarpo,Universidade Federal do Espírito Santo,NA
 3827,SAMF_NA,SAMF,NA,NA,SAMF,Samford University,NA
 3828,SAMU_NA,SAMU,NA,NA,SAMU,Savaria Museum,NA
 850,VP_SAN,VP,SAN,NA,SAN,Forest Research Centre,NA
@@ -3829,6 +3892,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 3940,SHMI_NA,SHMI,NA,NA,SHMI,"Shanghai Institute of Materia Medica, Chinese Academy of Sciences",NA
 3941,SHMU_NA,SHMU,NA,NA,SHMU,Shanghai Medical University,NA
 3942,SHOR_NA,SHOR,NA,NA,SHOR,Shorter College,NA
+4929,SHPR_UTFPR-SL,SHPR,UTFPR-SL,"Herbário da Universidade Tecnológica Federal do Paraná (UTFPR), Campus Santa Helena",SHPR,Universidade Tecnológica Federal do Paraná,NA
 3943,SHST_NA,SHST,NA,NA,SHST,Sam Houston State University,NA
 3944,SHTC_NA,SHTC,NA,NA,SHTC,"California State University, Stanislaus",NA
 3945,SHTU_NA,SHTU,NA,NA,SHTU,Shanghai Normal University,NA
@@ -3936,11 +4000,12 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4026,SOTO_NA,SOTO,NA,NA,SOTO,College of the Ozarks,NA
 4027,SOTON_NA,SOTON,NA,NA,SOTON,Southampton University,NA
 4028,SOUT_NA,SOUT,NA,NA,SOUT,Long Island University,NA
-212,"SP-Instituto de Botânica, IBT_Créditos ou citação das imagens do Herbário do Instituto de Botânica (SP)","SP-Instituto de Botânica, IBT",Créditos ou citação das imagens do Herbário do Instituto de Botânica (SP),NA,SP,Instituto de Botânica,NA
-493,"SP_Instituto de Botânica, IBT",SP,"Instituto de Botânica, IBT","SP - Herbário do Estado \""Maria Eneyda P. Kaufmann Fidalgo\"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
-888,HERB_SP,HERB,SP,"SP - Herbário do Estado \""Maria Eneyda P. Kaufmann Fidalgo\"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
-889,Instituto de Botanica_SP,Instituto de Botanica,SP,"SP - Herbário do Estado \""Maria Eneyda P. Kaufmann Fidalgo\"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
-890,Instituto de Botânica_SP,Instituto de Botânica,SP,"SP - Herbário do Estado \""Maria Eneyda P. Kaufmann Fidalgo\"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+212,"SP-Instituto de Botânica, IBT_Créditos ou citação das imagens do Herbário do Instituto de Botânica (SP)","SP-Instituto de Botânica, IBT",Créditos ou citação das imagens do Herbário do Instituto de Botânica (SP),"SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+493,"SP_Instituto de Botânica, IBT",SP,"Instituto de Botânica, IBT","SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+888,HERB_SP,HERB,SP,"SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+889,Instituto de Botanica_SP,Instituto de Botanica,SP,"SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+890,Instituto de Botânica_SP,Instituto de Botânica,SP,"SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
+4886,SP_IBt,SP,IBt,"SP - Herbário do Estado ""Maria Eneyda P. Kaufmann Fidalgo"" - Coleção de Fanerógamas",SP,Instituto de Botânica,NA
 4029,SPA_NA,SPA,NA,NA,SPA,Swedish Museum of Natural History,NA
 4030,SPAL_NA,SPAL,NA,NA,SPAL,"Municipio di Reggio Emilia, Musei Civici",NA
 4031,SPB_NA,SPB,NA,NA,SPB,Universidade de São Paulo,NA
@@ -4315,7 +4380,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 4321,UADBG_NA,UADBG,NA,NA,UADBG,University of Alberta Botanic Garden,NA
 950,UADY_UADY,UADY,UADY,NA,UADY,Universidad Autónoma de Yucatán,NA
 4322,UAGC_NA,UAGC,NA,NA,UAGC,Universidad Autónoma de Guerrero,NA
-4877,UALF_JBRJ,UALF,JBRJ,UALF - Unversidade Federal de Alfenas,UALF,Universidade Federal de Alfenas,not in IH
+4877,UALF_JBRJ,UALF,JBRJ,UALF - Unversidade Federal de Alfenas,UALF,Universidade Federal de Alfenas,NA
 952,Acalypha_UAM,Acalypha,UAM,NA,UAM,University of Arkansas at Monticello,NA
 953,Plant specimens (ALA)_UAM,Plant specimens (ALA),UAM,NA,UAM,University of Arkansas at Monticello,NA
 4323,UAMH_NA,UAMH,NA,NA,UAMH,UAMH Centre for Global Microfungal Biodiversity,NA
@@ -4383,6 +4448,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 996,UFMT_UFMT,UFMT,UFMT,UFMT - Herbário UFMT,UFMT,Universidade Federal de Mato Grosso,NA
 997,Universidade Federal de Mato Grosso_UFMT,Universidade Federal de Mato Grosso,UFMT,UFMT - Herbário UFMT,UFMT,Universidade Federal de Mato Grosso,NA
 1000,UFP_UFPE,UFP,UFPE,UFP - Herbário UFP - Geraldo Mariz,UFP,Universidade Federal de Pernambuco,NA
+4930,UFP-CARPOTECA_UFPE,UFP-CARPOTECA,UFPE,NA,UFP-CARPOTECA,Universidade Federal de Pernambuco,NA
 4350,UFRJ_NA,UFRJ,NA,NA,UFRJ,Universidade Federal Rural do Rio de Janeiro,NA
 4351,UFRN_NA,UFRN,NA,NA,UFRN,Universidade Federal do Rio Grande do Norte,NA
 4878,UFRN_JBRJ,UFRN,JBRJ,NA,UFRN,Universidade Federal do Rio Grande do Norte,NA
@@ -4491,6 +4557,7 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,name,index.herb
 1111,United States National Herbarium_US,United States National Herbarium,US,NA,US,Smithsonian Institution,NA
 4750,US_NA,US,NA,NA,US,Smithsonian Institution,NA
 4843,US_SMITHSONIAN,US,SMITHSONIAN,NA,US,Smithsonian Institution,NA
+4931,US_US,US,US,NA,US,Smithsonian Institution,NA
 4413,USAM_NA,USAM,NA,NA,USAM,University of South Alabama,NA
 4414,USAS_NA,USAS,NA,NA,USAS,University of Regina,NA
 4415,USC_NA,USC,NA,NA,USC,University of Southern California,NA

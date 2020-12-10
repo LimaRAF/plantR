@@ -125,7 +125,7 @@ summaryFlags <- function(x) {
         knitr::kable(locs.clean, col.names = c("Validation", "Records")),
         sep="\n")
     if (!is.null(locs1))
-      cat("\nDetails of the validation (original vs. validated localities:\n",
+      cat("\nDetails of the validation (original vs. validated localities):\n",
           knitr::kable(locs1),
           sep="\n")
 

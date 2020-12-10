@@ -4,11 +4,32 @@
 \alias{formatCoord}
 \title{Format Geographical Coordinates}
 \usage{
-formatCoord(x)
+formatCoord(coords, ...)
 }
 \arguments{
-\item{x}{data.frame}
+\item{coords}{data.frame}
+}
+\value{
+The input data frame \code{coords}, plus the new columns
+  'origin.coord' and 'precision.coord' with the formatted information. The
+  new columns have the same name as proposed by the Darwin Core standards
+  followed by the suffix '.new'.
 }
 \description{
-This function...
+This function formats geographical coordinates to decimal
+  degrees and replaces missing coordinates by the coordinates obtained from
+  the gazetteer.
+}
+\details{
+The function works as a wrapper, where the individuals steps of the
+  proposed __plantR__ workflow for editing the geographical coordinates are
+  performed altogether (see the __plantR__ tutorial and the help of each
+  function for details).
+
+  The input data frame usually contains the following locality fields (defaults):
+  'decimalLongitude', "decimalLatitude", 'latitude.gazetteer', 'longitude.gazetteer',
+  'resolution.gazetteer', 'decimalLatitude.new' and 'decimalLongitude.new'.
+}
+\seealso{
+\link[plantR]{prepCoord} and \link[plantR]{getCoord}.
 }

@@ -4,7 +4,7 @@
 \alias{prepSpecies}
 \title{Edit Scientific Name}
 \usage{
-prepSpecies(x = NULL, rm.rank = FALSE)
+prepSpecies(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...)
 }
 \arguments{
 \item{x}{a data.frame containing the species name}
@@ -21,7 +21,7 @@ correct species name. See Details for a description of flags in the column
 \description{
 Identifies open nomenclature (aff., cf.) in species scientific name,
 classification under species level (var. and subsp.), and common mistakes in
-the a species scientific name. It creates a new column with the original
+the species scientific name. It creates a new column with the original
 string and the new suggested name. It also flags problematic names (character
 string with numbers, authors, wrong case, or other names besides genus and
 epithet etc).
@@ -43,7 +43,7 @@ valid name} \item{\code{indet}}{species identified only at genus level}
 \item{\code{species_nova}}{species name contains an indication of a new
 species, possibly not yet a valid name} \item{\code{non_ascii}}{species name
 has non ASCII characters, not a valid name}
-#'\item{\code{hybrid_species}}{hybrid species} }
+\item{\code{hybrid_species}}{hybrid species} }
 }
 \examples{
 df <- data.frame(scientificName =
@@ -51,6 +51,7 @@ c("Lindsaea lancea var. falcata", "Asplenium Aff. truncorum",
 "Asplenium sp.", "Casearia aff. sylvestris Sw."),
 stringsAsFactors = FALSE)
 prepSpecies(df)
+prepSpecies(df, rm.rank = TRUE)
 
 }
 \author{

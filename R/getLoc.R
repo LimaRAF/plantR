@@ -42,7 +42,7 @@
 #'   gazetteer is incomplete for the region you are working with. The gazetteer
 #'   is permanently being improved. If you find an error or if you want to
 #'   contribute with region-specific gazetteers, please send an email to
-#'   <renato.lima@naturalis.nl>.
+#'   <raflima@usp.br>.
 #'
 #' @author Renato A. F. de Lima
 #'

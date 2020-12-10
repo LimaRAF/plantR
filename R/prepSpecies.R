@@ -1,8 +1,8 @@
-#' Edit Scientific Name
+#' @title Edit Scientific Name
 #'
-#' Identifies open nomenclature (aff., cf.) in species scientific name,
+#' @description Identifies open nomenclature (aff., cf.) in species scientific name,
 #' classification under species level (var. and subsp.), and common mistakes in
-#' the a species scientific name. It creates a new column with the original
+#' the species scientific name. It creates a new column with the original
 #' string and the new suggested name. It also flags problematic names (character
 #' string with numbers, authors, wrong case, or other names besides genus and
 #' epithet etc).
@@ -29,9 +29,11 @@
 #'\item{\code{species_nova}}{species name contains an indication of a new
 #'species, possibly not yet a valid name} \item{\code{non_ascii}}{species name
 #'has non ASCII characters, not a valid name}
-#'#'\item{\code{hybrid_species}}{hybrid species} }
+#'\item{\code{hybrid_species}}{hybrid species} }
 #'
 #' @param x a data.frame containing the species name
+#' @tax.name character. Name of the columns containing the species name. Default
+#' to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
 #'   removed? Default to FALSE
 #'
@@ -43,6 +45,7 @@
 #' "Asplenium sp.", "Casearia aff. sylvestris Sw."),
 #' stringsAsFactors = FALSE)
 #' prepSpecies(df)
+#' prepSpecies(df, rm.rank = TRUE)
 #'
 #' @importFrom stringr str_detect str_replace str_split str_trim
 #' @importFrom flora remove.authors fixCase trim
@@ -50,23 +53,22 @@
 #'
 #' @export prepSpecies
 #'
-prepSpecies <- function(x = NULL, rm.rank = FALSE){
+prepSpecies <- function(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...){
 
-  ### ADICIONADO PELO RENATO ###
   ## check input
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
-  if(!"scientificName" %in% names(x))
-    stop("Input data frame must have a column named 'scientificName'")
+  if(!tax.name %in% names(x))
+    stop("Input data frame must have a column named: ", tax.name)
 
   #0. preliminary edits
-  species <- x$scientificName
-  species <- gsub("var\\.", "var. ", species)
-  species <- gsub("subsp\\.", "subsp. ", species)
-  species <- gsub("aff\\.", "aff. ", species)
-  species <- gsub("cf\\.", "cf. ", species)
-  species <- gsub("  ", " ", species)
+  species <- x[,tax.name]
+  species <- gsub("var\\.", "var. ", species, perl = TRUE)
+  species <- gsub("subsp\\.", "subsp. ", species, perl = TRUE)
+  species <- gsub("aff\\.", "aff. ", species, perl = TRUE)
+  species <- gsub("cf\\.", "cf. ", species, perl = TRUE)
+  species <- gsub("  ", " ", species, perl = TRUE)
 
   # ö: implement status parasite "f. sp." not f. from forma
   #1. Open nomenclature and infraspecies class ####
@@ -143,7 +145,7 @@ prepSpecies <- function(x = NULL, rm.rank = FALSE){
   prev <- c("affinis", "conferre", "subspecies", "variety", "forma", "incertae_sedis", "species_nova", "indet")
 
   #2. recognizig authors ####
-  #### SARA: FAZER APENAS PARA OS NOMES DE ESPÉCIES NÃO REPETIDOS PARA DEMORAR MENOS! ####
+  #### SARA: FAZER APENAS PARA OS NOMES DE ESPÉCIES NÃO REPETIDOS PARA DEMORAR MENOS o flora::remove.authors! ####
   no_authors <- sapply(check$species_new,
                        function(x) flora::remove.authors(flora::fixCase(x)))
   # aqui aff cf subsp var e indet prevalescem

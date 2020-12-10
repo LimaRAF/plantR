@@ -1,8 +1,10 @@
 #' @title Prepare For Duplicate Specimen Search
 #'
-#' @description This function ...
+#' @description This function creates the duplicate search strings which are 
+#'  created by combining information on the taxonomy, collection and locality 
+#'  of the records.
 #'
-#' @param x a data frame with the occurrence data.
+#' @param x a data frame with the species records.
 #' @param noYear Character. Standard for missing data in Year. Default to
 #'   "n.d.".
 #' @param noName character. Standard for missing data in collector name. Default

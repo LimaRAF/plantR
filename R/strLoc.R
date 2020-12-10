@@ -8,25 +8,26 @@
 #'   locality strings constructed ('loc.string', 'loc.string1' and
 #'   'loc.string2').
 #'
-#' @details The function combines the information provided in the locality fields to create
-#' a standard string that `plantR` uses to retrieve information from gazetteers. This string
-#' is built by concatenating the country, state, municipality and locality fields at
-#' the best resolution available. This hierarchical format decreases the chances of retrieving
-#' information from localities with the same names in different regions. The standard gazetteer
-#' provided with `plantR` uses this standard locality string to make queries (see `plantR`
-#' function `getLoc` for details).
+#' @details The function combines the information provided in the locality
+#'   fields to create a standard string that `plantR` uses to retrieve
+#'   information from gazetteers. This string is built by concatenating the
+#'   country, state, municipality and locality fields at the best resolution
+#'   available. This hierarchical format decreases the chances of retrieving
+#'   information from localities with the same names in different regions. The
+#'   standard gazetteer provided with `plantR` uses this standard locality
+#'   string to make queries (see `plantR` function `getLoc` for details).
 #'
 #' The input data frame should preferably be the output of the `plantR` function
-#' `fixLoc`, as part of the validation workflow used by `plantR`. This function
-#' returns the edited standard locality fields (i.e. country.new,
-#' stateProvince.new, municipality.new, and locality.new) and, if chosen, the
-#' extra locality field 'locality.scrap'. In this case, `strLoc`
-#' also returns an alternative string ('loc.string2').
+#'  `fixLoc`, as part of the validation workflow used by `plantR`. This function
+#'  returns the edited standard locality fields (i.e. country.new,
+#'  stateProvince.new, municipality.new, and locality.new) and, if chosen, the
+#'  extra locality field 'locality.scrap'. In this case, `strLoc` also returns an
+#'  alternative string ('loc.string2').
 #'
 #' If used separately, users must provide a data frame with an specific set of
-#' column names (i.e. country.new, stateProvince.new, municipality.new,
-#' locality.new, and, if chosen, locality.scrap). See the
-#' examples below.
+#'  column names (i.e. country.new, stateProvince.new, municipality.new,
+#'  locality.new, and, if chosen, locality.scrap). See the
+#'  examples below.
 #'
 #' @author Renato A. F. de Lima
 #'
