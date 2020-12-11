@@ -2,13 +2,32 @@
 % Please edit documentation in R/formatTax.R
 \name{formatTax}
 \alias{formatTax}
-\title{Format Taxonomical Nomenclature}
+\title{Format Taxonomic Information}
 \usage{
-formatTax(x)
+formatTax(tax, ...)
 }
 \arguments{
-\item{x}{data.frame}
+\item{tax}{data.frame}
+}
+\value{
+The input data frame \code{tax}, plus the new columns with the
+  formatted information. The new columns have the same name as proposed by the
+  Darwin Core standards followed by the suffix '.new'.
 }
 \description{
-This function standardize and validate the names of plant species and families.
+This function standardize and validate the names of plant
+  species and families.
+}
+\details{
+The function works as a wrapper, where the individuals steps of the
+  proposed __plantR__ workflow for editing taxonomic information are
+  performed altogether (see the __plantR__ tutorial and the help of each
+  function for details).
+
+  The input data frame usually contains the following locality fields:
+  "family", "genus" and "scientificName".
+}
+\seealso{
+\link[plantR]{prepSpecies}, \link[plantR]{formatSpecies} and
+ \link[plantR]{formatFamily}.
 }

@@ -1,11 +1,8 @@
 ## Tutorial
 spp <- c("Trema micrantha",
-         "Casearia sylvestris")
-
-example <- rgbif2(species =  spp)
-
-spp <- c("Trema micrantha",
-         "Casearia sylvestris")
+         "Casearia sylvestris",
+         "Euterpe edulis")
+#example <- rgbif2(species =  spp)
 example <- rspeciesLink(species =  spp,
                         Scope = "plants",
                         basisOfRecord = "PreservedSpecimen",
@@ -14,7 +11,6 @@ occs <- fixField(example$data, origin = "splink")
 occs <- formatOcc(occs)
 
 ##Add a function/step to format collectionCodes
-
 saveRDS(occs, "tmp.rds")
 occs <- readRDS("tmp.rds")
 occs <- fixLoc(occs, admin.levels = c("country","stateProvince","municipality","locality"), scrap = TRUE)
@@ -54,15 +50,15 @@ occs <- getCult(occs)
 
 
 ##Vinheta
-occs <- rspeciesLink(species = "Trema micrantha")
-occs <- example
-occs <- fixField(occs$data, origin = "splink")
-occs <- formatOcc(occs)
+# occs <- rspeciesLink(species = "Trema micrantha")
+# occs <- example
+# occs <- fixField(occs$data, origin = "splink")
+# occs <- formatOcc(occs)
+occs <- readRDS("tmp.rds")
 occs <- formatLoc(occs)
-occs <- prepCoord(occs)
-occs <- getCoord(occs)
+occs <- formatCoord(occs)
+occs <- formatTax(occs)
 occs <- validateLoc(occs)
-occs <- formatFamily(occs)
 occs <- validateTax(occs)
 occs <- validateDup(occs, info2merge = c("tax", "loc"),
                     tax.name = "scientificName")

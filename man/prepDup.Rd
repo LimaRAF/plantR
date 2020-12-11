@@ -19,7 +19,7 @@ prepDup(
 )
 }
 \arguments{
-\item{x}{a data frame with the occurrence data.}
+\item{x}{a data frame with the species records.}
 
 \item{noYear}{Character. Standard for missing data in Year. Default to
 "n.d.".}
@@ -43,7 +43,9 @@ missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
 Default to TRUE.}
 }
 \description{
-This function ...
+This function creates the duplicate search strings which are 
+ created by combining information on the taxonomy, collection and locality 
+ of the records.
 }
 \details{
 The input data frame \code{x} must contain at least the columns ...

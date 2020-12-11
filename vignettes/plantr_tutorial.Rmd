@@ -142,9 +142,9 @@ required header name (`'county'`) was replaced by a standard header name,
 The second warning is less important because it relates to optional fields. 
 `fixFields()` removes the columns that belong to optional fields.
 
-## Standardizing people names, collector number and dates: function `formatOcc()`
+## Standardizing people names, collector number, dates and collection codes
 
-Particularly when working with data coming from multiple secondary sources, it
+Particularly when working with data coming from multiple sources, it
 is important to standardize the notation used by different collections and
 sometimes by different collectors within the same collection.
 
@@ -233,11 +233,20 @@ head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
 head(cbind(occs$yearIdentified, occs$yearIdentified.new), n = 15)
 ```
 
-
 These functions handle well most formats but not all of them  (e.g. name format
 'A. Custódio, Filho' or date format "Jul-02"). However, this standardization
-will be very useful for the search of duplicated specimens across herbaria
+will be useful for the search of duplicated specimens across herbaria
 (see below).
+
+The final step of this standardization part is the notation of collection codes, which
+is stored in the field 'collectionCode'. For some reason, not all collections store in this field
+their international collection codes (e.g. Index Herbariorum) and sometimes these codes are stored differently across data repositories. For the search of duplicate entries it is thus important to standardize the codes of collections, which is done using function `getCode`:
+
+```{r, eval = FALSE}
+occs <- getCode(occs)
+```
+
+### The wrapper function `formatOcc()`
 
 All the previous steps are important to understand the editing process of each
 field. __plantR__ can execute all these steps at once using the wrapper function
@@ -263,7 +272,7 @@ Yes! So, the new data frame contains the original and edited/formatted
 information regarding the name of the collector and of the identificator, the
 dates of collection and identification, and collection number.
 
-## Editing locality information: function `formatLoc()`
+## Editing locality information
 
 One important step to find missing geographical coordinates and to validate the
 coordinates provided with the occurrence is to standardize the fields containing
@@ -349,14 +358,24 @@ gazetteer. Note as well that the edited version of the localities is different
 from the original localities regarding their resolution (see details in the next
 section, 'Data validation'). <!-- ö add link to section-->
 
-Finally, we merge the data frame with the previous data processing (function
+We merge the data frame with the previous data processing (function
 `formatOcc()`) with the output of the locality data processing:
 
 ```{r, eval = FALSE}
 occs <- cbind.data.frame(occs, locs[, c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")])
 ```
+### The wrapper function `formatLoc()`
 
-Finally, it can be useful to trace back the full names of the localities
+As before, we provide a function to execute the previous steps at once:
+
+```{r, eval = FALSE}
+occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatLoc(occs1)
+```
+
+### Getting correct locality names: function `getAdmin()`
+
+It may be useful to trace back the full names of the localities
 retrieved from the gazetteer. This can be performed using the function
 `getAdmin()`, which returns the names of the subdivisions of each locality:
 
@@ -365,7 +384,7 @@ head(getAdmin(occs))
 ```
 
 
-## Editing geographical coordinates: functions `prepCoord()` and `getCoord()`
+## Editing geographical coordinates
 
 Previous to the validation of the original geographical coordinates, it is
 important to make sure that they are given and if they are in the required
@@ -390,7 +409,7 @@ table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 As we can see, 20% of the occurrences records have no coordinates. Therefore,
 one may want to use the coordinates obtained from the gazetteer to replace the
 missing coordinates. In __plantR__ we use the function `getCoord()` to do this
-procedure. This function also flags the origin and the probable resolution of
+procedure. This function also flags the origin and the probable precision of
 the original coordinates:
 
 ```{r, eval = FALSE}
@@ -400,10 +419,21 @@ table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 
 Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.
 
+### The wrapper function `formatCoord()`
 
-## Editing species names: function `prepSpecies()`
+Similarly to the functions `formatOcc()` and `formatLoc` from the previous editing steps,
+we provide a function that perform all the edits related to the geographical coordinates
+at once, the function `formatCoord()`. Because getting missing coordinates from the gazetteer depends on the editing of the locality information, we need to run the before `formatLoc()` runnig `formatCoord()`:
 
-### Species names format
+```{r, eval = FALSE}
+occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatLoc(occs1)
+occs1 <- formatCoord(occs1)
+```
+
+## Editing species taxonomic information
+
+### Species names format: function `prepSpecies()`
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
 `rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
@@ -427,6 +457,63 @@ Note that the number of names has decreased, but there are still many different 
 
 ```{r, eval = FALSE}	
 sort(table(occs$scientificNameStatus))
+```
+
+### Species synonyms and spelling: function `formatSpecies()`
+Although the function `prepSpecies` presented above formatted the species names,
+there are still many more names than the ones we downloaded. Most of them are
+names at the infra-specific level, but others are probably synonyms,
+ortographical variants or even typos. There are R packages that check species
+nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
+in the Brazilian Flora 2020, there is also the package `flora`, which follow the
+accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
+functionalities of some of these packages to inspect possible suggestions for
+species names, through the function `formatSpecies`:
+
+```{r, eval = FALSE}
+occs <- formatSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
+table(occs$suggestedName)
+table(occs$notes)
+```
+
+The final output of the function provide the valid names for the names that were retrieved in the two databases selected. The function also returns which names were replaced or corrected (i.e. typos). In addition, the flag 'check +1 accepted' may represent an indication of possible homonyms, i.e., different species with the same binomial but different authorities. Together with names there were not found in both databases, those possible homonyms may deserve closer attention. 
+
+Note that there are still more names than the ones used to search for
+occurences. Some of these differences are due to differences in the assignnemt
+of synonyms between speciesLink and the Brazilian Flora interface used here, the
+package `flora`.
+
+For our example we decided to replace all edited species names (i.e.
+'scientificName.new') by the suggested species names from the function
+`formatSpecies` (i.e. 'scientificName.new'). However, __plantR__ does not
+execute this step automatically and the decision to do it should be taken by the
+user:
+
+```{r, eval = FALSE}
+occs$scientificName.new <- occs$suggestedName
+```
+
+### Botanical family synonyms and standardization: function `formatFamily`
+The classification of the taxonomic confidence in species determination of each
+occurrence is currently performed based on a global list of taxonomists per
+family (see details below). Because different plant classification systems can
+use different names to the same family, we need to standardize family names. The
+standard used by __plantR__ to obtain valid family names is the APG IV and the PPG
+I, which can be obtained using the function `formatFamily()`:
+
+```{r, eval = FALSE}
+occs <- formatFamily(occs)
+```
+
+Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
+
+### The wrapper function `formatTax()`
+
+As for the other parts of the data editing and standardization, we provide a simple wrapper function that executes the steps above at once:
+
+```{r, eval = FALSE}
+occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatTax(occs1)
 ```
 
 <br/><br/>
@@ -507,54 +594,8 @@ table(occs$cult.check)
 
 ### Flag possible spatial outliers
 
-## Taxonomic validation: function `validateTax()`
+## Confidence level of species determinations: function `validateTax()`
 
-### Species synonyms and spelling: function `formatSpecies`
-Although the function `prepSpecies` presented above formatted the species names,
-there are still many more names than the ones we downloaded. Most of them are
-names at the infra-specific level, but others are probably synonyms,
-ortographical variants or even typos. There are R packages that check species
-nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
-in the Brazilian Flora 2020, there is also the package `flora`, which follow the
-accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
-functionalities of some of these packages to inspect possible suggestions for
-species names, through the function `formatSpecies`:
-
-```{r, eval = FALSE}
-occs <- formatSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
-table(occs$suggestedName)
-table(occs$notes)
-```
-
-The final output of the function provide the valid names for the names that were retrieved in the two databases selected. The function also returns which names were replaced or corrected (i.e. typos). In addition, the flag 'check +1 accepted' may represent an indication of possible homonyms, i.e., different species with the same binomial but different authorities. Together with names there were not found in both databases, those possible homonyms may deserve closer attention. 
-
-Note that there are still more names than the ones used to search for
-occurences. Some of these differences are due to differences in the assignnemt
-of synonyms between speciesLink and the Brazilian Flora interface used here, the
-package `flora`.
-
-For our example we decided to replace all edited species names (i.e. 'scientificName.new') by the suggested species names from the function `formatSpecies` (i.e. 'scientificName.new'). However,
-__plantR__ does not execute this step automatically and the decision to do it should be taken by the user:
-
-```{r, eval = FALSE}
-occs$scientificName.new <- occs$suggestedName
-```
-
-### Botanical family synonyms and standardization: function `formatFamily`
-The classification of the taxonomic confidence in species determination of each
-occurrence is currently performed based on a global list of taxonomists per
-family (see details below). Because different plant classification systems can
-use different names to the same family, we need to standardize family names. The
-standard used by __plantR__ to obtain valid family names is the APG IV and the PPG
-I, which can be obtained using the function `formatFamily()`:
-
-```{r, eval = FALSE}
-occs <- formatFamily(occs)
-```
-
-Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
-
-### Confidence level of species determinations
 Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.
 
 ```{r, eval = F}
@@ -562,10 +603,10 @@ occs <-  validateTax(occs)
 table(occs$tax.check)/dim(occs)[1]
 ```
 
-As expected, only ca. 15% of the specimesn were identified by a family specialist. Note that the function also returns a list with up to 10 names in the TDWG format that have more identifications. Maybe this name could represent a missing taxonomist from the __plantR__ database of plant taxonomists. If this is the case, one can add taxonomist to the validation using the argument `miss.taxonomist`:
+As expected, only ca. 15% of the specimens were identified by a family specialist. Note that the function also returns a list with up to 10 names in the TDWG format that have more identifications. Maybe this name could represent a missing taxonomist from the __plantR__ database of plant taxonomists. If this is the case, one can add taxonomist to the validation using the argument `miss.taxonomist`:
 
 ```{r, eval = FALSE}
-occs1 = validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G."))
+occs1 <- validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G."))
 table(occs1$tax.check)/dim(occs)[1]
 ```
 
@@ -573,9 +614,9 @@ This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Sa
 
 <br/><br/>
 
-# Duplicated specimens
+## Duplicated specimens
 
-## Prepare to merge: function `prepDup()`
+### Prepare to merge: function `prepDup()`
 
 First we need to prepare the dataset for the duplicate search. The function 
 `prepDup` basically creates concatenated strings with different set of information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
@@ -588,7 +629,7 @@ dups <- prepDup(occs,
 
 Note that we used the default arguments of the `prepDup` function, which exclude from the search the strings without collector name, number or year (e.g. 's.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.) increase as well.
 
-## Find duplicates across collections: function `getDup()`
+### Find duplicates across collections: function `getDup()`
 
 Next, we can actually perform the search for duplicated specimens using the function `getDup`:
 
@@ -601,9 +642,9 @@ As a result we found about 5300 specimens with a high chance of representing tru
 
 Note that if there are duplicated entries (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
 
-It is important to notice that these duplicate search results are only indications. First of all, the retrievel of duplicates depend on the dataset itself: if the collection were the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they could not enter the duplicate search.  
+It is important to notice that these duplicate search results are only indications. First of all, the retrievel of duplicates depend on the dataset itself: if the collection were the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
 
-## Homogenizing the information within duplicates: function `mergeDup()`
+### Homogenizing the information within duplicates: function `mergeDup()`
 
 Since the amount and quality of the information among collectiors may vary, one
 may want to homogenize the information within the duplicates. These
@@ -628,7 +669,7 @@ In this example, we show that the function was able to retrieve high-confidence 
 
 Note that we used the function defaults, which created new columns for the merged information. If one wants to save the new information in the same columns, the argument `overwrite` should be set to `TRUE`.
 
-## Removing duplicates after homogenization: function `rmDup()`
+### Removing duplicates after homogenization: function `rmDup()`
 
 `plantR` provides a simple function for the (fast) removal of duplicates from the data. This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. Only the first specimen of each group of duplicates is maintained and the non-homogenized information contained in the other specimens is lost. 
 

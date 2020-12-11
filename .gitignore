@@ -2,6 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+*.png
+tmp.rds
 teste.R
 check_output.txt
 vignettes/results/

@@ -7,7 +7,7 @@
 #' @param lon Column with the corrected clean latitude Defaults to decimalLongitude.new
 #'
 #' @importFrom dplyr full_join
-#' @importFrom sf st_as_sf st_crs st_set_crs st_join
+#' @importFrom sf st_as_sf st_crs st_set_crs st_centroid st_distance
 #'
 checksInverted <- function(x = occs,
                            country_gazetteer = "country",
@@ -25,6 +25,12 @@ checksInverted <- function(x = occs,
 
   check_inv$check_inv <- NULL #we'll use this column
 
+  worldMap_centroids <- sf::st_centroid(worldMap)
+  check <- st_as_sf(check_inv)
+  paises <- match(check$country, worldMap_centroids$NAME_0)
+  #calcula distancia NAO PAIRWISE MAS do vetor de paises originl com o centroide correspondente
+  original <- st_distance(check, worldMap_centroids[paises,], by_element = TRUE)
+
   # create inverse lonlat #there must be a better way
   check_inv$inv_lon <- check_inv[,lon]*(-1)
   check_inv$inv_lat <- check_inv[,lat]*(-1)
@@ -35,41 +41,48 @@ checksInverted <- function(x = occs,
   tmp <- sf::st_as_sf(check_inv, coords = c(inv_lon, lat))
   prj <- st_crs(4326)
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "inverted_lon"
+  inverted_lon <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
   # test inverted_lat
   tmp <- sf::st_as_sf(check_inv, coords = c(lon, inv_lat))
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "inverted_lat"
+  inverted_lat <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
   # test both inverted
   tmp <- sf::st_as_sf(check_inv, coords = c(inv_lon, inv_lat))
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "inverted_lat_lon"
+  inverted_both <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
   # transposed: lat, lon
   tmp <- sf::st_as_sf(check_inv, coords = c(lat, lon))
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "transposed_lat_lon"
+  transposed <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
-  # tranposed and wrong x sign (invlat)
+  # transposed and wrong x sign (invlat)
   tmp <- sf::st_as_sf(check_inv, coords = c(inv_lat, lon))
-  st_crs(tmp)
-  prj <- st_crs(4326)
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "transposed_lat_and_lon_and_inv_lat"
+  transposed_inv_lat <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
-  # tranposed and wrong y sign (invlon)
+  # transposed and wrong y sign (invlon)
   tmp <- sf::st_as_sf(check_inv, coords = c(lat, inv_lon))
   tmp <- st_set_crs(tmp, prj)
-  tmp <- st_join(tmp, worldMap, join = st_intersects)
-  check_inv$check_inv[tmp$NAME_0.y == check_inv[, country_gazetteer]] <- "transposed_lat_and_lon_and_inv_lon"
+  transposed_inv_lon <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
 
+  # transposed and both wrong signs
+  tmp <- sf::st_as_sf(check_inv, coords = c(inv_lat, inv_lon))
+  tmp <- st_set_crs(tmp, prj)
+  transposed_inv_both <- st_distance(tmp, worldMap_centroids[paises,], by_element = TRUE)
+
+  dists <- data.frame(original,
+                      inverted_lon,
+                      inverted_lat,
+                      inverted_both, #signos
+                      transposed, #transposto
+                      transposed_inv_lon,
+                      transposed_inv_lat,
+                      transposed_inv_both)#signos e transposto
+  options_dist <- names(dists)
+  check_inv$inv.check <- options_dist[max.col(-dists)] #min.col não existe ¬¬
   y <- left_join(x, check_inv)
   return(y)
 }

@@ -1,16 +1,18 @@
 #' @title Get Valid Plant Names
 #'
-#' @description Function that try to provide valid plant names or to correct
-#'   typos and ortographical variants based on the
+#' @description Provides valid plant names or corrects typos and ortographical
+#'   variants based on the
 #'   \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
 #'    Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
-#'   Plant List}.
+#'   Plant List}. It uses the fuctionalities of other R packages, namely `flora`
+#'   (Carvalho 2019) and `Taxonstand` (Cayuela et al. 2017).
 #'
 #' @param x a data.frame containing the species scientific name without authors
-#'   and their authorship, ideally already passed by the string check in `fixSpecies`.
-#'   The authorship is only used for solving homonyms.
-#' @param col.names character. Names of the columns containing the species names and authors.
-#' Default to 'scientificName.new' and 'scientificNameAuthorship'.
+#'   and their authorship, ideally already passed by the string check in
+#'   `fixSpecies`. The authorship is only used for solving homonyms.
+#' @param tax.names character. Names of the columns containing the species names
+#'   and authors. Default to 'scientificName.new' and
+#'   'scientificNameAuthorship'.
 #' @param db the list of database to be consulted for valid names, in their
 #'   preferred order of priority. Only the results from Brazilian Flora 2020
 #'   ('bfo'), The Plant List ('tpl') or both are currently implemented.
@@ -24,9 +26,34 @@
 #'   results.
 #'
 #' @return
-#' A data frame with the name provided by the user and ...
+#' A data frame with the same columns provided by the user and some additional
+#' columns containing the suggested binomial ('suggestedName'), the corresponding
+#' scientific name ('scientific.name'), the notes and the sources used to retrieve
+#' the suggested binomial (columns 'notes' and 'source').
+#'
+#' @details The function currentlyuses packages `flora` and `Taxonstand` to
+#'   provide suggested names. Not all information returned by those packages
+#'   are returned here, but some of them can be controlled using the argument
+#'   `drop.cols`.
+#'
+#'   The function does not provide the suggested names from the different
+#'   databases/sources. It combines into the same column ('suggestedName') the
+#'   suggestions from one or more databases. If more than one databases is used,
+#'   the suggested names are combined following the same order of the database
+#'   codes provided in the argument `db`. See examples for details.
+#'
 #'
 #' @author Renato A. Ferreira de Lima
+#'
+#' @references
+#'
+#' Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
+#' Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
+#'
+#' Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
+#' Standardization of Plant Species Names. R package version 2.1.
+#' https://CRAN.R-project.org/package=Taxonstand
+#'
 #'
 #' @examples
 #' sp.list <- c("Casearia sylvestris","Casearia sylvestirs",
@@ -37,9 +64,13 @@
 #'   scientificNameAuthorship = aut_list,
 #'   stringsAsFactors = FALSE)
 #' formatSpecies(df)
+#' formatSpecies(df, db = c("tpl","bfo"))
 #' formatSpecies(df, db = "bfo")
 #' formatSpecies(df, db = "tpl")
 #' formatSpecies(df, db = "tpl", sug.dist = 0.85)
+#'
+#' @seealso
+#'  Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
 #'
 #' @importFrom flora trim get.taxa fixCase remove.authors
 #' @importFrom stringr str_count str_trim
@@ -47,43 +78,44 @@
 #'
 #' @export formatSpecies
 #'
-formatSpecies <- function(x,
-                          col.names = c("scientificName.new","scientificNameAuthorship"),
-                          db = c("bfo","tpl"),
-                          sug.dist = 0.9,
-                          use.authors = TRUE,
-                          drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
+formatSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAuthorship"),
+                          db = c("bfo","tpl"), sug.dist = 0.9, use.authors = TRUE,
+                          drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id"), ...) {
 
   ## check input
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
-  if(!col.names[1] %in% names(x))
-    stop("Input data frame must have a column named 'scientificName'")
+  if(!tax.names[1] %in% names(x))
+    stop("Input data frame must have a column with the species name")
 
   # storing the databases in the order of priority defined in 'db'
   results <- vector("list", length(db))
   names(results) <- db
 
   # creating the full-length data frames
-  if (col.names[2] %in% names(x)) {
-    df <- data.frame(ordem = 1:length(x[,col.names[1]]),
-                     verbatimSpecies = x[,col.names[1]],
-                     author = x[,col.names[2]],
-                     stringsAsFactors = FALSE)
+  if (tax.names[2] %in% names(x)) {
+    df <- data.frame(
+      ordem = 1:length(x[, tax.names[1]]),
+      verbatimSpecies = x[, tax.names[1]],
+      author = x[, tax.names[2]],
+      stringsAsFactors = FALSE
+    )
     df$full_sp <- paste(df$verbatimSpecies, df$author)
     df$full_sp <- stringr::str_trim(gsub(" NA$", "", df$full_sp))
 
   } else {
-    df <- data.frame(ordem = 1:length(x[,col.names[1]]),
-                     verbatimSpecies = x[,col.names[1]],
-                     stringsAsFactors = FALSE)
+    df <- data.frame(
+      ordem = 1:length(x[, tax.names[1]]),
+      verbatimSpecies = x[, tax.names[1]],
+      stringsAsFactors = FALSE
+    )
   }
 
   # suggesting a valid name using flora pkg
   if (any(db %in% "bfo")) {
     # cleaning spaces and removing duplicated names
-    trim_sp <- flora::trim(unique(x[,col.names[1]]))
+    trim_sp <- flora::trim(unique(x[,tax.names[1]]))
     # obtaining valid names from FBO-2020
     suggest_sp <- flora::get.taxa(trim_sp, drop="", suggestion.distance = sug.dist)
     miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
@@ -146,7 +178,7 @@ formatSpecies <- function(x,
   if (any(db %in% c("tpl"))) {
 
     assign("last.warning", NULL, envir = baseenv())
-    if (use.authors & !is.null(x[,col.names[2]])) {
+    if (use.authors & !is.null(x[,tax.names[2]])) {
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # Species names, exact match
@@ -281,6 +313,12 @@ formatSpecies <- function(x,
   final.results1 <- cbind.data.frame(x,
                                      final.results,
                              stringsAsFactors = FALSE)
+  names(final.results1)[which(names(final.results1) == "scientific.name")] <-
+    "scientificNameFull"
+  names(final.results1)[which(names(final.results1) == "notes")] <-
+    "tax.notes"
+  names(final.results1)[which(names(final.results1) == "source")] <-
+    "tax.source"
 
   return(final.results1)
 }

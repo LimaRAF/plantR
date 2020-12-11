@@ -12,7 +12,7 @@ herbarium specimens}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted
-  fields
+  information.
 }
 \description{
 This function standardizes names of administrative levels from
@@ -20,10 +20,9 @@ This function standardizes names of administrative levels from
   speciesLink
 }
 \details{
-The function works similarly to a wrapper function, where the
-  individuals steps of the proposed __plantR__ workflow for editing locality
-  information are performed altogether (see the __plantR__ tutorial for
-  details).
+The function works as a wrapper, where the individuals steps of the
+  proposed __plantR__ workflow for editing locality information are performed
+  altogether (see the __plantR__ tutorial for details).
 
   The input data frame usually contains the following locality fields:
   "country", "stateProvince", "municipality" and "locality".
@@ -31,7 +30,4 @@ The function works similarly to a wrapper function, where the
 \seealso{
 \link[plantR]{fixLoc}, \link[plantR]{strLoc}, \link[plantR]{prepLoc},
  and \link[plantR]{getLoc}.
-}
-\author{
-Renato A. F. de Lima
 }
