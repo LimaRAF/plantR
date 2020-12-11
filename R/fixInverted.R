@@ -5,9 +5,9 @@
 #' @importFrom dplyr left_join
 #'
 fixInverted <- function(x = occs) {
+  x$decimalLatitude.new.new <- x$decimalLatitude.new
+  x$decimalLongitude.new.new <- x$decimalLongitude.new
   fix_these <- x[!is.na(x$inv.check) & x$inv.check != "original",]
-  fix_these$decimalLatitude.new.new <- NULL
-  fix_these$decimalLongitude.new.new <- NULL
   fix_these$decimalLatitude.new.new[fix_these$inv.check %in% c("inverted_lat", "inverted_both")] <-
     fix_these$inv_lat[fix_these$inv.check %in% c("inverted_lat", "inverted_both")]
 

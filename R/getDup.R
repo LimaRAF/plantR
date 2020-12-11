@@ -2,7 +2,7 @@
 #'
 #' @description This function ...
 #'
-#' @param df a data frame with the colection code (first column) and the strings
+#' @param df a data frame with the collection code (first column) and the strings
 #'   to be used for the duplicate search (second and other columns), typically
 #'   the exit of the function `prepDup`.
 #' @param flag.ind logical. Should duplicates based only on indirect duplicates

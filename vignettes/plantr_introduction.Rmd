@@ -12,7 +12,7 @@ output:
       variant: gfm
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{plantR_intro}
+  %\VignetteIndexEntry{An Introduction to __plantR__}
   %\VignetteEngine{knitr::rmarkdown}
     \usepackage[utf8]{inputenc}
 ---
@@ -201,7 +201,7 @@ Finally, we can assign confidence levels in the species identifications, which i
 occs <- validateTax(occs)
 ```
 
-Note that the function returns up to 10 names of indentificators not taken as specialists of the family. The argument `miss.taxonomist` can be used to include
+Note that the function returns up to 10 names of identificators not taken as specialists of the family. The argument `miss.taxonomist` can be used to include
 missing names of taxonomists (e.g. `miss.taxonomist = c("Arecaceae_Reis, A.")`)
 
 #### Duplicate specimens
@@ -209,8 +209,10 @@ missing names of taxonomists (e.g. `miss.taxonomist = c("Arecaceae_Reis, A.")`)
 Another main feature of __plantR__ is the search for duplicated specimens across herbaria (i.e. same specimen with accession numbers in two or more collections). It uses different combinations of search strings and network analysis to find direct and indirect links between occurrences. Besides the search, the user can also homogenize information, such as species names or geographical coordinates, within groups of duplicates. This tool is performed using the function `validateDup`:
 
 ```{r, eval = TRUE, include=TRUE, warning = FALSE} 
-occs <- validateDup(occs, info2merge = c("tax", "loc"),
-                    tax.name = "scientificName")
+occs <- validateDup(occs, 
+                    info2merge = c("tax", "loc"),
+                    tax.name = "scientificName", 
+                    flag.ind = F)
 ```
 
 
