@@ -12,7 +12,11 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # plantR
+
+<img src="https://raw.githubusercontent.com/liibre/plantR_logo/master/figs/plantR_logo.png?token=AA4OYDE3TMIXBWRYVMNCINC72PIUY" align="right" alt="" width="120" />
+
 
 An R Package for Managing Species Records from Biological Collections
 
