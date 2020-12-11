@@ -9,7 +9,7 @@ library(dplyr)
 #1. from raw files to processed csv in dictionaries----
 
 #dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders within a github local repository
-dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
+  dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
@@ -57,15 +57,18 @@ collectionCodes <- dic$collectionCodes[ ,c("order",
 # dictionary of plant families and their synonyms
 familiesSynonyms <- dic$familiesSynonyms
 # names of the columns names form different data sources and their equivalencies:
-fieldNames <- dic$fieldNames[ ,c("order",
-                                  "standard_name",
-                                  "gbif",
-                                  "splink",
-                                  "splink2gbif",
-                                  "jabot",
-                                  "jabot_old",
-                                  "example",
-                                  "plantR_status")]
+# ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
+fieldNames <- dic$fieldNames
+# fieldNames <- dic$fieldNames[ ,c("order",
+#                                   "standard_name",
+#                                   "gbif",
+#                                   "splink",
+#                                   "splink2gbif",
+#                                   "jabot",
+#                                   "jabot_old",
+#                                   "example",
+#                                   "plantR_status")]
+
 # gazetteer
 gazetteer <- dic$gazetteer[ ,c("order",
                                "status",
@@ -170,19 +173,18 @@ wordsForSearch <- c("^prov\\. ",
 
 
 # só checando como estao os arquivos
-head(taxonomists)
-head(familiesSynonyms)
-head(collectionCodes)
-head(fieldNames)
-head(gazetteer)
-head(admin)
-head(replaceNames)
+# head(taxonomists)
+# head(familiesSynonyms)
+# head(collectionCodes)
+# head(gazetteer)
+# head(admin)
+# head(replaceNames)
 
 #dir.create("./data-raw/dictionaries")
 write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
 write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
 write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
-write_csv(fieldNames, "./data-raw/dictionaries/fieldNames.csv")
+#write_csv(fieldNames, "./data-raw/dictionaries/fieldNames.csv")
 write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
 write_csv(admin, "./data-raw/dictionaries/admin.csv")
 write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")

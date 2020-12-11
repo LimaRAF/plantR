@@ -59,4 +59,6 @@ fieldNames <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
 setdiff(low_must, low_gbif) #"scientificnameauthorship"
 setdiff(low_must, low_splink)  #"municipality", "dateidentified"
 
-write.csv(fieldNames, "data-raw/dictionaries/fieldNames.csv")
+write.csv(fieldNames,
+          "data-raw/dictionaries/fieldNames.csv",
+          row.names = FALSE)
