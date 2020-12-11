@@ -124,7 +124,7 @@ library("plantR")
 
 Users can provide their own dataset or download data using one of __plantR__ functions. Here we provide an example for function `rspeciesLink()`:
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r splink-download, eval = FALSE, collapse = TRUE}
 occs_splink <- rspeciesLink(species = "Euterpe edulis", 
                             save = FALSE)
 ```
@@ -133,9 +133,14 @@ This function can be also used to make a search based on a county, stateProvince
 
 We also included a wrapper function of the __rgbif__ package to standardize the output and make it easier to follow our workflow.
 
-```{r}
+```{r gbif-download, eval = FALSE}
 occs_gbif <- rgbif2(species = "Euterpe edulis", 
                     save = FALSE)
+```
+
+```{r load-data, eval=TRUE, echo=FALSE}
+occs_splink <- read.csv("vignettes/results/speciesLink.csv")
+occs_gbif <- read.csv("vignettes/results/gbif.csv")
 ```
 
 
@@ -145,7 +150,7 @@ occs_gbif <- rgbif2(species = "Euterpe edulis",
 
 After making sure the input fields are in the DarwinCore format (function `formatDwc()`). This function can also be used to join data from different sources, including data provided by the user if specifiying equivalences with DarwinCore fields. Here, we are using to format and bind download from GBIF and speciesLink databases. Note that an additional column `data_source` is created. 
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r bind-data, eval = TRUE, collapse = TRUE}
 occs <- formatDwc(splink_data = occs_splink, 
                   gbif_data = occs_gbif, 
                   bind_data = TRUE)
@@ -154,7 +159,7 @@ dim(occs)
 table(occs$data_source)
 ```
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r formatOcc, eval = TRUE, collapse = TRUE}
 occs <- formatOcc(occs)
 ```
 
@@ -163,7 +168,7 @@ occs <- formatOcc(occs)
 
 The locality information associated with the occurrence data (e.g. country or city names) can be standardized using the function `formatLoc`: 
 
-```{r, eval = TRUE}
+```{r formatLoc, eval = TRUE}
 occs <- formatLoc(occs)
 ```
 
@@ -174,11 +179,11 @@ guarantees that they are in a good format for validation (i.e. decimal
 degrees). Missing coordinates can also be obtained from a gazetteer based on the
 locality information using function `getCoord`
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r prepCoord, eval = TRUE, collapse = TRUE}
 occs <- prepCoord(occs)
 ```
 
-```{r, eval = TRUE, collapse = TRUE, warning = FALSE}
+```{r getCoord, eval = TRUE, collapse = TRUE, warning = FALSE}
 occs <- getCoord(occs)
 ```
 
@@ -189,14 +194,14 @@ occs <- getCoord(occs)
 Once the new columns with the edited and standardized information are available, the occurrence data can be validated. The first validation step regards the
 locality information, which is done using the function `validateLoc`: 
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r validateLoc, eval = TRUE, collapse = TRUE}
 occs <- validateLoc(occs)
 ```
 
 #### Geographical coordinates
 
  
-```{r}
+```{r validateCoord}
 occs <- validateCoord(occs)
 ```
 
@@ -207,13 +212,13 @@ The next validation step regards species taxonomy and the confidence level in th
 
 But we have two botanical family names associated with the data. This can be standardized using function `formatFamily`:
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r formatFamily, eval = TRUE, collapse = TRUE}
 occs <- formatFamily(occs)
 ```
 
 Finally, we can assign confidence levels in the species identifications, which is one of the main __plantR__ features. 
 
-```{r, eval = TRUE, collapse = TRUE}
+```{r validateTax, eval = TRUE, collapse = TRUE}
 occs <- validateTax(occs)
 ```
 
@@ -224,7 +229,7 @@ missing names of taxonomists (e.g. `miss.taxonomist = c("Arecaceae_Reis, A.")`)
 
 Another main feature of __plantR__ is the search for duplicated specimens across herbaria (i.e. same specimen with accession numbers in two or more collections). It uses different combinations of search strings and network analysis to find direct and indirect links between occurrences. Besides the search, the user can also homogenize information, such as species names or geographical coordinates, within groups of duplicates. This tool is performed using the function `validateDup`:
 
-```{r, eval = TRUE, include=TRUE, warning = FALSE} 
+```{r validateDup, eval = TRUE, include=TRUE, warning = FALSE} 
 occs <- validateDup(occs, info2merge = c("tax", "loc"),
                     tax.name = "scientificName")
 ```
@@ -234,12 +239,12 @@ occs <- validateDup(occs, info2merge = c("tax", "loc"),
 
 Once the editing and validation steps are finished, __plantR__ provides tools for summarizing the occurrence data, using the function `summData`. In this example, the taxonomical summary is quite uninformative, since we have only one species.  
 
-```{r, eval = TRUE, include=TRUE, collapse= TRUE} 
+```{r summaryData, eval = TRUE, include=TRUE, collapse= TRUE} 
 summ <- summaryData(occs)
 ```
 
 It also provides an overview of the validation results (function `summFlags`):
-```{r, eval = TRUE, include=TRUE, collapse= TRUE} 
+```{r summaryFlags, eval = TRUE, include=TRUE, collapse= TRUE} 
 flags <- summaryFlags(occs)
 ```
 
