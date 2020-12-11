@@ -7,6 +7,7 @@
 #' @param species Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector
 #' @param force Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`
 #' @param remove_na Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude
+#' @param save Logical. Save output to filename? Defaults to TRUE
 #' @param ... Any argument from occ_search in rgbif package
 #'
 #' @return A data.frame with the search result. Also saves the output on disk
@@ -29,19 +30,21 @@ rgbif2 <- function(dir = "results/",
                    species,
                    force = FALSE,
                    remove_na = TRUE,
-                   ...
-) {
+                   save = TRUE,
+                   ...) {
   if (length(species) > 9) {
     if (!force) {
       stop("Use force = TRUE if you still want to download data for more than 10 species")
     }
   }
-  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   key <- sapply(species, function(x) rgbif::name_backbone(name = x)$speciesKey)
   key_pointer <- sapply(key, function(x) !is.null(x))
-  message("\nSpecies not found: ", species[!key_pointer],
-          "\nReturning data only for: ",
-          paste(species[key_pointer], collapse = ", "))
+  # Adding message if any species not found
+  if (!all(key_pointer)) {
+    message("\nSpecies not found: ", species[!key_pointer],
+            "\nReturning data only for: ",
+            paste(species[key_pointer], collapse = ", "), "\n")
+  }
   # Loop for each valid species
   gbif_data <- list()
   for (i in 1:length(key_pointer)) {
@@ -49,23 +52,24 @@ rgbif2 <- function(dir = "results/",
       message("Making request to GBIF...")
       gbif_data[[i]] <- rgbif::occ_search(hasCoordinate = TRUE,
                                           hasGeospatialIssue = FALSE,
-                                          taxonKey = key[i],
-                                          return = "data",
-                                          ...)
+                                          taxonKey = key[i])$data
     } else {gbif_data[[i]] <- data.frame(key = NA)}
   }
   names(gbif_data) <- species
-  all_data <- dplyr::bind_rows(gbif_data, .id = "species_id")
+  all_data <- as.data.frame(dplyr::bind_rows(gbif_data, .id = "species_id"))
   if (remove_na) {
     all_data <- all_data[!is.na(all_data$decimalLongitude)
                          & !is.na(all_data$decimalLatitude), ]
   }
-  fullname <- paste0(dir, filename, ".csv")
-  message(paste0("Writing ", fullname, " on disk."))
-  write.table(all_data,
-              fullname,
-              sep = ",",
-              row.names = FALSE,
-              col.names = TRUE)
+  if (save) {
+    dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+    fullname <- paste0(dir, filename, ".csv")
+    message(paste0("Writing ", fullname, " on disk."))
+    write.table(all_data,
+                fullname,
+                sep = ",",
+                row.names = FALSE,
+                col.names = TRUE)
+  }
   return(all_data)
 }
