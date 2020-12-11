@@ -22,9 +22,9 @@ plantr <- data.frame(plantr = must_plantr,
 dwc_dic <- read.csv("https://raw.githubusercontent.com/tdwg/dwc/master/vocabulary/term_versions.csv")
 
 dwc <- dwc_dic %>%
-  select(c("label", "definition", "organized_in")) %>%
+  select(term_localName, definition, organized_in) %>%
   filter(organized_in != "") %>%
-  mutate(low_dwc = tolower(label), dwc = label) %>%
+  mutate(low_dwc = tolower(term_localName), dwc = term_localName) %>%
   select(dwc, low_dwc, definition) %>%
   distinct()
   #%>%
@@ -56,7 +56,7 @@ fieldNames <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
   left_join(dwc, ., by = c("dwc", "low_dwc"))
 
 # Missing fields
-setdiff(low_must, low_gbif)  #"typestatus", "scientificnameauthorship"
+setdiff(low_must, low_gbif) #"scientificnameauthorship"
 setdiff(low_must, low_splink)  #"municipality", "dateidentified"
 
 write.csv(fieldNames, "data-raw/dictionaries/fieldNames.csv")
