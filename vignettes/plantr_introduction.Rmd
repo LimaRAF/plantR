@@ -122,20 +122,36 @@ library("plantR")
 
 ### Data entry
 
-Users can provide their own dataset or download data using one of __plantR__ functions. Here we provide an example for function `rspeciesLink`:
+Users can provide their own dataset or download data using one of __plantR__ functions. Here we provide an example for function `rspeciesLink()`:
 
 ```{r, eval = TRUE, collapse = TRUE}
-occs <- rspeciesLink(species = "Euterpe edulis")
+occs_splink <- rspeciesLink(species = "Euterpe edulis", 
+                            save = FALSE)
 ```
+
+This function can be also used to make a search based on a county, stateProvince, country, collection, and other options (see ?rspeciesLink for details). 
+
+We also included a wrapper function of the __rgbif__ package to standardize the output and make it easier to follow our workflow.
+
+```{r}
+occs_gbif <- rgbif2(species = "Euterpe edulis", 
+                    save = FALSE)
+```
+
 
 ### Data editing
 
 #### People names, collector number and dates
 
-After making sure the input fields are in the DarwinCore format (function `fixField`), the names of the collectors and identifiers, collection numbers and dates can be edited using the function `formatOcc`: 
+After making sure the input fields are in the DarwinCore format (function `formatDwc()`). This function can also be used to join data from different sources, including data provided by the user if specifiying equivalences with DarwinCore fields. Here, we are using to format and bind download from GBIF and speciesLink databases. Note that an additional column `data_source` is created. 
 
 ```{r, eval = TRUE, collapse = TRUE}
-occs <- fixField(occs$data, origin = "splink")
+occs <- formatDwc(splink_data = occs_splink, 
+                  gbif_data = occs_gbif, 
+                  bind_data = TRUE)
+
+dim(occs)
+table(occs$data_source)
 ```
 
 ```{r, eval = TRUE, collapse = TRUE}
