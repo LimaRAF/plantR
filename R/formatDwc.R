@@ -5,8 +5,8 @@
 #' @param splink_data A data frame as in the output from `rspeciesLink()`
 #' @param gbif_data A data frame as in the output from `rgbif()` or `rgbif2()`
 #' @param user_data A data frame provided by the user. Minimum fields are: `c("collectionCode", "catalogNumber", "recordNumber", "recordedBy", "year", "country", "stateProvince", "county", "municipality", "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified", "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")`. Fields can be placed at any order and any given name. If using `user_data` argument, the user must indicate the name of the column for each field if not already in DwC standard
-#' @param drop Logical. Either to drop fields unused by the data cleaning routine performed by plantR
 #' @param bind_data Logical. Either to bind data from differents sources after formatting
+#' @param drop Logical. Either to drop fields unused by the data cleaning routine performed by plantR
 #' @param collectionCode The name of the column containing the name, acronym, coden, or initialism identifying the collection or data set from which the record was derived
 #' @param catalogNumber The name of the column containing an identifier for the record within the data set or collection
 #' @param recordNumber The name of the column containing an identifier given to the Occurrence at the time it was recorded. Often serves as a link between field notes and an Occurrence record, such as a specimen collector's number
@@ -33,11 +33,13 @@
 #'
 #' @export formatDwc
 #'
+#' @author Sara R. Mortara and Andrea Sánchez-Tapia
+#'
 formatDwc <- function(splink_data = NULL,
                       gbif_data = NULL,
                       user_data = NULL,
+                      bind_data = TRUE,
                       drop = FALSE,
-                      bind_data = FALSE,
                       collectionCode = "collectionCode",
                       catalogNumber = "catalogNumber",
                       recordNumber = "recordNumber",
@@ -81,7 +83,7 @@ formatDwc <- function(splink_data = NULL,
   # formating speciesLink data -------------------------------------------------
   if (!is.null(splink_data)) {
     splink_cols <- sort(unique(na.omit(fieldNames$speciesLink)))
-    if (all(splink_cols %in% names(splink_data))) {
+    if (any(!splink_cols %in% names(splink_data))) {
       stop("splink_data does not follow the speciesLink pattern!")
     }
     # absent fields in speciesLink: municipality and dateIdentified
@@ -89,15 +91,15 @@ formatDwc <- function(splink_data = NULL,
     splink_data$municipality <- NA
     # Creating field dateIdentified
     splink_date <- apply(X = splink_data[, c("yearIdentified", "monthIdentified", "dayIdentified")],
-                                        MARGIN = 1,
-                                        FUN = function(x) paste(x, collapse = "-"))
+                         MARGIN = 1,
+                         FUN = function(x) paste(x, collapse = "-"))
     splink_data$dateIdentified <- ifelse(grepl("NA-NA-NA", splink_date), NA, splink_date)
   }
 
   # formating gbif data --------------------------------------------------------
   if (!is.null(gbif_data)) {
     gbif_cols <- sort(unique(na.omit(fieldNames$gbif)))
-    if (all(gbif_cols %in% names(gbif_data))) {
+    if (any(!gbif_cols %in% names(gbif_data))) {
       stop("gbif_data does not follow the gbif pattern!")
     }
     # absent fields in speciesLink: scientificNameAuthorship and typeStatus
@@ -113,12 +115,26 @@ formatDwc <- function(splink_data = NULL,
     gbif_data <- gbif_data[, names(gbif_data) %in% must]
     splink_data <- splink_data[, names(splink_data) %in% must]
     user_data <- user_data[, names(user_data) %in% must]
+    message("Droping fields not used in the data cleaning!")
   }
 
-  # binding data if bind = TRUE
-    res <- list(gbif_data, splink_data, user_data)
-  if (bind) {
-    res <- dplyr::bind_rows(res[sapply(data_list, function(x) !is.null(x))])
+  # binding data ---------------------------------------------------------------
+
+  if (bind_data) {
+    # Forcing numeric columns to be numeric
+    numerics <- c("year", "month", "day", "decimalLatitude", "decimalLongitude",
+                  "individualCount")
+    for (i in numerics) {
+      splink_data[, i] <- as.numeric(splink_data[, i])
+      gbif_data[, i] <- as.numeric(gbif_data[, i])
+    }
+
+    res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
+    res_list <- dplyr::bind_rows(res_list[sapply(res_list, function(x) !is.null(x))], .id = "data_source")
+
+  } else {
+    res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
   }
-    return(res)
+  warning("\n The field 'county' was replaced by 'municipality'")
+  return(res_list)
 }
