@@ -50,10 +50,13 @@ collectionCodes <- dic$collectionCodes[ ,c("order",
                                            "collection.string",
                                            "collectioncode.gbif",
                                            "institutioncode.gbif",
-                                           "name",
+                                           #"name",
+                                           #"citation",
                                            "index.herbariorum.or.working.code",
                                            "organization",
-                                           "OBS")]
+                                           #"latitude","longitude","physical country",
+                                           "col.OBS")]
+collectionCodes <- collectionCodes[!is.na(collectionCodes$index.herbariorum.or.working.code),]
 # dictionary of plant families and their synonyms
 familiesSynonyms <- dic$familiesSynonyms
 # names of the columns names form different data sources and their equivalencies:
