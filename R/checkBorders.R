@@ -1,11 +1,14 @@
 #' Checks if two countries share a border
 #'
-#' @param country1
-#' @param country2
-#' @importFrom spData world
+#' @param country1 First country to check
+#' @param country2 Second country to check
+#'
 #' @importFrom textclean replace_non_ascii
 #' @importFrom sf st_union st_cast
 #'
+#' @author Andrea Sánchez-Tapia & Sara Mortara
+#'
+#' @export
 shares_border <- function(country1 = "brazil",
                           country2 = "argentina") {
   w <- spData::world
@@ -31,8 +34,12 @@ shares_border <- function(country1 = "brazil",
 #' @param country_shape Name of the column with the country that comes from the shapefile
 #' @param country_gazetteer Name of the column with the country that comes from the gazetteer
 #' @importFrom dplyr left_join if_else
+#'
+#' @author Andrea Sánchez-Tapia & Sara Mortara
+#'
+#' @export
 
-checksBorders <- function(x = data.frame(occs),
+checkBorders <- function(x = data.frame(occs),
                           country_shape = "NAME_0",
                           country_gazetteer = "country") {
   check_these <- grepl(pattern = "*country_bad*", x$country.check)
