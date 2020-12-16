@@ -1,22 +1,51 @@
-#' @title Validate Specimen Locality Information
+#' @title Validate Record Locality Information
 #'
-#' @description Compares the resolution of the original locality information
-#' provided with the one retrieved from the gazetteer.
+#' @description Compares the resolution of the locality information provided in
+#'   the original record with the resolution retrieved from the gazetteer.
 #'
-#' @param x a data frame. Needs to have the following fields: resol.orig,
-#' resolution.gazetteer
+#' @param x a data frame containing the resolution of the original and the
+#'   gazetteer locality information.resolution from the gazetter.
+#' @param res.orig character. The name of the column containing the resolution
+#'   of the locality information from the original records. Default to
+#'   'resol.orig'.
+#' @param res.gazet character. The name of the column containing the resolution
+#'   of the locality information from which the gazetteer coordinates were
+#'   obtained. Default to 'resolution.gazetteer'.
 #'
-#' @return the data frame \code{x} with a new column with the result of the
-#' checking process.
+#' @return the data frame \code{x} with a new column 'loc.check' with the result
+#'   of the locality validation.
+#'
 #'
 #' @details The function simply compares if the original information provided
 #' with each specimen is found in the locality gazetteer and at which resolution
 #' (i.e. country, state, municipality). This comparison is strongly dependent on
 #' the completeness of the gazetteer used. Please remind that the gazetteer
-#' provided with `plantR` is strongly biased towards Latin America, particularly
+#' provided with __plantR__ is strongly biased towards Latin America, particularly
 #' Brazil.
 #'
+#' The records whose locality was not found in the gazetteer at the same
+#' resolution are flagged with a "check_...". For these records, the
+#' locality resolution is downgraded until a locality is found in the gazetteer.
+#' If even the country name is not found, then the locality is flagged
+#' as "no_info". Specimens retaining their resolution are flagged with a
+#' "ok_same_resolution" and those found at a better resolution are flagged with an
+#' "ok_" (e.g. 'ok_state2municipality': a record which had its original
+#' resolution at the ' 'stateProvince' level is now at the 'municipality' level).
+#'
+#' The records flagged with the class "check_local.2municip." should not be seen as
+#' problematic, since the __plantR__ gazetteer contain a list of county names
+#' that is much more comprehensive than the list of locality names.
+#'
 #' @author Renato A. F. de Lima
+#'
+#' @examples
+#' (df <- data.frame(
+#' resol.orig = c("locality", "municipality","stateProvince","country"),
+#' resolution.gazetteer = c("county", "county","country", "county"),
+#' stringsAsFactors = FALSE))
+#'
+#' res <- validateLoc(df)
+#' res
 #'
 #' @export validateLoc
 #'
@@ -34,8 +63,8 @@ validateLoc <- function(x, res.orig = "resol.orig", res.gazet = "resolution.gaze
   x1 <- x[, which(colnames(x) %in% c(res.orig, res.gazet))]
 
   ## Flagging localities with changes in their resolution
-  resol.gazet <- gsub("state", "stateProvince", x1[, res.gazet])
-  resol.gazet <- gsub("county", "municipality", resol.gazet)
+  resol.gazet <- gsub("state", "stateProvince", x1[, res.gazet], perl = TRUE)
+  resol.gazet <- gsub("county", "municipality", resol.gazet, perl = TRUE)
   resol.gazet[is.na(resol.gazet)] <- "no_info"
   x1$loc.check <- resol.gazet == x1[, res.orig]
   # OK: change to a better resolution
@@ -100,5 +129,5 @@ validateLoc <- function(x, res.orig = "resol.orig", res.gazet = "resolution.gaze
 
   ## Binding the results with the original data.frame and returning
     result <- cbind.data.frame(x, loc.check = x1$loc.check)
-    return(result)
+    invisible(result)
 }

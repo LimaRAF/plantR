@@ -13,16 +13,18 @@ herbarium specimens}
 \item{merge}{logical. Should duplicates be merged? Default to TRUE.}
 
 \item{remove}{logical. Should duplicates be removed? Default to FALSE.}
+
+\item{...}{Parameters from mergeDup}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted
-  fields
+  fields.
 }
 \description{
 This function search for duplicated specimens within and across
   collections and it can be used to homogenize the information of
   different groups of fields and to remove duplicates, leaving only one
-  occurrence for each group of duplicatet.
+  occurrence for each group of duplicata.
 }
 \details{
 The function works similarly to a wrapper function, where the

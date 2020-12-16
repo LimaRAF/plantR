@@ -4,7 +4,11 @@
 \alias{validateCoord}
 \title{Validate Geographical Coordinates}
 \usage{
-validateCoord(x)
+validateCoord(
+  x = occs,
+  lon = "decimalLongitude.new",
+  lat = "decimalLatitude.new"
+)
 }
 \arguments{
 \item{x}{Data.frame with coordinates in decimal degrees.}

@@ -9,16 +9,16 @@
 #'   'loc.string2').
 #'
 #' @details The function combines the information provided in the locality
-#'   fields to create a standard string that `plantR` uses to retrieve
+#'   fields to create a standard string that __plantR__ uses to retrieve
 #'   information from gazetteers. This string is built by concatenating the
 #'   country, state, municipality and locality fields at the best resolution
 #'   available. This hierarchical format decreases the chances of retrieving
 #'   information from localities with the same names in different regions. The
-#'   standard gazetteer provided with `plantR` uses this standard locality
-#'   string to make queries (see `plantR` function `getLoc` for details).
+#'   standard gazetteer provided with __plantR__ uses this standard locality
+#'   string to make queries (see __plantR__ function `getLoc` for details).
 #'
-#' The input data frame should preferably be the output of the `plantR` function
-#'  `fixLoc`, as part of the validation workflow used by `plantR`. This function
+#' The input data frame should preferably be the output of the __plantR__ function
+#'  `fixLoc`, as part of the validation workflow used by __plantR__. This function
 #'  returns the edited standard locality fields (i.e. country.new,
 #'  stateProvince.new, municipality.new, and locality.new) and, if chosen, the
 #'  extra locality field 'locality.scrap'. In this case, `strLoc` also returns an
@@ -47,7 +47,7 @@
 #' strLoc(occs.new)
 #'
 #'
-#' ## Using the function under the `plantR` cleaning workflow
+#' ## Using the function under the __plantR__ cleaning workflow
 #' # Creating a data frame with locality information
 #' (occs <- data.frame(country = c("BR", "Brazil", "Brasil"),
 #'                      stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro"),

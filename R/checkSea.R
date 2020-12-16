@@ -4,7 +4,7 @@
 #' @param lat Column with the latitude to be checked. Defaults to *.new.new that was corrected for inverse coordinates
 #' @param lon Column with the latitude to be checked. Defaults to *.new.new that was corrected for inverse coordinates
 #'
-#' @importFrom CoordinateCleaner cc_sea buffland
+#' @importFrom CoordinateCleaner cc_sea
 #' @importFrom dplyr left_join if_else
 #'
 checkSea <- function(x = data.frame(occs),

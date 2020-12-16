@@ -4,28 +4,53 @@
 \alias{formatFamily}
 \title{Standardize Botanical Family}
 \usage{
-formatFamily(x)
+formatFamily(
+  x,
+  fam.name = "family",
+  gen.name = "genus",
+  spp.name = "scientificName",
+  ...
+)
 }
 \arguments{
-\item{x}{a data frame containing at least the columns `family`, `genus` and
-`speciesName`.}
+\item{x}{a data frame containing the names of the vascular plant families and
+the corresponding species.}
+
+\item{fam.name}{character. The name of the column containing the family
+names. Default to "family".}
+
+\item{gen.name}{character. The name of the column containing the genus names.
+Default to "genus"}
+
+\item{spp.name}{character. The name of the column containing the species
+names. Default to "scientificName"}
 }
 \value{
 the data frame \code{x} with an additional column called 'family.new'.
 }
 \description{
-The functions use the ...
+Search for valid family names of vascular plants following the
+  APG IV (2016) and in the PPG I (2016).
 }
 \details{
-First search of names is based on the list of families and accepted
-  synonyms for vascular plants obtained from the
-  \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website}, which
-  includes families cited in the APG IV (2016) and in the PPG I (2016). If
-  the family name is not found in the APG list, a search is carried in the
-  Brazilian Flora 2020 (BF-2020), using package `flora`. If the family name
-  is still not found in BF-2020, then a final try is performed in The Plant
-  List (TPL), using package `Taxonstand`. Family names retrieved from BF-2020
-  and TPL are finally converted to the names accepted by the APG IV or PPG I.
+The data frame \code{x} must contain at least two columns which stores the
+family and spcies names. By default, the names of these columns should be
+`family` and `speciesName`, following Darwin Core field names. Optionally,
+a column with the genus name can be provided (default column name: 'genus').
+If it is not provided, this columns is generated internally based on the
+species names provided.
+
+The first search of names is based on the list of families and accepted
+synonyms for vascular plants provided by __plantR__ which was mainly compiled
+from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
+which includes families cited in the APG IV (2016) and in the PPG I (2016).
+
+If the family name is not found in this list, a second search is carried in
+the Brazilian Flora 2020 (BF-2020), using package `flora` (Carvalho 2019). If
+the family name is still not found in BF-2020, then a final try is performed
+in The Plant List (TPL), using package `Taxonstand` (Cayuela et al. 2017).
+Family names retrieved from BF-2020 and TPL are finally converted to the
+names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the name found
 based on the genus name, the original name is replaced by the name from the
@@ -33,18 +58,25 @@ APG IV or PPG I with a warning.
 }
 \examples{
 
-occs <- data.frame(family = c("Ulmaceae", "Cannabaceae", "Salicaceae",
+df <- data.frame(family = c("Ulmaceae", "Cannabaceae", "Salicaceae",
 "Flacourtiaceae", "Vivianiaceae"), genus = c("Trema", "Trema", "Casearia",
-"Casearia", "Casearia"), speciesName = c("Trema micrantha", "Trema
-micrantha", "Casearia sylvestris","Casearia sylvestris","Casearia
-sylvestris"), stringsAsFactor = FALSE)
-formatFamily(occs)
+"Casearia", "Casearia"), speciesName = c("Trema micrantha", "Trema micrantha",
+"Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"),
+stringsAsFactors = FALSE)
+formatFamily(df, spp.name = "speciesName")
 
 }
 \references{
 Angiosperm Phylogeny Group (2016). An update of the Angiosperm
 Phylogeny Group classification for the orders and families of flowering
 plants: APG IV. Bot. J. Linnean Soc. 181: 1-20.
+
+Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
+Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
+
+Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
+Standardization of Plant Species Names. R package version 2.1.
+https://CRAN.R-project.org/package=Taxonstand
 
 PPG I (2016). A community-derived classification for extant lycophytes and
 ferns. Journal of Systematics and Evolution. 54 (6): 563–603.

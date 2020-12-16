@@ -6,7 +6,7 @@
 #'   occurrence for each group of duplicata.
 #'
 #' @return The input data frame \code{x}, plus the new columns with the formatted
-#'   fields
+#'   fields.
 #'
 #' @param occ.df a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
@@ -56,7 +56,7 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
     antes <- dim(occ.df)[1]
     occ.df <- rmDup(occ.df)
     depois <- dim(occ.df)[1]
-    cat("The removal of duplicated specimens removed", antes - depois,"records from the data.")
+    cat(antes - depois,"duplicated records were from the data.")
   }
 
   return(occ.df)

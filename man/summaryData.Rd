@@ -10,7 +10,7 @@ summaryData(x, top = 5)
 \item{x}{a data frame with the occurrence data.}
 
 \item{top}{numerical. Number of groups (e.g. collections, families) to be
-presented. Default to 5.}
+printed. Default to 5.}
 }
 \description{
 This function provides a general summary of the occurrence data,
@@ -19,9 +19,10 @@ This function provides a general summary of the occurrence data,
 }
 \details{
 The summary output depends on the presence of some key columns in
-  the input data frame \code{x}.
+  the input data frame \code{x}, which should follow the Darwin Core standards.
+  If the edited columns from __plantR__ are given, they are given priority to
+  report the data summaries.
 
-  The function prints the main summary tables related to the occurrence data.
-  However, the list of tables that generate those summaries can be saved into an
-  object, if needed.
+  The function prints the summary tables related to the occurrence data.
+  However, the tables generating those summaries can be saved into an object.
 }

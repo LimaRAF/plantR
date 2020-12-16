@@ -2,7 +2,7 @@
 % Please edit documentation in R/formatOcc.R
 \name{formatOcc}
 \alias{formatOcc}
-\title{Format Names, Numbers and Dates}
+\title{Format Names, Numbers, Dates and Codes}
 \usage{
 formatOcc(x, noNumb, noYear, noName)
 }
@@ -10,39 +10,44 @@ formatOcc(x, noNumb, noYear, noName)
 \item{x}{a data frame, containing typical fields from occurrence records from
 herbarium specimens}
 
-\item{noNumb}{standard notation for missing data in Number}
+\item{noNumb}{character. The standard notation for missing data in the field 'Number'}
 
-\item{noYear}{standard notation for missing data in Year}
+\item{noYear}{character. The standard notation for missing data in the field 'Year'}
 
-\item{noName}{standard notation for missing data in Name}
+\item{noName}{character. The standard notation for missing data in the field 'Name'}
 }
 \value{
-The input data frame \code{x}, plus the new columns with the formatted
-  fields
+The input data frame \code{x}, plus the new columns with the
+  formatted information. The new columns have the same name as proposed by
+  the Darwin Core standards followed by the suffix '.new'.
 }
 \description{
 This function standardizes collector names, determiner names,
-  collection number, and date from herbarium occurrences obtained from
-  on-line databases, such as GBIF or speciesLink
+  collection number, date and collection codes from herbarium occurrences
+  obtained from on-line databases, such as GBIF or speciesLink.
 }
 \details{
 The function works similarly to a wrapper function, where many
-  individuals steps of the proposed `plantR` workflow for editing some
-  important fields are performed at once (see the Data Editing vignette)
+  individuals steps of the proposed __plantR__ workflow for editing collection
+  information are performed altogether (see the __plantR__ tutorial and the
+  help of each function for details).
 
-  The input data frame must contain at least the following fields:
-  'eventDate' and/or 'year' (date/year of the collection); 'recordedBy'
-  (collector(s) name(s)); 'recordNumber'; (collector number) 'identifiedBy'
-  (identificator name); 'dateIdentified' or 'yearIdentified' (date or year of
-  identification)
+  Ideally, the input data frame must contain at least the following fields
+  from the Darwin Core standards (the functions default):
+  - 'intitutionCode' and 'collectionCode' (cosdes of the institution and collection);
+  - 'eventDate' and/or 'year' (date/year of the collection);
+  - 'recordedBy' (collector(s) name(s));
+  - 'recordNumber' (collector number)
+  - 'identifiedBy' (identificator name);
+  - 'dateIdentified' or 'yearIdentified' (date or year of identification)
 
-  The function uses the R package `data.table` in the attempt to speed up the
+  The function uses the R package `data.table` internally to speed up the
   processing of larger data sets
 }
 \seealso{
-\link[plantR]{fixName}, \link[plantR]{colNumber}, \link[plantR]{getYear},
- \link[plantR]{tdwgNames}, \link[plantR]{formatName}, \link[plantR]{missName}
- and \link[plantR]{lastName}.
+\link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
+ \link[plantR]{getYear}, \link[plantR]{tdwgNames}, \link[plantR]{formatName},
+ \link[plantR]{missName} and \link[plantR]{lastName}.
 }
 \author{
 Renato A. F. de Lima

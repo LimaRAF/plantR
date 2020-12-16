@@ -32,7 +32,7 @@
 #'\item{\code{hybrid_species}}{hybrid species} }
 #'
 #' @param x a data.frame containing the species name
-#' @tax.name character. Name of the columns containing the species name. Default
+#' @param tax.name character. Name of the columns containing the species name. Default
 #' to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
 #'   removed? Default to FALSE

@@ -6,7 +6,7 @@
 \usage{
 formatSpecies(
   x,
-  col.names = c("scientificName.new", "scientificNameAuthorship"),
+  tax.names = c("scientificName.new", "scientificNameAuthorship"),
   db = c("bfo", "tpl"),
   sug.dist = 0.9,
   use.authors = TRUE,
@@ -20,7 +20,7 @@ formatSpecies(
 and their authorship, ideally already passed by the string check in
 `fixSpecies`. The authorship is only used for solving homonyms.}
 
-\item{col.names}{character. Names of the columns containing the species names
+\item{tax.names}{character. Names of the columns containing the species names
 and authors. Default to 'scientificName.new' and
 'scientificNameAuthorship'.}
 
@@ -50,8 +50,8 @@ Provides valid plant names or corrects typos and ortographical
   variants based on the
   \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
    Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
-  Plant List}. It uses the fuctionalities of other R packages, namely 'flora'
-  (Carvalho 2019) and 'Taxonstand' (Cayuela et al. 2017).
+  Plant List}. It uses the fuctionalities of other R packages, namely `flora`
+  (Carvalho 2019) and `Taxonstand` (Cayuela et al. 2017).
 }
 \details{
 The function currentlyuses packages `flora` and `Taxonstand` to
@@ -89,7 +89,7 @@ Standardization of Plant Species Names. R package version 2.1.
 https://CRAN.R-project.org/package=Taxonstand
 }
 \seealso{
-\link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
+Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
 }
 \author{
 Renato A. Ferreira de Lima

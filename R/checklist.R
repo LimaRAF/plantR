@@ -1,38 +1,39 @@
-#' @title Create Species Checklists
+#' @title Create Species Checklist
 #'
 #' @description This function creates a checklist of the species contained
-#' in the occurrence data.
+#' in the occurrence data, including a list of voucher specimens.
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
 #'   __plantR__ validation functions.
-#' @param fam.order logical. Should taxa be listed under their families?
-#'   Default to TRUE.
-#' @param n.vouch numerical. Maximum number of vouchers to be listed. Default
-#'   to 30.
+#' @param fam.order logical. Should taxa be organized in alphabetical order
+#'   of families? Default to TRUE.
+#' @param n.vouch numerical. Maximum number of vouchers to be listed per taxa.
+#'   Default to 30.
 #' @param type character. The type of voucher list desired. Options are: 'short',
 #' 'selected' and 'list' (see details below).
 #' @param rm.dup logical. Should duplicated specimens be removed prior to the
 #'   calculation of species summaries? Default to TRUE.
-#' @param type.rank numerical. Value to be assigned to the rank of type
-#'   specimens in order to organize and filter the coucher list. Default to 5.
+#' @param type.rank numerical. Value of the ranking for type specimens in order
+#'   to organizeorder and filter the voucher list. Default to 5.
 #' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
 #'
-#' @details The checklist can be organized by alphabetic order of the taxa or by
-#'   alphabetic order of families (default).
+#' @details The checklist can be organized in alphabetic order by taxa or in
+#'   alphabetic order by family and then by taxa within families (the
+#'   default).
 #'
 #'   By default, the checklist provides the number of records found and the
 #'   overall taxonomic and geographic confidence level of the records (columns
-#'   'tax.CL' and 'geo.CL'). The taxonomic confidence level is the percentage of
-#'   records with the identification flagged as 'high', while the geographic
-#'   confidence level is the percentage of records with coordinates flagged as
-#'   being validated at municipality or locality levels.
+#'   'tax.CL' and 'geo.CL'), if available. The taxonomic confidence level is the
+#'   percentage of records with the identification flagged as 'high', while the
+#'   geographic confidence level is the percentage of records with coordinates
+#'   flagged as being validated at municipality or locality levels.
 #'
 #'   The function also provide a list of vouchers, giving priority to type
-#'   specimens and records with higher level of taxonomic confidence. By
-#'   default, the function provides only up to 30 vouchers, but this number can
-#'   be controlled using the argument `n.vouch`.
+#'   specimens and records with higher level of confidence in their
+#'   identification. By default, the function provides up to 30 vouchers
+#'   per taxa, but this number can be controlled using the argument `n.vouch`.
 #'
-#'   The voucher list can be provided in the following output formats (The
+#'   The voucher list can be provided in the following output formats (the
 #'   option 'list' is not implemented yet):
 #'   \itemize{
 #'   \item 'short': Collector name, Collector number (collections of deposit)
@@ -41,17 +42,38 @@
 #'   \item 'list': Collector name, Collector number(s) (species code)
 #'   }
 #'
-#'   Note: although we provide a `date.format` argument, formats other then the
-#'   default are pending and so they may not work properly.
+#'   Note: although we provide a `date.format` argument, checks of other date
+#'   formats other then the default are pending and so they may not work
+#'   properly.
+#'
+#' @examples
+#' (df <- data.frame(collectionCode = c("CRI","CRI","CRI","CRI"),
+#' catalogNumber = c("3565","713","3073","15331"),
+#' recordedBy = c("Rebelo, M.C.","Citadini-Zanette, V.",
+#' "Santos, R.","Zapelini, I."),
+#' recordNumber = c("s.n.","1063","11","s.n."),
+#' year = c("1994","1990","1994","2020"),
+#' family = c("Salicaceae","Salicaceae","Cannabaceae","Cannabaceae"),
+#' scientificName = c("Casearia sylvestris","Casearia sylvestris",
+#' "Trema micrantha","Trema micrantha"),
+#' country = c("brazil","brazil","brazil","brazil"),
+#' stateProvince = c("santa catarina","santa catarina",
+#' "santa catarina","santa catarina"),
+#' municipality = c("jaguaruna","orleans","icara","criciuma")))
+#'
+#' checklist(df)
+#'
+#' ##loc = c("","","",""),
+#' ##geo.check = c("","","",""),
+#' ##tax.check = c("","","",""))
 #'
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
 #'
 #' @export checklist
 #'
-checklist <- function(x, fam.order = TRUE, n.vouch = 30,
-                      type = "short", rm.dup = TRUE,
-                      type.rank = 5, date.format = "%d %b %Y") {
+checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
+                      rm.dup = TRUE, type.rank = 5, date.format = "%d %b %Y") {
 
   # check input
   if (!class(x) == "data.frame")
