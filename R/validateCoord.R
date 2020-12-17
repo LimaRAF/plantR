@@ -1,13 +1,18 @@
 #' @title Validate Geographical Coordinates
 #'
-#' @description This function...
+#' @description This function
 #'
 #' @param x Data.frame with coordinates in decimal degrees.
-#'
+#' @param lon Column with the longitude to be validated
+#' @param lat Column with the latitude to be validated
 #'
 #' @importFrom dplyr select one_of rename mutate if_else filter ends_with
 #' @importFrom tidyr separate
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
+#'
+#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#'
+#' @export
 validateCoord <- function(x = occs,
                           lon = "decimalLongitude.new",
                           lat = "decimalLatitude.new") {

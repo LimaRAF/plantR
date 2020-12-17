@@ -26,7 +26,7 @@
 #'
 #' Map used to perform the validation of the original geographical coordinates.
 #' Country names were edited to match the `plantR` default gazetteer and
-#' original polygons were simplifyied (tolerance 0.001 decimal degrees).
+#' original polygons were simplified (tolerance 0.001 decimal degrees).
 #' Reference system: WSG84
 #'
 #' @keywords datasets

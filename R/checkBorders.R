@@ -39,9 +39,9 @@ shares_border <- function(country1 = "brazil",
 #'
 #' @export
 
-checkBorders <- function(x = data.frame(occs),
-                          country_shape = "NAME_0",
-                          country_gazetteer = "country") {
+checkBorders <- function(x,
+                         country_shape = "NAME_0",
+                         country_gazetteer = "country") {
   check_these <- grepl(pattern = "*country_bad*", x$country.check)
   check_country <- x[check_these,]
   shares_bord <- Vectorize(shares_border)

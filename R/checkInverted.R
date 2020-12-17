@@ -1,6 +1,5 @@
 #' Checks records for inverted and transposed coordinates
 #'
-#'
 #' @param x Occurrences data frame
 #' @param country_gazetteer Column with the country according to the exsicatta
 #' @param lat Column with the corrected clean latitude Defaults to decimalLatitude.new
@@ -9,10 +8,15 @@
 #' @importFrom dplyr full_join
 #' @importFrom sf st_as_sf st_crs st_set_crs st_centroid st_distance
 #'
-checksInverted <- function(x = occs,
-                           country_gazetteer = "country",
-                           lat = "decimalLatitude.new",
-                           lon = "decimalLongitude.new") {
+#' @export
+#'
+#' @author Andrea Sánchez-Tapia & Sara Mortara
+#'
+checkInverted <- function(x,
+                          country_gazetteer = "country",
+                          lat = "decimalLatitude.new",
+                          lon = "decimalLongitude.new") {
+  # the input data frame may not have everything
   cols_to_check <- c("border.check", "geo.check")
   cols <- cols_to_check[cols_to_check %in% names(x)]
   if ("border.check" %in% cols) {
@@ -28,12 +32,11 @@ checksInverted <- function(x = occs,
   worldMap_centroids <- sf::st_centroid(worldMap)
   check <- st_as_sf(check_inv)
   paises <- match(check$country, worldMap_centroids$NAME_0)
-  #calcula distancia NAO PAIRWISE MAS do vetor de paises originl com o centroide correspondente
   original <- st_distance(check, worldMap_centroids[paises,], by_element = TRUE)
 
   # create inverse lonlat #there must be a better way
-  check_inv$inv_lon <- check_inv[,lon]*(-1)
-  check_inv$inv_lat <- check_inv[,lat]*(-1)
+  check_inv$inv_lon <- -check_inv[,lon]
+  check_inv$inv_lat <- -check_inv[,lat]
   inv_lon <- "inv_lon"
   inv_lat <- "inv_lat"
 

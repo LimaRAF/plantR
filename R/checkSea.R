@@ -5,12 +5,17 @@
 #' @param lon Column with the latitude to be checked. Defaults to *.new.new that was corrected for inverse coordinates
 #'
 #' @importFrom CoordinateCleaner cc_sea
+#' @importFrom sf as_Spatial
 #' @importFrom dplyr left_join if_else
+#' @importFrom stats complete.cases
+#' @importFrom utils data
 #'
+#' @author Andrea Sánchez-Tapia & Sara Mortara
+#'
+#' @export
 checkSea <- function(x = data.frame(occs),
-                      lat = "decimalLatitude.new.new",
-                      lon = "decimalLongitude.new.new"
-                      ) {
+                     lat = "decimalLatitude.new.new",
+                     lon = "decimalLongitude.new.new") {
   check_these <- complete.cases(x[, c(lon, lat)]) &
     x$geo.check %in% "coord_original"
   check_sea   <- x[check_these,]
@@ -19,7 +24,7 @@ checkSea <- function(x = data.frame(occs),
     CoordinateCleaner::cc_sea(x = check_sea,
                               lon = lon,
                               lat = lat,
-                              ref = as(worldMap, "Spatial"),
+                              ref = sf::as(worldMap, "Spatial"),
                               value = "flagged")
   sea.check <- ifelse(test, "land", "sea")
   test_shore <-
