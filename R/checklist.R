@@ -13,7 +13,7 @@
 #' 'selected' and 'list' (see details below).
 #' @param rm.dup logical. Should duplicated specimens be removed prior to the
 #'   calculation of species summaries? Default to TRUE.
-#' @param type.rank numerical. Value of the ranking for type specimens in order
+#' @param rank.type numerical. Value of the ranking for type specimens in order
 #'   to organizeorder and filter the voucher list. Default to 5.
 #' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
 #'
@@ -59,13 +59,11 @@
 #' country = c("brazil","brazil","brazil","brazil"),
 #' stateProvince = c("santa catarina","santa catarina",
 #' "santa catarina","santa catarina"),
-#' municipality = c("jaguaruna","orleans","icara","criciuma")))
+#' municipality = c("jaguaruna","orleans","icara",NA)))
 #'
-#' checklist(df)
+#' checklist(df, rm.dup = FALSE)
+#' checklist(df, rm.dup = FALSE, type = "selected")
 #'
-#' ##loc = c("","","",""),
-#' ##geo.check = c("","","",""),
-#' ##tax.check = c("","","",""))
 #'
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
@@ -73,7 +71,7 @@
 #' @export checklist
 #'
 checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
-                      rm.dup = TRUE, type.rank = 5, date.format = "%d %b %Y") {
+                      rm.dup = TRUE, rank.type = 5, date.format = "%d %b %Y") {
 
   # check input
   if (!class(x) == "data.frame")
@@ -108,7 +106,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     stop("The input data frame does not contain at least one of the required columns")
 
   # Getting the input columns to be used for filtering
-  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "year", "month", "day")
+  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "month", "day")
   covs.final <- c(unlist(covs.present), other.cols)
 
   # Should the duplicates be removed?
@@ -122,6 +120,11 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   } else {
     dt <- data.table::data.table(x[, names(x) %in% covs.final])
   }
+
+  #Making sure the data.table does not contains factors
+  changeCols <- colnames(dt)[which(as.vector(dt[,lapply(.SD, class)]) == "factor")]
+  if (length(changeCols) > 0)
+    dt[,(changeCols):= lapply(.SD, as.character), .SDcols = changeCols]
 
   # getting the list of taxa and the selected columns
   data.table::setindexv(dt, covs.present[["species"]])
@@ -137,22 +140,31 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   ## NUMBER OF RECORS PER SPECIES ##
   records <- dt[, .N , by = c(covs.present[["species"]])]
 
-  unicatas <- dt[is.na(dup.ID), .N , by = c(covs.present[["species"]])]
-  unicatas <- merge(records, unicatas, by = c(covs.present[["species"]]),
-                    all.x = TRUE, suffixes = c("", ".unis"))
-  unicatas[, N := NULL]
+  if ("dup.ID" %in% names(dt)) {
 
-  duplicatas <- dt[!is.na(dup.ID), .N, by = c(covs.present[["species"]], "dup.ID")]
-  duplicatas <- duplicatas[, .N , by = c(covs.present[["species"]])]
-  duplicatas <- data.table::merge.data.table(records, duplicatas, by = c(covs.present[["species"]]),
-                                             all.x = TRUE, suffixes = c("", ".dups"))
-  duplicatas[, N:= NULL]
+    unicatas <- dt[is.na(dup.ID), .N , by = c(covs.present[["species"]])]
+    unicatas <- merge(records, unicatas, by = c(covs.present[["species"]]),
+                      all.x = TRUE, suffixes = c("", ".unis"))
+    unicatas[, N := NULL]
 
-  records <- records[unicatas, on = c(covs.present[["species"]])]
-  records <- records[duplicatas, on = c(covs.present[["species"]])]
+    duplicatas <- dt[!is.na(dup.ID), .N, by = c(covs.present[["species"]], "dup.ID")]
+    duplicatas <- duplicatas[, .N , by = c(covs.present[["species"]])]
+    duplicatas <- data.table::merge.data.table(records, duplicatas, by = c(covs.present[["species"]]),
+                                               all.x = TRUE, suffixes = c("", ".dups"))
+    duplicatas[, N:= NULL]
 
-  checklist$records <-
-    records$N[match(checklist[,1], data.frame(records)[,1])]
+    records <- records[unicatas, on = c(covs.present[["species"]])]
+    records <- records[duplicatas, on = c(covs.present[["species"]])]
+    checklist$records <-
+      records$N[match(checklist[, covs.present[["species"]]],
+                      data.frame(records)[,1])]
+
+  } else {
+    checklist$records <-
+      records$N[match(checklist[, covs.present[["species"]]],
+                      data.frame(records)[,1])]
+  }
+
 
   ## TAXONOMIC CONFIDENCE LEVEL  ##
 
@@ -207,13 +219,14 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   if ("typeStatus" %in% names(dt)) {
     dt[ , typeStatus := tolower(typeStatus), ]
     dt[!is.na(typeStatus) & !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
-       priority := type.rank, ]
+       priority := rank.type, ]
   }
 
   if (!is.na(covs.present[["collectors"]])) {
     data.table::setkeyv(dt, c(covs.present[["collectors"]]))
-    if (dim(dt[.(c("s.n.", "Anonymous", "Unknown, C.", "Unknown")), ])[1] > 0) {
-      dt[ .(c("s.n.", "Anonymous", "Unknown, C.", "Unknown")), priority := priority - 3]
+    vec <- c("s.n.", "Anonymous", "Unknown, C.", "Unknown")
+    if (dim(dt[vec, nomatch = NULL])[1] > 0) {
+      dt[ vec, priority := priority - 3, nomatch = NULL]
     }
     temp <- data.frame(dt[, lapply(.SD, nchar), by = .SD, .SDcols = c(covs.present[["collectors"]])])
     dt[ temp[,1] < 3, priority := priority - 3]
@@ -289,6 +302,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   data.table::setorderv(dt, c(covs.present[["species"]], "priority"), c(1,-1))
   dt1 <- dt[dt[, .I[1:n.vouch],
                by = c(covs.present[["species"]])]$V1]
+  dt1 <- dt1[rowSums(is.na(dt1)) < dim(dt1)[2],]
 
   ## GENERATING THE LIST OF VOUCHERS ##
   # Collector name and number
@@ -334,7 +348,8 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                 .SDcols = "vchrs"]
 
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[,1], data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[,covs.present[["species"]]],
+                                data.frame(dt2)[,1])])
   }
 
   if (type == "selected") { # From 'species examined' in Flora Neotropica
@@ -373,6 +388,24 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     # }
 
     # LOCALITY
+    locais = NULL
+    if (is.na(covs.present[["locality"]]) &
+        any(!sapply(covs.present[c("countries","state","county")], is.na))) {
+      loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]
+      loc.df <- fixLoc(data.frame(loc.df), scrap = FALSE,
+             admin.levels = c("country", "stateProvince", "municipality"))
+      loc.df <- strLoc(loc.df)
+      loc.df$loc.string  <- prepLoc(loc.df$loc.string)
+      loc.df <- getLoc(loc.df)
+      locais <- getAdmin(loc.df)
+      locais$string <- paste(toupper(locais$NAME_0),", ",
+                             locais$NAME_1, ": ",
+                             locais$NAME_2, sep="")
+      locais$string[locais$string == "NA, NA: NA"] <- "[Locality unknown]"
+      locais$string <- gsub(", NA: NA$", "", locais$string, perl = TRUE)
+      locais$string <- gsub(": NA$", "", locais$string, perl = TRUE)
+    }
+
     if (!is.na(covs.present[["locality"]])) {
       df <- data.frame(dt1[, .SD, .SDcols = c(covs.present[["locality"]])])
       locais <- getAdmin(df)
@@ -386,7 +419,9 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
       locais$string[locais$string == "NA, NA: NA"] <- "[Locality unknown]"
       locais$string <- gsub(", NA: NA$", "", locais$string, perl = TRUE)
       locais$string <- gsub(": NA$", "", locais$string, perl = TRUE)
-    } else {
+    }
+
+    if (is.null(locais)) {
       locais <- data.frame(string = rep("[Locality unknown]", dim(dt1)[1]))
     }
 
@@ -427,7 +462,8 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                 .SDcols = "lista.vouchs"]
     #Saving
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[,1], data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[, covs.present[["species"]]],
+                                data.frame(dt2)[,1])])
   }
 
   # Organizing and ordering the output
