@@ -72,7 +72,10 @@
 #' stringsAsFactors = FALSE)
 #' formatFamily(df, spp.name = "speciesName")
 #'
-formatFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "scientificName", ...) {
+formatFamily <- function(x,
+                         fam.name = "family",
+                         gen.name = "genus",
+                         spp.name = "scientificName", ...) {
 
   #Avoiding warnings in package check when using data.table
   #family <- genus <- scientificName <- NULL
