@@ -4,68 +4,78 @@
 \alias{strLoc}
 \title{Construct Locality String}
 \usage{
-strLoc(x)
+strLoc(
+  x,
+  adm.names = c("country.new", "stateProvince.new", "municipality.new"),
+  loc.names = c("locality.new", "locality.scrap", "resol.orig")
+)
 }
 \arguments{
 \item{x}{a data frame.}
+
+\item{adm.names}{a vector of columns names containing the country,
+state/province and municipality information, in this order. Defaults to
+'country.new', 'stateProvince.new' and 'municipality.new'.}
+
+\item{loc.names}{an optional vector of columns names containing the locality
+(original and alternative) and the resolution of the locality information.
+Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.}
 }
 \value{
-A data frame with the locality fields provided in \code{x} and the
-  locality strings constructed ('loc.string', 'loc.string1' and
-  'loc.string2').
+The data frame \code{x} plus the locality strings constructed from
+  the locality information ('loc.string', 'loc.string1' and 'loc.string2').
 }
 \description{
-Combine locality fields to create the standard plantR locality string
+Combine locality fields to create the standard plantR locality
+  string
 }
 \details{
-The function combines the information provided in the locality
-  fields to create a standard string that __plantR__ uses to retrieve
-  information from gazetteers. This string is built by concatenating the
-  country, state, municipality and locality fields at the best resolution
-  available. This hierarchical format decreases the chances of retrieving
-  information from localities with the same names in different regions. The
-  standard gazetteer provided with __plantR__ uses this standard locality
-  string to make queries (see __plantR__ function `getLoc` for details).
+The function combines the locality information provided to create
+  the standard string that __plantR__ uses to retrieve information from
+  its gazetteer. This string is built by concatenating the country, state,
+  municipality and locality fields at the best resolution available. This
+  nested format decreases the chances of retrieving information from
+  localities with the same names in different regions. The standard gazetteer
+  provided with __plantR__ uses this standard locality string to make queries
+  (see __plantR__ function `getLoc` for details).
 
-The input data frame should preferably be the output of the __plantR__ function
- `fixLoc`, as part of the validation workflow used by __plantR__. This function
- returns the edited standard locality fields (i.e. country.new,
- stateProvince.new, municipality.new, and locality.new) and, if chosen, the
- extra locality field 'locality.scrap'. In this case, `strLoc` also returns an
- alternative string ('loc.string2').
+The input data frame should preferably be the output of the __plantR__
+function `fixLoc`, as part of the validation workflow used by __plantR__.
+This function returns the edited locality fields (the function defaults) and,
+if chosen, an extra locality field. In this case, `strLoc` also returns an
+alternative string ('loc.string2').
 
-If used separately, users must provide a data frame with an specific set of
- column names (i.e. country.new, stateProvince.new, municipality.new,
- locality.new, and, if chosen, locality.scrap). See the
- examples below.
+If used separately, users should provide a data frame with an specific set of
+column names (i.e. country.new, stateProvince.new, municipality.new,
+locality.new, and, if chosen, locality.scrap) or change the defaults. See
+examples below.
 }
 \examples{
 
 ## Using the function separately (need to provide a data in a specific format)
 # Creating a data frame with locality information
-(occs.new <- data.frame(country.new = c("brazil", "brazil", "brazil"),
-                     stateProvince.new = c("rio de janeiro", "rio de janeiro", "rio de janeiro"),
-                     municipality.new = c("parati", "paraty", "paraty"),
-                     locality.new = c(NA,"paraty-mirim", NA),
-                     locality.scrap = c(NA, NA, "trindade")
-                     ))
+(df <- data.frame(country.new = c("brazil", "brazil", "brazil"),
+stateProvince.new = c("rio de janeiro", "rio de janeiro", "rio de janeiro"),
+municipality.new = c("parati", "paraty", "paraty"),
+locality.new = c(NA,"paraty-mirim", NA),
+locality.scrap = c(NA, NA, "trindade")))
+
 # Creating locality strings used to query the gazetteer
-strLoc(occs.new)
+strLoc(df)
 
 
 ## Using the function under the __plantR__ cleaning workflow
 # Creating a data frame with locality information
-(occs <- data.frame(country = c("BR", "Brazil", "Brasil"),
-                     stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro"),
-                     municipality = c("Parati", "Paraty", "Paraty"),
-                     locality = c(NA,"Paraty-Mirim", "Trindade")
-                     ))
+(df <- data.frame(country = c("BR", "Brazil", "Brasil"),
+stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro"),
+municipality = c("Parati", "Paraty", "Paraty"),
+locality = c(NA,"Paraty-Mirim", "Trindade")))
 
 # Formating the locality information
-occs.fix <- fixLoc(occs)
+df.fix <- fixLoc(df)
 
 # Creating locality strings used to query the gazetteer
-strLoc(occs.fix)
+strLoc(df.fix)
 
 
 }

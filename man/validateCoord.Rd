@@ -12,7 +12,14 @@ validateCoord(
 }
 \arguments{
 \item{x}{Data.frame with coordinates in decimal degrees.}
+
+\item{lon}{Column with the longitude to be validated}
+
+\item{lat}{Column with the latitude to be validated}
 }
 \description{
-This function...
+This function
+}
+\author{
+Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 }

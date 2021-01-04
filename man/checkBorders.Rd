@@ -4,11 +4,7 @@
 \alias{checkBorders}
 \title{Flags border points}
 \usage{
-checkBorders(
-  x = data.frame(occs),
-  country_shape = "NAME_0",
-  country_gazetteer = "country"
-)
+checkBorders(x, country_shape = "NAME_0", country_gazetteer = "country")
 }
 \arguments{
 \item{x}{occurrence data frame}

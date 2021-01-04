@@ -10,7 +10,7 @@ checklist(
   n.vouch = 30,
   type = "short",
   rm.dup = TRUE,
-  type.rank = 5,
+  rank.type = 5,
   date.format = "\%d \%b \%Y"
 )
 }
@@ -30,7 +30,7 @@ Default to 30.}
 \item{rm.dup}{logical. Should duplicated specimens be removed prior to the
 calculation of species summaries? Default to TRUE.}
 
-\item{type.rank}{numerical. Value of the ranking for type specimens in order
+\item{rank.type}{numerical. Value of the ranking for type specimens in order
 to organizeorder and filter the voucher list. Default to 5.}
 
 \item{date.format}{The desired format for the dates. Default to "\%d \%b \%Y".}
@@ -82,12 +82,10 @@ scientificName = c("Casearia sylvestris","Casearia sylvestris",
 country = c("brazil","brazil","brazil","brazil"),
 stateProvince = c("santa catarina","santa catarina",
 "santa catarina","santa catarina"),
-municipality = c("jaguaruna","orleans","icara","criciuma")))
+municipality = c("jaguaruna","orleans","icara",NA)))
 
-checklist(df)
+checklist(df, rm.dup = FALSE)
+checklist(df, rm.dup = FALSE, type = "selected")
 
-##loc = c("","","",""),
-##geo.check = c("","","",""),
-##tax.check = c("","","",""))
 
 }

@@ -171,17 +171,17 @@ and without the year of collection and identification ("n.d.").
 
 ```{r, eval = FALSE}
 occs$recordedBy.new <- fixName(occs$recordedBy, special.char = FALSE)
-occs$identifiedBy.new <-  fixName(occs$identifiedBy, special.char = FALSE)
+occs$identifiedBy.new <- fixName(occs$identifiedBy, special.char = FALSE)
 occs$recordNumber.new <- colNumber(x = occs$recordNumber, noNumb = "s.n.")
 occs$year.new <- getYear(occs$year, noYear = "n.d.")
 occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 ```
 
-Next, we format the names of the collector and identificator (function `formatName()`)
+Next, we format the names of the collector and identificator (function `prepName()`)
 
 ```{r, eval = FALSE}
-occs$recordedBy.new <- unlist(lapply(occs$recordedBy.new, formatName))
-occs$identifiedBy.new <- unlist(lapply(occs$identifiedBy.new, formatName))
+occs$recordedBy.new <- prepName(occs$recordedBy.new)
+occs$identifiedBy.new <- prepName(occs$identifiedBy.new)
 ```
 
 We then separate first and auxiliary names for multiple names and then convert

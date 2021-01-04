@@ -20,3 +20,6 @@ checkSea(
 \description{
 Checks occurrences that fall in the sea and close to the shores
 }
+\author{
+Andrea Sánchez-Tapia & Sara Mortara
+}
