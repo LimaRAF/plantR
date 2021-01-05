@@ -4,27 +4,36 @@
 \alias{fixName}
 \title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE)
+fixName(nomes, special.char = FALSE, sep.out = "; ")
 }
 \arguments{
-\item{x}{a character string with a name.}
+\item{nomes}{a character string or a vector with names.}
 
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
+
+\item{sep.out}{a character string with the symbol separating multiple names
+in the output string. Defaults to "; ".}
 }
 \value{
-The character string \code{x} in the standard notation necessary for
-  further processing.
+The character string \code{x} in the standard notation to facilitate
+  further data processing.
 }
 \description{
-Fix problems and standardize name notation
+Standardize name notation
 }
 \details{
-The function fixes problems in name notation (e.g. orphan spaces) and
-  standardized the notation (i.e. Faria Jr. to Faria Junior). Due to common
-  encoding problems related to Latin names, names are returned without accents
-  by default. But users can choose between outputs with and without accents
-  and species characters, using the argument `special.char`.
+The function fixes small problems in name notation (e.g. orphan
+  spaces), standardize the separation between multiple authors and between
+  initials and/or prepositions within the same name. It also standardize the
+  notation of some compound names (i.e. Faria Jr. to Faria Junior). In
+  addition, the function removes numbers, some unwanted expressions (e.g. 'et
+  al.') and symbols (e.g. ? or !).
+
+  Due to common encoding problems related to Latin names, names are returned
+  without accents by default. But users can choose between outputs with and
+  without accents and species characters, by setting the argument
+  `special.char` to TRUE.
 }
 \examples{
   fixName("J.E.Q. Faria Jr.")
@@ -33,8 +42,12 @@ The function fixes problems in name notation (e.g. orphan spaces) and
   fixName("LeitÃ£o FÂ°, H.F.", special.char = TRUE)
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
+  fixName("Karl Emrich & Balduino Rambo", sep.out = " | ")
+  fixName('( Karl) Emrich ;(Balduino ) Rambo')
   fixName('F. da S.N. ThomÃ©')
+  fixName('F.daS.N.ThomÃ©')
   fixName('Pedro L.R.de MorÃ£es')
+  fixName('Pedro L.R.de MorÃ£es (30/4/1998)')
 
 }
 \author{

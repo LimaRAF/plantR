@@ -1,21 +1,22 @@
 #' @title Format Collector Number
 #'
-#' @description The function edits the field 'collector number' of the
-#'   herbarium labels
+#' @description The function standardizes the 'collector number' which is
+#'   typically associated with biological records.
 #'
-#' @param x the character string
+#' @param x a character string or vector
 #' @param colCodes a character string with the collection codes to be removed
 #'   from the collector number. Default to NULL.
-#' @param noNumb character. The desired notation to identify abscence data in
-#'   Collector Number. Defaults to "s.n."
+#' @param noNumb character. The desired notation in the case of missing
+#'   collector number. Defaults to "s.n."
 #'
 #' @return a character vector with the same length of \code{x} with the edited
-#'   collector numbers
+#'   collector numbers.
 #'
-#' @details The function attempts to clean and standardize the information
-#' contained in the field 'Collector Number', which is typical of herbarium
-#' samples. It performs several edits such as removal of unnecessary spaces,
-#' letters, and the replacement of missing information into a standardized notation
+#' @details The function performs several edits such as removal of unnecessary
+#'   spaces, letters, parentheses, and the replacement of missing information of
+#'   collector numbers into a standardized notation, defined by the argument
+#'   `noNumb`. Zeros and strings without numbers are treated as missing
+#'   information.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -29,9 +30,9 @@
 #'
 #' @examples
 #' # A vector with some typical examples of formats found in herbarium labels
-#' numbers <- c("3467","3467 "," 3467","ALCB3467","Gentry 3467","ALCB-3467","3467a","3467A","3467 A",
-#' "3467-A","PL671","57-685","685 - 4724","1-80","-4724","(3467)","(3467","3467)","32-3-77",
-#' "s/n.","s.n.","s.n","",NA)
+#' numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467", "ALCB-3467",
+#' "3467a", "3467A", "3467 A", "3467-A", "PL671", "57-685", "685 - 4724", "1-80",
+#' "-4724", "(3467)", "(3467", "3467)", "32-3-77", "s/n.", "s.n.", "s.n", "", NA)
 #'
 #' # Using the function defaults
 #' colNumber(numbers)
@@ -42,67 +43,54 @@
 #' # Defining user-specific abbreviations for the specimens without collector number
 #' colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
 #'
-colNumber <- function(x,
-                     colCodes = NULL,
-                     noNumb = "s.n.") {
-
-  ###REMOVER DATA DA COLETA DO INICIO DO NUMERO
-  ###REVER MAIS POSSIBLIDADES DE EDICAO
-  # check input:
-  #if (length(x)>1) { stop("input 'name' cannot be a vector of strings!") }
+colNumber <- function(x, colCodes = NULL, noNumb = "s.n.") {
 
   # first edits
-  x <- gsub("  ", "", x)
-  x <- gsub("  ", "", x)
+  x <- gsub("\\s\\s+", " ", x, perl = TRUE)
   numbs <- x
 
-  # Number not given
-  numbs[is.na(numbs)] <- "SemNumero"
-  numbs[numbs %in% 0] <- "SemNumero"
-
-  ## change to grepl(!'\\d',numbs)
-  numbs <-
-    gsub('s\\.n\\.|s\\.n|s/nº|S/N|S\\.N\\.|s/nº|s/n°|^s/n$|^s/n\\.$',
-         "SemNumero",
-         numbs)
-  numbs[numbs %in% "sn"] <- "SemNumero"
-  numbs[is.na(numbs) | numbs %in% c("")] <- "SemNumero"
-  numbs[numbs %in% c("Number unspecified")] <- "SemNumero"
-  numbs[is.na(numbs) & grepl(" s.n. ", numbs)] <- "SemNumero"
+  # Number missing
+  numbs[numbs %in% c(0, "0", "", " ", NA)] <- "SemNumero"
+  numbs[!grepl("\\d", numbs, perl = TRUE)] <- "SemNumero"
+  # numbs <-
+  #   gsub('s\\.n\\.|s\\.n|s/nº|S/N|S\\.N\\.|s/nº|s/n°|^s/n$|^s/n\\.$',
+  #        "SemNumero",
+  #        numbs)
+  numbs[!is.na(numbs) & grepl(" s.n. ", numbs)] <- "SemNumero"
 
   # Removing the collection code from the beggining of the collection number
   if (!is.null(colCodes))
     numbs[!is.na(numbs) &
-            grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE)] <-
+            grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE, perl = TRUE)] <-
                 gsub(paste("^", colCodes, collapse = "|", sep = ""), "", numbs[!is.na(numbs) &
-                    grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE)])
+                    grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE, perl = TRUE)])
 
   # Removing names of collectors and others codes from the beginning of the numbers
   numbs[!is.na(numbs) &
-          grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE)] <-
+          grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)] <-
             as.character(sapply(sapply(strsplit(numbs[!is.na(numbs) &
-                grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE)], " "), function(x)
-                  x[grepl('[0-9]|SemNumero', x)]), tail, 1))
-  numbs[!is.na(numbs) & grepl("SemNumero", numbs)] = "SemNumero"
-  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs)] = "SemNumero"
+                grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)], " "), function(x)
+                  x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), tail, 1))
+  numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] = "SemNumero"
+  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] = "SemNumero"
 
   #Removing unwanted characters ans spacing
-  numbs <- gsub(' - ', "-", numbs)
+  numbs <- gsub(' - ', "-", numbs, fixed = TRUE)
 
   #Removing misplaced parenteses
-  numbs <- gsub(' \\(', "\\(", numbs)
-  numbs <- gsub('\\) ', "\\)", numbs)
-  numbs[grepl('^\\(', numbs) & !grepl('\\)$', numbs)] <-
-    gsub('^\\(', '', numbs[grepl('^\\(', numbs) & !grepl('\\)$', numbs)])
-  numbs[!grepl('^\\(', numbs) &  grepl('\\)$', numbs)] <-
-    gsub('\\)$', '', numbs[!grepl('^\\(', numbs) & grepl('\\)$', numbs)])
+  numbs <- gsub(' \\(', "\\(", numbs, perl = TRUE)
+  numbs <- gsub('\\) ', "\\)", numbs, perl = TRUE)
+  numbs[grepl('^\\(', numbs, perl = TRUE) & !grepl('\\)$', numbs, perl = TRUE)] <-
+    gsub('^\\(', '', numbs[grepl('^\\(', numbs, perl = TRUE) & !grepl('\\)$', numbs, perl = TRUE)], perl = TRUE)
+  numbs[!grepl('^\\(', numbs, perl = TRUE) &  grepl('\\)$', numbs, perl = TRUE)] <-
+    gsub('\\)$', '', numbs[!grepl('^\\(', numbs, perl = TRUE) & grepl('\\)$', numbs, perl = TRUE)], perl = TRUE)
 
   #Replacing orphan spaces by separators
-  numbs <- gsub(' ',"-",numbs)
+  numbs <- gsub(' ', "-", numbs, fixed = TRUE)
 
   #Including separators between number qualificators
-  numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE)] <-
-    gsub(' ',"-",numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE)])
+  numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)] <-
+    gsub(' ', "-", numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)], perl = TRUE)
 
   #PUT THIS FUNCTION IN PACKAGE DOCUMENTATION?
   #NEED TO BE FIXED: CONVERTING 116F4 TO 1164-F!
@@ -129,22 +117,22 @@ colNumber <- function(x,
   numbs[grepl('[0-9][A-Z]', numbs, ignore.case = TRUE)] <-
     sapply(numbs[grepl('[0-9][A-Z]', numbs, ignore.case = TRUE)], FUN = f1)
 
-  numbs <- gsub(' e ', ", ", numbs)
-  numbs <- gsub('#|\\?|\\!|\\.', "", numbs)
-  numbs <- gsub(", ", ",", numbs)
-  numbs <- gsub("Collector Number:", "", numbs)
-  numbs <- gsub("NANA", "SemNumero", numbs)
-  numbs <- gsub('^--$', "SemNumero", numbs)
-  numbs <- gsub('^-', "", numbs)
-  numbs <- gsub('-$', "", numbs)
-  numbs[!grepl('[0-9]', numbs)] <- "SemNumero"
+  numbs <- gsub(' e ', ", ", numbs, fixed = TRUE)
+  numbs <- gsub('#|\\?|\\!|\\.', "", numbs, perl = TRUE)
+  numbs <- gsub(", ", ",", numbs, fixed = TRUE)
+  numbs <- gsub("Collector Number:", "", numbs, fixed = TRUE)
+  numbs <- gsub("NANA", "SemNumero", numbs, fixed = TRUE)
+  numbs <- gsub('^--$', "SemNumero", numbs, perl = TRUE)
+  numbs <- gsub('^-', "", numbs, perl = TRUE)
+  numbs <- gsub('-$', "", numbs, perl = TRUE)
+  numbs[!grepl('[0-9]', numbs, perl = TRUE)] <- "SemNumero"
 
   # Replacing the missing number by a standard code, provided as an argument in the function
-  numbs <- gsub("SemNumero",noNumb, numbs)
+  numbs <- gsub("SemNumero", noNumb, numbs, fixed = TRUE)
 
   # Final edits
-  numbs <- gsub("--", "-", numbs)
-  numbs <- gsub("&nf;", "", numbs)
+  numbs <- gsub("--", "-", numbs, fixed = TRUE)
+  numbs <- gsub("&nf;", "", numbs, fixed = TRUE)
   numbs <- stringr::str_trim(numbs)
   #numb <- gsub('[a-z]-[0-9]','',numb, ignore.case=TRUE) ##CHECK
 

@@ -219,7 +219,7 @@ last name of the first collector, that is stored in our formatted field
 `recordedBy.new`.
 
 ```{r, eval = FALSE}
-occs$last.name <- lapply(occs$recordedBy.new, lastName, noName = "s.n.")
+occs$last.name <- lastName(occs$recordedBy.new, noName = "s.n.")
 ```
 
 We can inspect what these functions are doing by comparing the original and edit
