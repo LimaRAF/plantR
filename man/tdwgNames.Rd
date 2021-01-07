@@ -25,9 +25,8 @@ first name, or auxiliary names.}
 }
 \value{
 The character string \code{x} in the TDWG format (Last Name {comma}
-First Name). If the names of
-  only one person is given, the function returns the same as function
-  \code{tdwgName}.
+  First Name). If the names of only one person is given, the function returns
+  the same as function \code{tdwgName}.
 }
 \description{
 Convert multiple collector or determiner names into the
@@ -81,7 +80,7 @@ The function puts the name of multiple persons into the format as
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "first")
   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
-  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = "; ")
+  tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = ";")
 
   # Multiple names separated by commas (does not always work)
   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect (combine names of authors)
@@ -103,7 +102,7 @@ Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
   confusion. Taxon 57(2): 343-345.
 }
 \seealso{
-\code{tdwgName}
+\link[plantR]{tdwgName}
 }
 \author{
 Renato A. F. de Lima

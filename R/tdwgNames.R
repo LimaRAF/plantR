@@ -12,9 +12,8 @@
 #'   first name, or auxiliary names.
 #'
 #' @return The character string \code{x} in the TDWG format (Last Name {comma}
-#' First Name). If the names of
-#'   only one person is given, the function returns the same as function
-#'   \code{tdwgName}.
+#'   First Name). If the names of only one person is given, the function returns
+#'   the same as function \code{tdwgName}.
 #'
 #' @details The function puts the name of multiple persons into the format as
 #'   suggested by the \href{https://www.tdwg.org/}{Biodiversity Information
@@ -60,7 +59,8 @@
 #'
 #' @export tdwgNames
 #'
-#' @seealso \code{tdwgName}
+#' @seealso
+#'   \link[plantR]{tdwgName}
 #'
 #' @examples
 #'   # Simple names
@@ -81,7 +81,7 @@
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca")
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "first")
 #'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
-#'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = "; ")
+#'   tdwgNames("A. Alvarez; A. Zamora & V. Huaraca", out = "aux", sep.out = ";")
 #'
 #'   # Multiple names separated by commas (does not always work)
 #'   tdwgNames("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect (combine names of authors)
@@ -92,10 +92,8 @@
 #'   # Unusual formatting (function won't always work)
 #'   tdwgNames("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 #'
-tdwgNames <- function(x,
-                     sep.in = c(";","&"," e "," et ","\\|"),
-                     sep.out = "|",
-                     out = c("all")) {
+tdwgNames <- function(x, sep.in = c(";","&"," e "," et ","\\|"),
+                     sep.out = "|", out = c("all")) {
 
   sep.out <- paste0(" ", sep.out, " ") #isto é muito provisório e só pensando no usuário
   # check input:
@@ -105,39 +103,40 @@ tdwgNames <- function(x,
 
   ## DO THE SAME FOR NAMES BETWEEN PARENTHESES??
   # name inside brackets? removing here and adding after editions
-  bracks <- grepl('^\\[', x) & grepl('\\]$', x)
-  x <- gsub("^\\[|\\]$", "", x)
+  bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
+  x <- gsub("^\\[|\\]$", "", x, perl = TRUE)
 
   # first edits:
-  x <- gsub("  ", " ", x)
-  x <- gsub("  ", " ", x)
-  x <- gsub(paste(sep.in, collapse = "|"), ";", x)
-  x <- gsub(" ; ", ";", x)
-  x <- gsub("&|\\|", ";", x)
-  x <- gsub("; ;", ";", x)
-  x <- gsub(" ;", ";", x)
-  x <- gsub('^\\;', '', x)
-  x <- gsub('\\( ', '\\(', x)
-  x <- gsub(' \\)', '\\)', x)
-  x <- gsub(' <U+', '; ', x)
-  x <- gsub(" s.n. ", ";", x)
-  x <- gsub("Collector\\(s\\):", "", x)
-  x <- gsub("\\(Coll.", ";", x)
-  x <- gsub(" \\(\\?\\) ", "; ", x)
+  x <- gsub("  ", " ", x, fixed = TRUE)
+  x <- gsub("  ", " ", x, fixed = TRUE)
+  x <- gsub(paste(sep.in, collapse = "|"), ";", x, perl = TRUE)
+  x <- gsub(" ; ", ";", x, fixed = TRUE)
+  x <- gsub("&|\\|", ";", x, perl = TRUE)
+  x <- gsub("; ;", ";", x, fixed = TRUE)
+  x <- gsub(" ;", ";", x, fixed = TRUE)
+  x <- gsub('^\\;', '', x, perl = TRUE)
+  x <- gsub('\\( ', '\\(', x, fixed = TRUE)
+  x <- gsub(' \\)', '\\)', x, fixed = TRUE)
+  x <- gsub(' <U+', '; ', x, fixed = TRUE)
+  x <- gsub(" s.n. ", ";", x, perl = TRUE)
+  x <- gsub("Collector\\(s\\):", "", x, perl = TRUE)
+  x <- gsub("\\(Coll.", ";", x, perl = TRUE)
+  x <- gsub(" \\(\\?\\) ", "; ", x, perl = TRUE)
 
   # Spliting the list of names into a list
-  autores <- as.character(unlist(sapply(strsplit(x, ";|; "), FUN = stringr::str_trim)))
+  autores <- as.character(unlist(sapply(strsplit(x, ";|; ", perl = TRUE),
+                                        FUN = stringr::str_trim)))
 
   # Converting names to TDWG format
   autores.tdwg <- sapply(autores, FUN = tdwgName)
 
   # Final edits (removing duplicated commas and fixing bad name endings)
   autores.tdwg <- sapply(autores.tdwg, function(x)
-      gsub(",,", ",", x))
+      gsub(",,", ",", x, perl = TRUE))
   autores.tdwg <- sapply(autores.tdwg, function(x)
-      gsub("\\.\\.", ".", x))
+      gsub("\\.\\.", ".", x, perl = TRUE))
   autores.tdwg <- sapply(autores.tdwg, function(x)
-      gsub(", \\.$", "", x))
+      gsub(", \\.$", "", x, perl = TRUE))
 
   # Creating the output name list in the TDWG format
   name.correct <- paste(autores.tdwg, collapse = sep.out)

@@ -4,16 +4,24 @@
 \alias{fixName}
 \title{Preparing People's Names}
 \usage{
-fixName(nomes, special.char = FALSE, sep.out = "; ")
+fixName(
+  nomes,
+  sep.in = c(";", "&", "\\\\|", " e ", " y ", " and ", " und ", " et "),
+  sep.out = "; ",
+  special.char = FALSE
+)
 }
 \arguments{
-\item{nomes}{a character string or a vector with names.}
-
-\item{special.char}{logical. Should special characters be maintained? Default
+\item{nomes}{a character string or a vector with names.
 to FALSE.}
+
+\item{sep.in}{a vector of the symbols separating multiple names. Default to:
+";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
 
 \item{sep.out}{a character string with the symbol separating multiple names
 in the output string. Defaults to "; ".}
+
+\item{special.char}{logical. Should special characters be maintained? Default}
 }
 \value{
 The character string \code{x} in the standard notation to facilitate
@@ -48,6 +56,13 @@ The function fixes small problems in name notation (e.g. orphan
   fixName('F.daS.N.ThomÃ©')
   fixName('Pedro L.R.de MorÃ£es')
   fixName('Pedro L.R.de MorÃ£es (30/4/1998)')
+  fixName('[D. Hugh-Jones]')
+
+  # Multiple names
+  names <- c("J.E.Q. Faria Jr.",
+  "LeitÃ£o FÂ°, H.F.", "Gert G. Hatschbach, et al.",
+  "Karl Emrich & Balduino Rambo", "F.daS.N.ThomÃ©")
+  fixName(names)
 
 }
 \author{

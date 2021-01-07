@@ -24,7 +24,7 @@ The function works for simple names and compound names that are
   This function was conceived to edit people's last names. So, the function
   only works for up to two names and it works only partially for names
   containing initials. For strings with more than two names, the function
-  `str_to_title()` from package `stringr::str_to_title` can be used.
+  `str_to_title()` from package `stringr` can be used.
 }
 \examples{
 # Simple names
@@ -44,6 +44,7 @@ The function works for simple names and compound names that are
 
 # Names with initials (does not work completely)
   capName("a.h. gentry")
+  capName("AH gentry")
 
 }
 \author{

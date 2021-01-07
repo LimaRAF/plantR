@@ -3,10 +3,12 @@
 #' @description Standardize name notation
 #'
 #' @param nomes a character string or a vector with names.
-#' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
+#' @param sep.in a vector of the symbols separating multiple names. Default to:
+#'   ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".
 #' @param sep.out a character string with the symbol separating multiple names
 #'   in the output string. Defaults to "; ".
+#' @param special.char logical. Should special characters be maintained? Default
 #'
 #' @return The character string \code{x} in the standard notation to facilitate
 #'   further data processing.
@@ -41,35 +43,58 @@
 #'   fixName('F.daS.N.Thomé')
 #'   fixName('Pedro L.R.de Morães')
 #'   fixName('Pedro L.R.de Morães (30/4/1998)')
+#'   fixName('[D. Hugh-Jones]')
+#'
+#'   # Multiple names
+#'   names <- c("J.E.Q. Faria Jr.",
+#'   "Leitão F°, H.F.", "Gert G. Hatschbach, et al.",
+#'   "Karl Emrich & Balduino Rambo", "F.daS.N.Thomé")
+#'   fixName(names)
 #'
 #' @export fixName
 #'
-fixName <- function(nomes, special.char = FALSE, sep.out = "; ") {
+fixName <- function(nomes, sep.in = c(";","&","\\|"," e "," y "," and "," und "," et "),
+                    sep.out = "; ", special.char = FALSE) {
 
-  #Defining the temporary separator
-  sep <- "__"
+  #Defining the input and temporary separators
+  sep.in2 <- sep.in[!grepl('&|\\||;| et ', sep.in)]
+  sep.in1 <- gsub("$","\\1 ",
+                  gsub("^"," \\1", sep.in[grepl('&|\\|', sep.in)]))
+  sep.other <- paste0(c(sep.in1,sep.in2), collapse = "|")
+  if(sep.other == "")
+    stop("Please provide valid separators between multiple authors")
+  sep.et <- ifelse(" et " %in% sep.in, TRUE, FALSE)
+  sep0 <- "__"
 
-  #Separation between multiple authors
+  #Separation between names/initials
   nomes <- gsub("(?<=[A-Z])\\.(?=[a-z])", "\\1. ", nomes, perl = TRUE)
   nomes <- gsub("(?<=[A-Z])\\.([A-Z])([a-z])", ". \\1\\2", nomes, perl = TRUE)
   nomes <- gsub("(?<=[a-z])([A-Z])\\.", " \\1.", nomes, perl = TRUE)
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
-  nomes <- gsub(' & | e | \\| | and | und | y ', sep, nomes, perl = TRUE)
-  nomes <- gsub("&|\\|", sep, nomes, perl = TRUE)
-  nomes <- gsub("; ;", sep, nomes, fixed = TRUE)
-  nomes <- gsub(" ;", sep, nomes, fixed = TRUE)
-  nomes <- gsub('\\( ', '\\(', nomes, perl = TRUE)
-  nomes <- gsub(' \\)', '\\)', nomes, perl = TRUE)
-  nomes <- gsub(" s.n. ", sep, nomes, perl = TRUE)
+
+  #Separation between multiple authors
+  nomes <- gsub(sep.other, sep0, nomes, perl = TRUE)
+  if (any(grepl("&|\\|", sep.in))) {
+    sep.other1 <- paste0(gsub('\\s+', '', sep.in1),
+                         collapse = "|")
+    nomes <- gsub(sep.other1, sep0, nomes, perl = TRUE)
+  }
+  if (";" %in% sep.in) {
+    nomes <- gsub("; ;", sep0, nomes, fixed = TRUE)
+    nomes <- gsub(" ;", sep0, nomes, fixed = TRUE)
+  }
+  nomes <- gsub('\\( ', '(', nomes, perl = TRUE)
+  nomes <- gsub(' \\)', ')', nomes, perl = TRUE)
+  nomes <- gsub('\\[ ', '[', nomes, perl = TRUE)
+  nomes <- gsub(' \\]', ']', nomes, perl = TRUE)
+  nomes <- gsub(" s.n. ", sep0, nomes, perl = TRUE)
   nomes <- gsub("Collector\\(s\\):", "", nomes, perl = TRUE)
-  nomes <- gsub("\\(Coll.", sep, nomes, perl = TRUE)
-  nomes <- gsub(" \\(\\?\\) ", sep, nomes, perl = TRUE)
+  nomes <- gsub("\\(Coll.", sep0, nomes, perl = TRUE)
+  nomes <- gsub(" \\(\\?\\) ", sep0, nomes, perl = TRUE)
 
   #Removing unwanted character
   nomes <- gsub("[0-9]", "", nomes, perl = TRUE)
   nomes <- gsub('!', '', nomes, fixed = TRUE)
-  nomes <- gsub('\\(\\)|\\( \\)', "", nomes, perl = TRUE)
-  nomes <- gsub('\\[|\\]', "", nomes, perl = TRUE)
   nomes <- gsub(' - | -|- ', "-", nomes, perl = TRUE)
   # nomes[grepl('^<', nomes, perl = TRUE) &
   #         grepl('>$', nomes, perl = TRUE)] <- "EncodingError"
@@ -98,7 +123,8 @@ fixName <- function(nomes, special.char = FALSE, sep.out = "; ") {
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" et\\. al\\.;$| et\\. al;$| et\\. alli;$", "", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(' et ', sep, nomes, fixed = TRUE)
+  if (sep.et)
+    nomes <- gsub(' et ', sep0, nomes, fixed = TRUE)
 
   #Compound names
   nomes <- gsub(" jr\\.| jr$", " Júnior", nomes,
@@ -132,16 +158,17 @@ fixName <- function(nomes, special.char = FALSE, sep.out = "; ") {
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
   nomes <- stringr::str_trim(nomes)
   nomes <- gsub("^-+|-+$", "", nomes, perl = TRUE)
-  nomes <- gsub("^\\.+|\\.+$", "", nomes, perl = TRUE)
+  nomes <- gsub("^\\.+|\\.\\.+$", "", nomes, perl = TRUE)
   nomes <- gsub("^,+|,+$", "", nomes, perl = TRUE)
   nomes <- gsub("^;+|;+$", "", nomes, perl = TRUE)
   nomes <- gsub("--", "", nomes, fixed = TRUE)
   nomes <- gsub("//", "", nomes, fixed = TRUE)
   nomes <- gsub("\\.\\.", "", nomes, perl = TRUE)
-  nomes <- gsub("\\(\\)|\\(-\\)|\\(/\\)", "", nomes, perl = TRUE)
+  nomes <- gsub('\\(\\)|\\(\\s+\\)|\\(-\\)|\\(/\\)', "", nomes, perl = TRUE)
+  nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
   nomes <- stringr::str_trim(nomes)
   nomes[nomes %in% c("")] <- NA_character_
-  nomes <- gsub(sep, sep.out, nomes, fixed = TRUE)
+  nomes <- gsub(sep0, sep.out, nomes, fixed = TRUE)
 
   #Remove special characters?
   if (special.char == FALSE) {

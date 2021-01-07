@@ -177,11 +177,11 @@ occs$year.new <- getYear(occs$year, noYear = "n.d.")
 occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 ```
 
-Next, we format the names of the collector and identificator (function `prepName()`)
+Next, we format the names of the collector and identificator (function `prepTDWG()`)
 
 ```{r, eval = FALSE}
-occs$recordedBy.new <- prepName(occs$recordedBy.new)
-occs$identifiedBy.new <- prepName(occs$identifiedBy.new)
+occs$recordedBy.new <- prepTDWG(occs$recordedBy.new)
+occs$identifiedBy.new <- prepTDWG(occs$identifiedBy.new)
 ```
 
 We then separate first and auxiliary names for multiple names and then convert
