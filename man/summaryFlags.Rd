@@ -2,25 +2,27 @@
 % Please edit documentation in R/summaryFlags.R
 \name{summaryFlags}
 \alias{summaryFlags}
-\title{Summary Flags of Data Validation}
+\title{Summary of Data Validation Flags}
 \usage{
 summaryFlags(x)
 }
 \arguments{
-\item{x}{a data frame with the occurrence data and the output of the
-__plantR__ validation functions.}
+\item{x}{a data frame with the occurrence data and the columns containing the
+outputs of the __plantR__ validation functions.}
 }
 \description{
-This function provides the summary of the validatons steps of
+This function provides the summary of the validation steps of
   the species occurrence data, including localities, geographical
-  coordinates, taxonomic confidence level and other outputs from the
-  __plantR__ validation workflow.
+  coordinates, taxonomy and other outputs from the __plantR__ validation
+  workflow.
 }
 \details{
 The summary output depends on the presence of some key columns in
-  the input data frame \code{x}.
+  the input data frame \code{x}. Most of these columns are returned from
+  __plantR__ functions and they generally are identified by the '.check'
+  suffix.
 
-  The function prints the main summary tables related to __plantR__
-  validation workflow. However, the list of tables that generate those
-  summaries can be saved into an object, if needed.
+  The function prints summary tables related to __plantR__ validation
+  workflow. However, the list of tables that generate those summaries can
+  also be saved into an object.
 }

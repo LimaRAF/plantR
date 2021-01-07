@@ -171,17 +171,17 @@ and without the year of collection and identification ("n.d.").
 
 ```{r, eval = FALSE}
 occs$recordedBy.new <- fixName(occs$recordedBy, special.char = FALSE)
-occs$identifiedBy.new <-  fixName(occs$identifiedBy, special.char = FALSE)
+occs$identifiedBy.new <- fixName(occs$identifiedBy, special.char = FALSE)
 occs$recordNumber.new <- colNumber(x = occs$recordNumber, noNumb = "s.n.")
 occs$year.new <- getYear(occs$year, noYear = "n.d.")
 occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
 ```
 
-Next, we format the names of the collector and identificator (function `formatName()`)
+Next, we format the names of the collector and identificator (function `prepTDWG()`)
 
 ```{r, eval = FALSE}
-occs$recordedBy.new <- unlist(lapply(occs$recordedBy.new, formatName))
-occs$identifiedBy.new <- unlist(lapply(occs$identifiedBy.new, formatName))
+occs$recordedBy.new <- prepTDWG(occs$recordedBy.new)
+occs$identifiedBy.new <- prepTDWG(occs$identifiedBy.new)
 ```
 
 We then separate first and auxiliary names for multiple names and then convert
@@ -219,7 +219,7 @@ last name of the first collector, that is stored in our formatted field
 `recordedBy.new`.
 
 ```{r, eval = FALSE}
-occs$last.name <- lapply(occs$recordedBy.new, lastName, noName = "s.n.")
+occs$last.name <- lastName(occs$recordedBy.new, noName = "s.n.")
 ```
 
 We can inspect what these functions are doing by comparing the original and edit
@@ -238,9 +238,13 @@ These functions handle well most formats but not all of them  (e.g. name format
 will be useful for the search of duplicated specimens across herbaria
 (see below).
 
-The final step of this standardization part is the notation of collection codes, which
-is stored in the field 'collectionCode'. For some reason, not all collections store in this field
-their international collection codes (e.g. Index Herbariorum) and sometimes these codes are stored differently across data repositories. For the search of duplicate entries it is thus important to standardize the codes of collections, which is done using function `getCode`:
+The final step is the standardization of the notation of collection codes, which
+is stored in the field 'collectionCode'. For some reason, not all collections
+store in this field their international collection codes (e.g. Index
+Herbariorum) and sometimes these codes are stored differently across data
+repositories. For the search of duplicate entries and th production of
+checklists (see below) it is important to standardize the codes of collections.
+In __plantR__ this is done using function `getCode`:
 
 ```{r, eval = FALSE}
 occs <- getCode(occs)
@@ -421,9 +425,11 @@ Now, missing coordinates were obtained from a gazetteer and there is a coordinat
 
 ### The wrapper function `formatCoord()`
 
-Similarly to the functions `formatOcc()` and `formatLoc` from the previous editing steps,
-we provide a function that perform all the edits related to the geographical coordinates
-at once, the function `formatCoord()`. Because getting missing coordinates from the gazetteer depends on the editing of the locality information, we need to run the before `formatLoc()` runnig `formatCoord()`:
+Similarly to the functions `formatOcc()` and `formatLoc` from the previous
+editing steps, we provide a function that perform all the edits related to the
+geographical coordinates at once, the function `formatCoord()`. Because getting
+missing coordinates from the gazetteer depends on the editing of the locality
+information, we need to run the before `formatLoc()` runnig `formatCoord()`:
 
 ```{r, eval = FALSE}
 occs1 <- fixField(example$data, origin = "splink")
@@ -673,12 +679,22 @@ Note that we used the function defaults, which created new columns for the merge
 
 `plantR` provides a simple function for the (fast) removal of duplicates from the data. This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. Only the first specimen of each group of duplicates is maintained and the non-homogenized information contained in the other specimens is lost. 
 
-
 ```{r, eval = FALSE}
 dim(occs)
 occs <- rmDup(occs)
 dim(occs)
 ```
+
+### The wrapper function `validateDup()`
+
+As the stesp above related to duplicated specimens can be performed at once, using the function `validateDup()`:
+
+```{r, eval = FALSE}
+occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatLoc(occs1)
+occs1 <- validateDup(occs1)
+```
+
 
 <br/><br/>
 

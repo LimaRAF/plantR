@@ -7,18 +7,19 @@
 missName(x, type = NULL, noName = "Anonymous")
 }
 \arguments{
-\item{x}{the character string.}
+\item{x}{the character string or vector with names.}
 
 \item{type}{type of name: 'collector' or 'identificator'.}
 
-\item{noName}{standard notation for missing names in \code{x}.}
+\item{noName}{standard notation for missing names. Default to "Anonymous".}
 }
 \value{
-the character string \code{x} in the fixed TDWG format.
+the character string \code{x} in the standard notation for missing
+  names.
 }
 \description{
 Standardize the different notation of missing collector or
-  identifier names
+  identifier names associated with biological records.
 }
 \examples{
 # Needs to chose between 'collector' or 'identificator'
@@ -27,12 +28,10 @@ Standardize the different notation of missing collector or
            noName = "s./c.")
 
  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
-         type = "collector",
-         noName = "Anonymous")
+         type = "collector")
 
  missName(c("Gentry, AH", "s/det.", "s/det", "s/d", "Determiner unknown"),
-          type = "identificator",
-          noName = "Anonymous")
+          type = "identificator")
 
 }
 \references{

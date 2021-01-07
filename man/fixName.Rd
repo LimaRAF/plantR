@@ -4,37 +4,65 @@
 \alias{fixName}
 \title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE)
+fixName(
+  nomes,
+  sep.in = c(";", "&", "\\\\|", " e ", " y ", " and ", " und ", " et "),
+  sep.out = "; ",
+  special.char = FALSE
+)
 }
 \arguments{
-\item{x}{a character string with a name.}
-
-\item{special.char}{logical. Should special characters be maintained? Default
+\item{nomes}{a character string or a vector with names.
 to FALSE.}
+
+\item{sep.in}{a vector of the symbols separating multiple names. Default to:
+";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
+
+\item{sep.out}{a character string with the symbol separating multiple names
+in the output string. Defaults to "; ".}
+
+\item{special.char}{logical. Should special characters be maintained? Default}
 }
 \value{
-The character string \code{x} in the standard notation necessary for
-  further processing.
+The character string \code{x} in the standard notation to facilitate
+  further data processing.
 }
 \description{
-Fix problems and standardize name notation
+Standardize name notation
 }
 \details{
-The function fixes problems in name notation (e.g. orphan spaces) and
-  standardized the notation (i.e. Faria Jr. to Faria Junior). Due to common
-  encoding problems related to Latin names, names are returned without accents
-  by default. But users can choose between outputs with and without accents
-  and species characters, using the argument `special.char`.
+The function fixes small problems in name notation (e.g. orphan
+  spaces), standardize the separation between multiple authors and between
+  initials and/or prepositions within the same name. It also standardize the
+  notation of some compound names (i.e. Faria Jr. to Faria Junior). In
+  addition, the function removes numbers, some unwanted expressions (e.g. 'et
+  al.') and symbols (e.g. ? or !).
+
+  Due to common encoding problems related to Latin names, names are returned
+  without accents by default. But users can choose between outputs with and
+  without accents and species characters, by setting the argument
+  `special.char` to TRUE.
 }
 \examples{
   fixName("J.E.Q. Faria Jr.")
   fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("LeitÃ£o FÂ°, H.F.")
-  fixName("LeitÃ£o FÂ°, H.F.", special.char = TRUE)
+  fixName("Leitão F°, H.F.")
+  fixName("Leitão F°, H.F.", special.char = TRUE)
   fixName("Gert G. Hatschbach, et al.")
   fixName("Karl Emrich & Balduino Rambo")
-  fixName('F. da S.N. ThomÃ©')
-  fixName('Pedro L.R.de MorÃ£es')
+  fixName("Karl Emrich & Balduino Rambo", sep.out = " | ")
+  fixName('( Karl) Emrich ;(Balduino ) Rambo')
+  fixName('F. da S.N. Thomé')
+  fixName('F.daS.N.Thomé')
+  fixName('Pedro L.R.de Morães')
+  fixName('Pedro L.R.de Morães (30/4/1998)')
+  fixName('[D. Hugh-Jones]')
+
+  # Multiple names
+  names <- c("J.E.Q. Faria Jr.",
+  "Leitão F°, H.F.", "Gert G. Hatschbach, et al.",
+  "Karl Emrich & Balduino Rambo", "F.daS.N.Thomé")
+  fixName(names)
 
 }
 \author{

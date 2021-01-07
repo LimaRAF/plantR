@@ -1,0 +1,20 @@
+utils::globalVariables(c(".",
+                         "as col.OBS",
+                         "col.OBS",
+                         "comb.fields",
+                         "ignore.miss",
+                         "ignore.na",
+                         "index.herbariorum.or.working.code",
+                         "latamMap",
+                         "loc.correct",
+                         "NAME_0",
+                         "noName",
+                         "noNumb",
+                         "noYear",
+                         "occs",
+                         "ordem.dados",
+                         "pais_latam",
+                         "pais_wo",
+                         "worldMap")
+)
+

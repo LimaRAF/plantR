@@ -80,9 +80,12 @@
 #'
 #' @export mergeDup
 #'
-mergeDup <- function(dups, prop = 0.75, info2merge = c("tax", "geo", "loc"),
+mergeDup <- function(dups,
+                     prop = 0.75,
+                     info2merge = c("tax", "geo", "loc"),
                      tax.name = "scientificName.new",
-                     tax.level = "high", overwrite = FALSE, ...) {
+                     tax.level = "high",
+                     overwrite = FALSE) {
 
   ## check input
   if (!class(dups) == "data.frame")
@@ -217,7 +220,7 @@ mergeDup <- function(dups, prop = 0.75, info2merge = c("tax", "geo", "loc"),
     data.table::setDT(dt)[coord.res.lvs, valor2 := i.valor, on = c(resolution.coord = "resolution.coord")]
 
     # creating the priority index and re-organizing the original data
-    dt[,prioridade:= valor1 + valor2]
+    dt[,prioridade := valor1 + valor2]
     dt[, c("valor1", "valor2") := NULL]
     data.table::setkey(dt, dup.ID, prioridade)
 

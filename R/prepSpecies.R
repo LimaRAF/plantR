@@ -32,7 +32,7 @@
 #'\item{\code{hybrid_species}}{hybrid species} }
 #'
 #' @param x a data.frame containing the species name
-#' @tax.name character. Name of the columns containing the species name. Default
+#' @param tax.name character. Name of the columns containing the species name. Default
 #' to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
 #'   removed? Default to FALSE
@@ -53,7 +53,7 @@
 #'
 #' @export prepSpecies
 #'
-prepSpecies <- function(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...){
+prepSpecies <- function(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -252,12 +252,12 @@ prepSpecies <- function(x = NULL, tax.name = "scientificName", rm.rank = FALSE, 
 
   # organizando a saída
   check1 <- cbind.data.frame(x,
-                            check[,c("scientificName.new", "scientificNameStatus")],
-                            stringsAsFactors = FALSE)
+                             check[,c("scientificName.new", "scientificNameStatus")],
+                             stringsAsFactors = FALSE)
   check1$scientificName.new <- as.character(check1$scientificName.new)
 
   #13. option to return names with or without infra-specific ranks
-  if (!rm.rank){
+  if (!rm.rank) {
     add.rank <- function(x, rank = NULL){
       x_sp <- strsplit(x, " ")
       x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))

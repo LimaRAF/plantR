@@ -7,7 +7,7 @@
 getDup(df, flag.ind = TRUE, ...)
 }
 \arguments{
-\item{df}{a data frame with the colection code (first column) and the strings
+\item{df}{a data frame with the collection code (first column) and the strings
 to be used for the duplicate search (second and other columns), typically
 the exit of the function `prepDup`.}
 

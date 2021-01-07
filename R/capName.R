@@ -1,57 +1,63 @@
 #' @title Capitalize Name
 #'
-#' @description Capitalize the name of the collector or determiner of a biological specimen.
+#' @description Capitalize the first letter of people's (last) names.
 #'
-#' @param x the character string to be capitalized.
+#' @param x the character string or vector to be capitalized.
 #'
-#' @return the character string equal to \code{x} with the first letter capitalized.
+#' @return the character string equal to \code{x} with the first letter
+#'   capitalized.
 #'
-#' @details The function works for simple names and compound names that are separated by
-#' a space or by the character '-'. It also works for names that are entirely capitalized.
-#' This function was adapted from the function `simpleCap` from package `hpoPlot` by Daniel Greene.
+#' @details The function works for simple names and compound names that are
+#'   separated by a space or by the character '-'. It also works for names that
+#'   are entirely capitalized.
 #'
-#' @author Renato A. F. de Lima (after Daniel Greene)
+#'   This function was conceived to edit people's last names. So, the function
+#'   only works for up to two names and it works only partially for names
+#'   containing initials. For strings with more than two names, the function
+#'   `str_to_title()` from package `stringr` can be used.
+#'
+#' @author Renato A. F. de Lima
 #'
 #' @export capName
 #'
 #' @examples
-#' # Simple name
+#' # Simple names
 #'   capName("gentry")
 #'   capName("HATSCHBACH")
+#'   capName(c("gentry", "HATSCHBACH"))
 #'
 #' # Names with generational suffixes
 #'   capName("leitao filho")
 #'
-#' # Compound names
+#' # Compound last names
 #'   capName("saint-hilaire")
 #'
+#' # Full names (does not work)
+#'   capName("hermogenes leitao filho")
+#'   capName("auguste saint-hilaire")
+#'
+#' # Names with initials (does not work completely)
+#'   capName("a.h. gentry")
+#'   capName("AH gentry")
+#'
 capName <- function(x) {
-  # check input:
-  if (length(x) > 1)
-    stop("currently, 'x' cannot be a vector of strings!")
 
-  # identifying compound names:
-  if (grepl('-', x)) {
+  ids.sp <- grepl(' ', x, fixed = TRUE)
+  ids.hi <- grepl('-', x, fixed = TRUE)
 
-    split <- strsplit(x, "-")[[1]]
-    nome <- paste(toupper(substring(split, 1, 1)),
-                  tolower(substring(split, 2)),
-                  sep = "",
-                  collapse = "-")
-#capitalizing initials
-    #} else #if (grepl('.', x)) {
-     # split <- strsplit(x, "\\.")[[1]]
-      #nome <- paste(toupper(substring(split, 1, 1)),
-       #             tolower(substring(split, 2)),
-        #            sep = "",
-         #           collapse = ".")
-      } else {
-        split <- strsplit(x, " ")[[1]]
-        nome <- paste(toupper(substring(split, 1, 1)),
-                      tolower(substring(split, 2)),
-                      sep = "",
-                      collapse = " ")
+  split <- strsplit(x, split = ' |-', perl = TRUE)
+  split <- t(sapply(split, `length<-`, 2))
+  split[is.na(split)] <- ""
 
-    }
-  return(nome)
+  first <- paste0(toupper(substring(split[,1], 1, 1)),
+                  tolower(substring(split[,1], 2)))
+
+  mid <- rep("", length(x))
+  mid[ids.sp] <- " "
+  mid[ids.hi] <- "-"
+
+  second <- paste0(toupper(substring(split[,2], 1, 1)),
+                   tolower(substring(split[,2], 2)))
+
+  paste(first, mid, second, sep = "")
 }

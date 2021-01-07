@@ -7,33 +7,34 @@
 colNumber(x, colCodes = NULL, noNumb = "s.n.")
 }
 \arguments{
-\item{x}{the character string}
+\item{x}{a character string or vector}
 
 \item{colCodes}{a character string with the collection codes to be removed
 from the collector number. Default to NULL.}
 
-\item{noNumb}{character. The desired notation to identify abscence data in
-Collector Number. Defaults to "s.n."}
+\item{noNumb}{character. The desired notation in the case of missing
+collector number. Defaults to "s.n."}
 }
 \value{
 a character vector with the same length of \code{x} with the edited
-  collector numbers
+  collector numbers.
 }
 \description{
-The function edits the field 'collector number' of the
-  herbarium labels
+The function standardizes the 'collector number' which is
+  typically associated with biological records.
 }
 \details{
-The function attempts to clean and standardize the information
-contained in the field 'Collector Number', which is typical of herbarium
-samples. It performs several edits such as removal of unnecessary spaces,
-letters, and the replacement of missing information into a standardized notation
+The function performs several edits such as removal of unnecessary
+  spaces, letters, parentheses, and the replacement of missing information of
+  collector numbers into a standardized notation, defined by the argument
+  `noNumb`. Zeros and strings without numbers are treated as missing
+  information.
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
-numbers <- c("3467","3467 "," 3467","ALCB3467","Gentry 3467","ALCB-3467","3467a","3467A","3467 A",
-"3467-A","PL671","57-685","685 - 4724","1-80","-4724","(3467)","(3467","3467)","32-3-77",
-"s/n.","s.n.","s.n","",NA)
+numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467", "ALCB-3467",
+"3467a", "3467A", "3467 A", "3467-A", "PL671", "57-685", "685 - 4724", "1-80",
+"-4724", "(3467)", "(3467", "3467)", "32-3-77", "s/n.", "s.n.", "s.n", "", NA)
 
 # Using the function defaults
 colNumber(numbers)

@@ -9,6 +9,9 @@ prepSpecies(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...)
 \arguments{
 \item{x}{a data.frame containing the species name}
 
+\item{tax.name}{character. Name of the columns containing the species name. Default
+to "scientificName"}
+
 \item{rm.rank}{logical. Should the infra-specific rank abbreviation be
 removed? Default to FALSE}
 }

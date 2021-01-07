@@ -43,7 +43,7 @@ gadm_files <- list.files(destfolder, pattern = "rds$",
 ##Loading, editing and converting the world country shapefile
 path <- "E://ownCloud//W_GIS"
 #wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
-wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep=""))
+wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep = ""))
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
 
 wo@data$pais <- countrycode(as.character(wo@data$GID_0),'iso3c', 'country.name')
@@ -71,12 +71,12 @@ tmp[!tmp$pais %in% tmp$loc.correct,]
 wo@data <- wo@data[,c("GID_0","pais")]
 names(wo@data)[2] <- "NAME_0"
 wo.simp <- gSimplify(wo, tol=0.001, topologyPreserve = TRUE)
-wo.simp <- gBuffer(wo.simp, byid=TRUE, width=0)
+wo.simp <- gBuffer(wo.simp, byid = TRUE, width = 0)
 wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
 worldMap <- sf::st_as_sf(wo.simp1)
 
-wo.simp2 <- gSimplify(wo, tol=0.0001, topologyPreserve = TRUE)
-wo.simp2 <- gBuffer(wo.simp2, byid=TRUE, width=0)
+wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
+wo.simp2 <- gBuffer(wo.simp2, byid = TRUE, width = 0)
 wo.simp3 <- SpatialPolygonsDataFrame(wo.simp2, wo@data)
 worldMap_0001 <- sf::st_as_sf(wo.simp3)
 

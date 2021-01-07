@@ -4,18 +4,18 @@
 \alias{formatTax}
 \title{Format Taxonomic Information}
 \usage{
-formatTax(tax, ...)
+formatTax(tax, use.suggestion = TRUE, ...)
 }
 \arguments{
-\item{tax}{data.frame}
+\item{tax}{a data.frame containing the taxonomic information to be edited.}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with the
-  formatted information. The new columns have the same name as proposed by the
-  Darwin Core standards followed by the suffix '.new'.
+  formatted information. The new columns have the same name of the
+  Darwin Core standards, but followed by the suffix '.new'.
 }
 \description{
-This function standardize and validate the names of plant
+This function edit and standardize the names of plant
   species and families.
 }
 \details{
@@ -24,8 +24,9 @@ The function works as a wrapper, where the individuals steps of the
   performed altogether (see the __plantR__ tutorial and the help of each
   function for details).
 
-  The input data frame usually contains the following locality fields:
-  "family", "genus" and "scientificName".
+  The input data frame usually contains the following taxonomic fields:
+  "family", "genus", "scientificName" and "scientificNameAuthorship". But
+  users can define the names for their own data.
 }
 \seealso{
 \link[plantR]{prepSpecies}, \link[plantR]{formatSpecies} and

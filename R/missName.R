@@ -1,13 +1,14 @@
 #' @title Homogenize Notation For Missing Name
 #'
 #' @description Standardize the different notation of missing collector or
-#'   identifier names
+#'   identifier names associated with biological records.
 #'
-#' @param x the character string.
+#' @param x the character string or vector with names.
 #' @param type type of name: 'collector' or 'identificator'.
-#' @param noName standard notation for missing names in \code{x}.
+#' @param noName standard notation for missing names. Default to "Anonymous".
 #'
-#' @return the character string \code{x} in the fixed TDWG format.
+#' @return the character string \code{x} in the standard notation for missing
+#'   names.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -25,16 +26,12 @@
 #'            noName = "s./c.")
 #'
 #'  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
-#'          type = "collector",
-#'          noName = "Anonymous")
+#'          type = "collector")
 #'
 #'  missName(c("Gentry, AH", "s/det.", "s/det", "s/d", "Determiner unknown"),
-#'           type = "identificator",
-#'           noName = "Anonymous")
+#'           type = "identificator")
 #'
-missName <- function(x,
-                     type = NULL,
-                     noName = "Anonymous") {
+missName <- function(x, type = NULL, noName = "Anonymous") {
 
   # Checking if all arguments are provided
   if (is.null(noName))
@@ -47,18 +44,17 @@ missName <- function(x,
 
   if (any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
 
-    nomes[is.na(nomes) | nomes %in% ""] <- noName
+    nomes[nomes %in% c("", " ", NA)] <- noName
     busca <- c("s/col.", "s/col", "s/c", "s/coletor",
                " sem col.", "s.col.", "s.c.", "s.n.", "S.N.", "Sem Informação", "Sem Informacao",
                "Collector unspecified", "Collector unknown", "unknown",
                "?")
     nomes[nomes %in% busca] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
-                  noName,
-                  nomes)
-    nomes <- gsub('^Sin$', noName, nomes)
-    nomes <- gsub('Anonymous|anonymous', noName, nomes)
-    nomes <- gsub("NANA", noName, nomes)
+                  noName, nomes, perl = TRUE)
+    nomes <- gsub('^Sin$', noName, nomes, perl = TRUE)
+    nomes <- gsub('anonymous', noName, nomes, perl = TRUE, ignore.case = TRUE)
+    nomes <- gsub("NANA", noName, nomes, perl = TRUE)
 
   }
 
@@ -71,11 +67,10 @@ missName <- function(x,
                "?")
     nomes[nomes %in% busca] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
-                  noName,
-                  nomes)
-    nomes <- gsub('^Sin$', noName, nomes)
-    nomes <- gsub('Anonymous|anonymous', noName, nomes)
-    nomes <- gsub("NANA", noName, nomes)
+                  noName, nomes, perl = TRUE)
+    nomes <- gsub('^Sin$', noName, nomes, perl = TRUE)
+    nomes <- gsub('anonymous', noName, nomes, perl = TRUE, ignore.case = TRUE)
+    nomes <- gsub("NANA", noName, nomes, perl = TRUE)
   }
 
   return(nomes)

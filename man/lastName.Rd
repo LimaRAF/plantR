@@ -7,12 +7,14 @@
 lastName(name, noName = "s.n.")
 }
 \arguments{
-\item{name}{the character string containing a name.}
+\item{name}{the character string or vector containing the names.}
 
-\item{noName}{standard notation for missing names in \code{name}.}
+\item{noName}{character. The standard notation for missing names in
+\code{name}. Default to "s.n.".}
 }
 \value{
-A character string in lower case, with the last name provided in \code{name}.
+the last name provided in \code{name} with the first letter
+  capitalized.
 }
 \description{
 Extract the last name of the collector or determiner of a
@@ -24,8 +26,14 @@ The function works for simple last names or compound last names,
   relatively stable to the format and spacing of the string provided, but it
   may not work in all cases.
 
-  If only one name is given, the function returns the same name in lower
-  case.
+  It implicitly assumes that last names are the ones at the end of the name or
+  the first name preceeding the comma.
+
+  If only one name is given, the function returns the same name with the first
+  letter capitalized.
+
+  For missing names (i.e. "", " " or NAs) the function returns the character
+  defined by the argument `noName`
 }
 \examples{
 
@@ -48,16 +56,17 @@ The function works for simple last names or compound last names,
  lastName("Augustin Saint-hilaire")
  lastName("Saint-Hilaire A.")
 
+ # Multiple names
+ names <- c("Gentry, AH", "Gentry A.H.",
+ "Leitao filho, H. F.","Saint-Hilaire, augustin")
+ lastName(names)
+
  # Unusual formatting
  lastName("Cesar Sandro, Esteves, F")
  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
- # small last name, no comma: output incorrect
- lastName("Cyl Farney Catarino de Sa")
- # small last name, with comma: output correct
- lastName("Sa, Cyl")
  # two or more names, separated by comma: output correct
  lastName("A. Alvarez, A. Zamora & V. Huaraca")
- # two or more names, separated by comma: output incorrect (give names of authors)
+ # two or more names, not separated by comma: output incorrect (give names of authors)
  lastName("Karl Emrich & Balduino Rambo")
 
 }

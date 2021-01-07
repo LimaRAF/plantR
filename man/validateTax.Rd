@@ -2,7 +2,7 @@
 % Please edit documentation in R/validateTax.R
 \name{validateTax}
 \alias{validateTax}
-\title{Validate Species Indentification}
+\title{Confidence of Species Indentification}
 \usage{
 validateTax(
   x,
@@ -37,18 +37,34 @@ taxonomists (see Details).}
 \item{top.det}{numerical. How many of the top missing identifiers should be printed?
 Default to 10.}
 }
+\value{
+The input data frame \code{x}, plus a new column 'tax.check'
+  containing the classes of confidence in species identifications.
+}
 \description{
 This function assigns different categories of confidence level
-(i.e. high, medium, low or unknown) to the identification of species records.
+  (i.e. high, medium, low or unknown) to the identification of species
+  records, based on the name of the person who provided the species
+  identification and on type specimens.
 }
 \details{
-The input data frame \code{x} must contain at least the columns 'family.new'
-and 'identifiedBy.new'. Preferably, this data frame should also contain the
-columns 'typeStatus' and 'recordedBy.new'.
+The input data frame \code{x} must contain at least columns with the
+information on the species family (e.g. 'family') and the name of the people
+that provided the species identification (e.g. 'identifiedBy'). Preferably,
+this data frame should also contain information on type specimens (column
+'typeStatus') and names of the collectors (e.g. 'recordedBy'). As for other
+functions in __plantR__, using a data frame \code{x} that has already passed
+by the editing steps of the __plantR__ workflow should result in more
+accurate outputs.
 
-By default, the function classifies as high confidence level all species
-identifications performed by the family specialist or any type specimens
-(isotype, paratypes, etc).
+The function classifies as high confidence level all records whose species
+identifications were performed by a family specialist or any type specimens
+(isotype, paratypes, etc). By default, the names of family specialists are
+obtained from a list of plant taxonomists constructed by Lima et al. (2020) and
+provided with __plantR__.
+
+By default, __all occurrences that are not preserved specimens (i.e. observations,
+photos) are classified as high confidence level__.
 
 Some specimens are collected by a specialist of the family, but the
 identifier information is missing. By default, we assume the same confidence
@@ -61,13 +77,13 @@ provide identifications for many different families outside his specialty,
 often referred to as a generalist, should be considered in the validation and
 under which confidence level. There are some names of generalists in the
 __plantR__ default taxonomist database; however, this list of generalist
-names is currently biased towards South America, particularly Brazil.
+names is currently biased towards plant collectors in South America,
+particularly in Brazil.
 
-If you miss the validation from one or more taxonomists, you can provide one
-or more taxonomists using the argument `miss.taxonomist`. The format that should
-be provided is the name of her/his family of specialty followed by an
-underscore and then his name on the TDWG format (e.g. "Bignoniaceae_Gentry,
-A.H.").
+If you miss the validation from one or more taxonomists, you can include them
+using the argument `miss.taxonomist`. The format should be:
+the name of the family of specialty followed by an underscore and then
+the taxonomist name in the TDWG format (e.g. "Bignoniaceae_Gentry, A.H.").
 
 A database of taxonomists different than the `plantR` default can be used.
 This database must be provided using the argument `taxonomist.list` and it
@@ -75,4 +91,21 @@ must contain the columns 'family' and 'tdwg.name'. The first column is the
 family of specialty of the taxonomist and the second one is her/his name in
 the TDWG format. See `plantR` function tdwgName or tdwgNames on how to get
 names in the TDWG format from a list of people's names.
+}
+\examples{
+(df <- data.frame(
+family = c("Bignoniaceae", "Bignoniaceae","Bignoniaceae",
+"Bignoniaceae","Bignoniaceae"),
+identifiedBy = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA),
+recordedBy = c(NA, NA, NA, "Gentry, A.H.", NA),
+typeStatus = c(NA, NA, "isotype", NA, NA),
+stringsAsFactors = FALSE))
+
+validateTax(df)
+
+}
+\references{
+Lima, R.A.F. et al. 2020. Defining endemism levels for biodiversity
+conservation: Tree species in the Atlantic Forest hotspot. Biological
+Conservation, 252: 108825.
 }

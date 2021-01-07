@@ -1,17 +1,17 @@
 #' @title Get Valid Plant Names
 #'
-#' @description Provides valid plant names or corrects typos and ortographical
+#' @description Provides valid plant names or corrects typos and orthographical
 #'   variants based on the
 #'   \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
 #'    Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
-#'   Plant List}. It uses the fuctionalities of other R packages, namely `flora`
+#'   Plant List}. It uses the functionalities of other R packages, namely `flora`
 #'   (Carvalho 2019) and `Taxonstand` (Cayuela et al. 2017).
 #'
 #' @param x a data.frame containing the species scientific name without authors
 #'   and their authorship, ideally already passed by the string check in
 #'   `fixSpecies`. The authorship is only used for solving homonyms.
 #' @param tax.names character. Names of the columns containing the species names
-#'   and authors. Default to 'scientificName.new' and
+#'   and authors. Defaults to 'scientificName.new' and
 #'   'scientificNameAuthorship'.
 #' @param db the list of database to be consulted for valid names, in their
 #'   preferred order of priority. Only the results from Brazilian Flora 2020
@@ -19,7 +19,7 @@
 #' @param sug.dist a fraction expressing the maximum distance allowed between
 #'   the original species name and the suggested species name, which is passed
 #'   to the arguments `suggestion.distance` of function `flora::get.taxa` and
-#'   `max.distance` of function `Taxonstand::TPL`. Default to 0.9.
+#'   `max.distance` of function `Taxonstand::TPL`. Defaults to 0.9.
 #' @param use.authors logical. Should all authors names be verified (takes
 #'   longer)? Default to TRUE.
 #' @param drop.cols character. Name of columns that should be dropped from the
@@ -31,7 +31,7 @@
 #' scientific name ('scientific.name'), the notes and the sources used to retrieve
 #' the suggested binomial (columns 'notes' and 'source').
 #'
-#' @details The function currentlyuses packages `flora` and `Taxonstand` to
+#' @details The function currently uses packages `flora` and `Taxonstand` to
 #'   provide suggested names. Not all information returned by those packages
 #'   are returned here, but some of them can be controlled using the argument
 #'   `drop.cols`.
@@ -78,8 +78,11 @@
 #'
 #' @export formatSpecies
 #'
-formatSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAuthorship"),
-                          db = c("bfo","tpl"), sug.dist = 0.9, use.authors = TRUE,
+formatSpecies <- function(x,
+                          tax.names = c("scientificName.new","scientificNameAuthorship"),
+                          db = c("bfo","tpl"),
+                          sug.dist = 0.9,
+                          use.authors = TRUE,
                           drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id"), ...) {
 
   ## check input

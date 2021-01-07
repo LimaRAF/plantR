@@ -10,8 +10,7 @@ mergeDup(
   info2merge = c("tax", "geo", "loc"),
   tax.name = "scientificName.new",
   tax.level = "high",
-  overwrite = FALSE,
-  ...
+  overwrite = FALSE
 )
 }
 \arguments{

@@ -1,38 +1,39 @@
-#' @title Create Species Checklists
+#' @title Create Species Checklist
 #'
 #' @description This function creates a checklist of the species contained
-#' in the occurrence data.
+#' in the occurrence data, including a list of voucher specimens.
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
 #'   __plantR__ validation functions.
-#' @param fam.order logical. Should taxa be listed under their families?
-#'   Default to TRUE.
-#' @param n.vouch numerical. Maximum number of vouchers to be listed. Default
-#'   to 30.
+#' @param fam.order logical. Should taxa be organized in alphabetical order
+#'   of families? Default to TRUE.
+#' @param n.vouch numerical. Maximum number of vouchers to be listed per taxa.
+#'   Default to 30.
 #' @param type character. The type of voucher list desired. Options are: 'short',
 #' 'selected' and 'list' (see details below).
 #' @param rm.dup logical. Should duplicated specimens be removed prior to the
 #'   calculation of species summaries? Default to TRUE.
-#' @param type.rank numerical. Value to be assigned to the rank of type
-#'   specimens in order to organize and filter the coucher list. Default to 5.
+#' @param rank.type numerical. Value of the ranking for type specimens in order
+#'   to organizeorder and filter the voucher list. Default to 5.
 #' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
 #'
-#' @details The checklist can be organized by alphabetic order of the taxa or by
-#'   alphabetic order of families (default).
+#' @details The checklist can be organized in alphabetic order by taxa or in
+#'   alphabetic order by family and then by taxa within families (the
+#'   default).
 #'
 #'   By default, the checklist provides the number of records found and the
 #'   overall taxonomic and geographic confidence level of the records (columns
-#'   'tax.CL' and 'geo.CL'). The taxonomic confidence level is the percentage of
-#'   records with the identification flagged as 'high', while the geographic
-#'   confidence level is the percentage of records with coordinates flagged as
-#'   being validated at municipality or locality levels.
+#'   'tax.CL' and 'geo.CL'), if available. The taxonomic confidence level is the
+#'   percentage of records with the identification flagged as 'high', while the
+#'   geographic confidence level is the percentage of records with coordinates
+#'   flagged as being validated at municipality or locality levels.
 #'
 #'   The function also provide a list of vouchers, giving priority to type
-#'   specimens and records with higher level of taxonomic confidence. By
-#'   default, the function provides only up to 30 vouchers, but this number can
-#'   be controlled using the argument `n.vouch`.
+#'   specimens and records with higher level of confidence in their
+#'   identification. By default, the function provides up to 30 vouchers
+#'   per taxa, but this number can be controlled using the argument `n.vouch`.
 #'
-#'   The voucher list can be provided in the following output formats (The
+#'   The voucher list can be provided in the following output formats (the
 #'   option 'list' is not implemented yet):
 #'   \itemize{
 #'   \item 'short': Collector name, Collector number (collections of deposit)
@@ -41,17 +42,36 @@
 #'   \item 'list': Collector name, Collector number(s) (species code)
 #'   }
 #'
-#'   Note: although we provide a `date.format` argument, formats other then the
-#'   default are pending and so they may not work properly.
+#'   Note: although we provide a `date.format` argument, checks of other date
+#'   formats other then the default are pending and so they may not work
+#'   properly.
+#'
+#' @examples
+#' (df <- data.frame(collectionCode = c("CRI","CRI","CRI","CRI"),
+#' catalogNumber = c("3565","713","3073","15331"),
+#' recordedBy = c("Rebelo, M.C.","Citadini-Zanette, V.",
+#' "Santos, R.","Zapelini, I."),
+#' recordNumber = c("s.n.","1063","11","s.n."),
+#' year = c("1994","1990","1994","2020"),
+#' family = c("Salicaceae","Salicaceae","Cannabaceae","Cannabaceae"),
+#' scientificName = c("Casearia sylvestris","Casearia sylvestris",
+#' "Trema micrantha","Trema micrantha"),
+#' country = c("brazil","brazil","brazil","brazil"),
+#' stateProvince = c("santa catarina","santa catarina",
+#' "santa catarina","santa catarina"),
+#' municipality = c("jaguaruna","orleans","icara",NA)))
+#'
+#' checklist(df, rm.dup = FALSE)
+#' checklist(df, rm.dup = FALSE, type = "selected")
+#'
 #'
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
 #'
 #' @export checklist
 #'
-checklist <- function(x, fam.order = TRUE, n.vouch = 30,
-                      type = "short", rm.dup = TRUE,
-                      type.rank = 5, date.format = "%d %b %Y") {
+checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
+                      rm.dup = TRUE, rank.type = 5, date.format = "%d %b %Y") {
 
   # check input
   if (!class(x) == "data.frame")
@@ -86,7 +106,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
     stop("The input data frame does not contain at least one of the required columns")
 
   # Getting the input columns to be used for filtering
-  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "year", "month", "day")
+  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "month", "day")
   covs.final <- c(unlist(covs.present), other.cols)
 
   # Should the duplicates be removed?
@@ -100,6 +120,11 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
   } else {
     dt <- data.table::data.table(x[, names(x) %in% covs.final])
   }
+
+  #Making sure the data.table does not contains factors
+  changeCols <- colnames(dt)[which(as.vector(dt[,lapply(.SD, class)]) == "factor")]
+  if (length(changeCols) > 0)
+    dt[,(changeCols):= lapply(.SD, as.character), .SDcols = changeCols]
 
   # getting the list of taxa and the selected columns
   data.table::setindexv(dt, covs.present[["species"]])
@@ -115,22 +140,31 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
   ## NUMBER OF RECORS PER SPECIES ##
   records <- dt[, .N , by = c(covs.present[["species"]])]
 
-  unicatas <- dt[is.na(dup.ID), .N , by = c(covs.present[["species"]])]
-  unicatas <- merge(records, unicatas, by = c(covs.present[["species"]]),
-                    all.x = TRUE, suffixes = c("", ".unis"))
-  unicatas[, N := NULL]
+  if ("dup.ID" %in% names(dt)) {
 
-  duplicatas <- dt[!is.na(dup.ID), .N, by = c(covs.present[["species"]], "dup.ID")]
-  duplicatas <- duplicatas[, .N , by = c(covs.present[["species"]])]
-  duplicatas <- data.table::merge.data.table(records, duplicatas, by = c(covs.present[["species"]]),
-                                             all.x = TRUE, suffixes = c("", ".dups"))
-  duplicatas[, N:= NULL]
+    unicatas <- dt[is.na(dup.ID), .N , by = c(covs.present[["species"]])]
+    unicatas <- merge(records, unicatas, by = c(covs.present[["species"]]),
+                      all.x = TRUE, suffixes = c("", ".unis"))
+    unicatas[, N := NULL]
 
-  records <- records[unicatas, on = c(covs.present[["species"]])]
-  records <- records[duplicatas, on = c(covs.present[["species"]])]
+    duplicatas <- dt[!is.na(dup.ID), .N, by = c(covs.present[["species"]], "dup.ID")]
+    duplicatas <- duplicatas[, .N , by = c(covs.present[["species"]])]
+    duplicatas <- data.table::merge.data.table(records, duplicatas, by = c(covs.present[["species"]]),
+                                               all.x = TRUE, suffixes = c("", ".dups"))
+    duplicatas[, N:= NULL]
 
-  checklist$records <-
-    records$N[match(checklist[,1], data.frame(records)[,1])]
+    records <- records[unicatas, on = c(covs.present[["species"]])]
+    records <- records[duplicatas, on = c(covs.present[["species"]])]
+    checklist$records <-
+      records$N[match(checklist[, covs.present[["species"]]],
+                      data.frame(records)[,1])]
+
+  } else {
+    checklist$records <-
+      records$N[match(checklist[, covs.present[["species"]]],
+                      data.frame(records)[,1])]
+  }
+
 
   ## TAXONOMIC CONFIDENCE LEVEL  ##
 
@@ -185,13 +219,14 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
   if ("typeStatus" %in% names(dt)) {
     dt[ , typeStatus := tolower(typeStatus), ]
     dt[!is.na(typeStatus) & !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
-       priority := type.rank, ]
+       priority := rank.type, ]
   }
 
   if (!is.na(covs.present[["collectors"]])) {
     data.table::setkeyv(dt, c(covs.present[["collectors"]]))
-    if (dim(dt[.(c("s.n.", "Anonymous", "Unknown, C.", "Unknown")), ])[1] > 0) {
-      dt[ .(c("s.n.", "Anonymous", "Unknown, C.", "Unknown")), priority := priority - 3]
+    vec <- c("s.n.", "Anonymous", "Unknown, C.", "Unknown")
+    if (dim(dt[vec, nomatch = NULL])[1] > 0) {
+      dt[ vec, priority := priority - 3, nomatch = NULL]
     }
     temp <- data.frame(dt[, lapply(.SD, nchar), by = .SD, .SDcols = c(covs.present[["collectors"]])])
     dt[ temp[,1] < 3, priority := priority - 3]
@@ -267,6 +302,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
   data.table::setorderv(dt, c(covs.present[["species"]], "priority"), c(1,-1))
   dt1 <- dt[dt[, .I[1:n.vouch],
                by = c(covs.present[["species"]])]$V1]
+  dt1 <- dt1[rowSums(is.na(dt1)) < dim(dt1)[2],]
 
   ## GENERATING THE LIST OF VOUCHERS ##
   # Collector name and number
@@ -312,7 +348,8 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
                 .SDcols = "vchrs"]
 
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[,1], data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[,covs.present[["species"]]],
+                                data.frame(dt2)[,1])])
   }
 
   if (type == "selected") { # From 'species examined' in Flora Neotropica
@@ -351,6 +388,24 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
     # }
 
     # LOCALITY
+    locais = NULL
+    if (is.na(covs.present[["locality"]]) &
+        any(!sapply(covs.present[c("countries","state","county")], is.na))) {
+      loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]
+      loc.df <- fixLoc(data.frame(loc.df), scrap = FALSE,
+             admin.levels = c("country", "stateProvince", "municipality"))
+      loc.df <- strLoc(loc.df)
+      loc.df$loc.string  <- prepLoc(loc.df$loc.string)
+      loc.df <- getLoc(loc.df)
+      locais <- getAdmin(loc.df)
+      locais$string <- paste(toupper(locais$NAME_0),", ",
+                             locais$NAME_1, ": ",
+                             locais$NAME_2, sep="")
+      locais$string[locais$string == "NA, NA: NA"] <- "[Locality unknown]"
+      locais$string <- gsub(", NA: NA$", "", locais$string, perl = TRUE)
+      locais$string <- gsub(": NA$", "", locais$string, perl = TRUE)
+    }
+
     if (!is.na(covs.present[["locality"]])) {
       df <- data.frame(dt1[, .SD, .SDcols = c(covs.present[["locality"]])])
       locais <- getAdmin(df)
@@ -364,7 +419,9 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
       locais$string[locais$string == "NA, NA: NA"] <- "[Locality unknown]"
       locais$string <- gsub(", NA: NA$", "", locais$string, perl = TRUE)
       locais$string <- gsub(": NA$", "", locais$string, perl = TRUE)
-    } else {
+    }
+
+    if (is.null(locais)) {
       locais <- data.frame(string = rep("[Locality unknown]", dim(dt1)[1]))
     }
 
@@ -405,7 +462,8 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30,
                 .SDcols = "lista.vouchs"]
     #Saving
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[,1], data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[, covs.present[["species"]]],
+                                data.frame(dt2)[,1])])
   }
 
   # Organizing and ordering the output

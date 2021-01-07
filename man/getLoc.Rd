@@ -11,7 +11,7 @@ getLoc(x, gazet = "plantR", ...)
 for the specifications of this data frame.}
 
 \item{gazet}{a data.frame containing the gazetteer. The default is "plantR",
-the internal `plantR` gazetteer (biased towards Latin America)}
+the internal __plantR__ gazetteer (biased towards Latin America)}
 }
 \value{
 The data frame \code{x}, with the new columns retrieved from the
@@ -20,7 +20,7 @@ The data frame \code{x}, with the new columns retrieved from the
   'loc.correct'), the geographical coordinates (in decimal degrees) and the
   resolution associated with the string retrieved (columns
   'latitude.gazetteer', 'longitude.gazetteer', and 'resolution.gazetteer',
-  respectively). and the associated resolution.
+  respectively) and the associated resolution.
 }
 \description{
 This function uses locality strings to search for existing
@@ -32,7 +32,7 @@ This function uses locality strings to search for existing
 The function was initially designed as part of a larger routine to
   edit and validate locality information from plant occurrence data. It is
   possible to use it separately, but it may be easier to use it under the
-  workflow presented in `plantR` manual. If used separately, users must
+  workflow presented in __plantR__ manual. If used separately, users must
   provide a data frame with at least two columns ('resol.orig' and
   'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
   also be provided and in this case, these additional strings are used to
@@ -40,7 +40,7 @@ The function was initially designed as part of a larger routine to
   retrieve from the gazetteer information at the locality level or below. See
   the examples below.
 
-  A different gazetteer than the `plantR` default can be used. This gazetteer
+  A different gazetteer than the __plantR__ default can be used. This gazetteer
   must be provided using the argument `gazet` and it must contain the
   columns 'loc' (search string), 'loc.correct' (correct string),
   'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
@@ -67,7 +67,7 @@ The function was initially designed as part of a larger routine to
 getLoc(loc.str)
 
 
-## Using the function under the `plantR` cleaning workflow (may be easier
+## Using the function under the __plantR__ cleaning workflow (may be easier
 # than using the function separatedely)
 
 # Creating a data frame with locality information

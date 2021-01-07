@@ -50,7 +50,6 @@
 #'   tdwgName("Carl Friedrich Philipp von Martius")
 #'   tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
 #'   tdwgName("Simon Jan van Ooststroom")
-#'   tdwgName("Jan van der Hoeven") ##CHECK!
 #'   tdwgName("Maria da Silva")
 #'   tdwgName("Silva, M. da")
 #'   tdwgName("da Silva, M.")
@@ -77,6 +76,7 @@
 #'   tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
 #'   tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
 #'   tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
+#'   tdwgName("Jan van der Hoeven") #double name preprositions
 #'   tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 #'   # two or more names: output incorrect (combine names of authors)
 #'   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")
@@ -92,23 +92,23 @@ tdwgName <- function(x) {
     stop("input 'name' cannot be a vector of strings!")
 
   # name inside brackets? removing here and adding after editions
-  bracks <- grepl('^\\[', x) & grepl('\\]$', x)
-  x <- gsub("^\\[|\\]$", "", x)
+  bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
+  x <- gsub("^\\[|\\]$", "", x, perl = TRUE)
 
   # first edits:
-  if (grepl(", [A-Z]", x))
+  if (grepl(", [A-Z]", x, perl = TRUE))
     x <- fixName(x)                                 # fixing names already in the TDWG format
-  x <- gsub("[.]", ". ", x)                         # adding a space between points
-  x <- gsub("  ", " ", x)                           # removing double spaces
+  x <- gsub("[.]", ". ", x, perl = TRUE)            # adding a space between points
+  x <- gsub("  ", " ", x, fixed = TRUE)             # removing double spaces
 
   # removing unwanted characters
-  x <- gsub(", --$| --, --|^-\\. ||^--\\. |^-- |^\\* ", "", x)
+  x <- gsub(", --$| --, --|^-\\. ||^--\\. |^-- |^\\* ", "", x, perl = TRUE)
 
   # removing treatment prepositions (e.g. Dr., Prof., Pe., ...)
-  x <- gsub("^Dr\\. |Pe\\. |Prof\\. ", "", x)
+  x <- gsub("^Dr\\. |Pe\\. |Prof\\. ", "", x, perl = TRUE)
 
   # spliting the name
-  names <- unlist(strsplit(x, " "))                     # split o names and initials
+  names <- unlist(strsplit(x, " ", perl = TRUE))          # split o names and initials
   names <- as.character(unlist(sapply(names,
                                       FUN = capName)))    # capitalizing first letter of each name
 
@@ -143,11 +143,11 @@ tdwgName <- function(x) {
 
   }
 
-  lastname <- gsub("\\.$", "", lastname)
+  lastname <- gsub("\\.$", "", lastname, perl = TRUE)
   # making sure gen. suffixes did not got mixed up
   if(any(names %in% cp)) {
 
-    cp.nome <- gsub("\\.$", "", cp.nome)
+    cp.nome <- gsub("\\.$", "", cp.nome, perl = TRUE)
     lastname <- paste(lastname, cp.nome, sep = " ")
     lastname <- paste(unique(strsplit(lastname, " ")[[1]]), collapse = " ")
     other.names <- other.names[!other.names %in% names[names %in% cp]]
@@ -161,7 +161,7 @@ tdwgName <- function(x) {
 
   #Creating and editing the name initials
   initials <- sapply(other.names, function(x)
-      toupper(strsplit(x, "")[[1]][1]))
+    toupper(strsplit(x, "", perl = TRUE)[[1]][1]))
 
   #Editing the name initials
   if (any(initials == "-"))
@@ -173,8 +173,8 @@ tdwgName <- function(x) {
   # Creating the name in the TDWG format
   name.correct <- paste(lastname, initials, sep = ", ")
   # Final edits (removing duplicated commas and bad name endings)
-  name.correct <- gsub(",,", ",", name.correct)
-  name.correct <- gsub(", \\.$", "", name.correct)
+  name.correct <- gsub(",,", ",", name.correct, fixed = TRUE)
+  name.correct <- gsub(", \\.$", "", name.correct, perl = TRUE)
   #name.correct <- gsub("NANA", NA, name.correct)
 
   # Adding brackets (if needed)

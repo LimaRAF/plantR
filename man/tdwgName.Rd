@@ -46,7 +46,6 @@ The function puts the name of a person into the format suggested by
   tdwgName("Carl Friedrich Philipp von Martius")
   tdwgName("Alphonse Louis Pierre Pyrame de Candolle")
   tdwgName("Simon Jan van Ooststroom")
-  tdwgName("Jan van der Hoeven") ##CHECK!
   tdwgName("Maria da Silva")
   tdwgName("Silva, M. da")
   tdwgName("da Silva, M.")
@@ -73,6 +72,7 @@ The function puts the name of a person into the format suggested by
   tdwgName("Cyl Sa") # small last name, without comma: output incorrect (inverted)
   tdwgName("Sa, Cyl") # small last name, with comma: output incorrect (inverted)
   tdwgName("L. McDade") #cannot recognize names starting with Mc or Mac
+  tdwgName("Jan van der Hoeven") #double name preprositions
   tdwgName("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
   # two or more names: output incorrect (combine names of authors)
   tdwgName("Mendonca Filho, C.V.; Neto, F.C.C.")

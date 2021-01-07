@@ -7,28 +7,29 @@
 getYear(x, noYear = "s.d.")
 }
 \arguments{
-\item{x}{the character string containing a date.}
+\item{x}{the character string or vector containing the dates.}
 
-\item{noYear}{Character. Standard for missing data in Year. Default to
-"n.d.".}
+\item{noYear}{character. Standard notation for missing date information.
+Default to "n.d.".}
 }
 \value{
 The year contained in the character string \code{x}.
 }
 \description{
-Extracts the year of collection or determination from dates.
+This function extracts the year from dates associated with
+the collection or identifiation of biological records.
 }
 \details{
 The function extracts the year from a given date in various
   different formats, but not all of them (see examples below). So, please
-  consider putting your vector of dates in a standardized format (see note
-  below).
+  consider putting your vector of dates in a standardized format prior to the
+  year extraction (see note below).
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
-dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,1981",
-          "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
-          "March 1981","Mar. 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
+dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,981",
+         "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
+         "March 1981","Mar. 1981","Mar 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
 
 # Using the function to extract the year
 getYear(dates)
@@ -40,23 +41,26 @@ getYear(dates, noYear = "n.d.")
 dates <- c("31.12.1982","1982.31.12", '31/12')
 getYear(dates, noYear = 'pouette')
 
-# Note: If your dates are all stored in some specific format, you can convert
-#them to the ISO 8601 format (YYYY-MM-DD, e.g. 1981-03-25), which is the
-#standard format suggested by the Biodiversity Information Standards (TDWG). To
-#do so you have to provide your vector of dates and its format to the as.Date
-#function from the base R package. Some examples:
+__Note__: If your dates are all stored in some specific format, you can convert
+them to the ISO 8601 format (YYYY-MM-DD, e.g. 1981-03-25), which is the
+standard format suggested by the Biodiversity Information Standards (TDWG).
+To do so you have to provide your vector of dates and its format to the
+as.Date function from the base R package. Some examples:
 
-# The date format in this case is '\%d/\%m/\%y', i.e. day, month, two-digits year, separated by slashs:
+1) The date format in this case is '\%d/\%m/\%y', i.e. day, month, two-digits
+year, separated by slashs:
 
 dates <- c("25/03/81", "05/12/81")
 as.Date(dates, format = "\%d/\%m/\%y")
 
-# or, date format is "\%d/\%b/\%Y", i.e. day, month, four-digits year, separated by slashs:
+2) Date format is "\%d/\%b/\%Y", i.e. day, month, four-digits year, separated
+by slashs:
 
 dates <- c("25/03/1981", "05/12/1981")
 as.Date(dates, format = "\%d/\%m/\%Y")
 
-# or, date format is '\%d \%b \%y', i.e. day, abbreviated month, four-digits year, separated by spaces:
+3) Date format is '\%d \%b \%y', i.e. day, abbreviated month, four-digits year,
+separated by spaces:
 
 dates <- c("25 Mar 1981", "05 Dec 1981")
 as.Date(dates, format = "\%d \%b \%Y")
