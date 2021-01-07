@@ -7,6 +7,7 @@
 rspeciesLink(
   dir = "results/",
   filename = "output",
+  save = TRUE,
   basisOfRecord = NULL,
   species = NULL,
   collectionCode = NULL,
@@ -27,6 +28,8 @@ rspeciesLink(
 \item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
+
+\item{save}{Logical. Save output to filename? Defaults to TRUE}
 
 \item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
 'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search}
@@ -61,7 +64,7 @@ rspeciesLink(
 A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
 }
 \description{
-This function access version beta 0.1 of speciesLink API and returns
+This function access version beta 0.1 of speciesLink API (https://api.splink.org.br/) and returns
 occurrence data of species.
 }
 \examples{

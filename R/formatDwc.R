@@ -27,7 +27,7 @@
 #'
 #' @return Either a data.frame or list with the database fields formatted following DarwinCore standards
 #'
-#' @importFrom stringr str_tim
+#' @importFrom stringr str_trim
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
 #'

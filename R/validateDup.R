@@ -14,10 +14,10 @@
 #' @param remove logical. Should duplicates be removed? Default to FALSE.
 #' @param ... Parameters from mergeDup
 #'
-#' @inherit prepDup params
-#' @inherit getDup params
-#' @inherit mergeDup params
-#' @inherit rmDup params
+#' @inheritParams prepDup
+#' @inheritParams getDup
+#' @inheritParams mergeDup
+#' @inheritParams rmDup
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,

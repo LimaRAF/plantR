@@ -10,6 +10,7 @@ rgbif2(
   species,
   force = FALSE,
   remove_na = TRUE,
+  save = TRUE,
   ...
 )
 }
@@ -23,6 +24,8 @@ rgbif2(
 \item{force}{Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`}
 
 \item{remove_na}{Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude}
+
+\item{save}{Logical. Save output to filename? Defaults to TRUE}
 
 \item{...}{Any argument from occ_search in rgbif package}
 }
