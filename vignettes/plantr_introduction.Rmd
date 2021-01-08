@@ -139,8 +139,8 @@ occs_gbif <- rgbif2(species = "Euterpe edulis",
 ```
 
 ```{r load-data, eval=TRUE, echo=FALSE}
-occs_splink <- read.csv("vignettes/results/speciesLink.csv")
-occs_gbif <- read.csv("vignettes/results/gbif.csv")
+occs_splink <- read.csv("results/speciesLink.csv")
+occs_gbif <- read.csv("results/gbif.csv")
 ```
 
 
@@ -148,7 +148,7 @@ occs_gbif <- read.csv("vignettes/results/gbif.csv")
 
 #### People names, collector number and dates
 
-After making sure the input fields are in the DarwinCore format (function `formatDwc()`). This function can also be used to join data from different sources, including data provided by the user if specifiying equivalences with DarwinCore fields. Here, we are using to format and bind download from GBIF and speciesLink databases. Note that an additional column `data_source` is created. 
+After making sure the input fields are in the DarwinCore format (function `formatDwc()`). This function can also be used to join data from different sources, including data provided by the user if specifying equivalences with DarwinCore fields. Here, we are using to format and bind download from GBIF and speciesLink databases. Note that an additional column `data_source` is created. 
 
 ```{r bind-data, eval = TRUE, collapse = TRUE}
 occs <- formatDwc(splink_data = occs_splink, 

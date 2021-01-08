@@ -1,4 +1,5 @@
 # general R stuff
+
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -11,12 +12,10 @@ dictionaries/
 accessory_files/
 
 # ignoring local files to pass on check
-teste.R
-check_output.txt
 R/validateCoord2.R
-R/checkInverted.R
-R/checkBorder.R
 R/test_val.R
+R/cc.R
+vrac/
 
 # ignoring file that generates sysdata
 data-raw/

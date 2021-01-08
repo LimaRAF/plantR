@@ -5,18 +5,7 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
   - Renato A. F. de Lima^[Naturalis Biodiversity Center and Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
 output:
-    rmarkdown::html_vignette:
-    #rmarkdown::html_document:
-        toc: true
-        number_sections: true
-        #theme: cerulean
-    md_document:
-      variant: gfm
-vignette: >
-  %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{plantR_tutorial}
-  %\VignetteEngine{knitr::rmarkdown}
-    \usepackage[utf8]{inputenc}
+    github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -648,7 +637,7 @@ As a result we found about 5300 specimens with a high chance of representing tru
 
 Note that if there are duplicated entries (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
 
-It is important to notice that these duplicate search results are only indications. First of all, the retrievel of duplicates depend on the dataset itself: if the collection were the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
+It is important to notice that these duplicate search results are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
 
 ### Homogenizing the information within duplicates: function `mergeDup()`
 
