@@ -70,6 +70,10 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
     stop("Input must be a vector, matrix or a data frame")
   }
 
+  if (!format %in% c("last_init", "last_init_prep", "prep_last_init", "init_last")) {
+    stop("Please provide one of the following formats: last_init, last_init_prep, prep_last_init, init_last")
+  }
+
   if (class(x) == "character") {
     # Storing Last names and initials separately
     split <- strsplit(x, ", ", perl = TRUE)
@@ -140,7 +144,6 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
       return(split)
     }
 
-
     if (output == "vector") {
       if (format == "last_init_prep")
         result <- paste(paste(split[,1], split[,2], sep = ", "), split[,3],
@@ -159,10 +162,10 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
     }
   }
 
- # Final edits
- result <- stringr::str_trim(result)
- result <- gsub(",$", "", result, perl = TRUE)
- result <- gsub("\\s\\s+", " ", result)
+  # Final edits
+  result <- stringr::str_trim(result)
+  result <- gsub(",$", "", result, perl = TRUE)
+  result <- gsub("\\s\\s+", " ", result)
 
- return(result)
+  return(result)
 }
