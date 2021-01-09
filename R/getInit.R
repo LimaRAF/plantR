@@ -1,69 +1,86 @@
 #' @title Create Name Initials
 #'
 #' @description Convert or standardize a vector of containing people's names
-#' or their initials
+#' or their initials.
 #'
 #' @param x the character string or vector to be standardized
 #'
 #' @return the character string with the initials of each name separated by
-#'   points.
+#'   points, without spaces.
 #'
-#' @details The function assumes that capitalized letters at the beggini
+#' @details The function has some basic assumptions in order to get initials for
+#'   the most type of cases.
+#'
+#'   For multiple names/abbreviations separated by a space and/or an
+#'   abbreviation point, the function takes the first letter of each
+#'   name/abbreviation as the initials.
+#'
+#'   For single names or one-string initials the output depends on the presence
+#'   of abbreviation points and if names are provided in all caps.
+#'
+#'
+#'
+#' The output is relatively stable regarding different name formats and notation
+#' standards, but it doe not work for all of them (see Examples).
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @export getInits
+#' @export getInit
 #'
 #' @examples
-#'   # Names, full names and both
-#'   getInits("Alwyn")
-#'   getInits("Alwyn Howard Gentry")
-#'   getInits("Alwyn H. Gentry")
-#'   getInits("A. Gentry")
-#'   getInits("A. H. Gentry")
+#'   # Full names and both full and abbreviated names
+#'   getInit("Alwyn")
+#'   getInit("Alwyn Howard Gentry")
+#'   getInit("Alwyn H. Gentry")
+#'   getInit("A. Gentry")
+#'   getInit("A. H. Gentry")
+#'   getInit("A.H.Gentry")
 #'
-#'   # Initials
-#'   getInits("A")
-#'   getInits("A H G")
-#'   getInits("A. H. G.")
+#'   # Abbreviations
+#'   getInit("A")
+#'   getInit("A H G")
+#'   getInit("A. H. G.")
 #'
 #'   # Capitalized and lower-case names
-#'   getInits("ALWYN HOWARD GENTRY")
-#'   getInits("AHG")
-#'   getInits("ALWYN") # assumes as initials
-#'   getInits("a.h. gentry")
-#'   getInits("alwyn") # assumes as first name
+#'   getInit("ALWYN HOWARD GENTRY")
+#'   getInit("AHG")
+#'   getInit("a.h. gentry")
+#'   getInit("alwyn") # assumes as first name
 #'
 #'   # Other formats
-#'   getInits("Auguste Saint-Hilaire")
-#'   getInits("John MacDonald")
-#'   getInits("John McDonald")
-#'   getInits("John O'Brien")
+#'   getInit("Auguste Saint-Hilaire")
+#'   getInit("John MacDonald")
+#'   getInit("John McDonald")
+#'   getInit("John O'Brien")
 #'
 #'   # Cases when the function does not work properly
-#'   getInits("AH gentry") # assumes initials as first name
-#'   getInits("Gentry, A.") # ignores comma
-#'   getInits("G., Alwyn") # ignores comma
-#'   getInits("Ah. Gentry") # discard the lower-case initial
+#'   getInit("ALWYN") # assumes as initials
+#'   getInit("Carl F. P. von Martius") #takes name preposition as name
+#'   getInit("AH gentry") # assumes initials as first name
+#'   getInit("Gentry, A.") # ignores comma
+#'   getInit("G., Alwyn") # ignores comma
+#'   getInit("Ah. Gentry") # discard the lower-case initial
 #'
 #'
-getInits <- function(x) {
+getInit <- function(x) {
+
+  #Preparing the vector of names
+  pts <- grepl("\\.", x, perl = TRUE)
+  x[pts] <- gsub("[.]", ". ", x[pts], perl = TRUE)
+  x[pts] <- gsub("\\s\\s+", " ", x[pts], perl = TRUE)
+  x[pts] <- gsub("^ | $", "", x[pts], perl = TRUE)
 
   #Detecting the some general types of name formats: full, abbreviated or both
-  words <- grepl("\\s", x, perl = TRUE)
+  words <- grepl(" ", x, fixed = TRUE)
   abrev <- grepl('([a-z;A-Z;à-ý;À-Ý]\\.)([a-z;A-Z;à-ý;À-Ý]\\.)+',
-        x, perl = TRUE)
+                 x, perl = TRUE)
 
   types <- rep(NA, length(x))
   types[words] <- "1"
   types[!words & abrev] <- "2"
   types[!words & !abrev] <- "3"
 
-  #Preparing for extraction
-  x[abrev] <- gsub("[.]", ". ", x[abrev], perl = TRUE)
-  x[abrev] <- gsub("\\s\\s+", " ", x[abrev], perl = TRUE)
-  x[abrev] <- gsub(" $", "", x[abrev], perl = TRUE)
-
+  #Identifying some particular cases
   hyphen <- grepl("-", x, fixed = TRUE)
   if (any(hyphen))
     x[hyphen] <- gsub("-", " - ", x[hyphen], fixed = TRUE)
@@ -87,14 +104,14 @@ getInits <- function(x) {
   if (any(types %in% "1")) {
     split1 <- strsplit(x[types %in% "1"], " ", fixed = TRUE)
     initials[types %in% "1"] <- lapply(split1,
-                                    function(x) substr(x, 1, 1))
+                                       function(x) substr(x, 1, 1))
   }
 
   #Extract type 2: single words, with abbreviations
   if (any(types %in% "2")) {
     split1 <- strsplit(x[types %in% "2"], "", fixed = TRUE)
     initials[types %in% "2"] <- lapply(split1,
-                                     function(x) x[!x %in% c("."," ")])
+                                       function(x) x[!x %in% c("."," ")])
   }
 
   #Extract type 3: single words, no abbreviations
@@ -102,17 +119,18 @@ getInits <- function(x) {
     split1 <- strsplit(x[types %in% "3"], "", fixed = TRUE)
     any.caps <- grepl('[A-ZÀ-Ý]', x[types %in% "3"], perl = TRUE)
     all.caps <- sapply(split1, function(x) all(grepl("[[:upper:]]",
-                                     x[grepl("[[:alpha:]]|-", x, perl = TRUE)], perl = TRUE)))
+                                                     x[grepl("[[:alpha:]]|-", x, perl = TRUE)], perl = TRUE)))
     all.low <- !all.caps & !any.caps
 
     initials[types %in% "3"][!all.low] <- lapply(split1[!all.low],
-           function(x) x[grepl('[A-ZÀ-Ý]|-', x, perl = TRUE)])
+                                                 function(x) x[grepl("[A-ZÀ-Ý]|-|\\'", x, perl = TRUE)])
 
-    hyphen <- grepl(" - ", initials[types %in% "3"][all.low])
+    hyphen <- grepl(" - ", initials[types %in% "3"][all.low],
+                    fixed = TRUE)
     if (any(hyphen))
       initials[types %in% "3"][all.low][hyphen] <-
-        sapply(initials[types %in% "3"][all.low][hyphen],
-               strsplit, " ", fixed = TRUE)
+      sapply(initials[types %in% "3"][all.low][hyphen],
+             strsplit, " ", fixed = TRUE)
     initials[types %in% "3"][all.low] <- lapply(initials[types %in% "3"][all.low],
                                                 function(x) substr(x, 1, 1))
   }
@@ -128,14 +146,14 @@ getInits <- function(x) {
     paste(initials[numb.inits == 1], ".", sep = "")
 
   # Final edits
+  x <- gsub("\\.,\\.", ".", x, perl = TRUE)
+
   if (any(grepl("-\\.", x, perl = TRUE)))
     x[grepl("-\\.", x, perl = TRUE)] <-
-      gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
+    gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
 
   if (any(oa))
-    x[oa] <- gsub("'\\.", "'", x[oa])
-    x[oa & !grepl("'", x)] <-
-      gsub("O\\.", "O.'", x[oa & !grepl("'", x)])
+    x[oa] <- gsub("O\\.'\\.", "O'", x[oa], perl = TRUE)
 
   if (any(mac))
     x[mac] <- gsub("(M)(\\.)", "\\Mac", x[mac], perl = TRUE)

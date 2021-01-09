@@ -32,7 +32,7 @@
 #'   format is prioritized over the 'First name(s) Last name' format while
 #'   separating last from first names. In addition, only the prepositions in the
 #'   last name are isolated and can be returned. Prepositions in middle names
-#'   are excluded.
+#'   are silently excluded.
 #'
 #'   Names can be provided as vectors of names or as a two-column matrix/data
 #'   frame in which the last names are provided in the first column and other
@@ -116,8 +116,13 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
                             perl = TRUE, ignore.case = TRUE)
   }
 
-  # Some minor fixes
+  # Some minor edits
   split[,2][is.na(split[,2])] <- ""
+
+  patt.rm <- paste0(paste0(" ", preps, " "), collapse = "|")
+  split[,2] <- gsub(patt.rm, " ", split[,2],
+                    perl = TRUE, ignore.case = TRUE)
+
   split[,3] <- tolower(split[,3])
   colnames(split) <- c("last.name", "first.names", "prep")
 
