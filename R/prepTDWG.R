@@ -116,12 +116,14 @@
 #'   # one name, two commas: fails to get all names
 #'   prepTDWG("Cesar Sandro, Esteves, F")
 #'
+#'
 prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.initials = TRUE) {
 
   # Detecting different name formats
   patt <- paste0("[[:alpha:]]", sep, "[A-ZÀ-Ý]")
   commas <- grepl(patt, x, perl = TRUE)
   words <- grepl(" ", x, fixed = TRUE)
+  NAs <- is.na(x)
 
   # Detecting other name formats
   oa <- grepl("O'[A-Z]", x, perl = TRUE)
@@ -130,11 +132,11 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
   nomes <- x
 
-  if (any(commas & words)) { # Names already with commas and >1 word
+  if (any(commas & words & !NAs)) { # Names already with commas and >1 word
 
     # Getting last and first names, as well as the prefixes/prepositions and initials
-    split <- matrix(c(lastName(x[commas & words]),
-                      lastName(x[commas & words], invert = TRUE, initials = FALSE)),
+    split <- matrix(c(lastName(x[commas & words & !NAs]),
+                      lastName(x[commas & words & !NAs], invert = TRUE, initials = FALSE)),
                     ncol = 2)
     split <- getPrep(split, rm.prep = FALSE)
 
@@ -175,14 +177,14 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
     names <- gsub("\\s\\s+", " ", names, perl = TRUE)
     names <- gsub("^ | $", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
-    nomes[commas & words] <- names
+    nomes[commas & words & !NAs] <- names
 
   }
 
-  if (any(!commas & words)) { # Names without commas and >1 word
+  if (any(!commas & words & !NAs)) { # Names without commas and >1 word
 
-    split <- matrix(c(lastName(x[!commas & words]),
-                      lastName(x[!commas & words], invert = TRUE, initials = FALSE)),
+    split <- matrix(c(lastName(x[!commas & words & !NAs]),
+                      lastName(x[!commas & words & !NAs], invert = TRUE, initials = FALSE)),
                     ncol = 2)
     split <- getPrep(split, rm.prep = FALSE)
 
@@ -223,13 +225,14 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
     # Final edits on the name string
     names <- gsub("\\s\\s+", " ", names, perl = TRUE)
     names <- gsub("^ | $", "", names, perl = TRUE)
+    names <- gsub(",$", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
-    nomes[!commas & words] <- names
+    nomes[!commas & words & !NAs] <- names
 
   }
 
-  if (any(!words)) # Names with a single word
-    nomes[!words] <- capName(nomes[!words])
+  if (any(!words & !NAs)) # Names with a single word
+    nomes[!words & !NAs] <- capName(nomes[!words & !NAs])
 
   #Fixing names in other formats, if present
   if (any(oa))
@@ -241,5 +244,5 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
   if (any(mc))
     nomes[mc] <- gsub("(Mc)([a-z])", "\\1\\U\\2",  nomes[mc], perl = TRUE)
 
-  return(nomes)
+  return(as.character(nomes))
 }

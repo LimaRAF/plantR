@@ -20,12 +20,17 @@
 #'   addition, the function removes numbers, some unwanted expressions (e.g. 'et
 #'   al.') and symbols (e.g. ? or !).
 #'
+#'   The function was created to deal with people's names, so input separators
+#'   for multiple names composed only by letters should be surrounded by spaces.
+#'   For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
+#'   taken independently of the presence of spaces nearby.
+#'
 #'   Due to common encoding problems related to Latin names, names are returned
 #'   without accents by default. But users can choose between outputs with and
 #'   without accents and species characters, by setting the argument
 #'   `special.char` to TRUE.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. F. de Lima & Hans ter Steege
 #'
 #' @importFrom textclean replace_non_ascii
 #' @importFrom stringr str_trim
@@ -38,12 +43,12 @@
 #'   fixName("Gert G. Hatschbach, et al.")
 #'   fixName("Karl Emrich & Balduino Rambo")
 #'   fixName("Karl Emrich & Balduino Rambo", sep.out = " | ")
+#'   fixName("Karl Emrich | Balduino Rambo", sep.out = " + ")
 #'   fixName('( Karl) Emrich ;(Balduino ) Rambo')
 #'   fixName('F. da S.N. Thomé')
 #'   fixName('F.daS.N.Thomé')
 #'   fixName('Pedro L.R.de Morães')
 #'   fixName('Pedro L.R.de Morães (30/4/1998)')
-#'   fixName('[D. Hugh-Jones]')
 #'
 #'   # Multiple names
 #'   names <- c("J.E.Q. Faria Jr.",
@@ -53,36 +58,34 @@
 #'
 #' @export fixName
 #'
-fixName <- function(nomes, sep.in = c(";","&","\\|"," e "," y "," and "," und "," et "),
+fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
                     sep.out = "; ", special.char = FALSE) {
 
   #Defining the input and temporary separators
-  sep.in2 <- sep.in[!grepl('&|\\||;| et ', sep.in)]
-  sep.in1 <- gsub("$","\\1 ",
-                  gsub("^"," \\1", sep.in[grepl('&|\\|', sep.in)]))
-  sep.other <- paste0(c(sep.in1,sep.in2), collapse = "|")
-  if(sep.other == "")
+  sep.in2 <- sep.in[grepl('[[:alpha:]]', sep.in) & !grepl(' et ', sep.in)]
+  sep.in1 <- sep.in[!grepl('[[:alpha:]]', sep.in)]
+  sep.in1 <- gsub("(\\|)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\+)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\$)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\.)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\?)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\*)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in3 <- unique(c(sep.in1, sep.in2))
+
+  if(length(sep.in3) == 0)
     stop("Please provide valid separators between multiple authors")
+  sep.other <- paste(sep.in3, collapse = "|")
   sep.et <- ifelse(" et " %in% sep.in, TRUE, FALSE)
   sep0 <- "__"
 
   #Separation between names/initials
-  nomes <- gsub("(?<=[A-Z])\\.(?=[a-z])", "\\1. ", nomes, perl = TRUE)
-  nomes <- gsub("(?<=[A-Z])\\.([A-Z])([a-z])", ". \\1\\2", nomes, perl = TRUE)
-  nomes <- gsub("(?<=[a-z])([A-Z])\\.", " \\1.", nomes, perl = TRUE)
+  nomes <- gsub("(?<=[A-ZÀ-Ý])\\.(?=[a-zà-ý])", "\\1. ", nomes, perl = TRUE)
+  nomes <- gsub("(?<=[A-ZÀ-Ý])\\.([A-ZÀ-Ý])([a-zà-ý])", ". \\1\\2", nomes, perl = TRUE)
+  nomes <- gsub("(?<=[a-zà-ý])([A-ZÀ-Ý])\\.", " \\1.", nomes, perl = TRUE)
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
 
   #Separation between multiple authors
   nomes <- gsub(sep.other, sep0, nomes, perl = TRUE)
-  if (any(grepl("&|\\|", sep.in))) {
-    sep.other1 <- paste0(gsub('\\s+', '', sep.in1),
-                         collapse = "|")
-    nomes <- gsub(sep.other1, sep0, nomes, perl = TRUE)
-  }
-  if (";" %in% sep.in) {
-    nomes <- gsub("; ;", sep0, nomes, fixed = TRUE)
-    nomes <- gsub(" ;", sep0, nomes, fixed = TRUE)
-  }
   nomes <- gsub('\\( ', '(', nomes, perl = TRUE)
   nomes <- gsub(' \\)', ')', nomes, perl = TRUE)
   nomes <- gsub('\\[ ', '[', nomes, perl = TRUE)
@@ -96,8 +99,6 @@ fixName <- function(nomes, sep.in = c(";","&","\\|"," e "," y "," and "," und ",
   nomes <- gsub("[0-9]", "", nomes, perl = TRUE)
   nomes <- gsub('!', '', nomes, fixed = TRUE)
   nomes <- gsub(' - | -|- ', "-", nomes, perl = TRUE)
-  # nomes[grepl('^<', nomes, perl = TRUE) &
-  #         grepl('>$', nomes, perl = TRUE)] <- "EncodingError"
   nomes <- gsub('^\\* ', '', nomes, perl = TRUE)
 
   #Removing "et al." expression
@@ -168,6 +169,11 @@ fixName <- function(nomes, sep.in = c(";","&","\\|"," e "," y "," and "," und ",
   nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
   nomes <- stringr::str_trim(nomes)
   nomes[nomes %in% c("")] <- NA_character_
+
+  #Replacing the temporary separator by sep.out
+  nomes <- gsub(" __ ", sep0, nomes, fixed = TRUE)
+  nomes <- gsub("__ ", sep0, nomes, fixed = TRUE)
+  nomes <- gsub(" __", sep0, nomes, fixed = TRUE)
   nomes <- gsub(sep0, sep.out, nomes, fixed = TRUE)
 
   #Remove special characters?

@@ -93,7 +93,7 @@
 #'   tdwgNames("Cesar Sandro, Esteves, F") # one name, two commas: fails to get the right last name
 #'
 tdwgNames <- function(x, sep.in = c(";","&"," e "," et ","\\|"),
-                     sep.out = "|", out = c("all")) {
+                      sep.out = "|", out = c("all")) {
 
   sep.out <- paste0(" ", sep.out, " ") #isto é muito provisório e só pensando no usuário
   # check input:

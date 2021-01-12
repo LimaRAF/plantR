@@ -1,6 +1,6 @@
 #' @title Create Species Checklist
 #'
-#' @description This function creates a checklist of the species contained
+#' @description This function creates a check-list of the species contained
 #' in the occurrence data, including a list of voucher specimens.
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
@@ -17,11 +17,11 @@
 #'   to organizeorder and filter the voucher list. Default to 5.
 #' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
 #'
-#' @details The checklist can be organized in alphabetic order by taxa or in
+#' @details The check-list can be organized in alphabetic order by taxa or in
 #'   alphabetic order by family and then by taxa within families (the
 #'   default).
 #'
-#'   By default, the checklist provides the number of records found and the
+#'   By default, the check-list provides the number of records found and the
 #'   overall taxonomic and geographic confidence level of the records (columns
 #'   'tax.CL' and 'geo.CL'), if available. The taxonomic confidence level is the
 #'   percentage of records with the identification flagged as 'high', while the
@@ -68,9 +68,9 @@
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
 #'
-#' @export checklist
+#' @export checkList
 #'
-checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
+checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                       rm.dup = TRUE, rank.type = 5, date.format = "%d %b %Y") {
 
   # check input

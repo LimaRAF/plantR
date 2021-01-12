@@ -77,6 +77,10 @@
 #'  # two or more names, not separated by comma: output incorrect (give names of authors)
 #'  lastName("Karl Emrich & Balduino Rambo")
 #'
+#'  # Some problematic (unresolved) examples
+#'  lastName("Neto, F.C.C.")
+#'  lastName("Gentry AH")
+#'
 lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
 
   # detecting missing names
@@ -100,8 +104,6 @@ lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
     last.name[comma] <- lapply(last.name[comma],
                                function(x) paste(
                                  x[1:grep(",", x, fixed = TRUE)[1]], collapse = " "))
-  # last.name[comma] <- lapply(last.name[comma],
-  #                            function(x) x[grepl(",", x, fixed = TRUE)][1])
 
   if (any(outros))
     last.name[outros] <- lapply(last.name[outros],
