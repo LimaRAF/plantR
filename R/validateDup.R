@@ -12,12 +12,10 @@
 #'   herbarium specimens
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should duplicates be removed? Default to FALSE.
-#' @param ... Parameters from mergeDup
+#' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inheritParams prepDup
-#' @inheritParams getDup
-#' @inheritParams mergeDup
-#' @inheritParams rmDup
+#' @inheritParams prepDup noYear noName noNumb comb.fields ignore.miss ignore.na
+#' @inheritParams mergeDup prop info2merge tax.name tax.level
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,

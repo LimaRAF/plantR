@@ -174,6 +174,19 @@ wordsForSearch <- c("^prov\\. ",
                    "^estado do ",
                    "^estado de ")
 
+unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
+                    'Ç', 'È', 'É', 'Ê', 'Ë',
+                    'Ì', 'Í', 'Î', 'Ï',
+                    'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
+                    'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',
+                    'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',
+                    'ç', 'è', 'é', 'ê', 'ë',
+                    'ì', 'í', 'î', 'ï',
+                    'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø',
+                    'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
+                    'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
+                    'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
+
 
 # só checando como estao os arquivos
 # head(taxonomists)
@@ -257,6 +270,7 @@ usethis::use_data(
                   taxonomists,
                   missLocs,
                   wordsForSearch,
+                  unwantedLatin,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")

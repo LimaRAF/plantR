@@ -232,7 +232,7 @@ is stored in the field 'collectionCode'. For some reason, not all collections
 store in this field their international collection codes (e.g. Index
 Herbariorum) and sometimes these codes are stored differently across data
 repositories. For the search of duplicate entries and th production of
-checklists (see below) it is important to standardize the codes of collections.
+check-lists (see below) it is important to standardize the codes of collections.
 In __plantR__ this is done using function `getCode`:
 
 ```{r, eval = FALSE}
@@ -704,7 +704,7 @@ summaryFlags(occs)
 ## Generating checklists
 
 ```{r, eval = FALSE}
-checklist(occs)
+checkList(occs)
 ```
 
 ## Saving the occurrence data

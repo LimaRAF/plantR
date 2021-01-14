@@ -25,9 +25,9 @@
 #'   For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
 #'   taken independently of the presence of spaces nearby.
 #'
-#'   Due to common encoding problems related to Latin names, names are returned
-#'   without accents by default. But users can choose between outputs with and
-#'   without accents and species characters, by setting the argument
+#'   Due to common encoding problems related to Latin characters, names are
+#'   returned without accents by default. This typicaBut users can choose between outputs
+#'   with and without accents and species characters, by setting the argument
 #'   `special.char` to TRUE.
 #'
 #' @author Renato A. F. de Lima & Hans ter Steege
@@ -92,8 +92,13 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   nomes <- gsub(' \\]', ']', nomes, perl = TRUE)
   nomes <- gsub(" s.n. ", sep0, nomes, perl = TRUE)
   nomes <- gsub("Collector\\(s\\):", "", nomes, perl = TRUE)
-  nomes <- gsub("\\(Coll.", sep0, nomes, perl = TRUE)
-  nomes <- gsub(" \\(\\?\\) ", sep0, nomes, perl = TRUE)
+  nomes <- gsub("\\(Coll.", "", nomes, perl = TRUE)
+  nomes <- gsub('Data:|Date:', "", nomes, perl = TRUE, ignore.case = TRUE)
+  nomes <- gsub('^det\\. by', "", nomes, perl = TRUE, ignore.case = TRUE)
+  nomes <- gsub('^det\\.:|^det:', "", nomes, perl = TRUE, ignore.case = TRUE)
+  nomes <- gsub('^det\\. ', "", nomes, perl = TRUE, ignore.case = TRUE)
+  nomes <- gsub('^det\\.', "", nomes, perl = TRUE, ignore.case = TRUE)
+  nomes <- gsub(" \\(\\?\\) ", "", nomes, perl = TRUE)
 
   #Removing unwanted character
   nomes <- gsub("[0-9]", "", nomes, perl = TRUE)
@@ -176,9 +181,29 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   nomes <- gsub(" __", sep0, nomes, fixed = TRUE)
   nomes <- gsub(sep0, sep.out, nomes, fixed = TRUE)
 
-  #Remove special characters?
+  #Remove special (latin) characters?
   if (special.char == FALSE) {
-    nomes <- textclean::replace_non_ascii(nomes)
+
+    #Getting the special characters to be replaced
+    unwanted_latin <- plantR:::unwantedLatin
+    replace_latin <- textclean::replace_non_ascii(unwanted_latin)
+
+    #Single letter replacements
+    replace_latin1 <- replace_latin[nchar(replace_latin) == 1]
+    unwanted_latin1 <- unwanted_latin[nchar(replace_latin) == 1]
+    nomes <- chartr(
+      paste(unwanted_latin1, collapse=''),
+      paste(replace_latin1, collapse=''),
+      nomes)
+
+    #Double letter replacements
+    replace_latin2 <- replace_latin[nchar(replace_latin) == 2]
+    names(replace_latin2) <- unwanted_latin[nchar(replace_latin) == 2]
+    for(i in 1:length(replace_latin2))
+      nomes <- gsub(names(replace_latin2)[i],
+                    replace_latin2[i],
+                    nomes, fixed = TRUE)
+
   }
 
   return(nomes)

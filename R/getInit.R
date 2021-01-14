@@ -4,9 +4,12 @@
 #' or their initials.
 #'
 #' @param x the character string or vector to be standardized
+#' @param all.caps logical. Should initials be capitalized? Default to TRUE.
+#' @param max.initials numerical. Upper limit of number of letter for a single
+#' word to be considered as initials and not as a name. Default to 5.
 #'
 #' @return the character string with the initials of each name separated by
-#'   points, without spaces.
+#'   points, without spaces. By default, initials are returned capitalized.
 #'
 #' @details The function has some basic assumptions in order to get initials for
 #'   the most type of cases.
@@ -16,12 +19,12 @@
 #'   name/abbreviation as the initials.
 #'
 #'   For single names or one-string initials the output depends on the presence
-#'   of abbreviation points and if names are provided in all caps.
+#'   of abbreviation points, if names are provided in all caps and in the number
+#'   of letters. If the number of capital letters exceeds the value in the argument
+#'   `max.initials`, then it is taken as a name and not initials (see Examples).
 #'
-#'
-#'
-#' The output is relatively stable regarding different name formats and notation
-#' standards, but it doe not work for all of them (see Examples).
+#'   The output is relatively stable regarding different name formats and notation
+#'   standards, but it doe not work for all of them (see Examples).
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -45,7 +48,8 @@
 #'   getInit("ALWYN HOWARD GENTRY")
 #'   getInit("AHG")
 #'   getInit("a.h. gentry")
-#'   getInit("alwyn") # assumes as first name
+#'   getInit("alwyn") # assumes as name
+#'   getInit("ALWYN") # assumes as name
 #'
 #'   # Other formats
 #'   getInit("Auguste Saint-Hilaire")
@@ -53,8 +57,9 @@
 #'   getInit("John McDonald")
 #'   getInit("John O'Brien")
 #'
-#'   # Cases when the function does not work properly
-#'   getInit("ALWYN") # assumes as initials
+#'   # Some problematic (unresolved) examples
+#'   getInit("AL") # assumes as initials (n. letters < default `max.initials`)
+#'   getInit("AL", max.initials = 2) # assumes as name (by changig the default)
 #'   getInit("Carl F. P. von Martius") #takes name preposition as name
 #'   getInit("AH gentry") # assumes initials as first name
 #'   getInit("Gentry, A.") # ignores comma
@@ -62,7 +67,7 @@
 #'   getInit("Ah. Gentry") # discard the lower-case initial
 #'
 #'
-getInit <- function(x) {
+getInit <- function(x, all.caps = TRUE, max.initials = 5) {
 
   #Preparing the vector of names
   pts <- grepl("\\.", x, perl = TRUE)
@@ -98,62 +103,54 @@ getInit <- function(x) {
     x[mc] <- gsub("(Mc)([A-Z])", "\\1 \\2", x[mc], perl = TRUE)
 
   #Extracting the initials for each type of format
-  initials <- as.list(x)
+  initials <- x
 
-  #Extract types 1: first letter of each word
-  if (any(types %in% "1")) {
-    split1 <- strsplit(x[types %in% "1"], " ", fixed = TRUE)
-    initials[types %in% "1"] <- lapply(split1,
-                                       function(x) substr(x, 1, 1))
-  }
+  #types 1: first letter of each word
+  if (any(types %in% "1"))
+    initials[types %in% "1"] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+           "", initials[types %in% "1"], perl=TRUE)
 
-  #Extract type 2: single words, with abbreviations
-  if (any(types %in% "2")) {
-    split1 <- strsplit(x[types %in% "2"], "", fixed = TRUE)
-    initials[types %in% "2"] <- lapply(split1,
-                                       function(x) x[!x %in% c("."," ")])
-  }
+  #type 2: single words, with abbreviations
+  if (any(types %in% "2"))
+    initials[types %in% "2"] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+           "", initials[types %in% "2"], perl=TRUE)
 
-  #Extract type 3: single words, no abbreviations
+  #type 3: single words, no abbreviations
   if (any(types %in% "3")) {
-    split1 <- strsplit(x[types %in% "3"], "", fixed = TRUE)
     any.caps <- grepl('[A-ZÀ-Ý]', x[types %in% "3"], perl = TRUE)
-    all.caps <- sapply(split1, function(x) all(grepl("[[:upper:]]",
-                                                     x[grepl("[[:alpha:]]|-", x, perl = TRUE)], perl = TRUE)))
+    all.caps <- x[types %in% "3"] == toupper(x[types %in% "3"])
     all.low <- !all.caps & !any.caps
 
-    initials[types %in% "3"][!all.low] <- lapply(split1[!all.low],
-                                                 function(x) x[grepl("[A-ZÀ-Ý]|-|\\'", x, perl = TRUE)])
+    initials[types %in% "3"][!all.low] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'](?<![A-Z])", "",
+           initials[types %in% "3"][!all.low], perl=TRUE)
+    initials[types %in% "3"][all.low] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
+           initials[types %in% "3"][all.low], perl = TRUE)
 
-    hyphen <- grepl(" - ", initials[types %in% "3"][all.low],
-                    fixed = TRUE)
-    if (any(hyphen))
-      initials[types %in% "3"][all.low][hyphen] <-
-      sapply(initials[types %in% "3"][all.low][hyphen],
-             strsplit, " ", fixed = TRUE)
-    initials[types %in% "3"][all.low] <- lapply(initials[types %in% "3"][all.low],
-                                                function(x) substr(x, 1, 1))
+    not.inits <- nchar(initials[types %in% "3"]) >= max.initials
+    if (any(not.inits))
+      initials[types %in% "3"][not.inits] <-
+        gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
+           initials[types %in% "3"][not.inits], perl = TRUE)
+
   }
 
-  #Preparing the initials
-  initials <- lapply(initials, toupper)
-
-  numb.inits <- lengths(gregexpr("[A-Z;À-Ý]", initials, perl = TRUE))
-  x[numb.inits > 1] <-
-    sapply(initials[numb.inits > 1], function(x)
-      paste0(paste0(x, collapse = "."), "."))
-  x[numb.inits == 1] <-
-    paste(initials[numb.inits == 1], ".", sep = "")
-
   # Final edits
+  if (all.caps)
+    x <- toupper(initials)
+
+  x <- gsub("([A-ZÀ-Ýa-zà-ý])", "\\1.", x, perl = TRUE)
   x <- gsub("\\.,\\.", ".", x, perl = TRUE)
 
   if (any(grepl("-\\.", x, perl = TRUE)))
     x[grepl("-\\.", x, perl = TRUE)] <-
-    gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
+      gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
 
   if (any(oa))
-    x[oa] <- gsub("O\\.'\\.", "O'", x[oa], perl = TRUE)
+    x[oa] <- gsub("O\\.'", "O'", x[oa], perl = TRUE)
 
   if (any(mac))
     x[mac] <- gsub("(M)(\\.)", "\\Mac", x[mac], perl = TRUE)
@@ -161,5 +158,5 @@ getInit <- function(x) {
   if (any(mc))
     x[mc] <- gsub("(M)(\\.)", "\\Mc", x[mc], perl = TRUE)
 
-  return(unlist(x))
+  return(x)
 }

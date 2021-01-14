@@ -13,8 +13,10 @@
 #'
 #'   This function was conceived to edit people's last names. So, the function
 #'   only works for up to two names and it works only partially for names
-#'   containing initials. For strings with more than two names, the function
-#'   `str_to_title()` from package `stringr` can be used.
+#'   containing initials.
+#'
+#'   For strings with more than two names, the function `str_to_title()` from
+#'   package `stringr` can be used instead.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -32,11 +34,15 @@
 #' # Compound last names
 #'   capName("saint-hilaire")
 #'
-#' # Full names (does not work)
+#' # Other name formats
+#'   capName("o'brien")
+#'   capName("john o'brien")
+#'   capName("MacDonald")
+#'   capName("john MacDonald")
+#'
+#' # Full (>2) names (does not work properly)
 #'   capName("hermogenes leitao filho")
 #'   capName("auguste saint-hilaire")
-#'
-#' # Names with initials (does not work completely)
 #'   capName("a.h. gentry")
 #'   capName("AH gentry")
 #'
@@ -44,6 +50,9 @@ capName <- function(x) {
 
   ids.sp <- grepl(' ', x, fixed = TRUE)
   ids.hi <- grepl('-', x, fixed = TRUE)
+  ids.oa <- grepl("O'|o'", x, perl = TRUE)
+  ids.mac <- grepl('(Mac)([A-Z])', x, perl = TRUE)
+  ids.mc <- grepl('(Mc)([A-Z])', x, perl = TRUE)
 
   split <- strsplit(x, split = ' |-', perl = TRUE)
   split <- t(sapply(split, `length<-`, 2))
@@ -59,5 +68,19 @@ capName <- function(x) {
   second <- paste0(toupper(substring(split[,2], 1, 1)),
                    tolower(substring(split[,2], 2)))
 
-  paste(first, mid, second, sep = "")
+  cap.name <- paste(first, mid, second, sep = "")
+
+  if (any(ids.oa))
+    cap.name[ids.oa] <- gsub("(O')([a-z])|(o')([a-z])", "\\U\\1\\U\\2",
+                             cap.name[ids.oa], perl = TRUE)
+
+  if (any(ids.mac))
+    cap.name[ids.mac] <- gsub("(Mac)([a-z])", "\\1\\U\\2",
+                              cap.name[ids.mac], perl = TRUE)
+
+  if (any(ids.mc))
+    cap.name[ids.mc] <- gsub("(Mc)([a-z])", "\\1\\U\\2",
+                             cap.name[ids.mc], perl = TRUE)
+
+  return(cap.name)
 }

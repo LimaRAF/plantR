@@ -80,12 +80,8 @@
 #'
 #' @export mergeDup
 #'
-mergeDup <- function(dups,
-                     prop = 0.75,
-                     info2merge = c("tax", "geo", "loc"),
-                     tax.name = "scientificName.new",
-                     tax.level = "high",
-                     overwrite = FALSE) {
+mergeDup <- function(dups, prop = 0.75, info2merge = c("tax", "geo", "loc"),
+                     tax.name = "scientificName.new", tax.level = "high", overwrite = FALSE) {
 
   ## check input
   if (!class(dups) == "data.frame")

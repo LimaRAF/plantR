@@ -116,7 +116,6 @@
 #'   # one name, two commas: fails to get all names
 #'   prepTDWG("Cesar Sandro, Esteves, F")
 #'
-#'
 prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.initials = TRUE) {
 
   # Detecting different name formats
