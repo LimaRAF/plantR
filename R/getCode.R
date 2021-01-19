@@ -50,8 +50,8 @@
 #' getCode(df)
 #'
 getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode",
-                    drop = c("order", "collectioncode.gbif", "institutioncode.gbif",
-                            "organization"), print.miss = FALSE, ...) {
+                    drop = c("ordem.colecao","collectioncode.gbif", "institutioncode.gbif",
+                            "organization","collection.string"), print.miss = FALSE, ...) {
 
   cod.inst.tmp <- cod.coll.tmp <- collection.string <- NULL
 
@@ -104,10 +104,10 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   dt[ , collection.string := do.call(paste, c(.SD, sep="_")),
       .SDcols = c("cod.coll.tmp","cod.inst.tmp")]
   dt[ , collection.string := stringr::str_trim(collection.string)]
-  dt[ , ordem.dados := 1:dim(dt)[1], ]
+  dt[ , ordem.dados := .I, ]
 
   # Getting the collection list
-  ih.list <- collectionCodes
+  ih.list <- plantR:::collectionCodes
   ih.list <- data.table::data.table(ih.list)
   dt <- data.table::merge.data.table(dt, ih.list,
                                       by = "collection.string", all.x = TRUE)
@@ -126,8 +126,10 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   #Making sure data is in the good order ad removing unecessary columns
   data.table::setorder(dt, "ordem.dados")
   dt[ , c("ordem.dados", "cod.inst.tmp", "cod.coll.tmp") := NULL]
-  if(!is.null(drop))
+  if (!is.null(drop)) {
+    drop <- drop[drop %in% names(dt)]
     dt[ , c(drop) := NULL]
+  }
   data.table::setnames(dt, c("index.herbariorum.or.working.code","col.OBS"),
                        c("collectionCode.new","collectionObs"))
 

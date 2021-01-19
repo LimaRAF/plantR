@@ -21,9 +21,8 @@ devtools::load_all() # for development
 
 # Introduction
 
-This tutorial provides basic explanations on the functions related to data
-download, editing and validation using __plantR__.
-For each of these steps, there is a more specific tutorial presenting all functionalities more in detail (see package vignettes).  <!-- eu acho que o detalhe interno é o que deve ir nesses tutoriais --> 
+This tutorial provides the details and explanations on the functions related to data
+download, editing and validation using the __plantR__ workflow. For each of these steps, we present the functions and their options in more details so that their goals can be understood and so that these functions can be adapted and applied by the user, even outside the proposed workflow. 
 
 Let's first install and load the package from [GitHub](https://github.com) with:
 
@@ -83,9 +82,6 @@ dim(example$data)
 
 If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within __plantR__ using the command `data(example)`.
 
-<br/><br/>
-
-# Data editing
 
 ## Preparing the input data: function `fixField()`
 
@@ -130,6 +126,11 @@ required header name (`'county'`) was replaced by a standard header name,
 `'municipality'` in this case.
 The second warning is less important because it relates to optional fields. 
 `fixFields()` removes the columns that belong to optional fields.
+
+
+<br/><br/>
+
+# Data editing
 
 ## Standardizing people names, collector number, dates and collection codes
 

@@ -72,7 +72,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   sep.in1 <- gsub("(\\*)", "\\\\\\1", sep.in1, perl = TRUE)
   sep.in3 <- unique(c(sep.in1, sep.in2))
 
-  if(length(sep.in3) == 0)
+  if (length(sep.in3) == 0)
     stop("Please provide valid separators between multiple authors")
   sep.other <- paste(sep.in3, collapse = "|")
   sep.et <- ifelse(" et " %in% sep.in, TRUE, FALSE)
@@ -86,6 +86,8 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
 
   #Separation between multiple authors
   nomes <- gsub(sep.other, sep0, nomes, perl = TRUE)
+  nomes <- gsub("____", sep0, nomes, fixed = TRUE)
+  nomes <- gsub("^__|__$", "", nomes, perl = TRUE)
   nomes <- gsub('\\( ', '(', nomes, perl = TRUE)
   nomes <- gsub(' \\)', ')', nomes, perl = TRUE)
   nomes <- gsub('\\[ ', '[', nomes, perl = TRUE)
@@ -170,7 +172,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   nomes <- gsub("--", "", nomes, fixed = TRUE)
   nomes <- gsub("//", "", nomes, fixed = TRUE)
   nomes <- gsub("\\.\\.", "", nomes, perl = TRUE)
-  nomes <- gsub('\\(\\)|\\(\\s+\\)|\\(-\\)|\\(/\\)', "", nomes, perl = TRUE)
+  nomes <- gsub("\\.\\.", "", nomes, perl = TRUE)
   nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
   nomes <- stringr::str_trim(nomes)
   nomes[nomes %in% c("")] <- NA_character_

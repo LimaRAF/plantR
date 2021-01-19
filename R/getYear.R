@@ -72,9 +72,10 @@
 #'
 getYear <- function (x, noYear = "s.d.") {
 
-  ### tmp = gsub('Data:|Date:',"", tmp, ignore.case=T)
-
-  tmp <- x
+  # Preliminary edits
+  tmp <- gsub('Data:|Date:', "", x, perl = TRUE, ignore.case = TRUE)
+  tmp <- gsub('([0-9])(T).*', "\\1", tmp, perl = TRUE)
+  tmp <- gsub('-NA', "-01", tmp, perl = TRUE)
 
   # Converting NA entries
   tmp[tmp %in% c("", " ", NA)] <- noYear
@@ -82,7 +83,7 @@ getYear <- function (x, noYear = "s.d.") {
   # Converting dates with no numbers
   tmp1 <- tmp[!grepl('\\d', tmp, perl = TRUE)]
   if (length(tmp1) > 0)
-    tmp[!grepl('\\d', tmp)] <- noYear
+    tmp[!grepl('\\d', tmp, perl = TRUE)] <- noYear
 
   # Removing names of months
   meses <- c(month.name,

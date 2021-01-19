@@ -4,7 +4,7 @@
 #' or their initials.
 #'
 #' @param x the character string or vector to be standardized
-#' @param all.caps logical. Should initials be capitalized? Default to TRUE.
+#' @param upper logical. Should initials be capitalized? Default to TRUE.
 #' @param max.initials numerical. Upper limit of number of letter for a single
 #' word to be considered as initials and not as a name. Default to 5.
 #'
@@ -66,8 +66,7 @@
 #'   getInit("G., Alwyn") # ignores comma
 #'   getInit("Ah. Gentry") # discard the lower-case initial
 #'
-#'
-getInit <- function(x, all.caps = TRUE, max.initials = 5) {
+getInit <- function(x, upper = TRUE, max.initials = 5) {
 
   #Preparing the vector of names
   pts <- grepl("\\.", x, perl = TRUE)
@@ -108,14 +107,14 @@ getInit <- function(x, all.caps = TRUE, max.initials = 5) {
   #types 1: first letter of each word
   if (any(types %in% "1"))
     initials[types %in% "1"] <-
-      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
-           "", initials[types %in% "1"], perl=TRUE)
+    gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+         "", initials[types %in% "1"], perl=TRUE)
 
   #type 2: single words, with abbreviations
   if (any(types %in% "2"))
     initials[types %in% "2"] <-
-      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
-           "", initials[types %in% "2"], perl=TRUE)
+    gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+         "", initials[types %in% "2"], perl=TRUE)
 
   #type 3: single words, no abbreviations
   if (any(types %in% "3")) {
@@ -133,21 +132,24 @@ getInit <- function(x, all.caps = TRUE, max.initials = 5) {
     not.inits <- nchar(initials[types %in% "3"]) >= max.initials
     if (any(not.inits))
       initials[types %in% "3"][not.inits] <-
-        gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
+      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
            initials[types %in% "3"][not.inits], perl = TRUE)
 
   }
 
   # Final edits
-  if (all.caps)
+  if (upper) {
     x <- toupper(initials)
+  } else {
+    x <- initials
+  }
 
   x <- gsub("([A-ZÀ-Ýa-zà-ý])", "\\1.", x, perl = TRUE)
   x <- gsub("\\.,\\.", ".", x, perl = TRUE)
 
   if (any(grepl("-\\.", x, perl = TRUE)))
     x[grepl("-\\.", x, perl = TRUE)] <-
-      gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
+    gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
 
   if (any(oa))
     x[oa] <- gsub("O\\.'", "O'", x[oa], perl = TRUE)

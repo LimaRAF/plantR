@@ -6,8 +6,6 @@
 #' @param x the character string or vector containing the names.
 #' @param fix.names logical. Should the general notation of names be
 #'   standardized? Default to TRUE.
-#' @param prep.tdwg logical. Should the names already in the 'Lastname,
-#'   Name/Initials' format be standardized? Default to TRUE.
 #' @param output a character string with the type of output desired: all names,
 #'   first name, or auxiliary names.
 #' @param treat.prep character
@@ -101,7 +99,7 @@
 #'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,","&")) # output correct
 #'
 #'
-prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
+prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
                      sep.out = "|", special.char = FALSE, output = "all", treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
                      format = "last_init", get.prep = FALSE, get.initials = TRUE, ...) {
 
@@ -127,18 +125,26 @@ prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&",
   x <- gsub(patt.treat, "", x, perl = TRUE)
 
   # Spliting the list of multiple people's names into a list
+  sep.in1 <- gsub("(\\|)", "\\\\\\1", sep.in, perl = TRUE)
+  sep.in1 <- gsub("(\\+)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\$)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\.)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\?)", "\\\\\\1", sep.in1, perl = TRUE)
+  sep.in1 <- gsub("(\\*)", "\\\\\\1", sep.in1, perl = TRUE)
+
+  sep.out1 <- gsub("(\\|)", "\\\\\\1", sep.out, perl = TRUE)
+  sep.out1 <- gsub("(\\+)", "\\\\\\1", sep.out1, perl = TRUE)
+  sep.out1 <- gsub("(\\$)", "\\\\\\1", sep.out1, perl = TRUE)
+  sep.out1 <- gsub("(\\.)", "\\\\\\1", sep.out1, perl = TRUE)
+  sep.out1 <- gsub("(\\?)", "\\\\\\1", sep.out1, perl = TRUE)
+  sep.out1 <- gsub("(\\*)", "\\\\\\1", sep.out1, perl = TRUE)
+
   if (fix.names) {
-    sep.out1 <- gsub("(\\|)", "\\\\\\1", sep.out, perl = TRUE)
-    sep.out1 <- gsub("(\\+)", "\\\\\\1", sep.out1, perl = TRUE)
-    sep.out1 <- gsub("(\\$)", "\\\\\\1", sep.out1, perl = TRUE)
-    sep.out1 <- gsub("(\\.)", "\\\\\\1", sep.out1, perl = TRUE)
-    sep.out1 <- gsub("(\\?)", "\\\\\\1", sep.out1, perl = TRUE)
-    sep.out1 <- gsub("(\\*)", "\\\\\\1", sep.out1, perl = TRUE)
     patt.split <- paste(sep.out1,
                         paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {
-    patt.split <- paste0(sep.in, collapse = "|")
+    patt.split <- paste0(sep.in1, collapse = "|")
   }
   split <- strsplit(x, patt.split, perl = TRUE)
 
@@ -150,7 +156,7 @@ prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&",
   if (output %in% c("all", "first")) {
     data.table::setkeyv(DT, c("V1"))
     DT[, V1 := lapply(V1, prepTDWG,
-                format = format, get.prep = get.prep, get.initials = get.initials),
+                      format = format, get.prep = get.prep, get.initials = get.initials),
        by = c("V1")]
   }
 
@@ -158,8 +164,8 @@ prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&",
     cols1 <- cols[!cols %in% c("V1", "ordem")]
     data.table::setkeyv(DT, c(cols1))
     DT[, (cols1) := lapply(.SD, prepTDWG,
-                          format = format, get.prep = get.prep, get.initials = get.initials),
-                 by = cols1, .SDcols = cols1]
+                           format = format, get.prep = get.prep, get.initials = get.initials),
+       by = cols1, .SDcols = cols1]
   }
 
   # Preparing to return the result as a vector again
@@ -168,12 +174,12 @@ prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&",
     names.out <- as.character(DT$V1)
   }
 
-  if (output == "aux" & length(names(DT)) == 1) {
+  if (output == "aux" & length(cols) == 1) {
     data.table::setkeyv(DT, "ordem")
     names.out <- as.character(DT$V1)
   }
 
-  if (output == "aux" & length(names(DT)) > 1) {
+  if (output == "aux" & length(cols) > 1) {
     DT[, V1:= NULL]
     cols1 <- cols[!cols %in% c("V1", "ordem")]
     data.table::setkeyv(DT, c(cols1))
@@ -187,15 +193,19 @@ prepName <- function(x, fix.names = TRUE, prep.tdwg = TRUE, sep.in = c(";", "&",
   }
 
   if (output == "all" | !output %in% c("first", "aux")) {
-    cols1 <- cols[!cols %in% c("ordem")]
-    data.table::setkeyv(DT, c(cols1))
-    DT[ , names := do.call(paste, c(.SD, sep = sep.out)),
-        by = cols1, .SDcols = cols1]
-    data.table::setkeyv(DT, "names")
-    DT[ , names := gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE), by = "names"]
-    DT[ , names := gsub("NA", NA_character_, names, fixed = TRUE), by = "names"]
-    data.table::setkeyv(DT, "ordem")
-    names.out <- DT$names
+    if (length(cols) > 1) {
+      cols1 <- cols[!cols %in% c("ordem")]
+      data.table::setkeyv(DT, c(cols1))
+      DT[ , names := do.call(paste, c(.SD, sep = sep.out)),
+          by = cols1, .SDcols = cols1]
+      data.table::setkeyv(DT, "names")
+      DT[ , names := gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE), by = "names"]
+      DT[ , names := gsub("NA", NA_character_, names, fixed = TRUE), by = "names"]
+      data.table::setkeyv(DT, "ordem")
+      names.out <- DT$names
+    } else {
+      names.out <- DT$V1
+    }
   }
 
   # Adding brackets (if needed)

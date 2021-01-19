@@ -61,7 +61,7 @@
 #' @importFrom flora get.taxa
 #' @importFrom Taxonstand TPL
 #'
-#' @export formatFamily
+#' @export prepFamily
 #'
 #' @examples
 #'
@@ -70,12 +70,9 @@
 #' "Casearia", "Casearia"), speciesName = c("Trema micrantha", "Trema micrantha",
 #' "Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"),
 #' stringsAsFactors = FALSE)
-#' formatFamily(df, spp.name = "speciesName")
+#' prepFamily(df, spp.name = "speciesName")
 #'
-formatFamily <- function(x,
-                         fam.name = "family",
-                         gen.name = "genus",
-                         spp.name = "scientificName", ...) {
+prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "scientificName", ...) {
 
   #Avoiding warnings in package check when using data.table
   #family <- genus <- scientificName <- NULL

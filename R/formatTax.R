@@ -11,7 +11,7 @@
 #'
 #' @inheritParams prepSpecies
 #' @inheritParams formatSpecies
-#' @inheritParams formatFamily
+#' @inheritParams prepFamily
 #'
 #' @details The function works as a wrapper, where the individuals steps of the
 #'   proposed __plantR__ workflow for editing taxonomic information are
@@ -25,7 +25,7 @@
 #'
 #' @seealso
 #'  \link[plantR]{prepSpecies}, \link[plantR]{formatSpecies} and
-#'  \link[plantR]{formatFamily}.
+#'  \link[plantR]{prepFamily}.
 #'
 #' @export formatTax
 #'
@@ -44,8 +44,8 @@ formatTax <- function(tax, use.suggestion = TRUE, ...) {
     tax1$scientificName.new <- tax1$suggestedName
   }
 
-  # formatFamily
-  tax1 <- formatFamily(tax1, ...)
+  # prepFamily
+  tax1 <- prepFamily(tax1, ...)
 
   return(tax1)
 }

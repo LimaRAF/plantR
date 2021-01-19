@@ -121,8 +121,8 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
   # Detecting different name formats
   patt <- paste0("[[:alpha:]]", sep, "[A-ZÀ-Ý]")
   commas <- grepl(patt, x, perl = TRUE)
+  NAs <- x %in% c("", " ", NA)
   words <- grepl(" ", x, fixed = TRUE)
-  NAs <- is.na(x)
 
   # Detecting other name formats
   oa <- grepl("O'[A-Z]", x, perl = TRUE)
@@ -141,7 +141,7 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
     if (get.initials) {
 
-      split[,2] <- getInit(split[,2])
+      split[,2] <- getInit(split[,2], max.initials = 10)
 
     } else {
 
@@ -189,7 +189,7 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
     if (get.initials) {
 
-      split[,2] <- getInit(split[,2])
+      split[,2] <- getInit(split[,2], max.initials = 10)
       split[,2][split[,2] %in% "character(0)."] <- ""
 
     } else {
@@ -232,6 +232,9 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
   if (any(!words & !NAs)) # Names with a single word
     nomes[!words & !NAs] <- capName(nomes[!words & !NAs])
+
+  if (any(NAs)) # NAs, "" or " "
+    nomes[NAs] <- NA_character_
 
   #Fixing names in other formats, if present
   if (any(oa))
