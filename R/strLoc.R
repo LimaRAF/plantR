@@ -78,7 +78,8 @@ strLoc <- function(x, adm.names = c("country.new", "stateProvince.new", "municip
 
   ## putting the input data in the right order
   all.cols <- c(adm.names, loc.names)
-  x1 <- x[which(colnames(x) %in% all.cols)]
+  sel.cols <- all.cols[all.cols %in% colnames(x)]
+  x1 <- x[match(sel.cols, colnames(x))]
 
   ## Defining a unique code for each county, state/province or county/commune ##
   loc <- rep(NA, dim(x1)[1])

@@ -124,10 +124,10 @@ validateLoc <- function(x, res.orig = "resol.orig", res.gazet = "resolution.gaze
   x1$loc.check[is.na(x1$loc.check)] = "no_info"
 
   ## Reporting the validation results
-    print("Resolution of the localities in the original data vs. the edited data:")
-    print(table(edited = resol.gazet, original = x1[, res.orig]))
+  print("Locality resolution in the original data vs. edited data:")
+  print(table(edited = resol.gazet, original = x1[, res.orig]))
 
   ## Binding the results with the original data.frame and returning
-    result <- cbind.data.frame(x, loc.check = x1$loc.check)
-    invisible(result)
+  result <- cbind.data.frame(x, loc.check = x1$loc.check)
+  invisible(result)
 }

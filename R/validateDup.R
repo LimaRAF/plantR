@@ -37,7 +37,8 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
     stop("input object needs to be a data frame!")
 
   # prepDup
-  dups <- prepDup(occ.df, noYear, noName, noNumb, comb.fields, ignore.miss, ignore.na)
+  # dups <- prepDup(occ.df, noYear, noName, noNumb, comb.fields, ignore.miss, ignore.na)
+  dups <- prepDup(occ.df, ...)
 
   # getDup
   dups <- getDup(dups)
@@ -54,7 +55,7 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
     antes <- dim(occ.df)[1]
     occ.df <- rmDup(occ.df)
     depois <- dim(occ.df)[1]
-    cat(antes - depois,"duplicated records were from the data.")
+    cat(antes - depois, "duplicated records were from the data.")
   }
 
   return(occ.df)

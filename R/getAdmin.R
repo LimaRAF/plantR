@@ -67,7 +67,7 @@ getAdmin <- function(x, admin.names = "plantR") {
 
   ## Getting the administrative levels
     if (all(admin.names %in% c("plantR","plantr"))) {
-      dic <- admin
+      dic <- plantR:::admin
       } else {
         dic <- admin.names
         }

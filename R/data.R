@@ -11,21 +11,10 @@
 #' @source \url{http://splink.cria.org.br}
 "example"
 
-#' Dataset to illustrate the data editing and validation
-#'
-#' A dataset containing the retrieved records downloaded from JABOT, which
-#' has the typical fields and format used by different herbaria.
-#'
-#' @keywords datasets
-#' @name example_pecb
-#' @usage data(example_pecb)
-#' @format A data frame with 504 rows and 35 variables
-"example_pecb"
-
 #' World Map
 #'
 #' Map used to perform the validation of the original geographical coordinates.
-#' Country names were edited to match the `plantR` default gazetteer and
+#' Country names were edited to match the __plantR__ default gazetteer and
 #' original polygons were simplified (tolerance 0.001 decimal degrees).
 #' Reference system: WSG84
 #'
@@ -41,7 +30,7 @@
 #' Maps used to perform the validation of the original geographical coordinates.
 #' For each country, the map contains the lowest administrative level
 #' available. Country, state and county (if present) names were edited to match
-#' the `plantR` default gazetteer and original polygons were simplified
+#' the __plantR__ default gazetteer and original polygons were simplified
 #' (tolerance 0.0001 decimal degrees). Reference system: WSG84
 #'
 #' @keywords datasets

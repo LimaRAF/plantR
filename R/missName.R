@@ -45,32 +45,32 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
   if (any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
 
     nomes[nomes %in% c("", " ", NA)] <- noName
-    busca <- c("s/col.", "s/col", "s/c", "s/coletor",
-               " sem col.", "s.col.", "s.c.", "s.n.", "S.N.", "Sem Informação", "Sem Informacao",
-               "Collector unspecified", "Collector unknown", "unknown",
+    busca <- c("s/col.", "s/col", "s/c", "s/coletor", "s.coletor",
+               " sem col.", "s.col.", "s.c.", "s.n.", "sem informação", "sem informacao",
+               "collector unspecified", "collector unknown", "unknown",
                "?")
-    nomes[nomes %in% busca] <- noName
+    nomes[tolower(nomes) %in% busca] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
                   noName, nomes, perl = TRUE)
     nomes <- gsub('^Sin$', noName, nomes, perl = TRUE)
     nomes <- gsub('anonymous', noName, nomes, perl = TRUE, ignore.case = TRUE)
-    nomes <- gsub("NANA", noName, nomes, perl = TRUE)
+    nomes <- gsub("NANA", noName, nomes, fixed = TRUE)
 
   }
 
   if (any(type %in% c("identificator", "identificador", "determinador"))) {   #No identificator's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
-    busca <- c("s/det.", "s/det", "s/d", "s/determinador",
-               " sem det.", "s.det.", "s.n.", "S.N.", "Sem Informação", "Sem Informacao",
-               "Determiner unspecified", "Determiner unknown", "unknown",
+    busca <- c("s/det.", "s/det", "s/d", "s/determinador", "s.determinador",
+               " sem det.", "s.det.", "s.n.", "sem informação", "sem informacao",
+               "determiner unspecified", "determiner unknown", "unknown",
                "?")
-    nomes[nomes %in% busca] <- noName
+    nomes[tolower(nomes) %in% busca] <- noName
     nomes <- gsub('^Disponible, N\\.$|^Disponivel, N\\.$|^Available, N\\.$',
                   noName, nomes, perl = TRUE)
     nomes <- gsub('^Sin$', noName, nomes, perl = TRUE)
     nomes <- gsub('anonymous', noName, nomes, perl = TRUE, ignore.case = TRUE)
-    nomes <- gsub("NANA", noName, nomes, perl = TRUE)
+    nomes <- gsub("NANA", noName, nomes, fixed = TRUE)
   }
 
   return(nomes)

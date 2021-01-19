@@ -39,32 +39,30 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @importFrom stringr str_replace_all
-#' @importFrom stringr str_trim
+#' @importFrom stringr str_trim str_replace_all
 #' @importFrom countrycode countrycode
 #'
 #' @export fixLoc
 #'
 #' @examples
 #' # Creating a data frame with locality information
-#' (occs <- data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
+#' (df <- data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
 #' stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais",
 #' "Minas Gerais"),
 #' municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
-#' locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA", "Minas Gerais,
-#' municipio Lavras", NA)))
+#' locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA",
+#' "Minas Gerais, municipio Lavras", NA)))
 #'
 #' # Formating the locality information
-#' fixLoc(occs, scrap = FALSE)
+#' fixLoc(df, scrap = FALSE)
 #'
 #' # Formating and scrapping the locality information
-#' fixLoc(occs, scrap = TRUE)
+#' fixLoc(df, scrap = TRUE)
 #'
 #' # Formating the locality information only at country and state levels
-#' fixLoc(occs, admin.levels = c("country", "stateProvince"))
+#' fixLoc(df, admin.levels = c("country", "stateProvince"))
 #'
-fixLoc <- function(x,
-                   admin.levels = c("country", "stateProvince", "municipality", "locality"),
+fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality", "locality"),
                    scrap = TRUE, ...) {
 
   ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
@@ -73,10 +71,23 @@ fixLoc <- function(x,
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
-  if (any(names(x) %in% c("countryCode")))
+  # Missing country that may be stored in the field 'countryCode'
+  if ("countryCode" %in% names(x) & "country" %in% names(x)) {
+    ids <- is.na(x$country) & !is.na(x$countryCode)
+    x$country[ids] <- x$countryCode[ids]
+  }
+
+  # Missing municipality that may be stored in the field 'county'
+  if ("municipality" %in% names(x) & "county" %in% names(x)) {
+    ids <- is.na(x$county) & !is.na(x$municipality)
+    x$county[ids] <- x$municipality[ids]
+  }
+
+  # Replacing the names of possibly missing columns
+  if ("countryCode" %in% names(x) & !"country" %in% names(x))
     colnames(x)[which(colnames(x) == "countryCode")] <- "country"
 
-  if (any(names(x) %in% c("county")))
+  if ("municipality" %in% names(x) & !"county" %in% names(x))
     colnames(x)[which(colnames(x) == "county")] <- "municipality"
 
   if (!any(c("country", "stateProvince", "municipality", "locality") %in% colnames(x)))
@@ -105,9 +116,9 @@ fixLoc <- function(x,
   x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
 
   ## Loading the dictionary of names, terms and abbreviations to be replaced
-  dic <- replaceNames
-  missLocs <- missLocs
-  wordsForSearch <- wordsForSearch
+  dic <- plantR:::replaceNames
+  missLocs <- plantR:::missLocs
+  wordsForSearch <- plantR:::wordsForSearch
 
   ### TRY TO GET FROM FILED LOCALITY INFOS FOM MISSING STATE AND COUNTY CONTAINING THE FOLLOWING TERMS:
   #departamento del
@@ -259,7 +270,7 @@ fixLoc <- function(x,
 
       # getting missing counties that may be the first part of the locality description (e.g. "Rio de Contas, Pico das Almas")
       n4.2.1 <- as.character(sapply(n4, function(x) x[1]))
-      n4.2.1 <- str_trim(n4.2.1)
+      n4.2.1 <- stringr::str_trim(n4.2.1)
       n4.2.1[n4.2.1 %in% ""] <- NA
 
       # isolating localities possibily in the gazetter (e.g. parks, serras, farms)

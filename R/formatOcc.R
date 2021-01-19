@@ -31,12 +31,12 @@
 #'   Missing year of collection in the field 'year' are internally replaced by
 #'   the date stored in the field 'eventDate', if this field is not empty as well.
 #'
-#'   The function uses the R package `data.table` internally to speed up the
+#'   The function uses the R package __data.table__ internally to speed up the
 #'   processing of larger data sets
 #'
 #' @seealso
 #'  \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
-#'  \link[plantR]{getYear}, \link[plantR]{tdwgNames}, \link[plantR]{formatName},
+#'  \link[plantR]{getYear}, \link[plantR]{prepTDWG}, \link[plantR]{prepName},
 #'  \link[plantR]{missName} and \link[plantR]{lastName}.
 #'
 #' @author Renato A. F. de Lima
@@ -59,13 +59,13 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
     stop("input object needs to be a data frame!")
 
   # Missing year of collection that may be stored in the field 'eventDate'
-  if ("eventDate" %in% names(x)) {
+  if ("eventDate" %in% names(x) & "year" %in% names(x)) {
     ids <- is.na(x$year) & !is.na(x$eventDate)
     x$year[ids] <- x$eventDate[ids]
   }
 
   # Missing year of identification that may be stored in the field 'eventDate'
-  if ("dateIdentified" %in% names(x)) {
+  if ("dateIdentified" %in% names(x) & "yearIdentified" %in% names(x)) {
     ids <- is.na(x$yearIdentified) & !is.na(x$dateIdentified)
     x$yearIdentified[ids] <- x$dateIdentified[ids]
   }
@@ -76,9 +76,6 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   ## First edits to names, numbers and dates
   dt <- data.table::data.table(x)
   dt[ , tmp.ordem := .I, ]
-  # occs <- data.table::data.table(x)
-  # occs[ , order := 1:dim(occs)[1], ]
-  # data.table::setkeyv(occs, c("order"))
 
   # Collector name
   data.table::setkey(dt, recordedBy)
@@ -100,15 +97,6 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   data.table::setkey(dt, yearIdentified)
   dt[, yearIdentified.new := getYear(yearIdentified, noYear = noYear),  by = yearIdentified]
 
-  # occs[, recordedBy.new := fixName(recordedBy, special.char = FALSE),  by = order]
-  # occs[, recordNumber.new := colNumber(recordNumber, noNumb = "s.n."),  by = order]
-  # occs[, identifiedBy.new := fixName(identifiedBy, special.char = FALSE),  by = order]
-  # occs[, year.new := getYear(year, noYear = "n.d."),  by = order]
-  # if ("dateIdentified" %in% names(occs))
-  #   occs[, dateIdentified.new := getYear(dateIdentified, noYear = "n.d."),  by = order]
-  # if ("yearIdentified" %in% names(occs))
-  #   occs[, yearIdentified.new := getYear(yearIdentified, noYear = "n.d."),  by = order]
-
   ## Putting people's names into the default name notation and
   #separating main and auxiliary names
   data.table::setkey(dt, recordedBy.new)
@@ -126,7 +114,7 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   ## Standardize the notation for missing names
   data.table::setkey(dt, recordedBy.new)
   dt[, recordedBy.new := missName(recordedBy.new, type = "collector", noName = noName),
-       by = recordedBy.new]
+     by = recordedBy.new]
   data.table::setkey(dt, identifiedBy.new)
   dt[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = noName),
        by = identifiedBy.new]
@@ -134,27 +122,11 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   ## Extract the last name of the collector
   data.table::setkey(dt, recordedBy.new)
   dt[, last.name := lastName(recordedBy.new, noName = "s.n."),
-       by = recordedBy.new]
-
-  # occs[, recordedBy.new := formatName(recordedBy.new), by = order]
-  # occs[, identifiedBy.new := formatName(identifiedBy.new), by = order]
-
-  # #We then create the auxiliary names list and convert auxiliary and first names to the TDWG format (function `tdwgNames()`)
-  # occs[, recordedBy.aux := as.character(tdwgNames(recordedBy.new, out = "aux", sep.out = "; ")), by = order]
-  # occs[, identifiedBy.aux := as.character(tdwgNames(identifiedBy.new, out = "aux", sep.out = "; ")), by = order]
-  # occs[, recordedBy.new := tdwgNames(recordedBy.new, out = "first"), by = order]
-  # occs[, identifiedBy.new := tdwgNames(identifiedBy.new, out = "first"), by = order]
-
-  # #It is also useful for the validation process to standardize the notation for missing collector and identificator name
-  # occs[, recordedBy.new := missName(recordedBy.new, type = "collector", noName = "s.n."), by = order]
-  # occs[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = "s.n."), by = order]
-  #
-  # #And to extract the last name of the collector
-  # occs[, last.name := lastName(recordedBy.new, noName = "s.n."), by = order]
+     by = recordedBy.new]
 
   ## Re-ordering and returning
   data.table::setorder(dt, "tmp.ordem")
   dt[, tmp.ordem := NULL,]
-  df <- as.data.frame(occs)
+  df <- as.data.frame(dt)
   return(df)
 }

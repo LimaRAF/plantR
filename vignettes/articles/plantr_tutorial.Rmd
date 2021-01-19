@@ -429,7 +429,7 @@ occs1 <- formatCoord(occs1)
 
 ## Editing species taxonomic information
 
-### Species names format: function `prepSpecies()`
+### Species names format: function `fixSpecies()`
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
 `rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
@@ -439,24 +439,24 @@ collections, which may vary in the way the scientific names are stored. For data
 downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
 since GBIF already stores data in a more standardized way.
 
-The `plantR` function ```prepSpecies``` performs several edits, including the
+The `plantR` function ```fixSpecies``` performs several edits, including the
 isolation of taxonomic rank abbreviations, the detection of name modificators
 ("cf." and "aff.") and a suggestion for the name status:
 
 ```{r, eval = FALSE}
 sort(table(occs$scientificName))
-occs <- prepSpecies(occs)
+occs <- fixSpecies(occs)
 sort(table(occs$scientificName.new))
 ```
 
-Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```
+Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```.
 
 ```{r, eval = FALSE}	
 sort(table(occs$scientificNameStatus))
 ```
 
-### Species synonyms and spelling: function `formatSpecies()`
-Although the function `prepSpecies` presented above formatted the species names,
+### Species synonyms and spelling: function `prepSpecies()`
+Although the function `fixSpecies()` presented above formatted the species names,
 there are still many more names than the ones we downloaded. Most of them are
 names at the infra-specific level, but others are probably synonyms,
 ortographical variants or even typos. There are R packages that check species
@@ -464,10 +464,10 @@ nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
 in the Brazilian Flora 2020, there is also the package `flora`, which follow the
 accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
 functionalities of some of these packages to inspect possible suggestions for
-species names, through the function `formatSpecies`:
+species names, through the function `prepSpecies()`:
 
 ```{r, eval = FALSE}
-occs <- formatSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
+occs <- prepSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
 table(occs$suggestedName)
 table(occs$notes)
 ```
@@ -481,7 +481,7 @@ package `flora`.
 
 For our example we decided to replace all edited species names (i.e.
 'scientificName.new') by the suggested species names from the function
-`formatSpecies` (i.e. 'scientificName.new'). However, __plantR__ does not
+`prepSpecies()` (i.e. 'scientificName.new'). However, __plantR__ does not
 execute this step automatically and the decision to do it should be taken by the
 user:
 

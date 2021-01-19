@@ -58,14 +58,21 @@ occs <- formatDwc(splink_data = occs_splink,
                   gbif_data = occs_gbif,
                   bind_data = TRUE)
 occs <- formatOcc(occs)
-# occs <- readRDS("tmp.rds")
 occs <- formatLoc(occs)
 occs <- formatCoord(occs)
 occs <- formatTax(occs)
 occs <- validateLoc(occs)
 occs <- validateTax(occs)
 occs <- validateDup(occs, info2merge = c("tax", "loc"),
-                    tax.name = "scientificName")
+                    tax.name = "scientificName.new")
 summ <- summaryData(occs)
 flags <- summaryFlags(occs)
-checklist(occs, n.vouch = 5, type = "short")
+checkList(occs, n.vouch = 5, type = "short")
+
+n <- dim(occs)[2]
+
+
+
+cols <- names(occs[, n:dim(occs)[2]])
+head(occs[, cols], 3)
+

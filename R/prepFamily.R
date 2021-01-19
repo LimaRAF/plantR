@@ -24,7 +24,7 @@
 #' species names provided.
 #'
 #' The first search of names is based on the list of families and accepted
-#' synonyms for vascular plants provided by __plantR__ which was mainly compiled
+#' synonyms for vascular plants provided by __plantR__, which was mainly compiled
 #' from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
 #' which includes families cited in the APG IV (2016) and in the PPG I (2016).
 #'
@@ -60,6 +60,7 @@
 #' @import data.table
 #' @importFrom flora get.taxa
 #' @importFrom Taxonstand TPL
+#' @importFrom knitr kable
 #'
 #' @export prepFamily
 #'
@@ -111,7 +112,7 @@ prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "s
   }
 
   # Getting the dictionaries
-  families.apg <- familiesSynonyms
+  families.apg <- plantR:::familiesSynonyms
 
   # Getting the list of families and their respective genera
   data.table::setkeyv(dt, "tmp.fam")
@@ -121,7 +122,7 @@ prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "s
                          by.x = "tmp.fam", by.y = "name", all.x = TRUE)
 
   # Getting missing family names from Brazilian Flora 2020
-  families.data[, flora.br := get.taxa(tmp.gen, suggestion.distance = 0.95, drop <-NULL)$family,
+  families.data[, flora.br := flora::get.taxa(tmp.gen, suggestion.distance = 0.95, drop <-NULL)$family,
                 by = "tmp.gen"]
   families.data[(is.na(tmp.fam) | is.na(name.correct) & !is.na(flora.br)),
                 name.correct :=  flora.br, ]
@@ -130,10 +131,9 @@ prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "s
   print.problems <- unique(families.data[!is.na(flora.br) & name.correct != flora.br, , ])
 
   if (dim(print.problems)[1] > 0) {
-    warning("The following family names were automatically replaced:",
-            call. = FALSE)
-    warning(paste0(print.problems$tmp.gen,": ", print.problems$tmp.fam, " -> ", print.problems$flora,"\n"),
-            call. = FALSE)
+    cat("The following family names were automatically replaced:\n",
+        knitr::kable(print.problems[,c(2,1,4)], col.names = c("Genus", "Old fam.", "New fam.")),"",
+        sep="\n")
   }
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 

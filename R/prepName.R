@@ -98,7 +98,6 @@
 #'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))  # output incorrect
 #'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,","&")) # output correct
 #'
-#'
 prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
                      sep.out = "|", special.char = FALSE, output = "all", treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
                      format = "last_init", get.prep = FALSE, get.initials = TRUE, ...) {
@@ -114,8 +113,8 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
 
   # Editing the general name notation
   if (fix.names)
-    #x <- fixName(x, ...)
     x <- fixName(x, sep.in = sep.in, sep.out = sep.out, special.char = special.char)
+    #x <- fixName(x, ...)
 
   # removing treatment prepositions (e.g. Dr., Prof., Pe., ...)
   patt.treat <-
@@ -175,8 +174,9 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
   }
 
   if (output == "aux" & length(cols) == 1) {
-    data.table::setkeyv(DT, "ordem")
-    names.out <- as.character(DT$V1)
+    # data.table::setkeyv(DT, "ordem")
+    # names.out <- as.character(DT$V1)
+    names.out <- rep(NA_character_, dim(DT)[1])
   }
 
   if (output == "aux" & length(cols) > 1) {
@@ -216,5 +216,5 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
   if (any(parent))
     names.out[parent] <- paste("(", names.out[parent], ")", sep = "")
 
-  return(names.out)
+  return(as.character(names.out))
 }

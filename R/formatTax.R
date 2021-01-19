@@ -24,7 +24,7 @@
 #'
 #'
 #' @seealso
-#'  \link[plantR]{prepSpecies}, \link[plantR]{formatSpecies} and
+#'  \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and
 #'  \link[plantR]{prepFamily}.
 #'
 #' @export formatTax
@@ -36,16 +36,16 @@ formatTax <- function(tax, use.suggestion = TRUE, ...) {
     stop("input object needs to be a data frame!")
 
   # prepSpecies
-  tax1 <- prepSpecies(tax, ...)
+  tax1 <- fixSpecies(tax, ...)
 
   # formatSpecies
-  tax1 <- formatSpecies(tax1, ...)
+  tax1 <- prepSpecies(tax1, ...)
   if (use.suggestion) {
     tax1$scientificName.new <- tax1$suggestedName
   }
 
   # prepFamily
-  tax1 <- prepFamily(tax1, ...)
+  tax1 <- prepFamily(tax1, spp.name = "scientificName.new", ...)
 
   return(tax1)
 }

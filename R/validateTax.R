@@ -23,7 +23,7 @@
 #'
 #' @details
 #'
-#' The input data frame \code{x} must contain at least columns with the
+#' The input data frame \code{x} must contain at least the columns with the
 #' information on the species family (e.g. 'family') and the name of the people
 #' that provided the species identification (e.g. 'identifiedBy'). Preferably,
 #' this data frame should also contain information on type specimens (column
@@ -35,8 +35,14 @@
 #' The function classifies as high confidence level all records whose species
 #' identifications were performed by a family specialist or any type specimens
 #' (isotype, paratypes, etc). By default, the names of family specialists are
-#' obtained from a list of plant taxonomists constructed by Lima et al. (2020) and
-#' provided with __plantR__.
+#' obtained from a global list of about 8,500 plant taxonomists names
+#' constructed by Lima et al. (2020) and provided with __plantR__. This
+#' list was built based on information from the [Harvard University Herbaria]
+#' (http://kiki.huh.harvard.edu/databases), the [Brazilian Herbaria Network]
+#' (http://www.botanica.org.br/rbh) and the [American Society of Plant Taxonomists]
+#' (https://members.aspt.net). The dictionary was manually complemented for
+#' missing names of taxonomists and it includes common variants of taxonomists
+#' names (e.g., missing initials, typos, married or maiden names).
 #'
 #' By default, __all occurrences that are not preserved specimens (i.e. observations,
 #' photos) are classified as high confidence level__.

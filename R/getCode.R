@@ -51,8 +51,9 @@
 #'
 getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode",
                     drop = c("ordem.colecao","collectioncode.gbif", "institutioncode.gbif",
-                            "organization","collection.string"), print.miss = FALSE, ...) {
+                             "organization","collection.string"), print.miss = FALSE, ...) {
 
+  #Escaping R CMD check notes from using data.table syntax
   cod.inst.tmp <- cod.coll.tmp <- collection.string <- NULL
 
   ## check input
@@ -68,6 +69,7 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   dt <- data.table::data.table(x)
   dt[, cod.inst.tmp := .SD, .SDcols = c(inst.code)]
   dt[, cod.coll.tmp := .SD, .SDcols = c(col.code)]
+  dt[ , ordem.dados := .I, ]
 
   ### Editing institution codes ###
   data.table::setkeyv(dt, "cod.inst.tmp")
@@ -95,16 +97,13 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   #    cod.coll.tmp := gsub("[0-9]|-","", cod.coll.tmp) , by = "cod.coll.tmp"]
   dt[ , cod.coll.tmp := gsub('[0-9]', '', cod.coll.tmp) , by = "cod.coll.tmp"]
 
-  ### Editing collection codes ###
-  data.table::setkeyv(dt, "cod.coll.tmp")
-
   ### Crossing with the herbaria list ###
+  data.table::setkeyv(dt, "cod.coll.tmp")
 
   # Getting the search string for the data
   dt[ , collection.string := do.call(paste, c(.SD, sep="_")),
       .SDcols = c("cod.coll.tmp","cod.inst.tmp")]
   dt[ , collection.string := stringr::str_trim(collection.string)]
-  dt[ , ordem.dados := .I, ]
 
   # Getting the collection list
   ih.list <- plantR:::collectionCodes

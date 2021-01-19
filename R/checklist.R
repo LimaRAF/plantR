@@ -106,7 +106,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     stop("The input data frame does not contain at least one of the required columns")
 
   # Getting the input columns to be used for filtering
-  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "month", "day")
+  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name",
+                  "numTombo", "temp.accession", "month", "day")
   covs.final <- c(unlist(covs.present), other.cols)
 
   # Should the duplicates be removed?
@@ -224,12 +225,13 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
 
   if (!is.na(covs.present[["collectors"]])) {
     data.table::setkeyv(dt, c(covs.present[["collectors"]]))
-    vec <- c("s.n.", "Anonymous", "Unknown, C.", "Unknown")
     if (dim(dt[vec, nomatch = NULL])[1] > 0) {
-      dt[ vec, priority := priority - 3, nomatch = NULL]
+      suppressWarnings(
+        dt[c("s.n."), priority := priority - 3, nomatch = NULL])
     }
-    temp <- data.frame(dt[, lapply(.SD, nchar), by = .SD, .SDcols = c(covs.present[["collectors"]])])
-    dt[ temp[,1] < 3, priority := priority - 3]
+    temp <- data.frame(dt[, lapply(.SD, nchar),
+                          by = c(covs.present[["collectors"]]), .SDcols = c(covs.present[["collectors"]])])
+    dt[ temp[,2] < 3, priority := priority - 3]
   }
 
   if (!is.na(covs.present[["recordNumber"]])) {
