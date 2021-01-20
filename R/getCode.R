@@ -5,10 +5,11 @@
 #'   Xylariorum, if available.
 #'
 #' @param x a data frame containing the collection codes.
-#' @param inst.code character. The name of the column containing the institution
-#'   codes.
-#' @param col.code character. The name of the column containing the collection
-#'   codes.
+#' @param inst.code character. The column name containing the institution codes.
+#' @param col.code character. The column name containing the collection codes.
+#' @param drop character. List of columns names that should be droped from the
+#'   output.
+#' @param print.miss logical.
 #'
 #' @return the data frame \code{x} with (at least) the additional columns called
 #'   'collectionCode.new' and 'collectionObs'.
@@ -33,7 +34,8 @@
 #'
 #' If the collection code in not found in the Index Herbariorum, the same
 #' collection code is returned without modifications. A mention if the code is
-#' not found is stored in the 'collectionObs'.
+#' not found is stored in the 'collectionObs'. The argument `print.miss` can be
+#' set to TRUE if the user wants to print the table of collections not found.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -74,28 +76,11 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   ### Editing institution codes ###
   data.table::setkeyv(dt, "cod.inst.tmp")
   #removing numbers from the institution codes
-  dt[ , cod.inst.tmp := gsub('[0-9]', '', cod.inst.tmp) , by = "cod.inst.tmp"]
+  dt[ , cod.inst.tmp := gsub('[0-9]', '', cod.inst.tmp, perl = TRUE) , by = "cod.inst.tmp"]
 
   #Editing some collection codes with numbers
   data.table::setkeyv(dt, "cod.coll.tmp")
-  # dt[ , cod.coll.tmp := gsub("^56$","HCM", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[ , cod.coll.tmp := gsub("^51H-UDCA$","UDCA", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[ , cod.coll.tmp := gsub("^6$","NHT", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[ , cod.coll.tmp := gsub("^7$","BIHM", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[ , cod.coll.tmp := gsub("^7$","BIHM", cod.coll.tmp) , by = "cod.coll.tmp"]
-  #
-  # #Removing numbers from some institution codes
-  # dt[cod.coll.tmp %like% "^TAIF|^NH|^NU",
-  #    cod.coll.tmp := gsub("[0-9]|-","", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[cod.coll.tmp %like% "^NMNSS",
-  #    cod.coll.tmp := gsub("[0-9]","", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[cod.coll.tmp %like% "^TAIFa$|^TAIFb$",
-  #    cod.coll.tmp := "TAIF", by = "cod.coll.tmp"]
-  # dt[cod.coll.tmp %like% "^PL" & !cod.coll.tmp %like% "^PL-OB",
-  #    cod.coll.tmp := gsub("[0-9]|-","", cod.coll.tmp) , by = "cod.coll.tmp"]
-  # dt[cod.coll.tmp %like% "^TAI" & !cod.coll.tmp %like% "^TAIF",
-  #    cod.coll.tmp := gsub("[0-9]|-","", cod.coll.tmp) , by = "cod.coll.tmp"]
-  dt[ , cod.coll.tmp := gsub('[0-9]', '', cod.coll.tmp) , by = "cod.coll.tmp"]
+  dt[ , cod.coll.tmp := gsub('[0-9]', '', cod.coll.tmp, perl = TRUE) , by = "cod.coll.tmp"]
 
   ### Crossing with the herbaria list ###
   data.table::setkeyv(dt, "cod.coll.tmp")
@@ -106,15 +91,21 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   dt[ , collection.string := stringr::str_trim(collection.string)]
 
   # Getting the collection list
-  ih.list <- plantR:::collectionCodes
+  ih.list <- collectionCodes
   ih.list <- data.table::data.table(ih.list)
   dt <- data.table::merge.data.table(dt, ih.list,
                                       by = "collection.string", all.x = TRUE)
 
   # Getting the list of missing collection codes and instituions
   miss.coll <- unique(dt[is.na(index.herbariorum.or.working.code), .SD,
-                  .SDcols = c("collection.string","cod.coll.tmp","cod.inst.tmp")])
+                  .SDcols = c("collection.string", "cod.coll.tmp", "cod.inst.tmp")])
   names(miss.coll) <- c("string", "collectionCode","institutionCode")
+
+  if (print.miss)
+    cat("The following collections were not found:\n",
+        knitr::kable(as.data.frame(miss.coll[,c(2,3)])),"",
+        sep="\n")
+
 
   # Replacing collection codes not found by the original ones
   dt[is.na(index.herbariorum.or.working.code),

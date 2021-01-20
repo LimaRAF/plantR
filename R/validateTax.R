@@ -96,13 +96,9 @@
 #'
 #' validateTax(df)
 #'
-validateTax <- function(x,
-                       special.collector = TRUE,
-                       generalist = FALSE,
-                       generalist.class = "medium",
-                       miss.taxonomist = NULL,
-                       taxonomist.list = "plantR",
-                       top.det = 10)
+validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
+                       generalist.class = "medium", miss.taxonomist = NULL,
+                       taxonomist.list = "plantR", top.det = 10)
 {
 
   ### INCLUDE STEP TO VALIDATE OCCURRENCES THAT ARE NOT FROM CLASS 'PreservedSpecimen'
@@ -125,10 +121,10 @@ validateTax <- function(x,
     stop("input data frame needs at least the following columns: family and identifiedBy")
 
   #Getting the dictionaries
-  families.apg <- plantR:::familiesSynonyms
+  families.apg <- familiesSynonyms
   if (all(taxonomist.list %in% c("plantR", "plantr"))) {
 
-    autores <- plantR:::taxonomists
+    autores <- taxonomists
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
                      by.x = "family", by.y = "name", all.x = TRUE)

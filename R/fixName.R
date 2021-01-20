@@ -179,7 +179,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   if (special.char == FALSE) {
 
     #Getting the special characters to be replaced
-    unwanted_latin <- plantR:::unwantedLatin
+    unwanted_latin <- unwantedLatin
     replace_latin <- textclean::replace_non_ascii(unwanted_latin)
 
     #Single letter replacements

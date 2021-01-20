@@ -61,8 +61,8 @@
 #' "santa catarina","santa catarina"),
 #' municipality = c("jaguaruna","orleans","icara",NA)))
 #'
-#' checklist(df, rm.dup = FALSE)
-#' checklist(df, rm.dup = FALSE, type = "selected")
+#' checkList(df, rm.dup = FALSE)
+#' checkList(df, rm.dup = FALSE, type = "selected")
 #'
 #'
 #' @import data.table

@@ -112,7 +112,7 @@ prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "s
   }
 
   # Getting the dictionaries
-  families.apg <- plantR:::familiesSynonyms
+  families.apg <- familiesSynonyms
 
   # Getting the list of families and their respective genera
   data.table::setkeyv(dt, "tmp.fam")

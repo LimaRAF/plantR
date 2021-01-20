@@ -35,7 +35,7 @@
 #'   Standardisation in data-entry across databases: Avoiding Babylonian
 #'   confusion. Taxon 57(2): 343-345.
 #'
-#' @export tdwgName
+#' @export
 #'
 #' @examples
 #'   # Simple name

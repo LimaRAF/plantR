@@ -57,7 +57,7 @@
 #'
 #' @importFrom stringr str_trim
 #'
-#' @export tdwgNames
+#' @export
 #'
 #' @seealso
 #'   \link[plantR]{tdwgName}

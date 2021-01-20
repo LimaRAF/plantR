@@ -67,10 +67,10 @@ getAdmin <- function(x, admin.names = "plantR") {
 
   ## Getting the administrative levels
     if (all(admin.names %in% c("plantR","plantr"))) {
-      dic <- plantR:::admin
-      } else {
-        dic <- admin.names
-        }
+      dic <- admin
+    } else {
+      dic <- admin.names
+    }
 
   ## Crossing the strings with the administrative levels
     tmp <- dplyr::left_join(x1, dic, by = "loc.correct")

@@ -1,7 +1,7 @@
 #' @title Format Names, Numbers, Dates and Codes
 #'
 #' @description This function standardizes collector names, determiner names,
-#'   collection number, date and collection codes from herbarium occurrences
+#'   collection number, dates and collection codes from herbarium occurrences
 #'   obtained from on-line databases, such as GBIF or speciesLink.
 #'
 #' @return The input data frame \code{x}, plus the new columns with the
@@ -14,8 +14,8 @@
 #' @param noYear character. The standard notation for missing data in the field 'Year'
 #' @param noName character. The standard notation for missing data in the field 'Name'
 #'
-#' @details The function works similarly to a wrapper function, where many
-#'   individuals steps of the proposed __plantR__ workflow for editing collection
+#' @details The function works siyesmilarly to a wrapper, where many individuals
+#'   steps of the proposed __plantR__ workflow for editing collection
 #'   information are performed altogether (see the __plantR__ tutorial and the
 #'   help of each function for details).
 #'

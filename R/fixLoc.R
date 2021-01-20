@@ -1,26 +1,27 @@
 #' @title Format Locality Information
 #'
 #' @description Standardize the notation of the locality fields country,
-#'   stateProvince, municipality and locality.
+#'   stateProvince, municipality and locality, and search from some missing
+#'   information within the available locality information.
 #'
-#' @param x a data frame
-#' @param admin.levels a vector containing the fields (i.e. administrative
-#'   levels) to be formatted.
+#' @param x a data frame containing typical locality fields from species records.
+#' @param loc.levels a vector containing the names of the locality fields to be
+#'   formatted.
 #' @param scrap logical. Should the search of missing locality information be
-#'   performed?
+#'   performed? Default to TRUE.
 #'
-#' @return The input data frame \code{x}, plus the new columns with the formatted
-#'   fields.
+#' @return The input data frame \code{x}, plus the '.new' columns with the formatted
+#'   fields and the resolution of the locality information available.
 #'
 #' @details The function performs several edits and replacements. Country names
-#'   are formated in the international format, letters are lower-cased, and
+#'   are formated into the international format, letters are lower-cased, and
 #'   special characters and common abbreviations are removed.
 #'
 #'   By default, this function formats all four locality fields simultaneously
 #'   (i.e. country, stateProvince, municipality, locality), but the user can
-#'   choose among these fields through the argument `admin.levels`. However, the
-#'   editing process is more complete if all the information is available for
-#'   the four fields administrative levels mentioned above.
+#'   choose among these fields through the argument `loc.levels`. However, the
+#'   process of searching for missing information is more complete if all the
+#'   four locality fields mentioned above are available.
 #'
 #'   The argument `scrap` controls the search for missing municipality
 #'   information from the field 'locality'. It also performs some extra editing
@@ -32,10 +33,10 @@
 #'   which are not provided in the appropriate columns.
 #'
 #'   The function automatically returns the original resolution of the
-#'   information provided. For instance, if only country information is provided
-#'   (i.e. field is not empty), then the resolution is flagged as 'country'; if
-#'   country and stateProvince are given, then the resolution is flagged as
-#'   'stateProvince', and so on.
+#'   locality information provided. For instance, if only country information is
+#'   provided (i.e. field is not empty), then the resolution is flagged as
+#'   'country'; if country and stateProvince are given, then the resolution is
+#'   flagged as 'stateProvince', and so on.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -47,25 +48,23 @@
 #' @examples
 #' # Creating a data frame with locality information
 #' (df <- data.frame(country = c("BR", "Brasil", "BRA", "Brazil", NA),
-#' stateProvince = c("MG", "Minas Gerais", "Minas Geraes", "Minas Gerais",
-#' "Minas Gerais"),
+#' stateProvince = c("MG", "estado de Minas Gerais", "Minas Geraes",
+#' "Minas Gerais", "Minas Gerais"),
 #' municipality = c("Lavras", "lavras", NA, NA, "Lavras"),
 #' locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA",
 #' "Minas Gerais, municipio Lavras", NA)))
 #'
 #' # Formating the locality information
-#' fixLoc(df, scrap = FALSE)
+#' fixLoc(df, scrap = FALSE)[,-c(1:4)]
 #'
 #' # Formating and scrapping the locality information
-#' fixLoc(df, scrap = TRUE)
+#' fixLoc(df, scrap = TRUE)[,-c(1:4)]
 #'
 #' # Formating the locality information only at country and state levels
-#' fixLoc(df, admin.levels = c("country", "stateProvince"))
+#' fixLoc(df, loc.levels = c("country", "stateProvince"))[,-c(1:4)]
 #'
-fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality", "locality"),
+fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality", "locality"),
                    scrap = TRUE, ...) {
-
-  ##To decide: Include extra ADM level between country and states??? Regions or Departments?? see the case of Peru
 
   ## checking input:
   if (!class(x) == "data.frame")
@@ -94,13 +93,13 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
     stop("input object needs to have at least one of the following fields: country/countryCode, stateProvince, county/municipality and locality")
 
   ## Obtaining the intermediary data frame for editing
-  if (length(admin.levels) == 1) {
+  if (length(loc.levels) == 1) {
 
-    x1 <- x[which(colnames(x) %in% admin.levels)]
+    x1 <- x[which(colnames(x) %in% loc.levels)]
 
   } else {
 
-    x1 <- x[, which(colnames(x) %in% admin.levels)]
+    x1 <- x[, which(colnames(x) %in% loc.levels)]
 
   }
 
@@ -116,21 +115,12 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
   x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
 
   ## Loading the dictionary of names, terms and abbreviations to be replaced
-  dic <- plantR:::replaceNames
-  missLocs <- plantR:::missLocs
-  wordsForSearch <- plantR:::wordsForSearch
-
-  ### TRY TO GET FROM FILED LOCALITY INFOS FOM MISSING STATE AND COUNTY CONTAINING THE FOLLOWING TERMS:
-  #departamento del
-  #department of
-  #departamiento de
-  #province of
-  #departemento del
-  ### in addition, check why thereare edits like 'departamento detolima' in the data
-
+  dic <- replaceNames
+  missLocs <- missLocs
+  wordsForSearch <- wordsForSearch
 
   ## ADM0: Country level
-  if (any(c("country", "countryCode") %in% admin.levels)) {
+  if (any(c("country", "countryCode") %in% loc.levels)) {
     # Converting any country codes into country names
     x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] <-
       countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
@@ -144,22 +134,22 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
 
     # Replacing abbreviated 'Saint' names
-    x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"])
+    x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"], perl = TRUE)
 
     # Removing some prepositions from country names
-    x1[, "country"] <- gsub(" of the ", " ", x1[, "country"])
-    x1[, "country"] <- gsub(" of ", " ", x1[, "country"])
+    x1[, "country"] <- gsub(" of the ", " ", x1[, "country"], fixed = TRUE)
+    x1[, "country"] <- gsub(" of ", " ", x1[, "country"], fixed = TRUE)
 
     # Replacing missing info by NA
-    pattern = paste(missLocs, collapse = "|")
+    pattern <- paste(missLocs, collapse = "|")
     x1[, "country"] <- gsub(pattern, NA, x1[, "country"], perl = TRUE)
-    x1[, "country"][grepl("desconhecid|unknown", x1[, "country"])] <- NA
+    x1[, "country"][grepl("desconhecid|unknown", x1[, "country"], perl = TRUE)] <- NA
 
     # Replacing variants, abbreviations, typos, and non-standard names
     tmp1 <- dic[dic$class %in% "country" & apply(is.na(dic[, 2:4]), 1, all), ]
     tmp2 <- tmp1$replace
     names(tmp2) = tmp1$pattern
-    names(tmp2) <- gsub("\\\\", "", names(tmp2))
+    names(tmp2) <- gsub("\\\\", "", names(tmp2), perl = TRUE)
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], tmp2)
 
     # Missing country for non missing states and counties (only for uniquivocal states)
@@ -175,14 +165,14 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
   }
 
   ## ADM1: State/Province level ##
-  if ("stateProvince" %in% admin.levels) {
+  if ("stateProvince" %in% loc.levels) {
     # Removing unwanted characters
     x1[, "stateProvince"] <- tolower(textclean::replace_non_ascii(x1[, "stateProvince"]))
 
     # Replacing missing info by NA
     pattern <- paste(missLocs, collapse = "|")
     x1[ ,"stateProvince"] <- gsub(pattern, NA, x1[ ,"stateProvince"], perl = TRUE)
-    x1[ ,"stateProvince"][grepl("desconhecid|unknown", x1[, "stateProvince"])] <- NA
+    x1[ ,"stateProvince"][grepl("desconhecid|unknown", x1[, "stateProvince"], perl = TRUE)] <- NA
 
     # Removing unwanted prefixes and abbreviations
     pattern <- paste(wordsForSearch, collapse = "|")
@@ -192,7 +182,7 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
     tmp1 <- dic[dic$class %in% "stateProvince" & !is.na(dic[ ,2]),]
     tmp2 <- tmp1$replace
     names(tmp2) <- tmp1$pattern
-    names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
+    names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
     cond0 <- unique(tmp1$condition0)
     if ("country" %in% names(x1)) {
       if (any(cond0 %in% unique(x1[, "country"]))) {
@@ -204,25 +194,25 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
     }
 
   ## ADM2: County, Departament, Commune
-    if (any(c("municipality","county") %in% admin.levels)) {
+    if (any(c("municipality","county") %in% loc.levels)) {
       # Removing unwanted characters and replacing missing info by NA
       x1[, "municipality"] <- tolower(textclean::replace_non_ascii(x1[, "municipality"]))
 
       # Replacing missing info by NA
       pattern <- paste(missLocs, collapse = "|")
       x1[ ,"municipality"] <- gsub(pattern, NA, x1[ ,"municipality"], perl = TRUE)
-      x1[ ,"municipality"][grepl("desconhecid|unknown", x1[, "municipality"])] <- NA
+      x1[ ,"municipality"][grepl("desconhecid|unknown", x1[, "municipality"], perl = TRUE)] <- NA
 
       # Removing unwanted prefixes and abbreviations
       tmp1 <- dic[dic$class %in% "county" & apply(is.na(dic[,2:4]), 1, all),]
       tmp2 <- tmp1$replace
       names(tmp2) <- tmp1$pattern
-      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
+      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       x1[ ,"municipality"] <- stringr::str_replace_all(x1[ ,"municipality"], tmp2)
     }
 
   ## ADM3: locality (park, farm, etc.)
-    if (any(c("locality") %in% admin.levels)) {
+    if (any(c("locality") %in% loc.levels)) {
       # Removing unwanted characters
       x1[, "locality"] <- tolower(textclean::replace_non_ascii(x1[, "locality"]))
 
@@ -230,9 +220,9 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
       tmp1 <- dic[dic$class %in% "locality1" & apply(is.na(dic[,2:4]), 1, all),]
       tmp2 <- tmp1$replace
       names(tmp2) <- tmp1$pattern
-      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
-      names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2))
-      names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2))
+      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
+      names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
+      names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
       x1[ ,"locality"] <- stringr::str_replace_all(x1[ ,"locality"], tmp2)
 
       # solving some substitution problems
@@ -243,29 +233,29 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
       tmp1 <- dic[dic$class %in% "locality2" & apply(is.na(dic[,2:4]), 1, all),]
       tmp2 <- tmp1$replace
       names(tmp2) <- tmp1$pattern
-      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2))
-      names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2))
-      names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2))
+      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
+      names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
+      names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
       x1[ ,"locality"] = stringr::str_replace_all(x1[ ,"locality"], tmp2)
     }
 
-    if (c("locality") %in% admin.levels & scrap) {
+    if (c("locality") %in% loc.levels & scrap) {
       # Spliting the locality vector to find missing information
-      n4 <- strsplit(x1[ ,"locality"], ",|\\.|:|\\(|)|;")
+      n4 <- strsplit(x1[ ,"locality"], ",|\\.|:|\\(|\\)|;", perl = TRUE)
       n4 <- sapply(n4, stringr::str_trim)
 
       # trying to get missing counties from the locality description (e.g. "Pico das Almas, municipio de Rio de Contas")
       n4.2 <- as.character(sapply(n4, function(x)
         paste(unique(stringr::str_trim(
-          x[grepl("municipio|municipality|county|provincia|village", x)]
+          x[grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)]
         )), collapse = "|")))
       n4.2 <- stringr::str_trim(n4.2)
       n4.2 <- gsub("municipio de |municipality of |municipio do |^county of |^provincia de|^provincia of|village of",
                   "",
-                  n4.2)
+                  n4.2, perl = TRUE)
       n4.2 <- gsub("municipio |municipality |^county |^provincia |village ",
                   "",
-                  n4.2)
+                  n4.2, perl = TRUE)
       n4.2[n4.2 %in% ""] <- NA
 
       # getting missing counties that may be the first part of the locality description (e.g. "Rio de Contas, Pico das Almas")
@@ -277,17 +267,17 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
       locais <- "parque|reserva|reserve|fazenda|nacional|estadual|parna|flona|rebio|rppn|e\\.e\\.|biologica|ecologica|extrativista|park|farm|estrada|rodovia|road|^sitio|^mata|^horto|^jardim|campus|^pico|^serra|^sierra|^morro|^chapada"
       n4.3 <- as.character(sapply(n4, function(x)
           paste(unique(stringr::str_trim(
-            x[grepl(locais, x)]
+            x[grepl(locais, x, perl = TRUE)]
           )), collapse = ", ")))
       n4.3 <- stringr::str_trim(n4.3)
       n4.3[n4.3 %in% ""] <- NA
 
       #other localities, than the ones in 'locais' and counties (first sentence, prior to the first comma when n4.3 is empty)
       n4.3[is.na(n4.3) & !is.na(x1[ ,"locality"])] <- as.character(sapply(n4[is.na(n4.3) & !is.na(x1[ ,"locality"])],
-                                                                         function(x) head(x[!grepl("municipio|municipality|county|provincia|village",x)],1)))
+                                                                         function(x) head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)],1)))
 
       # Replacing missing counties
-      if (any(c("municipality", "county") %in% admin.levels)) {
+      if (any(c("municipality", "county") %in% loc.levels)) {
         # priority 1: localities specifying a county name
         x1[, "municipality"][is.na(x1[, "municipality"]) & !is.na(n4.2)] <-
           stringr::str_trim(n4.2[is.na(x1[, "municipality"]) & !is.na(n4.2)])
@@ -303,20 +293,20 @@ fixLoc <- function(x, admin.levels = c("country", "stateProvince", "municipality
     }
 
   ## Trimming and editing the edited columns
-  for (i in 1:length(admin.levels))
+  for (i in 1:length(loc.levels))
     x1[, i] <- as.character(stringr::str_trim(x1[, i]))
-  for (i in 1:length(admin.levels))
-    x1[, i] <- gsub("^-$", NA, x1[, i])
+  for (i in 1:length(loc.levels))
+    x1[, i] <- gsub("^-$", NA, x1[, i], perl = TRUE)
 
   ## Resolution of the locality information provided
-  tmp <- apply(x1[, admin.levels], 1, function(x)
+  tmp <- apply(x1[, loc.levels], 1, function(x)
       which(is.na(x))[1] - 1)
-  tmp[tmp %in% 0] <- length(admin.levels) + 1
-  tmp[is.na(tmp)] <- length(admin.levels)
-  resol.orig <- c(admin.levels, "no_info")[tmp]
+  tmp[tmp %in% 0] <- length(loc.levels) + 1
+  tmp[is.na(tmp)] <- length(loc.levels)
+  resol.orig <- c(loc.levels, "no_info")[tmp]
 
   ## Preparing the output
-  if (length(admin.levels) == 1) {
+  if (length(loc.levels) == 1) {
     res <- as.vector(x1)
   } else {
     names(x1) <- paste0(names(x1), ".new")

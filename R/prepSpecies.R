@@ -18,8 +18,8 @@
 #'   ('bfo'), The Plant List ('tpl') or both are currently implemented.
 #' @param sug.dist a fraction expressing the maximum distance allowed between
 #'   the original species name and the suggested species name, which is passed
-#'   to the arguments `suggestion.distance` of function `flora::get.taxa` and
-#'   `max.distance` of function `Taxonstand::TPL`. Defaults to 0.9.
+#'   to the arguments `suggestion.distance` of function `flora::get.taxa()` and
+#'   `max.distance` of function `Taxonstand::TPL()`. Defaults to 0.9.
 #' @param use.authors logical. Should all authors names be verified (takes
 #'   longer)? Default to TRUE.
 #' @param drop.cols character. Name of columns that should be dropped from the
