@@ -9,7 +9,7 @@
 #' @param info2merge character. The groups of information (i.e. columns) to be merged.
 #'   Currently, only taxonomic ('tax'), geographic ('geo') and/or locality ('loc')
 #'   columns can be merged. Default to all of them.
-#' @param tax.names character. The name of the column containing the species
+#' @param tax.name character. The name of the column containing the species
 #'   names. Default to 'scientificName.new'.
 #' @param tax.level character. A vector with the confidence level of the
 #'   identification that should be considered in the merge of taxonomic

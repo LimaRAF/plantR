@@ -78,7 +78,7 @@ saveData <- function(df, dir.name = "", path = "",
                geo = c("geo.check1", "geo.check"))
 
     #Get only the columns of interest
-    covs.present <- lapply(covs, function(z) head(z[which(z %in% names(df))], 1))
+    covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(df))]))
     if (all(sapply(covs.present, nchar)==0))
       stop("The input data frame does not contain at least one of the required columns")
 

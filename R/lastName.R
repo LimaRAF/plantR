@@ -121,9 +121,9 @@ lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
 
     #Removing initials
     last.name[gen.suf] <-
-      gsub("\\s[A-Z;à-ý;À-Ý]\\.", "", name[gen.suf], perl = TRUE)
+      gsub("\\s[A-Zà-ýÀ-Ý]\\.", "", name[gen.suf], perl = TRUE)
     last.name[gen.suf] <-
-      gsub("[A-Z;à-ý;À-Ý]\\.\\s", "", last.name[gen.suf], perl = TRUE)
+      gsub("[A-Zà-ýÀ-Ý]\\.\\s", "", last.name[gen.suf], perl = TRUE)
     last.name[gen.suf] <- gsub(",$", "", last.name[gen.suf], perl = TRUE)
 
     #Removing generational suffixes
@@ -143,7 +143,7 @@ lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
 
   if (invert) {
     # Keeping all but the last name
-    #mapply approached benchmarked as the faster option)
+    #mapply approach benchmarked as the fastest option
     other.names <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
                           last.name, name[!miss.name])
 
@@ -163,7 +163,7 @@ lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
 
       #Detecting the possible types of first name: full or abbreviated
       inits <- grepl('[A-ZÀ-Ý]', other.names, perl = TRUE)
-      abrev.inits <- grepl('([a-z;A-Z;à-ý;À-Ý]\\.)([a-z;A-Z;à-ý;À-Ý]\\.)+|([a-z;A-Z;à-ý;À-Ý]\\.)\\s([a-z;A-Z;à-ý;À-Ý]\\.)+',
+      abrev.inits <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+|([a-zA-Zà-ýÀ-Ý]\\.)\\s([a-zA-Zà-ýÀ-Ý]\\.)+',
                            other.names, perl = TRUE)
       combo <- inits | abrev.inits
       inits[abrev.inits] <- FALSE

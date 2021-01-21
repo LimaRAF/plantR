@@ -127,17 +127,17 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
     nomes <- gsub(' et ', sep0, nomes, fixed = TRUE)
 
   #Compound names
-  nomes <- gsub(" jr\\.| jr$", " Júnior", nomes,
+  nomes <- gsub(" jr\\.| jr$", " J\xFAnior", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(" - júnior| - junior", " Júnior", nomes,
+  nomes <- gsub(" - j\xFAnior| - junior", " J\xFAnior", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(", júnior,|, junior,", " Júnior,", nomes,
+  nomes <- gsub(", j\xFAnior,|, junior,", " J\xFAnior,", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub("-júnior|-junior", " Júnior", nomes,
+  nomes <- gsub("-j\xFAnior|-junior", " J\xFAnior", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub("jAºnior", "Júnior", nomes,
+  nomes <- gsub("jA\xBAnior", "J\xFAnior", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(" F°| Fº", " Filho", nomes,
+  nomes <- gsub(" F\xB0| F\xBA", " Filho", nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(' f\\.,', " Filho", nomes,
                 perl = TRUE, ignore.case = TRUE)
@@ -149,7 +149,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" Filho\\.,", " Filho,", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(" Sobr°| Sobrº", " Sobrinho", nomes,
+  nomes <- gsub(" Sobr\xB0| Sobr\xBA", " Sobrinho", nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" Sobrinho\\.,| Sobr\\.,", " Sobrinho,", nomes,
                 perl = TRUE, ignore.case = TRUE)

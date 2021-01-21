@@ -30,18 +30,13 @@ getCult <- function(x, cc_inst = FALSE) {
     stop("input data frame needs to have at least on of the following columns: 'occurrenceRemarks' and 'locality'")
 
   #Objects and function needed for the search for cultivated specimens
-  cult <- c("cultivated", "cultivada", "cultivado", "cultivato", "cultivad",
-            "under cultivation", "plantada", "plantado", "planted", "plantio",
-            "arboreto", "arboretum", "exotic", "exótica", "canteiro", "pomar",
-            "área de visitação", "cult\\.", "cant\\. [a-z]", "cant [A-Z]",
-            "cant\\. [0-9]", "cant \\. [0-9]", "cant [0-9]", "\\(cult\\)",
-            "\\(cult\\ )", "in cultivo", "in cultis", " quadra [a-z]",
-            "quadra [a-z] do", "naturalised", "em experimento de")
+  cult <- cultivated
+  pat.cult <- paste(cult, collapse = "|")
+  not.cult <- notCultivated
+  pat.not.cult <- paste(not.cult, collapse = "|")
   `%like.ic%` <- function (x, pattern) {
     grepl(pattern, x, ignore.case = TRUE)
   }
-  pat.cult <- paste(cult, collapse = "|")
-  pat.not.cult <-  "nativa|espontânea|pastagem cultivada|área do arboreto|presença de exóticas| área cultivada| área cultivada| cultivated area"
 
   ##Flaging records of true and probable cultivated specimens (based on the locality descriptions)
   x$cult.check <- NA_character_

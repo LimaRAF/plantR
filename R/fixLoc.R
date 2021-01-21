@@ -55,10 +55,10 @@
 #' "Minas Gerais, municipio Lavras", NA)))
 #'
 #' # Formating the locality information
-#' fixLoc(df, scrap = FALSE)[,-c(1:4)]
+#' fixLoc(df, scrap = FALSE)
 #'
 #' # Formating and scrapping the locality information
-#' fixLoc(df, scrap = TRUE)[,-c(1:4)]
+#' fixLoc(df, scrap = TRUE)
 #'
 #' # Formating the locality information only at country and state levels
 #' fixLoc(df, loc.levels = c("country", "stateProvince"))[,-c(1:4)]
@@ -72,21 +72,21 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
 
   # Missing country that may be stored in the field 'countryCode'
   if ("countryCode" %in% names(x) & "country" %in% names(x)) {
-    ids <- is.na(x$country) & !is.na(x$countryCode)
+    ids <- !is.na(x$countryCode) & is.na(x$country)
     x$country[ids] <- x$countryCode[ids]
-  }
-
-  # Missing municipality that may be stored in the field 'county'
-  if ("municipality" %in% names(x) & "county" %in% names(x)) {
-    ids <- is.na(x$county) & !is.na(x$municipality)
-    x$county[ids] <- x$municipality[ids]
   }
 
   # Replacing the names of possibly missing columns
   if ("countryCode" %in% names(x) & !"country" %in% names(x))
     colnames(x)[which(colnames(x) == "countryCode")] <- "country"
 
-  if ("municipality" %in% names(x) & !"county" %in% names(x))
+  # Missing municipality that may be stored in the field 'county'
+  if ("municipality" %in% names(x) & "county" %in% names(x)) {
+    ids <- !is.na(x$county) & is.na(x$municipality)
+    x$municipality[ids] <- x$county[ids]
+  }
+
+  if (!"municipality" %in% names(x) & "county" %in% names(x))
     colnames(x)[which(colnames(x) == "county")] <- "municipality"
 
   if (!any(c("country", "stateProvince", "municipality", "locality") %in% colnames(x)))
@@ -95,32 +95,36 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
   ## Obtaining the intermediary data frame for editing
   if (length(loc.levels) == 1) {
 
-    x1 <- x[which(colnames(x) %in% loc.levels)]
+    x1 <- x[match(loc.levels, colnames(x))]
 
   } else {
 
-    x1 <- x[, which(colnames(x) %in% loc.levels)]
+    x1 <- x[, match(loc.levels, colnames(x))]
 
   }
 
-  ## Solving some common encoding problems
-  x1[] <- lapply(x1, gsub, pattern = "ã¡|ã¢|ã£", replacement = "a", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "ã©|ãª", replacement = "e", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "ã§", replacement = "c", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "ãº", replacement = "u", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "ã´", replacement = "o", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "ã\u008d", replacement = "i", ignore.case = TRUE, perl = TRUE)
-  x1[] <- lapply(x1, gsub, pattern = "\u00AD", replacement = "", perl = TRUE) # soft hyphen
-  x1[] <- lapply(x1, gsub, pattern = "\u00AO", replacement = "", perl = TRUE) # hidden breaking space
-  x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
-
-  ## Loading the dictionary of names, terms and abbreviations to be replaced
+  ## Loading the dictionary of names, terms, abbreviations and encodign problems to be replaced
+  enc <- unwantedEncoding
   dic <- replaceNames
   missLocs <- missLocs
   wordsForSearch <- wordsForSearch
 
+  ## Solving common encoding problems
+  for (i in length(enc))
+    x1[] <- lapply(x1, gsub, pattern = names(enc)[i], replacement = enc[i],
+                   ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ã¡|ã¢|ã£", replacement = "a", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ã©|ãª", replacement = "e", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ã§", replacement = "c", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ãº", replacement = "u", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ã´", replacement = "o", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "ã\u008d", replacement = "i", ignore.case = TRUE, perl = TRUE)
+  # x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
+  x1[] <- lapply(x1, gsub, pattern = "\u00AD", replacement = "", perl = TRUE) # soft hyphen
+  x1[] <- lapply(x1, gsub, pattern = "\u00AO", replacement = "", perl = TRUE) # hidden breaking space
+
   ## ADM0: Country level
-  if (any(c("country", "countryCode") %in% loc.levels)) {
+  if (any(c("country","countryCode") %in% loc.levels)) {
     # Converting any country codes into country names
     x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] <-
       countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
@@ -189,9 +193,9 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
           cond1 <- cond0[cond0 %in% unique(x1[, "country"])]
           for (i in 1:length(cond1))  x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] <-
               stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2)
-        }
       }
     }
+  }
 
   ## ADM2: County, Departament, Commune
     if (any(c("municipality","county") %in% loc.levels)) {
@@ -209,6 +213,15 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
       names(tmp2) <- tmp1$pattern
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       x1[ ,"municipality"] <- stringr::str_replace_all(x1[ ,"municipality"], tmp2)
+
+      # Some extra removals
+      tmp1 <- dic[dic$class %in% "locality1" & apply(is.na(dic[,2:4]), 1, all),]
+      tmp2 <- rep("", dim(tmp1)[1])
+      names(tmp2) <- tmp1$pattern
+      names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
+      names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
+      x1[ ,"municipality"] <- stringr::str_replace_all(x1[ ,"municipality"], tmp2)
+
     }
 
   ## ADM3: locality (park, farm, etc.)
@@ -274,7 +287,7 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
 
       #other localities, than the ones in 'locais' and counties (first sentence, prior to the first comma when n4.3 is empty)
       n4.3[is.na(n4.3) & !is.na(x1[ ,"locality"])] <- as.character(sapply(n4[is.na(n4.3) & !is.na(x1[ ,"locality"])],
-                                                                         function(x) head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)],1)))
+                                                                         function(x) my.head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)])))
 
       # Replacing missing counties
       if (any(c("municipality", "county") %in% loc.levels)) {

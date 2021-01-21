@@ -16,6 +16,7 @@ checkInverted <- function(x,
                           country_gazetteer = "country",
                           lat = "decimalLatitude.new",
                           lon = "decimalLongitude.new") {
+
   # the input data frame may not have everything
   cols_to_check <- c("border.check", "geo.check")
   cols <- cols_to_check[cols_to_check %in% names(x)]
@@ -30,7 +31,7 @@ checkInverted <- function(x,
   check_inv$check_inv <- NULL #we'll use this column
 
   worldMap_centroids <- sf::st_centroid(worldMap)
-  check <- st_as_sf(check_inv)
+  check <- sf::st_as_sf(check_inv)
   paises <- match(check$country, worldMap_centroids$NAME_0)
   original <- st_distance(check, worldMap_centroids[paises,], by_element = TRUE)
 

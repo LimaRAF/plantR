@@ -102,6 +102,9 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
                      sep.out = "|", special.char = FALSE, output = "all", treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
                      format = "last_init", get.prep = FALSE, get.initials = TRUE, ...) {
 
+  #Escaping R CMD check notes from using data.table syntax
+  "V1" <- "tmp.ordem" <- NULL
+
   # check input:
   if (is.null(x)|!class(x) %in% "character")
     stop("Input need to be a string or vector of names")
@@ -150,7 +153,7 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
   # Transforming list to data.table and preparing names using prepTDWG()
   DT <- data.table::setDT(data.table::transpose(split, fill = NA))
   cols <- data.table::copy(names(DT))
-  DT[ , ordem := .I, ]
+  DT[ , tmp.ordem := .I, ]
 
   if (output %in% c("all", "first")) {
     data.table::setkeyv(DT, c("V1"))
@@ -160,7 +163,7 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
   }
 
   if (output %in% c("all", "aux") & length(cols) > 1) {
-    cols1 <- cols[!cols %in% c("V1", "ordem")]
+    cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
     data.table::setkeyv(DT, c(cols1))
     DT[, (cols1) := lapply(.SD, prepTDWG,
                            format = format, get.prep = get.prep, get.initials = get.initials),
@@ -169,39 +172,39 @@ prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y "
 
   # Preparing to return the result as a vector again
   if (output == "first") {
-    data.table::setkeyv(DT, "ordem")
+    data.table::setkeyv(DT, "tmp.ordem")
     names.out <- as.character(DT$V1)
   }
 
   if (output == "aux" & length(cols) == 1) {
-    # data.table::setkeyv(DT, "ordem")
+    # data.table::setkeyv(DT, "tmp.ordem")
     # names.out <- as.character(DT$V1)
     names.out <- rep(NA_character_, dim(DT)[1])
   }
 
   if (output == "aux" & length(cols) > 1) {
     DT[, V1:= NULL]
-    cols1 <- cols[!cols %in% c("V1", "ordem")]
+    cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
     data.table::setkeyv(DT, c(cols1))
     DT[ , names := do.call(paste, c(.SD, sep = sep.out)),
         by = cols1, .SDcols = cols1]
     data.table::setkeyv(DT, "names")
     DT[ , names := gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE), by = "names"]
     DT[ , names := gsub("NA", NA_character_, names, fixed = TRUE), by = "names"]
-    data.table::setkeyv(DT, "ordem")
+    data.table::setkeyv(DT, "tmp.ordem")
     names.out <- DT$names
   }
 
   if (output == "all" | !output %in% c("first", "aux")) {
     if (length(cols) > 1) {
-      cols1 <- cols[!cols %in% c("ordem")]
+      cols1 <- cols[!cols %in% c("tmp.ordem")]
       data.table::setkeyv(DT, c(cols1))
       DT[ , names := do.call(paste, c(.SD, sep = sep.out)),
           by = cols1, .SDcols = cols1]
       data.table::setkeyv(DT, "names")
       DT[ , names := gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE), by = "names"]
       DT[ , names := gsub("NA", NA_character_, names, fixed = TRUE), by = "names"]
-      data.table::setkeyv(DT, "ordem")
+      data.table::setkeyv(DT, "tmp.ordem")
       names.out <- DT$names
     } else {
       names.out <- DT$V1

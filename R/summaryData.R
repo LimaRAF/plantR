@@ -43,7 +43,7 @@ summaryData <- function(x, top = 5) {
             countries = c("country.new", "country"))
 
   #Get only the columns of interest
-  covs.present <- lapply(covs, function(z) head(z[which(z %in% names(x))], 1))
+  covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
   if (all(sapply(covs.present, nchar)==0))
     stop("The input data frame does not contain at least one of the required columns")
 
@@ -98,16 +98,16 @@ summaryData <- function(x, top = 5) {
       suppressWarnings(dt[, year.new := as.double(year.new)])
       anos.qt <- as.double(dt[year.new <= ano.lim,
                               stats::quantile(year.new, prob=c(0,0.1,0.25,0.5,0.75,0.9,1), na.rm = TRUE),])
-      cat("Collection years: ", anos.qt[1],"-",tail(anos.qt,1)," (>90% and >50% after ",anos.qt[2]," and ",anos.qt[4],")","\n", sep="")
+      cat("Collection years: ", anos.qt[1],"-", my.tail(anos.qt)," (>90% and >50% after ",anos.qt[2]," and ",anos.qt[4],")","\n", sep="")
     } else { anos <- NULL }
 
     if (nchar(covs.present[["collections"]]) > 0)
       cat("\nTop collections in numbers of records:",
-          knitr::kable(head(colls, top), col.names = c("Collection", "Records")), sep="\n")
+          knitr::kable(my.head.df(colls, top), col.names = c("Collection", "Records")), sep="\n")
 
     if (nchar(covs.present[["collectors"]]) > 0)
       cat("\nTop collectors in numbers of records:",
-          knitr::kable(head(cols, top), col.names = c("Collector", "Records")), sep="\n")
+          knitr::kable(my.head.df(cols, top), col.names = c("Collector", "Records")), sep="\n")
   }
 
   ## Taxonomy
@@ -153,9 +153,9 @@ summaryData <- function(x, top = 5) {
       cat("Number of species:", tax[covs.present[["species"]]],"\n", sep=" ")
 
     if (nchar(covs.present[["families"]]) > 0)
-      cat("\nTop richest families:", knitr::kable(head(fams, top)), sep="\n")
+      cat("\nTop richest families:", knitr::kable(my.head.df(fams, top)), sep="\n")
 
-    cat("\nTop richest genera:", knitr::kable(head(gens, top)), sep="\n")
+    cat("\nTop richest genera:", knitr::kable(my.head.df(gens, top)), sep="\n")
   }
 
   ## Countries
@@ -178,7 +178,7 @@ summaryData <- function(x, top = 5) {
     cat("===========", sep="\n")
     cat("Number of countries:", dim(paises[!is.na(country.new)])[1],"\n", sep=" ")
     cat("\nTop countries in numbers of records:",
-        knitr::kable(head(paises, top),
+        knitr::kable(my.head.df(paises, top),
                      col.names = c("Country", "Records", "Species")[1:dim(paises)[2]]), sep="\n")
   } else { paises <- NULL }
 

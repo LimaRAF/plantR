@@ -41,13 +41,13 @@
 #' @author Renato A. F. de Lima
 #'
 #' @examples
-#' getAdmin(x = c("paraguay_paraguari",
-#'                "brazil_parana_paranagua",
-#'                "brazil_rio janeiro_parati", # an example of a variant in the locality name
-#'                "brazil_rio janeiro_paraty",
-#'                "brazil_sao paulo_sao miguel arcanjo_pe carlos botelho",
-#'                "united states_florida") # valid location but not in the default gazetteer
-#'                )
+#' str <- c("paraguay_paraguari",
+#'          "brazil_parana_paranagua",
+#'          "brazil_rio janeiro_parati", # an example of a variant in the locality name
+#'          "brazil_rio janeiro_paraty",
+#'          "brazil_sao paulo_sao miguel arcanjo_pe carlos botelho",
+#'          "united states_florida") # valid location but not in the default gazetteer
+#' getAdmin(str)
 #'
 #' @importFrom dplyr left_join
 #'
@@ -59,7 +59,7 @@ getAdmin <- function(x, admin.names = "plantR") {
     if (class(x) == "data.frame") {
       if (!any(grepl("^loc.correct", names(x))))
         stop("input object needs to have a column loc.correct with the locality strings")
-      x1 <- x[tail(grep("^loc.correct", names(x)), 1)]
+      x1 <- x[my.tail(grep("^loc.correct", names(x)))]
       names(x1) <- gsub('[0-9]', '', names(x1))
     } else {
         x1 <- data.frame(loc.correct = x, stringsAsFactors = FALSE)
@@ -81,7 +81,7 @@ getAdmin <- function(x, admin.names = "plantR") {
       tmp1 <- data.frame(loc.correct =
                 sapply(
                   strsplit(tmp1, "_"),
-                      function(x) paste0(head(x, -1), collapse = "_")
+                      function(x) paste0(rm.tail(x), collapse = "_")
       ), stringsAsFactors = FALSE)
       tmp1 <- dplyr::left_join(tmp1, dic, by = "loc.correct")
       tmp[is.na(tmp$NAME_0) & is.na(tmp$NAME_1), ] <- tmp1
@@ -93,7 +93,7 @@ getAdmin <- function(x, admin.names = "plantR") {
       tmp1 <- data.frame(loc.correct =
                            sapply(
                              strsplit(tmp1, "_"),
-                             function(x) paste0(head(x, -2), collapse = "_")
+                             function(x) paste0(rm.tail(x, 1), collapse = "_")
                            ), stringsAsFactors = FALSE)
       tmp1 <- dplyr::left_join(tmp1, dic, by = "loc.correct")
       tmp[is.na(tmp$NAME_0), ] <- tmp1

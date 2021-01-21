@@ -76,7 +76,7 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
 
   #Detecting the some general types of name formats: full, abbreviated or both
   words <- grepl(" ", x, fixed = TRUE)
-  abrev <- grepl('([a-z;A-Z;à-ý;À-Ý]\\.)([a-z;A-Z;à-ý;À-Ý]\\.)+',
+  abrev <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+',
                  x, perl = TRUE)
 
   types <- rep(NA, length(x))

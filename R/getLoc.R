@@ -39,7 +39,7 @@
 #'   search for information below the municipality/county level, that is, to
 #'   retrieve from the gazetteer information at the locality level or below. If
 #'   these columns have different names in \code{x}, these names can be supplied using,
-#'   the argument `str.names`. See the examples below.
+#'   the argument `str.names`. See Examples below.
 #'
 #'   The default __plantR__ gazetteer includes information for all countries at
 #'   the country level (i.e. administrative level 0) and at the lowest
@@ -61,7 +61,7 @@
 #'   columns 'loc' (search string), 'loc.correct' (correct string),
 #'   'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
 #'   'resolution.gazetteer' (e.g. country, state, etc). If the names for these
-#'   columns are different, they can be supplied using argument ``
+#'   columns are different, they can be supplied using argument `gazet.names`.
 #'
 #'   It is important to stress that the retrieval of locality information
 #'   depends on the completeness of the gazetteer itself. So, if a query does
@@ -80,8 +80,7 @@
 #' @export getLoc
 #'
 #' @seealso
-#'  \link[plantR]{fixLoc}, \link[plantR]{strLoc} and
-#'  \link[plantR]{prepLoc}.
+#'  \link[plantR]{fixLoc}, \link[plantR]{strLoc} and \link[plantR]{prepLoc}.
 #'
 #' @examples
 #'

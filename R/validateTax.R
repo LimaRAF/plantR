@@ -97,11 +97,9 @@
 #' validateTax(df)
 #'
 validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
-                       generalist.class = "medium", miss.taxonomist = NULL,
-                       taxonomist.list = "plantR", top.det = 10)
+                        generalist.class = "medium", miss.taxonomist = NULL,
+                        taxonomist.list = "plantR", top.det = 10)
 {
-
-  ### INCLUDE STEP TO VALIDATE OCCURRENCES THAT ARE NOT FROM CLASS 'PreservedSpecimen'
 
   #Checking the input
   if (!class(x) == "data.frame")
@@ -113,7 +111,7 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
                identifiers = c("identifiedBy.new", "identifiedBy"))
 
   #Get only the columns of interest
-  covs.present <- lapply(covs, function(z) head(z[which(z %in% names(x))], 1))
+  covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
   covs.present[sapply(covs.present, identical, character(0))] <- NA
 
   if(is.na(covs.present[["families"]]) |
@@ -160,8 +158,8 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
 
   if (all(taxonomist.list %in% c("plantR", "plantr"))) {
     tmp <- unique(paste(autores$name.correct[!is.na(autores$name.correct)],
-                   autores$tdwg.name[!is.na(autores$name.correct)],
-                   sep = "_"))
+                        autores$tdwg.name[!is.na(autores$name.correct)],
+                        sep = "_"))
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
@@ -184,16 +182,16 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
 
   #Specifying occurrences with unkown determiner name
   x$tax.check[x$tax.check == FALSE & x[,covs.present[["identifiers"]]] %in% c(
-                  "Semdeterminador",
-                  "SemDeterminador",
-                  "Anonymus",
-                  "Anonymous",
-                  "Anonimo",
-                  "Incognito",
-                  "Unknown",
-                  "s.d.",
-                  "s.n."
-                )] <- "unknown"
+    "Semdeterminador",
+    "SemDeterminador",
+    "Anonymus",
+    "Anonymous",
+    "Anonimo",
+    "Incognito",
+    "Unknown",
+    "s.d.",
+    "s.n."
+  )] <- "unknown"
   x$tax.check[x$tax.check %in% FALSE &
                 is.na(x[, covs.present[["identifiers"]]])] <- "unknown"
 
@@ -211,7 +209,7 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
                     tax.check1 %in% TRUE] <- TRUE
 
     } else {
-        warning("Argument 'special.collector' set to TRUE but information on the collector is missing")
+      warning("Argument 'special.collector' set to TRUE but information on the collector is missing")
     }
   }
 
@@ -237,8 +235,8 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
   non.tax.det.df <- data.frame(names(non.tax.det), as.double(non.tax.det))
   row.names(non.tax.det.df) <- NULL
   non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
-    cat("Top people with many determinations but not in the taxonomist list: \n",
-        knitr::kable(head(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep="\n")
+  cat("Top people with many determinations but not in the taxonomist list: \n",
+      knitr::kable(my.head.df(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep="\n")
 
   return(x)
 }

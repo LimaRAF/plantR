@@ -21,7 +21,7 @@
 #'   prepLoc("Brazil_Rio de Janeiro")
 #'   prepLoc("Brazil_Rio Grande do Sul_Coqueiros do Sul")
 #'   prepLoc("Brazil_Bahia_Arraial d'Ajuda")
-#'   prepLoc("Brazil_São Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
+#'   prepLoc("Brazil_S\xE3o Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
 #'   prepLoc("Cuba_Isla de la Juventud")
 #'
 #' @export prepLoc
@@ -47,7 +47,8 @@ prepLoc <- function(x) {
   x <- gsub(" de la | del | du ", " ", x, perl = TRUE)
   x <- gsub(" dos | das | des ", " ", x, perl = TRUE)
   x <- gsub(" do | da | de ", " ", x, perl = TRUE)
-  x <- gsub(' d\' | d\'| d´| d\"| d’', " ", x, perl = TRUE)
+  # x <- gsub(' d\' | d\'| d`| d´| d\"| d’', " ", x, perl = TRUE)
+  x <- gsub(' d\' | d\'| d\x60| d\xB4| d\"| d’', " ", x, perl = TRUE)
   x <- gsub('\\.$', "", x, perl = TRUE)
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 

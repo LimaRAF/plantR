@@ -51,7 +51,7 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
   "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
   "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
-  "yearIdentified" <- "yearIdentified.new" <- "order" <- NULL
+  "yearIdentified" <- "yearIdentified.new" <- "order" <- "tmp.ordem" <- NULL
   "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
 
   ## Check input

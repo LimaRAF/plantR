@@ -1,4 +1,4 @@
-#' @title Isolate Name's Prepositions
+#' @title Isolate Family Name Prepositions
 #'
 #' @description This function isolate and remove (optional) last name prepositions
 #'   (i.e. 'da' in 'da Silva') from multiple people's names, if present.

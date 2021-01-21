@@ -70,7 +70,7 @@ colNumber <- function(x, colCodes = NULL, noNumb = "s.n.") {
           grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)] <-
             as.character(sapply(sapply(strsplit(numbs[!is.na(numbs) &
                 grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)], " "), function(x)
-                  x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), tail, 1))
+                  x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), my.tail))
   numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] = "SemNumero"
   numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] = "SemNumero"
 
