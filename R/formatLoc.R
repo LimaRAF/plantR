@@ -9,6 +9,10 @@
 #'
 #' @param x a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
+#' @param select.cols a vector with the column names that should be added to the
+#'   input data.frame. By default only the additional columns retrieved from the
+#'   gazetteer are returned and the locality strings used in the researched are
+#'   discarded.
 #'
 #' @inheritParams fixLoc
 #' @inheritParams getLoc
@@ -26,7 +30,8 @@
 #'
 #' @export formatLoc
 #'
-formatLoc <- function(x, ...)
+formatLoc <- function(x, select.cols = c("loc", "loc.correct", "latitude.gazetteer", "longitude.gazetteer",
+                                         "resolution.gazetteer"), ...)
 {
 
   # check input:
@@ -39,16 +44,14 @@ formatLoc <- function(x, ...)
   # strLoc
   locs <- strLoc(x1)
   locs$loc.string <- prepLoc(locs$loc.string) # priority string
-  if("loc.string1" %in% names(locs))
-    locs$loc.string1 <- prepLoc(locs$loc.string1) # alternative string
-  if("loc.string2" %in% names(locs))
-    locs$loc.string2 <- prepLoc(locs$loc.string2) # alternative string
+  if ("loc.string1" %in% names(locs))
+    locs$loc.string1 <- prepLoc(locs$loc.string1) # alternative string 1
+  if ("loc.string2" %in% names(locs))
+    locs$loc.string2 <- prepLoc(locs$loc.string2) # alternative string 2
 
   # getLoc
   locs <- getLoc(locs, ...)
-  colunas <- c("loc", "loc.correct",
-               "latitude.gazetteer", "longitude.gazetteer",
-               "resolution.gazetteer")
+  colunas <- select.cols
   colunas <- colunas[colunas %in% names(locs)]
   x1 <- cbind.data.frame(x1,
                          locs[, colunas], stringsAsFactors = FALSE)

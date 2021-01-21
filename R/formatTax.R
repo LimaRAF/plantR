@@ -11,8 +11,8 @@
 #' @param use.suggestion logical. Should the edited species names be used
 #'   instead of the input species names? Default to TRUE.
 #'
+#' @inheritParams fixSpecies
 #' @inheritParams prepSpecies
-#' @inheritParams formatSpecies
 #' @inheritParams prepFamily
 #'
 #' @details The function works as a wrapper, where the individuals steps of the

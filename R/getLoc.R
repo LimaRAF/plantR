@@ -136,17 +136,19 @@ getLoc <- function(x, str.names = c("resol.orig", "loc.string", "loc.string1", "
     stop("Input object needs to have at least one locality string (e.g. loc.string)")
 
 
-  ## Getting coordinates from the gazetteer - county level or lower (provided in the occuurrence labels)
-  cols.gazet <- c("loc", "loc.correct", "latitude.gazetteer",
-                  "longitude.gazetteer", "resolution.gazetteer")
+  ## Getting the gazetteer
+  cols.gazet <- c("loc", "loc.correct",
+                  "latitude.gazetteer",
+                  "longitude.gazetteer",
+                  "resolution.gazetteer")
   class.gazet <- class(gazet)
   dic <- NULL
   if (class.gazet == "character") {
     if (any(gazet %in% c("plantR", "plantr"))) {
-     dic <- gazetteer
-     dic <- dic[, cols.gazet]
+      dic <- gazetteer
+      dic <- dic[, cols.gazet]
     } else {
-      stop("Please chose between the default gazetteer or provide one as a data frame")
+      stop("Please chose between the default gazetteer or a user-provided one as a data frame")
     }
   }
 
@@ -167,8 +169,7 @@ getLoc <- function(x, str.names = c("resol.orig", "loc.string", "loc.string1", "
     stop("Please chose between the default 'plantR' gazetteer or provide one as a data frame")
 
   # List of columns and categories to be used in the manipulation
-  cols.repl <- c("loc.correct", "latitude.gazetteer",
-                 "longitude.gazetteer", "resolution.gazetteer")
+  cols.repl <- cols.gazet[-1]
   resol.gazet <- c("localidade", "localidade|sublocalidade", "sublocalidade",
                    "distrito|vila", "distrito", "distrito|bairro", "bairro",
                    "cachoeira", "mina", "vila", "serra")
