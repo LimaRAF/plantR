@@ -15,7 +15,7 @@
 #' @param ... Parameters from prepDup and mergeDup
 #'
 #' @inheritParams prepDup noYear noName noNumb comb.fields ignore.miss ignore.na
-#' @inheritParams mergeDup prop info2merge tax.name tax.level
+#' @inheritParams mergeDup prop info2merge tax.names tax.level
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,
