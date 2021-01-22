@@ -69,6 +69,11 @@ rgbif2 <- function(dir = "results/",
     all_data$download <- "succeded"
   }
 
+  if ("failed" %in% all_data$download) {
+    sp_failed <- unique(all_data$species_id[all_data$download %in% "failed"])
+    warning(paste("Download of species", sp_failed, "failed!"))
+  }
+
   if (remove_na) {
     all_data <- all_data[!is.na(all_data$decimalLongitude)
                          & !is.na(all_data$decimalLatitude), ]
