@@ -1,4 +1,4 @@
-# Script to read dictionaries and generate the R/sysdata.rda
+# Script to read from raw_dictionaries and save in data-raw/dictionaries
 
 # loading packages
 library(stringr)
@@ -8,8 +8,7 @@ library(dplyr)
 
 #1. from raw files to processed csv in dictionaries----
 
-#dic_files <- list.files(path = "./data-raw/raw", # old path: changing paths because I cannot subversion the package folders within a github local repository
-  dic_files <- list.files(path = "C:/Users/renato/Documents/raflima/Pos Doc/Manuscritos/Artigo AF checklist/data analysis/dictionaries",
+dic_files <- list.files(path = "data-raw/raw_dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
@@ -25,21 +24,20 @@ data_names <- basename(dic_files) %>%
 loc_list <- purrr::map(dic_files,
                        ~readr::guess_encoding(.))
 
-encoding <- "UTF-8" #ast we are getting somewhere
+encoding <- "UTF-8"
+
 dic <- lapply(dic_files,
               read_csv,
-              guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding)
-)
+              guess_max = 30000,# this has to be large
+              locale = locale(encoding = encoding))
 
 names(dic) <- data_names
-lapply(dic, nrow)
-# transforma em data.frame
-dic <- lapply(dic, as.data.frame)
 
+# # transforma em data.frame
+# dic <- lapply(dic, as.data.frame)
 
 # taxonomists:
-taxonomists <- dic$taxonomists[ ,c("order", "source", "family", "family.obs", "full.name1", "tdwg.name")]
+taxonomists <- dic$taxonomists[ , c("order", "source", "family", "family.obs", "full.name1", "tdwg.name")]
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
@@ -89,6 +87,7 @@ gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 priorities <- data.frame(source = unique(gazetteer$source), priority =
                            c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
 priorities
+
 #ast ö checar que a ordem seja esta
 gazetteer <- left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
@@ -96,7 +95,6 @@ dplyr::count(gazetteer, source, priority) %>% arrange(priority)
 gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
-
 admin <- dic$gazetteer[ ,c("order",
                            "status",
                            "source",
@@ -195,16 +193,16 @@ unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
                    'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
                    'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
 
-unwantedEncoding <- c('ã¡'='a',
-                      'ã¢'='a',
-                      'ã£'='a',
-                      '&#225;'='a',
-                      'ã§'='c',
-                      'ã©'='e',
-                      'ãª'='e',
-                      'ã´'='o',
-                      'ã\u008d'='i',
-                      'ãº'='u')
+unwantedEncoding <- c('ã¡' = 'a',
+                      'ã¢' = 'a',
+                      'ã£' = 'a',
+                      '&#225;' = 'a',
+                      'ã§' = 'c',
+                      'ã©' = 'e',
+                      'ãª' = 'e',
+                      'ã´' = 'o',
+                      'ã\u008d' = 'i',
+                      'ãº' = 'u')
 
 cultivated <- c("cultivated",
                 "cultivada",
@@ -294,87 +292,9 @@ missDets <- c("s/det.",
 # head(admin)
 # head(replaceNames)
 
-#dir.create("./data-raw/dictionaries")
 write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
 write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
 write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
-#write_csv(fieldNames, "./data-raw/dictionaries/fieldNames.csv")
 write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
 write_csv(admin, "./data-raw/dictionaries/admin.csv")
 write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
-
-# 2. from processed csv files to sysdata.rda ----
-dic_files <- list.files(path = "./data-raw/dictionaries",
-                        pattern = "csv",
-                        full.names = TRUE)
-
-#nome das tabelas
-data_names <- basename(dic_files) %>%
-  stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
-  data.frame() %>%
-  select(1) %>%
-  pull()
-
-#guess encoding
-loc_list <- purrr::map(dic_files,
-                       ~readr::guess_encoding(.))
-
-loc_list <- c(
-  "UTF-8",
-  "UTF-8",
-  "UTF-8",
-  "UTF-8",
-  "ASCII",
-  "ASCII",
-  "UTF-8")
-
-dic <- purrr::map2(.x = dic_files,
-                   .y = loc_list,
-                   ~read_csv(file = .x,
-                             guess_max = 30000,#this has to be large
-                             locale = locale(encoding = .y)
-                   ))
-encoding <- "UTF-8"
-dic <- lapply(dic_files,
-              read_csv,
-              guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding)
-)
-
-names(dic) <- data_names
-lapply(dic, nrow) #new dims! especially gazetteer from 34807 to 23436
-#taxonomists from 9297 to 8518 (01/07/2020)
-
-# transforma em data.frame
-dic <- lapply(dic, as.data.frame)
-
-### create existing named objects
-admin <- dic$admin
-collectionCodes <- dic$collectionCodes
-familiesSynonyms <- dic$familiesSynonyms
-fieldNames <- dic$fieldNames
-gazetteer <- dic$gazetteer
-replaceNames <- dic$replaceNames
-taxonomists <- dic$taxonomists
-
-# Saving data
-usethis::use_data(
-  admin,
-  collectionCodes,
-  familiesSynonyms,
-  fieldNames,
-  gazetteer,
-  replaceNames,
-  taxonomists,
-  missLocs,
-  wordsForSearch,
-  unwantedLatin,
-  unwantedEncoding,
-  cultivated,
-  notCultivated,
-  missColls,
-  missDets,
-  overwrite = TRUE,
-  internal = TRUE,
-  compress = "xz")
-
