@@ -32,7 +32,7 @@
 #'}
 #'
 #' @importFrom jsonlite fromJSON
-#' @importFrom utils write.table
+#' @importFrom utils write.csv
 #' @export
 rspeciesLink <- function(dir = "results/",
                          filename = "output",

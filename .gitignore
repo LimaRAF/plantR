@@ -5,6 +5,7 @@
 *.png
 tmp.rds
 teste.R
+test.R
 check_output.txt
 vignettes/results/
 results/

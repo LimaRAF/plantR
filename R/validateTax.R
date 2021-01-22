@@ -23,7 +23,7 @@
 #'
 #' @details
 #'
-#' The input data frame \code{x} must contain at least columns with the
+#' The input data frame \code{x} must contain at least the columns with the
 #' information on the species family (e.g. 'family') and the name of the people
 #' that provided the species identification (e.g. 'identifiedBy'). Preferably,
 #' this data frame should also contain information on type specimens (column
@@ -35,8 +35,14 @@
 #' The function classifies as high confidence level all records whose species
 #' identifications were performed by a family specialist or any type specimens
 #' (isotype, paratypes, etc). By default, the names of family specialists are
-#' obtained from a list of plant taxonomists constructed by Lima et al. (2020) and
-#' provided with __plantR__.
+#' obtained from a global list of about 8,500 plant taxonomists names
+#' constructed by Lima et al. (2020) and provided with __plantR__. This
+#' list was built based on information from the [Harvard University Herbaria]
+#' (http://kiki.huh.harvard.edu/databases), the [Brazilian Herbaria Network]
+#' (http://www.botanica.org.br/rbh) and the [American Society of Plant Taxonomists]
+#' (https://members.aspt.net). The dictionary was manually complemented for
+#' missing names of taxonomists and it includes common variants of taxonomists
+#' names (e.g., missing initials, typos, married or maiden names).
 #'
 #' By default, __all occurrences that are not preserved specimens (i.e. observations,
 #' photos) are classified as high confidence level__.
@@ -90,16 +96,10 @@
 #'
 #' validateTax(df)
 #'
-validateTax <- function(x,
-                       special.collector = TRUE,
-                       generalist = FALSE,
-                       generalist.class = "medium",
-                       miss.taxonomist = NULL,
-                       taxonomist.list = "plantR",
-                       top.det = 10)
+validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
+                        generalist.class = "medium", miss.taxonomist = NULL,
+                        taxonomist.list = "plantR", top.det = 10)
 {
-
-  ### INCLUDE STEP TO VALIDATE OCCURRENCES THAT ARE NOT FROM CLASS 'PreservedSpecimen'
 
   #Checking the input
   if (!class(x) == "data.frame")
@@ -111,7 +111,7 @@ validateTax <- function(x,
                identifiers = c("identifiedBy.new", "identifiedBy"))
 
   #Get only the columns of interest
-  covs.present <- lapply(covs, function(z) head(z[which(z %in% names(x))], 1))
+  covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
   covs.present[sapply(covs.present, identical, character(0))] <- NA
 
   if(is.na(covs.present[["families"]]) |
@@ -119,10 +119,10 @@ validateTax <- function(x,
     stop("input data frame needs at least the following columns: family and identifiedBy")
 
   #Getting the dictionaries
-  families.apg <- plantR:::familiesSynonyms
+  families.apg <- familiesSynonyms
   if (all(taxonomist.list %in% c("plantR", "plantr"))) {
 
-    autores <- plantR:::taxonomists
+    autores <- taxonomists
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
                      by.x = "family", by.y = "name", all.x = TRUE)
@@ -158,8 +158,8 @@ validateTax <- function(x,
 
   if (all(taxonomist.list %in% c("plantR", "plantr"))) {
     tmp <- unique(paste(autores$name.correct[!is.na(autores$name.correct)],
-                   autores$tdwg.name[!is.na(autores$name.correct)],
-                   sep = "_"))
+                        autores$tdwg.name[!is.na(autores$name.correct)],
+                        sep = "_"))
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
@@ -182,16 +182,16 @@ validateTax <- function(x,
 
   #Specifying occurrences with unkown determiner name
   x$tax.check[x$tax.check == FALSE & x[,covs.present[["identifiers"]]] %in% c(
-                  "Semdeterminador",
-                  "SemDeterminador",
-                  "Anonymus",
-                  "Anonymous",
-                  "Anonimo",
-                  "Incognito",
-                  "Unknown",
-                  "s.d.",
-                  "s.n."
-                )] <- "unknown"
+    "Semdeterminador",
+    "SemDeterminador",
+    "Anonymus",
+    "Anonymous",
+    "Anonimo",
+    "Incognito",
+    "Unknown",
+    "s.d.",
+    "s.n."
+  )] <- "unknown"
   x$tax.check[x$tax.check %in% FALSE &
                 is.na(x[, covs.present[["identifiers"]]])] <- "unknown"
 
@@ -209,7 +209,7 @@ validateTax <- function(x,
                     tax.check1 %in% TRUE] <- TRUE
 
     } else {
-        warning("Argument 'special.collector' set to TRUE but information on the collector is missing")
+      warning("Argument 'special.collector' set to TRUE but information on the collector is missing")
     }
   }
 
@@ -235,8 +235,8 @@ validateTax <- function(x,
   non.tax.det.df <- data.frame(names(non.tax.det), as.double(non.tax.det))
   row.names(non.tax.det.df) <- NULL
   non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
-    cat("Top people with many determinations but not in the taxonomist list: \n",
-        knitr::kable(head(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep="\n")
+  cat("Top people with many determinations but not in the taxonomist list: \n",
+      knitr::kable(my.head.df(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep="\n")
 
   return(x)
 }

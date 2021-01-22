@@ -30,6 +30,7 @@
 #' @importFrom stringr str_trim
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
+#' @importFrom stats na.omit
 #'
 #' @export formatDwc
 #'

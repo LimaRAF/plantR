@@ -35,6 +35,7 @@ Imports:
     jsonlite,
     knitr,
     rgbif,
+    spData,
     sf,
     sp,
     stringr,

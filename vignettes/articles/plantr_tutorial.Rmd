@@ -21,9 +21,8 @@ devtools::load_all() # for development
 
 # Introduction
 
-This tutorial provides basic explanations on the functions related to data
-download, editing and validation using __plantR__.
-For each of these steps, there is a more specific tutorial presenting all functionalities more in detail (see package vignettes).  <!-- eu acho que o detalhe interno é o que deve ir nesses tutoriais --> 
+This tutorial provides the details and explanations on the functions related to data
+download, editing and validation using the __plantR__ workflow. For each of these steps, we present the functions and their options in more details so that their goals can be understood and so that these functions can be adapted and applied by the user, even outside the proposed workflow. 
 
 Let's first install and load the package from [GitHub](https://github.com) with:
 
@@ -83,9 +82,6 @@ dim(example$data)
 
 If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within __plantR__ using the command `data(example)`.
 
-<br/><br/>
-
-# Data editing
 
 ## Preparing the input data: function `fixField()`
 
@@ -130,6 +126,11 @@ required header name (`'county'`) was replaced by a standard header name,
 `'municipality'` in this case.
 The second warning is less important because it relates to optional fields. 
 `fixFields()` removes the columns that belong to optional fields.
+
+
+<br/><br/>
+
+# Data editing
 
 ## Standardizing people names, collector number, dates and collection codes
 
@@ -232,7 +233,7 @@ is stored in the field 'collectionCode'. For some reason, not all collections
 store in this field their international collection codes (e.g. Index
 Herbariorum) and sometimes these codes are stored differently across data
 repositories. For the search of duplicate entries and th production of
-checklists (see below) it is important to standardize the codes of collections.
+check-lists (see below) it is important to standardize the codes of collections.
 In __plantR__ this is done using function `getCode`:
 
 ```{r, eval = FALSE}
@@ -428,7 +429,7 @@ occs1 <- formatCoord(occs1)
 
 ## Editing species taxonomic information
 
-### Species names format: function `prepSpecies()`
+### Species names format: function `fixSpecies()`
 Although we downloaded occurrences for only two species names (i.e.
 \italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
 `rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
@@ -438,24 +439,24 @@ collections, which may vary in the way the scientific names are stored. For data
 downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
 since GBIF already stores data in a more standardized way.
 
-The `plantR` function ```prepSpecies``` performs several edits, including the
+The `plantR` function ```fixSpecies``` performs several edits, including the
 isolation of taxonomic rank abbreviations, the detection of name modificators
 ("cf." and "aff.") and a suggestion for the name status:
 
 ```{r, eval = FALSE}
 sort(table(occs$scientificName))
-occs <- prepSpecies(occs)
+occs <- fixSpecies(occs)
 sort(table(occs$scientificName.new))
 ```
 
-Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```
+Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```.
 
 ```{r, eval = FALSE}	
 sort(table(occs$scientificNameStatus))
 ```
 
-### Species synonyms and spelling: function `formatSpecies()`
-Although the function `prepSpecies` presented above formatted the species names,
+### Species synonyms and spelling: function `prepSpecies()`
+Although the function `fixSpecies()` presented above formatted the species names,
 there are still many more names than the ones we downloaded. Most of them are
 names at the infra-specific level, but others are probably synonyms,
 ortographical variants or even typos. There are R packages that check species
@@ -463,10 +464,10 @@ nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
 in the Brazilian Flora 2020, there is also the package `flora`, which follow the
 accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
 functionalities of some of these packages to inspect possible suggestions for
-species names, through the function `formatSpecies`:
+species names, through the function `prepSpecies()`:
 
 ```{r, eval = FALSE}
-occs <- formatSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
+occs <- prepSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
 table(occs$suggestedName)
 table(occs$notes)
 ```
@@ -480,7 +481,7 @@ package `flora`.
 
 For our example we decided to replace all edited species names (i.e.
 'scientificName.new') by the suggested species names from the function
-`formatSpecies` (i.e. 'scientificName.new'). However, __plantR__ does not
+`prepSpecies()` (i.e. 'scientificName.new'). However, __plantR__ does not
 execute this step automatically and the decision to do it should be taken by the
 user:
 
@@ -704,7 +705,7 @@ summaryFlags(occs)
 ## Generating checklists
 
 ```{r, eval = FALSE}
-checklist(occs)
+checkList(occs)
 ```
 
 ## Saving the occurrence data

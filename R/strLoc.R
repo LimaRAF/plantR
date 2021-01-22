@@ -1,13 +1,14 @@
 #' @title Construct Locality String
 #'
-#' @description Combine locality fields to create the standard plantR locality
-#'   string
+#' @description The function combines the locality fields available to create
+#'   the standard __plantR__ locality string, which is used for the validate
+#'   localities and geographical coordinates.
 #'
 #' @param x a data frame.
 #' @param adm.names a vector of columns names containing the country,
 #' state/province and municipality information, in this order. Defaults to
 #' 'country.new', 'stateProvince.new' and 'municipality.new'.
-#' @param loc.names an optional vector of columns names containing the locality
+#' @param loc.names an vector of columns names containing the locality
 #'   (original and alternative) and the resolution of the locality information.
 #'   Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.
 #'
@@ -21,12 +22,12 @@
 #'   nested format decreases the chances of retrieving information from
 #'   localities with the same names in different regions. The standard gazetteer
 #'   provided with __plantR__ uses this standard locality string to make queries
-#'   (see __plantR__ function `getLoc` for details).
+#'   (see function `getLoc()` for details).
 #'
 #' The input data frame should preferably be the output of the __plantR__
-#' function `fixLoc`, as part of the validation workflow used by __plantR__.
+#' function `fixLoc()`, as part of the validation workflow used by __plantR__.
 #' This function returns the edited locality fields (the function defaults) and,
-#' if chosen, an extra locality field. In this case, `strLoc` also returns an
+#' if chosen, an extra locality field. In this case, `strLoc()` also returns an
 #' alternative string ('loc.string2').
 #'
 #' If used separately, users should provide a data frame with an specific set of
@@ -37,6 +38,9 @@
 #' @author Renato A. F. de Lima
 #'
 #' @export strLoc
+#'
+#' @seealso \link[plantR]{fixLoc} and \link[plantR]{getLoc}.
+
 #'
 #' @examples
 #'
@@ -78,7 +82,8 @@ strLoc <- function(x, adm.names = c("country.new", "stateProvince.new", "municip
 
   ## putting the input data in the right order
   all.cols <- c(adm.names, loc.names)
-  x1 <- x[which(colnames(x) %in% all.cols)]
+  sel.cols <- all.cols[all.cols %in% colnames(x)]
+  x1 <- x[match(sel.cols, colnames(x))]
 
   ## Defining a unique code for each county, state/province or county/commune ##
   loc <- rep(NA, dim(x1)[1])
@@ -90,7 +95,7 @@ strLoc <- function(x, adm.names = c("country.new", "stateProvince.new", "municip
       x1[3][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
       sep="_")
   # state-level
-  loc[is.na(loc)&!is.na(x1[1])&!is.na(x1[2])] <-
+  loc[is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])] <-
     paste(
       x1[1][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],
       x1[2][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],

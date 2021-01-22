@@ -12,12 +12,10 @@
 #'   herbarium specimens
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should duplicates be removed? Default to FALSE.
-#' @param ... Parameters from mergeDup
+#' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inheritParams prepDup
-#' @inheritParams getDup
-#' @inheritParams mergeDup
-#' @inheritParams rmDup
+#' @inheritParams prepDup noYear noName noNumb comb.fields ignore.miss ignore.na
+#' @inheritParams mergeDup prop info2merge tax.names tax.level
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,
@@ -39,7 +37,8 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
     stop("input object needs to be a data frame!")
 
   # prepDup
-  dups <- prepDup(occ.df, noYear, noName, noNumb, comb.fields, ignore.miss, ignore.na)
+  # dups <- prepDup(occ.df, noYear, noName, noNumb, comb.fields, ignore.miss, ignore.na)
+  dups <- prepDup(occ.df, ...)
 
   # getDup
   dups <- getDup(dups)
@@ -56,7 +55,7 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
     antes <- dim(occ.df)[1]
     occ.df <- rmDup(occ.df)
     depois <- dim(occ.df)[1]
-    cat(antes - depois,"duplicated records were from the data.")
+    cat(antes - depois, "duplicated records were from the data.")
   }
 
   return(occ.df)

@@ -1,7 +1,7 @@
 #' @title Prepare For Duplicate Specimen Search
 #'
-#' @description This function creates the duplicate search strings which are 
-#'  created by combining information on the taxonomy, collection and locality 
+#' @description This function creates the duplicate search strings which are
+#'  created by combining information on the taxonomy, collection and locality
 #'  of the records.
 #'
 #' @param x a data frame with the species records.
@@ -176,7 +176,7 @@ prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
   #Collector last name
   nome <- x1[,which(grepl("last.name", names(x1)))]
   nome[!is.na(nome) & nchar(nome) < 2] <-
-    x1[,tail(which(grepl("recordedBy", names(x1))),1)][!is.na(nome) & nchar(nome) < 2]
+    x1[, my.tail(which(grepl("recordedBy", names(x1))))][!is.na(nome) & nchar(nome) < 2]
   nome[is.na(nome) | nome %in% ""] <- noName
   x1$nome <- nome
 

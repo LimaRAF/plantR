@@ -35,7 +35,7 @@
 #'   Standardisation in data-entry across databases: Avoiding Babylonian
 #'   confusion. Taxon 57(2): 343-345.
 #'
-#' @export tdwgName
+#' @export
 #'
 #' @examples
 #'   # Simple name
@@ -123,7 +123,7 @@ tdwgName <- function(x) {
   cp <- c("Filho", "Filho,", "Neto", "Neto,", "Jr.", "Jr.,", "Junior", "Junior,", "Sobrinho", "Sobrinho,") #compound names
   if (any(names %in% cp)) {
 
-    lastname <- tail(names[!names %in% cp], 1)
+    lastname <- my.tail(names[!names %in% cp])
     cp.nome <-  paste(names[names %in% cp], collapse = " ") # collapse if there are two gen. suffixes
     other.names <- names[!names %in% cp & !names %in% lastname]
 

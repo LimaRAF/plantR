@@ -53,6 +53,7 @@ country,NA,NA,NA,^syrian arab republic,syria
 country,NA,NA,NA,^the netherlands$,netherlands
 country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
 country,NA,NA,NA,^united republic tanzania,tanzania
+country,NA,NA,NA,venezuela (bolivarian republic of),venezuela
 country,NA,Acre,not_is.na,NA,brazil
 country,NA,Alagoas,not_is.na,NA,brazil
 country,NA,Amapá,not_is.na,NA,brazil
@@ -165,7 +166,7 @@ county,NA,NA,NA,^vila .b.s. trindade|^vila bela s. trindade|^vila bela santis. t
 county,NA,NA,NA,^sjrpreto$,sao jose rio preto
 locality1,NA,NA,NA,^mun. |^mun.: |^mpio. |^mpio: |^mpio.: ,municipio de 
 locality1,NA,NA,NA, mun. | mun.: | mpio. | mpio: | mpio.: , municipio de 
-locality1,NA,NA,NA,^mun.|^mun.:|^mpio |^mpio.|^mpio:|^mpio.:,municipio
+locality1,NA,NA,NA,^mun.|^mun.:|^mpio |^mpio.|^mpio:|^mpio.:,municipio de
 locality1,NA,NA,NA,mun. |mpio |mpio. |municipio de :,municipio de 
 locality1,NA,NA,NA,mun.:|mpio:|mpio.:,municipio de
 locality1,NA,NA,NA,(mun. ,(municipio de 

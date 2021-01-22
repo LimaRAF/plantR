@@ -1,4 +1,4 @@
-#' @title Isolate Name's Prepositions
+#' @title Isolate Family Name Prepositions
 #'
 #' @description This function isolate and remove (optional) last name prepositions
 #'   (i.e. 'da' in 'da Silva') from multiple people's names, if present.
@@ -32,7 +32,7 @@
 #'   format is prioritized over the 'First name(s) Last name' format while
 #'   separating last from first names. In addition, only the prepositions in the
 #'   last name are isolated and can be returned. Prepositions in middle names
-#'   are excluded.
+#'   are silently excluded.
 #'
 #'   Names can be provided as vectors of names or as a two-column matrix/data
 #'   frame in which the last names are provided in the first column and other
@@ -68,6 +68,10 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
 
   if (!class(x) %in% c("character", "data.frame", "matrix")) {
     stop("Input must be a vector, matrix or a data frame")
+  }
+
+  if (!format %in% c("last_init", "last_init_prep", "prep_last_init", "init_last")) {
+    stop("Please provide one of the following formats: last_init, last_init_prep, prep_last_init, init_last")
   }
 
   if (class(x) == "character") {
@@ -112,8 +116,13 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
                             perl = TRUE, ignore.case = TRUE)
   }
 
-  # Some minor fixes
+  # Some minor edits
   split[,2][is.na(split[,2])] <- ""
+
+  patt.rm <- paste0(paste0(" ", preps, " "), collapse = "|")
+  split[,2] <- gsub(patt.rm, " ", split[,2],
+                    perl = TRUE, ignore.case = TRUE)
+
   split[,3] <- tolower(split[,3])
   colnames(split) <- c("last.name", "first.names", "prep")
 
@@ -140,7 +149,6 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
       return(split)
     }
 
-
     if (output == "vector") {
       if (format == "last_init_prep")
         result <- paste(paste(split[,1], split[,2], sep = ", "), split[,3],
@@ -159,10 +167,10 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
     }
   }
 
- # Final edits
- result <- stringr::str_trim(result)
- result <- gsub(",$", "", result, perl = TRUE)
- result <- gsub("\\s\\s+", " ", result)
+  # Final edits
+  result <- stringr::str_trim(result)
+  result <- gsub(",$", "", result, perl = TRUE)
+  result <- gsub("\\s\\s+", " ", result)
 
- return(result)
+  return(result)
 }

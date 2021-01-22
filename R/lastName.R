@@ -6,6 +6,10 @@
 #' @param name the character string or vector containing the names.
 #' @param noName character. The standard notation for missing names in
 #'   \code{name}. Default to "s.n.".
+#' @param invert logical. Should first name(s) be returned instead of the
+#' last name? Default to FALSE.
+#' @param initials logical. If first name(s) are chosen, should they be returned
+#' in full or only their initials? Default to FALSE.
 #'
 #' @return the last name provided in \code{name} with the first letter
 #'   capitalized.
@@ -15,14 +19,20 @@
 #'   relatively stable to the format and spacing of the string provided, but it
 #'   may not work in all cases.
 #'
-#'   It implicitly assumes that last names are the ones at the end of the name or
-#'   the first name preceeding the comma.
+#'   It implicitly assumes that last names are (i) the ones provided at the end of
+#'   the name string if there is no comma, or (ii)the first name preceeding the comma,
+#'   if there is a comma in the name string.
 #'
 #'   If only one name is given, the function returns the same name with the first
 #'   letter capitalized.
 #'
 #'   For missing names (i.e. "", " " or NAs) the function returns the character
-#'   defined by the argument `noName`
+#'   defined by the argument `noName`.
+#'
+#'   The function can also return all names but the last name detected by
+#'   setting the argument `invert` to TRUE. In this case, user can chose between
+#'   full first names and only their initials by setting the argument `initials`
+#'   to TRUE.
 #'
 #' @author
 #'   Renato A. F. de Lima & Hans ter Steege
@@ -56,6 +66,8 @@
 #'  names <- c("Gentry, AH", "Gentry A.H.",
 #'  "Leitao filho, H. F.","Saint-Hilaire, augustin")
 #'  lastName(names)
+#'  lastName(names, invert = TRUE)
+#'  lastName(names, invert = TRUE, initials = TRUE)
 #'
 #'  # Unusual formatting
 #'  lastName("Cesar Sandro, Esteves, F")
@@ -65,72 +77,130 @@
 #'  # two or more names, not separated by comma: output incorrect (give names of authors)
 #'  lastName("Karl Emrich & Balduino Rambo")
 #'
-lastName <- function(name, noName = "s.n.") {
+#'  # Some problematic (unresolved) examples
+#'  lastName("Gentry AH")
+#'  lastName("Maria Da Silva", invert = TRUE, initials = TRUE)
+#'
+lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
 
   # detecting missing names
   miss.name <- name %in% c("NA", NA, "", " ", noName)
 
-  # first edits:
+  # preliminary edits:
   name <- gsub("[.]", ". ", name, perl = TRUE) # adding a space between points
   name <- gsub("  ", " ", name, fixed = TRUE) # removing double spaces
+  name <- gsub(" $", "", name, perl = TRUE) # removing double spaces
 
-  # spliting the names
-  names <- strsplit(name[!miss.name], " ", fixed = TRUE)
-
-  no.first <- lengths(names) < 2
-  comma <- grepl("[a-z;A-Z],", name[!miss.name], perl = TRUE)
-  last.name <- names
-
-  # identifying names with last name coming first and separated by a comma
-  if (any(comma))
-    last.name[comma] <- lapply(last.name[comma],
-                               function(x) x[grepl(",", x, fixed = TRUE)][1])
-
+  # Defining the general name formats (single, mult. with comma, mult. without comma)
+  comma <- grepl("[a-z;A-Z;à-ý;À-Ý],", name[!miss.name], perl = TRUE)
+  no.first <- !grepl(" ", name[!miss.name], perl = TRUE)
   outros <- !no.first & !comma
+
+  # identifying names with last name at the start and separated by a comma
+  last.name <- name
+  if (any(comma))
+    last.name[comma] <- gsub(",.*", "", last.name[comma], perl = TRUE)
+
   if (any(outros))
-    last.name[outros] <- lapply(last.name[outros],
-                                function(x) x[length(x)])
+    last.name[outros] <- gsub(".*\\s", "", last.name[outros], perl = TRUE)
 
   # Detecting possible problems with abbreviated initials at the end of the name
-  probs <- grepl("^[a-z;A-Z]\\.$", last.name)
+  probs <- grepl("^[a-z;A-Z;à-ý;À-Ý]\\.$", last.name)
   if (any(probs))
-    last.name[probs] <- sapply(names[probs],
-                               function(x) x[which.max(nchar(x))])
+    last.name[probs] <- gsub(" [a-z;A-Z;à-ý;À-Ý]\\..*", "", name[probs], perl = TRUE)
 
   # identifying names with generational suffixes
   cp.nome <- rep("", length(last.name))
-
-  # CHECK: Add suffixs: II, fils, Sr.
-  # Re-check encoding problems related to cp equals to 'Junior' and 'Junior,' com acento agudos no u
-  cp <- c("Filho", "Filho,", "Neto", "Neto,", "Jr.", "Jr.,", "Junior", "Junior,", "Sobrinho", "Sobrinho,") #compound names
+  cp <- c("Filho", "Neto", "Jr.", "Junior", "Sobrinho") #compound names
   cp <- c(cp, tolower(cp))
   gen.suf <- last.name %in% cp
+
   if (any(gen.suf)) {
 
-    cp.nome[gen.suf] <- unlist(last.name[gen.suf])
-    #slowest part of the code:
-    last.name[gen.suf] <- lapply(names[gen.suf],
-                                 function(x) x[!x %in% cp & !grepl("^[A-Z].$", x, perl = TRUE)])
-    last.name[gen.suf] <-
-      mapply(`[`, last.name[gen.suf], lengths(last.name[gen.suf]))
+    cp.nome[gen.suf] <- last.name[gen.suf]
 
-    double.cp <- sapply(last.name[gen.suf], identical, character(0))
-    last.name[gen.suf][double.cp] <- ""
-    cp.nome[gen.suf][double.cp] <- unlist(lapply(names[gen.suf][double.cp],
-                                                 function(x) paste(x[!grepl("^[A-Z].$", x, perl = TRUE)], collapse = " ")))
+    #Removing initials
     last.name[gen.suf] <-
-      paste(last.name[gen.suf], cp.nome[gen.suf], sep = " ")
+      gsub("\\s[A-Zà-ýÀ-Ý]\\.", "", name[gen.suf], perl = TRUE)
+    last.name[gen.suf] <-
+      gsub("[A-Zà-ýÀ-Ý]\\.\\s", "", last.name[gen.suf], perl = TRUE)
+    last.name[gen.suf] <- gsub(",$", "", last.name[gen.suf], perl = TRUE)
+
+    #Removing generational suffixes
+    last.name[gen.suf] <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                                 cp.nome[gen.suf], last.name[gen.suf])
+    last.name[gen.suf] <- gsub(" $", "", last.name[gen.suf], perl = TRUE)
+    last.name[gen.suf] <- gsub(".*\\s", "", last.name[gen.suf], perl = TRUE)
+
+    # Creating the compound last name, if not empty
+    double.cp <- last.name[gen.suf] %in% ""
+    last.name[gen.suf][!double.cp] <-
+      paste(last.name[gen.suf][!double.cp], cp.nome[gen.suf][!double.cp], sep = " ")
+    last.name[gen.suf][double.cp] <-
+      cp.nome[gen.suf][double.cp]
+
   }
 
-  # Removing the point at the end of the string
-  last.name <-
-    stringr::str_trim(gsub("\\.$|,$", "", last.name, perl = TRUE))
+  if (invert) {
+    # Keeping all but the last name
+    #mapply approach benchmarked as the fastest option
+    other.names <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                          last.name, name[!miss.name])
 
-  # Capitalizing the first letter and saving
-  last.name <- capName(last.name)
-  #last.name <- stringr::str_to_title(last.name)
-  name[!miss.name] <- last.name
-  name[miss.name] <- noName
+    #Fixing other names
+    other.names <- stringr::str_trim(other.names)
+    other.names <- gsub(", ", "", other.names, fixed = TRUE)
+
+    #Detecting possible multiple names and removing them
+    seps = c(";|&|\\|| e | y | and | und | et ")
+    mult.names <- grepl(seps, other.names, perl = TRUE)
+    if (any(mult.names))
+      other.names[mult.names] <-
+        gsub(";.*|&.*|\\|.*| e .*| y .*| and .*| und .*| et .*", "",
+             other.names[mult.names], perl = TRUE)
+
+    if (initials) {
+
+      #Detecting the possible types of first name: full or abbreviated
+      inits <- grepl('[A-ZÀ-Ý]', other.names, perl = TRUE)
+      abrev.inits <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+|([a-zA-Zà-ýÀ-Ý]\\.)\\s([a-zA-Zà-ýÀ-Ý]\\.)+',
+                           other.names, perl = TRUE)
+      combo <- inits | abrev.inits
+      inits[abrev.inits] <- FALSE
+
+      #Extracting the initials for each type of first name
+      if (any(inits))
+        other.names[inits] <- gsub("[^A-ZÀ-Ý]+", "", other.names[inits], perl = TRUE)
+
+      if (any(abrev.inits)) {
+        other.names[abrev.inits] <-
+          gsub("[^a-zà-ýA-ZÀ-Ý]+", "", other.names[abrev.inits], perl = TRUE)
+        other.names[abrev.inits] <-
+          toupper(gsub("(?<=[A-ZÀ-Ý])[a-zà-ý].*", "", other.names[abrev.inits], perl = TRUE))
+      }
+
+      if (any(!combo))
+        other.names[!combo] <- toupper(substr(other.names[!combo], 1, 1))
+
+      #Preparing the initials
+      other.names <- gsub("([A-ZÀ-Ý])", "\\1.", other.names, perl = TRUE)
+
+    }
+
+    # Saving
+    name[!miss.name] <- other.names
+
+  } else {
+
+    # Capitalizing the first letter of the last name
+    last.name <- capName(last.name)
+
+    # Saving
+    name[!miss.name] <- last.name
+  }
+
+  if (any(miss.name))
+    name[miss.name] <- noName
 
   return(name)
 }

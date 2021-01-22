@@ -1,6 +1,6 @@
 #' @title Create Species Checklist
 #'
-#' @description This function creates a checklist of the species contained
+#' @description This function creates a check-list of the species contained
 #' in the occurrence data, including a list of voucher specimens.
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
@@ -17,11 +17,11 @@
 #'   to organizeorder and filter the voucher list. Default to 5.
 #' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
 #'
-#' @details The checklist can be organized in alphabetic order by taxa or in
+#' @details The check-list can be organized in alphabetic order by taxa or in
 #'   alphabetic order by family and then by taxa within families (the
 #'   default).
 #'
-#'   By default, the checklist provides the number of records found and the
+#'   By default, the check-list provides the number of records found and the
 #'   overall taxonomic and geographic confidence level of the records (columns
 #'   'tax.CL' and 'geo.CL'), if available. The taxonomic confidence level is the
 #'   percentage of records with the identification flagged as 'high', while the
@@ -42,9 +42,15 @@
 #'   \item 'list': Collector name, Collector number(s) (species code)
 #'   }
 #'
-#'   Note: although we provide a `date.format` argument, checks of other date
+#'   Note 1: although we provide a `date.format` argument, checks of other date
 #'   formats other then the default are pending and so they may not work
 #'   properly.
+#'
+#'   Note 2: The columns names of the input data are expected to be in the
+#'   DarwinCore format or in the standard output names of the __plantR__ workflow.
+#'   Currently, there is no argument to make the equivalency to different column
+#'   names, so users need to convert their data into one of these two options. See
+#'   function `formatDwc()` for more details.
 #'
 #' @examples
 #' (df <- data.frame(collectionCode = c("CRI","CRI","CRI","CRI"),
@@ -61,16 +67,16 @@
 #' "santa catarina","santa catarina"),
 #' municipality = c("jaguaruna","orleans","icara",NA)))
 #'
-#' checklist(df, rm.dup = FALSE)
-#' checklist(df, rm.dup = FALSE, type = "selected")
+#' checkList(df, rm.dup = FALSE)
+#' checkList(df, rm.dup = FALSE, type = "selected")
 #'
 #'
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
 #'
-#' @export checklist
+#' @export checkList
 #'
-checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
+checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                       rm.dup = TRUE, rank.type = 5, date.format = "%d %b %Y") {
 
   # check input
@@ -100,13 +106,14 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                taxonomy = c("tax.check1", "tax.check"))
 
   #Get only the columns of interest
-  covs.present <- lapply(covs, function(z) head(z[which(z %in% names(x))], 1))
+  covs.present <- lapply(covs, function(z) z[which(z %in% names(x))][1])
   covs.present[sapply(covs.present, identical, character(0))] <- NA
   if (all(sapply(covs.present, nchar)==0))
     stop("The input data frame does not contain at least one of the required columns")
 
   # Getting the input columns to be used for filtering
-  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name", "numTombo","temp.accession", "month", "day")
+  other.cols <- c("dup.ID", "dup.prop","typeStatus", "scientific.name",
+                  "numTombo", "temp.accession", "month", "day")
   covs.final <- c(unlist(covs.present), other.cols)
 
   # Should the duplicates be removed?
@@ -224,19 +231,20 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
 
   if (!is.na(covs.present[["collectors"]])) {
     data.table::setkeyv(dt, c(covs.present[["collectors"]]))
-    vec <- c("s.n.", "Anonymous", "Unknown, C.", "Unknown")
-    if (dim(dt[vec, nomatch = NULL])[1] > 0) {
-      dt[ vec, priority := priority - 3, nomatch = NULL]
+    if (dim(dt["s.n.", nomatch = NULL])[1] > 0) {
+      suppressWarnings(
+        dt[c("s.n."), priority := priority - 3, nomatch = NULL])
     }
-    temp <- data.frame(dt[, lapply(.SD, nchar), by = .SD, .SDcols = c(covs.present[["collectors"]])])
-    dt[ temp[,1] < 3, priority := priority - 3]
+    temp <- data.frame(dt[, lapply(.SD, nchar),
+                          by = c(covs.present[["collectors"]]), .SDcols = c(covs.present[["collectors"]])])
+    dt[ temp[,2] < 4, priority := priority - 3]
   }
 
   if (!is.na(covs.present[["recordNumber"]])) {
     data.table::setkeyv(dt, c(covs.present[["recordNumber"]]))
     data.table::setnames(dt, covs.present[["recordNumber"]], "temp.rec.numb")
-    if (dim(dt[grepl("\\d", temp.rec.numb), ])[1] > 0) {
-      dt[!grepl("\\d", temp.rec.numb), priority := priority - 2]
+    if (dim(dt[grepl("\\d", temp.rec.numb, perl = TRUE), ])[1] > 0) {
+      dt[!grepl("\\d", temp.rec.numb, perl = TRUE), priority := priority - 2]
     }
     data.table::setnames(dt, "temp.rec.numb", covs.present[["recordNumber"]])
   }
@@ -358,7 +366,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     #getting more up-to-date collectionCode, if available
     if ("numTombo" %in% names(x)) {
       dt1[, temp.accession := toupper(gsub("_", " ", numTombo, perl = TRUE))]
-      dt1[, temp.accession := lapply(strsplit(temp.accession, " "), head, 1)]
+      dt1[, temp.accession := lapply(strsplit(temp.accession, " "), my.head)]
     }
 
     #collectionCode
@@ -367,10 +375,10 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
            .SDcols = c(covs.present[["collections"]])]
 
     #correcting accessions numbers for duplicates across herbaria
-    if (dim(dt1[!is.na(dup.ID)])[1] > 0) {
+    if ("dup.ID" %in% names(dt1)) {
       getDupIDs1 <- function(id) {
         id <- toupper(gsub("_", " ", id, perl = TRUE))
-        id <- sapply(lapply(strsplit(id, "\\|"), strsplit, " ")[[1]], head, 1)
+        id <- sapply(lapply(strsplit(id, "\\|"), strsplit, " ")[[1]], my.head)
         id <- paste0(unique(id), collapse = ", ")
         return(id)
       }
@@ -393,7 +401,7 @@ checklist <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
         any(!sapply(covs.present[c("countries","state","county")], is.na))) {
       loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]
       loc.df <- fixLoc(data.frame(loc.df), scrap = FALSE,
-             admin.levels = c("country", "stateProvince", "municipality"))
+             loc.levels = c("country", "stateProvince", "municipality"))
       loc.df <- strLoc(loc.df)
       loc.df$loc.string  <- prepLoc(loc.df$loc.string)
       loc.df <- getLoc(loc.df)

@@ -30,7 +30,7 @@ dic <- lapply(dic_files,
               read_csv,
               guess_max = 30000,#this has to be large
               locale = locale(encoding = encoding)
-              )
+)
 
 names(dic) <- data_names
 lapply(dic, nrow)
@@ -154,7 +154,7 @@ missLocs <- c("^\\?$",
               "^no disponible$",
               "^not available$",
               "^loc\\.ign$",
-              "local ignorado")
+              "local ignorado",)
 
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",
@@ -165,15 +165,126 @@ wordsForSearch <- c("^prov\\. ",
                     "^dpto\\.",
                     "^depto\\.",
                     "^dept.",
-                   "^departamento ",
-                   "^departamento de ",
-                   "^departamento del ",# I would add this it probably shows up
-                   "^provincia de ",
-                   "^provincia del ",
-                   "^província de ",
-                   "^estado do ",
-                   "^estado de ")
+                    "^departamento de ",
+                    "^departamento del ",
+                    "^departament of ",
+                    "^departamiento de ",
+                    "^departemento del ",
+                    "^departamento ",
+                    "^provincia de ",
+                    "^provincia del ",
+                    "^província de ",
+                    "^província: ",
+                    "^província ",
+                    "^province of ",
+                    "^estado do ",
+                    "^estado de ",
+                    "^estado: ",
+                    "^estado ")
 
+unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
+                   'Ç', 'È', 'É', 'Ê', 'Ë',
+                   'Ì', 'Í', 'Î', 'Ï',
+                   'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
+                   'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',
+                   'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',
+                   'ç', 'è', 'é', 'ê', 'ë',
+                   'ì', 'í', 'î', 'ï',
+                   'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø',
+                   'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
+                   'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
+                   'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
+
+unwantedEncoding <- c('ã¡'='a',
+                      'ã¢'='a',
+                      'ã£'='a',
+                      '&#225;'='a',
+                      'ã§'='c',
+                      'ã©'='e',
+                      'ãª'='e',
+                      'ã´'='o',
+                      'ã\u008d'='i',
+                      'ãº'='u')
+
+cultivated <- c("cultivated",
+                "cultivada",
+                "cultivado",
+                "cultivato",
+                "cultivad",
+                "under cultivation",
+                "plantada",
+                "plantado",
+                "planted",
+                "plantio",
+                "arboreto",
+                "arboretum",
+                "exotic",
+                "exótica",
+                "canteiro",
+                "pomar",
+                "área de visitação",
+                "cult\\.",
+                "cant\\. [a-z]",
+                "cant [A-Z]",
+                "cant\\. [0-9]",
+                "cant \\. [0-9]",
+                "cant [0-9]",
+                "\\(cult\\)",
+                "\\(cult\\ )",
+                "in cultivo",
+                "in cultis",
+                " quadra [a-z]",
+                "quadra [a-z] do",
+                "naturalised",
+                "em experimento de")
+
+notCultivated <- c("nativa",
+                   "espontânea",
+                   "pastagem cultivada",
+                   "área do arboreto",
+                   "presença de exóticas",
+                   " área cultivada",
+                   " área cultivada",
+                   " cultivated area")
+
+missColls <- c("s/col.",
+               "s/col",
+               "s/c",
+               "s/coletor",
+               "s.coletor",
+               " sem col.",
+               "s.col.",
+               "s.c.",
+               "s.n.",
+               "sem informação",
+               "sem informacao",
+               "collector unspecified",
+               "collector unknown",
+               "unknown",
+               "disponible, n.",
+               "disponivel, n.",
+               "available, n.",
+               "sin",
+               "?")
+
+missDets <- c("s/det.",
+              "s/det",
+              "s/d",
+              "s/determinador",
+              "s.determinador",
+              " sem det.",
+              "s.det.",
+              "s.n.",
+              "sem informação",
+              "sem informacao",
+              "determiner unspecified",
+              "determiner unknown",
+              "unknown",
+              "disponible, n.",
+              "disponivel, n.",
+              "available, n.",
+              "sin",
+              "?")
 
 # só checando como estao os arquivos
 # head(taxonomists)
@@ -222,7 +333,7 @@ dic <- purrr::map2(.x = dic_files,
                    ~read_csv(file = .x,
                              guess_max = 30000,#this has to be large
                              locale = locale(encoding = .y)
-))
+                   ))
 encoding <- "UTF-8"
 dic <- lapply(dic_files,
               read_csv,
@@ -248,16 +359,22 @@ taxonomists <- dic$taxonomists
 
 # Saving data
 usethis::use_data(
-                  admin,
-                  collectionCodes,
-                  familiesSynonyms,
-                  fieldNames,
-                  gazetteer,
-                  replaceNames,
-                  taxonomists,
-                  missLocs,
-                  wordsForSearch,
-                  overwrite = TRUE,
-                  internal = TRUE,
-                  compress = "xz")
+  admin,
+  collectionCodes,
+  familiesSynonyms,
+  fieldNames,
+  gazetteer,
+  replaceNames,
+  taxonomists,
+  missLocs,
+  wordsForSearch,
+  unwantedLatin,
+  unwantedEncoding,
+  cultivated,
+  notCultivated,
+  missColls,
+  missDets,
+  overwrite = TRUE,
+  internal = TRUE,
+  compress = "xz")
 
