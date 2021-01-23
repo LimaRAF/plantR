@@ -20,18 +20,18 @@ obtained. Default to 'resolution.gazetteer'.}
 }
 \value{
 the data frame \code{x} with a new column 'loc.check' with the result
-  of the locality validation.
+of the locality validation.
 }
 \description{
 Compares the resolution of the locality information provided in
-  the original record with the resolution retrieved from the gazetteer.
+the original record with the resolution retrieved from the gazetteer.
 }
 \details{
 The function simply compares if the original information provided
 with each specimen is found in the locality gazetteer and at which resolution
 (i.e. country, state, municipality). This comparison is strongly dependent on
 the completeness of the gazetteer used. Please remind that the gazetteer
-provided with __plantR__ is strongly biased towards Latin America, particularly
+provided with \strong{plantR} is strongly biased towards Latin America, particularly
 Brazil.
 
 The records whose locality was not found in the gazetteer at the same
@@ -44,7 +44,7 @@ as "no_info". Specimens retaining their resolution are flagged with a
 resolution at the ' 'stateProvince' level is now at the 'municipality' level).
 
 The records flagged with the class "check_local.2municip." should not be seen as
-problematic, since the __plantR__ gazetteer contain a list of county names
+problematic, since the \strong{plantR} gazetteer contain a list of county names
 that is much more comprehensive than the list of locality names.
 }
 \examples{

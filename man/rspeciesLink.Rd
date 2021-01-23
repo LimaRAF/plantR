@@ -25,47 +25,66 @@ rspeciesLink(
 )
 }
 \arguments{
-\item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
+\item{dir}{Path to directory where the file will be saved. Default is to
+create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
 \item{save}{Logical. Save output to filename? Defaults to TRUE}
 
-\item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
-'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search}
+\item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
+'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
+'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
+search}
 
-\item{species}{Genus and epithet separated by space. More than one should be concatenated in a vector}
+\item{species}{Genus and epithet separated by space. More than one should be
+concatenated in a vector}
 
-\item{collectionCode}{Any collection available at speciesLink. Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names}
+\item{collectionCode}{Any collection available at speciesLink. Example: ALCB,
+E, INPA, MOBOT_BR.  Accepts a vector of names}
 
-\item{country}{Any country name. No ASCII characters allowed. Accepts a vector of names}
+\item{country}{Any country name. No ASCII characters allowed. Accepts a
+vector of names}
 
-\item{stateProvince}{Any state or province. No ASCII characters allowed. Accepts a vector of names}
+\item{stateProvince}{Any state or province. No ASCII characters allowed.
+Accepts a vector of names}
 
-\item{county}{Any municipality name. No ASCII characters allowed. Accepts a vector of names}
+\item{county}{Any municipality name. No ASCII characters allowed. Accepts a
+vector of names}
 
-\item{Coordinates}{Specify if records should have coordinates. Default is "no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked" or "no check"}
+\item{Coordinates}{Specify if records should have coordinates. Default is
+"no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked"
+or "no check"}
 
-\item{CoordinatesQuality}{Any character in "Good" or "Bad" to select specific type of coordinates}
+\item{CoordinatesQuality}{Any character in "Good" or "Bad" to select specific
+type of coordinates}
 
-\item{Scope}{Group to be required. If NULL searches all groups. Any in "plants", "animals", "microrganisms" or "fossils"}
+\item{Scope}{Group to be required. If NULL searches all groups. Any in
+"plants", "animals", "microrganisms" or "fossils"}
 
-\item{Synonyms}{If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms".}
+\item{Synonyms}{If species names should be checked for synonyms in a specific
+dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
+"flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase"
+for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date,
+"Moure" for Catálogo de Abelhas Moure or "no synonyms".}
 
 \item{Typus}{Logic. If TRUE select only typus}
 
-\item{Images}{If select only records with images. Default is NULL. It accepts: "Yes", "Live", "Polen", "Wood"}
+\item{Images}{If select only records with images. Default is NULL.
+It accepts: "Yes", "Live", "Polen", "Wood"}
 
 \item{RedList}{Logic. If TRUE only species in the IUCN Red List are returned}
 
 \item{MaxRecords}{Numeric. Maximum number of records to be required}
 }
 \value{
-A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
+A list of two elements. The first element is a character string
+containing the url search and the second element is a data.frame with the
+search result. It also saves the output on disk
 }
 \description{
-This function access version beta 0.1 of speciesLink API (https://api.splink.org.br/) and returns
-occurrence data of species.
+This function access version beta 0.1 of speciesLink API
+(https://api.splink.org.br/) and returns occurrence data of species.
 }
 \examples{
 \dontrun{

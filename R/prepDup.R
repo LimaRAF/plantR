@@ -41,7 +41,7 @@ prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
                                        c("family","col.year","col.number","municipality"),
                                        c("species","col.last.name","col.number","col.year"),
                                        c("col.year","col.last.name","col.number","municipality")),
-                    ignore.miss = TRUE, ignore.na = TRUE, ...) {
+                    ignore.miss = TRUE, ignore.na = TRUE) {
 
   ##Removing unwanted columns
   #List of colum names

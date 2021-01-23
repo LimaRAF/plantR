@@ -14,8 +14,7 @@ prepDup(
     "col.number", "col.year"), c("col.year", "col.last.name", "col.number",
     "municipality")),
   ignore.miss = TRUE,
-  ignore.na = TRUE,
-  ...
+  ignore.na = TRUE
 )
 }
 \arguments{
@@ -43,9 +42,9 @@ missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
 Default to TRUE.}
 }
 \description{
-This function creates the duplicate search strings which are 
- created by combining information on the taxonomy, collection and locality 
- of the records.
+This function creates the duplicate search strings which are
+created by combining information on the taxonomy, collection and locality
+of the records.
 }
 \details{
 The input data frame \code{x} must contain at least the columns ...

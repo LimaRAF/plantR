@@ -53,5 +53,3 @@ checkBorders <- function(x,
             "check_borders", "check_inverted")
   occs1 <- left_join(x, check_country)
 }
-
-

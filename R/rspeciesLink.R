@@ -1,27 +1,46 @@
 #' Gets occurrence data from speciesLink
 #'
-#' This function access version beta 0.1 of speciesLink API (https://api.splink.org.br/) and returns
-#' occurrence data of species.
+#' This function access version beta 0.1 of speciesLink API
+#' (https://api.splink.org.br/) and returns occurrence data of species.
 #'
-#' @param dir Path to directory where the file will be saved. Default is to create a "results/" directory
+#' @param dir Path to directory where the file will be saved. Default is to
+#' create a "results/" directory
 #' @param filename Name of the output file
 #' @param save Logical. Save output to filename? Defaults to TRUE
-#' @param basisOfRecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen', 'FossilSpecimen',
-#' 'HumanObservation', 'MachineObservation' or 'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium search
-#' @param species Genus and epithet separated by space. More than one should be concatenated in a vector
-#' @param collectionCode Any collection available at speciesLink. Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names
-#' @param country Any country name. No ASCII characters allowed. Accepts a vector of names
-#' @param county Any municipality name. No ASCII characters allowed. Accepts a vector of names
-#' @param stateProvince Any state or province. No ASCII characters allowed. Accepts a vector of names
-#' @param Coordinates Specify if records should have coordinates. Default is "no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked" or "no check"
-#' @param CoordinatesQuality Any character in "Good" or "Bad" to select specific type of coordinates
-#' @param Scope Group to be required. If NULL searches all groups. Any in "plants", "animals", "microrganisms" or "fossils"
-#' @param Synonyms If species names should be checked for synonyms in a specific dictionary. Set to "species2000" for search in Catálogo da Vida species2000, "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for Catálogo de Abelhas Moure or "no synonyms".
+#' @param basisOfRecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
+#'  'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
+#'  'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
+#'  search
+#' @param species Genus and epithet separated by space. More than one should be
+#' concatenated in a vector
+#' @param collectionCode Any collection available at speciesLink. Example: ALCB,
+#'  E, INPA, MOBOT_BR.  Accepts a vector of names
+#' @param country Any country name. No ASCII characters allowed. Accepts a
+#' vector of names
+#' @param county Any municipality name. No ASCII characters allowed. Accepts a
+#' vector of names
+#' @param stateProvince Any state or province. No ASCII characters allowed.
+#' Accepts a vector of names
+#' @param Coordinates Specify if records should have coordinates. Default is
+#' "no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked"
+#'  or "no check"
+#' @param CoordinatesQuality Any character in "Good" or "Bad" to select specific
+#'  type of coordinates
+#' @param Scope Group to be required. If NULL searches all groups. Any in
+#' "plants", "animals", "microrganisms" or "fossils"
+#' @param Synonyms If species names should be checked for synonyms in a specific
+#'  dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
+#'   "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase"
+#'   for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date,
+#'   "Moure" for Catálogo de Abelhas Moure or "no synonyms".
 #' @param Typus Logic. If TRUE select only typus
-#' @param Images If select only records with images. Default is NULL. It accepts: "Yes", "Live", "Polen", "Wood"
+#' @param Images If select only records with images. Default is NULL.
+#' It accepts: "Yes", "Live", "Polen", "Wood"
 #' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
 #' @param MaxRecords Numeric. Maximum number of records to be required
-#' @return A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
+#' @return A list of two elements. The first element is a character string
+#' containing the url search and the second element is a data.frame with the
+#' search result. It also saves the output on disk
 #' @author Sara Mortara
 #'
 #' @examples

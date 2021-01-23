@@ -1,21 +1,21 @@
 #' @title Create Species Checklist
 #'
 #' @description This function creates a check-list of the species contained
-#' in the occurrence data, including a list of voucher specimens.
+#' in the occurrence data, including a list of voucher specimens
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
 #'   __plantR__ validation functions.
 #' @param fam.order logical. Should taxa be organized in alphabetical order
-#'   of families? Default to TRUE.
+#'   of families? Defaults to TRUE.
 #' @param n.vouch numerical. Maximum number of vouchers to be listed per taxa.
-#'   Default to 30.
+#'   Defaults to 30.
 #' @param type character. The type of voucher list desired. Options are: 'short',
 #' 'selected' and 'list' (see details below).
 #' @param rm.dup logical. Should duplicated specimens be removed prior to the
-#'   calculation of species summaries? Default to TRUE.
+#'   calculation of species summaries? Defaults to TRUE.
 #' @param rank.type numerical. Value of the ranking for type specimens in order
-#'   to organizeorder and filter the voucher list. Default to 5.
-#' @param date.format The desired format for the dates. Default to "\%d \%b \%Y".
+#'   to organize order and filter the voucher list. Defaults to 5.
+#' @param date.format The desired format for the dates. Defaults to "%d %b %Y"
 #'
 #' @details The check-list can be organized in alphabetic order by taxa or in
 #'   alphabetic order by family and then by taxa within families (the
@@ -28,22 +28,21 @@
 #'   geographic confidence level is the percentage of records with coordinates
 #'   flagged as being validated at municipality or locality levels.
 #'
-#'   The function also provide a list of vouchers, giving priority to type
+#'   The function also provides a list of vouchers, giving priority to type
 #'   specimens and records with higher level of confidence in their
 #'   identification. By default, the function provides up to 30 vouchers
 #'   per taxa, but this number can be controlled using the argument `n.vouch`.
 #'
 #'   The voucher list can be provided in the following output formats (the
 #'   option 'list' is not implemented yet):
-#'   \itemize{
-#'   \item 'short': Collector name, Collector number (collections of deposit)
-#'   \item 'selected': COUNTRY, stateProvince: municipality, Date, Collector name,
+#'
+#'   +'short': Collector name, Collector number (collections of deposit)
+#'   + 'selected': COUNTRY, stateProvince: municipality, Date, Collector name,
 #'   Collector number (collections of deposit)
-#'   \item 'list': Collector name, Collector number(s) (species code)
-#'   }
+#'   + 'list': Collector name, Collector number(s) (species code)
 #'
 #'   Note 1: although we provide a `date.format` argument, checks of other date
-#'   formats other then the default are pending and so they may not work
+#'   formats other than the default are pending and so they may not work
 #'   properly.
 #'
 #'   Note 2: The columns names of the input data are expected to be in the

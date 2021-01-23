@@ -8,8 +8,7 @@ prepFamily(
   x,
   fam.name = "family",
   gen.name = "genus",
-  spp.name = "scientificName",
-  ...
+  spp.name = "scientificName"
 )
 }
 \arguments{
@@ -30,25 +29,25 @@ the data frame \code{x} with an additional column called 'family.new'.
 }
 \description{
 Search for valid family names of vascular plants following the
-  APG IV (2016) and in the PPG I (2016).
+APG IV (2016) and in the PPG I (2016).
 }
 \details{
 The data frame \code{x} must contain at least two columns which stores the
 family and spcies names. By default, the names of these columns should be
-`family` and `speciesName`, following Darwin Core field names. Optionally,
+\code{family} and \code{speciesName}, following Darwin Core field names. Optionally,
 a column with the genus name can be provided (default column name: 'genus').
 If it is not provided, this columns is generated internally based on the
 species names provided.
 
 The first search of names is based on the list of families and accepted
-synonyms for vascular plants provided by __plantR__ which was mainly compiled
+synonyms for vascular plants provided by \strong{plantR}, which was mainly compiled
 from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
 which includes families cited in the APG IV (2016) and in the PPG I (2016).
 
 If the family name is not found in this list, a second search is carried in
-the Brazilian Flora 2020 (BF-2020), using package `flora` (Carvalho 2019). If
+the Brazilian Flora 2020 (BF-2020), using package \code{flora} (Carvalho 2019). If
 the family name is still not found in BF-2020, then a final try is performed
-in The Plant List (TPL), using package `Taxonstand` (Cayuela et al. 2017).
+in The Plant List (TPL), using package \code{Taxonstand} (Cayuela et al. 2017).
 Family names retrieved from BF-2020 and TPL are finally converted to the
 names accepted by the APG IV or PPG I.
 

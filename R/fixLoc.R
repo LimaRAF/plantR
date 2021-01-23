@@ -27,7 +27,7 @@
 #'   information from the field 'locality'. It also performs some extra editing
 #'   and cropping of the field 'locality' in order to obtain more standardized
 #'   locality descriptions. This argument uses different ways of splitting and
-#'   cropping the locality descripton in order to find missing information.
+#'   cropping the locality description in order to find missing information.
 #'   Although it does not always result in an accurate extraction of the
 #'   information, it provides an extra tool to organize locality information
 #'   which are not provided in the appropriate columns.
@@ -64,7 +64,7 @@
 #' fixLoc(df, loc.levels = c("country", "stateProvince"))[,-c(1:4)]
 #'
 fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality", "locality"),
-                   scrap = TRUE, ...) {
+                   scrap = TRUE) {
 
   ## checking input:
   if (!class(x) == "data.frame")

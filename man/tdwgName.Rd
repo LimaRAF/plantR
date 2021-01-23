@@ -11,27 +11,27 @@ tdwgName(x)
 }
 \value{
 The character string \code{x} in the TDWG format. If only one name
-  is given, the function returns \code{x} with the first letter capitalized.
+is given, the function returns \code{x} with the first letter capitalized.
 }
 \description{
 Convert a single collector or determiner name into the
-  \href{https://www.tdwg.org/}{Biodiversity Information Standards} (TDWG)
-  format.
+\href{https://www.tdwg.org/}{Biodiversity Information Standards} (TDWG)
+format.
 }
 \details{
 The function puts the name of a person into the format suggested by
-  the \href{https://www.tdwg.org/}{Biodiversity Information Standards}
-  (TDWG). The standard name format is: last name, followed by a comma and
-  then the initials, separated by points (e.g. Hatschbach, G.G.).
+the \href{https://www.tdwg.org/}{Biodiversity Information Standards}
+(TDWG). The standard name format is: last name, followed by a comma and
+then the initials, separated by points (e.g. Hatschbach, G.G.).
 
-  Currently, the function removes name prefixes or prepositions (e.g. de,
-  dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe.)
-  but not all of them (e.g. Doctor, Priest, etc.). The function also does not
-  handle hyphenated first names.
+Currently, the function removes name prefixes or prepositions (e.g. de,
+dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe.)
+but not all of them (e.g. Doctor, Priest, etc.). The function also does not
+handle hyphenated first names.
 
-  The function is relatively stable regarding the input
-  format and spacing, but it may not work in all cases, particularly if the
-  string provided already contains commas.
+The function is relatively stable regarding the input
+format and spacing, but it may not work in all cases, particularly if the
+string provided already contains commas.
 }
 \examples{
   # Simple name
@@ -84,12 +84,12 @@ The function puts the name of a person into the format suggested by
 }
 \references{
 Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
-  Protocols for Interchange of Data. Herbarium Information Systems Committee'
-  (HISCOM). https://www.tdwg.org/standards/hispid3/
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
 
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
-  Standardisation in data-entry across databases: Avoiding Babylonian
-  confusion. Taxon 57(2): 343-345.
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
 }
 \author{
 Renato A. F. de Lima & Hans ter Steege

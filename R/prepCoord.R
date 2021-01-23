@@ -50,7 +50,7 @@
 #' @export prepCoord
 #'
 prepCoord <- function(x, lat = "decimalLatitude",
-                      lon = "decimalLongitude", flag = TRUE, ...) {
+                      lon = "decimalLongitude", flag = TRUE) {
 
   ## check input
   if (!class(x) == "data.frame")

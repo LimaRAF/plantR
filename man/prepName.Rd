@@ -7,7 +7,6 @@
 prepName(
   x,
   fix.names = TRUE,
-  prep.tdwg = TRUE,
   sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "|",
   special.char = FALSE,
@@ -24,9 +23,6 @@ prepName(
 
 \item{fix.names}{logical. Should the general notation of names be
 standardized? Default to TRUE.}
-
-\item{prep.tdwg}{logical. Should the names already in the 'Lastname,
-Name/Initials' format be standardized? Default to TRUE.}
 
 \item{sep.in}{a vector of the symbols separating multiple names. Default to:
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
@@ -56,30 +52,30 @@ The character string \code{x} in a standardized name format.
 }
 \description{
 Format or convert multiple collector's or identificator's names
-  into a standardized name format.
+into a standardized name format.
 }
 \details{
 The default name format is the one suggested by the
-  \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
-  then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
-  the names of multiple people associated to each record are separated by a
-  pipe (i.e. '|'). But this default can be altered using the argument `sep.out`.
+\href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
+then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
+the names of multiple people associated to each record are separated by a
+pipe (i.e. '|'). But this default can be altered using the argument \code{sep.out}.
 
-  In the case of names from more then one person (separated by the characters
-  defined in the argument `sep.in`, the argument `output` controls which names
-  should be returned: names of all person ("all", the default), first person's
-  names ("first") or all but the first person's names ("aux").
+In the case of names from more then one person (separated by the characters
+defined in the argument \code{sep.in}, the argument \code{output} controls which names
+should be returned: names of all person ("all", the default), first person's
+names ("first") or all but the first person's names ("aux").
 
-  The function identifies (and removes) name prefixes or prepositions (e.g. de,
-  dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe., Sr., Mr.)
-  but not all of them (e.g. Doctor, Priest, Mister, etc.). The function also does not
-  handle hyphenated first names. If only one name is given, the function
-  returns \code{x} with the first letter capitalized.
+The function identifies (and removes) name prefixes or prepositions (e.g. de,
+dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe., Sr., Mr.)
+but not all of them (e.g. Doctor, Priest, Mister, etc.). The function also does not
+handle hyphenated first names. If only one name is given, the function
+returns \code{x} with the first letter capitalized.
 
-  The function has the option of stardardizing the general notation of names
-  and the general format of names. These standardizations are controled by
-  the arguments `fix.names` and `prep.tdwg`, which call internally the
-  __plantR__ functions `fixName()` and `prepTDWG()`.
+The function has the option of stardardizing the general notation of names
+and the general format of names. These standardizations are controled by
+the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
+\strong{plantR} functions \code{fixName()} and \code{prepTDWG()}.
 }
 \examples{
 
@@ -92,11 +88,11 @@ The default name format is the one suggested by the
   # Name with prepositions and compound last names
   prepName("Carl F. P. von Martius; Augustin Saint-hilaire")
   prepName("Carl F. P. von Martius; Auguste de Saint-Hilaire", get.prep = TRUE)
-  prepName("A. Ducke; DÃ¡rdano de Andrade-Lima")
-  prepName("Ducke, A. ; DÃ¡rdano de Andrade-Lima")
+  prepName("A. Ducke; Dárdano de Andrade-Lima")
+  prepName("Ducke, A. ; Dárdano de Andrade-Lima")
 
   # Names with generational suffixes
-  prepName("HF LeitÃ£o Filho; GJ Shepherd")
+  prepName("HF Leitão Filho; GJ Shepherd")
 
   # Names with titles
   prepName("Pe. Raulino Reitz")
@@ -121,16 +117,15 @@ The default name format is the one suggested by the
   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))  # output incorrect
   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,","&")) # output correct
 
-
 }
 \references{
 Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
-  Protocols for Interchange of Data. Herbarium Information Systems Committee'
-  (HISCOM). https://www.tdwg.org/standards/hispid3/
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
 
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
-  Standardisation in data-entry across databases: Avoiding Babylonian
-  confusion. Taxon 57(2): 343-345.
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
 }
 \seealso{
 \link[plantR]{fixName}, \link[plantR]{lastName} and \link[plantR]{prepTDWG}.

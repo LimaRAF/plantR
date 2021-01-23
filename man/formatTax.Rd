@@ -8,27 +8,30 @@ formatTax(tax, use.suggestion = TRUE, ...)
 }
 \arguments{
 \item{tax}{a data.frame containing the taxonomic information to be edited.}
+
+\item{use.suggestion}{logical. Should the edited species names be used
+instead of the input species names? Default to TRUE.}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with the
-  formatted information. The new columns have the same name of the
-  Darwin Core standards, but followed by the suffix '.new'.
+formatted information. The new columns have the same name of the
+Darwin Core standards, but followed by the suffix '.new'.
 }
 \description{
 This function edit and standardize the names of plant
-  species and families.
+species and families.
 }
 \details{
 The function works as a wrapper, where the individuals steps of the
-  proposed __plantR__ workflow for editing taxonomic information are
-  performed altogether (see the __plantR__ tutorial and the help of each
-  function for details).
+proposed \strong{plantR} workflow for editing taxonomic information are
+performed altogether (see the \strong{plantR} tutorial and the help of each
+function for details).
 
-  The input data frame usually contains the following taxonomic fields:
-  "family", "genus", "scientificName" and "scientificNameAuthorship". But
-  users can define the names for their own data.
+The input data frame usually contains the following taxonomic fields:
+"family", "genus", "scientificName" and "scientificNameAuthorship". But
+users can define the names for their own data.
 }
 \seealso{
-\link[plantR]{prepSpecies}, \link[plantR]{formatSpecies} and
- \link[plantR]{formatFamily}.
+\link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and
+\link[plantR]{prepFamily}.
 }

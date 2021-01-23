@@ -14,27 +14,27 @@ herbarium specimens}
 
 \item{remove}{logical. Should duplicates be removed? Default to FALSE.}
 
-\item{...}{Parameters from mergeDup}
+\item{...}{Parameters from prepDup and mergeDup}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted
-  fields.
+fields.
 }
 \description{
 This function search for duplicated specimens within and across
-  collections and it can be used to homogenize the information of
-  different groups of fields and to remove duplicates, leaving only one
-  occurrence for each group of duplicata.
+collections and it can be used to homogenize the information of
+different groups of fields and to remove duplicates, leaving only one
+occurrence for each group of duplicata.
 }
 \details{
 The function works similarly to a wrapper function, where the
-  individuals steps of the proposed __plantR__ workflow for preparing,
-  searching, merging and removal of duplicates are performed altogether (see
-  the __plantR__ tutorial for details).
+individuals steps of the proposed \strong{plantR} workflow for preparing,
+searching, merging and removal of duplicates are performed altogether (see
+the \strong{plantR} tutorial for details).
 }
 \seealso{
 \link[plantR]{prepDup}, \link[plantR]{getDup}, \link[plantR]{mergeDup},
- and \link[plantR]{rmDup}.
+and \link[plantR]{rmDup}.
 }
 \author{
 Renato A. F. de Lima

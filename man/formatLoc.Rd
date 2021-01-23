@@ -4,30 +4,40 @@
 \alias{formatLoc}
 \title{Format Locality Information}
 \usage{
-formatLoc(x, ...)
+formatLoc(
+  x,
+  select.cols = c("loc", "loc.correct", "latitude.gazetteer", "longitude.gazetteer",
+    "resolution.gazetteer"),
+  ...
+)
 }
 \arguments{
 \item{x}{a data frame, containing typical fields from occurrence records from
 herbarium specimens}
+
+\item{select.cols}{a vector with the column names that should be added to the
+input data.frame. By default only the additional columns retrieved from the
+gazetteer are returned and the locality strings used in the researched are
+discarded.}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted
-  information.
+information.
 }
 \description{
 This function standardizes names of administrative levels from
-  species occurrences obtained from on-line databases, such as GBIF or
-  speciesLink
+species occurrences obtained from on-line databases, such as GBIF or
+speciesLink
 }
 \details{
 The function works as a wrapper, where the individuals steps of the
-  proposed __plantR__ workflow for editing locality information are performed
-  altogether (see the __plantR__ tutorial for details).
+proposed \strong{plantR} workflow for editing locality information are performed
+altogether (see the \strong{plantR} tutorial for details).
 
-  The input data frame usually contains the following locality fields:
-  "country", "stateProvince", "municipality" and "locality".
+The input data frame usually contains the following locality fields:
+"country", "stateProvince", "municipality" and "locality".
 }
 \seealso{
 \link[plantR]{fixLoc}, \link[plantR]{strLoc}, \link[plantR]{prepLoc},
- and \link[plantR]{getLoc}.
+and \link[plantR]{getLoc}.
 }

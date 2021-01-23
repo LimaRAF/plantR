@@ -14,15 +14,15 @@ printed. Default to 5.}
 }
 \description{
 This function provides a general summary of the occurrence data,
-  including the number of records, biological collections, taxa and
-  countries.
+including the number of records, biological collections, taxa and
+countries.
 }
 \details{
 The summary output depends on the presence of some key columns in
-  the input data frame \code{x}, which should follow the Darwin Core standards.
-  If the edited columns from __plantR__ are given, they are given priority to
-  report the data summaries.
+the input data frame \code{x}, which should follow the Darwin Core standards.
+If the edited columns from \strong{plantR} are given, they are given priority to
+report the data summaries.
 
-  The function prints the summary tables related to the occurrence data.
-  However, the tables generating those summaries can be saved into an object.
+The function prints the summary tables related to the occurrence data.
+However, the tables generating those summaries can be saved into an object.
 }

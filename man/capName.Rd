@@ -11,20 +11,22 @@ capName(x)
 }
 \value{
 the character string equal to \code{x} with the first letter
-  capitalized.
+capitalized.
 }
 \description{
 Capitalize the first letter of people's (last) names.
 }
 \details{
 The function works for simple names and compound names that are
-  separated by a space or by the character '-'. It also works for names that
-  are entirely capitalized.
+separated by a space or by the character '-'. It also works for names that
+are entirely capitalized.
 
-  This function was conceived to edit people's last names. So, the function
-  only works for up to two names and it works only partially for names
-  containing initials. For strings with more than two names, the function
-  `str_to_title()` from package `stringr` can be used.
+This function was conceived to edit people's last names. So, the function
+only works for up to two names and it works only partially for names
+containing initials.
+
+For strings with more than two names, the function \code{str_to_title()} from
+package \code{stringr} can be used instead.
 }
 \examples{
 # Simple names
@@ -38,11 +40,15 @@ The function works for simple names and compound names that are
 # Compound last names
   capName("saint-hilaire")
 
-# Full names (does not work)
+# Other name formats
+  capName("o'brien")
+  capName("john o'brien")
+  capName("MacDonald")
+  capName("john MacDonald")
+
+# Full (>2) names (does not work properly)
   capName("hermogenes leitao filho")
   capName("auguste saint-hilaire")
-
-# Names with initials (does not work completely)
   capName("a.h. gentry")
   capName("AH gentry")
 

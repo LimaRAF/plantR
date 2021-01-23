@@ -17,7 +17,7 @@ data(latamMap)
 Maps used to perform the validation of the original geographical coordinates.
 For each country, the map contains the lowest administrative level
 available. Country, state and county (if present) names were edited to match
-the `plantR` default gazetteer and original polygons were simplified
+the \strong{plantR} default gazetteer and original polygons were simplified
 (tolerance 0.0001 decimal degrees). Reference system: WSG84
 }
 \keyword{datasets}

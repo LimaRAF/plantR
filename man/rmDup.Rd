@@ -4,7 +4,7 @@
 \alias{rmDup}
 \title{Remove Duplicates}
 \usage{
-rmDup(df, order.by = NULL, ...)
+rmDup(df, order.by = NULL)
 }
 \arguments{
 \item{df}{the input data frame.}
@@ -14,28 +14,28 @@ groups of duplicates.}
 }
 \description{
 This function keeps one and removes all other specimens within
-  groups of duplicate specimens.
+groups of duplicate specimens.
 }
 \details{
 The input data frame \code{df} must contain the typicall columns
-  resulting from __plantR__ workflow and functions. The characters that
-  aggregate the occurrences into duplicates must be named 'dup.ID'.
+resulting from \strong{plantR} workflow and functions. The characters that
+aggregate the occurrences into duplicates must be named 'dup.ID'.
 
-  Since only one specimen is kept per group of duplicates, this procedure
-  should be carried after the homogenization of the specimens informations
-  (see function `mergeDup`). Otherwise, important information may be lost.
+Since only one specimen is kept per group of duplicates, this procedure
+should be carried after the homogenization of the specimens informations
+(see function \code{mergeDup}). Otherwise, important information may be lost.
 
-  In addition, since not all columns are merged within duplicates (only the
-  columns related to the taxonomic, geographical and location validation
-  procedures), all other information contained in the removed specimens are
-  lost. Therefore, make sure that this information in unnecessary for your
-  specific purposes before using this function.
+In addition, since not all columns are merged within duplicates (only the
+columns related to the taxonomic, geographical and location validation
+procedures), all other information contained in the removed specimens are
+lost. Therefore, make sure that this information in unnecessary for your
+specific purposes before using this function.
 
-  By default, the specimen retained for each group of duplicate follow the
-  original order of the input data frame \code{df}. But the user can use the
-  argument `order.by` if the data should be order by any of the columns of
-  \code{df}. This column will be used to create the 'key' within the
-  `data.table` parlance.
+By default, the specimen retained for each group of duplicate follow the
+original order of the input data frame \code{df}. But the user can use the
+argument \code{order.by} if the data should be order by any of the columns of
+\code{df}. This column will be used to create the 'key' within the
+\code{data.table} parlance.
 }
 \author{
 Renato A. F. de Lima

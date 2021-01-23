@@ -7,7 +7,7 @@
 #'
 #' @title Accessory, internal functions
 #'
-#' @description These acessory functions work similarly to `R` base functions
+#' @description These accessory functions work similarly to `R` base functions
 #'   `head()` and `tail()` to return the first or last part of a vector or of a
 #'   data frame.
 #'
@@ -20,7 +20,7 @@
 #'
 #' @keywords internal
 #'
-#' @rdname acessory
+#' @rdname accessory
 #' @examples
 #' my.head(letters)
 #' @export
@@ -29,7 +29,7 @@ my.head <- function(x, n = 1) {
   x[1:n]
 }
 #'
-#' @rdname acessory
+#' @rdname accessory
 #' @examples
 #' my.tail(letters)
 #' @export
@@ -38,7 +38,7 @@ my.tail <- function(x, n = 0) {
   x[((length(x) - n):length(x))]
 }
 #'
-#' @rdname acessory
+#' @rdname accessory
 #' @examples
 #' rm.tail(letters)
 #' @export
@@ -47,7 +47,7 @@ rm.tail <- function(x, n = 0) {
   x[-((length(x) - n):length(x))]
 }
 #'
-#' @rdname acessory
+#' @rdname accessory
 #' @examples
 #' my.head.df(iris)
 #' @export

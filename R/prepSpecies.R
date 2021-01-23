@@ -80,7 +80,7 @@
 #'
 prepSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAuthorship"),
                           db = c("bfo","tpl"), sug.dist = 0.9, use.authors = TRUE,
-                          drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id"), ...) {
+                          drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
 
   ## check input
   if (!class(x) == "data.frame")

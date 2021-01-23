@@ -117,7 +117,7 @@
 getLoc <- function(x, str.names = c("resol.orig", "loc.string", "loc.string1", "loc.string2"),
                    gazet = "plantR", gazet.names = c("loc", "loc.correct", "latitude.gazetteer",
                                                      "longitude.gazetteer", "resolution.gazetteer"),
-                   orig.names = FALSE, ...) {
+                   orig.names = FALSE) {
 
   ## check input:
   if (!class(x) == "data.frame")
@@ -222,7 +222,7 @@ getLoc <- function(x, str.names = c("resol.orig", "loc.string", "loc.string1", "
     tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <- "locality"
   }
 
-  ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation...)
+  ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation ö)
   if ("loc.string2" %in% names(x1)) {
     tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors = FALSE),
                              dic, by = "loc")

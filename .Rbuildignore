@@ -20,5 +20,13 @@ vrac/
 # ignoring file that generates sysdata
 data-raw/
 
+#ignoring test folder
+test/
+
+#ignoring other maps
+data/worldMap_0001
+data/worldMap_full
+
+
 #created by the vignette
 results/

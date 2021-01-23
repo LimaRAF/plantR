@@ -8,21 +8,21 @@ summaryFlags(x)
 }
 \arguments{
 \item{x}{a data frame with the occurrence data and the columns containing the
-outputs of the __plantR__ validation functions.}
+outputs of the \strong{plantR} validation functions.}
 }
 \description{
 This function provides the summary of the validation steps of
-  the species occurrence data, including localities, geographical
-  coordinates, taxonomy and other outputs from the __plantR__ validation
-  workflow.
+the species occurrence data, including localities, geographical
+coordinates, taxonomy and other outputs from the \strong{plantR} validation
+workflow.
 }
 \details{
 The summary output depends on the presence of some key columns in
-  the input data frame \code{x}. Most of these columns are returned from
-  __plantR__ functions and they generally are identified by the '.check'
-  suffix.
+the input data frame \code{x}. Most of these columns are returned from
+\strong{plantR} functions and they generally are identified by the '.check'
+suffix.
 
-  The function prints summary tables related to __plantR__ validation
-  workflow. However, the list of tables that generate those summaries can
-  also be saved into an object.
+The function prints summary tables related to \strong{plantR} validation
+workflow. However, the list of tables that generate those summaries can
+also be saved into an object.
 }

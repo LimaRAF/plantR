@@ -53,7 +53,7 @@
 #'
 getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode",
                     drop = c("ordem.colecao","collectioncode.gbif", "institutioncode.gbif",
-                             "organization","collection.string"), print.miss = FALSE, ...) {
+                             "organization","collection.string"), print.miss = FALSE) {
 
   #Escaping R CMD check notes from using data.table syntax
   cod.inst.tmp <- cod.coll.tmp <- collection.string <- NULL

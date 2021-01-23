@@ -11,27 +11,29 @@ formatCoord(coords, ...)
 }
 \value{
 The input data frame \code{coords}, plus the new columns
-  'origin.coord' and 'precision.coord' with the formatted information. The
-  new columns have the same name as proposed by the Darwin Core standards
-  followed by the suffix '.new'.
+'origin.coord' and 'precision.coord' with the formatted information. The
+new columns have the same name as proposed by the Darwin Core standards
+followed by the suffix '.new'.
 }
 \description{
 This function formats geographical coordinates to decimal
-  degrees and replaces missing coordinates by the coordinates obtained from
-  the gazetteer.
+degrees and replaces missing coordinates by the coordinates obtained from
+the gazetteer.
 }
 \details{
 The function works as a wrapper, where the individuals steps of the
-  proposed __plantR__ workflow for editing the geographical coordinates are
-  performed altogether (see the __plantR__ tutorial and the help of each
-  function for details).
+proposed \strong{plantR} workflow for editing the geographical coordinates are
+performed altogether (see the \strong{plantR} tutorial and the help of each
+function for details).
 
-  The input data frame usually contains the following locality fields (the
-  function defaults):
-  - 'decimalLongitude' and 'decimalLatitude';
-  - 'latitude.gazetteer' and 'longitude.gazetteer';
-  - 'resolution.gazetteer';
-  - 'decimalLatitude.new' and 'decimalLongitude.new'.
+The input data frame usually contains the following locality fields (the
+function defaults):
+\itemize{
+\item 'decimalLongitude' and 'decimalLatitude';
+\item 'latitude.gazetteer' and 'longitude.gazetteer';
+\item 'resolution.gazetteer';
+\item 'decimalLatitude.new' and 'decimalLongitude.new'.
+}
 }
 \seealso{
 \link[plantR]{prepCoord} and \link[plantR]{getCoord}.
