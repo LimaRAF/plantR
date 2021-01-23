@@ -87,7 +87,7 @@ getYear <- function (x, noYear = "s.d.") {
 
   # Removing names of months
   meses <- c(month.name,
-            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
+            "Janeiro", "Fevereiro", "Mar\u00e7o", "Abril", "Maio", "Junho", "Julho",
             "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
             "Enero", "Febrero", "Marzo", "Mayo", "Junio", "Julio",
             "Septiembre", "Octubre", "Noviembre", "Deciembre")

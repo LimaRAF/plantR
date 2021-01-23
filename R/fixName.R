@@ -186,14 +186,14 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
     replace_latin1 <- replace_latin[nchar(replace_latin) == 1]
     unwanted_latin1 <- unwanted_latin[nchar(replace_latin) == 1]
     nomes <- chartr(
-      paste(unwanted_latin1, collapse=''),
-      paste(replace_latin1, collapse=''),
+      paste(unwanted_latin1, collapse = ''),
+      paste(replace_latin1, collapse = ''),
       nomes)
 
     #Double letter replacements
     replace_latin2 <- replace_latin[nchar(replace_latin) == 2]
     names(replace_latin2) <- unwanted_latin[nchar(replace_latin) == 2]
-    for(i in 1:length(replace_latin2))
+    for (i in 1:length(replace_latin2))
       nomes <- gsub(names(replace_latin2)[i],
                     replace_latin2[i],
                     nomes, fixed = TRUE)

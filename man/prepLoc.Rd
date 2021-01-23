@@ -29,7 +29,7 @@ prepositions of locality names.
   prepLoc("Brazil_Rio de Janeiro")
   prepLoc("Brazil_Rio Grande do Sul_Coqueiros do Sul")
   prepLoc("Brazil_Bahia_Arraial d'Ajuda")
-  prepLoc("Brazil_S\xE3o Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
+  prepLoc("Brazil_São Paulo_Sete Barras_Parque Estadual de Carlos Botelho")
   prepLoc("Cuba_Isla de la Juventud")
 
 }

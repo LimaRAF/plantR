@@ -181,7 +181,7 @@ validateTax <- function(x,
   #Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
   if ("typeStatus" %in% names(x))
     x$tax.check[!is.na(x$typeStatus) &
-                  !grepl("not a type|notatype|probable type|tipo provavel|tipo provável",
+                  !grepl("not a type|notatype|probable type|tipo provavel|tipo prov\u00e1vel",
                          x$typeStatus, ignore.case = TRUE)] <- TRUE
 
   #Specifying occurrences with unkown determiner name
@@ -200,9 +200,9 @@ validateTax <- function(x,
                 is.na(x[, covs.present[["identifiers"]]])] <- "unknown"
 
   #Validating all specimens collected by the family specialist but with the determiner field empty
-  if(special.collector) {
+  if (special.collector) {
 
-    if(!is.na(covs.present[["collectors"]])) {
+    if (!is.na(covs.present[["collectors"]])) {
 
       combo2 <- paste(x[,covs.present[["families"]]],
                       x[,covs.present[["collectors"]]], sep = "_")
