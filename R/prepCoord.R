@@ -35,9 +35,9 @@
 #' coords <- data.frame(
 #' decimalLatitude = c(-23.475389, "-23,475389",
 #' "23o 28' 31.40\"S", -93.475389, NA, 0, "missing", "blocked", NA,
-#' "23\xB0 28.5233'S","283088.52 E","-23,475,389"),
+#' "23° 28.5233'S","283088.52 E","-23,475,389"),
 #' decimalLongitude = c(-47.123768, "-47,123768", "47o 07' 25.56\"W",
-#' -47.123768, 185.578, 0, "missing","blocked", NA, "47\xBA 07.4260'W",
+#' -47.123768, 185.578, 0, "missing","blocked", NA, "47° 07.4260'W",
 #' "7402251.30 S","-47,123,768"),
 #' stringsAsFactors = FALSE)
 #' Encoding(coords[,1]) <- "latin1"

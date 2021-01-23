@@ -50,10 +50,10 @@ with and without accents and species characters, by setting the argument
 }
 \examples{
   names <- c("J.E.Q. Faria Jr.",
-  "Leit\xE3o F\xB0, H.F.", "Gert G. Hatschbach, et al.",
+  "Leitã F°, H.F.", "Gert G. Hatschbach, et al.",
   "Karl Emrich & Balduino Rambo",
-  '( Karl) Emrich ;(Balduino ) Rambo', "F.daS.N.Thom\xE9",
-  'F. da S.N. Thom\xE9', 'Pedro L.R.de Moraes (30/4/1998)')
+  '( Karl) Emrich ;(Balduino ) Rambo', "F.daS.N.Thomé",
+  'F. da S.N. Thomé', 'Pedro L.R.de Moraes (30/4/1998)')
   Encoding(names) <- "latin1"
   names
 
