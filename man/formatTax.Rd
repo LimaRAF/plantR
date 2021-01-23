@@ -4,13 +4,61 @@
 \alias{formatTax}
 \title{Format Taxonomic Information}
 \usage{
-formatTax(tax, use.suggestion = TRUE, ...)
+formatTax(
+  tax,
+  use.suggestion = TRUE,
+  tax.name = "scientificName",
+  rm.rank = FALSE,
+  tax.names = c("scientificName.new", "scientificNameAuthorship"),
+  db = c("bfo", "tpl"),
+  sug.dist = 0.9,
+  use.authors = TRUE,
+  drop.cols = c("ordem", "family", "verbatimSpecies", "author", "full_sp",
+    "authorship", "id"),
+  fam.name = "family",
+  gen.name = "genus",
+  spp.name = "scientificName"
+)
 }
 \arguments{
 \item{tax}{a data.frame containing the taxonomic information to be edited.}
 
 \item{use.suggestion}{logical. Should the edited species names be used
 instead of the input species names? Default to TRUE.}
+
+\item{tax.name}{character. Name of the columns containing the species name. Default
+to "scientificName"}
+
+\item{rm.rank}{logical. Should the infra-specific rank abbreviation be
+removed? Default to FALSE}
+
+\item{tax.names}{character. Names of the columns containing the species names
+and authors. Defaults to 'scientificName.new' and
+'scientificNameAuthorship'.}
+
+\item{db}{the list of database to be consulted for valid names, in their
+preferred order of priority. Only the results from Brazilian Flora 2020
+('bfo'), The Plant List ('tpl') or both are currently implemented.}
+
+\item{sug.dist}{a fraction expressing the maximum distance allowed between
+the original species name and the suggested species name, which is passed
+to the arguments \code{suggestion.distance} of function \code{flora::get.taxa()} and
+\code{max.distance} of function \code{Taxonstand::TPL()}. Defaults to 0.9.}
+
+\item{use.authors}{logical. Should all authors names be verified (takes
+longer)? Default to TRUE.}
+
+\item{drop.cols}{character. Name of columns that should be dropped from the
+results.}
+
+\item{fam.name}{character. The name of the column containing the family
+names. Default to "family".}
+
+\item{gen.name}{character. The name of the column containing the genus names.
+Default to "genus"}
+
+\item{spp.name}{character. The name of the column containing the species
+names. Default to "scientificName"}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with the

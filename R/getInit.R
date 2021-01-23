@@ -59,7 +59,7 @@
 #'
 #'   # Some problematic (unresolved) examples
 #'   getInit("AL") # assumes as initials (n. letters < default `max.initials`)
-#'   getInit("AL", max.initials = 2) # assumes as name (by changig the default)
+#'   getInit("AL", max.initials = 2) # assumes as name (by changing the default)
 #'   getInit("Carl F. P. von Martius") #takes name preposition as name
 #'   getInit("AH gentry") # assumes initials as first name
 #'   getInit("Gentry, A.") # ignores comma

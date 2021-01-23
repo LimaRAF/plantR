@@ -15,6 +15,7 @@
 #'   discarded.
 #'
 #' @inheritParams fixLoc
+#' @inheritParams strLoc
 #' @inheritParams getLoc
 #'
 #' @details The function works as a wrapper, where the individuals steps of the
@@ -30,19 +31,28 @@
 #'
 #' @export formatLoc
 #'
-formatLoc <- function(x, select.cols = c("loc", "loc.correct", "latitude.gazetteer", "longitude.gazetteer",
-                                         "resolution.gazetteer"), ...)
-{
+formatLoc <- function(x,
+                      select.cols = c("loc", "loc.correct", "latitude.gazetteer",
+                                      "longitude.gazetteer", "resolution.gazetteer"),
+                      loc.levels = c("country", "stateProvince", "municipality", "locality"),
+                      scrap = TRUE,
+                      adm.names = c("country.new", "stateProvince.new", "municipality.new"),
+                      loc.names = c("locality.new","locality.scrap","resol.orig"),
+                      str.names = c("resol.orig", "loc.string", "loc.string1", "loc.string2"),
+                      gazet = "plantR",
+                      gazet.names = c("loc", "loc.correct", "latitude.gazetteer",
+                                      "longitude.gazetteer", "resolution.gazetteer"),
+                      orig.names = FALSE) {
 
   # check input:
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
   # fixLoc
-  x1 <- fixLoc(x, ...)
+  x1 <- fixLoc(x, loc.levels, scrap)
 
   # strLoc
-  locs <- strLoc(x1)
+  locs <- strLoc(x1, adm.names, loc.names)
   locs$loc.string <- prepLoc(locs$loc.string) # priority string
   if ("loc.string1" %in% names(locs))
     locs$loc.string1 <- prepLoc(locs$loc.string1) # alternative string 1
@@ -50,7 +60,7 @@ formatLoc <- function(x, select.cols = c("loc", "loc.correct", "latitude.gazette
     locs$loc.string2 <- prepLoc(locs$loc.string2) # alternative string 2
 
   # getLoc
-  locs <- getLoc(locs, ...)
+  locs <- getLoc(x = locs, str.names, gazet, gazet.names, orig.names)
   colunas <- select.cols
   colunas <- colunas[colunas %in% names(locs)]
   x1 <- cbind.data.frame(x1,

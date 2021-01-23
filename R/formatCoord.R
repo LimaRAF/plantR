@@ -31,17 +31,36 @@
 #'
 #' @export formatCoord
 #'
-formatCoord <- function(coords, ...) {
+formatCoord <- function(coords,
+                        lat = "decimalLatitude",
+                        lon = "decimalLongitude",
+                        flag = TRUE,
+                        lat.orig = "decimalLatitude",
+                        lon.orig = "decimalLongitude",
+                        lat.gazet = "latitude.gazetteer",
+                        lon.gazet = "longitude.gazetteer",
+                        res.gazet = "resolution.gazetteer",
+                        lat.new = "decimalLatitude.new",
+                        lon.new = "decimalLongitude.new",
+                        rm.gazet = FALSE) {
 
   # check input:
   if (!class(coords) == "data.frame")
     stop("input object needs to be a data frame!")
 
   # prepCoord
-  coords1 <- prepCoord(coords, ...)
+  coords1 <- prepCoord(x = coords, lat , lon , flag)
 
   # getCoord
-  coords2 <- getCoord(coords1, ...)
+  coords2 <- getCoord(x = coords1,
+                      lat.orig,
+                      lon.orig,
+                      lat.gazet,
+                      lon.gazet,
+                      res.gazet,
+                      lat.new,
+                      lon.new,
+                      rm.gazet)
 
   return(coords2)
 }

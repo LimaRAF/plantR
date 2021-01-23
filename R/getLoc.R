@@ -114,9 +114,11 @@
 #' getLoc(occs.locs)
 #'
 #'
-getLoc <- function(x, str.names = c("resol.orig", "loc.string", "loc.string1", "loc.string2"),
-                   gazet = "plantR", gazet.names = c("loc", "loc.correct", "latitude.gazetteer",
-                                                     "longitude.gazetteer", "resolution.gazetteer"),
+getLoc <- function(x,
+                   str.names = c("resol.orig", "loc.string", "loc.string1", "loc.string2"),
+                   gazet = "plantR",
+                   gazet.names = c("loc", "loc.correct", "latitude.gazetteer",
+                                   "longitude.gazetteer", "resolution.gazetteer"),
                    orig.names = FALSE) {
 
   ## check input:

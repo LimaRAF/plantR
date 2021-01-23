@@ -59,13 +59,15 @@
 #'
 #' @export fixSpecies
 #'
-fixSpecies <- function(x = NULL, tax.name = "scientificName", rm.rank = FALSE) {
+fixSpecies <- function(x = NULL,
+                       tax.name = "scientificName",
+                       rm.rank = FALSE) {
 
   ## check input
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
-  if(!tax.name %in% names(x))
+  if (!tax.name %in% names(x))
     stop("Input data frame must have a column named: ", tax.name)
 
   #0. preliminary edits

@@ -63,7 +63,8 @@
 #' # Formating the locality information only at country and state levels
 #' fixLoc(df, loc.levels = c("country", "stateProvince"))[,-c(1:4)]
 #'
-fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality", "locality"),
+fixLoc <- function(x,
+                   loc.levels = c("country", "stateProvince", "municipality", "locality"),
                    scrap = TRUE) {
 
   ## checking input:

@@ -13,8 +13,7 @@ getCoord(
   res.gazet = "resolution.gazetteer",
   lat.new = "decimalLatitude.new",
   lon.new = "decimalLongitude.new",
-  rm.gazet = FALSE,
-  ...
+  rm.gazet = FALSE
 )
 }
 \arguments{

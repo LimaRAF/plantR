@@ -8,7 +8,15 @@ formatLoc(
   x,
   select.cols = c("loc", "loc.correct", "latitude.gazetteer", "longitude.gazetteer",
     "resolution.gazetteer"),
-  ...
+  loc.levels = c("country", "stateProvince", "municipality", "locality"),
+  scrap = TRUE,
+  adm.names = c("country.new", "stateProvince.new", "municipality.new"),
+  loc.names = c("locality.new", "locality.scrap", "resol.orig"),
+  str.names = c("resol.orig", "loc.string", "loc.string1", "loc.string2"),
+  gazet = "plantR",
+  gazet.names = c("loc", "loc.correct", "latitude.gazetteer", "longitude.gazetteer",
+    "resolution.gazetteer"),
+  orig.names = FALSE
 )
 }
 \arguments{
@@ -19,6 +27,36 @@ herbarium specimens}
 input data.frame. By default only the additional columns retrieved from the
 gazetteer are returned and the locality strings used in the researched are
 discarded.}
+
+\item{loc.levels}{a vector containing the names of the locality fields to be
+formatted.}
+
+\item{scrap}{logical. Should the search of missing locality information be
+performed? Default to TRUE.}
+
+\item{adm.names}{a vector of columns names containing the country,
+state/province and municipality information, in this order. Defaults to
+'country.new', 'stateProvince.new' and 'municipality.new'.}
+
+\item{loc.names}{an vector of columns names containing the locality
+(original and alternative) and the resolution of the locality information.
+Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.}
+
+\item{str.names}{a vector of at least two columns names containing the
+locality resolution and search string(s), in that order. Defaults to
+'resol.orig', 'loc.string', 'loc.string1' and 'loc.string2'.}
+
+\item{gazet}{a data.frame containing the gazetteer. The default is "plantR",
+the internal \strong{plantR} gazetteer (biased towards Latin America).}
+
+\item{gazet.names}{a vector of at least four columns names containing the
+locality search string, latitude and longitude, in that order. If available,
+the resolution of the gazetteer can be provided as a fifth name. Defaults
+to columns names of the \strong{plantR} gazetteer: 'loc', 'loc.correct',
+'latitude.gazetteer', 'longitude.gazetteer' and 'resolution.gazetteer'.}
+
+\item{orig.names}{logical. Should the original columns names of the gazetteer
+be preserved. Default to FALSE.}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the formatted

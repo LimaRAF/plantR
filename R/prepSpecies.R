@@ -78,15 +78,18 @@
 #'
 #' @export prepSpecies
 #'
-prepSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAuthorship"),
-                          db = c("bfo","tpl"), sug.dist = 0.9, use.authors = TRUE,
-                          drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
+prepSpecies <- function(x,
+                        tax.names = c("scientificName.new","scientificNameAuthorship"),
+                        db = c("bfo","tpl"),
+                        sug.dist = 0.9,
+                        use.authors = TRUE,
+                        drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
 
   ## check input
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
 
-  if(!tax.names[1] %in% names(x))
+  if (!tax.names[1] %in% names(x))
     stop("Input data frame must have a column with the species name")
 
   # storing the databases in the order of priority defined in 'db'
@@ -117,7 +120,7 @@ prepSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAut
     # cleaning spaces and removing duplicated names
     trim_sp <- flora::trim(unique(x[,tax.names[1]]))
     # obtaining valid names from FBO-2020
-    suggest_sp <- flora::get.taxa(trim_sp, drop="", suggestion.distance = sug.dist)
+    suggest_sp <- flora::get.taxa(trim_sp, drop = "", suggestion.distance = sug.dist)
     miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
 
     if (length(miss_sp) > 0) {
@@ -133,7 +136,7 @@ prepSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAut
         cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
 
       #Are names missing due to authorships with the binomial?
-      no_authors <- sapply(miss_sp[spcs>= 2],
+      no_authors <- sapply(miss_sp[spcs >= 2],
                            function(x) flora::remove.authors(flora::fixCase(x)))
 
       #Gettting possible missing names
@@ -154,15 +157,15 @@ prepSpecies <- function(x, tax.names = c("scientificName.new","scientificNameAut
     }
 
     #Getting the valid name at the right rank
-    suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep=" ")
+    suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep = " ")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"] <-
       paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"],
-            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "subspecies"], sep=" subsp. ")
+            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "subspecies"], sep = " subsp. ")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"] <-
       paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"],
-            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep=" var. ")
+            suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep = " var. ")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"] <-
-      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"], " sp.", sep="")
+      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"], " sp.", sep = "")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% NA] <-
       suggest_sp$original.search[suggest_sp$taxon.rank %in% NA]
 

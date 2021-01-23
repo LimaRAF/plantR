@@ -73,7 +73,10 @@
 #' stringsAsFactors = FALSE)
 #' prepFamily(df, spp.name = "speciesName")
 #'
-prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "scientificName") {
+prepFamily <- function(x,
+                       fam.name = "family",
+                       gen.name = "genus",
+                       spp.name = "scientificName") {
 
   #Avoiding warnings in package check when using data.table
   #family <- genus <- scientificName <- NULL

@@ -83,7 +83,7 @@
 getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitude",
                      lat.gazet = "latitude.gazetteer", lon.gazet = "longitude.gazetteer",
                      res.gazet = "resolution.gazetteer", lat.new = "decimalLatitude.new",
-                     lon.new = "decimalLongitude.new", rm.gazet = FALSE, ...) {
+                     lon.new = "decimalLongitude.new", rm.gazet = FALSE) {
 
   ## check input
   if (!class(x) == "data.frame")
