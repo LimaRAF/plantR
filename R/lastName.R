@@ -156,8 +156,8 @@ lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
     mult.names <- grepl(seps, other.names, perl = TRUE)
     if (any(mult.names))
       other.names[mult.names] <-
-        gsub(";.*|&.*|\\|.*| e .*| y .*| and .*| und .*| et .*", "",
-             other.names[mult.names], perl = TRUE)
+      gsub(";.*|&.*|\\|.*| e .*| y .*| and .*| und .*| et .*", "",
+           other.names[mult.names], perl = TRUE)
 
     if (initials) {
 

@@ -82,7 +82,7 @@ prepFamily <- function(x, fam.name = "family", gen.name = "genus", spp.name = "s
 
   ## check input
   if (!class(x) == "data.frame")
-    stop("input object needs to be a data frame!")
+    stop("Input object needs to be a data frame!")
 
   if (!fam.name %in% names(x))
     stop("Input data frame must have a column with family names")

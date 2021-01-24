@@ -1,215 +1,182 @@
 #' @title Prepare For Duplicate Specimen Search
 #'
-#' @description This function creates the duplicate search strings which are
-#'  created by combining information on the taxonomy, collection and locality
-#'  of the records.
+#' @description This function creates the duplicate search strings by
+#'   concatenating the information on the taxonomy, collection and locality of
+#'   the records.
 #'
 #' @param x a data frame with the species records.
-#' @param noYear Character. Standard for missing data in Year. Default to
+#' @param col.names vector. A named vector containing the names of columns in the
+#'   input data frame for each of the information that should be used to create
+#'   the duplicate search string(s). Default to the __plantR__ output column
+#'   names.
+#' @param comb.fields list. A list containing one or more vectors with the
+#'   information that should be used to create the duplicate search strings.
+#'   Default to four vectors of information to be combined.
+#' @param rec.ID character. The name of the columns containing the unique record
+#' identifier (see function `getTombo()`). Default to 'numTombo'.
+#' @param noYear character. Standard for missing data in Year. Default to
 #'   "n.d.".
 #' @param noName character. Standard for missing data in collector name. Default
 #'   to "s.n.".
 #' @param noNumb character. Standard for missing data in collector number. Default
 #'   to "s.n.".
-#' @param comb.fields list. A list containing a vector with the occurrence
-#'   information that should be used to construct the duplicate search strings.
-#'   Default to TRUE. See Details.
 #' @param ignore.miss logical. Should the duplicate search strings with
-#'   missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
-#'   Default to TRUE.
-#' @param ignore.na character. Should the duplicate search strings with
-#'   missing data (e.g. 'n.d.', 's.n.') be excluded from the duplicate search.
-#'   Default to TRUE.
+#'   missing/unknown information (e.g. 'n.d.', 's.n.', NA) be excluded from the
+#'   duplicate search. Default to TRUE.
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @details The input data frame \code{x} must contain at least the columns ...
+#' @details Three groups of fields are available to produce the duplicate search
+#'   string, and they are related to taxonomy, collection and locality of the
+#'   specimen. These fields are:
+#'   - 'family': the botanical family (default: 'family.new')
+#'   - 'species': the scientific name (default: 'scientificName.new')
+#'   - 'col.name': the collector name (default: recordedBy.new)
+#'   - 'col.last.name': the collector last name (default: last.name)
+#'   - 'col.number': the collector serial number (default: recordNumber.new)
+#'   - 'col.year': the collection year (default: year.new)
+#'   - 'col.loc': the collection locality (default: municipality.new)
 #'
-#' Three groups of fields are available to produce the duplicate search string,
-#' and they are related to taxonomy, collection and locality of the specimen.
-#' These fields are: 'family', 'species', 'col.name', 'col.last.name',
-#' 'col.number', 'col.year', 'municipality' or 'locality'. Each combination of
-#' those fields (e.g. 'col.name' and 'col.number') should be provided as a vector and
-#' as a separate element of this list. See examples.
+#'   The corresponding columns that should be used to retrieve these fields in
+#'   the input data frame must be provided as a named vector in the argument
+#'   `col.names`, in which the fields listed above are the names and
+#'   each element is the corresponding column name in the input data frame.
+#'
+#'   If an element named 'loc.str' containing the column name of the __plantR__
+#'   locality string (i.e. 'loc.correct') is also provided, it can be used to
+#'   complement any missing locality information in the locality of the
+#'   collection (i.e 'col.loc') tha may have been retrieved in the data processing
+#'   within the __plantR__ workflow.
+#'
+#'   The duplicate search strings are created by combining the fields listed
+#'   above. Each combination of those fields (e.g. 'col.name' and 'col.number')
+#'   should be provided to the argument `comb.fields` as a vector within a list.
+#'   The number of strings to be generated will correspond to the number of vectors
+#'   in this list. The order of the fields within vectors does not change the duplicate
+#'   search process.
+#'
+#'   The argument `rec.ID` should indicate the column name in the input data
+#'   containing the unique record identifier, which in the __plantR__ workflow
+#'   is obtained using the function `getTombo()`. If only GBIF data is used,
+#'   this column could be the field 'gbifID'. This identifier is used to
+#'   indicate the groups of duplicated records, which is one of the outputs of
+#'   function `getDup()` and is used to homogenize information within the groups
+#'   of duplicates (function `mergeDup()`).
+#'
+#'   Please note that the retrieval of duplicates greatly depends on the
+#'   completeness of the input information and in the amount of differences of
+#'   notation standards among collections. In addition, the smaller the vectors
+#'   of fields to be combined to create the duplicate strings, the higher the number
+#'   of (true and false) duplicates will be retrieved.
+#'
+#' @seealso
+#'  \link[plantR]{getTombo}, \link[plantR]{getDup} and \link[plantR]{mergeDup}.
 #'
 #' @importFrom stringr str_trim str_count
 #'
 #' @export prepDup
 #'
-prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
-                    comb.fields = list(c("family","col.last.name","col.number","municipality"),
-                                       c("family","col.year","col.number","municipality"),
+prepDup <- function(x, col.names = c(family = "family.new",
+                                     species = "scientificName.new",
+                                     col.name = "recordedBy.new",
+                                     col.last.name = "last.name",
+                                     col.number = "recordNumber.new",
+                                     col.year = "year.new",
+                                     col.loc = "municipality.new",
+                                     loc.str = "loc.correct"),
+                    comb.fields = list(c("family","col.last.name","col.number","col.loc"),
+                                       c("family","col.year","col.number","col.loc"),
                                        c("species","col.last.name","col.number","col.year"),
-                                       c("col.year","col.last.name","col.number","municipality")),
-                    ignore.miss = TRUE, ignore.na = TRUE, ...) {
+                                       c("col.year","col.last.name","col.number","col.loc")),
+                    rec.ID = "numTombo", noYear = "s.d.", noName = "s.n.", noNumb = "s.n.", ignore.miss = TRUE, ...) {
 
-  ##Removing unwanted columns
-  #List of colum names
-  cols <- c("collectionCode","catalogNumber",
-            "family","family.new","scientificName","scientificName.new",
-            "recordedBy","recordedBy.new","last.name",
-            "recordNumber","recordNumber.new",
-            "loc.correct","municipality","municipality.new","locality","locality.new",
-            "year","year.new",
-            "dateIdentified","yearIdentified","yearIdentified.new")
-  cls <- unique(cols[cols %in% names(x)])
-  #Priotirizing the .new columns, if original columns are also present
-  cls1 <- cls[!duplicated(gsub(".new", "", cls), fromLast = TRUE)]
-  x1 <- x[, cls1]
+  ## check input
+  if (!class(x) == "data.frame")
+    stop("Input object needs to be a data frame!")
 
-  ##Renaming columns for processing
-  names(x1)[1:2] <- c("colecao", "tombo")
-  names(x1)[(grep("loc.correct", names(x1)) + 1)] <- "localidade"
-  if (any(grepl("dateIdentified|yearIdentified", names(x1)))) {
-    if (names(x1)[dim(x1)[2]] == "dateIdentified") {
-      names(x1)[(dim(x1)[2] - 1)] <- "ano"
-      names(x1)[(dim(x1)[2])] <- "ano.det"
-    } else {
-      names(x1)[(dim(x1)[2] - 1)] <- "ano"
-      names(x1)[(dim(x1)[2])] <- "ano.det"
-    }
+  ## Checking the input columns
+  #unique record identifier
+  if (rec.ID %in% names(x)) {
+    numTombo <- x[,rec.ID]
   } else {
-    names(x1)[(dim(x1)[2])] <- "ano"
-    x1$ano.det <- NA
-  }
-  #Adding the string to put the data back on its original order
-  x1$order <- 1:dim(x1)[1]
-
-  ##Editing the county column
-  city <- tolower(textclean::replace_non_ascii(x1$localidade))
-  city <- prepLoc(city)
-
-  ##Defining the new county column
-  tmp <- strsplit(x1$loc.correct, "_")
-  id <- sapply(tmp, length)
-  n2 <- rep(NA, dim(x1)[1])
-  if (any(id >= 3))
-    n2[id >= 3] <-
-    sapply(tmp[id >= 3], function(x) x[3])
-  x1$municipio <- n2
-  x1$municipio[is.na(x1$municipio) & !is.na(city)] <-
-    as.character(city[is.na(x1$municipio) & !is.na(city)])
-
-  ##Creating the collection unique identifier
-  col <- tolower(textclean::replace_non_ascii(x1$colecao))
-  tmb <- tolower(textclean::replace_non_ascii(x1$tombo))
-  #Editing acessions with characters other than numbers
-  tmp1 <- tmb[grepl('\\D', tmb)]
-  if (length(tmp1) > 0) {
-    #no number? then NA
-    tmp1[!grepl('\\d', tmp1)] <- NA
-    #removing separators and exclamation points
-    tmp1 <- gsub('-|\\!', '', tmp1)
-    #removing the name of the collection and any other letters from the beggining of the accession number
-    #sometimes accessions have a letter in front of the number
-
-    ### ADD USER PROVIDED LIST O COLLECTION NAMES TO REMOVE? ###
-    ### OR A HARD, REMOVE ALL LETTERS ARGUMENT? ###
-    pos <- sapply(tmp1, function (x) gregexpr(pattern = '\\d', x)[[1]][1])
-    if (any(!is.na(pos))) {
-      pos1 <- pos[!is.na(pos) & pos > 1]
-      tmp2 <- tmp1[!is.na(pos) & pos > 1]
-      #List of collections within the data
-      clc <- paste(paste("^", sort(unique(col)), sep = ""), collapse = "|")
-      tmp2[grepl(clc, tmp2)] <- stringr::str_trim(gsub(clc, '', tmp2[grepl(clc, tmp2)]))
-      tmp2[grepl(pattern = '\\d', tmp2) &
-             !grepl(pattern = '\\D', tmp2)] = as.numeric(tmp2[grepl(pattern = '\\d', tmp2) &
-                                                                !grepl(pattern = '\\D', tmp2)])
-      tmp2[grepl('[a-z]',tmp2,ignore.case=TRUE)]
-      tmp1[!is.na(pos) & pos > 1] = tmp2
-    }
-
-    #Removing zeros from the begining of the numerical string
-    pos <- sapply(tmp1, function (x)
-      gregexpr(pattern = '\\D', x)[[1]][1])
-    pos[is.na(pos)] <- 0
-    if (any(!is.na(pos)) & any(pos >= 1)) {
-      pos1 <- pos[!is.na(pos) & pos >= 1]
-      tmp2 <- tmp1[!is.na(pos) & pos >= 1]
-      tmp3 <- sapply(1:length(tmp2), function(x) {
-        inicio1 <- inicio2 <- pos1[x]
-        if (pos1[x] == 1) inicio1 <- 1 else inicio1 <- pos1[x] - 1
-        if (pos1[x] == 1) inicio2 <- pos1[x] + 1 else inicio2 <- pos1[x]
-        parte1 <- substring(tmp2[x], 1, inicio1)
-        if (!grepl(pattern = '\\D', parte1))
-          parte1 <- as.numeric(parte1)
-        parte2 <- substring(tmp2[x], inicio2)
-        if (!grepl(pattern = '\\D', parte2))
-          parte2 <- as.numeric(parte2)
-        result <- paste(stringr::str_trim(parte1), stringr::str_trim(parte2), sep = "")
-        return(result)
-      })
-      tmp1[!is.na(pos) & pos >= 1] <- tmp3
-    }
-    tmb[grepl('\\D', tmb)] <- tmp1
+    stop("Please provide a valid column name containing the unique record identifier")
   }
 
-  #Edting acessions only with numbers
-  tmb[!grepl('\\D', tmb)] <- as.numeric(tmb[!grepl('\\D', tmb)])
+  #list of column names in the data
+  id.cols <- col.names %in% names(x)
 
-  #Remove GBIF data without accession only with a gbifID?? Yes!
-  tmb[!is.na(tmb) & stringr::str_count(tmb, "-") >= 3] <- NA
-  #Creating the final/edited string of the collection+accession number
-  x1$numTombo <- paste(col, tmb, sep = "_")
-
-  ##Creating the collection year field
-  if (any(grepl("ano.det", names(x1)))) {
-    tmp <- x1$ano.det
-    tmp[is.na(tmp) | tmp %in% ""] <- noYear
-    tmp <- gsub("T00:00:00Z", noYear, tmp)
-    x1$ano.det <- tmp
+  #second try without the '.new' suffix
+  if (any(!id.cols)) {
+    col.names.sub <- gsub("\\.new", "", col.names)
+    id.cols.sub <- col.names.sub %in% names(x)
+    col.names[!id.cols & id.cols.sub] <-
+      col.names.sub[!id.cols & id.cols.sub]
+    id.cols[!id.cols & id.cols.sub] <- TRUE
   }
 
+  if (all(!id.cols))
+    stop("Please provide at least one of the necessary columns to build the search strings")
 
-  ##Final edits to avoid misleading duplicates
-  #Collector number
-  numb <- x1[,which(grepl("recordNumber", names(x1)))]
-  numb[grepl("c\\(\\\"", numb)] <-
-    gsub("c\\(\\\"", "", numb[grepl("c\\(\\\"", numb)]) # check if this is still necessary
-  numb[grepl("\\\",-\\\"", numb)] <-
-    gsub("\\\",-\\\"", "-", numb[grepl("\\\",-\\\"", numb)]) # check if this is still necessary
-  numb[grepl("\\\"\\)", numb)] <-
-    gsub("\\\"\\)", "", numb[grepl("\\\"\\)", numb)]) # check if this is still necessary
-  numb[is.na(numb) | numb %in% ""] <- noNumb
-  x1$numb <- numb
+  #filtering only the columns and fields in the data
+  cols <- col.names[id.cols]
+  cols.miss <- col.names[!id.cols]
 
-  #Collector last name
-  nome <- x1[,which(grepl("last.name", names(x1)))]
-  nome[!is.na(nome) & nchar(nome) < 2] <-
-    x1[, my.tail(which(grepl("recordedBy", names(x1))))][!is.na(nome) & nchar(nome) < 2]
-  nome[is.na(nome) | nome %in% ""] <- noName
-  x1$nome <- nome
+  flds <- unique(unlist(comb.fields))
+  flds.miss <- flds[flds %in% names(cols.miss)]
 
-  #Collection year
-  tmp <- x1$ano
-  tmp <- as.character(sapply(strsplit(tmp, " "), function(x)
-    unique(x[nchar(x) >= 4])))
-  tmp[is.na(tmp) | tmp %in% ""] <- noYear
-  x1$ano <- suppressWarnings(as.double(tmp))
+  #warning and removing missing columns/fields
+  if (length(cols.miss) > 0 & length(flds.miss) > 0) {
+    warning(paste0("The columns name(s) of field(s) ", paste(flds.miss, collapse = " + "),
+                   " was(were) not found in the input data frame and were removed"))
+    comb.fields <- sapply(comb.fields,
+                          function (x) x[!x %in% flds.miss])
+  }
 
-  ## Creating the specimens identifier for each of the options defined in 'combos'
-  #Converting the fields chosen to column names
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("family", names(x1)[grepl("family",names(x1))], x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("species", names(x1)[grepl("scientificName",names(x1))], x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("col.name", names(x1)[grepl("recordedBy",names(x1))], x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("col.last.name", "nome", x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("col.number", "numb", x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("col.year", "ano", x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("municipality", "municipio", x))
-  comb.fields <- lapply(comb.fields, function(x)
-    gsub("locality", "localidade", x))
-  #Making sure that all columns are indeed in the data
-  comb.fields <- lapply(comb.fields, function(x)
-    x[x %in% names(x1)])
+  ## Removing unwanted columns in the data
+  x1 <- x[, match(cols, names(x))]
+  names(x1) <- names(cols)[match(cols, names(x1))]
 
-  #Creating the duplicate search strings
+  ## Editing the filtered columns to avoid misleading duplicates
+  if ("col.year" %in% names(x1)) { # collection year
+    ids <- nchar(x1$col.year) > 4
+    if (any(ids))
+      x1$col.year[ids] <- as.character(sapply(strsplit(x1$col.year[ids], " |-|\\/", perl = TRUE),
+                               function(x) unique(x[nchar(x) >= 4])))
+    x1$col.year <- suppressWarnings(as.double(x1$col.year))
+    x1$col.year[is.na(x1$col.year)] <- noYear
+  }
+
+  if ("col.loc" %in% names(x1)) { # collection locality
+    x1$col.loc <-
+      tolower(textclean::replace_non_ascii(x1$col.loc))
+    x1$col.loc <- prepLoc(x1$col.loc)
+  }
+
+  if ("loc.str" %in% names(x1) & "col.loc" %in% names(x1)) { # locality string
+    if (grepl("municipality", cols[names(cols) == "col.loc"]))
+      pos <- 3
+    if (grepl("locality", cols[names(cols) == "col.loc"]))
+      pos <- 4
+    tmp <- strsplit(x1$loc.str, "_", fixed = TRUE)
+    ids <- suppressWarnings(sapply(tmp, length) >= pos)
+    n2 <- rep(NA, dim(x1)[1])
+    if (any(ids))
+      n2[ids] <- sapply(tmp[ids], function(x) x[pos])
+    x1$col.loc[is.na(x1$col.loc) & !is.na(n2)] <-
+      as.character(n2[is.na(x1$col.loc) & !is.na(n2)])
+  }
+
+  if ("col.number" %in% names(x1)) { # Collector number
+    x1$col.number[x1$col.number %in% c("", " ", NA)] <- noNumb
+    x1$col.number[!grepl("\\d", x1$col.number, perl = TRUE)] <- noNumb
+  }
+
+  if ("col.name" %in% names(x1)) { # Collector name
+    x1$col.name[x1$col.name %in% c("", " ", NA)] <- noName
+    x1$col.name[nchar(x1$col.name) <= 3] <- noName
+  }
+
+  ## Creating the duplicate search strings
   srch.str <- vector("list", length(comb.fields))
   for (i in 1:length(srch.str)) {
     srch.str[[i]] <-
@@ -217,17 +184,14 @@ prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
   }
 
   #Should strings with missing/NA information be ignored?
-  miss.vec <- paste0(c(noYear, noNumb, noName), collapse = '|')
-  miss.vec <- gsub('\\.','\\\\.',miss.vec)
-
   if (ignore.miss) {
+    miss.patt <- paste0(c(noYear, noNumb, noName), collapse = '|')
+    miss.patt <- gsub('\\.','\\\\.', miss.patt)
     for (i in 1:length(srch.str)) {
-      srch.str[[i]][grepl(miss.vec, srch.str[[i]], ignore.case=TRUE)] <- NA
-    }
-  }
-  if (ignore.na) {
-    for (i in 1:length(srch.str)) {
-      srch.str[[i]][grepl("^NA_|_NA_|_NANA_|_NA$", srch.str[[i]], ignore.case=TRUE)] <- NA
+      srch.str[[i]][grepl(miss.patt,
+                          srch.str[[i]], perl = TRUE, ignore.case=TRUE)] <- NA
+      srch.str[[i]][grepl("^NA_|_NA_|_NA$",
+                          srch.str[[i]], perl = TRUE, ignore.case=TRUE)] <- NA
     }
   }
 
@@ -238,12 +202,7 @@ prepDup <- function(x, noYear = "s.d.", noName = "s.n.", noNumb = "s.n.",
     dup.srch.str[,i] <- as.character(dup.srch.str[,i])
 
   ##Saving the new info
-  x2 <- cbind.data.frame(x1, dup.srch.str,
+  result <- cbind.data.frame(numTombo, dup.srch.str,
                          stringsAsFactors = FALSE)
-  x2 <- x2[order(x2$order),]
-  # out.cols <- c(c("numTombo", "ano", "ano.det", "municipio"), names(dup.srch.str))
-  out.cols <- c(c("numTombo"), names(dup.srch.str))
-  result <- x2[, out.cols]
-
   return(result)
 }

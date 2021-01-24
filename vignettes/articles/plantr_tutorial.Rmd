@@ -489,16 +489,16 @@ user:
 occs$scientificName.new <- occs$suggestedName
 ```
 
-### Botanical family synonyms and standardization: function `formatFamily`
+### Botanical family synonyms and standardization: function `prepFamily()`
 The classification of the taxonomic confidence in species determination of each
 occurrence is currently performed based on a global list of taxonomists per
 family (see details below). Because different plant classification systems can
 use different names to the same family, we need to standardize family names. The
 standard used by __plantR__ to obtain valid family names is the APG IV and the PPG
-I, which can be obtained using the function `formatFamily()`:
+I, which can be obtained using the function `prepFamily()`:
 
 ```{r, eval = FALSE}
-occs <- formatFamily(occs)
+occs <- prepFamily(occs)
 ```
 
 Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
@@ -532,7 +532,7 @@ standard __plantR__ gazetteer at the locality level). But many of them are only 
 
 In __plantR__ the resolution of the locality information provided with the
 specimen and the one found in the gazetteer are described using the function
-`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called `'loc.check'`:
+`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called `loc.check`:
 
 ```{r, eval = FALSE}
 occs <- validateLoc(occs)
@@ -612,10 +612,13 @@ This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Sa
 
 ## Duplicated specimens
 
+### Create unique record identifiers: function `getTombo()`
+
+
 ### Prepare to merge: function `prepDup()`
 
 First we need to prepare the dataset for the duplicate search. The function 
-`prepDup` basically creates concatenated strings with different set of information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
+`prepDup()` basically creates concatenated strings with different set of information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
 
 ```{r, eval = FALSE}
 dups <- prepDup(occs, 
@@ -623,7 +626,7 @@ dups <- prepDup(occs,
      c("family","col.last.name","col.number","col.year")))
 ```
 
-Note that we used the default arguments of the `prepDup` function, which exclude from the search the strings without collector name, number or year (e.g. 's.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.) increase as well.
+Note that we used the default arguments of the `prepDup()` function, which exclude from the search the strings without collector name, number or year (e.g. 's.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.) increase as well.
 
 ### Find duplicates across collections: function `getDup()`
 

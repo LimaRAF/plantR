@@ -10,6 +10,10 @@
 #'
 #' @param occ.df a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
+#' @param cat.code character. The name of the column containing the code of the
+#'   collection. Default to the __plantR__ output column "collectionCode.new".
+#' @param cat.numb character. The name of the column containing the catalag
+#'   number (a.k.a. accession number) of the record. Default to "catalogNumber".
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should duplicates be removed? Default to FALSE.
 #' @param ... Parameters from prepDup and mergeDup
@@ -30,11 +34,16 @@
 #'
 #' @export validateDup
 #'
-validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
+validateDup <- function(occ.df, cat.code = "collectionCode.new", cat.numb = "catalogNumber",
+                        merge = TRUE, remove = FALSE, ...) {
 
   # check input:
   if (!class(occ.df) == "data.frame")
     stop("input object needs to be a data frame!")
+
+  # getTombo
+  occ.df$numTombo <- getTombo(occ.df[, cat.code],
+                              occ.df[, cat.numb])
 
   # prepDup
   # dups <- prepDup(occ.df, noYear, noName, noNumb, comb.fields, ignore.miss, ignore.na)
@@ -43,8 +52,8 @@ validateDup <- function(occ.df, merge = TRUE, remove = FALSE, ...) {
   # getDup
   dups <- getDup(dups)
   occ.df <- cbind.data.frame(occ.df,
-                           dups[,c("numTombo","dup.ID","dup.numb","dup.prop")],
-                           stringsAsFactors = FALSE)
+                             dups[,c("numTombo","dup.ID","dup.numb","dup.prop")],
+                             stringsAsFactors = FALSE)
   # mergeDup
   if (merge) {
     occ.df <- mergeDup(occ.df, ...)

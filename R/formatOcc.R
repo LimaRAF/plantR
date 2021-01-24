@@ -64,7 +64,13 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
     x$year[ids] <- x$eventDate[ids]
   }
 
-  # Missing year of identification that may be stored in the field 'eventDate'
+  # Missing year of collection that may be stored in the field 'verbatimEventDate'
+  if ("verbatimEventDate" %in% names(x) & "year" %in% names(x)) {
+    ids <- is.na(x$year) & !is.na(x$verbatimEventDate)
+    x$year[ids] <- x$verbatimEventDate[ids]
+  }
+
+  # Missing year of identification that may be stored in the field 'dateIdentified'
   if ("dateIdentified" %in% names(x) & "yearIdentified" %in% names(x)) {
     ids <- is.na(x$yearIdentified) & !is.na(x$dateIdentified)
     x$yearIdentified[ids] <- x$dateIdentified[ids]

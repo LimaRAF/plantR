@@ -10,10 +10,11 @@
 #' @param tax a data.frame containing the taxonomic information to be edited.
 #' @param use.suggestion logical. Should the edited species names be used
 #'   instead of the input species names? Default to TRUE.
+#' @param ... Parameters from fixSpecies, prepSpecies and prepFamily
 #'
-#' @inheritParams fixSpecies
-#' @inheritParams prepSpecies
-#' @inheritParams prepFamily
+#' @inheritParams fixSpecies tax.name rm.rank
+#' @inheritParams prepSpecies tax.names db sug.dist use.authors
+#' @inheritParams prepFamily spp.name
 #'
 #' @details The function works as a wrapper, where the individuals steps of the
 #'   proposed __plantR__ workflow for editing taxonomic information are

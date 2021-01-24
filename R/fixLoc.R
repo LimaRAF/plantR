@@ -89,6 +89,16 @@ fixLoc <- function(x, loc.levels = c("country", "stateProvince", "municipality",
   if (!"municipality" %in% names(x) & "county" %in% names(x))
     colnames(x)[which(colnames(x) == "county")] <- "municipality"
 
+  # Missing locality that may be stored in the field 'verbatimLocality'
+  if ("locality" %in% names(x) & "verbatimLocality" %in% names(x)) {
+    ids <- !is.na(x$verbatimLocality) & is.na(x$locality)
+    x$locality[ids] <- x$verbatimLocality[ids]
+  }
+
+  if (!"locality" %in% names(x) & "verbatimLocality" %in% names(x))
+    colnames(x)[which(colnames(x) == "verbatimLocality")] <- "locality"
+
+
   if (!any(c("country", "stateProvince", "municipality", "locality") %in% colnames(x)))
     stop("input object needs to have at least one of the following fields: country/countryCode, stateProvince, county/municipality and locality")
 

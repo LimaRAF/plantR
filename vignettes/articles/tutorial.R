@@ -54,25 +54,40 @@ occs_splink <- rspeciesLink(species = "Euterpe edulis",
                             save = FALSE)
 occs_gbif <- rgbif2(species = "Euterpe edulis",
                     save = FALSE)
-occs <- formatDwc(splink_data = occs_splink,
+write.csv(occs_splink, "vignettes/results/speciesLink.csv")
+write.csv(occs_gbif, "vignettes/results/gbif.csv")
+
+occs.bind <- formatDwc(splink_data = occs_splink,
                   gbif_data = occs_gbif,
                   bind_data = TRUE)
-occs <- formatOcc(occs)
-occs <- formatLoc(occs)
+occs0 <- formatOcc(occs.bind)
+occs <- formatLoc(occs0)
 occs <- formatCoord(occs)
 occs <- formatTax(occs)
 occs <- validateLoc(occs)
 occs <- validateTax(occs)
+
+tmp <- prepDup(occs)
+
 occs <- validateDup(occs, info2merge = c("tax", "loc"),
                     tax.name = "scientificName.new")
 summ <- summaryData(occs)
 flags <- summaryFlags(occs)
 checkList(occs, n.vouch = 5, type = "short")
 
-n <- dim(occs)[2]
+z <- dim(occs)[2]
+
+
+x <- occs
+
+cols <- names(occs[, z:dim(occs)[2]])
+head(occs[, cols], 20)
+tail(occs[, cols], 20)
 
 
 
-cols <- names(occs[, n:dim(occs)[2]])
-head(occs[, cols], 3)
+
+
+
+
 
