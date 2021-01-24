@@ -17,18 +17,18 @@ collector number. Defaults to "s.n."}
 }
 \value{
 a character vector with the same length of \code{x} with the edited
-  collector numbers.
+collector numbers.
 }
 \description{
 The function standardizes the 'collector number' which is
-  typically associated with biological records.
+typically associated with biological records.
 }
 \details{
 The function performs several edits such as removal of unnecessary
-  spaces, letters, parentheses, and the replacement of missing information of
-  collector numbers into a standardized notation, defined by the argument
-  `noNumb`. Zeros and strings without numbers are treated as missing
-  information.
+spaces, letters, parentheses, and the replacement of missing information of
+collector numbers into a standardized notation, defined by the argument
+\code{noNumb}. Zeros and strings without numbers are treated as missing
+information.
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
@@ -48,8 +48,8 @@ colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
 }
 \references{
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
-  Standardisation in data-entry across databases: Avoiding Babylonian
-  confusion. Taxon 57(2): 343-345.
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
 }
 \author{
 Renato A. F. de Lima

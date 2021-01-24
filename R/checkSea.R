@@ -24,7 +24,7 @@ checkSea <- function(x = data.frame(occs),
     CoordinateCleaner::cc_sea(x = check_sea,
                               lon = lon,
                               lat = lat,
-                              ref = sf::as(worldMap, "Spatial"),
+                              ref = sf::as_Spatial(worldMap),
                               value = "flagged")
   sea.check <- ifelse(test, "land", "sea")
   test_shore <-

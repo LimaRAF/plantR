@@ -23,6 +23,9 @@ retrieved (i.e. dup.prop) to enter the merging routine. Default to 0.75.}
 Currently, only taxonomic ('tax'), geographic ('geo') and/or locality ('loc')
 columns can be merged. Default to all of them.}
 
+\item{tax.name}{character. The name of the column containing the species
+names. Default to 'scientificName.new'.}
+
 \item{tax.level}{character. A vector with the confidence level of the
 identification that should be considered in the merge of taxonomic
 information. Default to "high".}
@@ -32,68 +35,67 @@ stored in separate, new columns. Default to FALSE (new columns are
 created).}
 }
 \value{
-If `overwrite == FALSE`, the function returns the input data frame
-  \code{dups} and the new columns containing the homogeneized information. The
-  names of thse columns are the same of the previous one but with an added
-  suffix '1'. If `overwrite == TRUE`, the homogeneized information is saved
-  on the same columns of the input data and the names of the columns ramin
-  the same.
+If \code{overwrite == FALSE}, the function returns the input data frame
+\code{dups} and the new columns containing the homogeneized information. The
+names of thse columns are the same of the previous one but with an added
+suffix '1'. If \code{overwrite == TRUE}, the homogeneized information is saved
+on the same columns of the input data and the names of the columns ramin
+the same.
 }
 \description{
 This function homogenize the information of different groups of
-  columns (taxonomic, geographic or locality) for groups of duplicate specimens.
+columns (taxonomic, geographic or locality) for groups of duplicate specimens.
 }
 \details{
 The input data frame \code{dups} must contain the typicall columns
-  resulting from __plantR__ workflow and functions. The characters that
-  aggregate the occurrences into duplicates must be named 'dup.ID'. Depending
-  on the type of merge desired (argument `info2merge`), a different set o
-  clumns names are needed.
+resulting from \strong{plantR} workflow and functions. The characters that
+aggregate the occurrences into duplicates must be named 'dup.ID'. Depending
+on the type of merge desired (argument \code{info2merge}), a different set o
+clumns names are needed.
 
- For the merge of taxonomic, geographic and locality information, the merging
- process consists in ordering the the information available for each group of
- duplicates from the best to the worst quality/resolution available.
+For the merge of taxonomic, geographic and locality information, the merging
+process consists in ordering the the information available for each group of
+duplicates from the best to the worst quality/resolution available.
 
- For the merge of taxonomical information, the specimen(s) with the highest
- confidence level of the identification is(are) used as the standard(s), from
- which the taxonomic information is expanded to other specimens within the
- same group of duplicates. By default, `mergeDup` uses specimens flagged as
- having a 'high' taxonomic confidence level.
+For the merge of taxonomical information, the specimen(s) with the highest
+confidence level of the identification is(are) used as the standard(s), from
+which the taxonomic information is expanded to other specimens within the
+same group of duplicates. By default, \code{mergeDup} uses specimens flagged as
+having a 'high' taxonomic confidence level.
 
- In the case of conflicting species identification among specialists for the
- same group of duplicates, the most recent identification is assumed as the
- most up-to-date one. Note that if the year of identification is missing from
- one or more duplicate labels, the corresponding identifications are not
- taken into account while trying to assign the most up-to-date identification
- for a group of duplicates.
+In the case of conflicting species identification among specialists for the
+same group of duplicates, the most recent identification is assumed as the
+most up-to-date one. Note that if the year of identification is missing from
+one or more duplicate labels, the corresponding identifications are not
+taken into account while trying to assign the most up-to-date identification
+for a group of duplicates.
 
- For the merge of geographical information, specimens are ordered according
- to the result of their geographical validation (i.e. column 'geo.check') and
- the resolutions of the original geographical coordinates. Thus, for each
- group of duplicates the specimen whose coordinates were validated at the
- highest level (e.g. at county level) is used as the standard to expand
- the information for the specimens validate at lower levels (e.g. state or
- country levels).
+For the merge of geographical information, specimens are ordered according
+to the result of their geographical validation (i.e. column 'geo.check') and
+the resolutions of the original geographical coordinates. Thus, for each
+group of duplicates the specimen whose coordinates were validated at the
+highest level (e.g. at county level) is used as the standard to expand
+the information for the specimens validate at lower levels (e.g. state or
+country levels).
 
- A similar procedure is performed to expand the information regarding the locality
- description. Specimens are ordered according to the result of their locality
- validation (i.e. column 'loc.check'), and the one ranked best within the
- group of duplicates is the one used as the standard.
+A similar procedure is performed to expand the information regarding the locality
+description. Specimens are ordered according to the result of their locality
+validation (i.e. column 'loc.check'), and the one ranked best within the
+group of duplicates is the one used as the standard.
 
- The columns necessary for the merging processes are the typical outputs from
- the __plantR__ workflow. They are different for the merge of each group of
- information:
+The columns necessary for the merging processes are the typical outputs from
+the \strong{plantR} workflow. They are different for the merge of each group of
+information:
+\itemize{
+\item Taxonomic: family.new, scientificName/scientificName.new, identifiedBy.new,
+yearIdentified.new, tax.check
+\item Geographic: decimalLatitude.new, decimalLongitude.new, origin.coord,
+resolution.coord, geo.check
+\item Locality: loc.correct, loc.check
+}
 
- + Taxonomic: family.new, scientificName/scientificName.new, identifiedBy.new,
- yearIdentified.new, tax.check
-
- + Geographic: decimalLatitude.new, decimalLongitude.new, origin.coord,
- resolution.coord, geo.check
-
- + Locality: loc.correct, loc.check
-
- The merge of collector information (i.e. collector name, number and year) are
- predicted but not yet implemented in the current version.
+The merge of collector information (i.e. collector name, number and year) are
+predicted but not yet implemented in the current version.
 }
 \author{
 Renato A. F. de Lima

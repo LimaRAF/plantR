@@ -15,10 +15,10 @@ the warnings in the second and the errors in the third.
 }
 \description{
 The function separates the output from another function, its
-  warning and errors, without printing them in the console.
+warning and errors, without printing them in the console.
 }
 \details{
 The function was taken from the following stackoverflow question:
-  https://stackoverflow.com/questions/4948361/how-do-i-save-warnings-and-errors-as-output-from-a-function/4952908#4952908
+https://stackoverflow.com/questions/4948361/how-do-i-save-warnings-and-errors-as-output-from-a-function/4952908#4952908
 }
 \keyword{internal}

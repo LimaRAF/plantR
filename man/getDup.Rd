@@ -4,12 +4,12 @@
 \alias{getDup}
 \title{Search For Duplicate Specimens Among Collections}
 \usage{
-getDup(df, flag.ind = TRUE, ...)
+getDup(df, flag.ind = TRUE)
 }
 \arguments{
 \item{df}{a data frame with the collection code (first column) and the strings
 to be used for the duplicate search (second and other columns), typically
-the exit of the function `prepDup`.}
+the exit of the function \code{prepDup}.}
 
 \item{flag.ind}{logical. Should duplicates based only on indirect duplicates
 be flagged with brackets? Default to TRUE.}
@@ -18,10 +18,10 @@ be flagged with brackets? Default to TRUE.}
 see: https://stackoverflow.com/questions/56740990/optimizing-grepl-and-other-operations-inside-a-loop-using-data-table
 }
 \description{
-This function ...
+This function searches for duplicate specimens among collections
 }
 \details{
-The input data frame \code{df} must contain at least the columns ...
+The input data frame \code{df} must contain at least the columns
 }
 \author{
 Renato A. F. de Lima

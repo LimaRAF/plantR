@@ -4,7 +4,7 @@
 \alias{fixSpecies}
 \title{Edit Scientific Name}
 \usage{
-fixSpecies(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...)
+fixSpecies(x = NULL, tax.name = "scientificName", rm.rank = FALSE)
 }
 \arguments{
 \item{x}{a data.frame containing the species name}
@@ -16,10 +16,10 @@ to "scientificName"}
 removed? Default to FALSE}
 }
 \value{
-Data frame with `verbatimSpecies` as in the original input, `speciesStatus`
-with the flags in original data and `species` with a suggestion for a more
+Data frame with \code{verbatimSpecies} as in the original input, \code{speciesStatus}
+with the flags in original data and \code{species} with a suggestion for a more
 correct species name. See Details for a description of flags in the column
-`speciesStatus`.
+\code{speciesStatus}.
 }
 \description{
 Identifies open nomenclature (aff., cf.) in species scientific name,
@@ -30,21 +30,27 @@ string with numbers, authors, wrong case, or other names besides genus and
 epithet etc).
 }
 \details{
-Possible flags returned in `species_status`: \describe{
+Possible flags returned in \code{species_status}: \describe{
 \item{\code{possibly_ok}}{scientific name following the expected pattern Genus
-epithet} \item{\code{not_Genus_epithet_format}}{scientific name not following
-the expected pattern Genus epithet} \item{\code{variety}}{species scientific
-name with variety} \item{\code{subspecies}}{species scientific name with
-subspecies} \item{\code{form}}{species scientific name with form}
+epithet}
+\item{\code{not_Genus_epithet_format}}{scientific name not following
+the expected pattern Genus epithet}
+\item{\code{variety}}{species scientific
+name with variety}
+\item{\code{subspecies}}{species scientific name with
+subspecies}
+\item{\code{form}}{species scientific name with form}
 \item{\code{conferre}}{open nomenclature cf. in species scientific name}
 \item{\code{affinis}}{open nomenclature aff. in species scientific name}
 \item{\code{name_w_authors}}{species scientific name has authors}
 \item{\code{not_name_has_digits}}{species scientific name has digits, not a
-valid name} \item{\code{indet}}{species identified only at genus level}
+valid name}
+\item{\code{indet}}{species identified only at genus level}
 \item{\code{family_as_genus}}{family as genus, not a valid name}
 \item{\code{order_as_genus}}{order as genus, not a valid name}
 \item{\code{species_nova}}{species name contains an indication of a new
-species, possibly not yet a valid name} \item{\code{non_ascii}}{species name
+species, possibly not yet a valid name}
+\item{\code{non_ascii}}{species name
 has non ASCII characters, not a valid name}
 \item{\code{hybrid_species}}{hybrid species} }
 }

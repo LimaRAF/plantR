@@ -16,7 +16,7 @@ saveData(
 }
 \arguments{
 \item{df}{a data frame with the occurrence data, generally as the output of
-the __plantR__ validation functions.}
+the \strong{plantR} validation functions.}
 
 \item{dir.name}{character. Name of the folder where the data should be saved.
 Default to "plantR_output".}
@@ -37,28 +37,28 @@ saving? Default to FALSE.}
 }
 \description{
 This function saves the occurrence data in any given directory,
-  separated by species taxonomy, collections, years and countries, as well as
-  by the confidence level of species identifications and coordinates.
+separated by species taxonomy, collections, years and countries, as well as
+by the confidence level of species identifications and coordinates.
 }
 \details{
 This function provides different option to save occurrence data. It
-  provides options for saving data as 'csv' (function `fwrite` from package
-  `data.table`) or 'rds' (base function `saveRDS`). The function tries to
-  save data as fast as possible but processing time greatly depends or the
-  size of the dataset. Options to compress data are available, but please be
-  sure to have enough memory space for saving large datasets.
+provides options for saving data as 'csv' (function \code{fwrite} from package
+\code{data.table}) or 'rds' (base function \code{saveRDS}). The function tries to
+save data as fast as possible but processing time greatly depends or the
+size of the dataset. Options to compress data are available, but please be
+sure to have enough memory space for saving large datasets.
 
-  Currently, saving can be performed by grouping occurrence data by the
-  following types of information:
-  \itemize{
-  \item code of the biological collection ('collection')
-  \item year of collection ('year')
-  \item taxonomy ('family', 'genus' or 'species')
-  \item country of collection ('country')
-  \item the confidence level of species identifications ('tax')
-  \item the validation categories of the geographical coordinates ('geo')
-  }
+Currently, saving can be performed by grouping occurrence data by the
+following types of information:
+\itemize{
+\item code of the biological collection ('collection')
+\item year of collection ('year')
+\item taxonomy ('family', 'genus' or 'species')
+\item country of collection ('country')
+\item the confidence level of species identifications ('tax')
+\item the validation categories of the geographical coordinates ('geo')
+}
 
-  Note that if there are NAs in the grouping variable, they will be all saved
-  under a file called 'NA.csv' or 'NA.rds'.
+Note that if there are NAs in the grouping variable, they will be all saved
+under a file called 'NA.csv' or 'NA.rds'.
 }

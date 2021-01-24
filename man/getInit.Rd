@@ -4,19 +4,19 @@
 \alias{getInit}
 \title{Create Name Initials}
 \usage{
-getInit(x, all.caps = TRUE, max.initials = 5)
+getInit(x, upper = TRUE, max.initials = 5)
 }
 \arguments{
 \item{x}{the character string or vector to be standardized}
 
-\item{all.caps}{logical. Should initials be capitalized? Default to TRUE.}
+\item{upper}{logical. Should initials be capitalized? Default to TRUE.}
 
 \item{max.initials}{numerical. Upper limit of number of letter for a single
 word to be considered as initials and not as a name. Default to 5.}
 }
 \value{
 the character string with the initials of each name separated by
-  points, without spaces. By default, initials are returned capitalized.
+points, without spaces. By default, initials are returned capitalized.
 }
 \description{
 Convert or standardize a vector of containing people's names
@@ -24,19 +24,19 @@ or their initials.
 }
 \details{
 The function has some basic assumptions in order to get initials for
-  the most type of cases.
+the most type of cases.
 
-  For multiple names/abbreviations separated by a space and/or an
-  abbreviation point, the function takes the first letter of each
-  name/abbreviation as the initials.
+For multiple names/abbreviations separated by a space and/or an
+abbreviation point, the function takes the first letter of each
+name/abbreviation as the initials.
 
-  For single names or one-string initials the output depends on the presence
-  of abbreviation points, if names are provided in all caps and in the number
-  of letters. If the number of capital letters exceeds the value in the argument
-  `max.initials`, then it is taken as a name and not initials (see Examples).
+For single names or one-string initials the output depends on the presence
+of abbreviation points, if names are provided in all caps and in the number
+of letters. If the number of capital letters exceeds the value in the argument
+\code{max.initials}, then it is taken as a name and not initials (see Examples).
 
-  The output is relatively stable regarding different name formats and notation
-  standards, but it doe not work for all of them (see Examples).
+The output is relatively stable regarding different name formats and notation
+standards, but it doe not work for all of them (see Examples).
 }
 \examples{
   # Full names and both full and abbreviated names
@@ -67,13 +67,12 @@ The function has some basic assumptions in order to get initials for
 
   # Some problematic (unresolved) examples
   getInit("AL") # assumes as initials (n. letters < default `max.initials`)
-  getInit("AL", max.initials = 2) # assumes as name (by changig the default)
+  getInit("AL", max.initials = 2) # assumes as name (by changing the default)
   getInit("Carl F. P. von Martius") #takes name preposition as name
   getInit("AH gentry") # assumes initials as first name
   getInit("Gentry, A.") # ignores comma
   getInit("G., Alwyn") # ignores comma
   getInit("Ah. Gentry") # discard the lower-case initial
-
 
 }
 \author{

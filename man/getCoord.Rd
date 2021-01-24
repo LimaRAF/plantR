@@ -13,8 +13,7 @@ getCoord(
   res.gazet = "resolution.gazetteer",
   lat.new = "decimalLatitude.new",
   lon.new = "decimalLongitude.new",
-  rm.gazet = FALSE,
-  ...
+  rm.gazet = FALSE
 )
 }
 \arguments{
@@ -50,43 +49,43 @@ from the data after the replacement of missing coordinates? Default to FALSE.}
 }
 \value{
 The data frame \code{x} with the columns 'decimalLatitude.new' and
-  'decimalLongitude.new' containing the geographical coordinates at the best
-  locality resolution (i.e. 'administrative level') available. The function
-  also returns the precision of the coordinates.
+'decimalLongitude.new' containing the geographical coordinates at the best
+locality resolution (i.e. 'administrative level') available. The function
+also returns the precision of the coordinates.
 }
 \description{
 This function assess the availability and precision of
-  the original geographical coordinates of the occurrence and it replaces
-  missing coordinates by the coordinates obtained from the gazetteer.
+the original geographical coordinates of the occurrence and it replaces
+missing coordinates by the coordinates obtained from the gazetteer.
 }
 \details{
 The function was initially designed as part of a routine to edit and
-  validate geographical coordinates of plant occurrence data. It is possible
-  to use it separately, but it may be easier to use it under the workflow
-  presented in __plantR__ tutorial (see functions `getLoc` and `prepCoord`).
-  If used separately, users should provide a data frame preferabley with the
-  following six columns (the defaults): 'decimalLatitude',
-  'decimalLongitude', 'latitude.gazetteer', 'longitude.gazetteer',
-  'resolution.gazetteer', 'decimalLatitude.new' and 'decimalLongitude.new')
-  or to specify the respective columns in the input data.
+validate geographical coordinates of plant occurrence data. It is possible
+to use it separately, but it may be easier to use it under the workflow
+presented in \strong{plantR} tutorial (see functions \code{getLoc} and \code{prepCoord}).
+If used separately, users should provide a data frame preferabley with the
+following six columns (the defaults): 'decimalLatitude',
+'decimalLongitude', 'latitude.gazetteer', 'longitude.gazetteer',
+'resolution.gazetteer', 'decimalLatitude.new' and 'decimalLongitude.new')
+or to specify the respective columns in the input data.
 
-  The columns `lat.new` and `lon.new` are the columns containing the working
-  coordinates that may have been already edited. It is also the columns were
-  the function will store the coordinates from the gazetter in the case of
-  missing coordinates. If these columns are not provided in the input data,
-  they are assumed to be equal to `lat.orig` and `lon.orig` and they are
-  created internally.
+The columns \code{lat.new} and \code{lon.new} are the columns containing the working
+coordinates that may have been already edited. It is also the columns were
+the function will store the coordinates from the gazetter in the case of
+missing coordinates. If these columns are not provided in the input data,
+they are assumed to be equal to \code{lat.orig} and \code{lon.orig} and they are
+created internally.
 
-  The precision of the geographical coordinates are classified as: "degrees",
-  "minutes", "seconds" and "miliseconds". This classification is performed for
-  the latitude and longitude of each record and the worst precision retrieved is
-  assigned to both of them (i.e. if lat = "minutes" and lon= "seconds", the
-  precision = "minutes"). For simplicity, all latitude/longitude not classified as
-  "degrees", "minutes" or "seconds" are classified as "miliseconds".
+The precision of the geographical coordinates are classified as: "degrees",
+"minutes", "seconds" and "miliseconds". This classification is performed for
+the latitude and longitude of each record and the worst precision retrieved is
+assigned to both of them (i.e. if lat = "minutes" and lon= "seconds", the
+precision = "minutes"). For simplicity, all latitude/longitude not classified as
+"degrees", "minutes" or "seconds" are classified as "miliseconds".
 
-  The function implicitly assumes that NA coordinates are missing and they
-  are replaced by the coordinates coming from the gazetteer. See the examples
-  below.
+The function implicitly assumes that NA coordinates are missing and they
+are replaced by the coordinates coming from the gazetteer. See the examples
+below.
 }
 \examples{
 

@@ -21,9 +21,9 @@ rgbif2(
 
 \item{species}{Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector}
 
-\item{force}{Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`}
+\item{force}{Logical. Force downloading data for more than 10 species in a loop. Default \code{force = FALSE}}
 
-\item{remove_na}{Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude}
+\item{remove_na}{Logical. Defalt \code{TRUE} removes NA in columns decimalLatitude and decimalLongitude}
 
 \item{save}{Logical. Save output to filename? Defaults to TRUE}
 

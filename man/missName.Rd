@@ -15,11 +15,11 @@ missName(x, type = NULL, noName = "Anonymous")
 }
 \value{
 the character string \code{x} in the standard notation for missing
-  names.
+names.
 }
 \description{
 Standardize the different notation of missing collector or
-  identifier names associated with biological records.
+identifier names associated with biological records.
 }
 \examples{
 # Needs to chose between 'collector' or 'identificator'
@@ -36,8 +36,8 @@ Standardize the different notation of missing collector or
 }
 \references{
 Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
-  Protocols for Interchange of Data. Herbarium Information Systems Committee'
-  (HISCOM). https://www.tdwg.org/standards/hispid3/
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
 }
 \author{
 Renato A. F. de Lima

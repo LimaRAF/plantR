@@ -10,7 +10,7 @@ getCult(x, cc_inst = FALSE)
 \item{x}{a data frame with the occurrence data.}
 
 \item{cc_inst}{logical. Should the identification of occurrences in the
-vicinity of biodiversity institutions (package `coordinateCleaner`) be performed?
+vicinity of biodiversity institutions (package \code{coordinateCleaner}) be performed?
 Default to FALSE.}
 }
 \description{
@@ -18,6 +18,6 @@ This function ...
 }
 \details{
 The input data frame \code{x} must contain at least the columns
-  containing the description of the occurrence (i.e. 'occurrenceRemarks') or
-  the locality description (e.g. 'locality').
+containing the description of the occurrence (i.e. 'occurrenceRemarks') or
+the locality description (e.g. 'locality').
 }

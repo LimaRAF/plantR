@@ -4,36 +4,48 @@
 \alias{lastName}
 \title{Get Last Name}
 \usage{
-lastName(name, noName = "s.n.")
+lastName(name, noName = "s.n.", invert = FALSE, initials = FALSE)
 }
 \arguments{
 \item{name}{the character string or vector containing the names.}
 
 \item{noName}{character. The standard notation for missing names in
 \code{name}. Default to "s.n.".}
+
+\item{invert}{logical. Should first name(s) be returned instead of the
+last name? Default to FALSE.}
+
+\item{initials}{logical. If first name(s) are chosen, should they be returned
+in full or only their initials? Default to FALSE.}
 }
 \value{
 the last name provided in \code{name} with the first letter
-  capitalized.
+capitalized.
 }
 \description{
 Extract the last name of the collector or determiner of a
-  biological specimen.
+biological specimen.
 }
 \details{
 The function works for simple last names or compound last names,
-  independently if names are provided in lower or capital letters. It is
-  relatively stable to the format and spacing of the string provided, but it
-  may not work in all cases.
+independently if names are provided in lower or capital letters. It is
+relatively stable to the format and spacing of the string provided, but it
+may not work in all cases.
 
-  It implicitly assumes that last names are the ones at the end of the name or
-  the first name preceeding the comma.
+It implicitly assumes that last names are (i) the ones provided at the end of
+the name string if there is no comma, or (ii)the first name preceeding the comma,
+if there is a comma in the name string.
 
-  If only one name is given, the function returns the same name with the first
-  letter capitalized.
+If only one name is given, the function returns the same name with the first
+letter capitalized.
 
-  For missing names (i.e. "", " " or NAs) the function returns the character
-  defined by the argument `noName`
+For missing names (i.e. "", " " or NAs) the function returns the character
+defined by the argument \code{noName}.
+
+The function can also return all names but the last name detected by
+setting the argument \code{invert} to TRUE. In this case, user can chose between
+full first names and only their initials by setting the argument \code{initials}
+to TRUE.
 }
 \examples{
 
@@ -60,6 +72,8 @@ The function works for simple last names or compound last names,
  names <- c("Gentry, AH", "Gentry A.H.",
  "Leitao filho, H. F.","Saint-Hilaire, augustin")
  lastName(names)
+ lastName(names, invert = TRUE)
+ lastName(names, invert = TRUE, initials = TRUE)
 
  # Unusual formatting
  lastName("Cesar Sandro, Esteves, F")
@@ -68,6 +82,10 @@ The function works for simple last names or compound last names,
  lastName("A. Alvarez, A. Zamora & V. Huaraca")
  # two or more names, not separated by comma: output incorrect (give names of authors)
  lastName("Karl Emrich & Balduino Rambo")
+
+ # Some problematic (unresolved) examples
+ lastName("Gentry AH")
+ lastName("Maria Da Silva", invert = TRUE, initials = TRUE)
 
 }
 \author{

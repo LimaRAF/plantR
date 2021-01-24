@@ -32,23 +32,34 @@
 #'
 #' @export formatTax
 #'
-formatTax <- function(tax, use.suggestion = TRUE, ...) {
+formatTax <- function(tax,
+                      use.suggestion = TRUE,
+                      tax.name = "scientificName",
+                      rm.rank = FALSE,
+                      tax.names = c("scientificName.new","scientificNameAuthorship"),
+                      db = c("bfo","tpl"),
+                      sug.dist = 0.9,
+                      use.authors = TRUE,
+                      drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id"),
+                      fam.name = "family",
+                      gen.name = "genus",
+                      spp.name = "scientificName") {
 
   # check input:
   if (!class(tax) == "data.frame")
     stop("input object needs to be a data frame!")
 
   # prepSpecies
-  tax1 <- fixSpecies(tax, ...)
+  tax1 <- fixSpecies(x = tax, tax.name, rm.rank)
 
   # formatSpecies
-  tax1 <- prepSpecies(tax1, ...)
+  tax1 <- prepSpecies(x = tax1, tax.names, db, sug.dist, use.authors, drop.cols)
   if (use.suggestion) {
     tax1$scientificName.new <- tax1$suggestedName
   }
 
   # prepFamily
-  tax1 <- prepFamily(tax1, spp.name = "scientificName.new", ...)
+  tax1 <- prepFamily(x = tax1, fam.name, spp.name = "scientificName.new")
 
   return(tax1)
 }

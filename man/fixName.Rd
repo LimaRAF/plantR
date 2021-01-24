@@ -6,7 +6,7 @@
 \usage{
 fixName(
   nomes,
-  sep.in = c(";", "&", "\\\\|", " e ", " y ", " and ", " und ", " et "),
+  sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "; ",
   special.char = FALSE
 )
@@ -25,46 +25,43 @@ in the output string. Defaults to "; ".}
 }
 \value{
 The character string \code{x} in the standard notation to facilitate
-  further data processing.
+further data processing.
 }
 \description{
 Standardize name notation
 }
 \details{
 The function fixes small problems in name notation (e.g. orphan
-  spaces), standardize the separation between multiple authors and between
-  initials and/or prepositions within the same name. It also standardize the
-  notation of some compound names (i.e. Faria Jr. to Faria Junior). In
-  addition, the function removes numbers, some unwanted expressions (e.g. 'et
-  al.') and symbols (e.g. ? or !).
+spaces), standardize the separation between multiple authors and between
+initials and/or prepositions within the same name. It also standardize the
+notation of some compound names (i.e. Faria Jr. to Faria Junior). In
+addition, the function removes numbers, some unwanted expressions (e.g. 'et
+al.') and symbols (e.g. ? or !).
 
-  Due to common encoding problems related to Latin names, names are returned
-  without accents by default. But users can choose between outputs with and
-  without accents and species characters, by setting the argument
-  `special.char` to TRUE.
+The function was created to deal with people's names, so input separators
+for multiple names composed only by letters should be surrounded by spaces.
+For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
+taken independently of the presence of spaces nearby.
+
+Due to common encoding problems related to Latin characters, names are
+returned without accents by default. This typicaBut users can choose between outputs
+with and without accents and species characters, by setting the argument
+\code{special.char} to TRUE.
 }
 \examples{
-  fixName("J.E.Q. Faria Jr.")
-  fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("Leitão F°, H.F.")
-  fixName("Leitão F°, H.F.", special.char = TRUE)
-  fixName("Gert G. Hatschbach, et al.")
-  fixName("Karl Emrich & Balduino Rambo")
-  fixName("Karl Emrich & Balduino Rambo", sep.out = " | ")
-  fixName('( Karl) Emrich ;(Balduino ) Rambo')
-  fixName('F. da S.N. Thomé')
-  fixName('F.daS.N.Thomé')
-  fixName('Pedro L.R.de Morães')
-  fixName('Pedro L.R.de Morães (30/4/1998)')
-  fixName('[D. Hugh-Jones]')
-
-  # Multiple names
   names <- c("J.E.Q. Faria Jr.",
   "Leitão F°, H.F.", "Gert G. Hatschbach, et al.",
-  "Karl Emrich & Balduino Rambo", "F.daS.N.Thomé")
+  "Karl Emrich & Balduino Rambo",
+  '( Karl) Emrich ;(Balduino ) Rambo', "F.daS.N.Thomé",
+  'F. da S.N. Thomé', 'Pedro L.R.de Moraes (30/4/1998)')
+  Encoding(names) <- "latin1"
+  names
+
   fixName(names)
+  fixName(names, special.char = TRUE)
+  fixName(names, sep.out = " | ")
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. F. de Lima & Hans ter Steege
 }

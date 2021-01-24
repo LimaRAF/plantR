@@ -30,11 +30,15 @@ formatDwc(
 )
 }
 \arguments{
-\item{splink_data}{A data frame as in the output from `rspeciesLink()`}
+\item{splink_data}{A data frame as in the output from \code{rspeciesLink()}}
 
-\item{gbif_data}{A data frame as in the output from `rgbif()` or `rgbif2()`}
+\item{gbif_data}{A data frame as in the output from \code{rgbif()} or \code{rgbif2()}}
 
-\item{user_data}{A data frame provided by the user. Minimum fields are: `c("collectionCode", "catalogNumber", "recordNumber", "recordedBy", "year", "country", "stateProvince", "county", "municipality", "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified", "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")`. Fields can be placed at any order and any given name. If using `user_data` argument, the user must indicate the name of the column for each field if not already in DwC standard}
+\item{user_data}{A data frame provided by the user. Minimum fields are:
+\code{c("collectionCode", "catalogNumber", "recordNumber", "recordedBy", "year", "country", "stateProvince", "county", "municipality", "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified", "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")}. Fields can
+be placed at any order and any given name. If using \code{user_data} argument,
+the user must indicate the name of the column for each field if not already
+in DwC standard}
 
 \item{bind_data}{Logical. Either to bind data from differents sources after formatting}
 

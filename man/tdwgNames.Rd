@@ -25,41 +25,41 @@ first name, or auxiliary names.}
 }
 \value{
 The character string \code{x} in the TDWG format (Last Name {comma}
-  First Name). If the names of only one person is given, the function returns
-  the same as function \code{tdwgName}.
+First Name). If the names of only one person is given, the function returns
+the same as function \code{tdwgName}.
 }
 \description{
 Convert multiple collector or determiner names into the
-  \href{https://www.tdwg.org/}{Biodiversity Information Standards} (TDWG).
+\href{https://www.tdwg.org/}{Biodiversity Information Standards} (TDWG).
 }
 \details{
 The function puts the name of multiple persons into the format as
-  suggested by the \href{https://www.tdwg.org/}{Biodiversity Information
-  Standards} (TDWG). The standard name format is: last name, followed by a comma
-  and then the initials, separated by points (e.g. Hatschbach, G.G.).
+suggested by the \href{https://www.tdwg.org/}{Biodiversity Information
+Standards} (TDWG). The standard name format is: last name, followed by a comma
+and then the initials, separated by points (e.g. Hatschbach, G.G.).
 
-  The function is relatively stable regarding the input format and spacing,
-  but it may not work in all cases, particularly if the string provided
-  already contain commas. See examples below.
+The function is relatively stable regarding the input format and spacing,
+but it may not work in all cases, particularly if the string provided
+already contain commas. See examples below.
 
-  Currently, the function removes name prefixes or prepositions (e.g. de,
-  dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe.)
-  but not all of them (e.g. Doctor, Priest, etc.). The function also does not
-  handle hyphenated first names.
+Currently, the function removes name prefixes or prepositions (e.g. de,
+dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe.)
+but not all of them (e.g. Doctor, Priest, etc.). The function also does not
+handle hyphenated first names.
 
-  The user must choose the input character separating the multiple names. By
-  default, the function uses ';', ' e ', ' et ' '&' and '|' as. Users can also
-  choose the output separator between names, but the default is the TDWG
-  recommendation, which is " | ".
+The user must choose the input character separating the multiple names. By
+default, the function uses ';', ' e ', ' et ' '&' and '|' as. Users can also
+choose the output separator between names, but the default is the TDWG
+recommendation, which is " | ".
 
-  If special separators are used (e.g. '.,'), make sure that their notation
-  contains the scape symbols required when using regular expressions in R
-  (e.g. '\\\.,').
+If special separators are used (e.g. '.,'), make sure that their notation
+contains the scape symbols required when using regular expressions in R
+(e.g. '\\\.,').
 
-  The user can also choose the output character to be all names in the input
-  character (out = "all"), only the name (out = "first") or only the
-  auxiliary/secondary names (out = "aux"). By default, the function returns
-  all names together, as recommended by the TDWG standards.
+The user can also choose the output character to be all names in the input
+character (out = "all"), only the name (out = "first") or only the
+auxiliary/secondary names (out = "aux"). By default, the function returns
+all names together, as recommended by the TDWG standards.
 }
 \examples{
   # Simple names
@@ -94,12 +94,12 @@ The function puts the name of multiple persons into the format as
 }
 \references{
 Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
-  Protocols for Interchange of Data. Herbarium Information Systems Committee'
-  (HISCOM). https://www.tdwg.org/standards/hispid3/
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
 
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
-  Standardisation in data-entry across databases: Avoiding Babylonian
-  confusion. Taxon 57(2): 343-345.
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
 }
 \seealso{
 \link[plantR]{tdwgName}

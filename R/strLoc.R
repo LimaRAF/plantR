@@ -70,7 +70,8 @@
 #' strLoc(df.fix)
 #'
 #'
-strLoc <- function(x, adm.names = c("country.new", "stateProvince.new", "municipality.new"),
+strLoc <- function(x,
+                   adm.names = c("country.new", "stateProvince.new", "municipality.new"),
                    loc.names = c("locality.new","locality.scrap","resol.orig")) {
 
   ## check input:

@@ -1,4 +1,4 @@
-#' @title Confidence of Species Indentification
+#' @title Confidence on Species Identification
 #'
 #' @description This function assigns different categories of confidence level
 #'   (i.e. high, medium, low or unknown) to the identification of species
@@ -37,10 +37,11 @@
 #' (isotype, paratypes, etc). By default, the names of family specialists are
 #' obtained from a global list of about 8,500 plant taxonomists names
 #' constructed by Lima et al. (2020) and provided with __plantR__. This
-#' list was built based on information from the [Harvard University Herbaria]
-#' (http://kiki.huh.harvard.edu/databases), the [Brazilian Herbaria Network]
-#' (http://www.botanica.org.br/rbh) and the [American Society of Plant Taxonomists]
-#' (https://members.aspt.net). The dictionary was manually complemented for
+#' list was built based on information from the
+#' [Harvard University Herbaria](http://kiki.huh.harvard.edu/databases), the
+#' [Brazilian Herbaria Network](http://www.botanica.org.br/rbh) and the
+#' [American Society of Plant Taxonomists](https://members.aspt.net).
+#' The dictionary was manually complemented for
 #' missing names of taxonomists and it includes common variants of taxonomists
 #' names (e.g., missing initials, typos, married or maiden names).
 #'
@@ -96,10 +97,13 @@
 #'
 #' validateTax(df)
 #'
-validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
-                        generalist.class = "medium", miss.taxonomist = NULL,
-                        taxonomist.list = "plantR", top.det = 10)
-{
+validateTax <- function(x,
+                        special.collector = TRUE,
+                        generalist = FALSE,
+                        generalist.class = "medium",
+                        miss.taxonomist = NULL,
+                        taxonomist.list = "plantR",
+                        top.det = 10) {
 
   #Checking the input
   if (!class(x) == "data.frame")
@@ -175,9 +179,9 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
   x$tax.check <- combo.occs %in% combo
 
   #Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
-  if("typeStatus" %in% names(x))
+  if ("typeStatus" %in% names(x))
     x$tax.check[!is.na(x$typeStatus) &
-                  !grepl("not a type|notatype|probable type|tipo provavel|tipo provável",
+                  !grepl("not a type|notatype|probable type|tipo provavel|tipo prov\u00e1vel",
                          x$typeStatus, ignore.case = TRUE)] <- TRUE
 
   #Specifying occurrences with unkown determiner name
@@ -196,9 +200,9 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
                 is.na(x[, covs.present[["identifiers"]]])] <- "unknown"
 
   #Validating all specimens collected by the family specialist but with the determiner field empty
-  if(special.collector) {
+  if (special.collector) {
 
-    if(!is.na(covs.present[["collectors"]])) {
+    if (!is.na(covs.present[["collectors"]])) {
 
       combo2 <- paste(x[,covs.present[["families"]]],
                       x[,covs.present[["collectors"]]], sep = "_")
@@ -236,7 +240,7 @@ validateTax <- function(x, special.collector = TRUE, generalist = FALSE,
   row.names(non.tax.det.df) <- NULL
   non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
   cat("Top people with many determinations but not in the taxonomist list: \n",
-      knitr::kable(my.head.df(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep="\n")
+      knitr::kable(my.head.df(non.tax.det.df, top.det), row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
 
   return(x)
 }

@@ -2,61 +2,94 @@
 % Please edit documentation in R/prepSpecies.R
 \name{prepSpecies}
 \alias{prepSpecies}
-\title{Edit Scientific Name}
+\title{Get Valid Plant Names}
 \usage{
-prepSpecies(x = NULL, tax.name = "scientificName", rm.rank = FALSE, ...)
+prepSpecies(
+  x,
+  tax.names = c("scientificName.new", "scientificNameAuthorship"),
+  db = c("bfo", "tpl"),
+  sug.dist = 0.9,
+  use.authors = TRUE,
+  drop.cols = c("ordem", "family", "verbatimSpecies", "author", "full_sp",
+    "authorship", "id")
+)
 }
 \arguments{
-\item{x}{a data.frame containing the species name}
+\item{x}{a data.frame containing the species scientific name without authors
+and their authorship, ideally already passed by the string check in
+\code{fixSpecies}. The authorship is only used for solving homonyms.}
 
-\item{tax.name}{character. Name of the columns containing the species name. Default
-to "scientificName"}
+\item{tax.names}{character. Names of the columns containing the species names
+and authors. Defaults to 'scientificName.new' and
+'scientificNameAuthorship'.}
 
-\item{rm.rank}{logical. Should the infra-specific rank abbreviation be
-removed? Default to FALSE}
+\item{db}{the list of database to be consulted for valid names, in their
+preferred order of priority. Only the results from Brazilian Flora 2020
+('bfo'), The Plant List ('tpl') or both are currently implemented.}
+
+\item{sug.dist}{a fraction expressing the maximum distance allowed between
+the original species name and the suggested species name, which is passed
+to the arguments \code{suggestion.distance} of function \code{flora::get.taxa()} and
+\code{max.distance} of function \code{Taxonstand::TPL()}. Defaults to 0.9.}
+
+\item{use.authors}{logical. Should all authors names be verified (takes
+longer)? Default to TRUE.}
+
+\item{drop.cols}{character. Name of columns that should be dropped from the
+results.}
 }
 \value{
-Data frame with `verbatimSpecies` as in the original input, `speciesStatus`
-with the flags in original data and `species` with a suggestion for a more
-correct species name. See Details for a description of flags in the column
-`speciesStatus`.
+A data frame with the same columns provided by the user and some additional
+columns containing the suggested binomial ('suggestedName'), the corresponding
+scientific name ('scientific.name'), the notes and the sources used to retrieve
+the suggested binomial (columns 'notes' and 'source').
 }
 \description{
-Identifies open nomenclature (aff., cf.) in species scientific name,
-classification under species level (var. and subsp.), and common mistakes in
-the species scientific name. It creates a new column with the original
-string and the new suggested name. It also flags problematic names (character
-string with numbers, authors, wrong case, or other names besides genus and
-epithet etc).
+Provides valid plant names or corrects typos and orthographical
+variants based on the
+\href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
+Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
+Plant List}. It uses the functionalities of other R packages, namely \strong{flora}
+(Carvalho 2019) and \strong{Taxonstand} (Cayuela et al. 2017).
 }
 \details{
-Possible flags returned in `species_status`: \describe{
-\item{\code{possibly_ok}}{scientific name following the expected pattern Genus
-epithet} \item{\code{not_Genus_epithet_format}}{scientific name not following
-the expected pattern Genus epithet} \item{\code{variety}}{species scientific
-name with variety} \item{\code{subspecies}}{species scientific name with
-subspecies} \item{\code{form}}{species scientific name with form}
-\item{\code{conferre}}{open nomenclature cf. in species scientific name}
-\item{\code{affinis}}{open nomenclature aff. in species scientific name}
-\item{\code{name_w_authors}}{species scientific name has authors}
-\item{\code{not_name_has_digits}}{species scientific name has digits, not a
-valid name} \item{\code{indet}}{species identified only at genus level}
-\item{\code{family_as_genus}}{family as genus, not a valid name}
-\item{\code{order_as_genus}}{order as genus, not a valid name}
-\item{\code{species_nova}}{species name contains an indication of a new
-species, possibly not yet a valid name} \item{\code{non_ascii}}{species name
-has non ASCII characters, not a valid name}
-\item{\code{hybrid_species}}{hybrid species} }
+The function currently uses packages \strong{flora} and \strong{Taxonstand} to
+provide suggested names. Not all information returned by those packages
+are returned here, but some of them can be controlled using the argument
+\code{drop.cols}.
+
+The function does not provide the suggested names from the different
+databases/sources. It combines into the same column ('suggestedName') the
+suggestions from one or more databases. If more than one databases is used,
+the suggested names are combined following the same order of the database
+codes provided in the argument \code{db}. See examples for details.
 }
 \examples{
-df <- data.frame(scientificName =
-c("Lindsaea lancea var. falcata", "Asplenium Aff. truncorum",
-"Asplenium sp.", "Casearia aff. sylvestris Sw."),
-stringsAsFactors = FALSE)
+sp.list <- c("Casearia sylvestris","Casearia sylvestirs",
+  "Casearia sylvestris angustifolia", "Casearia attenuata",
+  "Casearia celtidifolia", "Casearia celtidifolia","Casearia tropicana")
+aut_list <- c("Sw.", "Sw.", "Uittien", "Rusby", "Kunth", "de Vriese","L.")
+df <- data.frame(scientificName.new = sp.list,
+  scientificNameAuthorship = aut_list,
+  stringsAsFactors = FALSE)
 prepSpecies(df)
-prepSpecies(df, rm.rank = TRUE)
+prepSpecies(df, db = c("tpl","bfo"))
+prepSpecies(df, db = "bfo")
+prepSpecies(df, db = "tpl")
+prepSpecies(df, db = "tpl", sug.dist = 0.85)
 
 }
+\references{
+Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
+Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
+
+Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
+Standardization of Plant Species Names. R package version 2.1.
+https://CRAN.R-project.org/package=Taxonstand
+}
+\seealso{
+Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
+}
 \author{
-Sara Mortara
+Renato A. Ferreira de Lima
 }

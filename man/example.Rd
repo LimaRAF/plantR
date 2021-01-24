@@ -14,8 +14,8 @@ A data frame with 16,491 rows and 51 variables
 data(example)
 }
 \description{
-A dataset containing the retrieved records of the species *Trema micrantha*
-and *Casearia sylvestris* downloaded from the speciesLink network in June
+A dataset containing the retrieved records of the species \emph{Trema micrantha}
+and \emph{Casearia sylvestris} downloaded from the speciesLink network in June
 2020.
 }
 \keyword{datasets}

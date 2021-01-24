@@ -1,6 +1,6 @@
 #' @title Search For Duplicate Specimens Among Collections
 #'
-#' @description This function ...
+#' @description This function searches for duplicate specimens among collections
 #'
 #' @param df a data frame with the collection code (first column) and the strings
 #'   to be used for the duplicate search (second and other columns), typically
@@ -10,7 +10,7 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @details The input data frame \code{df} must contain at least the columns ...
+#' @details The input data frame \code{df} must contain at least the columns
 #'
 #' @return
 #'
@@ -23,7 +23,7 @@
 #'
 #' @export getDup
 #'
-getDup <- function(df, flag.ind = TRUE, ...) {
+getDup <- function(df, flag.ind = TRUE) {
 
   # check input
   if (!class(df) == "data.frame")

@@ -2,106 +2,135 @@
 % Please edit documentation in R/prepTDWG.R
 \name{prepTDWG}
 \alias{prepTDWG}
-\title{Format People's Name In TDWG Format}
+\title{Format People's Name}
 \usage{
-prepTDWG(x, sep = ", ", format = "last_init", get.prep = FALSE)
+prepTDWG(
+  x,
+  sep = ", ",
+  format = "last_init",
+  get.prep = FALSE,
+  get.initials = TRUE
+)
 }
 \arguments{
-\item{x}{the character string or vector.}
+\item{x}{the character string or vector containing the names.}
 
-\item{sep}{character. Separator of the name format. Default to ", ".}
+\item{sep}{character. Input and output name separator. Default to ", ".}
 
-\item{format}{character. Output name format. The default ("last_init") is the
-similar to the TDWG standard, but the inverse format can also be used
-("init_last").}
+\item{format}{character. Output name format. The default is "last_init".}
 
 \item{get.prep}{logical. Should last name prepositions be included? Default to
 FALSE.}
+
+\item{get.initials}{logical. Should last name prepositions be included? Default to
+TRUE.}
 }
 \value{
-The character string \code{x} in the fixed TDWG format.
+The character string \code{x} in the standardized format.
 }
 \description{
-Solve minor formatting issues of names that are already provided
-  in the \href{https://www.tdwg.org/}{Biodiversity Information Standards}
-  (TDWG) format.
+Convert people's names to different formats (i.e. Last Name,
+First Names(s) or First Name(s), Last Name) with or without last name
+prepositions. The default name format is the one suggested in the
+\href{https://www.tdwg.org/}{Biodiversity Information Standards} (TDWG)
+format.
 }
 \details{
-The function fixes simple problems (e.g. missing points between name
-  initials) for names provided already in a the following format: last name(s)
-  + comma + name or initials.
+The default name format follows the one suggested by the
+\href{https://www.tdwg.org/}{TDWG}, which is: Last name, followed by a
+comma and then the initials, separated by points (e.g. Hatschbach, G.G.).
 
-  If the name provided is not separated by commas (the default separator),
-  the function returns the same input character (i.e. no formatting is
-  performed). In case of vector, only the names separated by commas will
-  be edited.
+The functions uses internally another \strong{plantR} function: \code{lastName()}.
+So, it assumes that people last names are the ones provided at the end of
+the name string or preceeding the name separator (i.e. comma), if present.
 
-  If the name provided has unusual formatting or if multiple names are
-  provided within the same string, the function may not work properly. So,
-  the output may depend on the input format and some level of
-  double-checking may be necessary. See examples below.
+The function deals with simples last names, as well as with compound
+last names and last names with common name prefixes or prepositions (e.g. de,
+dos, van, ter, ...). By default, these prefixes and prepositions are
+removed, but they can be returned if the argument \code{get.prep} is set to
+TRUE.
+
+The function asumes that all names containing separators (default to a comma) are in
+the format suggested by TDWG. But even for those cases, the function fixes
+simple problems (e.g. missing points between name initials).
+
+If only one name is given, the fucntion return the same name with the first
+letter capitalized.
+
+The function output it is relatively stable regarding the input format,
+lower/uppercasing and spacing. But if the name provided has unusual
+formatting or if names for mutltiple people are provided within the same
+string, the function may not work properly. So, the output may depend on
+the input format and some level of double-checking may be necessary. See
+examples below.
 }
 \examples{
-  # Simple name
-  prepTDWG("Gentry, A.H.") # supposed not to change
+  # Single names
+  prepTDWG("gentry")
+  prepTDWG("GENTRY")
+
+  # Simple names
+  prepTDWG("Alwyn Howard Gentry")
+  prepTDWG("Alwyn H. Gentry")
+  prepTDWG("A.H. Gentry")
+  prepTDWG("A H Gentry")
+  prepTDWG("Gentry, Alwyn Howard")
   prepTDWG("Gentry, AH")
   prepTDWG("GENTRY, A H")
-  prepTDWG("Gentry, Alwyn")
-  prepTDWG("Gentry, Alwyn Howard")
   prepTDWG("gentry, alwyn howard")
-  prepTDWG("Gentry, A.h.")
-  prepTDWG("gentry, a.")
   prepTDWG("gentry, a.h.")
   prepTDWG("gentry, a. h.")
-  prepTDWG("gentry, a")
 
-  # Name not in TDWG format (no comma; does nothing)
-  prepTDWG("Gentry AH")
-  prepTDWG("Dardano de Andrade-Lima")
+  # Name with prepositions
+  prepTDWG("Carl F. P. von Martius")
+  prepTDWG("Carl F. P. von Martius", get.prep = TRUE)
 
   # Names with generational suffixes
+  prepTDWG("Hermogenes de Freitas Leitao Filho")
+  prepTDWG("H.F. Leitao Filho")
   prepTDWG("Leitao Filho, HF")
-  prepTDWG("Filho Neto, S J")
   prepTDWG("Leitao filho, H. F.")
 
   # Compound last name
+  prepTDWG("Augustin Saint-Hilaire")
+  prepTDWG("A. Saint-Hilaire")
   prepTDWG("Saint-Hilaire, Augustin")
-  prepTDWG("Ziffer Berger, Richter")
-  prepTDWG("Saint-hilaire, a.")
 
-  # Names with prepositions
-  prepTDWG("Silva, Maria A. Pereira da")
-  prepTDWG("Silva, Maria A. Pereira Da")
-  prepTDWG("da Silva, Maria A. Pereira")
-  prepTDWG("Silva, Maria A. Pereira da", get.prep = TRUE)
-  prepTDWG("Silva, Maria A. Pereira Da", get.prep = TRUE)
-  prepTDWG("da Silva, Maria A. Pereira", get.prep = TRUE)
+  # Other formats
+  prepTDWG("John MacDonald")
+  prepTDWG("John McDonald")
+  prepTDWG("John O'Brien")
 
-  # Multiple names
+  # Multiple names, different settings
   names <- c("Gentry, AH", "Gentry A.H.",
-  "Leitao filho, H. F.", "Saint-Hilaire, a",
-  "gentry, alwyn howard", "da Silva, Maria A.")
+  "Carl F. P. von Martius","Leitao filho, H. de F.",
+  "Auguste de Saint-Hilaire", "John O'Reilly")
   prepTDWG(names)
   prepTDWG(names, format = "init_last")
   prepTDWG(names, format = "init_last", get.prep = TRUE)
+  prepTDWG(names, get.prep = TRUE, format = "prep_last_init")
+  prepTDWG(names, get.prep = TRUE, format = "prep_last_init", get.initials = FALSE)
 
-  # Unusual formatting (function won't work always...)
-  # one name, two commas: fails to get all names
-  prepTDWG("Cesar Sandro, Esteves, F")
-  # two or more names: output incorrect (combine names of authors)
-  prepTDWG("Mendonca Filho, C.V.; Neto, F.C.C.")
+  ## Unusual formatting (function won't work always...)
+  # two or more people names: output incorrect (combine names of authors)
+  prepTDWG("C. Mendonca Filho; F. da Silva")
   # two or more names, separated by comma: output incorrect (combine names of authors)
   prepTDWG("A. Alvarez, A. Zamora & V. Huaraca")
+  # one name, two commas: fails to get all names
+  prepTDWG("Cesar Sandro, Esteves, F")
 
 }
 \references{
 Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
-  Protocols for Interchange of Data. Herbarium Information Systems Committee'
-  (HISCOM). https://www.tdwg.org/standards/hispid3/
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
 
 Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
-  Standardisation in data-entry across databases: Avoiding Babylonian
-  confusion. Taxon 57(2): 343-345.
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
+}
+\seealso{
+\link[plantR]{lastName}, \link[plantR]{getPrep} and \link[plantR]{getInit}.
 }
 \author{
 Renato A. F. de Lima

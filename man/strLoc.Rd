@@ -17,32 +17,33 @@ strLoc(
 state/province and municipality information, in this order. Defaults to
 'country.new', 'stateProvince.new' and 'municipality.new'.}
 
-\item{loc.names}{an optional vector of columns names containing the locality
+\item{loc.names}{an vector of columns names containing the locality
 (original and alternative) and the resolution of the locality information.
 Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.}
 }
 \value{
 The data frame \code{x} plus the locality strings constructed from
-  the locality information ('loc.string', 'loc.string1' and 'loc.string2').
+the locality information ('loc.string', 'loc.string1' and 'loc.string2').
 }
 \description{
-Combine locality fields to create the standard plantR locality
-  string
+The function combines the locality fields available to create
+the standard \strong{plantR} locality string, which is used for the validate
+localities and geographical coordinates.
 }
 \details{
 The function combines the locality information provided to create
-  the standard string that __plantR__ uses to retrieve information from
-  its gazetteer. This string is built by concatenating the country, state,
-  municipality and locality fields at the best resolution available. This
-  nested format decreases the chances of retrieving information from
-  localities with the same names in different regions. The standard gazetteer
-  provided with __plantR__ uses this standard locality string to make queries
-  (see __plantR__ function `getLoc` for details).
+the standard string that \strong{plantR} uses to retrieve information from
+its gazetteer. This string is built by concatenating the country, state,
+municipality and locality fields at the best resolution available. This
+nested format decreases the chances of retrieving information from
+localities with the same names in different regions. The standard gazetteer
+provided with \strong{plantR} uses this standard locality string to make queries
+(see function \code{getLoc()} for details).
 
-The input data frame should preferably be the output of the __plantR__
-function `fixLoc`, as part of the validation workflow used by __plantR__.
+The input data frame should preferably be the output of the \strong{plantR}
+function \code{fixLoc()}, as part of the validation workflow used by \strong{plantR}.
 This function returns the edited locality fields (the function defaults) and,
-if chosen, an extra locality field. In this case, `strLoc` also returns an
+if chosen, an extra locality field. In this case, \code{strLoc()} also returns an
 alternative string ('loc.string2').
 
 If used separately, users should provide a data frame with an specific set of
@@ -78,6 +79,9 @@ df.fix <- fixLoc(df)
 strLoc(df.fix)
 
 
+}
+\seealso{
+\link[plantR]{fixLoc} and \link[plantR]{getLoc}.
 }
 \author{
 Renato A. F. de Lima
