@@ -1,13 +1,13 @@
 #' @title Isolate Family Name Prepositions
 #'
-#' @description This function isolate and remove (optional) last name prepositions
+#' @description This function isolates and removes (optional) last name prepositions
 #'   (i.e. 'da' in 'da Silva') from multiple people's names, if present.
 #'
 #' @param x a name string, a vector of names or a two-column matrix or
 #'   data.frame, containing the last name in the first column and other
 #'   names in the second.
-#' @param preps a vector with the name prepositions to be isolated. Default to
-#' sommon common prepositions in portuguese, spanish, itallian, french and dutch
+#' @param preps a vector with the name prepositions to be isolated. Defaults to
+#' some common prepositions in portuguese, spanish, italian, french, and dutch
 #' family names.
 #' @param rm.prep logical. Should the preposition be removed? Default to FALSE.
 #' @param output character. Should the names be returned as a vector of

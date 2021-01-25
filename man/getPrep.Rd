@@ -18,8 +18,8 @@ getPrep(
 data.frame, containing the last name in the first column and other
 names in the second.}
 
-\item{preps}{a vector with the name prepositions to be isolated. Default to
-sommon common prepositions in portuguese, spanish, itallian, french and dutch
+\item{preps}{a vector with the name prepositions to be isolated. Defaults to
+some common prepositions in portuguese, spanish, italian, french, and dutch
 family names.}
 
 \item{rm.prep}{logical. Should the preposition be removed? Default to FALSE.}
@@ -35,7 +35,7 @@ A vector or a matrix containing the names provided in \code{x} with
 the name prepositions isolated from the last name.
 }
 \description{
-This function isolate and remove (optional) last name prepositions
+This function isolates and removes (optional) last name prepositions
 (i.e. 'da' in 'da Silva') from multiple people's names, if present.
 }
 \details{
