@@ -35,7 +35,7 @@ getCult <- function(x, cc_inst = FALSE) {
   not.cult <- notCultivated
   pat.not.cult <- paste(not.cult, collapse = "|")
   `%like.ic%` <- function (x, pattern) {
-    grepl(pattern, x, ignore.case = TRUE)
+    grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
   }
 
   ##Flaging records of true and probable cultivated specimens (based on the locality descriptions)

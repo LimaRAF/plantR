@@ -52,7 +52,7 @@ validateDup <- function(occ.df, cat.code = "collectionCode.new", cat.numb = "cat
   # getDup
   dups <- getDup(dups)
   occ.df <- cbind.data.frame(occ.df,
-                             dups[,c("numTombo","dup.ID","dup.numb","dup.prop")],
+                             dups[, c("dup.ID", "dup.numb", "dup.prop")],
                              stringsAsFactors = FALSE)
   # mergeDup
   if (merge) {

@@ -1,7 +1,7 @@
-#' @title Merge Information Within Duplicates
+#' @title Merge Duplicate Information
 #'
 #' @description This function homogenize the information of different groups of
-#'   columns (taxonomic, geographic or locality) for groups of duplicate specimens.
+#'   fields (taxonomic, geographic or locality) for groups of duplicate specimens.
 #'
 #' @param dups the input data frame.
 #' @param prop numerical. The threshold value of proportion of duplicated values

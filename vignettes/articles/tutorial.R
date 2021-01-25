@@ -54,9 +54,6 @@ occs_splink <- rspeciesLink(species = "Euterpe edulis",
                             save = FALSE)
 occs_gbif <- rgbif2(species = "Euterpe edulis",
                     save = FALSE)
-write.csv(occs_splink, "vignettes/results/speciesLink.csv")
-write.csv(occs_gbif, "vignettes/results/gbif.csv")
-
 occs.bind <- formatDwc(splink_data = occs_splink,
                   gbif_data = occs_gbif,
                   bind_data = TRUE)

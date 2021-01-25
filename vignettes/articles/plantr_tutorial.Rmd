@@ -639,9 +639,9 @@ table(dups$dup.prop)
 ```
 As a result we found about 5300 specimens with a high chance of representing true duplicates, i.e. the proportion of search strings shared between them is maximum (dup.prop = 1). Other ~300 specimens had only one search string in common. Moreover, we have indication of possible ~4600 unicates, and for other ~6800 specimens we could not check for dupicates (i.e. all search strings used have missing information).
 
-Note that if there are duplicated entries (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
+Note that if there are duplicated record identifiers (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
 
-It is important to notice that these duplicate search results are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chnce of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
+It is important to notice that these duplicate search results are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chance of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
 
 ### Homogenizing the information within duplicates: function `mergeDup()`
 
@@ -649,7 +649,7 @@ Since the amount and quality of the information among collectiors may vary, one
 may want to homogenize the information within the duplicates. These
 homogenization can be carried out regarding the specimens identification or
 their locality and geographical coordinates. First, we need to combine the
-results of the duplicate search with out 'master' data frame:
+results of the duplicate search with the main data frame:
 
 ```{r, eval = FALSE}
 occs <- cbind.data.frame(occs, 

@@ -437,9 +437,13 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
       dt1[, datas := do.call(paste, c(.SD, sep = "-")),
          .SDcols = c("day", "month", covs.present[["colYears"]])]
       dt1[, datas.tipo := "full",]
-      dt1[!datas %like% "\\d", c("datas", "datas.tipo") := list("n.d.", "no_date"),]
-      dt1[datas %like% "^NA-NA-", datas.tipo := "year_only",]
-      dt1[datas %like% "^NA-[0-9]", datas.tipo := "month_year",]
+      `%like.ic%` <- function (x, pattern) {
+        grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
+      }
+
+      dt1[!datas %like.ic% "\\d", c("datas", "datas.tipo") := list("n.d.", "no_date"),]
+      dt1[datas %like.ic% "^NA-NA-", datas.tipo := "year_only",]
+      dt1[datas %like.ic% "^NA-[0-9]", datas.tipo := "month_year",]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
                             datas := stringr::str_replace(datas, "^NA-NA-", "01-01-")]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
