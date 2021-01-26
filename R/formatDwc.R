@@ -130,8 +130,8 @@ formatDwc <- function(splink_data = NULL,
 
   if (bind_data) {
     # Forcing numeric columns to be numeric
-    numerics <- c("year", "month", "day", "decimalLatitude", "decimalLongitude",
-                  "individualCount")
+    #numerics <- c("year", "month", "day", "decimalLatitude", "decimalLongitude", "individualCount")
+    numerics <- c("year", "decimalLatitude", "decimalLongitude")
     for (i in numerics) {
       splink_data[, i] <- as.numeric(splink_data[, i])
       gbif_data[, i] <- as.numeric(gbif_data[, i])

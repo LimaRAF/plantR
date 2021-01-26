@@ -144,12 +144,16 @@ occs_gbif <- read.csv("results/gbif.csv")
 #### Field names
 
 It is important to make sure that the input field names follow the DarwinCore format. In __plantR__ this is performed using the function `formatDwc()`, which joins data from different sources (e.g. GBIF and speciesLink) and standardize their field names: 
+
 <!-- Note that an additional column `data_source` is created.  -->
+
+Here, we are using the argument `drop = TRUE` to drop any column that won't be used for data cleaning in the next steps. 
 
 ```{r bind-data, eval = TRUE, collapse = TRUE}
 occs <- formatDwc(splink_data = occs_splink, 
                   gbif_data = occs_gbif, 
-                  bind_data = TRUE)
+                  bind_data = TRUE, 
+                  drop = TRUE)
 ```
 
 
