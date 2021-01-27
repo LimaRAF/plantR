@@ -1,7 +1,7 @@
 #' @title Merge Duplicate Information
 #'
 #' @description This function homogenize the information of different groups of
-#'   fields (taxonomic, geographic or locality) for groups of duplicate specimens.
+#'   fields (e.g. taxonomic, geographic or locality) for groups of duplicate specimens.
 #'
 #' @param dups the input data frame.
 #' @param prop numerical. The threshold value of proportion of duplicated values
@@ -82,12 +82,25 @@
 #'
 #' @export mergeDup
 #'
-mergeDup <- function(dups, prop = 0.75, info2merge = c("tax", "geo", "loc"),
+mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax", "geo", "loc"),
+                     tax.names = c(family = "family.new",
+                                   species = "scientificName.new",
+                                   det.name = "identifiedBy.new",
+                                   det.year = "yearIdentified.new",
+                                   tax.check = "tax.check"),
+                     geo.names = c(lat = "decimalLatitude.new",
+                                   lon = "decimalLongitude.new",
+                                   org.coord = "origin.coord",
+                                   res.coord = "resolution.coord",
+                                   geo.check = "geo.check"),
+                     loc.names = c(loc.str = "loc.correct",
+                                   res.gazet = "resolution.gazetteer",
+                                   loc.check = "loc.check"),
                      tax.name = "scientificName.new", tax.level = "high", overwrite = FALSE) {
 
   ## check input
   if (!class(dups) == "data.frame")
-    stop("input object needs to be a data frame!")
+    stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
   dup.prop <- dup.ID <- loc.correct <- NULL
@@ -100,8 +113,10 @@ mergeDup <- function(dups, prop = 0.75, info2merge = c("tax", "geo", "loc"),
   valor <- valor1 <- i.valor <- valor2 <- prioridade <- NULL
 
   #Checking essential columns
-  if(!"dup.ID" %in% names(dups))
-    stop(paste0("Merge is only possible if the input data frame contain a columns named 'dup.ID'"))
+  if(!dup.name %in% names(dups))
+    stop(paste0("Merge is only possible if the input data frame contain a column with the duplicate IDs"))
+
+  ### CONTINUAR DAQUI ###
 
   tax.names <- c("family.new", tax.name, "identifiedBy.new", "yearIdentified.new", "tax.check")
   if("tax" %in% info2merge & !all(tax.names %in% names(dups)))

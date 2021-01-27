@@ -166,6 +166,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   nomes <- gsub("\\.\\.", "", nomes, perl = TRUE)
   nomes <- gsub("\\(\\)", "", nomes, perl = TRUE)
   nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
+  nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- stringr::str_trim(nomes)
   nomes[nomes %in% c("")] <- NA_character_
 
