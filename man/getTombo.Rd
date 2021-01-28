@@ -13,12 +13,10 @@ getTombo(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = TRUE)
 
 \item{by.coll}{logical. Should the removal of collection codes at the
 beginning of the accession numbers be removed based on the corresponding
-collection code provided in \code{collection}? Default to TRUE.}
+collection code provided in \code{collection}? Defaults to TRUE.}
 
 \item{to.lower}{logical. Should the final unique identifier be converted to
-lowe cases? Default to TRUE.}
-
-\item{x}{the character string or vector to be capitalized.}
+lowe cases? Defaults to TRUE.}
 }
 \value{
 the collection codes and the edited accession numbers concatanated
@@ -26,7 +24,7 @@ using a underline (i.e '_').
 }
 \description{
 This function creates a unique identifier for species records by
-concatenating the collection code and accession number of each record.
+concatenating the collection code and accession number of each record
 }
 \details{
 The function performs small edits in the accession number, such as

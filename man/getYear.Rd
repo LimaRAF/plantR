@@ -57,7 +57,7 @@ as.Date(dates, format = "\%d \%b \%Y")
 # A vector with some typical examples of formats found in herbarium labels
 dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,981",
          "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
-         "March 1981","Mar. 1981","Mar 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
+         "March 1981","Mar. 1981","Mar 1981","25 Mar 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
 
 # Using the function to extract the year
 getYear(dates)

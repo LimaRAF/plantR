@@ -2,6 +2,7 @@ utils::globalVariables(c(".",
                          "as col.OBS",
                          "col.OBS",
                          "comb.fields",
+                         "dup.ind.test",
                          "ignore.miss",
                          "ignore.na",
                          "index.herbariorum.or.working.code",
@@ -15,6 +16,7 @@ utils::globalVariables(c(".",
                          "ordem.dados",
                          "pais_latam",
                          "pais_wo",
+                         "tmp.ordem",
                          "worldMap")
 )
 

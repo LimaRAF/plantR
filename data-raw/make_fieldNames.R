@@ -18,7 +18,7 @@ plantr <- data.frame(plantr = must_plantr,
                      low_dwc = low_must)
 
 # Standard names from Darwin Core ----------------------------------------------
-# from reposaitory: https://github.com/tdwg/dwc
+# from repository: https://github.com/tdwg/dwc
 dwc_dic <- read.csv("https://raw.githubusercontent.com/tdwg/dwc/master/vocabulary/term_versions.csv")
 
 dwc <- dwc_dic %>%

@@ -30,7 +30,7 @@ rgbif2(
 \item{...}{Any argument from occ_search in rgbif package}
 }
 \value{
-A data.frame with the search result. Also saves the output on disk
+A data.frame with the search result. Columns species_id and download are added by the function. It can save the output on disk
 }
 \description{
 This function uses the rgbif package to get occurrence data of a species.

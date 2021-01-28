@@ -1,7 +1,7 @@
 #' @title Format Taxonomic Information
 #'
-#' @description This function edit and standardize the names of plant
-#'   species and families.
+#' @description This function edits and standardizes the names of plant
+#'   species and families
 #'
 #' @return The input data frame \code{tax}, plus the new columns with the
 #'   formatted information. The new columns have the same name of the
@@ -9,12 +9,11 @@
 #'
 #' @param tax a data.frame containing the taxonomic information to be edited.
 #' @param use.suggestion logical. Should the edited species names be used
-#'   instead of the input species names? Default to TRUE.
-#' @param ... Parameters from fixSpecies, prepSpecies and prepFamily
+#'   instead of the input species names? Defaults to TRUE.
 #'
-#' @inheritParams fixSpecies tax.name rm.rank
-#' @inheritParams prepSpecies tax.names db sug.dist use.authors
-#' @inheritParams prepFamily spp.name
+#' @inheritParams fixSpecies
+#' @inheritParams prepSpecies
+#' @inheritParams prepFamily
 #'
 #' @details The function works as a wrapper, where the individuals steps of the
 #'   proposed __plantR__ workflow for editing taxonomic information are

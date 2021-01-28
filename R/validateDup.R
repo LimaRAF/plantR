@@ -12,14 +12,14 @@
 #'   herbarium specimens
 #' @param cat.code character. The name of the column containing the code of the
 #'   collection. Default to the __plantR__ output column "collectionCode.new".
-#' @param cat.numb character. The name of the column containing the catalag
+#' @param cat.numb character. The name of the column containing the catalog
 #'   number (a.k.a. accession number) of the record. Default to "catalogNumber".
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should duplicates be removed? Default to FALSE.
 #' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inheritParams prepDup noYear noName noNumb comb.fields ignore.miss ignore.na
-#' @inheritParams mergeDup prop info2merge tax.names tax.level
+#' @inheritParams prepDup
+#' @inheritParams mergeDup
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,

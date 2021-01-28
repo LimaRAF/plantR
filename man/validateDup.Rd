@@ -4,11 +4,24 @@
 \alias{validateDup}
 \title{Prepare, Search and Merge Duplicate Specimens}
 \usage{
-validateDup(occ.df, merge = TRUE, remove = FALSE, ...)
+validateDup(
+  occ.df,
+  cat.code = "collectionCode.new",
+  cat.numb = "catalogNumber",
+  merge = TRUE,
+  remove = FALSE,
+  ...
+)
 }
 \arguments{
 \item{occ.df}{a data frame, containing typical fields from occurrence records from
 herbarium specimens}
+
+\item{cat.code}{character. The name of the column containing the code of the
+collection. Default to the \strong{plantR} output column "collectionCode.new".}
+
+\item{cat.numb}{character. The name of the column containing the catalog
+number (a.k.a. accession number) of the record. Default to "catalogNumber".}
 
 \item{merge}{logical. Should duplicates be merged? Default to TRUE.}
 

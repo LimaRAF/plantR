@@ -16,7 +16,7 @@
 #'   'dup.prop') and the duplicated ID string ('dup.ID'). If no duplicate was
 #'   found dup.ID = NA.
 #'
-#' @details The function search for duplicated specimens within and across
+#' @details The function searches for duplicated specimens within and across
 #'   collections based on one or more duplicate search strings, typically the
 #'   output of the __plantR__ function `prepDup()`. These strings combine
 #'   different types of information (i.e. taxonomy, collection and locality).

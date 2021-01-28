@@ -2,7 +2,7 @@
 % Please edit documentation in R/mergeDup.R
 \name{mergeDup}
 \alias{mergeDup}
-\title{Merge Information Within Duplicates}
+\title{Merge Duplicate Information}
 \usage{
 mergeDup(
   dups,
@@ -44,7 +44,7 @@ the same.
 }
 \description{
 This function homogenize the information of different groups of
-columns (taxonomic, geographic or locality) for groups of duplicate specimens.
+fields (taxonomic, geographic or locality) for groups of duplicate specimens.
 }
 \details{
 The input data frame \code{dups} must contain the typicall columns
