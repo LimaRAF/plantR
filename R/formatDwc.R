@@ -143,6 +143,5 @@ formatDwc <- function(splink_data = NULL,
   } else {
     res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
   }
-  warning("\n The field 'county' was replaced by 'municipality'")
   return(res_list)
 }
