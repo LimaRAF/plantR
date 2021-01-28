@@ -12,3 +12,25 @@ results/
 worldMap_full.rda
 worldMap_0001.rda
 latamMap_full.rda
+
+# ignoring locally ast
+test/
+data-raw/01_generating_maps_ast.R
+data-raw/1table.csv
+data-raw/GADM
+data-raw/FADM_levels.csv
+data-raw/GADM_levels.csv
+data-raw/analysing_Latam.R
+data-raw/check_these.csv
+data-raw/erros_counties.csv
+data-raw/erros_countries.csv
+data-raw/erros_states.csv
+data-raw/interactive_map.R
+data-raw/occs_for_geographic_validation.csv
+data-raw/dictionaries/gazetteer_raw.csv
+data-raw/dictionaries/preliminary_gazetteer_GADM.csv
+vignettes/formatOcc details.Rmd
+vignettes/articles/geographic validation.Rmd
+vignettes/articles/plantr_tutorial_rename.Rmd
+vignettes/articles/using_rspeciesLink.Rmd
+vignettes/articles/formatOcc details.Rmd
