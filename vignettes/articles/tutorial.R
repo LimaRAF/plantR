@@ -50,13 +50,10 @@ occs <- getCult(occs)
 
 
 ##Vinheta
-occs_splink <- rspeciesLink(species = "Euterpe edulis",
-                            save = FALSE)
-occs_gbif <- rgbif2(species = "Euterpe edulis",
-                    save = FALSE)
+occs_splink <- rspeciesLink(species = "Euterpe edulis")
+occs_gbif <- rgbif2(species = "Euterpe edulis")
 occs.bind <- formatDwc(splink_data = occs_splink,
-                  gbif_data = occs_gbif,
-                  bind_data = TRUE)
+                  gbif_data = occs_gbif)
 occs0 <- formatOcc(occs.bind)
 occs <- formatLoc(occs0)
 occs <- formatCoord(occs)

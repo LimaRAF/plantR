@@ -50,8 +50,8 @@ getFBO <- function(taxa, fields = "vouchers") {
   cols <- sapply(cols, stringr::str_trim)
   cols <- lapply(cols, paste, collapse = "|")
   if (any(sapply(cols, is.null)))
-      cols[sapply(cols, is.null)] <- lapply(cols[sapply(cols, is.null)],
-                                               function(x) x[[1]] <- NA)
+    cols[sapply(cols, is.null)] <- lapply(cols[sapply(cols, is.null)],
+                                          function(x) x[[1]] <- NA)
   all_ids_df$collectors <- as.character(unlist(cols))
 
   #Editing vouchers
@@ -61,7 +61,7 @@ getFBO <- function(taxa, fields = "vouchers") {
   tombos <- sapply(tombos, stringr::str_trim)
   tombos <- lapply(tombos, paste, collapse = "|")
   if (any(sapply(tombos, is.null)))
-      cols[sapply(tombos, is.null)] <- lapply(tombos[sapply(tombos, is.null)],
+    cols[sapply(tombos, is.null)] <- lapply(tombos[sapply(tombos, is.null)],
                                             function(x) x[[1]] <- NA)
   all_ids_df$tombos <- as.character(unlist(tombos))
 

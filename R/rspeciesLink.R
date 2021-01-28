@@ -6,7 +6,7 @@
 #' @param dir Path to directory where the file will be saved. Default is to
 #' create a "results/" directory
 #' @param filename Name of the output file
-#' @param save Logical. Save output to filename? Defaults to TRUE
+#' @param save Logical. Save output to filename? Defaults to FALSE
 #' @param basisOfRecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
 #'  'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
 #'  'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
@@ -55,7 +55,7 @@
 #' @export
 rspeciesLink <- function(dir = "results/",
                          filename = "output",
-                         save = TRUE,
+                         save = FALSE,
                          basisOfRecord = NULL,
                          species = NULL,
                          collectionCode = NULL,

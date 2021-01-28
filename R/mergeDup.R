@@ -9,8 +9,12 @@
 #' @param info2merge character. The groups of information (i.e. columns) to be merged.
 #'   Currently, only taxonomic ('tax'), geographic ('geo') and/or locality ('loc')
 #'   columns can be merged. Default to all of them.
-#' @param tax.name character. The name of the column containing the species
-#'   names. Default to 'scientificName.new'.
+#' @param tax.names Vector. A named vector containing the names of columns in the
+#'   input data frame with the taxonomic information to be merged.
+#' @param geo.names character. Vector. A named vector containing the names of columns in the
+#'   input data frame with the geographical information to be merged.
+#' @param loc.names character. Vector. A named vector containing the names of columns in the
+#'   input data frame with the locality information to be merged.
 #' @param tax.level character. A vector with the confidence level of the
 #'   identification that should be considered in the merge of taxonomic
 #'   information. Default to "high".
@@ -20,7 +24,9 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @details The input data frame \code{dups} must contain the typicall columns
+#' @details
+#'   #### REVER ####
+#'   The input data frame \code{dups} must contain the typicall columns
 #'   resulting from __plantR__ workflow and functions. The characters that
 #'   aggregate the occurrences into duplicates must be named 'dup.ID'. Depending
 #'   on the type of merge desired (argument `info2merge`), a different set o
@@ -82,7 +88,8 @@
 #'
 #' @export mergeDup
 #'
-mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax", "geo", "loc"),
+mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
+                     info2merge = c("tax", "geo", "loc"),
                      tax.names = c(family = "family.new",
                                    species = "scientificName.new",
                                    det.name = "identifiedBy.new",
@@ -96,7 +103,8 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
                      loc.names = c(loc.str = "loc.correct",
                                    res.gazet = "resolution.gazetteer",
                                    loc.check = "loc.check"),
-                     tax.name = "scientificName.new", tax.level = "high", overwrite = FALSE) {
+                     #tax.name = "scientificName.new",
+                     tax.level = "high", overwrite = FALSE) {
 
   ## check input
   if (!class(dups) == "data.frame")
@@ -114,97 +122,108 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
 
   #Checking essential columns
   if(!dup.name %in% names(dups))
-    stop(paste0("Merge is only possible if the input data frame contain a column with the duplicate IDs"))
+    stop(paste0("Merge is only possible if the input data contain a column with the duplicate IDs"))
 
-  ### CONTINUAR DAQUI ###
+  if("tax" %in% info2merge & !all(tax.names %in% names(dups))) {
+    warning(paste0("To merge taxonomic info, the input data must contain the following column(s): ",
+                paste0(tax.names[!tax.names %in% names(dups)], collapse = ", "),". Skiping 'tax' from info to merge."))
+  info2merge <- info2merge[!info2merge %in% 'tax']
+  }
 
-  tax.names <- c("family.new", tax.name, "identifiedBy.new", "yearIdentified.new", "tax.check")
-  if("tax" %in% info2merge & !all(tax.names %in% names(dups)))
-    stop(paste0("To perform the merge of taxonomic info, the input data frame must contain the following columns: ",
-                paste0(tax.names, collapse = ", ")))
+  if("geo" %in% info2merge & !all(geo.names %in% names(dups))) {
+    warning(paste0("To merge geographic info, the input data must contain the following columns: ",
+                paste0(geo.names[!geo.names %in% names(dups)], collapse = ", "),". Skiping 'geo' from info to merge."))
+    info2merge <- info2merge[!info2merge %in% 'geo']
+  }
 
-  geo.names <- c("decimalLatitude.new", "decimalLongitude.new", "origin.coord", "resolution.coord", "geo.check")
-  if("geo" %in% info2merge & !all(geo.names %in% names(dups)))
-    stop(paste0("To perform the merge of geographic info, the input data frame must contain the following columns: ",
-                paste0(geo.names, collapse = ", ")))
+  if("loc" %in% info2merge & !all(loc.names %in% names(dups))) {
+    warning(paste0("To merge locality info, the input data must contain the following columns: ",
+                paste0(loc.names[loc.names %in% names(dups)], collapse = ", "),". Skiping 'loc' from info to merge."))
+    info2merge <- info2merge[!info2merge %in% 'loc']
+  }
 
-  loc.names <- c('loc.correct','loc.check')
-  if("loc" %in% info2merge & !all(loc.names %in% names(dups)))
-    stop(paste0("To perform the merge of locality info, the input data frame must contain the following columns: ",
-                paste0(loc.names, collapse = ", ")))
+  if (length(info2merge) == 0)
+    stop(paste0("No information left to merge!"))
 
   #Vector to keep the original data order
   dups$ordem <- 1:dim(dups)[1]
 
   #Subsetting the data with any indication of duplicates
-  dups1 <- dups[!is.na(dups$dup.ID),]
-  dups1$dup.ID <- as.factor(dups1$dup.ID)
+  dups1 <- dups[!is.na(dups[, dup.name]),]
+  dups1$dup.IDs <- as.factor(dups1[, dup.name])
   dt <- data.table::data.table(dups1) # transforming the data frame into a data.table
-  data.table::setkeyv(dt, "dup.ID") # setting 'dup.ID' as key to the data.table (makes computations faster)
+  data.table::setkey(dt, dup.IDs) # setting 'dup.ID' as key to the data.table (makes computations faster)
 
   #Creating the duplicate categories
   dt[, dup.merge := dup.prop > prop] # creating the new columns for taxonomic check
 
-  # if ("col" %in% info2merge) {
-  #### PENSAR EM COMO IMPLEMENTAR ####
-  # }
-
   if ("tax" %in% info2merge) {
-    #Defining the column with the taxa names
-    a <- which(names(dt) %in% tax.name)
-    dt[, work.tax.name := dt[, a, with = FALSE], ]
+    # creating the new columns for taxonomic check
+    wk.cols <- paste0(names(tax.names),".wk")
+    dt[, c(wk.cols) := .SD, .SDcols = tax.names]
 
     ### FINDING THE MOST RECENT TAXONOMICALLY VALIDATE NAME FOR EACH DUPLICATED ID ###
     ## Are all taxonomically-validated species names equal within a group?
     dt[, same_spp := "vazio"] # creating the new columns for taxonomic check
     #All names for taxonomically-validated specimens are the same? Then, mark as 'yes'
-    dt[dup.merge & tax.check %in% tax.level,
-       same_spp := if (uniqueN(work.tax.name) == 1) "sim"
-       else same_spp, by = dup.ID]
+    dt[dup.merge & tax.check.wk %in% tax.level,
+       same_spp := if (uniqueN(species.wk) == 1) "sim"
+       else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "sim") &
-                         uniqueN(work.tax.name) == 1) "sim"
-       else same_spp, by = dup.ID]
+                         uniqueN(species.wk) == 1) "sim"
+       else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "sim") &
-                         uniqueN(work.tax.name) > 1) "no"
-       else same_spp, by = dup.ID]
+                         uniqueN(species.wk) > 1) "no"
+       else same_spp, by = dup.IDs]
     #Not all names for taxonomically-validated specimens are the same? Then, mark as 'no'
-    dt[dup.merge & tax.check %in% tax.level,
-       same_spp := if (uniqueN(work.tax.name) > 1) "no"
-       else same_spp, by = dup.ID]
+    dt[dup.merge & tax.check.wk %in% tax.level,
+       same_spp := if (uniqueN(species.wk) > 1) "no"
+       else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "no")) "no"
-       else same_spp, by = dup.ID]
-    # table(dt$same_spp,dt$tax.check)
+       else same_spp, by = dup.IDs]
 
     ## Defining the most up-to-date species name for the case of >=1 taxonomically validated names (new column species.correct1)
     # creating the new columns for taxonomic check
-    dt[, c("family.new1", "scientificName.new1", "identifiedBy.new1", "yearIdentified.new1", "tax.check1") :=
-         list(family.new, work.tax.name, identifiedBy.new, yearIdentified.new, tax.check)]
+    new.cols <- paste0(wk.cols, "1")
+    dt[, c(new.cols) := .SD, .SDcols = tax.names]
+
     #Saving for each duplicate group ID, the most recent identification, in the case of disagreement between the identification of taxonomically-validated specimens
     dt[same_spp == "no",
-       "family.new1" := family.new[tax.check %in% tax.level][which.max(yearIdentified.new[tax.check %in% tax.level])], by = dup.ID]
+       "family.wk1" := family.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs]
     dt[same_spp == "no",
-       "scientificName.new1" := work.tax.name[tax.check %in% tax.level][which.max(yearIdentified.new[tax.check %in% tax.level])], by = dup.ID]
+       "species.wk1" := species.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs]
     dt[same_spp == "no",
-       "identifiedBy.new1" := identifiedBy.new[tax.check %in% tax.level][which.max(yearIdentified.new[tax.check %in% tax.level])], by = dup.ID]
+       "det.name.wk1" := det.name.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs]
     dt[same_spp == "no",
-       "yearIdentified.new1" := yearIdentified.new[tax.check %in% tax.level][which.max(yearIdentified.new[tax.check %in% tax.level])], by = dup.ID]
+       "det.year.wk1" := det.year.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs]
     dt[same_spp == "no",
-       "tax.check1" := tax.check[tax.check %in% tax.level][which.max(yearIdentified.new[tax.check %in% tax.level])], by = dup.ID]
+       "tax.check.wk1" := tax.check.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs]
     dt[same_spp == "sim",
-       identifiedBy.new1 := identifiedBy.new[tax.check %in% tax.level &
-                                               which.max(yearIdentified.new)][1], by = dup.ID]
+       det.name.wk1 := det.name.wk[tax.check.wk %in% tax.level &
+                                               which.max(det.year.wk)][1], by = dup.IDs]
     dt[same_spp == "sim",
-       yearIdentified.new1 := yearIdentified.new[tax.check %in% tax.level &
-                                                   which.max(yearIdentified.new)][1], by = dup.ID]
+       det.year.wk1 := det.year.wk[tax.check.wk %in% tax.level &
+                                                   which.max(det.year.wk)][1], by = dup.IDs]
     dt[same_spp == "sim",
-       tax.check1 := if (any(tax.check1 %in% tax.level)) tax.level
-       else tax.check1, by = dup.ID]
-    # table(dt$tax.check); table(dt$tax.check1)
+       tax.check.wk1 := if (any(tax.check.wk1 %in% tax.level)) tax.level
+       else tax.check.wk1, by = dup.IDs]
+    # table(dt$tax.check); table(dt$tax.check.wk1)
 
     #Removing unecessary columns
-    dt[, c("same_spp","work.tax.name") := NULL]
+    dt[, c("same_spp", wk.cols) := NULL]
+
+    #Renaming the new columns
+    new.cols1 <- paste0(tax.names, "1")
+    data.table::setnames(dt, c(new.cols), c(new.cols1))
 
   }
+
+  #### CONTINUAR DAQUI ####
 
   if ("geo" %in% info2merge) {
 
@@ -235,10 +254,10 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
     # creating the priority index and re-organizing the original data
     dt[,prioridade := valor1 + valor2]
     dt[, c("valor1", "valor2") := NULL]
-    data.table::setkey(dt, dup.ID, prioridade)
+    data.table::setkey(dt, dup.IDs, prioridade)
 
     #Replacing the columns by the first row by groups of duplicate
-    dt[dup.merge == TRUE, (cols) := .SD[1L], by = dup.ID, .SDcols = cols]
+    dt[dup.merge == TRUE, (cols) := .SD[1L], by = dup.IDs, .SDcols = cols]
 
     #Removing unecessary columns
     dt[, "prioridade" := NULL]
@@ -273,11 +292,11 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
     dt[is.na(valor) & resol.orig %in% "locality", valor := 1]
 
     # re-organizing the original data
-    data.table::setkey(dt, dup.ID, valor)
+    data.table::setkey(dt, dup.IDs, valor)
 
     #Replacing the columns by the first row by groups of duplicate
     ## include an extra step: paste(unique(loc.correct[which.min(valor)][1]), collapse="|")??
-    dt[dup.merge == TRUE, (cols) := .SD[1L], by = dup.ID, .SDcols = cols]
+    dt[dup.merge == TRUE, (cols) := .SD[1L], by = dup.IDs, .SDcols = cols]
 
     #Removing unecessary columns
     dt[, "valor" := NULL]
@@ -300,7 +319,7 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
     # transforming the original data frame and overwritting the new columns
     dt1 <- data.table::data.table(dups)
     setkeyv(dt1, c("ordem"))
-    dt1[!is.na(dup.ID), (colunas0) := dt]
+    dt1[!is.na(dup.IDs), (colunas0) := dt]
 
   } else {
 
@@ -312,7 +331,7 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID", info2merge = c("tax
       colunas0[grepl("scientificName", colunas0)] <- tax.name
 
     # data with no indication of duplicates
-    dt0 <- data.table::data.table(dups[is.na(dups$dup.ID), ])
+    dt0 <- data.table::data.table(dups[is.na(dups$dup.IDs), ])
     dt0[, (colunas) := .SD, .SDcols = colunas0]
     # merging the unicate and duplicated data tables
     dt1 <- rbindlist(list(dt0, dt))

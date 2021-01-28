@@ -209,7 +209,7 @@ fixLoc <- function(x,
   }
 
   ## ADM2: County, Departament, Commune
-    if (any(c("municipality","county") %in% loc.levels)) {
+    if ("municipality" %in% loc.levels) {
       # Removing unwanted characters and replacing missing info by NA
       x1[, "municipality"] <- tolower(textclean::replace_non_ascii(x1[, "municipality"]))
 
