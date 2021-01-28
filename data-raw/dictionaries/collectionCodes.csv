@@ -1,4 +1,4 @@
-order,collection.string,collectioncode.gbif,institutioncode.gbif,index.herbariorum.or.working.code,organization,col.OBS
+ordem.colecao,collection.string,collectioncode.gbif,institutioncode.gbif,index.herbariorum.or.working.code,organization,col.OBS
 1094,17126_unknown,17126,unknown,17126,NA,not in IH
 2,General herbarium_A,General herbarium,A,A,Harvard University,NA
 3,HERB_A,HERB,A,A,Harvard University,NA
@@ -3200,15 +3200,6 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,index.herbarior
 3278,MYX_NA,MYX,NA,MYX,Lomonosov Moscow State University,NA
 3279,MZ_NA,MZ,NA,MZ,South Moravian Museum in Znojmo,NA
 697,HERB_N,HERB,N,N,Nanjing University,NA
-1,HERB_-,HERB,-,NA,NA,not in IH
-731,CCM_NO DISPONIBLE,CCM,NO DISPONIBLE,NA,NA,not in IH
-732,NO DISPONIBLE_NO DISPONIBLE,NO DISPONIBLE,NO DISPONIBLE,NA,NA,not in IH
-3280,NA_NA,NA,NA,NA,"United States National Arboretum, USDA-ARS",NA
-4731,Botany_NA,Botany,NA,NA,NA,NA
-4742,NA_unknown,NA,unknown,NA,NA,NA
-4743,HERB_NA,HERB,NA,NA,NA,NA
-4769,"BHCB, E, HUEFS, K_NA","BHCB, E, HUEFS, K",NA,NA,NA,NA
-4780,NA_IIAP,NA,IIAP,NA,NA,not in IH
 3281,NABG_NA,NABG,NA,NABG,Botanical Garden,NA
 698,VA_NAC,VA,NAC,NAC,Nagano Environmental Conservation Research Institute,NA
 3282,NAI_NA,NAI,NA,NAI,University of Nairobi,NA
@@ -5201,15 +5192,3 @@ order,collection.string,collectioncode.gbif,institutioncode.gbif,index.herbarior
 4725,ZVS_NA,ZVS,NA,ZVS,Bundesamt für Naturschutz,NA
 4726,ZY_NA,ZY,NA,ZY,Zunyi Normal College,NA
 4727,ZYTC_NA,ZYTC,NA,ZYTC,Zhangye Teachers College,NA
-4951,NA,NA,NA,NA,Universidad Nacional de La Plata,xylarium
-4972,NA,NA,NA,NA,"Museu Nacional, Universidade Federal do Rio de Janeiro",xylarium
-4991,NA,NA,NA,NA,"Faculty of Forestry, University of Zagreb",xylarium
-5000,NA,NA,NA,NA,ENSTIB (Ecole Nationale Supérieure des Technologies et Industries du Bois),xylarium
-5024,NA,NA,NA,NA,NA,xylarium
-5025,NA,NA,NA,NA,The Rubber Board,xylarium
-5033,NA,NA,NA,NA,NA,xylarium
-5042,NA,NA,NA,NA,NA,xylarium
-5071,NA,NA,NA,NA,"Facultad de Ciencias Forestales, Universidad Nacional Agraria la Molina",xylarium
-5073,NA,NA,NA,NA,"Faculty of Forestry, Poznan University of Life Sciences",xylarium
-5121,NA,NA,NA,NA,Vietnamese Academy of Forest Sciences,xylarium
-5122,NA,NA,NA,NA,Vietnam National University of Forestry. Xuanmai town,xylarium
