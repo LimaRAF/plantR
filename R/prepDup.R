@@ -28,7 +28,7 @@
 #'
 #' @details Three groups of fields are available to produce the duplicate search
 #'   string, and they are related to taxonomy, collection and locality of the
-#'   specimen. These fields are:
+#'   specimen. These fields should be provided to the argument `col.names` and they are:
 #'   - 'family': the botanical family (default: 'family.new')
 #'   - 'species': the scientific name (default: 'scientificName.new')
 #'   - 'col.name': the collector name (default: 'recordedBy.new')
