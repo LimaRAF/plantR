@@ -22,6 +22,7 @@
 #'   routine performed by plantR
 #' @param drop.opt Logical. Either to drop optional fields in the data cleaning
 #'   routine performed by plantR
+#' @param drop.empty Logical. Either to drop fields where all values are NA
 #' @param institutionCode The name of the column containing The name (or
 #'   acronym) in use by the institution having custody of the object(s) or
 #'   information referred to in the record
@@ -83,6 +84,7 @@
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
 #' @importFrom stats na.omit
+#' @import data.table
 #'
 #' @export formatDwc
 #'
@@ -94,6 +96,7 @@ formatDwc <- function(splink_data = NULL,
                       bind_data = TRUE,
                       drop = FALSE,
                       drop.opt = FALSE,
+                      drop.empty = FALSE,
                       institutionCode = "institutionCode",
                       collectionCode = "collectionCode",
                       catalogNumber = "catalogNumber",
@@ -164,8 +167,12 @@ formatDwc <- function(splink_data = NULL,
   if (!is.null(gbif_data)) {
     # fixing problematic GBIF names
     tmp <- names(gbif_data)[grepl("\\.", names(gbif_data), perl = TRUE)]
-    tmp1 <- sapply(tmp, function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
-    tmp[!duplicated(tmp1)] <- tmp1[!duplicated(tmp1)]
+    tmp1 <- sapply(tmp,
+                   function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
+    tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
+      tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
+    #Sara: nem todos os nomes podem ser limpos pois removendo o longo prefixo, alguns campos ficam duplicados.
+    #Seria legal entender o que está rolando, pois esses campos as vezes tem informacao tb.
     names(gbif_data)[grepl("\\.", names(gbif_data), perl = TRUE)] <- tmp
 
     # checking name standards
@@ -222,9 +229,25 @@ formatDwc <- function(splink_data = NULL,
     res_list <- res_list[sapply(res_list, function(x) !is.null(x))]
     res_list <- dplyr::bind_rows(res_list, .id = "data_source")
 
+    if (drop.empty) { ### ADDED BY RENATO: REMOVE ALL-NAs COLUMNS? NECESSÁRIO? PARA E.EDULIS NÃO, MAS TESTAR COM MULTIPLAS ESPÉCIES...
+      DT <- data.table::as.data.table(res_list)
+      res_list <- data.frame(
+        DT[, which(unlist(lapply(DT, function(x) !all(is.na(x))))), with = FALSE],
+        stringsAsFactors = FALSE)
+    }
+
+
   } else {
     res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
+
+    if (drop.empty) { ### ADDED BY RENATO: REMOVE ALL-NAs COLUMNS? NECESSÁRIO? PARA E.EDULIS NÃO, MAS TESTAR COM MULTIPLAS ESPÉCIES...
+      for(i in 1:length(list)) {
+        DT <- data.table::as.data.table(res_list[[i]])
+        res_list[[i]] <- data.frame(
+          DT[, which(unlist(lapply(DT, function(x)!all(is.na(x))))), with = FALSE],
+          stringsAsFactors = FALSE)
+      }
+    }
   }
-  # warning("\n The field 'county' was replaced by 'municipality'")
   return(res_list)
 }

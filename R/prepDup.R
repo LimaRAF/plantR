@@ -88,7 +88,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
                                        c("family","col.year","col.number","col.loc"),
                                        c("species","col.last.name","col.number","col.year"),
                                        c("col.year","col.last.name","col.number","col.loc")),
-                    rec.ID = "numTombo", noYear = "s.d.", noName = "s.n.", noNumb = "s.n.", ignore.miss = TRUE, ...) {
+                    rec.ID = "numTombo", noYear = "s.d.", noName = "s.n.", noNumb = "s.n.", ignore.miss = TRUE) {
 
   ## check input
   if (!class(x) == "data.frame")

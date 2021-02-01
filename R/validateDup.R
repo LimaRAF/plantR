@@ -5,7 +5,7 @@
 #'   different groups of fields and to remove duplicates, leaving only one
 #'   occurrence for each group of duplicata.
 #'
-#' @return The input data frame \code{x}, plus the new columns with the formatted
+#' @return The input data frame, plus the new columns with the formatted
 #'   fields.
 #'
 #' @param occ.df a data frame, containing typical fields from occurrence records from
@@ -15,11 +15,12 @@
 #' @param cat.numb character. The name of the column containing the catalag
 #'   number (a.k.a. accession number) of the record. Default to "catalogNumber".
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
-#' @param remove logical. Should duplicates be removed? Default to FALSE.
+#' @param remove logical. Should all duplicates be removed or only the
+#'   duplicated entries from the same collection? Default to FALSE.
 #' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inheritParams prepDup noYear noName noNumb comb.fields ignore.miss ignore.na
-#' @inheritParams mergeDup prop info2merge tax.names tax.level
+#' @inheritParams prepDup
+#' @inheritParams mergeDup
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,
@@ -60,12 +61,7 @@ validateDup <- function(occ.df, cat.code = "collectionCode.new", cat.numb = "cat
   }
 
   # rmDup
-  if (remove) {
-    antes <- dim(occ.df)[1]
-    occ.df <- rmDup(occ.df)
-    depois <- dim(occ.df)[1]
-    cat(antes - depois, "duplicated records were from the data.")
-  }
+    occ.df <- rmDup(occ.df, rm.all = remove)
 
   return(occ.df)
 }

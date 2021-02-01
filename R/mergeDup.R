@@ -4,10 +4,14 @@
 #'   fields (e.g. taxonomic, geographic or locality) for groups of duplicate specimens.
 #'
 #' @param dups the input data frame.
-#' @param prop numerical. The threshold value of proportion of duplicated values
-#'   retrieved (i.e. dup.prop) to enter the merging routine. Default to 0.75.
 #' @param dup.name character. The name of column in the input data frame with
 #'   the duplicate group ID. Default to the __plantR__ output 'dup.ID'.
+#' @param prop.name character. The name of column in the input data frame with
+#'   the proportion of duplicates found within the group ID. Default to the
+#'   __plantR__ output 'dup.prop'.
+#' @param prop numerical. The threshold value of proportion of duplicated values
+#'   retrieved (i.e. dup.prop) to enter the merging routine. Should be between
+#'   zero and one. Default to 0.75.
 #' @param info2merge Vector. The groups of information (i.e. fields) to be
 #'   merged. Currently, only taxonomic ('tax'), geographic ('geo') and/or
 #'   locality ('loc') information can be merged. Default to merge all of them.
@@ -64,7 +68,11 @@
 #'  merging process consists in ordering the the information available for each
 #'  group of duplicates from the best to the worst quality/resolution available.
 #'  The best information available is then expanded for all records of the group
-#'  of duplicates.
+#'  of duplicates. The argument `prop` defines the duplicated proportion (given
+#'  by `prop.name`) that should be used as a threshold. Only records with
+#'  duplicated proportions above this threshold will be merged. For all other
+#'  records, the output will be the same as the input. If no column `prop.name` is
+#'  found in the input data, merge is performed for all records, with a warning.
 #'
 #'  For the merge of taxonomical information, the specimen(s) with the highest
 #'  confidence level of the identification is used as the standard, from
@@ -102,6 +110,27 @@
 #'   on the same columns of the input data and the names of the columns remain
 #'   the same.
 #'
+#' @examples
+#' #An example for the merg of taxonomic information only
+#' (df = data.frame(
+#'   ID = c("a7","b2","c4","d1","e9","f3","g2","h8","i6","j5"),
+#'   dup.ID = c("a7|b2","a7|b2","c4|d1|e9","c4|d1|e9","c4|d1|e9",
+#'              "f3|f2","f3|f2","h8|i6|j5","h8|i6|j5","h8|i6|j5"),
+#'   fam = c("AA","AA","BB","BB","Bb","CC","DD","EE","Ee","ee"),
+#'   sp = c("a a","a b","c c","c d","c d","e e","f f","h h","h h","h h"),
+#'   det = c("spec","n_spec","spec1","spec2","n_spec1",
+#'           "spec3","spec4","n_spec2","n_spec3","n_spec4"),
+#'   yr = c("2010","2019","2019","2000","2020",NA,"1812","2020","2020","2020"),
+#'   check = c("high","low","high","high","low","high","high","low","low","low")))
+#'
+#' mergeDup(df, info2merge = "tax",
+#'         tax.names = c(family = "fam",
+#'                       species = "sp",
+#'                       det.name = "det",
+#'                       det.year = "yr",
+#'                       tax.check = "check"))
+#'
+#'
 #' @seealso
 #'  \link[plantR]{prepDup} and \link[plantR]{getDup}.
 #'
@@ -110,7 +139,7 @@
 #' @export mergeDup
 #'
 #'
-mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
+mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0.75,
                      info2merge = c("tax", "geo", "loc"),
                      tax.names = c(family = "family.new",
                                    species = "scientificName.new",
@@ -148,36 +177,49 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
 
   if("tax" %in% info2merge & !all(tax.names %in% names(dups))) {
     warning(paste0("To merge taxonomic info, the input data must contain the following column(s): ",
-                   paste0(tax.names[!tax.names %in% names(dups)], collapse = ", "),". Skipping 'tax' from info to merge."))
+                   paste0(tax.names[!tax.names %in% names(dups)], collapse = ", "),
+                   ". Skipping 'tax' from info to merge."), call. = FALSE)
     info2merge <- info2merge[!info2merge %in% 'tax']
   }
 
   if("geo" %in% info2merge & !all(geo.names %in% names(dups))) {
     warning(paste0("To merge geographic info, the input data must contain the following column(s): ",
-                   paste0(geo.names[!geo.names %in% names(dups)], collapse = ", "),". Skipping 'geo' from info to merge."))
+                   paste0(geo.names[!geo.names %in% names(dups)], collapse = ", "),
+                   ". Skipping 'geo' from info to merge."), call. = FALSE)
     info2merge <- info2merge[!info2merge %in% 'geo']
   }
 
   if("loc" %in% info2merge & !all(loc.names %in% names(dups))) {
     warning(paste0("To merge locality info, the input data must contain the following column(s): ",
-                   paste0(loc.names[loc.names %in% names(dups)], collapse = ", "),". Skipping 'loc' from info to merge."))
+                   paste0(loc.names[loc.names %in% names(dups)], collapse = ", "),
+                   ". Skipping 'loc' from info to merge."), call. = FALSE)
     info2merge <- info2merge[!info2merge %in% 'loc']
   }
 
   if (length(info2merge) == 0)
     stop(paste0("No information left to merge!"))
 
+  #Making sure there are no factors
+  for (i in which(sapply(dups, class) == "factor"))
+    dups[[i]] = as.character(dups[[i]])
+
   #Vector to keep the original data order
   dups$tmp.ordem <- 1:dim(dups)[1]
 
   #Subsetting the data with any indication of duplicates
   dups1 <- dups[!is.na(dups[, dup.name]),]
-  dups1$dup.IDs <- as.factor(dups1[, dup.name])
   dt <- data.table::data.table(dups1) # transforming the data frame into a data.table
+  dt[ , dup.IDs := as.factor(.SD), .SDcols = c(dup.name)]
   data.table::setkey(dt, dup.IDs) # setting 'dup.ID' as key to the data.table (makes computations faster)
 
   #Creating the duplicate categories
-  dt[, dup.merge := dup.prop > prop] # creating the new columns for taxonomic check
+  if (!prop.name %in% names(dt)) {
+    warning("The input data has no column with the proportion of duplicates. Assuming to be 1",
+            call. = FALSE)
+    dt[, dup.merge := TRUE]
+  } else {
+    dt[, dup.merge := dup.prop > prop]
+  }
 
   if ("tax" %in% info2merge) {
     # creating the new columns for taxonomic check
@@ -189,18 +231,18 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
     dt[, same_spp := "vazio"] # creating the new columns for taxonomic check
     #All names for taxonomically-validated specimens are the same? Then, mark as 'yes'
     dt[dup.merge & tax.check.wk %in% tax.level,
-       same_spp := if (uniqueN(species.wk) == 1) "sim"
+       same_spp := if (data.table::uniqueN(species.wk) == 1) "sim"
        else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "sim") &
-                         uniqueN(species.wk) == 1) "sim"
+                         data.table::uniqueN(species.wk) == 1) "sim"
        else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "sim") &
-                         uniqueN(species.wk) > 1) "no"
+                         data.table::uniqueN(species.wk) > 1) "no"
        else same_spp, by = dup.IDs]
 
     #Not all names for taxonomically-validated specimens are the same? Then, mark as 'no'
     dt[dup.merge & tax.check.wk %in% tax.level,
-       same_spp := if (uniqueN(species.wk) > 1) "no"
+       same_spp := if (data.table::uniqueN(species.wk) > 1) "no"
        else same_spp, by = dup.IDs]
     dt[, same_spp := if (any(same_spp == "no")) "no"
        else same_spp, by = dup.IDs]
@@ -208,7 +250,8 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
     ## Defining the most up-to-date species name for the case of >=1 taxonomically validated names (new column species.correct1)
     # converting det.year to numerical
     data.table::setkey(dt, det.year.wk)
-    dt[, det.year.wk := suppressWarnings(as.double(det.year.wk)),]
+    dt[, det.year.wk := suppressWarnings(as.double(det.year.wk)),
+       by = det.year.wk]
 
     # creating the new columns for taxonomic check
     new.cols <- paste0(wk.cols, "1")
@@ -359,7 +402,7 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
     dt[, c("valor", wk.cols) := NULL]
 
     #Renaming the new columns
-    new.cols1 <- paste0(loc.names, "1")
+    new.cols1 <- paste0(loc.names[!names(loc.names) %in% "res.orig"], "1")
     data.table::setnames(dt, c(new.cols), c(new.cols1))
   }
 
@@ -395,18 +438,19 @@ mergeDup <- function(dups, prop = 0.75, dup.name = "dup.ID",
     #   colunas0[grepl("scientificName", colunas0)] <- tax.name
 
     # data with no indication of duplicates
-    dt0 <- data.table::data.table(dups[is.na(dups$dup.IDs), ])
+    dt0 <- data.table::data.table(dups[is.na(dups[, dup.name]), ])
     dt0[, (colunas) := .SD, .SDcols = colunas0]
 
     # merging the unicate and duplicated data tables
-    dt1 <- rbindlist(list(dt0, dt))
+    dt1 <- data.table::rbindlist(list(dt0, dt))
 
     # re-ordering the resulting data.table to the input order
-    setkeyv(dt1, c("tmp.ordem"))
+    data.table::setkeyv(dt1, c("tmp.ordem"))
   }
 
   #Removing unecessary columns and returning
   dt1[, c("tmp.ordem") := NULL]
+
   dups1 <- data.frame(dt1)
   return(dups1)
 }

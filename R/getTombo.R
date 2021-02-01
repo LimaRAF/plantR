@@ -3,7 +3,6 @@
 #' @description This function creates a unique identifier for species records by
 #'   concatenating the collection code and accession number of each record.
 #'
-#' @param x the character string or vector to be capitalized.
 #' @param collection a vector with the collection codes.
 #' @param accession a vector with the accession numbers.
 #' @param by.coll logical. Should the removal of collection codes at the

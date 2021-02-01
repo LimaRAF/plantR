@@ -12,9 +12,9 @@
 #'   instead of the input species names? Default to TRUE.
 #' @param ... Parameters from fixSpecies, prepSpecies and prepFamily
 #'
-#' @inheritParams fixSpecies tax.name rm.rank
-#' @inheritParams prepSpecies tax.names db sug.dist use.authors
-#' @inheritParams prepFamily spp.name
+#' @inheritParams fixSpecies
+#' @inheritParams prepSpecies
+#' @inheritParams prepFamily
 #'
 #' @details The function works as a wrapper, where the individuals steps of the
 #'   proposed __plantR__ workflow for editing taxonomic information are
