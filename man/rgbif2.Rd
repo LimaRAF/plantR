@@ -10,27 +10,32 @@ rgbif2(
   species,
   force = FALSE,
   remove_na = TRUE,
-  save = TRUE,
+  save = FALSE,
   ...
 )
 }
 \arguments{
-\item{dir}{Path to directory where the file will be saved. Default is to create a "results/" directory}
+\item{dir}{Path to directory where the file will be saved. Default is to
+create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{species}{Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector}
+\item{species}{Genus and specific epithet separated by space. Accepts author
+if inserted correctly. Either a single value or a vector}
 
-\item{force}{Logical. Force downloading data for more than 10 species in a loop. Default \code{force = FALSE}}
+\item{force}{Logical. Force downloading data for more than 10 species in a
+loop. Default \code{force = FALSE}}
 
-\item{remove_na}{Logical. Defalt \code{TRUE} removes NA in columns decimalLatitude and decimalLongitude}
+\item{remove_na}{Logical. Defalt \code{TRUE} removes NA in columns decimalLatitude
+and decimalLongitude}
 
-\item{save}{Logical. Save output to filename? Defaults to TRUE}
+\item{save}{Logical. Save output to filename? Defaults to FALSE}
 
 \item{...}{Any argument from occ_search in rgbif package}
 }
 \value{
-A data.frame with the search result. Columns species_id and download are added by the function. It can save the output on disk
+A data.frame with the search result. Columns species_id and download
+are added by the function. It can save the output on disk
 }
 \description{
 This function uses the rgbif package to get occurrence data of a species.

@@ -25,12 +25,13 @@ number (a.k.a. accession number) of the record. Default to "catalogNumber".}
 
 \item{merge}{logical. Should duplicates be merged? Default to TRUE.}
 
-\item{remove}{logical. Should duplicates be removed? Default to FALSE.}
+\item{remove}{logical. Should all duplicates be removed or only the
+duplicated entries from the same collection? Default to FALSE.}
 
 \item{...}{Parameters from prepDup and mergeDup}
 }
 \value{
-The input data frame \code{x}, plus the new columns with the formatted
+The input data frame, plus the new columns with the formatted
 fields.
 }
 \description{

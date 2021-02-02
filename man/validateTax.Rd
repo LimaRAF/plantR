@@ -6,16 +6,28 @@
 \usage{
 validateTax(
   x,
+  col.names = c(family = "family.new", det.name = "identifiedBy.new", col.name =
+    "recordedBy.new", types = "typeStatus", rec.ID = "numTombo", rec.type =
+    "basisOfRecord"),
   special.collector = TRUE,
   generalist = FALSE,
   generalist.class = "medium",
+  other.records = NULL,
   miss.taxonomist = NULL,
   taxonomist.list = "plantR",
+  voucher.list = NULL,
+  noName = c("semdeterminador", "anonymus", "anonymous", "anonimo", "incognito",
+    "unknown", "s.d.", "s.n."),
   top.det = 10
 )
 }
 \arguments{
-\item{x}{a data frame with the occurrence data.}
+\item{x}{a data frame with the species records.}
+
+\item{col.names}{vector. A named vector containing the names of columns in
+the input data frame for each of the information needed to assign
+confidence levels to species identifications. Default to the \strong{plantR}
+output column names.}
 
 \item{special.collector}{Logical. Specimens collected by the family
 specialist but with empty determiner field, should be classified as high
@@ -27,6 +39,11 @@ taxonomic validation? Default to FALSE.}
 \item{generalist.class}{Character. Confidence level to be assigned to family
 generalists. Default to "medium".}
 
+\item{other.records}{Character or Integer. The Confidence level (if
+character) or the number of downgrading steps to be assigned to records
+which are not preserved specimens. Default to NULL (all record typer are
+treated the same).}
+
 \item{miss.taxonomist}{Vector. Any missing combination of family x taxonomist
 that should be added to the validation?}
 
@@ -34,8 +51,19 @@ that should be added to the validation?}
 default is "plantR", the internal \code{plantR} global database of plant
 taxonomists (see Details).}
 
-\item{top.det}{numerical. How many of the top missing identifiers should be printed?
+\item{voucher.list}{Vector. One or more unique record identifiers (i.e.
+combination of collection code and number) that should be flagged with a
+high confidence level? Default to NULL.}
+
+\item{noName}{Vector. One or more characters (in lower cases) with the
+standard notation for missing data in the field 'det.name'. Default to some
+typical notation found in herbarium data.}
+
+\item{top.det}{Numerical. How many of the top missing identifiers should be printed?
 Default to 10.}
+
+\item{rec.ID}{Character. The name of the columns containing the unique record
+identifier (see function \code{getTombo()}). Default to 'numTombo'.}
 }
 \value{
 The input data frame \code{x}, plus a new column 'tax.check'
@@ -49,13 +77,25 @@ identification and on type specimens.
 }
 \details{
 The input data frame \code{x} must contain at least the columns with the
-information on the species family (e.g. 'family') and the name of the people
-that provided the species identification (e.g. 'identifiedBy'). Preferably,
-this data frame should also contain information on type specimens (column
-'typeStatus') and names of the collectors (e.g. 'recordedBy'). As for other
-functions in \strong{plantR}, using a data frame \code{x} that has already passed
-by the editing steps of the \strong{plantR} workflow should result in more
-accurate outputs.
+information on the record family and the name of the person that provided the
+species identification. Preferably, this data frame should also contain
+information on type specimens and collectors names. If the user provide a
+list of records to be flagged as having a high confidence level in the
+identification, the user must alfo provide the column where the record unique
+identifiers are stored. The names of these columns should be provided as a
+named vector to the argument \code{col.names}, as follows:
+\itemize{
+\item 'family': the botanical family (default: 'family.new')
+\item 'det.name': the identifier name (default: 'identifiedBy.new')
+\item 'col.name': the collector name (default: 'recordedBy.new')
+\item 'types': type specimens (default: 'typeStatus')
+\item 'rec.ID': the collector serial number (default: 'numTombo')
+\item 'rec.type': the type of record (default: 'basisOfRecord')
+}
+
+As for other functions in \strong{plantR}, using a data frame \code{x} that has
+already passed by the editing steps of the \strong{plantR} workflow should result
+in more accurate outputs.
 
 The function classifies as high confidence level all records whose species
 identifications were performed by a family specialist or any type specimens
@@ -66,12 +106,15 @@ list was built based on information from the
 \href{http://kiki.huh.harvard.edu/databases}{Harvard University Herbaria}, the
 \href{http://www.botanica.org.br/rbh}{Brazilian Herbaria Network} and the
 \href{https://members.aspt.net}{American Society of Plant Taxonomists}.
-The dictionary was manually complemented for
-missing names of taxonomists and it includes common variants of taxonomists
-names (e.g., missing initials, typos, married or maiden names).
+The dictionary was manually complemented for missing names of taxonomists and
+it includes common variants of taxonomists names (e.g., missing initials,
+typos, married or maiden names).
 
-By default, \strong{all occurrences that are not preserved specimens (i.e. observations,
-photos) are classified as high confidence level}.
+If a column containing the Darwin Core field 'basisOfRecord' or equivalent is
+provided ('rec.type' in argument \code{col.names}), then by default, \strong{all
+occurrences that are not preserved specimens (i.e. human/machine
+observations, photos, living specimens, etc.) are classified as having a low
+confidence level}.
 
 Some specimens are collected by a specialist of the family, but the
 identifier information is missing. By default, we assume the same confidence
@@ -87,6 +130,17 @@ under which confidence level. There are some names of generalists in the
 names is currently biased towards plant collectors in South America,
 particularly in Brazil.
 
+The argument \code{other.records} controls what to do with types of records which
+are not preserved specimens (Darwin Core field
+\href{http://rs.tdwg.org/dwc/terms/basisOfRecord}{basisOfRecord}. If the argument
+is NULL (default), all record types are treated the same. Users can set the
+argument to one of the confidence levels (i.e. 'unknown', 'low', 'medium' or
+'high') to assign the same class for all non preserved specimens or to a
+value (i.e. 1 or 2), which correspond to the number of downgrading steps
+among levels. For instance, if \code{other.records} is one, the 'high' level
+becomes 'medium' and the 'medium' level becomes 'low' ('unkown' and 'low'
+levels remain the same).
+
 If you miss the validation from one or more taxonomists, you can include them
 using the argument \code{miss.taxonomist}. The format should be:
 the name of the family of specialty followed by an underscore and then
@@ -96,23 +150,40 @@ A database of taxonomists different than the \code{plantR} default can be used.
 This database must be provided using the argument \code{taxonomist.list} and it
 must contain the columns 'family' and 'tdwg.name'. The first column is the
 family of specialty of the taxonomist and the second one is her/his name in
-the TDWG format. See \code{plantR} function tdwgName or tdwgNames on how to get
-names in the TDWG format from a list of people's names.
+the TDWG format. See \code{plantR} function \code{prepName()} on how to get names in
+the TDWG format from a list of people's names.
+
+Finally, the user can provide a list of records that should be flagged as
+having a high confidence level on their identification. This list should be
+provided using the argument \code{voucher.list} and the information that should be
+provided is the record unique identifier (i.e. combination of collection code
+and number). It is important that the way in which the list of unique
+identifiers was generated matches the one used to construct the the
+identifiers in the input data frame \code{x} (see help of function
+\code{getTombo()}). If a list of records is provided, the user must also
+provide a valid column name in \code{x} containing the unique record
+identifiers in \code{col.names}.
 }
 \examples{
 (df <- data.frame(
-family = c("Bignoniaceae", "Bignoniaceae","Bignoniaceae",
-"Bignoniaceae","Bignoniaceae"),
-identifiedBy = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA),
-recordedBy = c(NA, NA, NA, "Gentry, A.H.", NA),
-typeStatus = c(NA, NA, "isotype", NA, NA),
+family.new = c("Bignoniaceae", "Bignoniaceae","Bignoniaceae",
+"Bignoniaceae","Bignoniaceae","Bignoniaceae"),
+identifiedBy.new = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA, "Hatschbach, G."),
+recordedBy.new = c(NA, NA, NA, "Gentry, A.H.", NA, NA),
+typeStatus = c(NA, NA, "isotype", NA, NA, NA),
+numTombo = c("a_1","b_3","c_7","d_5","e_3","f_4"),
 stringsAsFactors = FALSE))
 
 validateTax(df)
+validateTax(df, generalist = TRUE)
+validateTax(df, voucher.list = "f_4")
 
 }
 \references{
 Lima, R.A.F. et al. 2020. Defining endemism levels for biodiversity
 conservation: Tree species in the Atlantic Forest hotspot. Biological
 Conservation, 252: 108825.
+}
+\seealso{
+\link[plantR]{prepName} and \link[plantR]{getTombo}.
 }

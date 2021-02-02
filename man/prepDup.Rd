@@ -55,15 +55,15 @@ the records.
 \details{
 Three groups of fields are available to produce the duplicate search
 string, and they are related to taxonomy, collection and locality of the
-specimen. These fields are:
+specimen. These fields should be provided to the argument \code{col.names} and they are:
 \itemize{
 \item 'family': the botanical family (default: 'family.new')
 \item 'species': the scientific name (default: 'scientificName.new')
-\item 'col.name': the collector name (default: recordedBy.new)
-\item 'col.last.name': the collector last name (default: last.name)
-\item 'col.number': the collector serial number (default: recordNumber.new)
-\item 'col.year': the collection year (default: year.new)
-\item 'col.loc': the collection locality (default: municipality.new)
+\item 'col.name': the collector name (default: 'recordedBy.new')
+\item 'col.last.name': the collector last name (default: 'last.name')
+\item 'col.number': the collector serial number (default: 'recordNumber.new')
+\item 'col.year': the collection year (default: 'year.new')
+\item 'col.loc': the collection locality (default: 'municipality.new')
 }
 
 The corresponding columns that should be used to retrieve these fields in
