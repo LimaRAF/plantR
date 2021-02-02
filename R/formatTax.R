@@ -53,9 +53,8 @@ formatTax <- function(tax,
 
   # formatSpecies
   tax1 <- prepSpecies(x = tax1, tax.names, db, sug.dist, use.authors, drop.cols)
-  if (use.suggestion) {
+  if (use.suggestion)
     tax1$scientificName.new <- tax1$suggestedName
-  }
 
   # prepFamily
   tax1 <- prepFamily(x = tax1, fam.name, spp.name = "scientificName.new")

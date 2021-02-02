@@ -16,12 +16,12 @@
 #'   performed altogether (see the __plantR__ tutorial and the help of each
 #'   function for details).
 #'
-#'   The input data frame usually contains the following locality fields (the
+#'   The input data frame usually contains the following fields (the
 #'   function defaults):
-#'   - 'decimalLongitude' and 'decimalLatitude';
-#'   - 'latitude.gazetteer' and 'longitude.gazetteer';
-#'   - 'resolution.gazetteer';
-#'   - 'decimalLatitude.new' and 'decimalLongitude.new'.
+#'   - the source coordinates: 'decimalLongitude' and 'decimalLatitude';
+#'   - the gazetteer coordinates: 'latitude.gazetteer' and 'longitude.gazetteer';
+#'   - the precision of the gazetteer coordinates: 'resolution.gazetteer';
+#'   - the working coordinates: 'decimalLatitude.new' and 'decimalLongitude.new'.
 #'
 #' @seealso
 #'  \link[plantR]{prepCoord} and \link[plantR]{getCoord}.

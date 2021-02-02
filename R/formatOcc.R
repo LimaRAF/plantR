@@ -10,9 +10,12 @@
 #'
 #' @param x a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
-#' @param noNumb character. The standard notation for missing data in the field 'Number'
-#' @param noYear character. The standard notation for missing data in the field 'Year'
-#' @param noName character. The standard notation for missing data in the field 'Name'
+#' @param noNumb character. The standard notation for missing data in the field
+#'   'Number'
+#' @param noYear character. The standard notation for missing data in the field
+#'   'Year'
+#' @param noName character. The standard notation for missing data in the field
+#'   'Name'
 #'
 #' @details The function works siyesmilarly to a wrapper, where many individuals
 #'   steps of the proposed __plantR__ workflow for editing collection
@@ -22,17 +25,17 @@
 #'   Ideally, the input data frame must contain at least the following fields
 #'   from the Darwin Core standards (the functions default):
 #'   - 'intitutionCode' and 'collectionCode' (codes of the institution and collection);
-#'   - 'eventDate' and/or 'year' (date/year of the collection);
+#'   - 'year' and 'eventDate' (year of the collection);
 #'   - 'recordedBy' (collector(s) name(s));
 #'   - 'recordNumber' (collector number)
 #'   - 'identifiedBy' (identificator name);
-#'   - 'dateIdentified' or 'yearIdentified' (date or year of identification)
+#'   - 'yearIdentified' and 'dateIdentified' (year of identification)
 #'
 #'   Missing year of collection in the field 'year' are internally replaced by
 #'   the date stored in the field 'eventDate', if this field is not empty as well.
 #'
 #'   The function uses the R package __data.table__ internally to speed up the
-#'   processing of larger data sets
+#'   processing of larger data sets.
 #'
 #' @seealso
 #'  \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
@@ -72,8 +75,8 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
 
   # Missing year of identification that may be stored in the field 'dateIdentified'
   if ("dateIdentified" %in% names(x) & "yearIdentified" %in% names(x)) {
-    ids <- is.na(x$yearIdentified) & !is.na(x$dateIdentified)
-    x$yearIdentified[ids] <- x$dateIdentified[ids]
+    ids <- is.na(x$dateIdentified) & !is.na(x$yearIdentified)
+    x$dateIdentified[ids] <- x$yearIdentified[ids]
   }
 
   ## Standardizing collection codes
@@ -100,8 +103,8 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   dt[, identifiedBy.new := fixName(identifiedBy),  by = identifiedBy]
 
   # Identification year
-  data.table::setkey(dt, yearIdentified)
-  dt[, yearIdentified.new := getYear(yearIdentified, noYear = noYear),  by = yearIdentified]
+  data.table::setkey(dt, dateIdentified)
+  dt[, yearIdentified.new := getYear(dateIdentified, noYear = noYear),  by = dateIdentified]
 
   ## Putting people's names into the default name notation and
   #separating main and auxiliary names
@@ -123,7 +126,7 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
      by = recordedBy.new]
   data.table::setkey(dt, identifiedBy.new)
   dt[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = noName),
-       by = identifiedBy.new]
+     by = identifiedBy.new]
 
   ## Extract the last name of the collector
   data.table::setkey(dt, recordedBy.new)

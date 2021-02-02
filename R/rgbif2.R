@@ -2,15 +2,20 @@
 #'
 #' This function uses the rgbif package to get occurrence data of a species.
 #'
-#' @param dir Path to directory where the file will be saved. Default is to create a "results/" directory
+#' @param dir Path to directory where the file will be saved. Default is to
+#'   create a "results/" directory
 #' @param filename Name of the output file
-#' @param species Genus and specific epithet separated by space. Accepts author if inserted correctly. Either a single value or a vector
-#' @param force Logical. Force downloading data for more than 10 species in a loop. Default `force = FALSE`
-#' @param remove_na Logical. Defalt `TRUE` removes NA in columns decimalLatitude and decimalLongitude
-#' @param save Logical. Save output to filename? Defaults to TRUE
+#' @param species Genus and specific epithet separated by space. Accepts author
+#'   if inserted correctly. Either a single value or a vector
+#' @param force Logical. Force downloading data for more than 10 species in a
+#'   loop. Default `force = FALSE`
+#' @param remove_na Logical. Defalt `TRUE` removes NA in columns decimalLatitude
+#'   and decimalLongitude
+#' @param save Logical. Save output to filename? Defaults to FALSE
 #' @param ... Any argument from occ_search in rgbif package
 #'
-#' @return A data.frame with the search result. Columns species_id and download are added by the function. It can save the output on disk
+#' @return A data.frame with the search result. Columns species_id and download
+#'   are added by the function. It can save the output on disk
 #'
 #' @author Sara Mortara & Andrea Sánchez-Tapia
 #'
@@ -30,7 +35,7 @@ rgbif2 <- function(dir = "results/",
                    species,
                    force = FALSE,
                    remove_na = TRUE,
-                   save = TRUE,
+                   save = FALSE,
                    ...) {
   if (length(species) > 9) {
     if (!force) {

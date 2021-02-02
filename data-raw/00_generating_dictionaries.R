@@ -7,11 +7,12 @@ library(dplyr)
 
 
 #1. from raw files to processed csv in dictionaries----
-
 dic_files <- list.files(path = "data-raw/raw_dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
+#filtering out unwanted files
+dic_files <- dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants", dic_files)]
 
 #nome das tabelas
 data_names <- basename(dic_files) %>%
@@ -37,14 +38,17 @@ names(dic) <- data_names
 # dic <- lapply(dic, as.data.frame)
 
 # taxonomists:
-taxonomists <- dic$taxonomists[ , c("order", "source", "family", "family.obs", "full.name1", "tdwg.name")]
+taxonomists <- dic$taxonomists[ ,
+                                c("order", "source",
+                                  "family", "family.obs",
+                                  "full.name1", "tdwg.name")]
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
 
-
-collectionCodes <- dic$collectionCodes[ ,c("order",
+# collection codes:
+collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
                                            "collection.string",
                                            "collectioncode.gbif",
                                            "institutioncode.gbif",
@@ -54,12 +58,15 @@ collectionCodes <- dic$collectionCodes[ ,c("order",
                                            "organization",
                                            #"latitude","longitude","physical country",
                                            "col.OBS")]
-collectionCodes <- collectionCodes[!is.na(collectionCodes$index.herbariorum.or.working.code),]
-# dictionary of plant families and their synonyms
+collectionCodes <-
+  collectionCodes[!is.na(collectionCodes$index.herbariorum.or.working.code),]
+
+# Plant families
 familiesSynonyms <- dic$familiesSynonyms
-# names of the columns names form different data sources and their equivalencies:
+
+# Field names form different data sources and their equivalencies:
 # ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
-fieldNames <- dic$fieldNames
+# fieldNames <- dic$fieldNames
 # fieldNames <- dic$fieldNames[ ,c("order",
 #                                   "standard_name",
 #                                   "gbif",
@@ -83,16 +90,16 @@ gazetteer <- dic$gazetteer[ ,c("order",
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
-
 priorities <- data.frame(source = unique(gazetteer$source), priority =
                            c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
 priorities
-
 #ast ö checar que a ordem seja esta
+
 gazetteer <- left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
 dplyr::count(gazetteer, source, priority) %>% arrange(priority)
-gazetteer <- gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
+gazetteer <-
+  gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
 # administrative descriptors
 admin <- dic$gazetteer[ ,c("order",
@@ -127,170 +134,20 @@ admin <- admin[, c("order",
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
-for (i in 1:length(replaceNames))
-  replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
-
-# other objects necessary fot the data processing and validation
-
-missLocs <- c("^\\?$",
-              "^s\\/localidade",
-              "^indeterminada$",
-              "^indeterminado$",
-              "^s\\.d\\.$",
-              "^desconhecido$",
-              "^sin loc\\.$",
-              "^sin\\. loc\\.$",
-              "^ignorado$",
-              "^sem informacao$",
-              "^n\\.i\\.",
-              "^nao especificado$",
-              "^nao informado$",
-              "^bloqueado$",
-              "no locality information available",
-              "^protected due to name conservation status",
-              "^completar datos",
-              "^no disponible$",
-              "^not available$",
-              "^loc\\.ign$",
-              "local ignorado",)
-
-wordsForSearch <- c("^prov\\. ",
-                    "^dep\\. ",
-                    "^depto\\. ",
-                    "^prov\\.",
-                    "^mun\\. ",
-                    "^dept\\.",
-                    "^dpto\\.",
-                    "^depto\\.",
-                    "^dept.",
-                    "^departamento de ",
-                    "^departamento del ",
-                    "^departament of ",
-                    "^departamiento de ",
-                    "^departemento del ",
-                    "^departamento ",
-                    "^provincia de ",
-                    "^provincia del ",
-                    "^província de ",
-                    "^província: ",
-                    "^província ",
-                    "^province of ",
-                    "^estado do ",
-                    "^estado de ",
-                    "^estado: ",
-                    "^estado ")
-
-unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
-                   'Ç', 'È', 'É', 'Ê', 'Ë',
-                   'Ì', 'Í', 'Î', 'Ï',
-                   'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
-                   'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',
-                   'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',
-                   'ç', 'è', 'é', 'ê', 'ë',
-                   'ì', 'í', 'î', 'ï',
-                   'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø',
-                   'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
-                   'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
-                   'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
-
-unwantedEncoding <- c('ã¡' = 'a',
-                      'ã¢' = 'a',
-                      'ã£' = 'a',
-                      '&#225;' = 'a',
-                      'ã§' = 'c',
-                      'ã©' = 'e',
-                      'ãª' = 'e',
-                      'ã´' = 'o',
-                      'ã\u008d' = 'i',
-                      'ãº' = 'u')
-
-cultivated <- c("cultivated",
-                "cultivada",
-                "cultivado",
-                "cultivato",
-                "cultivad",
-                "under cultivation",
-                "plantada",
-                "plantado",
-                "planted",
-                "plantio",
-                "arboreto",
-                "arboretum",
-                "exotic",
-                "exótica",
-                "canteiro",
-                "pomar",
-                "área de visitação",
-                "cult\\.",
-                "cant\\. [a-z]",
-                "cant [A-Z]",
-                "cant\\. [0-9]",
-                "cant \\. [0-9]",
-                "cant [0-9]",
-                "\\(cult\\)",
-                "\\(cult\\ )",
-                "in cultivo",
-                "in cultis",
-                " quadra [a-z]",
-                "quadra [a-z] do",
-                "naturalised",
-                "em experimento de")
-
-notCultivated <- c("nativa",
-                   "espontânea",
-                   "pastagem cultivada",
-                   "área do arboreto",
-                   "presença de exóticas",
-                   " área cultivada",
-                   " área cultivada",
-                   " cultivated area")
-
-missColls <- c("s/col.",
-               "s/col",
-               "s/c",
-               "s/coletor",
-               "s.coletor",
-               " sem col.",
-               "s.col.",
-               "s.c.",
-               "s.n.",
-               "sem informação",
-               "sem informacao",
-               "collector unspecified",
-               "collector unknown",
-               "unknown",
-               "disponible, n.",
-               "disponivel, n.",
-               "available, n.",
-               "sin",
-               "?")
-
-missDets <- c("s/det.",
-              "s/det",
-              "s/d",
-              "s/determinador",
-              "s.determinador",
-              " sem det.",
-              "s.det.",
-              "s.n.",
-              "sem informação",
-              "sem informacao",
-              "determiner unspecified",
-              "determiner unknown",
-              "unknown",
-              "disponible, n.",
-              "disponivel, n.",
-              "available, n.",
-              "sin",
-              "?")
+#Renato ö: o codigo abaixo estava dando problemas e tenho quase certeza que preciamos
+#dos non_ascii para fazer a reposição dos nomes. Descomentar só após verificar
+#se a reposição precisa ou não dos non_ascii. Se tiver alguma entrada dando pau em
+#particular editar a entrada do dicionário raw na mão mesmo...
+# for (i in 1:length(replaceNames))
+#   replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
 
 # só checando como estao os arquivos
-# head(taxonomists)
-# head(familiesSynonyms)
-# head(collectionCodes)
-# head(gazetteer)
-# head(admin)
-# head(replaceNames)
+head(taxonomists)
+head(familiesSynonyms)
+head(collectionCodes)
+head(gazetteer)
+head(admin)
+head(replaceNames)
 
 write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
 write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")

@@ -68,6 +68,12 @@ getCode <- function(x, inst.code = "institutionCode", col.code = "collectionCode
   if (!col.code %in% names(x))
     stop("Input data frame must have a column with the collection codes")
 
+  # Missing collection code that may be stored in the field 'institutionCode'
+  if ("collectionCode" %in% names(x) & "institutionCode" %in% names(x)) {
+    ids <- is.na(x$collectionCode) & !is.na(x$institutionCode)
+    x$collectionCode[ids] <- x$institutionCode[ids]
+  }
+
   dt <- data.table::data.table(x)
   dt[, cod.inst.tmp := .SD, .SDcols = c(inst.code)]
   dt[, cod.coll.tmp := .SD, .SDcols = c(col.code)]

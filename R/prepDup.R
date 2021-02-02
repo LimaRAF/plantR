@@ -28,14 +28,14 @@
 #'
 #' @details Three groups of fields are available to produce the duplicate search
 #'   string, and they are related to taxonomy, collection and locality of the
-#'   specimen. These fields are:
+#'   specimen. These fields should be provided to the argument `col.names` and they are:
 #'   - 'family': the botanical family (default: 'family.new')
 #'   - 'species': the scientific name (default: 'scientificName.new')
-#'   - 'col.name': the collector name (default: recordedBy.new)
-#'   - 'col.last.name': the collector last name (default: last.name)
-#'   - 'col.number': the collector serial number (default: recordNumber.new)
-#'   - 'col.year': the collection year (default: year.new)
-#'   - 'col.loc': the collection locality (default: municipality.new)
+#'   - 'col.name': the collector name (default: 'recordedBy.new')
+#'   - 'col.last.name': the collector last name (default: 'last.name')
+#'   - 'col.number': the collector serial number (default: 'recordNumber.new')
+#'   - 'col.year': the collection year (default: 'year.new')
+#'   - 'col.loc': the collection locality (default: 'municipality.new')
 #'
 #'   The corresponding columns that should be used to retrieve these fields in
 #'   the input data frame must be provided as a named vector in the argument
@@ -141,7 +141,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
     ids <- nchar(x1$col.year) > 4
     if (any(ids))
       x1$col.year[ids] <- as.character(sapply(strsplit(x1$col.year[ids], " |-|\\/", perl = TRUE),
-                               function(x) unique(x[nchar(x) >= 4])))
+                                              function(x) unique(x[nchar(x) >= 4])))
     x1$col.year <- suppressWarnings(as.double(x1$col.year))
     x1$col.year[is.na(x1$col.year)] <- noYear
   }

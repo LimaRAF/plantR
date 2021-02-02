@@ -50,38 +50,20 @@ occs <- getCult(occs)
 
 
 ##Vinheta
-occs_splink <- rspeciesLink(species = "Euterpe edulis",
-                            save = FALSE)
-occs_gbif <- rgbif2(species = "Euterpe edulis",
-                    save = FALSE)
+occs_splink <- rspeciesLink(species = "Euterpe edulis")
+occs_gbif <- rgbif2(species = "Euterpe edulis")
 occs.bind <- formatDwc(splink_data = occs_splink,
-                  gbif_data = occs_gbif,
-                  bind_data = TRUE)
+                  gbif_data = occs_gbif)
 occs0 <- formatOcc(occs.bind)
 occs <- formatLoc(occs0)
 occs <- formatCoord(occs)
 occs <- formatTax(occs)
 occs <- validateLoc(occs)
 occs <- validateTax(occs)
-
-tmp <- prepDup(occs)
-
-occs <- validateDup(occs, info2merge = c("tax", "loc"),
-                    tax.name = "scientificName.new")
+occs <- validateDup(occs)
 summ <- summaryData(occs)
 flags <- summaryFlags(occs)
-checkList(occs, n.vouch = 5, type = "short")
-
-z <- dim(occs)[2]
-
-
-x <- occs
-
-cols <- names(occs[, z:dim(occs)[2]])
-head(occs[, cols], 20)
-tail(occs[, cols], 20)
-
-
+checkList(occs, n.vouch = 10, type = "short")
 
 
 

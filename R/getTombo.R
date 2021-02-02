@@ -9,15 +9,15 @@
 #'   beginning of the accession numbers be removed based on the corresponding
 #'   collection code provided in `collection`? Defaults to TRUE.
 #' @param to.lower logical. Should the final unique identifier be converted to
-#'   lowe cases? Defaults to TRUE.
+#'   lowe cases? Default to FALSE.
 #'
 #' @return the collection codes and the edited accession numbers concatenated
-#'   using a underline (i.e '_').
+#'   using an underline mark (i.e '_').
 #'
-#' @details The function performs small edits in the accession number, such as
-#'   the removal of spaces, hyphens, points and non-ascii characters. The
-#'   function also removes all zeros at the beginning of the number, to simplify
-#'   the notation.
+#' @details The function performs small edits in the accession number (the
+#'   Darwin Core field 'catalogNumber'), such as the removal of spaces, hyphens,
+#'   points and non-ascii characters. The function also remove all zeros at the
+#'   beginning of the number, to simplify the notation.
 #'
 #'  Accession numbers may contain the collection code at their beginning. The
 #'   function can remove this codes in two ways. The default way (`by.coll` = TRUE)
@@ -25,10 +25,11 @@
 #'   `collection`. The second way removes all letters in the beginning of the number
 #'   irrespectively of the collection code (`by.coll` = FALSE).
 #'
-#'  It only edits the accession number (Darwin Core field 'catalogNumber'),
-#'   assuming that the collection code has already been standardized using another
-#'   __plantR__ function, `getCode()`. The final identifier can be returned as
-#'   is or in lower cases (the default).
+#'  It only edits the accession number, assuming that the collection code (the
+#'  Darwin Core field 'collectionCode') has already been standardized using
+#'  another __plantR__ function, `getCode()`. The final identifier can be
+#'  returned as is (the default) or in lower cases by setting the argument
+#'  `to.lower` to TRUE.
 #'
 #' @seealso
 #'  \link[plantR]{getCode}
@@ -36,6 +37,7 @@
 #' @author Renato A. F. de Lima
 #'
 #' @importFrom stringr str_count
+#' @importFrom textclean replace_non_ascii
 #'
 #' @examples
 #' colls <- c("P", "P", "NY", "G", "P", "P", "NY", "G",
@@ -47,7 +49,7 @@
 #'
 #' @export getTombo
 #'
-getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = TRUE) {
+getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = FALSE) {
 
   ## check input
   if (is.null(collection) | is.null(accession))
@@ -102,9 +104,7 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
       if (any(pos > 1))
         tmb1[pos > 1] <- substring(tmb1[pos > 1], pos[pos > 1])
 
-      #Remove zeros also from the e.g. 00134_00123 format?
-
-      #Saving
+      #Writing the result
       tmb[ids] <- tmb1
 
     } else {
@@ -139,7 +139,7 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
       if (any(pos == 1))
         tmb1[pos == 1] <- gsub('^(0+)([1-9])', '\\2', tmb1[pos == 1], perl = TRUE)
 
-      #Saving
+      #Writing the result
       tmb[ids] <- tmb1
     }
   }

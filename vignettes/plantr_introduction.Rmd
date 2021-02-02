@@ -119,21 +119,19 @@ library("plantR")
 
 Users can provide their own dataset or download data using one of __plantR__ download functions. They include the function `rspeciesLink()`:
 
-```{r splink-download, eval = FALSE, collapse = TRUE}
-occs_splink <- rspeciesLink(species = "Euterpe edulis", 
-                            save = FALSE)
+```{r splink-download, eval = TRUE, collapse = TRUE}
+occs_splink <- rspeciesLink(species = "Euterpe edulis")
 ```
 
 This function can also be used to search from records based on localities, collections, and other options (see ?rspeciesLink for details). 
 
 __plantR__ also provides the function `rgbif2()`, which is a wrapper of the function `rgbif()` of the __rgbif__ package, with an standardized output:
 
-```{r gbif-download, eval = FALSE}
-occs_gbif <- rgbif2(species = "Euterpe edulis", 
-                    save = FALSE)
+```{r gbif-download, eval = TRUE}
+occs_gbif <- rgbif2(species = "Euterpe edulis")
 ```
 
-```{r load-data, eval=TRUE, echo=FALSE}
+```{r load-data, eval=FALSE, echo=FALSE}
 occs_splink <- read.csv("results/speciesLink.csv")
 occs_gbif <- read.csv("results/gbif.csv")
 ```
@@ -151,9 +149,7 @@ Here, we are using the argument `drop = TRUE` to drop any column that won't be u
 
 ```{r bind-data, eval = TRUE, collapse = TRUE}
 occs <- formatDwc(splink_data = occs_splink, 
-                  gbif_data = occs_gbif, 
-                  bind_data = TRUE, 
-                  drop = TRUE)
+                  gbif_data = occs_gbif)
 ```
 
 
@@ -222,9 +218,7 @@ Another main feature of __plantR__ is the search for duplicated specimens across
 
 
 ```{r validateDup, eval = TRUE, include=TRUE, warning = FALSE} 
-occs <- validateDup(occs,
-                    info2merge = c("tax", "loc"),
-                    tax.name = "scientificName.new")
+occs <- validateDup(occs)
 ```
 
 ### Data summary and export

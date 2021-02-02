@@ -42,11 +42,11 @@
 #'   or to specify the respective columns in the input data.
 #'
 #'   The columns `lat.new` and `lon.new` are the columns containing the working
-#'   coordinates that may have been already edited. It is also the columns were
-#'   the function will store the coordinates from the gazetter in the case of
-#'   missing coordinates. If these columns are not provided in the input data,
-#'   they are assumed to be equal to `lat.orig` and `lon.orig` and they are
-#'   created internally.
+#'   coordinates that may have been already edited by `prepCoord()`. It is also
+#'   the columns were the function will store the coordinates from the gazetter
+#'   in the case of missing coordinates. If these columns are not provided in
+#'   the input data, they are assumed to be equal to `lat.orig` and `lon.orig`
+#'   and they are created internally.
 #'
 #'   The precision of the geographical coordinates are classified as: "degrees",
 #'   "minutes", "seconds" and "miliseconds". This classification is performed for
@@ -170,7 +170,7 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
       long3[!long3 %in% c("degrees_only", "minutes_only", "seconds")] <-
         "miliseconds"
 
-    # Saving/combining the best precision for both lat and lon
+      # Saving/combining the best precision for both lat and lon
       x1$precision.coord <- NA
       x1[,c("p.lat", "p.lon")] <- NA
       x1[!is.na(lati),"p.lat"] <- lati3
@@ -194,26 +194,26 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
                            (x1$p.lat %in% "miliseconds" | x1$p.lon %in% "miliseconds")] <- "miliseconds"
     }
 
-    ##Replacing missing coordinates by the county coordinates from the gazetter
-    x1$decimalLatitude.new[is.na(lati) | is.na(long)] <-
-      x1$latitude.gazetteer[is.na(lati) | is.na(long)]
-    x1$decimalLongitude.new[is.na(lati) | is.na(long)] <-
-      x1$longitude.gazetteer[is.na(lati) | is.na(long)]
-    x1$origin.coord[!is.na(x1$decimalLatitude.new) &
-                      is.na(x1$origin.coord)] <- "coord_gazet"
-    x1$origin.coord[is.na(x1$origin.coord)] <- "no_coord"
-    x1$precision.coord[x1$origin.coord %in% "coord_gazet" &
-                          x1$resolution.gazetteer %in% c("country", "state", "county")] <- "seconds_centroid"
-    x1$precision.coord[x1$origin.coord %in% "coord_gazet" &
-                          x1$resolution.gazetteer %in% c("locality")] <- "seconds"
+  ##Replacing missing coordinates by the county coordinates from the gazetter
+  x1$decimalLatitude.new[is.na(lati) | is.na(long)] <-
+    x1$latitude.gazetteer[is.na(lati) | is.na(long)]
+  x1$decimalLongitude.new[is.na(lati) | is.na(long)] <-
+    x1$longitude.gazetteer[is.na(lati) | is.na(long)]
+  x1$origin.coord[!is.na(x1$decimalLatitude.new) &
+                    is.na(x1$origin.coord)] <- "coord_gazet"
+  x1$origin.coord[is.na(x1$origin.coord)] <- "no_coord"
+  x1$precision.coord[x1$origin.coord %in% "coord_gazet" &
+                       x1$resolution.gazetteer %in% c("country", "state", "county")] <- "seconds_centroid"
+  x1$precision.coord[x1$origin.coord %in% "coord_gazet" &
+                       x1$resolution.gazetteer %in% c("locality")] <- "seconds"
 
-    ## Preparing the output
-    x2 <- x[,!(names(x) %in% c(lat.new, lon.new))]
-    if (rm.gazet)
-      x2 <- x2[,!(names(x2) %in% c(lat.gazet, lon.gazet))]
-    x3 <- cbind.data.frame(x2, x1[, c("decimalLatitude.new",
-                                      "decimalLongitude.new",
-                                      "origin.coord",
-                                      "precision.coord"), ])
-    return(x3)
+  ## Preparing the output
+  x2 <- x[,!(names(x) %in% c(lat.new, lon.new))]
+  if (rm.gazet)
+    x2 <- x2[,!(names(x2) %in% c(lat.gazet, lon.gazet))]
+  x3 <- cbind.data.frame(x2, x1[, c("decimalLatitude.new",
+                                    "decimalLongitude.new",
+                                    "origin.coord",
+                                    "precision.coord"), ])
+  return(x3)
 }
