@@ -9,6 +9,8 @@
 #'   formatted.
 #' @param scrap logical. Should the search of missing locality information be
 #'   performed? Default to TRUE.
+#' @param to.lower logical. Should the output locality names be return in
+#'   lower cases? Default to TRUE.
 #'
 #' @return The input data frame \code{x}, plus the '.new' columns with the formatted
 #'   fields and the resolution of the locality information available.
@@ -22,6 +24,10 @@
 #'   choose among these fields through the argument `loc.levels`. However, the
 #'   process of searching for missing information is more complete if all the
 #'   four locality fields mentioned above are available.
+#'
+#'   If present, other Darwin Core fields are used internally to obtain missing
+#'   information on the locality fields declared above, namely: 'countryCode',
+#'   'county', and 'verbatimLocality'.
 #'
 #'   The argument `scrap` controls the search for missing municipality
 #'   information from the field 'locality'. It also performs some extra editing
@@ -37,6 +43,7 @@
 #'   provided (i.e. field is not empty), then the resolution is flagged as
 #'   'country'; if country and stateProvince are given, then the resolution is
 #'   flagged as 'stateProvince', and so on.
+#'
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -56,6 +63,7 @@
 #'
 #' # Formating the locality information
 #' fixLoc(df, scrap = FALSE)
+#' fixLoc(df, scrap = FALSE, to.lower = FALSE)
 #'
 #' # Formating and scrapping the locality information
 #' fixLoc(df, scrap = TRUE)
@@ -65,7 +73,7 @@
 #'
 fixLoc <- function(x,
                    loc.levels = c("country", "stateProvince", "municipality", "locality"),
-                   scrap = TRUE) {
+                   scrap = TRUE, to.lower = TRUE) {
 
   ## checking input:
   if (!class(x) == "data.frame")
@@ -101,18 +109,10 @@ fixLoc <- function(x,
 
 
   if (!any(c("country", "stateProvince", "municipality", "locality") %in% colnames(x)))
-    stop("input object needs to have at least one of the following fields: country/countryCode, stateProvince, county/municipality and locality")
+    stop("input object needs to have at least one of the following fields: country/countryCode, stateProvince, municipality/county and locality/verbatimLocality")
 
   ## Obtaining the intermediary data frame for editing
-  if (length(loc.levels) == 1) {
-
-    x1 <- x[match(loc.levels, colnames(x))]
-
-  } else {
-
-    x1 <- x[, match(loc.levels, colnames(x))]
-
-  }
+  x1 <- x[, match(loc.levels, colnames(x)), drop = FALSE]
 
   ## Loading the dictionary of names, terms, abbreviations and encodign problems to be replaced
   enc <- unwantedEncoding
@@ -121,16 +121,9 @@ fixLoc <- function(x,
   wordsForSearch <- wordsForSearch
 
   ## Solving common encoding problems
-  for (i in length(enc))
+  for (i in 1:length(enc))
     x1[] <- lapply(x1, gsub, pattern = names(enc)[i], replacement = enc[i],
                    ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ã¡|ã¢|ã£", replacement = "a", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ã©|ãª", replacement = "e", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ã§", replacement = "c", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ãº", replacement = "u", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ã´", replacement = "o", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "ã\u008d", replacement = "i", ignore.case = TRUE, perl = TRUE)
-  # x1[] <- lapply(x1, gsub, pattern = "&#225;", replacement = "a", perl = TRUE)
   x1[] <- lapply(x1, gsub, pattern = "\u00AD", replacement = "", perl = TRUE) # soft hyphen
   x1[] <- lapply(x1, gsub, pattern = "\u00AO", replacement = "", perl = TRUE) # hidden breaking space
 
@@ -323,7 +316,7 @@ fixLoc <- function(x,
     x1[, i] <- gsub("^-$", NA, x1[, i], perl = TRUE)
 
   ## Resolution of the locality information provided
-  tmp <- apply(x1[, loc.levels], 1, function(x)
+  tmp <- apply(x1[, loc.levels, drop = FALSE], 1, function(x)
       which(is.na(x))[1] - 1)
   tmp[tmp %in% 0] <- length(loc.levels) + 1
   tmp[is.na(tmp)] <- length(loc.levels)
@@ -331,17 +324,26 @@ fixLoc <- function(x,
 
   ## Preparing the output
   if (length(loc.levels) == 1) {
-    res <- as.vector(x1)
+    res <- as.vector(x1[,1])
+
+    if (!to.lower)
+      res <- stringr::str_to_title(res)
+
   } else {
     names(x1) <- paste0(names(x1), ".new")
     res <- as.data.frame(x1)
     if (c("locality.new") %in% names(x1) &
         scrap == TRUE)
       res$locality.scrap <- n4.2.1
+
+    if (!to.lower)
+      for(i in names(res))
+        res[, i] <- stringr::str_to_title(res[, i])
+
     res$resol.orig <- resol.orig
   }
 
   ## Merging the results and returning
-  result <- cbind.data.frame(x, res)
+  result <- cbind.data.frame(x, res, stringsAsFactors = FALSE)
   return(result)
 }

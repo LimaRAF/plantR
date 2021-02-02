@@ -9,7 +9,7 @@
 #'   beginning of the accession numbers be removed based on the corresponding
 #'   collection code provided in `collection`? Defaults to TRUE.
 #' @param to.lower logical. Should the final unique identifier be converted to
-#'   lowe cases? Default to FALSE.
+#'   lower cases? Default to FALSE.
 #'
 #' @return the collection codes and the edited accession numbers concatenated
 #'   using an underline mark (i.e '_').
