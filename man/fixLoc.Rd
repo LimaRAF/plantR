@@ -7,7 +7,8 @@
 fixLoc(
   x,
   loc.levels = c("country", "stateProvince", "municipality", "locality"),
-  scrap = TRUE
+  scrap = TRUE,
+  to.lower = TRUE
 )
 }
 \arguments{
@@ -18,6 +19,9 @@ formatted.}
 
 \item{scrap}{logical. Should the search of missing locality information be
 performed? Default to TRUE.}
+
+\item{to.lower}{logical. Should the output locality names be return in
+lower cases? Default to TRUE.}
 }
 \value{
 The input data frame \code{x}, plus the '.new' columns with the formatted
@@ -38,6 +42,10 @@ By default, this function formats all four locality fields simultaneously
 choose among these fields through the argument \code{loc.levels}. However, the
 process of searching for missing information is more complete if all the
 four locality fields mentioned above are available.
+
+If present, other Darwin Core fields are used internally to obtain missing
+information on the locality fields declared above, namely: 'countryCode',
+'county', and 'verbatimLocality'.
 
 The argument \code{scrap} controls the search for missing municipality
 information from the field 'locality'. It also performs some extra editing
@@ -65,6 +73,7 @@ locality = c(NA, "UFLA", "municipio de Lavras, campus UFLA",
 
 # Formating the locality information
 fixLoc(df, scrap = FALSE)
+fixLoc(df, scrap = FALSE, to.lower = FALSE)
 
 # Formating and scrapping the locality information
 fixLoc(df, scrap = TRUE)
