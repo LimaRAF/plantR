@@ -176,6 +176,7 @@ locality1,NA,NA,NA,^prov.,provincia de
 locality1,NA,NA,NA,prov.,provincia de
 locality1,NA,NA,NA,^dep. |^dept. |^dpto. |dtto. |^depto.,departamento de
 locality1,NA,NA,NA,dep. | dept. | dpto. | depto.,departamento de
+locality1,NA,NA,NA,departamento del|depto. del,departamento de
 locality1,NA,NA,NA,provincia de :,provincia de
 locality2,NA,NA,NA,^gral.,general
 locality2,NA,NA,NA,^rod.,rodovia
@@ -260,7 +261,7 @@ locality2,NA,NA,NA,^vic.,vicinity
 locality2,NA,NA,NA,r. jari,rio jari
 locality2,NA,NA,NA,r. xingu,rio xingu
 locality2,NA,NA,NA,r. juruena,rio juruena
-locality2,NA,NA,NA,r. uaupes,rio uaupes
+locality2,NA,NA,NA,r. uaupes,rio vaupes
 locality2,NA,NA,NA,r. negro,rio negro
 locality2,NA,NA,NA,r. trombetas,rio trombetas
 locality2,NA,NA,NA,r. tapajoz|r. tapajos,rio tapajos

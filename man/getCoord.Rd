@@ -70,11 +70,11 @@ following six columns (the defaults): 'decimalLatitude',
 or to specify the respective columns in the input data.
 
 The columns \code{lat.new} and \code{lon.new} are the columns containing the working
-coordinates that may have been already edited. It is also the columns were
-the function will store the coordinates from the gazetter in the case of
-missing coordinates. If these columns are not provided in the input data,
-they are assumed to be equal to \code{lat.orig} and \code{lon.orig} and they are
-created internally.
+coordinates that may have been already edited by \code{prepCoord()}. It is also
+the columns were the function will store the coordinates from the gazetter
+in the case of missing coordinates. If these columns are not provided in
+the input data, they are assumed to be equal to \code{lat.orig} and \code{lon.orig}
+and they are created internally.
 
 The precision of the geographical coordinates are classified as: "degrees",
 "minutes", "seconds" and "miliseconds". This classification is performed for

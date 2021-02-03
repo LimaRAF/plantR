@@ -626,8 +626,8 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22290,bermuda_hamilton municipality,BM,NA,Bermuda,Hamilton Municipality,NA,NA,gdam
 22291,bermuda_paget,BM,NA,Bermuda,Paget,NA,NA,gdam
 22292,bermuda_pembroke,BM,NA,Bermuda,Pembroke,NA,NA,gdam
-22294,bermuda_saint george's,BM,NA,Bermuda,Saint George's,NA,NA,gdam
 22293,bermuda_saint george municipality,BM,NA,Bermuda,Saint George municipality,NA,NA,gdam
+22294,bermuda_saint george's,BM,NA,Bermuda,Saint George's,NA,NA,gdam
 22295,bermuda_sandys,BM,NA,Bermuda,Sandys,NA,NA,gdam
 22296,bermuda_smiths,BM,NA,Bermuda,Smiths,NA,NA,gdam
 22297,bermuda_southampton,BM,NA,Bermuda,Southampton,NA,NA,gdam
@@ -11198,11 +11198,11 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 6444,chile_atacama_chanaral,CL,AT,Chile,Atacama,Chañaral,NA,gdam
 6445,chile_atacama_copiapo,CL,AT,Chile,Atacama,Copiapó,NA,gdam
 6446,chile_atacama_huasco,CL,AT,Chile,Atacama,Huasco,NA,gdam
-34417,chile_bio-bio,CL,BI,Chile,Bío-Bío,NA,NA,gdam
 34813,chile_bio bio,CL,BI,Chile,Bío-Bío,NA,NA,gdam
 6447,chile_bio bio_arauco,CL,BI,Chile,Bío-Bío,Arauco,NA,gdam
 6448,chile_bio bio_biobio,CL,BI,Chile,Bío-Bío,Biobío,NA,gdam
 6449,chile_bio bio_concepcion,CL,BI,Chile,Bío-Bío,Concepción,NA,gdam
+34417,chile_bio-bio,CL,BI,Chile,Bío-Bío,NA,NA,gdam
 34418,chile_coquimbo,CL,CO,Chile,Coquimbo,NA,NA,gdam
 6450,chile_coquimbo_choapa,CL,CO,Chile,Coquimbo,Choapa,NA,gdam
 6451,chile_coquimbo_elqui,CL,CO,Chile,Coquimbo,Elqui,NA,gdam
@@ -13839,14 +13839,13 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 22438,guinea,GN,NA,Guinea,NA,NA,NA,gdam
 22439,guinea bissau,GW,NA,Guinea-Bissau,NA,NA,NA,gdam
 22440,guyana,GY,NA,Guyana,NA,NA,NA,gdam
-34569,guyana_barima-waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
 34798,guyana_barima waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
 8817,guyana_barima waini_barima / amakura,GY,NA,Guyana,Barima-Waini,Barima / Amakura,NA,gdam
 8818,guyana_barima waini_mabaruma / kumaka / hosororo,GY,NA,Guyana,Barima-Waini,Mabaruma / Kumaka / Hosororo,NA,gdam
 8819,guyana_barima waini_matthews ridge / arakaka (matakai) / port kaituma,GY,NA,Guyana,Barima-Waini,Matthews Ridge / Arakaka (Matakai) / Port Kaituma,NA,gdam
 8820,guyana_barima waini_rest of region 1,GY,NA,Guyana,Barima-Waini,Rest of Region 1,NA,gdam
 8821,guyana_barima waini_waini,GY,NA,Guyana,Barima-Waini,Waini,NA,gdam
-34570,guyana_cuyuni-mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
+34569,guyana_barima-waini,GY,NA,Guyana,Barima-Waini,NA,NA,gdam
 34799,guyana_cuyuni mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
 8822,guyana_cuyuni mazaruni_agatash,GY,NA,Guyana,Cuyuni-Mazaruni,Agatash,NA,gdam
 8823,guyana_cuyuni mazaruni_arau,GY,NA,Guyana,Cuyuni-Mazaruni,Arau,NA,gdam
@@ -13857,7 +13856,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8828,guyana_cuyuni mazaruni_paruima,GY,NA,Guyana,Cuyuni-Mazaruni,Paruima,NA,gdam
 8829,guyana_cuyuni mazaruni_rest of region 7,GY,NA,Guyana,Cuyuni-Mazaruni,Rest of Region 7,NA,gdam
 8830,guyana_cuyuni mazaruni_waramadan,GY,NA,Guyana,Cuyuni-Mazaruni,Waramadan,NA,gdam
-34571,guyana_demerara-mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
+34570,guyana_cuyuni-mazaruni,GY,NA,Guyana,Cuyuni-Mazaruni,NA,NA,gdam
 34800,guyana_demerara mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
 8831,guyana_demerara mahaica_cane grove land development scheme,GY,NA,Guyana,Demerara-Mahaica,Cane Grove Land Development Scheme,NA,gdam
 8832,guyana_demerara mahaica_city of georgetown,GY,NA,Guyana,Demerara-Mahaica,City of Georgetown,NA,gdam
@@ -13878,7 +13877,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8847,guyana_demerara mahaica_te huist coverden / soesdyke,GY,NA,Guyana,Demerara-Mahaica,Te Huist Coverden / Soesdyke,NA,gdam
 8848,guyana_demerara mahaica_triumph / beterverwagting,GY,NA,Guyana,Demerara-Mahaica,Triumph / Beterverwagting,NA,gdam
 8849,guyana_demerara mahaica_vereeniging / unity,GY,NA,Guyana,Demerara-Mahaica,Vereeniging / Unity,NA,gdam
-34572,guyana_east berbice-corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
+34571,guyana_demerara-mahaica,GY,NA,Guyana,Demerara-Mahaica,NA,NA,gdam
 34801,guyana_east berbice corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
 8850,guyana_east berbice corentyne_black bush polder land development scheme,GY,NA,Guyana,East Berbice-Corentyne,Black Bush Polder land Development Scheme,NA,gdam
 8851,guyana_east berbice corentyne_borlam ( no.37 ) / kintyre,GY,NA,Guyana,East Berbice-Corentyne,Borlam ( No.37 ) / Kintyre,NA,gdam
@@ -13901,7 +13900,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8868,guyana_east berbice corentyne_rose hall,GY,NA,Guyana,East Berbice-Corentyne,Rose Hall,NA,gdam
 8869,guyana_east berbice corentyne_tarlogie / maida,GY,NA,Guyana,East Berbice-Corentyne,Tarlogie / Maida,NA,gdam
 8870,guyana_east berbice corentyne_whim / bloomfield,GY,NA,Guyana,East Berbice-Corentyne,Whim / Bloomfield,NA,gdam
-34573,guyana_essequibo islands-west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
+34572,guyana_east berbice-corentyne,GY,NA,Guyana,East Berbice-Corentyne,NA,NA,gdam
 34802,guyana_essequibo islands west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
 8871,guyana_essequibo islands west demerara_amsterdam (demerara river) / vriesland,GY,NA,Guyana,Essequibo Islands-West Demerara,Amsterdam (Demerara River) / Vriesland,NA,gdam
 8872,guyana_essequibo islands west demerara_blankenburg / hague,GY,NA,Guyana,Essequibo Islands-West Demerara,Blankenburg / Hague,NA,gdam
@@ -13922,7 +13921,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8887,guyana_essequibo islands west demerara_uitvlugt / tuschen,GY,NA,Guyana,Essequibo Islands-West Demerara,Uitvlugt / Tuschen,NA,gdam
 8888,guyana_essequibo islands west demerara_vergenoegen / greenwich park,GY,NA,Guyana,Essequibo Islands-West Demerara,Vergenoegen / Greenwich Park,NA,gdam
 8889,guyana_essequibo islands west demerara_wakenaam (essequibo islands),GY,NA,Guyana,Essequibo Islands-West Demerara,Wakenaam (Essequibo Islands),NA,gdam
-34574,guyana_mahaica-berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
+34573,guyana_essequibo islands-west demerara,GY,NA,Guyana,Essequibo Islands-West Demerara,NA,NA,gdam
 34803,guyana_mahaica berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
 8890,guyana_mahaica berbice_abary / mahaicony,GY,NA,Guyana,Mahaica-Berbice,Abary / Mahaicony,NA,gdam
 8891,guyana_mahaica berbice_bel air / woodlands,GY,NA,Guyana,Mahaica-Berbice,Bel Air / Woodlands,NA,gdam
@@ -13936,7 +13935,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8899,guyana_mahaica berbice_tempe / seafield,GY,NA,Guyana,Mahaica-Berbice,Tempe / Seafield,NA,gdam
 8900,guyana_mahaica berbice_west bank berbice,GY,NA,Guyana,Mahaica-Berbice,West bank Berbice,NA,gdam
 8901,guyana_mahaica berbice_woodley park / bath,GY,NA,Guyana,Mahaica-Berbice,Woodley Park / Bath,NA,gdam
-34575,guyana_pomeroon-supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
+34574,guyana_mahaica-berbice,GY,NA,Guyana,Mahaica-Berbice,NA,NA,gdam
 34804,guyana_pomeroon supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
 8902,guyana_pomeroon supenaam_anna regina,GY,NA,Guyana,Pomeroon-Supenaam,Anna Regina,NA,gdam
 8903,guyana_pomeroon supenaam_charity / urasara,GY,NA,Guyana,Pomeroon-Supenaam,Charity / Urasara,NA,gdam
@@ -13945,7 +13944,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8906,guyana_pomeroon supenaam_riverstown / annandale,GY,NA,Guyana,Pomeroon-Supenaam,Riverstown / Annandale,NA,gdam
 8907,"guyana_pomeroon supenaam_supernaam river, bethany and mashabo villages",GY,NA,Guyana,Pomeroon-Supenaam,"Supernaam River, Bethany and Mashabo Villages",NA,gdam
 8908,guyana_pomeroon supenaam_zorg en vlygt / aberdeen,GY,NA,Guyana,Pomeroon-Supenaam,Zorg-en-Vlygt / Aberdeen,NA,gdam
-34576,guyana_potaro-siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
+34575,guyana_pomeroon-supenaam,GY,NA,Guyana,Pomeroon-Supenaam,NA,NA,gdam
 34805,guyana_potaro siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
 8909,guyana_potaro siparuni_chenapau river,GY,NA,Guyana,Potaro-Siparuni,Chenapau River,NA,gdam
 8910,guyana_potaro siparuni_kaibarupai,GY,NA,Guyana,Potaro-Siparuni,Kaibarupai,NA,gdam
@@ -13955,7 +13954,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8914,guyana_potaro siparuni_monkey mountain,GY,NA,Guyana,Potaro-Siparuni,Monkey Mountain,NA,gdam
 8915,guyana_potaro siparuni_paramakatoi,GY,NA,Guyana,Potaro-Siparuni,Paramakatoi,NA,gdam
 8916,guyana_potaro siparuni_rest of region 8,GY,NA,Guyana,Potaro-Siparuni,Rest of Region 8,NA,gdam
-34577,guyana_upper demerara-berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
+34576,guyana_potaro-siparuni,GY,NA,Guyana,Potaro-Siparuni,NA,NA,gdam
 34806,guyana_upper demerara berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
 8917,guyana_upper demerara berbice_berbice river settlements,GY,NA,Guyana,Upper Demerara-Berbice,Berbice River Settlements,NA,gdam
 8918,guyana_upper demerara berbice_coomaka lands,GY,NA,Guyana,Upper Demerara-Berbice,Coomaka Lands,NA,gdam
@@ -13965,7 +13964,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8922,guyana_upper demerara berbice_mabura hills,GY,NA,Guyana,Upper Demerara-Berbice,Mabura Hills,NA,gdam
 8923,guyana_upper demerara berbice_makouria river,GY,NA,Guyana,Upper Demerara-Berbice,Makouria River,NA,gdam
 8924,guyana_upper demerara berbice_rest of region 10,GY,NA,Guyana,Upper Demerara-Berbice,Rest of Region 10,NA,gdam
-34578,guyana_upper takutu-upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
+34577,guyana_upper demerara-berbice,GY,NA,Guyana,Upper Demerara-Berbice,NA,NA,gdam
 34807,guyana_upper takutu upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
 8925,"guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Aishalton - Karaudanawa, Achiwib",NA,gdam
 8926,guyana_upper takutu upper essequibo_ireng / sawariwau (including st. ignatius),GY,NA,Guyana,Upper Takutu-Upper Essequibo,Ireng / Sawariwau (Including  St. Ignatius),NA,gdam
@@ -13975,6 +13974,7 @@ order,loc.correct,country_code,state_code,NAME_0,NAME_1,NAME_2,NAME_3,source
 8930,guyana_upper takutu upper essequibo_toka jakaretinga,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Toka - Jakaretinga,NA,gdam
 8931,"guyana_upper takutu upper essequibo_yakarinta wowetta, surama",GY,NA,Guyana,Upper Takutu-Upper Essequibo,"Yakarinta - Wowetta, Surama",NA,gdam
 8932,guyana_upper takutu upper essequibo_yarong paru good hope,GY,NA,Guyana,Upper Takutu-Upper Essequibo,Yarong Paru - Good Hope,NA,gdam
+34578,guyana_upper takutu-upper essequibo,GY,NA,Guyana,Upper Takutu-Upper Essequibo,NA,NA,gdam
 22441,haiti,HT,NA,Haiti,NA,NA,NA,gdam
 34597,haiti_centre,HT,NA,Haiti,Centre,NA,NA,gdam
 8933,haiti_centre_cerca la source,HT,NA,Haiti,Centre,Cerca La Source,NA,gdam

@@ -4,7 +4,7 @@
 \alias{getTombo}
 \title{Create Record Identifiers}
 \usage{
-getTombo(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = TRUE)
+getTombo(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = FALSE)
 }
 \arguments{
 \item{collection}{a vector with the collection codes.}
@@ -13,37 +13,36 @@ getTombo(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = TRUE)
 
 \item{by.coll}{logical. Should the removal of collection codes at the
 beginning of the accession numbers be removed based on the corresponding
-collection code provided in \code{collection}? Default to TRUE.}
+collection code provided in \code{collection}? Defaults to TRUE.}
 
 \item{to.lower}{logical. Should the final unique identifier be converted to
-lowe cases? Default to TRUE.}
-
-\item{x}{the character string or vector to be capitalized.}
+lower cases? Default to FALSE.}
 }
 \value{
-the collection codes and the edited accession numbers concatanated
-using a underline (i.e '_').
+the collection codes and the edited accession numbers concatenated
+using an underline mark (i.e '_').
 }
 \description{
 This function creates a unique identifier for species records by
-concatenating the collection code and accession number of each record.
+concatenating the collection code and accession number of each record
 }
 \details{
-The function performs small edits in the accession number, such as
-the removal of spaces, hyphens, points and non-ascii characters. The
-function also remove all zeros at the beginning of the number, to simplify
-the notation.
+The function performs small edits in the accession number (the
+Darwin Core field 'catalogNumber'), such as the removal of spaces, hyphens,
+points and non-ascii characters. The function also remove all zeros at the
+beginning of the number, to simplify the notation.
 
 Accession numbers may contain the collection code at their beginning. The
 function can remove this codes in two ways. The default way (\code{by.coll} = TRUE)
-removes only the codes mataching the corresponding code provided in
+removes only the codes matching the corresponding code provided in
 \code{collection}. The second way removes all letters in the beginning of the number
-irrespectively of the colletion code (\code{by.coll} = FALSE).
+irrespectively of the collection code (\code{by.coll} = FALSE).
 
-It only edits the accession number (Darwin Core field 'catalogNumber'),
-assuming that the collection code has already been standardized using another
-\strong{plantR} function, \code{getCode()}. The final identifier can be returned as
-is or in lower cases (the default).
+It only edits the accession number, assuming that the collection code (the
+Darwin Core field 'collectionCode') has already been standardized using
+another \strong{plantR} function, \code{getCode()}. The final identifier can be
+returned as is (the default) or in lower cases by setting the argument
+\code{to.lower} to TRUE.
 }
 \examples{
 colls <- c("P", "P", "NY", "G", "P", "P", "NY", "G",

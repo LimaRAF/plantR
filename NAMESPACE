@@ -3,6 +3,7 @@
 export(capName)
 export(catchAll)
 export(checkBorders)
+export(checkCoord)
 export(checkInverted)
 export(checkList)
 export(checkSea)

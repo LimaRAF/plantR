@@ -98,9 +98,16 @@
 #'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))  # output incorrect
 #'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,","&")) # output correct
 #'
-prepName <- function(x, fix.names = TRUE, sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
-                     sep.out = "|", special.char = FALSE, output = "all", treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
-                     format = "last_init", get.prep = FALSE, get.initials = TRUE, ...) {
+prepName <- function(x,
+                     fix.names = TRUE,
+                     sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
+                     sep.out = "|",
+                     special.char = FALSE,
+                     output = "all",
+                     treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
+                     format = "last_init",
+                     get.prep = FALSE,
+                     get.initials = TRUE, ...) {
 
   #Escaping R CMD check notes from using data.table syntax
   "V1" <- "tmp.ordem" <- NULL

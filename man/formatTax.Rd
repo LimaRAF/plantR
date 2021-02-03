@@ -24,7 +24,7 @@ formatTax(
 \item{tax}{a data.frame containing the taxonomic information to be edited.}
 
 \item{use.suggestion}{logical. Should the edited species names be used
-instead of the input species names? Default to TRUE.}
+instead of the input species names? Defaults to TRUE.}
 
 \item{tax.name}{character. Name of the columns containing the species name. Default
 to "scientificName"}
@@ -66,8 +66,8 @@ formatted information. The new columns have the same name of the
 Darwin Core standards, but followed by the suffix '.new'.
 }
 \description{
-This function edit and standardize the names of plant
-species and families.
+This function edits and standardizes the names of plant
+species and families
 }
 \details{
 The function works as a wrapper, where the individuals steps of the

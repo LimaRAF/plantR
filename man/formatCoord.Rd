@@ -75,13 +75,13 @@ proposed \strong{plantR} workflow for editing the geographical coordinates are
 performed altogether (see the \strong{plantR} tutorial and the help of each
 function for details).
 
-The input data frame usually contains the following locality fields (the
+The input data frame usually contains the following fields (the
 function defaults):
 \itemize{
-\item 'decimalLongitude' and 'decimalLatitude';
-\item 'latitude.gazetteer' and 'longitude.gazetteer';
-\item 'resolution.gazetteer';
-\item 'decimalLatitude.new' and 'decimalLongitude.new'.
+\item the source coordinates: 'decimalLongitude' and 'decimalLatitude';
+\item the gazetteer coordinates: 'latitude.gazetteer' and 'longitude.gazetteer';
+\item the precision of the gazetteer coordinates: 'resolution.gazetteer';
+\item the working coordinates: 'decimalLatitude.new' and 'decimalLongitude.new'.
 }
 }
 \seealso{

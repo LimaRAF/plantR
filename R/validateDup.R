@@ -12,7 +12,7 @@
 #'   herbarium specimens
 #' @param cat.code character. The name of the column containing the code of the
 #'   collection. Default to the __plantR__ output column "collectionCode.new".
-#' @param cat.numb character. The name of the column containing the catalag
+#' @param cat.numb character. The name of the column containing the catalog
 #'   number (a.k.a. accession number) of the record. Default to "catalogNumber".
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should all duplicates be removed or only the
@@ -35,8 +35,12 @@
 #'
 #' @export validateDup
 #'
-validateDup <- function(occ.df, cat.code = "collectionCode.new", cat.numb = "catalogNumber",
-                        merge = TRUE, remove = FALSE, ...) {
+validateDup <- function(occ.df,
+                        cat.code = "collectionCode.new",
+                        cat.numb = "catalogNumber",
+                        merge = TRUE,
+                        remove = FALSE,
+                        ...) {
 
   # check input:
   if (!class(occ.df) == "data.frame")

@@ -1,13 +1,13 @@
 #' @title Create Record Identifiers
 #'
 #' @description This function creates a unique identifier for species records by
-#'   concatenating the collection code and accession number of each record.
+#'   concatenating the collection code and accession number of each record
 #'
 #' @param collection a vector with the collection codes.
 #' @param accession a vector with the accession numbers.
 #' @param by.coll logical. Should the removal of collection codes at the
 #'   beginning of the accession numbers be removed based on the corresponding
-#'   collection code provided in `collection`? Default to TRUE.
+#'   collection code provided in `collection`? Defaults to TRUE.
 #' @param to.lower logical. Should the final unique identifier be converted to
 #'   lower cases? Default to FALSE.
 #'
@@ -21,9 +21,9 @@
 #'
 #'  Accession numbers may contain the collection code at their beginning. The
 #'   function can remove this codes in two ways. The default way (`by.coll` = TRUE)
-#'   removes only the codes mataching the corresponding code provided in
+#'   removes only the codes matching the corresponding code provided in
 #'   `collection`. The second way removes all letters in the beginning of the number
-#'   irrespectively of the colletion code (`by.coll` = FALSE).
+#'   irrespectively of the collection code (`by.coll` = FALSE).
 #'
 #'  It only edits the accession number, assuming that the collection code (the
 #'  Darwin Core field 'collectionCode') has already been standardized using

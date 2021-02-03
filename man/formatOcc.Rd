@@ -10,11 +10,14 @@ formatOcc(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.")
 \item{x}{a data frame, containing typical fields from occurrence records from
 herbarium specimens}
 
-\item{noNumb}{character. The standard notation for missing data in the field 'Number'}
+\item{noNumb}{character. The standard notation for missing data in the field
+'Number'}
 
-\item{noYear}{character. The standard notation for missing data in the field 'Year'}
+\item{noYear}{character. The standard notation for missing data in the field
+'Year'}
 
-\item{noName}{character. The standard notation for missing data in the field 'Name'}
+\item{noName}{character. The standard notation for missing data in the field
+'Name'}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the
@@ -36,18 +39,18 @@ Ideally, the input data frame must contain at least the following fields
 from the Darwin Core standards (the functions default):
 \itemize{
 \item 'intitutionCode' and 'collectionCode' (codes of the institution and collection);
-\item 'eventDate' and/or 'year' (date/year of the collection);
+\item 'year' and 'eventDate' (year of the collection);
 \item 'recordedBy' (collector(s) name(s));
 \item 'recordNumber' (collector number)
 \item 'identifiedBy' (identificator name);
-\item 'dateIdentified' or 'yearIdentified' (date or year of identification)
+\item 'yearIdentified' and 'dateIdentified' (year of identification)
 }
 
 Missing year of collection in the field 'year' are internally replaced by
 the date stored in the field 'eventDate', if this field is not empty as well.
 
 The function uses the R package \strong{data.table} internally to speed up the
-processing of larger data sets
+processing of larger data sets.
 }
 \seealso{
 \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},

@@ -2,12 +2,14 @@
 % Please edit documentation in R/validateCoord.R
 \name{validateCoord}
 \alias{validateCoord}
-\title{Validate Geographical Coordinates}
+\title{Workflow for geographical coordinates validation}
 \usage{
 validateCoord(
-  x = occs,
+  x,
   lon = "decimalLongitude.new",
-  lat = "decimalLatitude.new"
+  lat = "decimalLatitude.new",
+  country_shape = "NAME_0",
+  country_gazetteer = "country"
 )
 }
 \arguments{
@@ -16,10 +18,14 @@ validateCoord(
 \item{lon}{Column with the longitude to be validated}
 
 \item{lat}{Column with the latitude to be validated}
+
+\item{country_shape}{Name of the column with the country that comes from the shapefile}
+
+\item{country_gazetteer}{Name of the column with the country that comes from the gazetteer}
 }
 \description{
-This function
+This function performs the workflow for geographical coordinates validation
 }
 \author{
-Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+Andrea Sánchez-Tapia & Sara R. Mortara
 }

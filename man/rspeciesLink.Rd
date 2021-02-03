@@ -7,7 +7,7 @@
 rspeciesLink(
   dir = "results/",
   filename = "output",
-  save = TRUE,
+  save = FALSE,
   basisOfRecord = NULL,
   species = NULL,
   collectionCode = NULL,
@@ -30,7 +30,7 @@ create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{save}{Logical. Save output to filename? Defaults to TRUE}
+\item{save}{Logical. Save output to filename? Defaults to FALSE}
 
 \item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
 'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
