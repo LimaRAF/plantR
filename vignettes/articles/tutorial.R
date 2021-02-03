@@ -39,7 +39,7 @@ saveRDS(occs, "tmp1.rds")
 occs <- readRDS("tmp1.rds")
 
 ####validate coord
-occs1 <- validateCoord(occs) #vai criar as colunas country, state, county e dizer se está certo
+occs1 <- checkCoord(occs) #vai criar as colunas country, state, county e dizer se está certo
 #source("R/checkBorder.R")
 occs2 <- checkBorders(occs1)
 #source("R/checkInverted.R")
@@ -48,26 +48,26 @@ occs3 <- checkInverted(occs2)
 occs4 <- fixInverted(occs3)
 ##as coordenadas corrigidas deveriam passar de novo por validateCoord mas estou pulando esse loop de confirmação
 #aqui demora mas vai
-occs5 <- checkSea(occs4,
-                   lat = "decimalLatitude.new",
-                   lon = "decimalLongitude.new")
+#MAS! importante: o default é .new.new que são as coordenadas corrigidas em fixInverted
+occs5 <- checkSea(occs4)
 ##estou checando visualmente aqui
 library(tmap)
 check_sea <- occs5 %>%
   filter(!is.na(sea.shore.check)) %>% #nao precisa checar tudo
-  st_as_sf(coords = c( "decimalLongitude.new", "decimalLatitude.new"))
+  st_as_sf(coords = c( "decimalLongitude.new.new", "decimalLatitude.new.new")) #as coordenadas corrigidas
 
 tmap_mode("view")
 tm_shape(check_sea) +
   tm_dots(col = "sea.shore.check", size = 0.1 ,
           popup.vars = c("country", "inv.check"))
 
-##o que NAO fiz foi decidir como juntar as colunas novas numa coluna única. ou decidir se é uma função extra que faz isto:
+##o que não fiz foi decidir como juntar as colunas novas numa coluna única. ou decidir se é uma função extra que faz isto:
+# também não estou vendo um jeito bom de resolver o county_close, seja via distancia ao centroide (a funcao deveria pegar o shape do país e calcular essa distancia mas também, essa distancia não diz nada e marcar thresholds é arbitrário demais, não acho que valha a pena resolver caso a caso). pensei em fazer algo similar a shareBorders, tipo, tá num county limitrofe, blz.
 occs <- occs5 %>%
   dplyr::mutate(final_check = dplyr::case_when(
-    geo.check == "coord_original/ok_country/ok_state/ok_county" ~ "ok",
-    geo.check == "coord_original/ok_country/ok_state" ~ "ok",
-    geo.check == "coord_original/ok_country" ~ "ok",
+    geo.check == "coord_original/ok_country/ok_state/ok_county" ~ "ok_county",
+    geo.check == "coord_original/ok_country/ok_state" ~ "ok_state",
+    geo.check == "coord_original/ok_country" ~ "ok_country",
     geo.check == "coord_original/ok_country/estado_bad" ~ "check_gazetteer",
     geo.check == "coord_original/ok_country/estado_bad/county_bad" ~ "check_gazetteer",
     geo.check == "coord_original/ok_country/estado_bad/ok_county" ~ "check_gazetteer",
@@ -92,10 +92,23 @@ occs <- occs5 %>%
 #escrever o verdadeiro validateCoord que chamaria essa função e as seguintesb
 
 ###
-tmp <- c("ok_county", "ok_county_close","ok_locality_gazet","ok_county_gazet",
-         "ok_state", "ok_state_gazet", "ok_country", "ok_country_gazet", NA_character_)
-probs <- c(0.35,0.05,0.05,0.3,0.05,0.1,0.05,0.01,0.04)
-occs$geo.check = sample(tmp, dim(occs)[1], prob = probs, replace = TRUE)
+tmp <- c("ok_county",
+         "ok_county_close",#falta
+         "ok_locality_gazet",
+         "ok_county_gazet",
+         "ok_state",
+         "ok_state_gazet",
+         "ok_country",
+         "ok_country_gazet",
+         NA_character_)
+#probs <- c(0.35,0.05,0.05,0.3,0.05,0.1,0.05,0.01,0.04)
+occs$geo.check #= sample(tmp, dim(occs)[1], prob = probs, replace = TRUE)
+#! meu geo_check está mais cheio de outros níveis, contatenado. A ideia seria comparar com o final_check de cima, definindo os níveis adequados
+
+
+levels(as.factor(occs$final_check))
+
+
 occs <- mergeDup(occs)
 saveRDS(occs, "tmp2.rds")
 occs <- readRDS("tmp2.rds")

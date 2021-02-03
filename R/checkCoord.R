@@ -1,6 +1,7 @@
-#' @title Validate Geographical Coordinates
+#' @title Check Geographical Coordinates
 #'
-#' @description This function
+#' @description This function makes the first check of the coordinates
+#' against the worldMap and LatamMap shapefiles
 #'
 #' @param x Data.frame with coordinates in decimal degrees.
 #' @param lon Column with the longitude to be validated
@@ -13,7 +14,7 @@
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 #'
 #' @export
-validateCoord <- function(x = occs,
+checkCoord <- function(x = occs,
                           lon = "decimalLongitude.new",
                           lat = "decimalLatitude.new") {
   #   ##Loading the occurrence data
