@@ -13,9 +13,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# plantR
-
 <img src="https://raw.githubusercontent.com/liibre/plantR_logo/master/figs/plantR_logo.png?token=AA4OYDE3TMIXBWRYVMNCINC72PIUY" align="right" alt="" width="120" />
+
+# plantR
 
 
 An R Package for Managing Species Records from Biological Collections

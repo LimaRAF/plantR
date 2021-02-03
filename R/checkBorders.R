@@ -16,11 +16,11 @@ shares_border <- function(country1 = "brazil",
 
   v <- w[w$nome %in% c(country1),]
   z <- w[w$nome %in% c(country2),]
-  y <- st_union(v, z)
+  y <- sf::st_union(v, z)
 
-  v <- st_cast(v, "POLYGON")
-  z <- st_cast(z, "POLYGON")
-  y <- st_cast(y, "POLYGON")
+  v <- sf::st_cast(v, "POLYGON")
+  z <- sf::st_cast(z, "POLYGON")
+  y <- sf::st_cast(y, "POLYGON")
   polis <- nrow(v) + nrow(z)
   poli_u <- nrow(y)
   if (polis == poli_u) return(FALSE)
@@ -31,25 +31,37 @@ shares_border <- function(country1 = "brazil",
 #' Flags border points
 #'
 #' @param x occurrence data frame
-#' @param country_shape Name of the column with the country that comes from the shapefile
-#' @param country_gazetteer Name of the column with the country that comes from the gazetteer
+#' @param geo.check Name of the column with the validation of the coordinates
+#' against
+#' @param country.shape Name of the column with the country that comes from the shapefile
+#' @param country.gazetteer Name of the column with the country that comes from the gazetteer
+#'
 #' @importFrom dplyr left_join if_else
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
 #'
 #' @export
-
+#'
 checkBorders <- function(x,
-                         country_shape = "NAME_0",
-                         country_gazetteer = "country") {
-  check_these <- grepl(pattern = "*country_bad*", x$country.check)
+                         geo.check = "geo.check",
+                         country.shape = "NAME_0",
+                         country.gazetteer = "country.gazet") {
+  check_these <- grepl(pattern = "country_bad", x[,geo.check], perl = TRUE)
   check_country <- x[check_these,]
   shares_bord <- Vectorize(shares_border)
   check_country$share_border <-
-    shares_bord(check_country[,country_shape],
-                check_country[,country_gazetteer])
+    shares_bord(check_country[,country.shape],
+                check_country[,country.gazetteer])
   check_country$border.check <-
-    if_else(check_country$share_border == TRUE,
+    dplyr::if_else(check_country$share_border == TRUE,
             "check_borders", "check_inverted")
-  occs1 <- left_join(x, check_country)
+
+  #rafl: alguma chance de `shares_bord()` mudar a ordem do data frame, se não sugiro:
+  x$border.check <- x$share_border <- NA
+  x$border.check[check_these] <-
+    check_country$border.check
+  x$share_border[check_these] <-
+    check_country$share_border
+  # x1 <- dplyr::left_join(x, check_country)
+  return(x)
 }
