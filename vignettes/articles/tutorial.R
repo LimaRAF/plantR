@@ -87,10 +87,7 @@ occs <- occs5 %>%
     geo.check == "coord_gazet" ~ "no",
     geo.check == "coord_original" ~ "falta"
   ))
-###podemos discutir estas categorias e se vai numa função nova. a ordem do case_when importa
-#falta [] renomear o que chamo hoje de validateCoord
-#escrever o verdadeiro validateCoord que chamaria essa função e as seguintesb
-
+###podemos discutir estas categorias e se vai numa função nova, por enquanto botei no wrapper validateCoord
 ###
 tmp <- c("ok_county",
          "ok_county_close",#falta

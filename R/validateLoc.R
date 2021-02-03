@@ -49,7 +49,9 @@
 #'
 #' @export validateLoc
 #'
-validateLoc <- function(x, res.orig = "resol.orig", res.gazet = "resolution.gazetteer") {
+validateLoc <- function(x,
+                        res.orig = "resol.orig",
+                        res.gazet = "resolution.gazetteer") {
 
   ## check input:
   if (!class(x) == "data.frame") {

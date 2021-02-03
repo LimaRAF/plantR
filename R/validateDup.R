@@ -35,8 +35,12 @@
 #'
 #' @export validateDup
 #'
-validateDup <- function(occ.df, cat.code = "collectionCode.new", cat.numb = "catalogNumber",
-                        merge = TRUE, remove = FALSE, ...) {
+validateDup <- function(occ.df,
+                        cat.code = "collectionCode.new",
+                        cat.numb = "catalogNumber",
+                        merge = TRUE,
+                        remove = FALSE,
+                        ...) {
 
   # check input:
   if (!class(occ.df) == "data.frame")
