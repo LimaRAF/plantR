@@ -10,9 +10,9 @@ An R Package for Managing Species Records from Biological Collections
 ## Description
 
 The package plantR provides tools for downloading, processing, cleaning,
-validating, summarizing and exporting records of plant species
-occurrences from biological collections. Please read the Introduction
-and Tutorial of the package for more details.
+validating, summarizing and exporting species records from biological 
+collections, with a primary focus on plant species. Please read the 
+Introduction and Tutorial of the package for more details.
 
 ### Installation
 
