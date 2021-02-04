@@ -82,7 +82,8 @@ missLocs <- c("^\\?$",
               "^no disponible$",
               "^not available$",
               "^loc\\.ign$",
-              "local ignorado")
+              "local ignorado",
+              "^indisponivel$")
 
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",

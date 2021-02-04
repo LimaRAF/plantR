@@ -4,7 +4,7 @@ country,NA,NA,NA,^bolavia,bolivia
 country,NA,NA,NA,^brasil|bresil,brazil
 country,NA,NA,NA,^colombie,colombia
 country,NA,NA,NA,^equador,ecuador
-country,NA,NA,NA,^usa$|^u.s.a.$,united states
+country,NA,NA,NA,^usa$|^u.s.a.$|^united states america$,united states
 country,NA,NA,NA,^franca|francia,france
 country,NA,NA,NA,^guadalupe,guadeloupe
 country,NA,NA,NA,^guiana$,guyana
@@ -53,44 +53,44 @@ country,NA,NA,NA,^syrian arab republic,syria
 country,NA,NA,NA,^the netherlands$,netherlands
 country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
 country,NA,NA,NA,^united republic tanzania,tanzania
-country,NA,NA,NA,venezuela (bolivarian republic of),venezuela
+country,NA,NA,NA,^venezuela (bolivarian republic of),venezuela
 country,NA,Acre,not_is.na,NA,brazil
 country,NA,Alagoas,not_is.na,NA,brazil
-country,NA,Amapá,not_is.na,NA,brazil
+country,NA,AmapÃ¡,not_is.na,NA,brazil
 country,NA,Bahia,not_is.na,NA,brazil
-country,NA,Ceará,not_is.na,NA,brazil
-country,NA,Espírito Santo,not_is.na,NA,brazil
-country,NA,Goiás,not_is.na,NA,brazil
-country,NA,Maranhão,not_is.na,NA,brazil
+country,NA,CearÃ¡,not_is.na,NA,brazil
+country,NA,EspÃ­rito Santo,not_is.na,NA,brazil
+country,NA,GoiÃ¡s,not_is.na,NA,brazil
+country,NA,MaranhÃ£o,not_is.na,NA,brazil
 country,NA,Minas Gerais,not_is.na,NA,brazil
 country,NA,Mato Grosso do Sul,not_is.na,NA,brazil
-country,NA,Pará,not_is.na,NA,brazil
-country,NA,Paraíba,not_is.na,NA,brazil
+country,NA,ParÃ¡,not_is.na,NA,brazil
+country,NA,ParaÃ­ba,not_is.na,NA,brazil
 country,NA,Pernambuco,not_is.na,NA,brazil
-country,NA,Piauí,not_is.na,NA,brazil
+country,NA,PiauÃ­,not_is.na,NA,brazil
 country,NA,Rio de Janeiro,not_is.na,NA,brazil
 country,NA,Rio Grande do Norte,not_is.na,NA,brazil
 country,NA,Rio Grande do Sul,not_is.na,NA,brazil
-country,NA,Rondônia,not_is.na,NA,brazil
+country,NA,RondÃ´nia,not_is.na,NA,brazil
 country,NA,Roraima,not_is.na,NA,brazil
 country,NA,Santa Catarina,not_is.na,NA,brazil
 country,NA,Sergipe,not_is.na,NA,brazil
-country,NA,São Paulo,not_is.na,NA,brazil
+country,NA,SÃ£o Paulo,not_is.na,NA,brazil
 country,NA,Tocantins,not_is.na,NA,brazil
 country,NA,Catamarca,not_is.na,NA,argentina
 country,NA,Chubut,not_is.na,NA,argentina
 country,NA,Corrientes,not_is.na,NA,argentina
-country,NA,Entre Ríos,not_is.na,NA,argentina
+country,NA,Entre RÃ­os,not_is.na,NA,argentina
 country,NA,Formosa,not_is.na,NA,argentina
 country,NA,Jujuy,not_is.na,NA,argentina
 country,NA,La Pampa,not_is.na,NA,argentina
 country,NA,La Rioja,not_is.na,NA,argentina
 country,NA,Misiones,not_is.na,NA,argentina
-country,NA,Neuquén,not_is.na,NA,argentina
+country,NA,NeuquÃ©n,not_is.na,NA,argentina
 country,NA,Salta,not_is.na,NA,argentina
 country,NA,Santiago del Estero,not_is.na,NA,argentina
 country,NA,Tierra del Fuego,not_is.na,NA,argentina
-country,NA,Tucumán,not_is.na,NA,argentina
+country,NA,TucumÃ¡n,not_is.na,NA,argentina
 stateProvince,brazil,NA,NA,^ac$,acre
 stateProvince,brazil,NA,NA,^al$|alagaoas,alagoas
 stateProvince,brazil,NA,NA,^am$|^amozonas$|^territorio federal amazonas$,amazonas
@@ -193,7 +193,7 @@ locality2,NA,NA,NA,s.bento|s. bento,sao bento
 locality2,NA,NA,NA,s. luis,sao luis
 locality2,NA,NA,NA,s. miguel,sao miguel
 locality2,NA,NA,NA,s. f. paula,sao francisco paula
-locality2,NA,NA,NA,nª sª|nossa sra.,nossa senhora
+locality2,NA,NA,NA,nÂª sÂª|nossa sra.,nossa senhora
 locality2,NA,NA,NA,s. luiz,sao luiz
 locality2,NA,NA,NA,s. mateus,sao mateus
 locality2,NA,NA,NA,s. francisco,sao francisco
