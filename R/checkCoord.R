@@ -11,8 +11,11 @@
 #' @param str.name Column with the verified locality search string
 #' @param orig.coord Column with the origin of the coordinates (tipically the
 #'   output of function `getCoord()`)
-#' @param dist.center Logical. Should the distance between the original coordinates and
-#'   those retrieved in the gazetteer be returned. Defaults to FALSE.
+#' @param res.gazet Column with the locality resolution level retrieved from the
+#'   gazetteer
+#' @param dist.center Logical. Should the distance between the original
+#'   coordinates and those retrieved in the gazetteer be returned. Defaults to
+#'   FALSE.
 #' @param lon.gazet Column with the longitude obtained from a gazetteer
 #' @param lat.gazet Column with the latitude obtained from a gazetteer
 #' @param keep.cols character. Name of columns that should be kept in the
@@ -31,6 +34,7 @@ checkCoord <- function(x,
                        lat = "decimalLatitude.new",
                        str.name = "loc.correct",
                        orig.coord = "origin.coord",
+                       res.gazet = "resolution.gazetteer",
                        dist.center = FALSE,
                        lon.gazet = "longitude.gazetteer",
                        lat.gazet = "latitude.gazetteer",
@@ -63,12 +67,19 @@ checkCoord <- function(x,
     fill = "right"
     )
 
-  ##Creating the geo.check column and subsetting data for checking
-  x1 <- x
-  x1$geo.check <- x1[, orig.coord]
-  tmp <- x1[x1$origin.coord == "coord_original", ]
-  tmp <- tmp[!is.na(tmp[, lon]), ]
-  tmp <- tmp[!is.na(tmp[, lat]), ]
+  ##Creating the geo.check column and assigning the gazetteer classes and missing classes
+  x$geo.check <- NA
+  ids.gazet <- x[, orig.coord] %in% "coord_gazet"
+  x$geo.check[ids.gazet] <-
+    paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
+  ids.no.coord <- x[, orig.coord] %in% "no_coord"
+  x$geo.check[ids.no.coord] <- "no_cannot_check"
+  #rafl: chcar com mais dados se pode ter NAs ou outras classes
+
+  ## subsetting data for checking
+  tmp <- x[is.na(x$geo.check), ]
+  # tmp <- tmp[!is.na(tmp[, lon]), ] #rafl: não mais necessário
+  # tmp <- tmp[!is.na(tmp[, lat]), ] #rafl: não mais necessário
 
   #rafl: Add an step where user can choose between plantR and user-provided shapefiles?
 
@@ -80,6 +91,9 @@ checkCoord <- function(x,
   tmp <- sf::st_join(tmp, worldMap, join = sf::st_intersects)
   tmp <- dplyr::rename(tmp, pais_wo = NAME_0) #rafl: tive que atualizar meu dplyr por causa de um erro aqui... precisamos mesmo depender do dplyr para um passo tão simples? Inclui o 'dplyr::'
   #names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo" # opcao sem depender do dplyr
+
+  ##Defining which coordinates fall into the sea
+  tmp$geo.check <- tmp$pais_wo
 
   ##Comparing the spatial data frame with the selected country shapefiles
   latam_all <- dplyr::bind_rows(latamMap) # ö checar poligonos faltantes tipo Manaus ##rafl: dava erro bind_rows pois older versions of dplyr não pode ser usado para sf objects; funcionou agora (loko nem o proprio sf faz isso para sf com diferentes numeros de colunas)
@@ -112,9 +126,9 @@ checkCoord <- function(x,
   ##1- Validating the coordinates at different levels - exact matches
   #1.1 Cases with original coordinates but without country, state or county
   #information (cannot check)
-  x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) |
-                 is.na(x3[, lat]) & is.na(x3$NAME_0)
-                 ] <- "no_cannot_check"
+  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary?
+  #                is.na(x3[, lat]) & is.na(x3$NAME_0)
+  #                ] <- "no_cannot_check"
   #1.2 Country-level: good country? All countries
   # x3$country.check <- if_else(x3$country == x3$NAME_0, "ok_country", "country_bad")
   x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0, 1L, 0L, missing = -9L)
