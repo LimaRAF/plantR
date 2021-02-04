@@ -137,6 +137,7 @@ fixLoc <- function(x,
 
     # Removing unwanted characters
     x1[, "country"] <- tolower(textclean::replace_non_ascii(x1[, "country"]))
+    x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
 
     # Replacing '&' by 'and' in compound country names
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
@@ -156,8 +157,11 @@ fixLoc <- function(x,
     # Replacing variants, abbreviations, typos, and non-standard names
     tmp1 <- dic[dic$class %in% "country" & apply(is.na(dic[, 2:4]), 1, all), ]
     tmp2 <- tmp1$replace
-    names(tmp2) = tmp1$pattern
+    names(tmp2) <- tmp1$pattern
     names(tmp2) <- gsub("\\\\", "", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], tmp2)
 
     # Missing country for non missing states and counties (only for uniquivocal states)

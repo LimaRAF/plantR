@@ -1,30 +1,40 @@
 #' @title Check Geographical Coordinates
 #'
 #' @description This function makes the first check of the coordinates
-#' against the world and Latin-American maps
+#' against the world and Latin-American maps. It optionally returns the
+#' distance between the original coordinates and those from a gazetteer
+#' for coordinates not validated at the county level.
 #'
 #' @param x Data.frame with coordinates in decimal degrees.
 #' @param lon Column with the longitude to be validated
 #' @param lat Column with the latitude to be validated
-#' @param str.name Column with the locality search string
+#' @param str.name Column with the verified locality search string
 #' @param orig.coord Column with the origin of the coordinates (tipically the
 #'   output of function `getCoord()`)
-#' @param drop.cols character. Name of columns that should be dropped from the
-#'   results.
+#' @param dist.center Logical. Should the distance between the original coordinates and
+#'   those retrieved in the gazetteer be returned. Defaults to FALSE.
+#' @param lon.gazet Column with the longitude obtained from a gazetteer
+#' @param lat.gazet Column with the latitude obtained from a gazetteer
+#' @param keep.cols character. Name of columns that should be kept in the
+#'   output.
 #'
 #' @importFrom dplyr select one_of rename mutate if_else filter ends_with
-#' @importFrom tidyr separate unite
+#' @importFrom tidyr separate
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
+#' @importFrom spatialrisk haversine
 #'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 #'
 #' @export
 checkCoord <- function(x,
-                          lon = "decimalLongitude.new",
-                          lat = "decimalLatitude.new",
-                          str.name = "loc.correct",
-                          orig.coord = "origin.coord",
-                          drop.cols = c("geometry","country.check","state.check","county.check")) {
+                       lon = "decimalLongitude.new",
+                       lat = "decimalLatitude.new",
+                       str.name = "loc.correct",
+                       orig.coord = "origin.coord",
+                       dist.center = FALSE,
+                       lon.gazet = "longitude.gazetteer",
+                       lat.gazet = "latitude.gazetteer",
+                       keep.cols = c("geo.check", "distCentroid_m")) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -33,12 +43,17 @@ checkCoord <- function(x,
   if (!all(c(lat, lon, str.name, orig.coord) %in% colnames(x)))
     stop("One or more column names declared do not match those of the input object: please rename or specify the correct names")
 
+  if (dist.center)
+    if (any(!c(lon.gazet, lat.gazet) %in% names(x)))
+      stop("If 'dist.center' is TRUE, the input must contain the longitude/latitude obtained from a gazetteer: please rename or specify the correct names")
+
   ##Preliminary edits
+  cols.x <- names(x) # original data column names
   x$tmp.order <- 1:nrow(x)
   x[, str.name][x[, str.name] %in% "no_loc"] <- NA #porque nao é pais (rafl: concordo, mas não achei nehuma funcao onde esse 'no_loc' é gerado; melhor alterar direto na função que obtém o string, getLoc()?)
 
   ##Defining the country, state and county columns
-  x1 <- tidyr::separate(
+  x <- tidyr::separate(
     data = x,
     col = str.name,
     sep = "_",
@@ -48,7 +63,8 @@ checkCoord <- function(x,
     fill = "right"
     )
 
-  ##Creating the geo.check column
+  ##Creating the geo.check column and subsetting data for checking
+  x1 <- x
   x1$geo.check <- x1[, orig.coord]
   tmp <- x1[x1$origin.coord == "coord_original", ]
   tmp <- tmp[!is.na(tmp[, lon]), ]
@@ -86,10 +102,10 @@ checkCoord <- function(x,
 
   # recupera todas as linhas
   x3 <- dplyr::left_join(x,
-                         x2[,c("tmp.order", "country.gazet",
-                               "state.gazet", "county.gazet",
-                               "geo.check", "NAME_0", "NAME_1",
-                               "NAME_2", "NAME_3", "loc.coord")],
+                         x2[,c("tmp.order",
+                               "geo.check",
+                               "NAME_0", "NAME_1", "NAME_2", "NAME_3",
+                               "loc.coord")],
                          by = "tmp.order")
 
   ### GEO-VALIDATION STEPS ###
@@ -158,14 +174,29 @@ checkCoord <- function(x,
   x3$geo.check[!x3$geo.check %in% "no_cannot_check"] <-
     check.paste[!x3$geo.check %in% "no_cannot_check"]
 
-  #preparing to return
+  ## Calculating the distance between the original and the gazetter coordinates
+  ## Optional part added by renato
+  if (dist.center) {
+    x3$distCentroid_m <- NA
+    if (dim(tmp)[1] > 0) {
+      ids.dist <- !grepl("ok_county|no_cannot_check", x3$geo.check) &
+        !(is.na(x3[, lon.gazet]) | is.na(x3[, lat.gazet]))
+      tmp <- x3[ids.dist, c(lat, lon, lat.gazet, lon.gazet, "distCentroid_m"), ]
+      tmp$distCentroid_m <- # 0.4 secs for ~2 million records (1 sec using fields::rdist.earth.vec)
+        spatialrisk::haversine(tmp[, 1], tmp[, 2], tmp[, 3], tmp[, 4])
+      x3$distCentroid_m[ids.dist] <-
+        tmp$distCentroid_m
+    }
+  }
+
+  ## Preparing to return
   x3 <- x3[order(x3$tmp.order), ]
-  new.cols <- names(x3)[!names(x3) %in% names(x)]
+  new.cols <- names(x3)[!names(x3) %in% cols.x]
 
-  if (!is.null(drop.cols))
-    new.cols <- new.cols[!new.cols %in% drop.cols]
+  if (!is.null(keep.cols))
+    new.cols <- new.cols[new.cols %in% keep.cols]
 
-  x <- x[, -dim(x)[2]] # remove temporary order
+  x <- x[, -which(names(x) == "tmp.order")] # remove temporary order
   x4 <- cbind.data.frame(x, x3[, new.cols])
   return(x4)
 }

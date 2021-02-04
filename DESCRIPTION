@@ -20,7 +20,7 @@ Maintainer: Renato A. F. de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
-    occurrence records of plant species.
+    (plant) species records from biological collections.
 License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://github.com/LimaRAF/plantR
