@@ -89,8 +89,7 @@ checkCoord <- function(x,
   prj <- sf::st_crs(4326)
   tmp <- sf::st_set_crs(tmp, prj)
   tmp <- sf::st_join(tmp, worldMap, join = sf::st_intersects)
-  tmp <- dplyr::rename(tmp, pais_wo = NAME_0) #rafl: tive que atualizar meu dplyr por causa de um erro aqui... precisamos mesmo depender do dplyr para um passo tão simples? Inclui o 'dplyr::'
-  #names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo" # opcao sem depender do dplyr
+  names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
   ##Defining which coordinates fall into the sea
   tmp$geo.check <- tmp$pais_wo
@@ -113,6 +112,7 @@ checkCoord <- function(x,
   x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA
   x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
   x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
+# ast: na real loc.coord nao é usado mais.então tudo isto poderia sumir.
 
   # recupera todas as linhas
   x3 <- dplyr::left_join(x,
@@ -120,27 +120,24 @@ checkCoord <- function(x,
                                "geo.check",
                                "NAME_0", "NAME_1", "NAME_2", "NAME_3",
                                "loc.coord")])
+  #ast: eu nao sei se vc está tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
 
   ### GEO-VALIDATION STEPS ###
   ##1- Validating the coordinates at different levels - exact matches
   #1.1 Cases with original coordinates but without country, state or county
   #information (cannot check)
-  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary? #did you check that?
+  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary?
   #                is.na(x3[, lat]) & is.na(x3$NAME_0)
   #                ] <- "no_cannot_check"
   #1.2 Country-level: good country? All countries
-  # x3$country.check <- if_else(x3$country == x3$NAME_0, "ok_country", "country_bad")
   x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0, "ok_country", "country_bad")
 
   #1.3 State-level: good state? All countries
-  # x3$state.check <- if_else(x3$state == x3$NAME_1, "ok_state", "estado_bad")
   x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1, "ok_state", "estado_bad")
 
   #1.4 County-level. All countries
-  # x3$county.check <- if_else(x3$county == x3$NAME_2, "ok_county", "county_bad")
   x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2, "ok_county", "county_bad")
-
-  #creates geo.check
+  #creates geo.check - eu usei unite porque lidava bem com os NA. desde que o paste lide bem eu to de boas
   # x4 <- tidyr::unite(x3,
   #                    "geo.check",
   #                    c("geo.check",
@@ -151,7 +148,19 @@ checkCoord <- function(x,
   check.paste <- apply(x3[ , c("country.check",
                                "state.check",
                                "county.check")], 1, paste, collapse = "")
+  #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
+  repl.check <- c(
+    "ok_country" = "ok_country",
+    "ok_country/ok_state" = "ok_state",
+    "ok_country/ok_state/ok_county" = "ok_county",
+    "ok_country/estado_bad" = "check_gazetteer_state",
+    "ok_country/estado_bad/county_bad" = "check_gazetteer_state_county",
+    "ok_country/estado_bad/ok_county" = "check_gazetteer_state",
+    "ok_country/ok_state/county_bad" = "check_gazetteer_county")
+  #(eu estava usando case_when) pergunta: precisamos das 27 categorias? tem outras funções que dão conta de parte destes problemas (tipo country_bad, mas para esse subset já tem a coluna country_check)
+  # e depois um
   check.paste <- stringr::str_replace_all(check.paste, repl.check)
+  # mas não entendo por que não fazer isto em geo.check e sim modificar check.paste.já temos as colunas de checagem individual. agora vamos ter um geo.check e um check.paste. geo.check agora está com os países desde a linha 96 mas não tem nada a respeito de países, states, counties.
   x3$geo.check[!x3$geo.check %in% "no_cannot_check"] <-
     check.paste[!x3$geo.check %in% "no_cannot_check"]
 
