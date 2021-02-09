@@ -119,27 +119,26 @@ checkCoord <- function(x,
                          x2[,c("tmp.order",
                                "geo.check",
                                "NAME_0", "NAME_1", "NAME_2", "NAME_3",
-                               "loc.coord")],
-                         by = "tmp.order")
+                               "loc.coord")])
 
   ### GEO-VALIDATION STEPS ###
   ##1- Validating the coordinates at different levels - exact matches
   #1.1 Cases with original coordinates but without country, state or county
   #information (cannot check)
-  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary?
+  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary? #did you check that?
   #                is.na(x3[, lat]) & is.na(x3$NAME_0)
   #                ] <- "no_cannot_check"
   #1.2 Country-level: good country? All countries
   # x3$country.check <- if_else(x3$country == x3$NAME_0, "ok_country", "country_bad")
-  x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0, 1L, 0L, missing = -9L)
+  x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0, "ok_country", "country_bad")
 
   #1.3 State-level: good state? All countries
   # x3$state.check <- if_else(x3$state == x3$NAME_1, "ok_state", "estado_bad")
-  x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1, 1L, 0L, missing = -9L)
+  x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1, "ok_state", "estado_bad")
 
   #1.4 County-level. All countries
   # x3$county.check <- if_else(x3$county == x3$NAME_2, "ok_county", "county_bad")
-  x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2, 1L, 0L, missing = -9L)
+  x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2, "ok_county", "county_bad")
 
   #creates geo.check
   # x4 <- tidyr::unite(x3,
@@ -151,39 +150,7 @@ checkCoord <- function(x,
   #                    sep = "/", na.rm = TRUE, remove = FALSE)
   check.paste <- apply(x3[ , c("country.check",
                                "state.check",
-                               "county.check")], 1, paste, collapse="")
-  # rafl: some classes can be simplified, but I kept most of the raw classes so we can decide together
-  #move to sys.data...
-  repl.check <- c(
-                 #common cases
-                 "111" = "ok_county", # ok!
-                 "110" = "ok_state", # ok!
-                 "100" = "ok_country", # ok!
-                 "000" = "country_bad", # ok!
-                 "11-9" = "ok_state/no_county", # ok_state?
-                 "10-9" = "ok_country/state_bad/no_county", # ok_country?
-                 "00-9" = "country_bad/state_bad/no_county", # country_bad?
-                 "1-9-9" = "ok_country/no_state/no_county", # ok_country?
-                 "-9-9-9" = "coord_bad", # ok?? Or country_bad? Or no_cannot_check?
-                 #rare cases
-                 "101" = "ok_county/state_bad", # ok_county?
-                 "1-91" = "ok_county/no_state", # ok_county?
-                 "1-90" = "ok_country/no_state/county_bad", # ok_country?
-                 "011" = "ok_county/country_bad", # ok_county?
-                 "010" = "ok_state/country_bad/county_bad", # country_bad or ok_state?
-                 "01-9" = "ok_state/country_bad/no_county", # country_bad or ok_state?
-                 "001" = "ok_county/country_bad/state_bad", # do not trust this one; country_bad?
-                 "0-91" = "ok_county/country_bad/no_state", # do not trust this one; country_bad?
-                 "0-90" = "country_bad/no_state/county_bad", # country_bad?
-                 "0-9-9" = "country_bad/no_state/no_county", # country_bad?
-                 "-911" = "ok_county/no_country", # ok_county?
-                 "-910" = "ok_state/no_country/state_bad", # country_bad or ok_state?
-                 "-91-9" = "ok_state/no_country/no_state", # country_bad or ok_state?
-                 "-901" = "ok_county/no_country/state_bad", # do not trust this one; country_bad or no_cannot_check?
-                 "-900" = "state_bad/no_country", # country_bad or state_bad or no_cannot_check?
-                 "-90-9" = "state_bad/no_country/no_county", # country_bad or state_bad or no_cannot_check?
-                 "-9-91" = "ok_county/no_country/no_state", # do not trust this one; country_bad or no_cannot_check?
-                 "-9-90" = "county_bad/no_country/no_state") # country_bad or no_cannot_check?
+                               "county.check")], 1, paste, collapse = "")
   check.paste <- stringr::str_replace_all(check.paste, repl.check)
   x3$geo.check[!x3$geo.check %in% "no_cannot_check"] <-
     check.paste[!x3$geo.check %in% "no_cannot_check"]
