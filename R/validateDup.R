@@ -19,8 +19,8 @@
 #'   duplicated entries from the same collection? Default to FALSE.
 #' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inheritParams prepDup
-#' @inheritParams mergeDup
+#' @inherit prepDup
+#' @inherit mergeDup
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,
@@ -29,7 +29,7 @@
 #'
 #' @seealso
 #'  \link[plantR]{prepDup}, \link[plantR]{getDup}, \link[plantR]{mergeDup},
-#'  and \link[plantR]{rmDup}.
+#'  \link[plantR]{rmDup}
 #'
 #' @author Renato A. F. de Lima
 #'

@@ -24,13 +24,13 @@ loc_list <- purrr::map(dic_files,
 loc_list <- c("UTF-8",
               "UTF-8",
               "UTF-8",
-              "UTF-8",
+              "UTF-8", #ASCII?
               "UTF-8",
               "UTF-8",
               # "ASCII",
               # "ASCII",
               "UTF-8")
-#Renato código abiaxo estava retornando um erro, por conta dos "ASCII"
+#Renato: código abaixo estava retornando um erro, por conta dos "ASCII"
 #troquei por "UTF-8" no `loc_list` e o erro sumiu. Mas não pq estava "ASCII" então, checar...
 
 dic <- purrr::map2(.x = dic_files,
@@ -82,7 +82,8 @@ missLocs <- c("^\\?$",
               "^no disponible$",
               "^not available$",
               "^loc\\.ign$",
-              "local ignorado")
+              "local ignorado",
+              "^indisponivel$")
 
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",

@@ -53,7 +53,7 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
 
   ## check input
   if (!class(x) == "data.frame")
-    stop("input object needs to be a data frame!")
+    stop("Input object needs to be a data frame!")
 
   ## checking and filtering latitude and longitude columns
   if (all(c(lat, lon) %in% names(x))) {

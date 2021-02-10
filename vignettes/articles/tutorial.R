@@ -123,6 +123,8 @@ occs <- formatLoc(occs0)
 occs <- formatCoord(occs)
 occs <- formatTax(occs)
 occs <- validateLoc(occs)
+
+
 occs <- validateTax(occs)
 occs <- validateDup(occs)
 summ <- summaryData(occs)

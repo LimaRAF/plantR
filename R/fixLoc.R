@@ -49,6 +49,7 @@
 #'
 #' @importFrom stringr str_trim str_replace_all
 #' @importFrom countrycode countrycode
+#' @importFrom textclean replace_non_ascii
 #'
 #' @export fixLoc
 #'
@@ -137,6 +138,7 @@ fixLoc <- function(x,
 
     # Removing unwanted characters
     x1[, "country"] <- tolower(textclean::replace_non_ascii(x1[, "country"]))
+    x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
 
     # Replacing '&' by 'and' in compound country names
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
@@ -156,15 +158,18 @@ fixLoc <- function(x,
     # Replacing variants, abbreviations, typos, and non-standard names
     tmp1 <- dic[dic$class %in% "country" & apply(is.na(dic[, 2:4]), 1, all), ]
     tmp2 <- tmp1$replace
-    names(tmp2) = tmp1$pattern
+    names(tmp2) <- tmp1$pattern
     names(tmp2) <- gsub("\\\\", "", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], tmp2)
 
     # Missing country for non missing states and counties (only for uniquivocal states)
     tmp1 <- dic[dic$class %in% "country" & dic$condition2 %in% "not_is.na", ]
     reps <- unique(tmp1$replace)
     if (all(c("stateProvince", "municipality") %in% names(x1)) & any(reps %in% unique(x1[ ,"country"]))) {
-      reps1 = reps[reps %in% unique(x1[, "country"])]
+      reps1 <- reps[reps %in% unique(x1[, "country"])]
       for (i in 1:length(reps)) {
         x1[is.na(x1[ ,"country"]) & !is.na(x1[, "municipality"]) &
              x1[ ,"stateProvince"] %in% tmp1$condition1[tmp1$replace %in% reps1[i]], "country"] <- reps1[i]
@@ -225,7 +230,6 @@ fixLoc <- function(x,
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
       x1[ ,"municipality"] <- stringr::str_replace_all(x1[ ,"municipality"], tmp2)
-
     }
 
   ## ADM3: locality (park, farm, etc.)
@@ -332,14 +336,14 @@ fixLoc <- function(x,
   } else {
     names(x1) <- paste0(names(x1), ".new")
     res <- as.data.frame(x1)
-    if (c("locality.new") %in% names(x1) &
-        scrap == TRUE)
+    if (c("locality.new") %in% names(x1) & scrap)
       res$locality.scrap <- n4.2.1
 
-    if (!to.lower)
-      for(i in names(res))
-        res[, i] <- stringr::str_to_title(res[, i])
-
+    if (!to.lower) {
+      names.res <- names(res)
+      for(i in 1:length(names.res))
+        res[, names.res[i]] <- stringr::str_to_title(res[, names.res[i]])
+    }
     res$resol.orig <- resol.orig
   }
 

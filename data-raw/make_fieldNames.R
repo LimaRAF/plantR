@@ -9,10 +9,13 @@ library(dplyr)
 df_gbif <- read.csv("vignettes/results/gbif.csv")
 
 #editing gbif names (INCLUIDO PELO RENATO)
-tmp <- names(df_gbif)
-tmp1 <- sapply(tmp, function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
-tmp[!duplicated(tmp1)] <- tmp1[!duplicated(tmp1)]
-names(df_gbif) <- tmp
+tmp <- names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)]
+tmp1 <- sapply(tmp,
+               function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
+tmp[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)] <-
+  tmp1[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)]
+names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
+
 
 ## species link
 df_splink <- read.csv("vignettes/results/speciesLink.csv")

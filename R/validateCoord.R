@@ -14,19 +14,23 @@
 validateCoord <- function(x,
                           lon = "decimalLongitude.new",
                           lat = "decimalLatitude.new",
-                          country_shape = "NAME_0",
-                          country_gazetteer = "country") {
-  occs1 <- checkCoord(x = occs,
+                          country.shape = "NAME_0",
+                          country.gazetteer = "country.gazet") {
+  occs1 <- checkCoord(x,
                       lon = lon,
-                      lat = lat)
-  occs2 <- checkBorders(x = occs1,
-                        country_shape = country_shape,
-                        country_gazetteer = country_gazetteer)
-  occs3 <- checkInverted(x = occs2,
-                         country_gazetteer = country_gazetteer)
-  occs4 <- fixInverted(occs3)
+                      lat = lat,
+                      dist.center = FALSE,
+                      keep.cols = c("geo.check", "NAME_0", "country.gazet")) # "distCentroid_m": not using for now
+  occs2 <- checkBorders(occs1,
+                        country.shape = country.shape,
+                        country.gazetteer = country.gazetteer)
+  occs4 <- checkInverted(x = occs2,
+                         country.gazetteer = country.gazetteer)
+  # occs4 <- fixInverted(occs3)
   #MAS! importante: o default é ".new.new" que são as coordenadas corrigidas em fixInverted
   occs5 <- checkSea(occs4) #nem parametrizo para não correr o risco de mudar o default
+
+  #rafl: parei aqui
   #cria a coluna final
   occs <- occs5 %>%
     dplyr::mutate(final_check = dplyr::case_when(

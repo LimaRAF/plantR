@@ -590,6 +590,7 @@ table(occs$cult.check)
 
 ### Flag possible spatial outliers
 
+
 ## Confidence level of species determinations: function `validateTax()`
 
 Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.

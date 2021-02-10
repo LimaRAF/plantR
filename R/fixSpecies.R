@@ -5,7 +5,8 @@
 #' the species scientific name. It creates a new column with the original
 #' string and the new suggested name. It also flags problematic names (character
 #' string with numbers, authors, wrong case, or other names besides genus and
-#' epithet etc).
+#' epithet etc). Names can be return with or without infra-specific ranks (var.
+#' and subsp.) or abbreviations of unespecific names (sp. or spp.).
 #'
 #' @return
 #' Data frame with `verbatimSpecies` as in the original input, `speciesStatus`
@@ -14,16 +15,14 @@
 #' `speciesStatus`.
 #'
 #' @details Possible flags returned in `species_status`: \describe{
-#' \item{\code{possibly_ok}}{scientific name following the expected pattern Genus
-#' epithet}
+#' \item{\code{possibly_ok}}{scientific name following the expected pattern 'Genus
+#' epithet'}
 #' \item{\code{not_Genus_epithet_format}}{scientific name not following
 #' the expected pattern Genus epithet}
-#' \item{\code{variety}}{species scientific
-#' name with variety}
-#' \item{\code{subspecies}}{species scientific name with
-#' subspecies}
+#' \item{\code{variety}}{species scientific name with variety}
+#' \item{\code{subspecies}}{species scientific name with subspecies}
 #' \item{\code{form}}{species scientific name with form}
-#' \item{\code{conferre}}{open nomenclature cf. in species scientific name}
+#' \item{\code{confer}}{open nomenclature cf. in species scientific name}
 #' \item{\code{affinis}}{open nomenclature aff. in species scientific name}
 #' \item{\code{name_w_authors}}{species scientific name has authors}
 #' \item{\code{not_name_has_digits}}{species scientific name has digits, not a
@@ -38,20 +37,30 @@
 #' \item{\code{hybrid_species}}{hybrid species} }
 #'
 #' @param x a data.frame containing the species name
-#' @param tax.name character. Name of the columns containing the species name. Default
-#' to "scientificName"
+#' @param tax.name character. Name of the columns containing the species name.
+#'   Default to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
-#'   removed? Default to FALSE
+#'   removed from the name? Default to FALSE
+#' @param rm.indet logical. Should the abbreviations for unespecific names (i.e.
+#'   sp. or spp.) be removed? Default to FALSE
 #'
 #' @author Sara Mortara
 #'
+#' @references
+#' Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open Nomenclature in the
+#' biodiversity era. Methods in Ecology and Evolution 7(10): 1217-1225.
+#'
 #' @examples
 #' df <- data.frame(scientificName =
-#' c("Lindsaea lancea var. falcata", "Asplenium Aff. truncorum",
-#' "Asplenium sp.", "Casearia aff. sylvestris Sw."),
-#' stringsAsFactors = FALSE)
+#' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
+#' "Lindsaea lancea var. angulata",
+#' "Lindsaea Aff. lancea",
+#' "Lindsaea", "Lindsaea sp.", "Lindsaeaceae sp.",
+#' "Lindsaea aff. lancea (L.) Bedd."))
+#'
 #' fixSpecies(df)
 #' fixSpecies(df, rm.rank = TRUE)
+#' fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 #'
 #' @importFrom stringr str_detect str_replace str_split str_trim
 #' @importFrom flora remove.authors fixCase trim
@@ -61,7 +70,8 @@
 #'
 fixSpecies <- function(x = NULL,
                        tax.name = "scientificName",
-                       rm.rank = FALSE) {
+                       rm.rank = FALSE,
+                       rm.indet = FALSE) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -76,9 +86,46 @@ fixSpecies <- function(x = NULL,
   species <- gsub("subsp\\.", "subsp. ", species, perl = TRUE)
   species <- gsub("aff\\.", "aff. ", species, perl = TRUE)
   species <- gsub("cf\\.", "cf. ", species, perl = TRUE)
+
+  ### INICIO PARTE INCLUIDA PELO RENATO ###
+  species <- gsub(" var ", " var. ", species, fixed = TRUE)
+  species <- gsub(" subsp ", " subsp. ", species, fixed = TRUE)
+  species <- gsub(" aff ", " aff. ", species, fixed = TRUE)
+  species <- gsub(" cf ", " cf. ", species, fixed = TRUE)
+
+  indets <- c("indet", "indeterminada", "unclassified", "undetermined")
+  rplc <- "Indet. sp."
+  species <- gsub(paste0(paste0("^", indets,"$"), collapse = "|"),
+                  rplc, species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^", indets," (?=[0-9])"), collapse = "|"),
+                  rplc, species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^", indets,"(?=[0-9])"), collapse = "|"),
+                  rplc, species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^", indets," sp(?=[0-9])"), collapse = "|"),
+                  rplc, species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^", indets," sp\\."), collapse = "|"),
+                  rplc, species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^(", indets,")([A-Z])"), collapse = "|"),
+                  "Indet. sp.\\2", species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub("^sp\\.(?=[0-9])|^sp(?=[0-9])",
+                  "Indet. sp.", species, perl = TRUE, ignore.case = TRUE)
+
+  species <-
+    gsub("(eae)([0-9])|(ales)([0-9])", "\\1 sp.\\2", species, perl = TRUE)
+  species <-
+    gsub("(eae)([A-Z])|(ales)([A-Z])", "\\1 \\2", species, perl = TRUE)
+
+  species <- gsub(" (sp\\.) ([0-9])$", " \\1\\2", species, perl = TRUE)
+  species <- gsub(" (sp) ([0-9])$", " \\1.\\2", species, perl = TRUE)
+  species <- gsub(" (sp)([0-9])$", " \\1.\\2", species, perl = TRUE)
+  species <- gsub(" sp$", " sp.", species, perl = TRUE)
+
   species <- gsub("  ", " ", species, fixed = TRUE)
+  species <- gsub("^ | $", "", species, perl = TRUE)
+  ### FIM PARTE INCLUIDA PELO RENATO ###
 
   # ö: implement status parasite "f. sp." not f. from forma
+  # rafl: se quiser diminuir o código acho que dá pra trocar [[:space:]] por '\\s'
   #1. Open nomenclature and infraspecies class ####
   form_string <- "[[:space:]]f\\.[[:space:]]|[[:space:]]form\\.[[:space:]]"
   inc_string <- "inc\\.[[:space:]]sed\\.|Incertae[[:space:]]sedis"
@@ -132,6 +179,7 @@ fixSpecies <- function(x = NULL,
                                                                     %in% c("affinis",
                                                                            "conferre")])
   ### PARTE RETIRADA PELO RENATO ###
+  # Virou uma opção no fim da função, antes de retornar
   # check$species_new[check$species_status
   #                   %in% c("subspecies",
   #                          "variety",
@@ -182,6 +230,7 @@ fixSpecies <- function(x = NULL,
   check$species_new[spnov] <- species[spnov]
 
   #3. sp. or genus only ####
+  ### ö rafl: separar categorias "indet" de "genus_only"??
   indet_regex <- "[[:space:]]sp\\.$|[[:space:]]sp$|[[:space:]]sp\\.|[[:space:]]indet\\.|[[:space:]]ind\\.|[[:space:]]sp[[:space:]]"
   no_sp <- sapply(stringr::str_split(check$species_new, " "),
                   length) < 2
@@ -224,6 +273,14 @@ fixSpecies <- function(x = NULL,
   id_ord <- endsWith(gen, "ales")
   check$species_status[id_ord] <- "order_as_genus"
 
+  #9.5 subfamily as genus ####
+  # ö: included by renato: ok?
+  ord <- sapply(stringr::str_split(check$species_new, " "),
+                function(x) x[1])
+  id_ord <- endsWith(gen, "deae")
+  check$species_status[id_ord] <- "subfamily_as_genus"
+
+
   #10. hybrid ####
   hybrid_symbol <- stringr::str_detect(check$species, "\u00D7")
   hybrid_string <- "[[:space:]]x[[:space:]]"
@@ -244,6 +301,7 @@ fixSpecies <- function(x = NULL,
   check$species_status[abbrev_gen] <- "abbreviated_genus"
 
   #11. possibly ok ####
+  # ö: talvez mudar para algo mais assertivo, tipo 'binomial_ok'??
   check$species_status[is.na(check$species_status)] <- "possibly_ok"
 
   #12. non-ascii ####
@@ -267,7 +325,7 @@ fixSpecies <- function(x = NULL,
   #13. option to return names with or without infra-specific ranks
   if (!rm.rank) {
     add.rank <- function(x, rank = NULL){
-      x_sp <- strsplit(x, " ")
+      x_sp <- strsplit(x, " ", fixed = TRUE)
       x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
       return(x1)
     }
@@ -278,7 +336,23 @@ fixSpecies <- function(x = NULL,
     check1$scientificName.new[check1$scientificNameStatus %in% "forma"] <-
       add.rank(check1$scientificName.new[check1$scientificNameStatus %in% "forma"], "f.")
     check1$scientificName.new <-
-      gsub(" NA$", "", check1$scientificName.new)
+      gsub(" NA$", "", check1$scientificName.new, perl = TRUE)
+  }
+
+  #14. option to return names with or without unidentified abbreviations
+  if (rm.indet) {
+    indet.ids <- check1$scientificNameStatus %in%
+      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+    check1$scientificName.new[indet.ids] <-
+      gsub(" sp\\..*", "", check1$scientificName.new, perl = TRUE)[indet.ids]
+  } else {
+    indet.ids <- check1$scientificNameStatus %in%
+      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+    sp.ids <- grepl(" sp\\.|spp\\.", check1$scientificName.new, perl = TRUE)
+    check1$scientificName.new[indet.ids & !sp.ids] <-
+      paste0(check1$scientificName.new[indet.ids & !sp.ids], " sp.")
+    check1$scientificName.new <-
+      gsub(" NA sp\\.$", " sp.", check1$scientificName.new, perl = TRUE)
   }
 
   return(check1)

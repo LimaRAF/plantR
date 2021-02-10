@@ -66,7 +66,7 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
                                  "Van Der", "Van Den"),
                     rm.prep = FALSE, output = "matrix", format = "last_init_prep"){
 
-  if (!class(x) %in% c("character", "data.frame", "matrix")) {
+  if (!class(x)[1] %in% c("character", "data.frame", "matrix")) {
     stop("Input must be a vector, matrix or a data frame")
   }
 
@@ -74,7 +74,7 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
     stop("Please provide one of the following formats: last_init, last_init_prep, prep_last_init, init_last")
   }
 
-  if (class(x) == "character") {
+  if (class(x)[1] == "character") {
     # Storing Last names and initials separately
     split <- strsplit(x, ", ", perl = TRUE)
     no.commas <- lengths(split) %in% 1
@@ -84,7 +84,7 @@ getPrep <- function(x, preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du",
       split[no.commas & !is.na(split[,2]), 2:1]
   }
 
-  if (class(x) %in% c("data.frame", "matrix")) {
+  if (class(x)[1] %in% c("data.frame", "matrix")) {
     split <- as.matrix(x[,1:2, drop = FALSE])
   }
 
