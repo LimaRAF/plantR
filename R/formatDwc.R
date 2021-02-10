@@ -143,7 +143,8 @@ formatDwc <- function(splink_data = NULL,
     # checking name standards
     splink_cols <- sort(unique(stats::na.omit(fieldNames$speciesLink)))
     if (any(!splink_cols %in% names(splink_data))) {
-      stop("splink_data does not follow the speciesLink pattern!")
+      # stop("splink_data does not follow the speciesLink pattern!")
+      warning("some columns in splink_data does not follow the speciesLink pattern!", call. = FALSE)
     }
     # required absent fields in speciesLink: municipality and dateIdentified
     miss.cols <- must[!must %in% names(splink_data)]
@@ -166,19 +167,20 @@ formatDwc <- function(splink_data = NULL,
   # formating gbif data --------------------------------------------------------
   if (!is.null(gbif_data)) {
     # fixing problematic GBIF names
-    tmp <- names(gbif_data)[grepl("\\.", names(gbif_data), perl = TRUE)]
+    tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)]
     tmp1 <- sapply(tmp,
                    function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
     #Sara: nem todos os nomes podem ser limpos pois removendo o longo prefixo, alguns campos ficam duplicados.
     #Seria legal entender o que está rolando, pois esses campos as vezes tem informacao tb.
-    names(gbif_data)[grepl("\\.", names(gbif_data), perl = TRUE)] <- tmp
+    names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)] <- tmp
 
     # checking name standards
     gbif_cols <- sort(unique(stats::na.omit(fieldNames$gbif)))
     if (any(!gbif_cols %in% names(gbif_data))) {
-      stop("gbif_data does not follow the gbif pattern!")
+      #stop("gbif_data does not follow the gbif pattern!")
+      warning("some columns in gbif_data does not follow the gbif pattern!", call. = FALSE)
     }
     # required absent fields in gbif: scientificNameAuthorship
     miss.cols <- must[!must %in% names(gbif_data)]

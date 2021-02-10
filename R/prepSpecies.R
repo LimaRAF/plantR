@@ -60,13 +60,12 @@
 #'   "Casearia sylvestris angustifolia", "Casearia attenuata",
 #'   "Casearia celtidifolia", "Casearia celtidifolia","Casearia tropicana")
 #' aut_list <- c("Sw.", "Sw.", "Uittien", "Rusby", "Kunth", "de Vriese","L.")
+#'
 #' df <- data.frame(scientificName.new = sp.list,
-#'   scientificNameAuthorship = aut_list,
-#'   stringsAsFactors = FALSE)
+#'   scientificNameAuthorship = aut_list)
+#'
 #' prepSpecies(df)
 #' prepSpecies(df, db = c("tpl","bfo"))
-#' prepSpecies(df, db = "bfo")
-#' prepSpecies(df, db = "tpl")
 #' prepSpecies(df, db = "tpl", sug.dist = 0.85)
 #'
 #' @seealso
@@ -83,7 +82,7 @@ prepSpecies <- function(x,
                         db = c("bfo","tpl"),
                         sug.dist = 0.9,
                         use.authors = TRUE,
-                        drop.cols = c("ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
+                        drop.cols = c("tmp.ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -92,6 +91,11 @@ prepSpecies <- function(x,
   if (!tax.names[1] %in% names(x))
     stop("Input data frame must have a column with the species name")
 
+  if (is.na(tax.names[2])) {
+    warning("Column name with species authorities not provided; setting to 'scientificNameAuthorship'")
+    tax.names[2] <- 'scientificNameAuthorship'
+  }
+
   # storing the databases in the order of priority defined in 'db'
   results <- vector("list", length(db))
   names(results) <- db
@@ -99,7 +103,7 @@ prepSpecies <- function(x,
   # creating the full-length data frames
   if (tax.names[2] %in% names(x)) {
     df <- data.frame(
-      ordem = 1:length(x[, tax.names[1]]),
+      tmp.ordem = 1:length(x[, tax.names[1]]),
       verbatimSpecies = x[, tax.names[1]],
       author = x[, tax.names[2]],
       stringsAsFactors = FALSE
@@ -108,15 +112,19 @@ prepSpecies <- function(x,
     df$full_sp <- stringr::str_trim(gsub(" NA$", "", df$full_sp))
 
   } else {
+    if (use.authors) {
+      use.authors <- FALSE
+      warning("Argument 'use.authors' set to TRUE, but column with author names not found", call. = FALSE)
+    }
     df <- data.frame(
-      ordem = 1:length(x[, tax.names[1]]),
+      tmp.ordem = 1:length(x[, tax.names[1]]),
       verbatimSpecies = x[, tax.names[1]],
       stringsAsFactors = FALSE
     )
   }
 
   # suggesting a valid name using flora pkg
-  if (any(db %in% "bfo")) {
+  if (any(db %in% c("bfo", "fbo"))) {
     # cleaning spaces and removing duplicated names
     trim_sp <- flora::trim(unique(x[,tax.names[1]]))
     # obtaining valid names from FBO-2020
@@ -130,7 +138,7 @@ prepSpecies <- function(x,
         x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
         return(x1)
       }
-      spcs <- stringr::str_count(miss_sp," ")
+      spcs <- stringr::str_count(miss_sp, " ")
       miss_rank <- rbind(
         cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
         cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
@@ -140,53 +148,69 @@ prepSpecies <- function(x,
                            function(x) flora::remove.authors(flora::fixCase(x)))
 
       #Gettting possible missing names
-      miss_spp <- rbind(miss_rank,
-                        cbind(miss_sp[spcs >= 2], no_authors))
-      miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), ]
-      suggest_miss_sp <-
-        flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
-      suggest_miss_sp <-
-        suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
-      suggest_miss_sp$original.search <-
-        miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+      # miss_spp <- cbind.data.frame(miss_sp, miss_sp)
+      if (dim(miss_rank)[1] > 0 | length(no_authors) > 0) {
 
-      #Merging names found at first and second tries
-      found_ids <- suggest_sp$notes %in% "not found" &
-        suggest_sp$original.search %in% suggest_miss_sp$original.search
-      suggest_sp[found_ids, ] <- suggest_miss_sp
+        if (dim(miss_rank)[1] > 0 & length(no_authors) > 0) {
+          miss_spp <- rbind(miss_rank,
+                        cbind(miss_sp[spcs >= 2], no_authors))
+          miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), , drop = FALSE]
+        } else {
+        if (dim(miss_rank)[1] > 0)
+          miss_spp <- miss_rank
+        if (length(no_authors) > 0)
+          miss_spp <- cbind(miss_sp[spcs >= 2], no_authors)
+        }
+
+        suggest_miss_sp <-
+          flora::get.taxa(miss_spp[, 2], drop = "", suggestion.distance = sug.dist)
+        suggest_miss_sp <-
+          suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
+
+        if (dim(suggest_miss_sp)[1] > 0) {
+        suggest_miss_sp$original.search <-
+          miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+
+        #Merging names found at first and second tries
+        found_ids <- suggest_sp$notes %in% "not found" &
+          suggest_sp$original.search %in% suggest_miss_sp$original.search
+        suggest_sp[found_ids, ] <- suggest_miss_sp
+        }
+      }
     }
 
     #Getting the valid name at the right rank
-    suggest_sp$suggestedName <- paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep = " ")
+    suggest_sp$suggestedName <-
+      paste(suggest_sp$genus, suggest_sp$specific.epiteth, sep = " ")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"] <-
       paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "subspecies"],
             suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "subspecies"], sep = " subsp. ")
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"] <-
       paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"],
             suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep = " var. ")
-    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"] <-
-      paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "genus"], " sp.", sep = "")
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% c("genus", "family")] <-
+      suggest_sp$search.str[suggest_sp$taxon.rank %in% c("genus", "family")]
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% NA] <-
       suggest_sp$original.search[suggest_sp$taxon.rank %in% NA]
 
     #Merge checks with the original data
     suggest_flora <- merge(df, suggest_sp[,c("original.search","family","suggestedName","authorship","scientific.name","notes","id")],
                            by.x = "verbatimSpecies", "original.search", all.x = TRUE, sort = FALSE)
-    suggest_flora <- suggest_flora[order(suggest_flora$ordem),]
+    suggest_flora <- suggest_flora[order(suggest_flora$tmp.ordem),]
     suggest_flora$source <- "BR-Flora"
 
-    results[[which(db %in% "bfo")]] <- suggest_flora
+    results[[which(db %in% c("bfo", "fbo"))]] <- suggest_flora
   }
 
   if (any(db %in% c("tpl"))) {
 
     assign("last.warning", NULL, envir = baseenv())
-    if (use.authors & !is.null(x[,tax.names[2]])) {
+    if (use.authors) {
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # Species names, exact match
       my.TPL <- catchAll(Taxonstand::TPL)
-      temp.obj <- my.TPL(unique_sp, corr = FALSE)
+      temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
       exact_sp <- temp.obj[[1]]
       warns <- temp.obj[[2]]
       # exact_sp <- Taxonstand::TPL(unique_sp, corr = FALSE)
@@ -282,11 +306,15 @@ prepSpecies <- function(x,
       paste(exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "var."],
             exact_sp$New.Infraspecific[exact_sp$New.Infraspecific.rank %in% "var."], sep=" var. ")
     exact_sp$suggestedName[is.na(exact_sp$New.Species)] <-
-      paste(exact_sp$suggestedName[is.na(exact_sp$New.Species)], " sp.", sep="")
+      exact_sp$New.Genus[is.na(exact_sp$New.Species)]
 
     #Getting the scientific name with authorities
-    exact_sp$scientific.name <-
-      paste(exact_sp$suggestedName, exact_sp$New.Authority)
+    exact_sp$scientific.name <- NA_character_
+    auth.ids <- exact_sp$New.Authority %in% ""
+    exact_sp$scientific.name[auth.ids] <-
+      exact_sp$suggestedName[auth.ids]
+    exact_sp$scientific.name[!auth.ids] <-
+      paste(exact_sp$suggestedName[!auth.ids], exact_sp$New.Authority[!auth.ids])
 
     #Merge checks with the original data
     if (use.authors) {
@@ -296,23 +324,13 @@ prepSpecies <- function(x,
       suggest_TPL <- merge(df, exact_sp[,c("Taxon","Family","suggestedName","New.Authority","scientific.name","notes","New.ID")],
                            by.x = "verbatimSpecies", by.y = "Taxon", all.x = TRUE, sort = FALSE)
     }
-    suggest_TPL <- suggest_TPL[order(suggest_TPL$ordem),]
+    suggest_TPL <- suggest_TPL[order(suggest_TPL$tmp.ordem),]
     suggest_TPL$source <- "TPL"
     names(suggest_TPL)[grepl("Family|Authority|ID", names(suggest_TPL))] <-
       c("family", "authorship", "id")
     results[[which(db %in% "tpl")]] <- suggest_TPL
 
   }
-
-  # if (any(db %in% c("wfo"))){
-  #
-  #   WFO.download()
-  #   WFO.remember()
-  #   wfo_df <- data.frame(spec.name = trim_sp)
-  #   wfo_sp <-
-  #     WorldFlora::WFO.match(wfo_df, WFO.data = WFO.data, Fuzzy = 1 - sug.dist)
-  #   #### CONTINUE ?? ####
-  # }
 
   ## Replacing missing suggestions from the order of priority defined by 'db'
   if (length(results) > 1) {
@@ -327,9 +345,9 @@ prepSpecies <- function(x,
 
   #Final edits
   final.results <- results[[1]]
-  final.results <- final.results[order(final.results$ordem), ]
+  final.results <- final.results[order(final.results$tmp.ordem), ]
   drop.cols1 <- unique(c(drop.cols, "verbatimSpecies", "author"))
-  final.results <- final.results[,-which(names(final.results) %in% drop.cols1)]
+  final.results <- final.results[, -which(names(final.results) %in% drop.cols1)]
   final.results1 <- cbind.data.frame(x,
                                      final.results,
                              stringsAsFactors = FALSE)

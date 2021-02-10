@@ -113,7 +113,7 @@ prepName <- function(x,
   "V1" <- "tmp.ordem" <- NULL
 
   # check input:
-  if (is.null(x)|!class(x) %in% "character")
+  if (is.null(x) | !class(x) %in% "character")
     stop("Input need to be a string or vector of names")
 
   # name inside brackets or parentheses? removing here and adding after editions

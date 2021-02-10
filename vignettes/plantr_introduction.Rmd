@@ -249,18 +249,16 @@ Finally, __plantR__ exports data into a local folder, using function `saveData()
 
 If you use this package, please cite it as: 
 
-Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing
+Lima, R.A.F et al. (2021) *plantR*: An R package and workflow for managing
   species records from biological collections. In preparation.
 
 If you use the function `prepSpecies()`, please also cite the following packages (depending on the database used): 
 
-Carvalho, G. (2019) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
+Carvalho, G. (2020) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.4. https://CRAN.R-project.org/package=flora
 
-Cayuela, L., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxonomic Standardization of Plant Species Names. R package version 2.1.
-  https://CRAN.R-project.org/package=Taxonstand
+Cayuela, L., Macarro, I., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxonomic Standardization of Plant Species Names. R package version 2.2. https://CRAN.R-project.org/package=Taxonstand
 
 If you use the function `rgbif2()`, please also cite the following package:
 
-Chamberlain, S. et al. (2020) rgbif: Interface to the Global Biodiversity Information Facility API. R package version 1.3.0.
-https://CRAN.R-project.org/package=rgbif>.
+Chamberlain, S. et al. (2021) rgbif: Interface to the Global Biodiversity Information Facility API. R package version 2.5.2. https://CRAN.R-project.org/package=rgbif>.
 

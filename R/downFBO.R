@@ -1,4 +1,4 @@
-#' @title Download Data from the Brazilian Flora Online
+#' @title Download Species Information from the Brazilian Flora Online
 #'
 #' @description The function makes an online query for informations stored in the
 #'   [Brazilian Flora Online](http://floradobrasil.jbrj.gov.br/reflora/listaBrasil).
@@ -7,12 +7,11 @@
 #' @param campos Vector. A list of fields to be returned from the Brazilian
 #'   Flora database.
 #'
-#' @export
 #' @keywords internal
 #'
 #' @importFrom jsonlite fromJSON
 #'
-#'
+#' @export
 downFBO <- function(id, campos = c("estadosCerteza",
                                    "descricaoCamposControlados",
                                    "descricaoLivrePT",

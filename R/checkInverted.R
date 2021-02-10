@@ -8,7 +8,7 @@
 #' @param lon Column with the corrected longitude. Defaults to 'decimalLongitude.new'
 #' @param overwrite logical. Should the newly validated coordinates overwrite
 #'   the problematic ones or should they be stored in separate, new columns.
-#'   Defaults to TRUE
+#'   Defaults to FALSE
 #'
 #' @importFrom dplyr full_join
 #' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates
@@ -21,7 +21,8 @@ checkInverted <- function(x,
                           check.names = c("border.check", "geo.check"),
                           country.gazetteer = "country.gazet",
                           lat = "decimalLatitude.new",
-                          lon = "decimalLongitude.new") {
+                          lon = "decimalLongitude.new",
+                          overwrite = FALSE) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -186,6 +187,7 @@ checkInverted <- function(x,
                           by = "tmp.order", suffix = c("", ".new"))
     sub.cols <- names(check1)[!names(check1) %in% "tmp.order"]
     sub.cols.new <-paste0(sub.cols, ".new")
+
     if (overwrite) {
       sud.rows <- y$tmp.order %in% check1$tmp.order
       x[sud.rows, sub.cols] <- y[sud.rows, sub.cols.new]

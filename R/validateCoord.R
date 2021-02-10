@@ -21,7 +21,7 @@ validateCoord <- function(x,
                       lat = lat,
                       dist.center = FALSE,
                       keep.cols = c("geo.check", "NAME_0", "country.gazet")) # "distCentroid_m": not using for now
-  occs2 <- checkBorders(x = occs1,
+  occs2 <- checkBorders(occs1,
                         country.shape = country.shape,
                         country.gazetteer = country.gazetteer)
   occs4 <- checkInverted(x = occs2,
