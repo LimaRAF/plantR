@@ -20,6 +20,8 @@
 #'
 #' geoDist(lon, lat)
 #'
+#' @keywords internal
+#'
 #' @export
 geoDist <- function(lon, lat, radius = 6371) {
 
@@ -75,6 +77,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #' minDist(lon, lat, output = 'group')
 #' minDist(lon, lat, output = 'flag')
 #' minDist(lon, lat, output = 'dist')
+#'
+#' @keywords internal
 #'
 #' @export
 minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {

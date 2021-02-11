@@ -219,6 +219,38 @@ missDets <- c("s/det.",
               "sin",
               "?")
 
+simpGeoCheck <- c(
+  #common cases
+  "ok_country/ok_state/ok_county" = "ok_county", # ok!
+  "ok_country/ok_state/bad_county" = "ok_state", # ok!
+  "ok_country/ok_state/no_county" = "ok_state", # ok?
+  "ok_country/bad_state/ok_county" = "ok_county", # ok??? Discuss
+  "ok_country/bad_state/bad_county" = "ok_country", # ok!
+  "ok_country/bad_state/no_county" = "ok_country", # ok?
+  "ok_country/no_state/no_county" = "ok_country", # ok?
+  "bad_country/bad_state/bad_county" = "bad_country", # ok!
+  "bad_country/bad_state/no_county" = "bad_country", # ok?
+  "bad_country/no_state/no_county" = "bad_country", # ok?
+  "no_country/no_state/no_county" = "check_gazetteer", # ok!
+  #rare cases
+  "ok_country/no_state/ok_county" = "ok_county", # ok?
+  "ok_country/no_state/bad_county" = "ok_country", # ok?
+  "bad_country/ok_state/ok_county" = "ok_county", # ok?
+  "bad_country/ok_state/bad_county" = "ok_state", # or bad_country?
+  "bad_country/ok_state/no_county" = "ok_state", # or bad_country?
+  "bad_country/bad_state/ok_county" = "bad_country", # do not trust this one
+  "bad_country/no_state/bad_county" = "bad_country", # ok?
+  "bad_country/no_state/ok_county" = "bad_country", # do not trust this one
+  "no_country/ok_state/ok_county" = "ok_county", # ok?
+  "no_country/ok_state/bad_county" = "ok_state", # or bad_country?
+  "no_country/ok_state/no_county" = "ok_state", # or bad_country?
+  "no_country/bad_state/ok_county" = "bad_country", # do not trust this one. Or no_cannot_check?
+  "no_country/bad_state/bad_county" = "bad_country", # or no_cannot_check?
+  "no_country/no_state/ok_county" = "bad_country", # do not trust this one. Or no_cannot_check?,
+  "no_country/no_state/bad_county" = "bad_country", # or no_cannot_check?,
+  "no_country/bad_state/no_county" = "bad_country") # or bad_state or no_cannot_check?
+
+
 # Saving data
 usethis::use_data(admin,
                   collectionCodes,
@@ -235,6 +267,7 @@ usethis::use_data(admin,
                   notCultivated,
                   missColls,
                   missDets,
+                  simpGeoCheck,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")

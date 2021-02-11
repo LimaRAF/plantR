@@ -114,15 +114,20 @@ occs <- getCult(occs)
 
 
 ##Vinheta
+spp <- c("Trema micrantha",
+         "Casearia sylvestris",
+         "Euterpe edulis")
+occs_splink1 <- rspeciesLink(species = spp)
+occs_gbif1 <- rgbif2(species = spp)
 occs_splink <- rspeciesLink(species = "Euterpe edulis")
 occs_gbif <- rgbif2(species = "Euterpe edulis")
-occs.bind <- formatDwc(splink_data = occs_splink,
-                  gbif_data = occs_gbif)
+occs.bind <- formatDwc(splink_data = occs_splink1,
+                  gbif_data = occs_gbif1)
 occs0 <- formatOcc(occs.bind)
-occs <- formatLoc(occs0)
-occs <- formatCoord(occs)
-occs <- formatTax(occs)
-occs <- validateLoc(occs)
+occs1 <- formatLoc(occs0)
+occs1 <- formatCoord(occs1)
+occs1 <- formatTax(occs1)
+occs2 <- validateLoc(occs1)
 
 
 occs <- validateTax(occs)

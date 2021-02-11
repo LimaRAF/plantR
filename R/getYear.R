@@ -156,7 +156,8 @@ getYear <- function (x, noYear = "s.d.") {
   tmp1 <- tmp[grepl("-", tmp, fixed = TRUE) &
                 !grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)]
   tmp1 <- as.character(sapply(strsplit(tmp1, "-", fixed = TRUE),
-                              function(x) unique(x[nchar(stringr::str_trim(x)) >= 4])))
+                              function(x) paste0(unique(x[nchar(stringr::str_trim(x)) >= 4]),
+                                                 collapse = "-")))
   if (length(tmp1) > 0)
     tmp[grepl("-", tmp, fixed = TRUE) &
           !grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)] <- tmp1
@@ -173,7 +174,8 @@ getYear <- function (x, noYear = "s.d.") {
   #dates separated by spaces
   tmp1 <- tmp[grepl(" ", tmp, fixed = TRUE)]
   tmp1 <- as.character(sapply(strsplit(tmp1, " ", fixed = TRUE),
-                              function(x) unique(x[nchar(x) >= 4])))
+                              function(x) paste0(unique(x[nchar(x) >= 4]),
+                                                 collapse = "-")))
   if (length(tmp1) > 0)
     tmp[grepl(" ", tmp, fixed = TRUE)] <- tmp1
 

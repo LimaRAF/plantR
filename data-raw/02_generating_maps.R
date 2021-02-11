@@ -2,6 +2,7 @@
 require(rgdal)
 require(rgeos)
 require(sf)
+require(sp)
 require(countrycode)
 devtools::load_all()
 
@@ -20,8 +21,9 @@ countries.latam <- c("Anguilla","Antigua and Barbuda","Argentina","Aruba","Baham
 iso3 <- countrycode::countrycode(countries.latam, "country.name", "iso3c")
 #BES = "Caribbean Netherlands" = "Bonaire, Saint Eustatius and Saba"
 
-
+################################
 ### WORLD MAP FOR VALIDATION ###
+################################
 ##new sf files
 destfolder <- "vrac/latam"
 destfolder <- "data-raw/GDAM"
@@ -91,8 +93,48 @@ plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf"
 
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
-save(worldMap_0001, file = "./data/worldMap_0001.rda", compress = "xz")
-save(worldMap_full, file = "./data/worldMap_full.rda", compress = "xz")
+# save(worldMap_0001, file = "./data/worldMap_0001.rda", compress = "xz")
+# save(worldMap_full, file = "./data/worldMap_full.rda", compress = "xz")
+
+
+#########################
+### WORLD LAND BUFFER ###
+#########################
+
+# rafl: should we use wo instead?
+land <- rnaturalearth::ne_download(scale = 10, type = 'land', category = 'physical')
+
+#buffering to 1 degree
+land.buff <- rgeos::gBuffer(land, byid=TRUE, width = 0.5)
+land.buff1 <- raster::crop(land.buff, raster::extent(CoordinateCleaner::buffland))
+land.buff1 <- sp::disaggregate(land.buff1)
+land.buff1 <- cleangeo::clgeo_Clean(land.buff1)
+land.buff2 <- raster::aggregate(land.buff1)
+land.buff3 <- rgeos::gSimplify(land.buff2, tol = 0.005, topologyPreserve = TRUE)
+land.buff3 <- rgeos::gBuffer(land.buff3, byid = TRUE, width = 0)
+land.buff3 <- sp::SpatialPolygonsDataFrame(land.buff3, data.frame(class = "land"))
+landBuff <- sf::st_as_sf(land.buff3)
+
+# shore lines
+land1 <- rgeos::gBuffer(land, byid=TRUE, width=0)
+land1 <- cleangeo::clgeo_Clean(land1)
+land2 <- rgeos::gSimplify(land1, tol = 0.005, topologyPreserve = TRUE)
+land2 <- rgeos::gBuffer(land2, byid = TRUE, width = 0)
+land2 <- raster::aggregate(land2)
+land3 <- as(land2, "SpatialLines")
+shoreLines <- sf::st_as_sf(land3)
+plot(shoreLines, ylim=c(-24,-22), xlim=c(-45, -42))
+
+# coparing object sizes
+format(object.size(land), units = "Mb")
+format(object.size(landBuff), units = "Mb")
+format(object.size(shoreLines), units = "Mb")
+format(object.size(CoordinateCleaner::buffland), units = "Mb")
+
+#Saving
+save(landBuff, file = "./data/landBuff.rda", compress = "xz")
+save(shoreLines, file = "./data/shoreLines.rda", compress = "xz")
+
 
 #########################################
 ### LATIN AMERICAN MAP FOR VALIDATION ###

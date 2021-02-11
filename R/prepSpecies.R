@@ -241,7 +241,8 @@ prepSpecies <- function(x,
     # Species names, fuzzy match
     miss_sp <- exact_sp$Taxon[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
                                 exact_sp$Taxonomic.status %in% ""]
-    my.TPL <- catchAll(Taxonstand::TPL)
+    # my.TPL <- catchAll(Taxonstand::TPL)
+    my.TPL <- catchAll(TPL1)
     temp.obj <- my.TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)
     fuzzy_sp <- temp.obj[[1]]
     # fuzzy_sp <- Taxonstand::TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)

@@ -1,6 +1,6 @@
 #' @title Check Geographical Coordinates
 #'
-#' @description This function makes the first check of the coordinates
+#' @description This function makes the check of the coordinates
 #' against the world and Latin-American maps. It optionally returns the
 #' distance between the original coordinates and those from a gazetteer
 #' for coordinates not validated at the county level.
@@ -28,7 +28,24 @@
 #'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 #'
-#' @export
+#' @details
+#'
+#' By default the function returns only the geographical validation column
+#' ('geo.check') and the distance between the original coordinates and those
+#' from a gazetteer, if `dist.center` is TRUE. Other columns available for the
+#' output that may be relevant are:
+#' - the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
+#'  'NAME_2' and 'NAME_3';
+#' - the locality string in the __plantR__ format combining the localty
+#' obtained from the maps: 'loc.coord';
+#' - the checks between the locality info obtained from `str.name` and the
+#' administrative levels from the maps: 'country.check', 'state.check' and
+#' 'county.check'.
+#'
+
+#'
+#' @export checkCoord
+#'
 checkCoord <- function(x,
                        lon = "decimalLongitude.new",
                        lat = "decimalLatitude.new",
@@ -41,7 +58,7 @@ checkCoord <- function(x,
                        keep.cols = c("geo.check", "distCentroid_m")) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
   if (!all(c(lat, lon, str.name, orig.coord) %in% colnames(x)))
@@ -61,27 +78,23 @@ checkCoord <- function(x,
     data = x,
     col = str.name,
     sep = "_",
-    #into = c("country", "state", "county", "locality", "sublocality"), #rafl: aqui vc sobrescreve as colunas já existentes/originais... é essa a idéia?
-    into = c("country.gazet", "state.gazet", "county.gazet", "locality.gazet", "sublocality.gazet"), #rafl: melhor assim talvez?
+    into = c("country.gazet", "state.gazet", "county.gazet",
+             "locality.gazet", "sublocality.gazet"),
     remove = FALSE,
     fill = "right"
     )
 
-  ##Creating the geo.check column and assigning the gazetteer classes and missing classes
-  x$geo.check <- NA
+  ##Creating the geo.check column and assigning the gazetteer and missing classes
+  geo.check <- rep(NA_character_, dim(x)[1])
   ids.gazet <- x[, orig.coord] %in% "coord_gazet"
-  x$geo.check[ids.gazet] <-
+  geo.check[ids.gazet] <-
     paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
   ids.no.coord <- x[, orig.coord] %in% "no_coord"
-  x$geo.check[ids.no.coord] <- "no_cannot_check"
-  #rafl: chcar com mais dados se pode ter NAs ou outras classes
+  geo.check[ids.no.coord] <- "no_cannot_check"
+  #rafl: checar com mais dados se pode ter NAs ou outras classes
 
-  ## subsetting data for checking
-  tmp <- x[is.na(x$geo.check), ]
-  # tmp <- tmp[!is.na(tmp[, lon]), ] #rafl: não mais necessário
-  # tmp <- tmp[!is.na(tmp[, lat]), ] #rafl: não mais necessário
-
-  #rafl: Add an step where user can choose between plantR and user-provided shapefiles?
+  ## Subsetting data for geographical checking
+  tmp <- x[is.na(geo.check), ]
 
   ##Getting data frame with spatial coordinates and standardizing the projection
   tmp <- sf::st_as_sf(tmp, coords = c(lon, lat))
@@ -91,8 +104,8 @@ checkCoord <- function(x,
   tmp <- sf::st_join(tmp, worldMap, join = sf::st_intersects)
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
-  ##Defining which coordinates fall into the sea
-  tmp$geo.check <- tmp$pais_wo
+  ##Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
+  geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
 
   ##Comparing the spatial data frame with the selected country shapefiles
   latam_all <- dplyr::bind_rows(latamMap) # ö checar poligonos faltantes tipo Manaus ##rafl: dava erro bind_rows pois older versions of dplyr não pode ser usado para sf objects; funcionou agora (loko nem o proprio sf faz isso para sf com diferentes numeros de colunas)
@@ -105,89 +118,94 @@ checkCoord <- function(x,
                #vai ter um NAME_4 e talvez mais
                )
   #checa diferencas paises e preenche com latam se faltar no mundo
-  x2 <- dplyr::mutate(x2, NAME_0 = if_else(is.na(pais_wo) &
+  x2 <- dplyr::mutate(x2, NAME_0 = dplyr::if_else(is.na(pais_wo) &
                                       !is.na(pais_latam), pais_latam, pais_wo))
   # cria o vetor para checar
   x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
-  x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA
+  x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
   x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
   x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
-# ast: na real loc.coord nao é usado mais.então tudo isto poderia sumir.
+  # ast: na real loc.coord nao é usado mais.então tudo isto poderia sumir.
+  # rafl: vdd, mas acho legal a possibilidade de retornar essa info. Pode ajudar na gestão/correção de coleções.
 
   # recupera todas as linhas
-  x3 <- dplyr::left_join(x,
+  x3 <- suppressMessages(
+          dplyr::left_join(x,
                          x2[,c("tmp.order",
-                               "geo.check",
                                "NAME_0", "NAME_1", "NAME_2", "NAME_3",
-                               "loc.coord")])
+                               "loc.coord")]))
   #ast: eu nao sei se vc está tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
+  #rafl: ok! removi o geo.check e adicionei o suppressWarnings
 
   ### GEO-VALIDATION STEPS ###
   ##1- Validating the coordinates at different levels - exact matches
-  #1.1 Cases with original coordinates but without country, state or county
-  #information (cannot check)
-  # x3$geo.check[is.na(x3[, lon]) & is.na(x3$NAME_0) | # rafl: no longer necessary?
-  #                is.na(x3[, lat]) & is.na(x3$NAME_0)
-  #                ] <- "no_cannot_check"
-  #1.2 Country-level: good country? All countries
-  x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0, "ok_country", "country_bad")
+  #1.1 Country-level: good country? All countries
+  x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0,
+                                     "ok_country", "bad_country", missing = "no_country")
 
-  #1.3 State-level: good state? All countries
-  x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1, "ok_state", "estado_bad")
+  #1.2 State-level: good state? All countries
+  x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1,
+                                   "ok_state", "bad_state", missing = "no_state")
 
-  #1.4 County-level. All countries
-  x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2, "ok_county", "county_bad")
-  #creates geo.check - eu usei unite porque lidava bem com os NA. desde que o paste lide bem eu to de boas
-  # x4 <- tidyr::unite(x3,
-  #                    "geo.check",
-  #                    c("geo.check",
-  #                      "country.check",
-  #                      "state.check",
-  #                      "county.check"),
-  #                    sep = "/", na.rm = TRUE, remove = FALSE)
-  check.paste <- apply(x3[ , c("country.check",
-                               "state.check",
-                               "county.check")], 1, paste, collapse = "")
-  #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
-  repl.check <- c(
-    "ok_country" = "ok_country",
-    "ok_country/ok_state" = "ok_state",
-    "ok_country/ok_state/ok_county" = "ok_county",
-    "ok_country/estado_bad" = "check_gazetteer_state",
-    "ok_country/estado_bad/county_bad" = "check_gazetteer_state_county",
-    "ok_country/estado_bad/ok_county" = "check_gazetteer_state",
-    "ok_country/ok_state/county_bad" = "check_gazetteer_county")
+  #1.3 County-level. All countries
+  x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2,
+                                    "ok_county", "bad_county", missing = "no_county")
+
+  ## Updating geo.check
+  tmp1 <- apply(x3[ , c("country.check",
+                "state.check",
+                "county.check")], 1, paste, collapse="/")
+  geo.check[is.na(geo.check)] <- tmp1[is.na(geo.check)]
+
+  ## Simplifying geo.check
+    #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
+    #rafl1: re-adicionei as 27 categorias e está tudo no 01_sysdata agora
+    #rafl2: agora estou editando tudo direto no geo.check (paste.check removido)
+    repl.check <- simpGeoCheck
+    geo.check <- stringr::str_replace_all(geo.check, repl.check)
+  # repl.check <- c(
+  #   "ok_country" = "ok_country",
+  #   "ok_country/ok_state" = "ok_state",
+  #   "ok_country/ok_state/ok_county" = "ok_county",
+  #   "ok_country/estado_bad" = "check_gazetteer_state",
+  #   "ok_country/estado_bad/county_bad" = "check_gazetteer_state_county",
+  #   "ok_country/estado_bad/ok_county" = "check_gazetteer_state",
+  #   "ok_country/ok_state/county_bad" = "check_gazetteer_county")
   #(eu estava usando case_when) pergunta: precisamos das 27 categorias? tem outras funções que dão conta de parte destes problemas (tipo country_bad, mas para esse subset já tem a coluna country_check)
-  # e depois um
-  check.paste <- stringr::str_replace_all(check.paste, repl.check)
-  # mas não entendo por que não fazer isto em geo.check e sim modificar check.paste.já temos as colunas de checagem individual. agora vamos ter um geo.check e um check.paste. geo.check agora está com os países desde a linha 96 mas não tem nada a respeito de países, states, counties.
-  x3$geo.check[!x3$geo.check %in% "no_cannot_check"] <-
-    check.paste[!x3$geo.check %in% "no_cannot_check"]
+  # rafl: por enquanto vamos deixar as 27 e em seguida a simplificacao. Quando fechamors tudo voltamos e revemos se precisa ou nao
 
   ## Calculating the distance between the original and the gazetter coordinates
-  ## Optional part added by renato
   if (dist.center) {
     x3$distCentroid_m <- NA
     if (dim(tmp)[1] > 0) {
-      ids.dist <- !grepl("ok_county|no_cannot_check", x3$geo.check) &
+      ids.dist <- !grepl("ok_county|ok_locality|no_cannot_check", x3$geo.check) &
         !(is.na(x3[, lon.gazet]) | is.na(x3[, lat.gazet]))
-      tmp <- x3[ids.dist, c(lat, lon, lat.gazet, lon.gazet, "distCentroid_m"), ]
-      tmp$distCentroid_m <- # 0.4 secs for ~2 million records (1 sec using fields::rdist.earth.vec)
-        spatialrisk::haversine(tmp[, 1], tmp[, 2], tmp[, 3], tmp[, 4])
+      tmp2 <- x3[ids.dist, c(lat, lon, lat.gazet, lon.gazet, "distCentroid_m"), ]
+      tmp2$distCentroid_m <- # 0.4s for ~2 million (1s using fields::rdist.earth.vec)
+        spatialrisk::haversine(tmp2[, 1], tmp2[, 2], tmp2[, 3], tmp2[, 4])
       x3$distCentroid_m[ids.dist] <-
-        tmp$distCentroid_m
+        tmp2$distCentroid_m
     }
   }
 
   ## Preparing to return
+  #re-ordering (for safety), adding geo.check and removing unecessary columns from the tmp object
   x3 <- x3[order(x3$tmp.order), ]
-  new.cols <- names(x3)[!names(x3) %in% cols.x]
+  x3$geo.check <- geo.check
+  x3 <- x3[, -which(names(x3) %in% c("tmp.order"))]
 
+  #defining the new columns from the tmp object to be returned
+  new.cols <- names(x3)[!names(x3) %in% cols.x]
   if (!is.null(keep.cols))
     new.cols <- new.cols[new.cols %in% keep.cols]
 
-  x <- x[, -which(names(x) == "tmp.order")] # remove temporary order
-  x4 <- cbind.data.frame(x, x3[, new.cols])
-  return(x4)
+  #removing unecessary column from the original data frame and returning
+  x <- x[, -which(names(x) == "tmp.order")]
+  if (length(new.cols) == 0) {
+    return(x)
+  } else {
+    x4 <- x3[, which(names(x3) %in% new.cols), drop = FALSE]
+    return(cbind.data.frame(x, x4))
+  }
 }
 

@@ -132,6 +132,8 @@ prepFamily <- function(x,
 
   # Any conflicts between original names and the ones retrieved in BF-2020?
   print.problems <- unique(families.data[!is.na(flora.br) & name.correct != flora.br, , ])
+  print.problems <- print.problems[order(print.problems[, 1]), ]
+  print.problems <- print.problems[order(print.problems[, 2]), ]
 
   if (dim(print.problems)[1] > 0) {
     cat("The following family names were automatically replaced:\n",

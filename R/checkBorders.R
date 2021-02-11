@@ -8,6 +8,8 @@
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
 #'
+#' @keywords internal
+#'
 #' @export
 shares_border <- function(country1 = "brazil",
                           country2 = "argentina") {
@@ -40,28 +42,53 @@ shares_border <- function(country1 = "brazil",
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
 #'
-#' @export
+#' @export checkBorders
 #'
 checkBorders <- function(x,
                          geo.check = "geo.check",
                          country.shape = "NAME_0",
-                         country.gazetteer = "country.gazet") {
-  check_these <- grepl(pattern = "country_bad", x[,geo.check], perl = TRUE)
-  check_country <- x[check_these,]
+                         country.gazetteer = "loc.correct") {
+
+  ## Check input
+  if (!class(x)[1] == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  if (!all(c(geo.check, country.shape, country.gazetteer) %in% colnames(x)))
+    stop("One or more column names declared do not match those of the input object: please rename or specify the correct names")
+
+  ## Check the map country information
+  if (any(grepl("_", x[, country.shape], fixed = TRUE))) {
+    country.shp <- sapply(
+      strsplit(x[, country.shape], "_", fixed = TRUE), function (x) x[1])
+  } else {
+    country.shp <- x[, country.shape]
+  }
+
+  ## Check the gazetteer country information
+  if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
+    country.gazet <- sapply(
+      strsplit(x[, country.gazetteer], "_", fixed = TRUE), function (x) x[1])
+  } else {
+    country.gazet <- x[, country.gazetteer]
+  }
+
+  ## Checking borders for selected records
+  check_these <- grepl("bad_country", x[, geo.check], perl = TRUE)
   shares_bord <- Vectorize(shares_border)
-  check_country$share_border <-
-    shares_bord(check_country[,country.shape],
-                check_country[,country.gazetteer])
-  check_country$border.check <-
-    dplyr::if_else(check_country$share_border == TRUE,
+  share_border <- suppressMessages(suppressWarnings(
+    shares_bord(country.shp[check_these],
+                country.gazet[check_these])))
+  border.check <-
+    dplyr::if_else(share_border == TRUE,
             "check_borders", "check_inverted")
 
+  ## Preparing to return
   #rafl: alguma chance de `shares_bord()` mudar a ordem do data frame, se não sugiro:
   x$border.check <- x$share_border <- NA
   x$border.check[check_these] <-
-    check_country$border.check
+    border.check
   x$share_border[check_these] <-
-    check_country$share_border
-  # x1 <- dplyr::left_join(x, check_country)
+    share_border
+  # x1 <- dplyr::left_join(x, x1)
   return(x)
 }
