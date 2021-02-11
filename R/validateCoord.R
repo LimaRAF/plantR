@@ -16,19 +16,39 @@ validateCoord <- function(x,
                           lat = "decimalLatitude.new",
                           country.shape = "NAME_0",
                           country.gazetteer = "country.gazet") {
-  occs1 <- checkCoord(x,
+
+  ## First coordinate check
+  x1 <- checkCoord(x,
                       lon = lon,
                       lat = lat,
                       dist.center = FALSE,
-                      keep.cols = c("geo.check", "NAME_0", "country.gazet")) # "distCentroid_m": not using for now
-  occs2 <- checkBorders(occs1,
+                      keep.cols = c("geo.check", country.shape, country.gazetteer))
+
+  ## Checking bad coordinates close to countries frontiers
+  x2 <- checkBorders(x1,
                         country.shape = country.shape,
                         country.gazetteer = country.gazetteer)
-  occs4 <- checkInverted(x = occs2,
+
+  ## Checking bad coordinates in the sea but close to the shore
+  x3 <- checkShore(x2,
+                 geo.check = "geo.check",
+                 lon = lon,
+                 lat = lat)
+
+  ## Checking inverted and swapped coordinates
+  x4 <- checkInverted(x3, overwrite = TRUE,
                          country.gazetteer = country.gazetteer)
+
+
+  #### REAPLICAR coordCheck
+  x4.tmp <- x4[grepl("\\[", x4$geo.check, perl = TRUE), ]
+
+  #### CHECAR COLUNAS SOBRANDO
+  # "tmp.ordem", "country.gazet", "NAME_0"
+  # "share_corder" ou "border.check"?
+
   # occs4 <- fixInverted(occs3)
   #MAS! importante: o default é ".new.new" que são as coordenadas corrigidas em fixInverted
-  occs5 <- checkSea(occs4) #nem parametrizo para não correr o risco de mudar o default
 
   #rafl: parei aqui
   #cria a coluna final

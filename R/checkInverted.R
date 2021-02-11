@@ -3,17 +3,16 @@
 #' @param x Occurrences data frame
 #' @param check.names The columns with the results from the border checking and
 #'   coordinate checking, in that order. Defaults to 'border.check' and 'geo.check'.
-#' @param country.gazetteer Column with the country according to the validation againt the gazetteer
+#' @param country.gazetteer Name of the column with the country that comes from the gazetteer
 #' @param lat Column with the corrected latitude. Defaults to 'decimalLatitude.new'
 #' @param lon Column with the corrected longitude. Defaults to 'decimalLongitude.new'
 #' @param overwrite logical. Should the newly validated coordinates overwrite
 #'   the problematic ones or should they be stored in separate, new columns.
 #'   Defaults to FALSE
 #'
-#' @importFrom dplyr full_join
-#' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates
+#' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates st_join st_intersects
 #'
-#' @export
+#' @export checkInverted
 #'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 #'
@@ -28,8 +27,17 @@ checkInverted <- function(x,
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  ## Check the gazetteer country information
+  if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
+    country.gazet <- sapply(
+      strsplit(x[, country.gazetteer], "_", fixed = TRUE), function (x) x[1])
+  } else {
+    country.gazet <- x[, country.gazetteer]
+  }
+
   ## Preliminary edits
   x$tmp.order <- 1:nrow(x)
+  x$tmp.country.gazet <- country.gazet
 
   # the input data frame may not have everything
   cols <- check.names[check.names %in% names(x)]
@@ -37,19 +45,19 @@ checkInverted <- function(x,
     check_inv1 <- x[x[,check.names[1]] %in% "check_inverted",]
   }
   if (check.names[2] %in% cols) {
-    check_inv2 <- x[grepl("country_bad|coord_bad", x[,check.names[2]], perl = TRUE) &
+    check_inv2 <- x[grepl("bad_country", x[,check.names[2]], perl = TRUE) &
                       !x[,check.names[2]] %in% "no_cannot_check",]
     # check_inv2 <- x[x$geo.check %in% "coord_original",]
 
   }
-  # check_inv <- dplyr::full_join(check_inv1, check_inv2) # rafl: dplyr is printing all variables used to join
   check_inv <- rbind.data.frame(check_inv1, check_inv2,
-                                stringsAsFactors = FALSE) # rafl: is this an option?
+                                stringsAsFactors = FALSE)
+  check_inv <- check_inv[!duplicated(check_inv$tmp.order),]
 
   check_inv$check_inv <- NULL #we'll use this column
 
   # create inverted lonlat data
-  cols1 <- c("tmp.order", check.names, country.gazetteer, lon, lat)
+  cols1 <- c("tmp.order", check.names, "tmp.country.gazet", lon, lat)
   tmp <- check_inv[, cols1]
   tmp$inv_lon <- -tmp[, lon]
   tmp$inv_lat <- -tmp[, lat]
@@ -72,14 +80,14 @@ checkInverted <- function(x,
   #Removing any latitudes above the possible
   bad.lat <- abs(sf::st_coordinates(check)[,2]) > 90
   if (any(bad.lat))
-    check <- check[!bad.lat,]
+    check <- check[!bad.lat, ]
 
   ## Overlaying inverted lonlat data with the world map
   check <- sf::st_set_crs(check, sf::st_crs(worldMap))
   check1 <- sf::st_join(check, worldMap, join = sf::st_intersects)
   check1 <- check1[!is.na(check1$NAME_0),]
   if (dim(check1)[1] > 0) {
-    check.ids <- data.frame(check1)[,country.gazetteer] %in% check1$NAME_0
+    check.ids <- check1$tmp.country.gazet == check1$NAME_0
     if (any(check.ids)) {
       check1 <- check1[check.ids, c("types", "tmp.order", check.names)]
       check1[, check.names[1]] <- NA_character_
@@ -87,7 +95,7 @@ checkInverted <- function(x,
       new.coords <- sf::st_coordinates(check1)
       colnames(new.coords) <- c(lon, lat)
       check1$geometry <- NULL
-      check1 <- cbind.data.frame(check1[,-1], new.coords,
+      check1 <- cbind.data.frame(check1[, -1], new.coords,
                                  stringsAsFactors = FALSE)
     } else {
       check1 <- NULL
@@ -179,26 +187,27 @@ checkInverted <- function(x,
 
   ## Preparing to return
   if (is.null(check1)) {
-    x <- x[, -which(names(x) == "tmp.order")] # remove temporary order
+    # remove temporary columns
+    tmp.cols <- c("tmp.order", "tmp.country.gazet")
+    x <-
+      x[, -which(names(x) %in% tmp.cols)]
     return(x)
   } else {
     y <- dplyr::left_join(x,
                           check1,
                           by = "tmp.order", suffix = c("", ".new"))
-    sub.cols <- names(check1)[!names(check1) %in% "tmp.order"]
-    sub.cols.new <-paste0(sub.cols, ".new")
+    tmp.cols <- c("tmp.order", "tmp.country.gazet")
+    sub.cols <- names(check1)[!names(check1) %in% tmp.cols]
+    sub.cols.new <- paste0(sub.cols, ".new")
 
     if (overwrite) {
-      sud.rows <- y$tmp.order %in% check1$tmp.order
-      x[sud.rows, sub.cols] <- y[sud.rows, sub.cols.new]
+      sub.rows <- y$tmp.order %in% check1$tmp.order
+      x[sub.rows, sub.cols] <- y[sub.rows, sub.cols.new]
     } else {
-      x[, sub.cols.new] <- y[sud.rows, sub.cols.new]
+      x[sub.rows, sub.cols.new] <- y[sub.rows, sub.cols.new]
     }
     x <- x[order(x$tmp.order),]
-    x <- x[, -which(names(x) == "tmp.order")] # remove temporary order
+    x <- x[, -which(names(x) %in% tmp.cols)] # remove temporary columns
     return(x)
   }
-
-  # y <- dplyr::left_join(x, check_inv)
-  # return(y)
 }

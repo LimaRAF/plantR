@@ -200,7 +200,9 @@ checkCoord <- function(x,
     new.cols <- new.cols[new.cols %in% keep.cols]
 
   #removing unecessary column from the original data frame and returning
-  x <- x[, -which(names(x) == "tmp.order")]
+  tmp.cols <- c("tmp.order", "country.gazet", "state.gazet", "county.gazet",
+                "locality.gazet", "sublocality.gazet")
+  x <- x[, -which(names(x) %in% tmp.cols)]
   if (length(new.cols) == 0) {
     return(x)
   } else {
