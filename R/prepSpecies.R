@@ -79,7 +79,7 @@
 #'
 prepSpecies <- function(x,
                         tax.names = c("scientificName.new","scientificNameAuthorship"),
-                        db = c("bfo","tpl"),
+                        db = c("bfo", "tpl"),
                         sug.dist = 0.9,
                         use.authors = TRUE,
                         drop.cols = c("tmp.ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
@@ -153,13 +153,13 @@ prepSpecies <- function(x,
 
         if (dim(miss_rank)[1] > 0 & length(no_authors) > 0) {
           miss_spp <- rbind(miss_rank,
-                        cbind(miss_sp[spcs >= 2], no_authors))
+                            cbind(miss_sp[spcs >= 2], no_authors))
           miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), , drop = FALSE]
         } else {
-        if (dim(miss_rank)[1] > 0)
-          miss_spp <- miss_rank
-        if (length(no_authors) > 0)
-          miss_spp <- cbind(miss_sp[spcs >= 2], no_authors)
+          if (dim(miss_rank)[1] > 0)
+            miss_spp <- miss_rank
+          if (length(no_authors) > 0)
+            miss_spp <- cbind(miss_sp[spcs >= 2], no_authors)
         }
 
         suggest_miss_sp <-
@@ -168,13 +168,13 @@ prepSpecies <- function(x,
           suggest_miss_sp[!suggest_miss_sp$notes %in% "not found", ]
 
         if (dim(suggest_miss_sp)[1] > 0) {
-        suggest_miss_sp$original.search <-
-          miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+          suggest_miss_sp$original.search <-
+            miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
 
-        #Merging names found at first and second tries
-        found_ids <- suggest_sp$notes %in% "not found" &
-          suggest_sp$original.search %in% suggest_miss_sp$original.search
-        suggest_sp[found_ids, ] <- suggest_miss_sp
+          #Merging names found at first and second tries
+          found_ids <- suggest_sp$notes %in% "not found" &
+            suggest_sp$original.search %in% suggest_miss_sp$original.search
+          suggest_sp[found_ids, ] <- suggest_miss_sp
         }
       }
     }
@@ -188,10 +188,11 @@ prepSpecies <- function(x,
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"] <-
       paste(suggest_sp$suggestedName[suggest_sp$taxon.rank %in% "variety"],
             suggest_sp$infra.epiteth[suggest_sp$taxon.rank %in% "variety"], sep = " var. ")
-    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% c("genus", "family")] <-
-      suggest_sp$search.str[suggest_sp$taxon.rank %in% c("genus", "family")]
+    suggest_sp$suggestedName[suggest_sp$taxon.rank %in% c("genus", "family", "subfamily")] <-
+      suggest_sp$search.str[suggest_sp$taxon.rank %in% c("genus", "family", "subfamily")]
     suggest_sp$suggestedName[suggest_sp$taxon.rank %in% NA] <-
       suggest_sp$original.search[suggest_sp$taxon.rank %in% NA]
+    suggest_sp$suggestedName[suggest_sp$suggestedName %in% c("NA NA")] <- NA
 
     #Merge checks with the original data
     suggest_flora <- merge(df, suggest_sp[,c("original.search","family","suggestedName","authorship","scientific.name","notes","id")],
@@ -290,13 +291,13 @@ prepSpecies <- function(x,
 
     if (!is.null(warns1)) {
       exact_sp$notes[exact_sp$Taxon %in% warns1] <-
-      paste(exact_sp$notes[exact_sp$Taxon %in% warns1], "wrong author: check possible homonym", sep = "|")
-    exact_sp$notes <- gsub("\\|wrong author: check possible homonym", "wrong author: check possible homonym", exact_sp$notes)
+        paste(exact_sp$notes[exact_sp$Taxon %in% warns1], "wrong author: check possible homonym", sep = "|")
+      exact_sp$notes <- gsub("\\|wrong author: check possible homonym", "wrong author: check possible homonym", exact_sp$notes)
     }
 
     exact_sp$notes[exact_sp$Taxonomic.status %in% "" |
                      (!exact_sp$Plant.Name.Index &
-                     !exact_sp$Higher.level & !exact_sp$Typo)] <- "not found"
+                        !exact_sp$Higher.level & !exact_sp$Typo)] <- "not found"
 
     #Getting the valid name at the right rank
     exact_sp$suggestedName <- paste(exact_sp$New.Genus, exact_sp$New.Species, sep=" ")
@@ -351,7 +352,7 @@ prepSpecies <- function(x,
   final.results <- final.results[, -which(names(final.results) %in% drop.cols1)]
   final.results1 <- cbind.data.frame(x,
                                      final.results,
-                             stringsAsFactors = FALSE)
+                                     stringsAsFactors = FALSE)
   names(final.results1)[which(names(final.results1) == "scientific.name")] <-
     "scientificNameFull"
   names(final.results1)[which(names(final.results1) == "notes")] <-

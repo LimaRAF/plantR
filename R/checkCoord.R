@@ -82,7 +82,7 @@ checkCoord <- function(x,
              "locality.gazet", "sublocality.gazet"),
     remove = FALSE,
     fill = "right"
-    )
+  )
 
   ##Creating the geo.check column and assigning the gazetteer and missing classes
   geo.check <- rep(NA_character_, dim(x)[1])
@@ -101,7 +101,8 @@ checkCoord <- function(x,
   # set spatial coordinates
   prj <- sf::st_crs(4326)
   tmp <- sf::st_set_crs(tmp, prj)
-  tmp <- sf::st_join(tmp, worldMap, join = sf::st_intersects)
+  tmp <- suppressMessages(
+    sf::st_join(tmp, worldMap, join = sf::st_intersects))
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
   ##Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
@@ -109,17 +110,18 @@ checkCoord <- function(x,
 
   ##Comparing the spatial data frame with the selected country shapefiles
   latam_all <- dplyr::bind_rows(latamMap) # ö checar poligonos faltantes tipo Manaus ##rafl: dava erro bind_rows pois older versions of dplyr não pode ser usado para sf objects; funcionou agora (loko nem o proprio sf faz isso para sf com diferentes numeros de colunas)
-  x2 <- sf::st_join(tmp, latam_all, join = sf::st_intersects)
+  x2 <- suppressMessages(
+    sf::st_join(tmp, latam_all, join = sf::st_intersects))
   x2 <- dplyr::rename(x2,
-               pais_latam = NAME_0
-               #estado = NAME_1,
-               #municipio = NAME_2
-               #localidade = NAME_3
-               #vai ter um NAME_4 e talvez mais
-               )
+                      pais_latam = NAME_0
+                      #estado = NAME_1,
+                      #municipio = NAME_2
+                      #localidade = NAME_3
+                      #vai ter um NAME_4 e talvez mais
+  )
   #checa diferencas paises e preenche com latam se faltar no mundo
   x2 <- dplyr::mutate(x2, NAME_0 = dplyr::if_else(is.na(pais_wo) &
-                                      !is.na(pais_latam), pais_latam, pais_wo))
+                                                    !is.na(pais_latam), pais_latam, pais_wo))
   # cria o vetor para checar
   x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
   x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
@@ -130,10 +132,10 @@ checkCoord <- function(x,
 
   # recupera todas as linhas
   x3 <- suppressMessages(
-          dplyr::left_join(x,
-                         x2[,c("tmp.order",
-                               "NAME_0", "NAME_1", "NAME_2", "NAME_3",
-                               "loc.coord")]))
+    dplyr::left_join(x,
+                     x2[,c("tmp.order",
+                           "NAME_0", "NAME_1", "NAME_2", "NAME_3",
+                           "loc.coord")]))
   #ast: eu nao sei se vc está tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
   #rafl: ok! removi o geo.check e adicionei o suppressWarnings
 
@@ -153,16 +155,16 @@ checkCoord <- function(x,
 
   ## Updating geo.check
   tmp1 <- apply(x3[ , c("country.check",
-                "state.check",
-                "county.check")], 1, paste, collapse="/")
+                        "state.check",
+                        "county.check")], 1, paste, collapse="/")
   geo.check[is.na(geo.check)] <- tmp1[is.na(geo.check)]
 
   ## Simplifying geo.check
-    #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
-    #rafl1: re-adicionei as 27 categorias e está tudo no 01_sysdata agora
-    #rafl2: agora estou editando tudo direto no geo.check (paste.check removido)
-    repl.check <- simpGeoCheck
-    geo.check <- stringr::str_replace_all(geo.check, repl.check)
+  #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
+  #rafl1: re-adicionei as 27 categorias e está tudo no 01_sysdata agora
+  #rafl2: agora estou editando tudo direto no geo.check (paste.check removido)
+  repl.check <- simpGeoCheck
+  geo.check <- stringr::str_replace_all(geo.check, repl.check)
   # repl.check <- c(
   #   "ok_country" = "ok_country",
   #   "ok_country/ok_state" = "ok_state",

@@ -39,3 +39,30 @@
 #' @format A list of 44 Multipolygon 'sf' objects
 #' @source \url{https://gadm.org}
 "latamMap"
+
+#' Buffer of World Land Map
+#'
+#' Map used to support the validation of the original geographical coordinates.
+#' It consists in a 0.5 degree buffer (~ 55 km in the Equator) around the world
+#' land map. The original polygons were simplified (tolerance 0.005 decimal
+#' degrees). Reference system: WSG84
+#'
+#' @keywords datasets
+#' @name landBuff
+#' @usage data(landBuff)
+#' @format an MULTIPOLYGON 'sf' object with one class: land.
+#' @source \url{http://www.naturalearthdata.com/downloads/10m-physical-vectors/}
+"landBuff"
+
+#' World Shore Lines
+#'
+#' Map used to support the validation of the original geographical coordinates.
+#' It consists the shore lines of the world. The original polygons were
+#' simplified (tolerance 0.005 decimal degrees). Reference system: WSG84
+#'
+#' @keywords datasets
+#' @name shoreLines
+#' @usage data(shoreLines)
+#' @format an MULTILINESTRING 'sf' object.
+#' @source \url{http://www.naturalearthdata.com/downloads/10m-physical-vectors/}
+"shoreLines"

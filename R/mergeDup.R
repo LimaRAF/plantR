@@ -323,11 +323,16 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     #      list(decimalLatitude.new,decimalLongitude.new,origin.coord,resolution.coord,geo.check)]
 
     # creating the order/priority for geo info replacement
-    #### REVER ESSAS CATEGORIAS ASSIM QUE O GEO.CHECK FICAR PRONTO ####
+    patt <- c('invert_lon|invert_lat|invert_both|transposed|transp_inv_lon|transp_inv_lat|transp_inv_both')
+    dt[, geo.check.wk := gsub(patt, "", geo.check.wk, perl = TRUE), ]
+    dt[, geo.check.wk := gsub('\\[\\]', "", geo.check.wk, perl = TRUE), ]
     geo.check.lvs <- data.table::data.table(
       geo.check.wk = c("ok_county", "ok_county_close","ok_locality_gazet","ok_county_gazet",
-                    "ok_state", "ok_state_gazet", "ok_country", "ok_country_gazet", "no_cannot_check"),
-      valor = c(1,3,4,5,8,9,10,11,20))
+                    "shore", "ok_state", "ok_state_gazet", "ok_country", "ok_country_gazet",
+                    "ok_country[border]",
+                    "no_cannot_check", "check_gazetteer", "bad_country", "open_sea"),
+      valor = c(1,3,4,5,6,8,9,10,11,
+                12,20,20,25,25))
     coord.prec.lvs <- data.table::data.table(
       prec.coord.wk = c("miliseconds", "seconds","seconds_centroid",
                            "minutes", "degrees", "no_coord"),

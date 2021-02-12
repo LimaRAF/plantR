@@ -105,7 +105,9 @@ fixSpecies <- function(x = NULL,
                   rplc, species, perl = TRUE, ignore.case = TRUE)
   species <- gsub(paste0(paste0("^", indets," sp\\."), collapse = "|"),
                   rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^(", indets,")([A-Z])"), collapse = "|"),
+  species <- gsub(paste0(paste0("^(", indets[-1],")([A-Z])"), collapse = "|"),
+                  "Indet. sp.\\2", species, perl = TRUE, ignore.case = TRUE)
+  species <- gsub(paste0(paste0("^(", indets[1],")([A-Z])"), collapse = "|"),
                   "Indet. sp.\\2", species, perl = TRUE, ignore.case = TRUE)
   species <- gsub("^sp\\.(?=[0-9])|^sp(?=[0-9])",
                   "Indet. sp.", species, perl = TRUE, ignore.case = TRUE)
@@ -345,6 +347,7 @@ fixSpecies <- function(x = NULL,
       c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
     check1$scientificName.new[indet.ids] <-
       gsub(" sp\\..*", "", check1$scientificName.new, perl = TRUE)[indet.ids]
+
   } else {
     indet.ids <- check1$scientificNameStatus %in%
       c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
@@ -353,6 +356,10 @@ fixSpecies <- function(x = NULL,
       paste0(check1$scientificName.new[indet.ids & !sp.ids], " sp.")
     check1$scientificName.new <-
       gsub(" NA sp\\.$", " sp.", check1$scientificName.new, perl = TRUE)
+    check1$scientificName.new <-
+      gsub("^na sp\\.$", NA, check1$scientificName.new,
+           perl = TRUE, ignore.case = TRUE)
+
   }
 
   return(check1)

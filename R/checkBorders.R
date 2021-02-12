@@ -1,4 +1,4 @@
-#' Checks if two countries share a border
+#' @title Checks if two countries share a border
 #'
 #' @param country1 First country to check
 #' @param country2 Second country to check
@@ -30,13 +30,34 @@ shares_border <- function(country1 = "brazil",
 }
 
 
-#' Flags border points
+#' @title Flag Countries Sharing Borders
 #'
-#' @param x occurrence data frame
+#' @description For those records without a match between the country described
+#'   in the record and the country obtained from the geographical coordinates,
+#'   the function flags if the two countries share borders. These may be useful to
+#'   identify coordinates that are not problematic but that fall in another
+#'   country due to rounding or precision of coordinates or to cases when the
+#'   collector was not aware that a coutry border was crossed before obtaining
+#'   the coordinate.
+#'
+#' @param x a data.frame with the results from the coordinate validation
 #' @param geo.check Name of the column with the validation of the coordinates
-#' against
-#' @param country.shape Name of the column with the country that comes from the shapefile
-#' @param country.gazetteer Name of the column with the country that comes from the gazetteer
+#' against country maps. Default to 'geo.check'
+#' @param country.shape Name of the column with the country that comes from the
+#'   country map, based on the orginal record coordinates. Default to 'NAME_0'
+#' @param country.gazetteer Name of the column with the country that comes from
+#'   the gazetteer, based on the description of the record locality. Default to
+#'   'loc.correct'
+#' @param output a character string with the type of output desired: 'new.col'
+#'   (new column with the result is added to the input data) or 'same.col'
+#'   (results overwritten into column `geo.check`).
+#'
+#' @return if `output` is 'new.col', a new column named 'border.check' is added
+#'   to the data, containing a TRUE/FALSE vector in which TRUE means countries
+#'   which share border and FALSE means countries that do not share borders
+#'   (country mismatch is not due to coordinates close to country borders). If
+#'   `output` is 'same.col', the column defined by `geo.check` is updated with a
+#'   suffix 'borders' or 'inverted' added to the validation class inside brackets.
 #'
 #' @importFrom dplyr left_join if_else
 #'
@@ -47,7 +68,8 @@ shares_border <- function(country1 = "brazil",
 checkBorders <- function(x,
                          geo.check = "geo.check",
                          country.shape = "NAME_0",
-                         country.gazetteer = "loc.correct") {
+                         country.gazetteer = "loc.correct",
+                         output = "new.col") {
 
   ## Check input
   if (!class(x)[1] == "data.frame")
@@ -58,18 +80,26 @@ checkBorders <- function(x,
 
   ## Check the map country information
   if (any(grepl("_", x[, country.shape], fixed = TRUE))) {
+
     country.shp <- sapply(
       strsplit(x[, country.shape], "_", fixed = TRUE), function (x) x[1])
+
   } else {
+
     country.shp <- x[, country.shape]
+
   }
 
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
+
     country.gazet <- sapply(
       strsplit(x[, country.gazetteer], "_", fixed = TRUE), function (x) x[1])
+
   } else {
+
     country.gazet <- x[, country.gazetteer]
+
   }
 
   ## Checking borders for selected records
@@ -78,17 +108,27 @@ checkBorders <- function(x,
   share_border <- suppressMessages(suppressWarnings(
     shares_bord(country.shp[check_these],
                 country.gazet[check_these])))
-  border.check <-
-    dplyr::if_else(share_border == TRUE,
-            "check_borders", "check_inverted")
+  # border.check <-
+  #   dplyr::if_else(share_border == TRUE,
+  #           "check_borders", "check_inverted")
 
   ## Preparing to return
-  #rafl: alguma chance de `shares_bord()` mudar a ordem do data frame, se não sugiro:
-  x$border.check <- x$share_border <- NA
-  x$border.check[check_these] <-
-    border.check
-  x$share_border[check_these] <-
-    share_border
   # x1 <- dplyr::left_join(x, x1)
+  #rafl: alguma chance de `shares_bord()` mudar a ordem do data frame, se não sugiro:
+  if (output == 'new.col') {
+    x$border.check <- NA
+    x$border.check[check_these] <-
+      share_border
+  }
+
+  if (output == 'same.col') {
+    x[check_these, geo.check][share_border] <-
+      "ok_country[border]"
+    #paste0(x[check_these, geo.check][share_border],"[border]")
+    x[check_these, geo.check][!share_border] <-
+      "bad_country[inverted?]"
+    #paste0(x[check_these, geo.check][!share_border],"[inverted?]")
+  }
+
   return(x)
 }

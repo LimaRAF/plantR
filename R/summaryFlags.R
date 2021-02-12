@@ -149,8 +149,12 @@ summaryFlags <- function(x) {
                          is.na(coords.clean[, 1])] <- "cannot_check"
     coords.clean$check1 <- "yes"
     coords.clean$check1[coords.clean$check == "cannot_check"] <- "no"
-    coords.clean[, 1] <- gsub("_gazet", "", coords.clean[, 1])
+    coords.clean[, 1] <- gsub("_gazet$", "", coords.clean[, 1])
     coords.clean[, 1][is.na(coords.clean[, 1])] <- "no_cannot_check"
+
+    patt <- c('invert_lon|invert_lat|invert_both|transposed|transp_inv_lon|transp_inv_lat|transp_inv_both')
+    coords.clean[, 1] <- gsub(patt, "", coords.clean[, 1], perl = TRUE)
+    coords.clean[, 1] <- gsub('\\[\\]', "", coords.clean[, 1], perl = TRUE)
 
     coords.clean0 <- stats::aggregate(coords.clean$N, list(coords.clean$check1, coords.clean$check), sum, na.rm = TRUE)
     names(coords.clean0) <- c("Validated", "Origin", "Records")

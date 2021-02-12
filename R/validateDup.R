@@ -17,10 +17,9 @@
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should all duplicates be removed or only the
 #'   duplicated entries from the same collection? Default to FALSE.
-#' @param ... Parameters from prepDup and mergeDup
 #'
-#' @inherit prepDup
-#' @inherit mergeDup
+#' @inheritParams prepDup
+#' @inheritParams mergeDup
 #'
 #' @details The function works similarly to a wrapper function, where the
 #'   individuals steps of the proposed __plantR__ workflow for preparing,

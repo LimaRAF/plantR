@@ -112,7 +112,6 @@ checkOut <- function(x,
     warning("Column with species name not found: assuming that all records belong to the same taxa", call. = FALSE)
   } else { rm.tax <- FALSE }
 
-
   # Filtering the dataset and creating the data table
   cols <- c(lat, lon, tax.name)
   dt <- data.table::as.data.table(x[,cols])

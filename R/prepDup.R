@@ -91,7 +91,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
                     rec.ID = "numTombo", noYear = "s.d.", noName = "s.n.", noNumb = "s.n.", ignore.miss = TRUE) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
   ## Checking the input columns
@@ -141,7 +141,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
     ids <- nchar(x1$col.year) > 4
     if (any(ids))
       x1$col.year[ids] <- as.character(sapply(strsplit(x1$col.year[ids], " |-|\\/", perl = TRUE),
-                                              function(x) unique(x[nchar(x) >= 4])))
+                                              function(x) paste0(unique(x[nchar(x) >= 4]), collapse = "-")))
     x1$col.year <- suppressWarnings(as.double(x1$col.year))
     x1$col.year[is.na(x1$col.year)] <- noYear
   }

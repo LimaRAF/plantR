@@ -34,7 +34,7 @@
 #'   input taxon if both subspecies and variety are given, and the forma is
 #'   dropped from the input taxon if both subspecies or variety and forma are
 #'   given. If specific and subspecific epithet are identical, the subspecies
-#'   [variety] part is dropped instead, and variety [forma] is kept. Defaults to
+#'   (variety) part is dropped instead, and variety (forma) is kept. Defaults to
 #'   FALSE.
 #' @param file Either a character string naming a file or a connection open for
 #'   writing. "" (default) indicates output to the console.
@@ -44,6 +44,9 @@
 #'   connection to TPL website can be established (temporarily).
 #'
 #' @keywords internal
+#'
+#' @importFrom Taxonstand TPLck
+#' @importFrom pbapply pboptions pblapply
 #'
 #' @export
 TPL1 <- function (splist, genus = NULL, species = NULL, infrasp = NULL,
