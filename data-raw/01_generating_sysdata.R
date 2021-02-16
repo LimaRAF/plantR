@@ -126,7 +126,6 @@ unwanted_latin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
 unwantedLatin <- textclean::replace_non_ascii(unwanted_latin)
 names(unwantedLatin) <- unwanted_latin
 
-
 unwantedEncoding <- c('ã¡' = 'a',
                       'ã¢' = 'a',
                       'ã£' = 'a',

@@ -286,19 +286,20 @@ world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
 world1 <- cleangeo::clgeo_Clean(world1)
 world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
 world2 <- rgeos::gBuffer(world2, byid = TRUE, width = 0)
+world2 <- cleangeo::clgeo_Clean(world2)
 cols <- c("ISO_A2","NAME_LONG")
-world3 <- sp::SpatialPolygonsDataFrame(world2, world@data[,cols])
-names(world3@data) <- tolower(names(world3@data))
+world3 <- sp::SpatialPolygonsDataFrame(world2, world0@data[,cols])
+names(world3@data) <- c("iso_a2","name")
 
 #Editing country name as in the gazetteer
-world3@data$name_long <- prepCountry(world3@data$name_long)
+world3@data$name <- prepCountry(world3@data$name)
 #Replacing country names as in the gazetteer
 tmp1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
 tmp2 <- as.character(tmp1$replace)
 names(tmp2) = as.character(tmp1$pattern)
 #names(tmp2) <- gsub("\\\\", "", names(tmp2))
-world3@data$name_long <- sapply(strsplit(world3@data$name_long,' \\('), function(x) x[[1]][1])
-world3@data$name_long <- stringr::str_replace_all(world3@data$name_long, tmp2)
+world3@data$name <- sapply(strsplit(world3@data$name,' \\('), function(x) x[[1]][1])
+world3@data$name <- stringr::str_replace_all(world3@data$name, tmp2)
 
 #Converting to sf and projecting to WSG84
 world <- sf::st_as_sf(world3)

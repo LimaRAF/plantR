@@ -177,12 +177,9 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   nomes <- gsub(" __", sep0, nomes, fixed = TRUE)
   nomes <- gsub(sep0, sep.out, nomes, fixed = TRUE)
 
-  #Remove special (latin) characters?
-  if (special.char == FALSE) {
-
+  #Remove special (latin-1) characters?
+  if (special.char == FALSE)
     nomes <- rmLatin(nomes)
-
-  }
 
   return(nomes)
 }

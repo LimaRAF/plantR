@@ -3,30 +3,34 @@
 #' @description This function performs the crossing of the geographical
 #' coordinates with the world and Latin-american maps, and it checks for
 #' coordinates falling near the sea shore, open sea and country boundaries. It
-#' also test if problematic coordinates are not inverted or swapped and for the
-#' presence of spatial outliers. Finally, the function searches for records
-#' taken from cultivated individuals.
+#' also test if problematic coordinates are not inverted or swapped. Finally,
+#' the function searches for records taken from cultivated individuals and
+#' for the presence of spatial outliers for each species.
 #'
 #' @param x Data.frame with records and their coordinates in decimal degrees.
+#' @param lon Column with the longitude to be validated. Default to 'decimalLongitude.new'
+#' @param lat Column with the latitude to be validated. Default to 'decimalLatitude.new'
+#' @param country.shape Name of the column with the country name obtained from
+#'   the world map based on the original record coordinates. Default to
+#'   'NAME_0'
+#' @param country.gazetteer Name of the column with the country name obtained
+#'   from the gazetteer, based on the description of the record locality.
+#'   Default to 'loc.correct'
+#' @param tax.name character. Name of the columns containing the species name.
+#'   Default to "scientificName.new"
 #' @param output a character string with the type of output desired: 'new.col'
 #'   (columns with the new results for each type of validation added to the
 #'   input data) or 'same.col' (results are stored only in overwritten into
-#'   column `geo.check`).
-#'
-#' @inheritParams checkCoord
-#' @inheritParams checkBorders
-#' @inheritParams checkInverted
-#' @inheritParams checkShore
-#' @inheritParams checkOut
-#' @inheritParams getCult
+#'   column `geo.check`). Default to 'same.col'.
 #'
 #' @return The input data frame, plus the new columns with the results of the
 #' geographical coordinates (e.g. 'geo.check').
 #'
 #' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for validating
-#'   geographical coordinates are performed altogether (see the __plantR__
-#'   tutorial for details).
+#'   individuals steps of the proposed __plantR__ workflow for the validation
+#'   of the spatial information associated to each record (e.g. geographical
+#'   coordinates) are performed altogether (see the __plantR__ tutorial for
+#'   details).
 #'
 #' @seealso
 #'  \link[plantR]{checkCoord}, \link[plantR]{checkBorders}, \link[plantR]{checkShore},
@@ -126,14 +130,15 @@ validateCoord <- function(x,
     #   ))
   }
 
+  ## Checking for records from cultivated individuals
+  x5 <- getCult(x4)
+
   ## Checking for spatial outliers
-  x5 <- checkOut(x4,
+  x6 <- checkOut(x5,
                  lon = lon,
                  lat = lat,
                  tax.name = tax.name)
 
-  ## Checking for records from cultivated individuals
-  x6 <- getCult(x5)
 
   return(x6)
 }

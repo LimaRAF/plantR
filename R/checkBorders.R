@@ -3,7 +3,6 @@
 #' @param country1 First country to check
 #' @param country2 Second country to check
 #'
-#' @importFrom textclean replace_non_ascii
 #' @importFrom sf st_union st_cast
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
@@ -13,8 +12,9 @@
 #' @export
 shares_border <- function(country1 = "brazil",
                           country2 = "argentina") {
-  w <- spData::world
-  w$nome <- tolower(textclean::replace_non_ascii(w$name_long))
+  # w <- spData::world
+  # w$nome <- tolower(textclean::replace_non_ascii(w$name_long))
+  w <- world
 
   v <- w[w$nome %in% c(country1),]
   z <- w[w$nome %in% c(country2),]
@@ -43,9 +43,9 @@ shares_border <- function(country1 = "brazil",
 #' @param x a data.frame with the results from the coordinate validation
 #' @param geo.check Name of the column with the validation of the coordinates
 #' against country maps. Default to 'geo.check'
-#' @param country.shape Name of the column with the country that comes from the
-#'   country map, based on the orginal record coordinates. Default to 'NAME_0'
-#' @param country.gazetteer Name of the column with the country that comes from
+#' @param country.shape Name of the column with the country name obtained from the
+#'   world map based on the original record coordinates. Default to 'NAME_0'
+#' @param country.gazetteer Name of the column with the country name obtained from
 #'   the gazetteer, based on the description of the record locality. Default to
 #'   'loc.correct'
 #' @param output a character string with the type of output desired: 'new.col'

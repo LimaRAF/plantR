@@ -118,7 +118,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   # Should the duplicates be removed?
   if (rm.dup) {
     if ("numTombo" %in% names(x)) {
-      dt <- data.table::data.table(rmDup(x[, names(x) %in% covs.final]))
+      dt <- data.table::data.table(suppressMessages(
+                  rmDup(x[, names(x) %in% covs.final])))
     } else {
       dt <- data.table::data.table(x[, names(x) %in% covs.final])
       warning("Duplicated specimens cannot be removed; using the all occurrences instead")

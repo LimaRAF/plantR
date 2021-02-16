@@ -13,8 +13,8 @@
 #' @return the input data frame and the new columns with the results from the
 #'   'exact' and/or 'minimun distance' approaches to flag duplicated coordinates.
 #'
-#' @details If type is 'exact', only coodinates with the exact same coordinates
-#'   are flagged. If type is 'dist', coordinates below the minimun threshold
+#' @details If `type` is 'exact', only coodinates with the exact same coordinates
+#'   are flagged. If `type` is 'dist', coordinates below the minimun threshold
 #'   distance defined by `min.dist` are flagged. If both methods are selected,
 #'   the function returns the results for both approaches.
 #'
@@ -114,7 +114,7 @@ uniqueCoord <- function(x,
     dt[, coord.ID := minDist(lon.wrk, lat.wrk, min.dist = min.dist, output = 'group'),
        by = c(tax.name)]
     dt[, dist.ID := .GRP, by = c("coord.ID", tax.name)]
-    dt[, dist := duplicated(.SD), by = c("dist.ID"), .SDcols = c("dist.ID")]
+    dt[, dists := duplicated(.SD), by = c("dist.ID"), .SDcols = c("dist.ID")]
     dt[, c("lon.wrk", "lat.wrk", "coord.ID") := NULL]
   }
 
@@ -127,7 +127,7 @@ uniqueCoord <- function(x,
   }
 
   if (!"flag" %in% output) {
-    col.names <- c("exact", "dist")
+    col.names <- c("exact", "dists")
     col.names <- col.names[col.names %in% names(dt)]
     dt[ , c(col.names) := NULL]
   }

@@ -31,7 +31,6 @@
 #' @author Renato A. F. de Lima
 #'
 #' @importFrom countrycode countrycode
-#' @importFrom textclean replace_non_ascii
 #'
 #' @keywords internal
 #'
@@ -89,14 +88,12 @@ prepCountry <- function(x,
   x1 <- gsub(" and ", " ", x1, fixed = TRUE)
 
   # Removing unwanted characters
-  if (!special.char) {
-    x1 <- textclean::replace_non_ascii(x1)
-  }
+  if (!special.char)
+    x1 <- rmLatin(x1)
 
   # Lower-casing
-  if (to.lower) {
+  if (to.lower)
     x1 <- tolower(x1)
-  }
 
   # Writing the results
   x[!x %in% c("", " ", NA)] <- x1

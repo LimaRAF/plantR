@@ -133,19 +133,19 @@ Tropicos and GBIF backbones.
 
 During the assessment of the taxonomic confidence level of the identifications,
 we did not attempt to set priorities for different specialists within a given
-family. That is, all the specimens determined by the specialist within their
-family of expertise were taken as being validated. Although we recognize that
+family. That is, all species names determined by a specialist within their
+family of expertise are taken as being correct. Although we recognize that
 there are specialists for genera within a family, the validation process is
 currently performed only at the family level. In the case of conflicting species
 identification among family specialists for duplicates across collections, we
 assume the most recent identification as being the valid one.
 
-__plantR__ provide tools for searching for duplicated specimens across herbaria.
+__plantR__ provide tools for searching for duplicated records across collections.
 This search makes more sense when data from different collections are combined
-and it performs well using relatively large datasets (i.e. millions of records).
+and it performs welleven when using relatively large datasets (i.e. millions of records).
 However, the retrieval of duplicates greatly depends on the completeness of the
 input information, the notation standards and if __plantR__ is able to handle
-those differences in notation among collections. In addition, true duplicates
+those differences in notation across collections. In addition, true duplicates
 may not be found due to typos and false duplicates may be returned if the
 duplicate search fields are too flexible.
 
@@ -180,7 +180,7 @@ collections, and other options (see ?rspeciesLink for details).
 __plantR__ also provides the function `rgbif2()`, which is a wrapper of the
 function `rgbif()` of the __rgbif__ package, with an standardized output:
 
-```{r gbif-download, eval = TRUE}
+```{r gbif-download, eval = TRUE, collapse = TRUE}
 occs_gbif <- rgbif2(species = "Euterpe edulis")
 ```
 
@@ -243,7 +243,7 @@ In this example, although we have dowloaded data for a single species (i.e.
 species names, some of them being synonyms. To obtain only valid names, we use
 the function `formatTax()`:
 
-```{r formatTax, eval = TRUE, collapse = TRUE}
+```{r formatTax, eval = TRUE, collapse = FALSE}
 occs <- formatTax(occs)
 ```
 
@@ -255,7 +255,7 @@ Once the new columns with the edited and standardized information are available,
 the occurrence data can be validated. The first validation step regards the
 locality information, which is done using the function `validateLoc()`:
 
-```{r validateLoc, eval = TRUE, collapse = TRUE}
+```{r validateLoc, eval = TRUE, collapse = FALSE}
 occs <- validateLoc(occs)
 ```
 
@@ -264,9 +264,10 @@ occs <- validateLoc(occs)
 The second validation step regards the geographical coordinates of the records,
 which is performed using the function `validateCoord()`:
 
-```{r validateCoord, eval = TRUE, collapse = TRUE}
+```{r validateCoord, eval = FALSE, collapse = FALSE}
 occs <- validateCoord(occs)
-```
+``` 
+
 
 #### Species taxonomy and identification
 
@@ -274,7 +275,7 @@ The next validation step regards the confidence level in the species
 identification associated with the occurrence data, which is one of the main
 __plantR__ features and executed by function `validateTax()`:
 
-```{r validateTax, eval = TRUE, collapse = TRUE}
+```{r validateTax, eval = TRUE, collapse = FALSE}
 occs <- validateTax(occs)
 ```
 
@@ -293,7 +294,7 @@ within groups of duplicates. This tool is performed using the function
 `validateDup()`:
 
 
-```{r validateDup, eval = TRUE, include=TRUE} 
+```{r validateDup, eval = TRUE, include=TRUE, collapse = TRUE} 
 occs <- validateDup(occs)
 ```
 
@@ -304,20 +305,23 @@ for summarizing the occurrence data, using the function `summaryData()`. In this
 example, the taxonomical summary is quite uninformative, since we have only one
 species.
 
-```{r summaryData, eval = TRUE, include=TRUE, collapse= TRUE} 
+```{r summaryData, eval = TRUE, include=TRUE, collapse= FALSE} 
 summ <- summaryData(occs)
 ```
 
-It also provides an overview of the validation results (function `summaryFlags()`):
 
-```{r summaryFlags, eval = TRUE, include=TRUE, collapse= TRUE} 
+__plantR__ also provides an overview of the validation results (function
+`summaryFlags()`):
+
+```{r summaryFlags, eval = TRUE, include=TRUE, collapse= FALSE} 
 flags <- summaryFlags(occs)
 ```
+
 
 The package __plantR__ can also build species check-lists with vouchers using
 the function `checkList()`:
 
-```{r, eval = TRUE, collapse= FALSE} 
+```{r, eval = TRUE, collapse= FALSE, collapse = FALSE} 
 checkList(occs, n.vouch = 3, type = "short")
 ```
 
@@ -333,8 +337,9 @@ __data.table__ which is quite fast even for large datasets.
 
 If you use this package, please cite it as: 
 
-Lima, R.A.F et al. (2021) *plantR*: An R package and workflow for managing
+Lima, R.A.F et al. (2021) plantR: An R package and workflow for managing
   species records from biological collections. In preparation.
+
 
 If you use the function `prepSpecies()`, please also cite the following packages
 (depending on the database used):
