@@ -130,25 +130,29 @@ fixLoc <- function(x,
 
   ## ADM0: Country level
   if (any(c("country","countryCode") %in% loc.levels)) {
-    # Converting any country codes into country names
-    x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] <-
-      countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
-    x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"] <-
-      countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
 
-    # Removing unwanted characters
-    x1[, "country"] <- tolower(textclean::replace_non_ascii(x1[, "country"]))
-    x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
+    # Standardizing country name notation
+    x1[ ,"country"] <- prepCountry(x1[ ,"country"])
 
-    # Replacing '&' by 'and' in compound country names
-    x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
-
-    # Replacing abbreviated 'Saint' names
-    x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"], perl = TRUE)
-
-    # Removing some prepositions from country names
-    x1[, "country"] <- gsub(" of the ", " ", x1[, "country"], fixed = TRUE)
-    x1[, "country"] <- gsub(" of ", " ", x1[, "country"], fixed = TRUE)
+    # # Converting any country codes into country names
+    # x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] <-
+    #   countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
+    # x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"] <-
+    #   countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
+    #
+    # # Removing unwanted characters
+    # x1[, "country"] <- tolower(textclean::replace_non_ascii(x1[, "country"]))
+    # x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
+    #
+    # # Replacing '&' by 'and' in compound country names
+    # x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
+    #
+    # # Replacing abbreviated 'Saint' names
+    # x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"], perl = TRUE)
+    #
+    # # Removing some prepositions from country names
+    # x1[, "country"] <- gsub(" of the ", " ", x1[, "country"], fixed = TRUE)
+    # x1[, "country"] <- gsub(" of ", " ", x1[, "country"], fixed = TRUE)
 
     # Replacing missing info by NA
     pattern <- paste(missLocs, collapse = "|")

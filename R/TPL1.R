@@ -46,7 +46,6 @@
 #' @keywords internal
 #'
 #' @importFrom Taxonstand TPLck
-#' @importFrom pbapply pboptions pblapply
 #'
 #' @export
 TPL1 <- function (splist, genus = NULL, species = NULL, infrasp = NULL,
@@ -55,24 +54,24 @@ TPL1 <- function (splist, genus = NULL, species = NULL, infrasp = NULL,
           drop.lower.level = FALSE, file = "", silent = TRUE,
           repeats = 6)
 {
-  splist2 <- NULL
-  try(splist2 <- splist, silent = TRUE)
-  if (!is.null(splist2) && (!is.null(genus) || !is.null(species) ||
-                            !is.null(infrasp))) {
-    stop("Argument 'splist' incompatible with arguments 'genus' and 'species'")
-  }
-  else if (is.null(splist2) && ((is.null(genus) && !is.null(species)) ||
-                                (!is.null(genus) && is.null(species)))) {
-    stop("Arguments 'genus' and 'species' must be provided")
-  }
-  else if (is.null(splist2) && !is.null(genus) && !is.null(species)) {
-    if (infra == TRUE && !is.null(infrasp)) {
-      splist <- paste(genus, species, infrasp)
-    }
-    else if (infra == FALSE || is.null(infrasp)) {
-      splist <- paste(genus, species)
-    }
-  }
+  # splist2 <- NULL
+  # try(splist2 <- splist, silent = TRUE)
+  # if (!is.null(splist2) && (!is.null(genus) || !is.null(species) ||
+  #                           !is.null(infrasp))) {
+  #   stop("Argument 'splist' incompatible with arguments 'genus' and 'species'")
+  # }
+  # else if (is.null(splist2) && ((is.null(genus) && !is.null(species)) ||
+  #                               (!is.null(genus) && is.null(species)))) {
+  #   stop("Arguments 'genus' and 'species' must be provided")
+  # }
+  # else if (is.null(splist2) && !is.null(genus) && !is.null(species)) {
+  #   if (infra == TRUE && !is.null(infrasp)) {
+  #     splist <- paste(genus, species, infrasp)
+  #   }
+  #   else if (infra == FALSE || is.null(infrasp)) {
+  #     splist <- paste(genus, species)
+  #   }
+  # }
   TPLck2 <- function(d) {
     a <- NULL
     if (silent == FALSE) {
@@ -103,16 +102,16 @@ TPL1 <- function (splist, genus = NULL, species = NULL, infrasp = NULL,
     }
     invisible(a)
   }
-  if (length(splist) < 5) {
+  # if (length(splist) < 5) {
     results <- do.call("rbind", lapply(splist, TPLck2))
-  }
-  else {
-    op <- pbapply::pboptions()
-    pbapply::pboptions(type = "txt")
-    results <- do.call("rbind", pbapply::pblapply(splist,
-                                                  TPLck2))
-    pbapply::pboptions(op)
-  }
+  # }
+  # else {
+  #   op <- pbapply::pboptions()
+  #   pbapply::pboptions(type = "txt")
+  #   results <- do.call("rbind", pbapply::pblapply(splist,
+  #                                                 TPLck2))
+  #   pbapply::pboptions(op)
+  # }
   if (infra == FALSE) {
     results <- results[, -c(4, 13)]
   }

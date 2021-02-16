@@ -111,7 +111,7 @@ wordsForSearch <- c("^prov\\. ",
                     "^estado: ",
                     "^estado ")
 
-unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
+unwanted_latin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
                    'Ç', 'È', 'É', 'Ê', 'Ë',
                    'Ì', 'Í', 'Î', 'Ï',
                    'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
@@ -123,6 +123,9 @@ unwantedLatin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
                    'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
                    'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
                    'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
+unwantedLatin <- textclean::replace_non_ascii(unwanted_latin)
+names(unwantedLatin) <- unwanted_latin
+
 
 unwantedEncoding <- c('ã¡' = 'a',
                       'ã¢' = 'a',

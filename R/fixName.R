@@ -9,6 +9,7 @@
 #' @param sep.out a character string with the symbol separating multiple names
 #'   in the output string. Defaults to "; ".
 #' @param special.char logical. Should special characters be maintained? Default
+#'   to FALSE.
 #'
 #' @return The character string \code{x} in the standard notation to facilitate
 #'   further data processing.
@@ -26,13 +27,12 @@
 #'   taken independently of the presence of spaces nearby.
 #'
 #'   Due to common encoding problems related to Latin characters, names are
-#'   returned without accents by default. This typicaBut users can choose between outputs
+#'   returned without accents by default. But users can choose between outputs
 #'   with and without accents and species characters, by setting the argument
 #'   `special.char` to TRUE.
 #'
 #' @author Renato A. F. de Lima & Hans ter Steege
 #'
-#' @importFrom textclean replace_non_ascii
 #' @importFrom stringr str_trim
 #'
 #' @examples
@@ -180,25 +180,7 @@ fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," 
   #Remove special (latin) characters?
   if (special.char == FALSE) {
 
-    #Getting the special characters to be replaced
-    unwanted_latin <- unwantedLatin
-    replace_latin <- textclean::replace_non_ascii(unwanted_latin)
-
-    #Single letter replacements
-    replace_latin1 <- replace_latin[nchar(replace_latin) == 1]
-    unwanted_latin1 <- unwanted_latin[nchar(replace_latin) == 1]
-    nomes <- chartr(
-      paste(unwanted_latin1, collapse = ''),
-      paste(replace_latin1, collapse = ''),
-      nomes)
-
-    #Double letter replacements
-    replace_latin2 <- replace_latin[nchar(replace_latin) == 2]
-    names(replace_latin2) <- unwanted_latin[nchar(replace_latin) == 2]
-    for (i in 1:length(replace_latin2))
-      nomes <- gsub(names(replace_latin2)[i],
-                    replace_latin2[i],
-                    nomes, fixed = TRUE)
+    nomes <- rmLatin(nomes)
 
   }
 

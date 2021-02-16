@@ -1,17 +1,24 @@
-#' @title Validation of Geographical Coordinates
+#' @title Spatial Validation of Species Records
 #'
 #' @description This function performs the crossing of the geographical
 #' coordinates with the world and Latin-american maps, and it checks for
 #' coordinates falling near the sea shore, open sea and country boundaries. It
-#' also test if problematic coordinates are not inverted or swapped.
+#' also test if problematic coordinates are not inverted or swapped and for the
+#' presence of spatial outliers. Finally, the function searches for records
+#' taken from cultivated individuals.
 #'
-#' @param x
-#' @param output
+#' @param x Data.frame with records and their coordinates in decimal degrees.
+#' @param output a character string with the type of output desired: 'new.col'
+#'   (columns with the new results for each type of validation added to the
+#'   input data) or 'same.col' (results are stored only in overwritten into
+#'   column `geo.check`).
 #'
 #' @inheritParams checkCoord
 #' @inheritParams checkBorders
 #' @inheritParams checkInverted
 #' @inheritParams checkShore
+#' @inheritParams checkOut
+#' @inheritParams getCult
 #'
 #' @return The input data frame, plus the new columns with the results of the
 #' geographical coordinates (e.g. 'geo.check').
@@ -23,7 +30,7 @@
 #'
 #' @seealso
 #'  \link[plantR]{checkCoord}, \link[plantR]{checkBorders}, \link[plantR]{checkShore},
-#'  \link[plantR]{checkInverted}
+#'  \link[plantR]{checkInverted}, \link[plantR]{checkOut}, \link[plantR]{getCult}
 #'
 #' @author Andrea Sánchez-Tapia, Sara R. Mortara & Renato A. F. de Lima
 #'
@@ -119,14 +126,15 @@ validateCoord <- function(x,
     #   ))
   }
 
-  ## Checking for records from cultivated individuals
-  x5 <- getCult(x4)
-
   ## Checking for spatial outliers
-  x6 <- checkOut(x5,
+  x5 <- checkOut(x4,
                  lon = lon,
                  lat = lat,
                  tax.name = tax.name)
+
+  ## Checking for records from cultivated individuals
+  x6 <- getCult(x5)
+
   return(x6)
 }
 
