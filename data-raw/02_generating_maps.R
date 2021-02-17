@@ -281,7 +281,7 @@ save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
 
 #### WORLD ####
 # map for function share_borders()
-world0 <- rnaturalearth::ne_download(scale = 10, type = 'countries', category = 'cultural')
+world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
 world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
 world1 <- cleangeo::clgeo_Clean(world1)
 world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
