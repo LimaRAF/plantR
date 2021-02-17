@@ -10,7 +10,7 @@ prepSpecies(
   db = c("bfo", "tpl"),
   sug.dist = 0.9,
   use.authors = TRUE,
-  drop.cols = c("ordem", "family", "verbatimSpecies", "author", "full_sp",
+  drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
     "authorship", "id")
 )
 }
@@ -69,13 +69,12 @@ sp.list <- c("Casearia sylvestris","Casearia sylvestirs",
   "Casearia sylvestris angustifolia", "Casearia attenuata",
   "Casearia celtidifolia", "Casearia celtidifolia","Casearia tropicana")
 aut_list <- c("Sw.", "Sw.", "Uittien", "Rusby", "Kunth", "de Vriese","L.")
+
 df <- data.frame(scientificName.new = sp.list,
-  scientificNameAuthorship = aut_list,
-  stringsAsFactors = FALSE)
+  scientificNameAuthorship = aut_list)
+
 prepSpecies(df)
 prepSpecies(df, db = c("tpl","bfo"))
-prepSpecies(df, db = "bfo")
-prepSpecies(df, db = "tpl")
 prepSpecies(df, db = "tpl", sug.dist = 0.85)
 
 }

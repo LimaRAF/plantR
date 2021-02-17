@@ -2,27 +2,63 @@
 % Please edit documentation in R/checkInverted.R
 \name{checkInverted}
 \alias{checkInverted}
-\title{Checks records for inverted and transposed coordinates}
+\title{Check Inverted/Swapped Coordinates}
 \usage{
 checkInverted(
   x,
-  country_gazetteer = "country",
+  check.names = c("border.check", "geo.check"),
+  country.gazetteer = "country.gazet",
   lat = "decimalLatitude.new",
-  lon = "decimalLongitude.new"
+  lon = "decimalLongitude.new",
+  output = "new.col"
 )
 }
 \arguments{
 \item{x}{Occurrences data frame}
 
-\item{country_gazetteer}{Column with the country according to the exsicatta}
+\item{check.names}{The columns with the results from the border checking and
+coordinate checking, in that order. Defaults to 'border.check' and 'geo.check'.}
 
-\item{lat}{Column with the corrected clean latitude Defaults to decimalLatitude.new}
+\item{country.gazetteer}{Name of the column with the country that comes from the gazetteer}
 
-\item{lon}{Column with the corrected clean latitude Defaults to decimalLongitude.new}
+\item{lat}{Column with the corrected latitude. Defaults to 'decimalLatitude.new'}
+
+\item{lon}{Column with the corrected longitude. Defaults to 'decimalLongitude.new'}
+
+\item{output}{a character string with the type of output desired: 'new.col'
+(new column with the newly validated coordinates are added to the input
+data) or 'same.col' (results are overwritten into the existing columns).}
+}
+\value{
+if \code{output} is 'new.col', new columns with a suffix '.new' are added
+to the data, containing the update information on the columns defined by
+\code{check.names}, \code{lat} and \code{lon}. If \code{output} is 'same.col', the columns
+defined by these arguments are updated with the validated information
+after inverting/swapping the coordinates.
 }
 \description{
-Checks records for inverted and transposed coordinates
+The function detects possible inversions and/or swaps in the
+geographical coordinates of the records, by creating all possible combinations
+of inverted and swapped latitude/longitudes (see Details) and crossing them
+with the world map. If the procedure does not found at least one
+inverted/swapped coordinate, the input data is returned without edits.
+}
+\details{
+Besides the newly validade geographical coordinates, the function
+returns a 'ok_country' followed by the information on which combination of
+inverted (change in coordinate signal) and/or swapped coordinates (longitude
+as latitude and vice-versa) the validation was acquired. This information is
+provided in brackets, as follows:
+\itemize{
+\item 'invert_lon': inverted longitude
+\item 'invert_lat': inverted latitude
+\item 'invert_both': inverted longitude and latitude
+\item 'transposed': longitude as latitude and vice-versa (i.e. swap)
+\item 'transp_inv_lon': latitude as longitude and inverted longitude as latitude
+\item 'transp_inv_lat': inverted latitude as longitude and longitude as latitude
+\item 'transp_inv_both': inverted latitude as longitude and inverted longitude as latitude
+}
 }
 \author{
-Andrea Sánchez-Tapia & Sara Mortara
+Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 }

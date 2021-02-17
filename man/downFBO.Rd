@@ -2,7 +2,7 @@
 % Please edit documentation in R/downFBO.R
 \name{downFBO}
 \alias{downFBO}
-\title{Download Data from the Brazilian Flora Online}
+\title{Download Species Information from the Brazilian Flora Online}
 \usage{
 downFBO(
   id,

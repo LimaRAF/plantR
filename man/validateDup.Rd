@@ -27,8 +27,6 @@ number (a.k.a. accession number) of the record. Default to "catalogNumber".}
 
 \item{remove}{logical. Should all duplicates be removed or only the
 duplicated entries from the same collection? Default to FALSE.}
-
-\item{...}{Parameters from prepDup and mergeDup}
 }
 \value{
 The input data frame, plus the new columns with the formatted
@@ -48,7 +46,7 @@ the \strong{plantR} tutorial for details).
 }
 \seealso{
 \link[plantR]{prepDup}, \link[plantR]{getDup}, \link[plantR]{mergeDup},
-and \link[plantR]{rmDup}.
+\link[plantR]{rmDup}
 }
 \author{
 Renato A. F. de Lima

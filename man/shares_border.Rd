@@ -17,3 +17,4 @@ Checks if two countries share a border
 \author{
 Andrea Sánchez-Tapia & Sara Mortara
 }
+\keyword{internal}

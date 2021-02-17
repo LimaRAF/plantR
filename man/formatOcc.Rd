@@ -48,9 +48,6 @@ from the Darwin Core standards (the functions default):
 
 Missing year of collection in the field 'year' are internally replaced by
 the date stored in the field 'eventDate', if this field is not empty as well.
-
-The function uses the R package \strong{data.table} internally to speed up the
-processing of larger data sets.
 }
 \seealso{
 \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},

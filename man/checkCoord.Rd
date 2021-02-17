@@ -4,7 +4,18 @@
 \alias{checkCoord}
 \title{Check Geographical Coordinates}
 \usage{
-checkCoord(x = occs, lon = "decimalLongitude.new", lat = "decimalLatitude.new")
+checkCoord(
+  x,
+  lon = "decimalLongitude.new",
+  lat = "decimalLatitude.new",
+  str.name = "loc.correct",
+  orig.coord = "origin.coord",
+  res.gazet = "resolution.gazetteer",
+  dist.center = FALSE,
+  lon.gazet = "longitude.gazetteer",
+  lat.gazet = "latitude.gazetteer",
+  keep.cols = c("geo.check", "distCentroid_m")
+)
 }
 \arguments{
 \item{x}{Data.frame with coordinates in decimal degrees.}
@@ -12,10 +23,46 @@ checkCoord(x = occs, lon = "decimalLongitude.new", lat = "decimalLatitude.new")
 \item{lon}{Column with the longitude to be validated}
 
 \item{lat}{Column with the latitude to be validated}
+
+\item{str.name}{Column with the verified locality search string}
+
+\item{orig.coord}{Column with the origin of the coordinates (tipically the
+output of function \code{getCoord()})}
+
+\item{res.gazet}{Column with the locality resolution level retrieved from the
+gazetteer}
+
+\item{dist.center}{Logical. Should the distance between the original
+coordinates and those retrieved in the gazetteer be returned. Defaults to
+FALSE.}
+
+\item{lon.gazet}{Column with the longitude obtained from a gazetteer}
+
+\item{lat.gazet}{Column with the latitude obtained from a gazetteer}
+
+\item{keep.cols}{character. Name of columns that should be kept in the
+output.}
 }
 \description{
-This function makes the first check of the coordinates
-against the worldMap and LatamMap shapefiles
+This function makes the check of the coordinates
+against the world and Latin-American maps. It optionally returns the
+distance between the original coordinates and those from a gazetteer
+for coordinates not validated at the county level.
+}
+\details{
+By default the function returns only the geographical validation column
+('geo.check') and the distance between the original coordinates and those
+from a gazetteer, if \code{dist.center} is TRUE. Other columns available for the
+output that may be relevant are:
+\itemize{
+\item the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
+'NAME_2' and 'NAME_3';
+\item the locality string in the \strong{plantR} format combining the localty
+obtained from the maps: 'loc.coord';
+\item the checks between the locality info obtained from \code{str.name} and the
+administrative levels from the maps: 'country.check', 'state.check' and
+'county.check'.
+}
 }
 \author{
 Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima

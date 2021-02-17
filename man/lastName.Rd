@@ -32,9 +32,11 @@ independently if names are provided in lower or capital letters. It is
 relatively stable to the format and spacing of the string provided, but it
 may not work in all cases.
 
-It implicitly assumes that last names are (i) the ones provided at the end of
-the name string if there is no comma, or (ii)the first name preceeding the comma,
-if there is a comma in the name string.
+It implicitly assumes that last names are (i) the ones provided at the end
+of the name string if there is no comma, or (ii) the first name preceeding
+the comma, if there is a comma in the name string. Few exceptions related to
+names not in the 'first + last name' or 'last name + comma + first name'
+formats (e.g. 'Hatschbach G.G.') are also considered. But
 
 If only one name is given, the function returns the same name with the first
 letter capitalized.
@@ -50,13 +52,14 @@ to TRUE.
 \examples{
 
 # Simple last name
- lastName("Al Gentry")
+ lastName("Gert Hatschbach")
  lastName("Gert Guenther Hatschbach")
  lastName("Gert G. Hatschbach")
  lastName("GERT GUENTHER HATSCHBACH")
  lastName("HATSCHBACH, G.G.")
  lastName("HATSCHBACH, G. G.")
  lastName("G. G. HATSCHBACH")
+ lastName("Hatschbach GG")
 
  # Last name with generational suffixes
  lastName("Hermogenes Leitao Filho")
@@ -69,7 +72,7 @@ to TRUE.
  lastName("Saint-Hilaire A.")
 
  # Multiple names
- names <- c("Gentry, AH", "Gentry A.H.",
+ names <- c("Hatschbach, GG", "Hatschbach G.G.",
  "Leitao filho, H. F.","Saint-Hilaire, augustin")
  lastName(names)
  lastName(names, invert = TRUE)
@@ -77,6 +80,7 @@ to TRUE.
 
  # Unusual formatting
  lastName("Cesar Sandro, Esteves, F")
+ lastName("C.S. Esteves F.")
  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
  # two or more names, separated by comma: output correct
  lastName("A. Alvarez, A. Zamora & V. Huaraca")
@@ -84,7 +88,6 @@ to TRUE.
  lastName("Karl Emrich & Balduino Rambo")
 
  # Some problematic (unresolved) examples
- lastName("Gentry AH")
  lastName("Maria Da Silva", invert = TRUE, initials = TRUE)
 
 }

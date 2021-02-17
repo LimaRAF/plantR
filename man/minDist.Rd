@@ -50,3 +50,4 @@ minDist(lon, lat, output = 'dist')
 \author{
 Renato A. F. de Lima
 }
+\keyword{internal}

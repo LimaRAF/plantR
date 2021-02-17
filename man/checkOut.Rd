@@ -17,9 +17,11 @@ checkOut(
 \arguments{
 \item{x}{a data frame with the species records.}
 
-\item{lon}{character. Column with the record longitude in decimal degrees}
+\item{lon}{character. Column with the record longitude in decimal degrees.
+Default to 'decimalLongitude.new'.}
 
-\item{lat}{character. Column with the record latitude in decimal degrees}
+\item{lat}{character. Column with the record latitude in decimal degrees.
+Default to 'decimalLatitude.new'}
 
 \item{tax.name}{character. Name of the columns containing the species name.
 Default to "scientificName.new"}
@@ -105,7 +107,7 @@ Liu, C., White, M., and Newell, G. 2018. Detecting outliers in species
 distribution data. Journal of Biogeography, 45(1): 164–176.
 }
 \seealso{
-\link[plantR]{getCult}.
+\link[plantR]{getCult}, \link[plantR]{mahalanobisDist}
 }
 \author{
 Renato A. F. de Lima
