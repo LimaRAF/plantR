@@ -39,8 +39,8 @@ the input data frame and the new columns with the results from the
 Flag Duplicated Coordinates
 }
 \details{
-If type is 'exact', only coodinates with the exact same coordinates
-are flagged. If type is 'dist', coordinates below the minimun threshold
+If \code{type} is 'exact', only coodinates with the exact same coordinates
+are flagged. If \code{type} is 'dist', coordinates below the minimun threshold
 distance defined by \code{min.dist} are flagged. If both methods are selected,
 the function returns the results for both approaches.
 

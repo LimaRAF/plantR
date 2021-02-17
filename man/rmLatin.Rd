@@ -20,7 +20,7 @@ Extended-A. For a more complete replacement of all non-ASCII characters,
 please use the function \code{replace_non_ascii()} from package \strong{textclean}.
 }
 \examples{
-  nomes <- c("ThomÃ©", "MuÃ±oz", "Å“uf")
+  nomes <- c("Thomé", "Muñoz", "œuf")
   Encoding(nomes) <- "latin1"
   nomes
 

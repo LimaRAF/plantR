@@ -21,7 +21,8 @@ to FALSE.}
 \item{sep.out}{a character string with the symbol separating multiple names
 in the output string. Defaults to "; ".}
 
-\item{special.char}{logical. Should special characters be maintained? Default}
+\item{special.char}{logical. Should special characters be maintained? Default
+to FALSE.}
 }
 \value{
 The character string \code{x} in the standard notation to facilitate
@@ -44,7 +45,7 @@ For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
 taken independently of the presence of spaces nearby.
 
 Due to common encoding problems related to Latin characters, names are
-returned without accents by default. This typicaBut users can choose between outputs
+returned without accents by default. But users can choose between outputs
 with and without accents and species characters, by setting the argument
 \code{special.char} to TRUE.
 }

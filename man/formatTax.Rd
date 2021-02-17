@@ -12,8 +12,8 @@ formatTax(
   tax.names = c("scientificName.new", "scientificNameAuthorship"),
   db = c("bfo", "tpl"),
   sug.dist = 0.9,
-  use.authors = TRUE,
-  drop.cols = c("ordem", "family", "verbatimSpecies", "author", "full_sp",
+  use.authors = FALSE,
+  drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
     "authorship", "id"),
   fam.name = "family",
   gen.name = "genus",
@@ -26,11 +26,11 @@ formatTax(
 \item{use.suggestion}{logical. Should the edited species names be used
 instead of the input species names? Defaults to TRUE.}
 
-\item{tax.name}{character. Name of the columns containing the species name. Default
-to "scientificName"}
+\item{tax.name}{character. Name of the columns containing the species name.
+Default to "scientificName"}
 
 \item{rm.rank}{logical. Should the infra-specific rank abbreviation be
-removed? Default to FALSE}
+removed from the name? Default to FALSE}
 
 \item{tax.names}{character. Names of the columns containing the species names
 and authors. Defaults to 'scientificName.new' and

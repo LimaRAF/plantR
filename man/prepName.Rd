@@ -14,8 +14,7 @@ prepName(
   treat.prep = c("Dr.", "Pe.", "Prof.", "Sr.", "Mr."),
   format = "last_init",
   get.prep = FALSE,
-  get.initials = TRUE,
-  ...
+  get.initials = TRUE
 )
 }
 \arguments{
@@ -30,7 +29,8 @@ standardized? Default to TRUE.}
 \item{sep.out}{a character string with the symbol separating multiple names
 in the output string. Defaults to "; ".}
 
-\item{special.char}{logical. Should special characters be maintained? Default}
+\item{special.char}{logical. Should special characters be maintained? Default
+to FALSE.}
 
 \item{output}{a character string with the type of output desired: all names,
 first name, or auxiliary names.}

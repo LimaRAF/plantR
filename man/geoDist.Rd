@@ -33,3 +33,4 @@ geoDist(lon, lat)
 \author{
 Renato A. F. de Lima
 }
+\keyword{internal}

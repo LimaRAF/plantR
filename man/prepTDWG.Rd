@@ -76,6 +76,7 @@ examples below.
   prepTDWG("A H Gentry")
   prepTDWG("Gentry, Alwyn Howard")
   prepTDWG("Gentry, AH")
+  prepTDWG("Gentry AH")
   prepTDWG("GENTRY, A H")
   prepTDWG("gentry, alwyn howard")
   prepTDWG("gentry, a.h.")
@@ -118,6 +119,8 @@ examples below.
   prepTDWG("A. Alvarez, A. Zamora & V. Huaraca")
   # one name, two commas: fails to get all names
   prepTDWG("Cesar Sandro, Esteves, F")
+  #' one name, abbreviations in the start and end: fails to get all names
+  prepTDWG("C.S. Esteves F.")
 
 }
 \references{
