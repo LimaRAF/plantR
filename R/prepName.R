@@ -104,7 +104,7 @@ prepName <- function(x,
                      sep.out = "|",
                      special.char = FALSE,
                      output = "all",
-                     treat.prep = c("Dr.","Pe.","Prof.","Sr.","Mr."),
+                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.","Sra.", "Mr.", "Mrs.", "Mme.", "Sir", "Dame"),
                      format = "last_init",
                      get.prep = FALSE,
                      get.initials = TRUE) {
