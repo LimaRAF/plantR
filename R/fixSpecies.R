@@ -5,7 +5,7 @@
 #' the species scientific name. It creates a new column with the original
 #' string and the new suggested name. It also flags problematic names (character
 #' string with numbers, authors, wrong case, or other names besides genus and
-#' epithet etc). Names can be return with or without infra-specific ranks (var.
+#' epithet etc). Names can be returned with or without infra-specific ranks (var.
 #' and subsp.) or abbreviations of unespecific names (sp. or spp.).
 #'
 #' @return

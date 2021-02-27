@@ -41,7 +41,17 @@ FALSE.}
 \item{lat.gazet}{Column with the latitude obtained from a gazetteer}
 
 \item{keep.cols}{character. Name of columns that should be kept in the
-output.}
+output. Defaults to c("geo.check", "distCentroid_m"), if \code{dist.center} is
+\code{TRUE}. Other columns available for the output that may be relevant are:
+\itemize{
+\item the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
+'NAME_2' and 'NAME_3';
+\item the locality string in the \strong{plantR} format combining the locality
+obtained from the maps: 'loc.coord';
+\item the checks between the locality info obtained from \code{str.name} and the
+administrative levels from the maps: 'country.check', 'state.check' and
+'county.check'.
+}}
 }
 \description{
 This function makes the check of the coordinates
@@ -50,19 +60,7 @@ distance between the original coordinates and those from a gazetteer
 for coordinates not validated at the county level.
 }
 \details{
-By default the function returns only the geographical validation column
-('geo.check') and the distance between the original coordinates and those
-from a gazetteer, if \code{dist.center} is TRUE. Other columns available for the
-output that may be relevant are:
-\itemize{
-\item the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
-'NAME_2' and 'NAME_3';
-\item the locality string in the \strong{plantR} format combining the localty
-obtained from the maps: 'loc.coord';
-\item the checks between the locality info obtained from \code{str.name} and the
-administrative levels from the maps: 'country.check', 'state.check' and
-'county.check'.
-}
+
 }
 \author{
 Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima

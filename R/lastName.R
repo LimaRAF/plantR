@@ -32,7 +32,7 @@
 #'   defined by the argument `noName`.
 #'
 #'   The function can also return all names but the last name detected by
-#'   setting the argument `invert` to TRUE. In this case, user can chose between
+#'   setting the argument `invert` to TRUE. In this case, user can choose between
 #'   full first names and only their initials by setting the argument `initials`
 #'   to TRUE.
 #'
@@ -84,8 +84,10 @@
 #'  # Some problematic (unresolved) examples
 #'  lastName("Maria Da Silva", invert = TRUE, initials = TRUE)
 #'
-lastName <- function(name, noName = "s.n.", invert = FALSE, initials = FALSE) {
-
+lastName <- function(name,
+                     noName = "s.n.",
+                     invert = FALSE,
+                     initials = FALSE) {
   # detecting missing names
   miss.name <- name %in% c("NA", NA, "", " ", noName)
 

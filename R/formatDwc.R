@@ -143,8 +143,8 @@ formatDwc <- function(splink_data = NULL,
     # checking name standards
     splink_cols <- sort(unique(stats::na.omit(fieldNames$speciesLink)))
     if (any(!splink_cols %in% names(splink_data))) {
-      # stop("splink_data does not follow the speciesLink pattern!")
-      warning("some columns in splink_data does not follow the speciesLink pattern!", call. = FALSE)
+      # stop("splink_data does not follow the speciesLink pattern")
+      warning("some columns in splink_data do not follow the speciesLink pattern", call. = FALSE)
     }
     # required absent fields in speciesLink: municipality and dateIdentified
     miss.cols <- must[!must %in% names(splink_data)]

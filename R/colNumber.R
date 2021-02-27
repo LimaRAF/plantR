@@ -43,7 +43,9 @@
 #' # Defining user-specific abbreviations for the specimens without collector number
 #' colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
 #'
-colNumber <- function(x, colCodes = NULL, noNumb = "s.n.") {
+colNumber <- function(x,
+                      colCodes = NULL,
+                      noNumb = "s.n.") {
 
   # first edits
   x <- gsub("\\s\\s+", " ", x, perl = TRUE)

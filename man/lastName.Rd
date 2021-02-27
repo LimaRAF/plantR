@@ -45,7 +45,7 @@ For missing names (i.e. "", " " or NAs) the function returns the character
 defined by the argument \code{noName}.
 
 The function can also return all names but the last name detected by
-setting the argument \code{invert} to TRUE. In this case, user can chose between
+setting the argument \code{invert} to TRUE. In this case, user can choose between
 full first names and only their initials by setting the argument \code{initials}
 to TRUE.
 }

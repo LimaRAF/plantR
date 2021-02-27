@@ -17,14 +17,14 @@
 #' @param noName character. The standard notation for missing data in the field
 #'   'Name'
 #'
-#' @details The function works siyesmilarly to a wrapper, where many individuals
+#' @details The function works similarly to a wrapper, where many individual
 #'   steps of the proposed __plantR__ workflow for editing collection
 #'   information are performed altogether (see the __plantR__ tutorial and the
 #'   help of each function for details).
 #'
 #'   Ideally, the input data frame must contain at least the following fields
 #'   from the Darwin Core standards (the functions default):
-#'   - 'intitutionCode' and 'collectionCode' (codes of the institution and collection);
+#'   - 'institutionCode' and 'collectionCode' (codes of the institution and collection);
 #'   - 'year' and 'eventDate' (year of the collection);
 #'   - 'recordedBy' (collector(s) name(s));
 #'   - 'recordNumber' (collector number)
@@ -117,18 +117,26 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   #    by = recordedBy.new]
   # dt[, recordedBy.new := prepName(recordedBy.new, fix.names = FALSE, output = "first"),
   #    by = recordedBy.new]
-  x$recordedBy.aux <- prepName(x$recordedBy.new, fix.names = FALSE,
-                               sep.out = "; ", output = "aux")
-  x$recordedBy.new <- prepName(x$recordedBy.new, fix.names = FALSE, output = "first")
+  x$recordedBy.aux <- prepName(x$recordedBy.new,
+                               fix.names = FALSE,
+                               sep.out = "; ",
+                               output = "aux")
+  x$recordedBy.new <- prepName(x$recordedBy.new,
+                               fix.names = FALSE,
+                               output = "first")
 
   # data.table::setkey(dt, identifiedBy.new)
   # dt[, identifiedBy.aux := prepName(identifiedBy.new, fix.names = FALSE, sep.out = "; ", output = "aux"),
   #    by = identifiedBy.new]
   # dt[, identifiedBy.new := prepName(identifiedBy.new, fix.names = FALSE, sep.out = "; ", output = "first"),
   #    by = identifiedBy.new]
-  x$identifiedBy.aux <- prepName(x$identifiedBy.new, fix.names = FALSE,
-                               sep.out = "; ", output = "aux")
-  x$identifiedBy.new <- prepName(x$identifiedBy.new, fix.names = FALSE, output = "first")
+  x$identifiedBy.aux <- prepName(x$identifiedBy.new,
+                                 fix.names = FALSE,
+                                 sep.out = "; ",
+                                 output = "aux")
+  x$identifiedBy.new <- prepName(x$identifiedBy.new,
+                                 fix.names = FALSE,
+                                 output = "first")
 
   ## Standardize the notation for missing names
   # data.table::setkey(dt, recordedBy.new)
@@ -137,15 +145,19 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   # data.table::setkey(dt, identifiedBy.new)
   # dt[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = noName),
   #    by = identifiedBy.new]
-  x$recordedBy.new <- missName(x$recordedBy.new, type = "collector", noName = noName)
-  x$identifiedBy.new <- missName(x$identifiedBy.new, type = "identificator", noName = noName)
-
+  x$recordedBy.new <- missName(x$recordedBy.new,
+                               type = "collector",
+                               noName = noName)
+  x$identifiedBy.new <- missName(x$identifiedBy.new,
+                                 type = "identificator",
+                                 noName = noName)
 
   ## Extract the last name of the collector
   # data.table::setkey(dt, recordedBy.new)
   # dt[, last.name := lastName(recordedBy.new, noName = "s.n."),
   #    by = recordedBy.new]
-  x$last.name <- lastName(x$recordedBy.new, noName = noName)
+  x$last.name <- lastName(x$recordedBy.new,
+                          noName = noName)
 
   ## Re-ordering and returning
   # data.table::setorder(dt, "tmp.ordem")

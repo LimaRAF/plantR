@@ -30,7 +30,7 @@ collection number, dates and collection codes from herbarium occurrences
 obtained from on-line databases, such as GBIF or speciesLink.
 }
 \details{
-The function works siyesmilarly to a wrapper, where many individuals
+The function works similarly to a wrapper, where many individual
 steps of the proposed \strong{plantR} workflow for editing collection
 information are performed altogether (see the \strong{plantR} tutorial and the
 help of each function for details).
@@ -38,7 +38,7 @@ help of each function for details).
 Ideally, the input data frame must contain at least the following fields
 from the Darwin Core standards (the functions default):
 \itemize{
-\item 'intitutionCode' and 'collectionCode' (codes of the institution and collection);
+\item 'institutionCode' and 'collectionCode' (codes of the institution and collection);
 \item 'year' and 'eventDate' (year of the collection);
 \item 'recordedBy' (collector(s) name(s));
 \item 'recordNumber' (collector number)

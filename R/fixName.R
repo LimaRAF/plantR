@@ -50,9 +50,10 @@
 #'
 #' @export fixName
 #'
-fixName <- function(nomes, sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
-                    sep.out = "; ", special.char = FALSE) {
-
+fixName <- function(nomes,
+                    sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
+                    sep.out = "; ",
+                    special.char = FALSE) {
   #Defining the input and temporary separators
   sep.in2 <- sep.in[grepl('[[:alpha:]]', sep.in) & !grepl(' et ', sep.in)]
   sep.in1 <- sep.in[!grepl('[[:alpha:]]', sep.in)]
