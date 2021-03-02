@@ -60,11 +60,11 @@ validateDup <- function(occ.df,
                              stringsAsFactors = FALSE)
   # mergeDup
   if (merge) {
-    occ.df <- mergeDup(occ.df, ...)
+    occ.df1 <- mergeDup(occ.df, ...)
   }
 
   # rmDup
-    occ.df <- rmDup(occ.df, rm.all = remove)
+    occ.df2 <- rmDup(occ.df1, rm.all = remove)
 
-  return(occ.df)
+  return(occ.df2)
 }

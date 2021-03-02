@@ -134,11 +134,23 @@ validateCoord <- function(x,
   x5 <- getCult(x4)
 
   ## Checking for spatial outliers
-  x6 <- checkOut(x5,
-                 lon = lon,
-                 lat = lat,
-                 tax.name = tax.name)
+  if (output == "same.col") {
+    x6 <- checkOut(x5,
+                   lon = lon, lat = lat,
+                   tax.name = tax.name,
+                   geo.name = "geo.check",
+                   cult.name = "cult.check",
+                   clas.cut = 3, rob.cut = 16)
+  }
 
+  if (output == "new.col") {
+    x6 <- checkOut(x5,
+                   lon = lon, lat = lat,
+                   tax.name = tax.name,
+                   geo.name = "geo.check.new",
+                   cult.name = "cult.check",
+                   clas.cut = 3, rob.cut = 16)
+  }
 
   return(x6)
 }

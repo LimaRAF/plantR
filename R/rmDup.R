@@ -128,15 +128,19 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
     data.table::setorderv(dt,  c("dup.IDs", order.by))
   }
 
-  #removing the duplicates and putting it back into the orinal order
+  #removing the duplicates and putting it back into the original order
   if (rm.all) {
     dt1 <- unique(dt, by = "dup.IDs")
     data.table::setorder(dt1, tmp.ordem)
   } else {
     data.table::setnames(dt, rec.ID, "temp.rec.ID")
-    dt[, dup.entries := duplicated(.SD), by = dup.IDs, .SDcols = c("temp.rec.ID")]
+    dt[, dup.entries := duplicated(.SD),
+       by = dup.IDs, .SDcols = c("temp.rec.ID")]
+    dt[is.na(temp.rec.ID), dup.entries := FALSE]
     dt[, rename.IDs := any(dup.entries), by = dup.IDs]
-    dt[rename.IDs == TRUE, dup.IDs := as.character(paste0(sort(unique(temp.rec.ID)), collapse = "|")), by = dup.IDs]
+    dt[rename.IDs == TRUE,
+       dup.IDs := as.character(paste0(sort(unique(temp.rec.ID)), collapse = "|")),
+       by = dup.IDs]
     dt1 <- dt[dup.entries == FALSE, ]
     dt1[, c("dup.entries", "rename.IDs") := NULL, ]
     data.table::setnames(dt1, "temp.rec.ID", rec.ID)
@@ -148,7 +152,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   if (print.rm) {
     antes <- dim(dt)[1]
     depois <- dim(dt1)[1]
-    cat(antes - depois, "duplicated records were removed from the data.\n")
+    cat(antes - depois, "truly duplicated records (same collection in different sources) were removed from the data\n")
   }
 
   return(data.frame(dt1))

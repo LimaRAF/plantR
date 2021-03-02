@@ -97,8 +97,8 @@
 #'
 #' Map used to support the validation of the original geographical coordinates,
 #' mainly regarding the detection of problematic coordinates fallign just
-#' outside its country corders. It was generated from the best scale available
-#' in 'Natural Earth' (i.e. 1:10 m), which consists in 255 polygons for 247
+#' outside its country corders. It was generated from the smallest scale available
+#' in 'Natural Earth' (i.e. 1:110 m), which consists in 255 polygons for 247
 #' countries in the world. Country long names were edited to match the
 #' __plantR__ default gazetteer and original polygons were simplified (tolerance
 #' 0.001 decimal degrees). Only the ISO 3166-1 alpha-2 codes and the long names
@@ -109,5 +109,5 @@
 #' @usage data(world)
 #' @format a MULTIPOLYGON 'sf' object with 255 features and 2 fields: iso_a2
 #'   (country code) and 'name' (country name).
-#' @source \url{https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/}
+#' @source \url{https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/}
 "world"

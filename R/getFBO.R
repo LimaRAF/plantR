@@ -11,6 +11,8 @@
 #'
 #' @export getFBO
 #'
+#' @keywords internal
+#'
 #' @return the functions returns
 #'
 #' @details This function

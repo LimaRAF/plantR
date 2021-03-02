@@ -15,8 +15,7 @@
 #' @keywords internal
 #'
 #' @examples
-#'   nomes <- c("Thomé", "Muñoz", "œuf")
-#'   Encoding(nomes) <- "latin1"
+#'   nomes <- c("Thom\u00e9", "Mu\u00f1oz", "\u0153uf")
 #'   nomes
 #'
 #'   rmLatin(nomes)

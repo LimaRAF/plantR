@@ -125,6 +125,14 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   the distribution of coordinates: 'mean' or 'median'? Default to 'mean'.
 #' @param n.min numerical. Minimun number of unique coordinates to be used in
 #'   the calculations. Default to 10
+#' @param geo character. A vector of the same length of lon/lat containing the
+#' result from the validation of the geographical coordinates. Default to NULL.
+#' @param cult character. A vector of the same length of lon/lat containing the
+#' result from the validation of cultivated specimens. Default to NULL.
+#' @param geo.patt character. The pattern to be used to search for classes of
+#' geographical validation to be included in the analyses. Default to "ok_".
+#' @param cult.patt character. The pattern to be used to search for classes of
+#'   validation of cultivated specimens to be included in the analyses. Default to NA.
 #' @param digs numerical. Number of digits to be returned after the decimal point.
 #' Default to 4
 #'
@@ -134,11 +142,11 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' @details Two possible methods to calculate the Mahalanobis distances are
 #'   available: the classic (`method`= 'classic') and the robust methods
 #'   (`method`= 'robust'). The two methods take into account the geographical
-#'   center of the coordinates distribution and the spatial covariance between the
-#'   records. But they vary in the way the covariance matrix of the
-#'   distribution is defined: the classic method uses an approach based on
-#'   Pearson’s method, while the robust method uses a Minimum Covariance
-#'   Determinant (MCD) estimator.
+#'   center of the coordinates distribution and the spatial covariance between
+#'   them. But they vary in the way the covariance matrix of the distribution is
+#'   defined: the classic method uses an approach based on Pearson’s method,
+#'   while the robust method uses a Minimum Covariance Determinant (MCD)
+#'   estimator.
 #'
 #'   The argument `n.min` controls the minimum number of unique coordinates
 #'   necessary to calculate the distances. The classic and robust methods needs
@@ -155,10 +163,28 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   in practice should not change the overall result of the detection of spatial
 #'   outliers.
 #'
+#'   The presence of problematic coordinates and cultivated specimens can
+#'   greatly influence the estimation of the geographical center of the
+#'   coordinates distribution and the spatial covariance between them. Thus,
+#'   arguments `geo` and `cult` can be used to flag and remove those cases from
+#'   the computation of the center and covariance matrix. In both cases, the
+#'   user can provide the output from __plantR__ functions `checkCoord()` and
+#'   `getCult()` or a logical TRUE/FALSE vector. By default, if the input are
+#'   the outputs from functions `checkCoord()` and `getCult()`, only the
+#'   coordinates flagged as 'ok_...' in `geo` and those not flagged in `cult`
+#'   (i.e. NAs) will be used. But users can select different search patterns using
+#'   the arguments `geo.patt` and `cult.patt`. For both input options, the
+#'   vector must have the same length of the coordinates provided in the
+#'   arguments `lat` and `lon`. By default, arguments `geo` and `cult` are set
+#'   to NULL, meaning that all coordinates will be used.
+#'
 #'   The function internally removes spatially duplicated coordinates previous
 #'   to the calculation of the Mahalanobis distances. So, the value in `n.min`
 #'   correspond to the number of coordinates after the removal of spatially
 #'   duplicated coordinates.
+#'
+#'   The function also internally removes any empty or NA values in `lon` or
+#'   `lat`.
 #'
 #' @importFrom dplyr left_join
 #' @importFrom stats mahalanobis
@@ -168,18 +194,29 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' lon <- c(-42.2,-42.6,-45.3,-42.5,-42.3,-39.0,-12.2)
 #' lat <- c(-44.6,-46.2,-45.4,-42.2,-43.7,-45.0,-8.0)
 #'
+#' # Assuming that all coordinates are valid
 #' mahalanobisDist(lon, lat, method = "classic", n.min = 1)
 #' mahalanobisDist(lon, lat, method = "robust", n.min = 1)
 #'
+#' # Flagging last coordinate as problematic
+#' mahalanobisDist(lon, lat, method = "classic", n.min = 1,
+#' geo = c(rep(TRUE, 6), FALSE))
+#' mahalanobisDist(lon, lat, method = "robust", n.min = 1,
+#' geo = c(rep(TRUE, 6), FALSE))
+#'
+#'
 #' @seealso
-#'  \link[plantR]{uniqueCoord}.
+#'  \link[plantR]{uniqueCoord}, \link[plantR]{checkCoord},
+#'  \link[plantR]{getCult}
 #'
 #' @author Renato A. Ferreira de Lima
 #'
 #' @export
 mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
-                            center = "mean") {
+                            center = "mean", geo = NULL, cult = NULL,
+                            geo.patt = "ok_", cult.patt = NA) {
 
+  ## Checking the input
   if(length(lon) != length(lat))
     stop("Longitude and latitude must have the same length")
 
@@ -193,6 +230,39 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
                          lat = as.double(lat),
                          tmp.ordem = 1:length(lon))
 
+  ## Adding columns to flag problematic coordinates
+  if (!is.null(geo)) {
+    if (length(lon) != length(geo))
+      stop("The input of `geo` must have the same length of the coordinates")
+
+    if (is.logical(geo)) {
+      df$geo <- geo
+    } else {
+      df$geo <- grepl(geo.patt, geo, perl = TRUE)
+    }
+  } else {
+    df$geo <- TRUE
+  }
+
+  ## Adding columns to flag cultivated records
+  if (!is.null(cult)) {
+    if (length(lon) != length(cult))
+      stop("The input of `cult` must have the same length of the coordinates")
+
+    if (is.logical(cult)) {
+      df$cult <- cult
+    } else {
+      if (is.na(cult.patt)) {
+        df$cult <- is.na(cult)
+      } else {
+        df$cult <- grepl(cult.patt, cult, perl = TRUE)
+      }
+    }
+  } else {
+    df$cult <- TRUE
+  }
+
+  ## Flagging spatially duplicated coordinates
   tmp <- suppressWarnings(uniqueCoord(df,
                                       lon = "lon", lat = "lat",
                                       type = c("exact"),
@@ -200,19 +270,28 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
   df$dup.coord.ID <- tmp$exact.ID
   df1 <- df[!tmp$exact, ]
 
+  ## Removing empty or NA coordinates
+  rm_these <- df1$lon %in% c("", " ", NA) | df1$lat %in% c("", " ", NA)
+  if (any(rm_these))
+    df1 <- df1[!rm_these, ]
+
   if (dim(df1)[1] < n.min) {
+
     res <- as.double(rep(NA_character_, dim(df)[1]))
+
   } else {
 
     if (method == "classic") {
-      covar <- stats::cov(df1[,1:2])
+      use_these <- df1$geo & df1$cult
+
+      covar <- stats::cov(df1[use_these, 1:2])
       if (center == "mean")
-        centro <- colMeans(df1[,1:2])
+        centro <- colMeans(df1[use_these, 1:2])
       if (center == "median")
-        centro <- apply(df1[,1:2], 2, stats::median)
+        centro <- apply(df1[use_these, 1:2], 2, stats::median)
 
       res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
-                               res = sqrt(stats::mahalanobis(df1[,1:2],
+                               res = sqrt(stats::mahalanobis(df1[, 1:2],
                                                              center = centro,
                                                              cov = covar)))
 
@@ -223,20 +302,21 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
     }
 
     if (method == "robust") {
+      use_these <- df1$geo & df1$cult
 
-      rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2], alpha = 1 / 2), TRUE))
+      rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2], alpha = 1 / 2), TRUE))
       if (class(rob) == "try-error") {
         df1$lon2 <- jitter(df1$lon, factor = 0.001)
         df1$lat2 <- jitter(df1$lat, factor = 0.001)
-        rob <- robustbase::covMcd(df1[, c("lon2", "lat2")], alpha = 1 / 2, tol = 1e-20)
+        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1 / 2, tol = 1e-20)
         res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
-                                 res = sqrt(stats::mahalanobis(df1[,c("lon2", "lat2")],
+                                 res = sqrt(stats::mahalanobis(df1[, c("lon2", "lat2")],
                                                                center = rob$center, cov = rob$cov, tol=1e-20)))
       } else {
         if (length(rob$singularity) > 0) {
           df1$lon2 = jitter(df1$lon, factor = 0.005)
           df1$lat2 = jitter(df1$lat, factor = 0.005)
-          rob <- robustbase::covMcd(df1[, c("lon2", "lat2")], alpha = 1/2, tol=1e-20)
+          rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1/2, tol=1e-20)
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = sqrt(stats::mahalanobis(df1[,c("lon2", "lat2")],
                                                                  center = rob$center, cov = rob$cov, tol=1e-20)))
