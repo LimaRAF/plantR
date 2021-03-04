@@ -71,12 +71,48 @@ test_that("validateLoc works", {
   expect_equal(setdiff(names(occs_tax), names(occs_val_loc)), character(0))
   expect_equal(setdiff(names(occs_val_loc), names(occs_tax)), "loc.check")
 })
-
-occs_val_coord <- validateCoord(occs_val_loc)
+#x <- occs_val_loc
 ###AQUI quedó la consola
 test_that("validateCoord works", {
+occs_val_coord <- validateCoord(occs_val_loc)
   expect_equal(setdiff(names(occs_val_loc), names(occs_val_coord)), character(0))
   expect_equal(setdiff(names(occs_val_coord), names(occs_val_loc)), "loc.check")
 })
 
+#
+test_that("validateCoord new.col works", {
+occs_val_coord <- validateCoord(occs_val_loc, output = "new.col")
+  expect_equal(setdiff(names(occs_val_loc), names(occs_val_coord)), character(0))
+  expect_equal(setdiff(names(occs_val_coord), names(occs_val_loc)), "loc.check")
+})
+#nothing works
+# Splitting validate coords then
+test_that("checkCoord works", {
+  cC <- checkCoord(occs_val_loc)
 
+  expect_equal(setdiff(names(occs_val_loc), names(cC)), character(0))
+  expect_equal(setdiff(names(cC), names(occs_val_loc)), c("NAME_0", "geo.check"))
+})
+
+  cC <- checkCoord(occs_val_loc, dist.center = T)
+test_that("checkCoord works", {
+
+  expect_equal(setdiff(names(occs_val_loc), names(cC)), character(0))
+  expect_equal(setdiff(names(cC), names(occs_val_loc)), c("NAME_0", "distCentroid_m", "geo.check"))
+})
+x <- cC
+  cB <- checkBorders(cC)
+test_that("checkBorders works", {
+  expect_equal(setdiff(names(cC), names(cB)), character(0))
+  expect_equal(setdiff(names(cB), names(cC)),
+               c("share_border", "border.check"))
+})
+
+test_that("checkBorders same.col works", {
+  cB2 <- checkBorders(cC, output = "same.col")
+  expect_equal(setdiff(names(cC), names(cB)), character(0))
+  expect_equal(setdiff(names(cB), names(cC)),
+               c("share_border", "border.check"))
+})
+#cB$share_border#no need to return share_border
+dplyr::count(cC,geo.check)
