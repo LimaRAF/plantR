@@ -4,7 +4,7 @@
 #'   identifier names associated with biological records.
 #'
 #' @param x the character string or vector with names.
-#' @param type type of name: 'collector' or 'identificator'.
+#' @param type type of name: 'collector' or 'determiner'.
 #' @param noName standard notation for missing names. Default to "Anonymous".
 #'
 #' @return the character string \code{x} in the standard notation for missing
@@ -29,7 +29,7 @@
 #'          type = "collector")
 #'
 #'  missName(c("Gentry, AH", "s/det.", "s/det", "s/d", "Determiner unknown"),
-#'           type = "identificator")
+#'           type = "determiner")
 #'
 missName <- function(x, type = NULL, noName = "Anonymous") {
 
@@ -37,8 +37,9 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
   if (is.null(noName))
     stop("Please provide a character to replace missing names")
 
-  if (is.null(type) | all(!type %in% c("collector","coletor","colector","identificator","identificador","determinador")))
-    stop("Please chose between 'collector' or 'identificator' to replace missing names")
+  if (is.null(type) | all(!type %in% c("collector","coletor","colector","determiner",
+                                       "identificator","identificador","determinador")))
+    stop("Please chose between 'collector' or 'determiner' to replace missing names")
 
   nomes <- x
 
@@ -52,7 +53,7 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
 
   }
 
-  if (any(type %in% c("identificator", "identificador", "determinador"))) {   #No identificator's name
+  if (any(type %in% c("determiner", "identificator", "identificador", "determinador"))) {   #No identificator's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
     busca <- missDets
