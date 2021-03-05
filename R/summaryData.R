@@ -80,15 +80,31 @@ summaryData <- function(x, top = 5) {
     # How many collections?
     if (nchar(covs.present[["collections"]]) > 0) {
       colls <- dt[ , .N, by = c(covs.present[["collections"]])]
-      colls <- colls[order(N, decreasing = TRUE),]
-      cat("Number of biological collections:", dim(colls)[1],"\n", sep=" ")
+      data.table::setkeyv(colls, covs.present[["collections"]])
+      if (NA_character_ %in% colls[[1]]) {
+        colls1 <- colls[!NA_character_]
+        colls1 <- colls1[order(N, decreasing = TRUE),]
+        colls <- rbind(colls1, colls[NA_character_])
+        cat("Number of biological collections:", dim(colls1)[1],"\n", sep=" ")
+      } else {
+        colls <- colls[order(N, decreasing = TRUE),]
+        cat("Number of biological collections:", dim(colls)[1],"\n", sep=" ")
+      }
     } else { colls <- NULL }
 
     # Collectors
     if (nchar(covs.present[["collectors"]]) > 0) {
       cols <- dt[ , .N, by = c(covs.present[["collectors"]])]
-      cols <- cols[order(N, decreasing = TRUE),]
-      cat("Number of collectors' names:", dim(cols)[1],"\n", sep=" ")
+      data.table::setkeyv(cols, covs.present[["collectors"]])
+      if ("s.n." %in% cols[[1]]) {
+        cols1 <- cols[!"s.n."]
+        cols1 <- cols1[order(N, decreasing = TRUE),]
+        cols <- rbind(cols1, cols["s.n."])
+        cat("Number of collectors' names:", dim(cols1)[1],"\n", sep=" ")
+      } else {
+        cols <- cols[order(N, decreasing = TRUE),]
+        cat("Number of collectors' names:", dim(cols)[1],"\n", sep=" ")
+      }
     } else { cols <- NULL }
 
     # Collection years
@@ -168,8 +184,9 @@ summaryData <- function(x, top = 5) {
                         .SDcols = c(covs.present[["species"]])]$V1]
     }
     paises <- paises[order(N, decreasing = TRUE),]
-    tmp <- getAdmin(paises$country.new)$NAME_0
-    tmp[is.na(tmp)] <- as.character(sapply(paises$country.new[is.na(tmp)], capName))
+    tmp <- getAdmin(paises[[1]])$NAME_0
+    tmp[is.na(tmp)] <- as.character(sapply(paises[[1]][is.na(tmp)], capName))
+    tmp[tmp %in% ""] <- "[Unknown]"
     tmp <- gsub("NANA", NA, tmp)
     paises$country.new <- tmp
 
