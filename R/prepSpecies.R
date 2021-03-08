@@ -210,7 +210,8 @@ prepSpecies <- function(x,
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # Species names, exact match
-      my.TPL <- catchAll(Taxonstand::TPL)
+      #my.TPL <- catchAll(Taxonstand::TPL)
+      my.TPL <- catchAll(TPL1)
       temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
       exact_sp <- temp.obj[[1]]
       warns <- temp.obj[[2]]
@@ -221,7 +222,8 @@ prepSpecies <- function(x,
       # removing duplicated names
       unique_sp <- unique(df$verbatimSpecies)
       # Species names, exact match
-      my.TPL <- catchAll(Taxonstand::TPL)
+      #my.TPL <- catchAll(Taxonstand::TPL)
+      my.TPL <- catchAll(TPL1)
       temp.obj <- my.TPL(unique_sp, corr = FALSE)
       exact_sp <- temp.obj[[1]]
       warns <- temp.obj[[2]]

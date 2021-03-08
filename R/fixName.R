@@ -7,7 +7,7 @@
 #' @param sep.in a vector of the symbols separating multiple names. Default to:
 #'   ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".
 #' @param sep.out a character string with the symbol separating multiple names
-#'   in the output string. Defaults to "; ".
+#'   in the output string. Defaults to "|".
 #' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
 #'
@@ -48,11 +48,12 @@
 #'   fixName(names, special.char = TRUE)
 #'   fixName(names, sep.out = " | ")
 #'
+#'
 #' @export fixName
 #'
 fixName <- function(nomes,
                     sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
-                    sep.out = "; ",
+                    sep.out = "|",
                     special.char = FALSE) {
   #Defining the input and temporary separators
   sep.in2 <- sep.in[grepl('[[:alpha:]]', sep.in) & !grepl(' et ', sep.in)]
@@ -95,6 +96,7 @@ fixName <- function(nomes,
   nomes <- gsub('^det\\. ', "", nomes, perl = TRUE, ignore.case = TRUE)
   nomes <- gsub('^det\\.', "", nomes, perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" \\(\\?\\) ", "", nomes, perl = TRUE)
+  nomes <- gsub("([[:alpha:]])(\\()", "\\1 \\2", nomes, perl = TRUE)
 
   #Removing unwanted character
   nomes <- gsub("[0-9]", "", nomes, perl = TRUE)

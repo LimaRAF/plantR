@@ -5,7 +5,12 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
   - Renato A. F. de Lima^[Naturalis Biodiversity Center and Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
 output:
-    github_document
+  rmarkdown::html_vignette:
+      toc: true
+      number_sections: true
+  md_document:
+    variant: gfm
+  #github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -21,8 +26,11 @@ devtools::load_all() # for development
 
 # Introduction
 
-This tutorial provides the details and explanations on the functions related to data
-download, editing and validation using the __plantR__ workflow. For each of these steps, we present the functions and their options in more details so that their goals can be understood and so that these functions can be adapted and applied by the user, even outside the proposed workflow. 
+This tutorial provides the details and explanations on the functions related to
+data download, editing and validation using the __plantR__ workflow. For each of
+the steps of the workflow, we present the functionalities and their options in
+more details so that user can better understand their goals and so adapted the
+functionalities even outside the workflow proposed here.
 
 Let's first install and load the package from [GitHub](https://github.com) with:
 
@@ -35,210 +43,239 @@ library("plantR")
 
 # Data entry
 
-You can download species occurrence data directly from R, using the functions
-provided by __plantR__ or by other R packages. For this tutorial, we are going to
-use the __plantR__ function `rspeciesLink()`, which downloads data from
-[CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental).
-For a detailed tutorial of how to download data from different sources, check
-[here]<!--(#INCLUDE HERE LINK TO SARA'S DETAILED TUTORIAL). -->
+You can download species records directly from R, using the functions provided
+by __plantR__ or by other R packages. For this tutorial, we are going to use the
+__plantR__ function `rspeciesLink()` and `rgbif2()`, which downloads data from
+[CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental)
+and for the [GBIF](https://www.gbif.org/) (Global Biodiversity Information
+Facility).
 
-You can also use .csv files containing your own data or data downloaded manually
-from online data repositories, as long as the column names are named following
-DarwinCore standards. See function `fixField()` below for more details on
-standard columns names.
+You can also use your own data, as long as the column names follow the
+DarwinCore (DwC) standards. If they don't follow the DwC standards, users can
+still standardize the notation of column names using the function `fixDwc()`. 
+Besides the field name standardization, `fixDwc()` also binds together the
+records coming from different sources (e.g., CRIA, GBIF, user-provided data).
 
-## Downloading occurrence data with __plantR__
+## Downloading species records with __plantR__
 
-We will use as an example a dataset downloaded from speciesLink, using the
-function `rspeciesLink()`, which allows a variety of ways on how to search for
-data. In this tutorial, we will use data for two common Neotropical trees:
+In this tutorial, we will use species records for three Neotropical tree species:
 
 ```{r, eval = TRUE}
-spp <- c("Trema micrantha",
-        "Casearia sylvestris")
+spp <- c("Casearia sylvestris",
+         "Euterpe edulis",
+         "Trema micrantha")
 ```
 
-After defining the species name we proceed to the download of occurrence data.
-Here, we will use only herbarium plant specimens (i.e. vouchers) for the names
-listed above, including the list of synonyms accepted in the List of Species of
-the Brazilian Flora 2020 project (this may take a few minutes):
+After defining the species names, we proceed to the download of species records.
+We will first download only herbarium specimens (i.e. vouchers) for the names
+listed above, including their synonyms accepted in the List of Species of the
+Brazilian Flora 2020 project (this may take a minute):
+
 
 ```{r, eval = FALSE}
-example <- rspeciesLink(species =  spp,
+occs_splink <- rspeciesLink(species =  spp,
                         Scope = "plants",
                         basisOfRecord = "PreservedSpecimen",
                         Synonyms = "flora2020")
-is(example$data)
 ```
 
-The occurrence data is now stored in the object `example`. We can inspect how
-many occurrences were downloaded (`r nrow(example$data)` records and
-`r ncol(example$data)` fields):
+The function `rspeciesLink()` allows a wide variety of ways on how to search for
+species records. Searches can also be done by locality and collections, using
+all the filters available in CRIA. Please check the help of the function for
+more details on the arguments that can be used for this search.
+
+We will download records for the same species from GBIF, using the function
+`rgbif2()`. This function uses internally the function `occ_search()` from the 
+package __rgbif__, which should be consulted for details on how searches can
+be performed.
 
 
+<!-- Sara, o filtro 'basisOfRecord' não parece estar funcionando para rgbif2 -->
+<!-- Sara, o numero de registros do gbif está muuuito menor aqui que no site deles;
+só Casearia tem +15,000 entradas no GBIF e aqui retorna apenas 480 -->
 ```{r, eval = FALSE}
-dim(example$data)
+occs_gbif <- rgbif2(species =  spp,
+                    basisOfRecord = "PRESERVED_SPECIMEN",
+                    remove_na = FALSE, limit = 500000)
 ```
 
-If the data download is taking too long, you can use the result of the same search performed in June 2020 and stored within __plantR__ using the command `data(example)`.
-
-
-## Preparing the input data: function `fixField()`
-
-Before we can start to process the input data, we need to be sure that our input
-data has all the required fields and that they are in the required format.
-
-We use the function `fixField()` to set up the required and optional fields and
-to drop fields without essential information for the data processing and
-validation. We save the output of the function in an object with a different
-name (`'occs'`).
+The occurrence data is now stored in the objects `occs_splink` and `occs_gbif`.
+We can inspect how many occurrences were downloaded:
 
 ```{r, eval = FALSE}
-occs <- fixField(example$data, origin = "splink")
+nrow(occs_splink)
+nrow(occs_gbif)
+```
+
+If the data download is taking too long, you can use the result of the same
+search performed in June 2020 and stored within __plantR__ using the command
+`data(example)`.
+
+
+## Preparing the input data: function `fixDwc()`
+
+Before we start to process the species records, we need to combine our input
+data from CRIA and GBIF and make sure that the input data has all the required
+fields and that they are in the required format.
+
+We use the function `fixDwc()` to bind data and set up the required and optional
+fields and to drop fields without essential information for the data processing
+and validation. We save the output of the function in an object with a different
+name (i.e., `occs`).
+
+```{r, eval = FALSE}
+occs <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
 dim(occs)
 ```
 
-Note that the function returns some warning messages. 
-
-```r
-Warning messages:
-1: In fixField(example$data, origin = "splink") :
-  Required field(s) 'county' was(were) replaced by 'municipality'
-2: In fixField(example$data, origin = "splink") :
-  The following field(s) was(were) removed: 
-record_id
-barcode
-imagecode
-geoFlag
-preparationType
-previousCatalogNumber
-continentOcean
-relatedCatalogItem
-```
-
-It is **very** important
-to understand carefully these warnings before we can continue.
-
-The first warning says that <!--the name of the column header 'scientifname',
-provided in the input data, was replaced by the standard name 'scientificName',
-the standard name used by __plantR__. The second warning also reports that--> a
-required header name (`'county'`) was replaced by a standard header name,
-`'municipality'` in this case.
-The second warning is less important because it relates to optional fields. 
-`fixFields()` removes the columns that belong to optional fields.
+<!-- Sara, talvez explicar mais em detalhe o que formatDwc faz internamente -->
 
 
 <br/><br/>
 
 # Data editing
 
-## Standardizing people names, collector number, dates and collection codes
+## Standardizing collection codes, people names, collector number and dates
 
 Particularly when working with data coming from multiple sources, it
 is important to standardize the notation used by different collections and
 sometimes by different collectors within the same collection.
 
-We first create the new columns that will receive the edited fields.
+### Collection codes
 
-```{r, eval = FALSE}
-occs$recordedBy.new <- occs$recordedBy
-occs$recordNumber.new <- occs$recordNumber
-occs$identifiedBy.new <- occs$identifiedBy
-occs$year.new <- occs$year
-occs$yearIdentified.new <- occs$yearIdentified
-```
-The year of collection is sometimes stored on the field 'eventDate' and not on
-the field 'year'. In this case, we should replace all missing information from
-the field 'year' by the information stored in the field 'eventDate'. Since this
-is not the case here, we process to the next data processing step.  <!-- checar isto -->
-
-We then prepare the new fields we created using functions `fixName()`,
-`colNumber()` and `getYear()`. We chose to remove all species characters from
-authors and identifier names (argument `special.char = FALSE`), which is the
-indicated option for further data processing and validation. We also set the
-characters that will represent occurrences without number of collection ("s.n.")
-and without the year of collection and identification ("n.d.").
-
-```{r, eval = FALSE}
-occs$recordedBy.new <- fixName(occs$recordedBy, special.char = FALSE)
-occs$identifiedBy.new <- fixName(occs$identifiedBy, special.char = FALSE)
-occs$recordNumber.new <- colNumber(x = occs$recordNumber, noNumb = "s.n.")
-occs$year.new <- getYear(occs$year, noYear = "n.d.")
-occs$yearIdentified.new <- getYear(occs$yearIdentified, noYear = "n.d.")
-```
-
-Next, we format the names of the collector and identificator (function `prepTDWG()`)
-
-```{r, eval = FALSE}
-occs$recordedBy.new <- prepTDWG(occs$recordedBy.new)
-occs$identifiedBy.new <- prepTDWG(occs$identifiedBy.new)
-```
-
-We then separate first and auxiliary names for multiple names and then convert
-them to the TDWG format (function `tdwgNames()`). To do so, we set the argument
-`out` of function `tdwgNames()` to "aux" and "first" (by default `tdwgNames()`
-edits and returns all names from multiple name strings).
-
-We also define that the symbol that will separate different names, which in our
-example will be a semi-colon followed by a space.
-
-```{r, eval = FALSE}
-occs$recordedBy.aux <- sapply(occs$recordedBy.new, tdwgNames, out = "aux", sep.out = ";")
-occs$recordedBy.new <- lapply(occs$recordedBy.new, tdwgNames, out = "first")
-occs$identifiedBy.aux <- lapply(occs$identifiedBy.new, tdwgNames, out = "aux", sep.out = ";")
-occs$identifiedBy.new <- lapply(occs$identifiedBy.new, tdwgNames, out = "first")
-```
-
-We can inspect what is the result of this separation between first and auxiliary names:
-
-```{r, eval = FALSE}
-head(occs[,c("recordedBy","recordedBy.new","recordedBy.aux")], 3)
-```
-
-It is also useful for the validation process to standardize the notation for
-missing collector and identificator names. To do so, we use the function
-`missName()` and again we set missing names as "s.n.".
-
-```{r, eval = FALSE}
-occs$recordedBy.new <- missName(occs$recordedBy.new, type = "collector", noName = "s.n.")
-occs$identifiedBy.new <- missName(occs$identifiedBy.new, type = "identificator", noName = "s.n.")
-```
-
-For some of the operations we will perform, it is also useful to extract the
-last name of the first collector, that is stored in our formatted field
-`recordedBy.new`.
-
-```{r, eval = FALSE}
-occs$last.name <- lastName(occs$recordedBy.new, noName = "s.n.")
-```
-
-We can inspect what these functions are doing by comparing the original and edit
-columns (only the first 15 records)
-
-```{r, eval = FALSE}
-head(cbind(occs$recordedBy, occs$recordedBy.new, occs$recordedBy.aux), n = 15)
-head(cbind(occs$recordedBy, occs$last.name), n = 15)
-head(cbind(occs$identifiedBy, occs$identifiedBy.new), n = 15)
-head(cbind(occs$year, occs$eventDate, occs$year.new), n = 15)
-head(cbind(occs$yearIdentified, occs$yearIdentified.new), n = 15)
-```
-
-These functions handle well most formats but not all of them  (e.g. name format
-'A. Custódio, Filho' or date format "Jul-02"). However, this standardization
-will be useful for the search of duplicated specimens across herbaria
-(see below).
-
-The final step is the standardization of the notation of collection codes, which
+The first step is the standardization of the notation of collection codes, which
 is stored in the field 'collectionCode'. For some reason, not all collections
 store in this field their international collection codes (e.g. Index
 Herbariorum) and sometimes these codes are stored differently across data
-repositories. For the search of duplicate entries and th production of
+repositories. For the search of duplicate entries and the production of
 check-lists (see below) it is important to standardize the codes of collections.
 In __plantR__ this is done using function `getCode`:
 
 ```{r, eval = FALSE}
 occs <- getCode(occs)
 ```
+
+This function returns a new column ('collectionCode.new') which contains the
+standardized collection codes found in a __plantR__ list of herbaria, xylaria
+and other plant collections. It also returns the column 'collectionObs', which
+is empty if the collection code was found. But it also provides details if the
+code is in the (e.g. Index Herbariorum) and it flags the collection codes not
+found, which probably represent collections other than herbaria, xylaria or
+carpotheks.
+
+### Names of collectors and determiners
+
+There is a lot of variation in the notation of people's names both within and
+across biological collections. __plantR__ offers different tools to edited and
+standardize those names. Several functions perform different operations, such
+as standardizing the separation between multiple people's names,
+the generational suffixes and the removal of Latin characters (function
+`fixName()`). It also standardizes the format of name notation (i.e. Last Name,
+First Name(s) or First Name(s), Last Name) and the abbreviation of name
+initials (functions `prepTDWG()`, `getPrep()` and `getInit()`). These and other
+functionalities are included in the function `prepName()`, which also performs
+the removal of treatment prepositions (e.g. Dr., Profa.) and the separation
+between the first collector/determiner from other collectors/determiners
+(co-authors or auxiliary names), if present.
+
+We will first standardize the names of collectors, which are stored
+in the field 'recordedBy':
+```{r, eval = FALSE}
+occs$recordedBy.new <- prepName(occs$recordedBy,
+                               output = "first",
+                               sep.out = "; ")
+occs$recordedBy.aux <- prepName(occs$recordedBy,
+                               output = "aux",
+                               sep.out = "; ")
+```
+
+Note that we separated the first and auxiliary names for multiple people's
+names. To do so, we set the argument `output` of function `prepName()` to
+"first" and "aux" (by default `prepName()` edits and returns all people's
+names).
+
+We also define that the symbol that will separate multiple people's names, which
+in our example will be a semi-colon followed by a space (argument `sep.out`). 
+
+By default, the function removes accents and special characters from names, but
+this can be controlled using the argument `special.char`. Also, the default name
+format is 'last_init' (i.e. Last Name, First Names) which is controlled by the
+argument `format`.
+
+Next, we will do the same operation for the names of determiners, which are
+stored in the field 'identifiedBy':
+```{r, eval = FALSE}
+occs$identifiedBy.new <- prepName(occs$identifiedBy,
+                               output = "first",
+                               sep.out = "; ")
+occs$identifiedBy.aux <- prepName(occs$identifiedBy,
+                               output = "aux",
+                               sep.out = "; ")
+```
+
+The function `prepName()` standardizes the most common types of name notation,
+but not all of them. We recommend the user to look at the help of functions
+`fixName()`, `prepTDWG()` and `prepName()` for examples of formats that these
+functions cannot handle. However, this standardization will be useful for the
+search of duplicated records across collections (see below).
+
+We also recommend the user to look at all the options of output, which may
+include accents (e.g. 'Araújo, J.' instead of 'Araujo, J.'), name prepositions
+(e.g. 'de Araujo, J.' or ' Araujo, J. de'), abbreviations (e.g., 'Araujo, Jose')
+or  different name formats (e.g. 'J. Araujo').
+
+It is also useful for the validation process to standardize the notation for
+missing collector and determiner names. To do so, we use the function
+`missName()` and we set missing names to "s.n.".
+
+```{r, eval = FALSE}
+occs$recordedBy.new <- missName(occs$recordedBy.new, 
+                                type = "collector", noName = "s.n.")
+occs$identifiedBy.new <- missName(occs$identifiedBy.new, 
+                                  type = "identificator", noName = "s.n.")
+```
+
+For some of the validation steps we will perform, it is also useful to extract
+the last name of the first collector from the formatted field `recordedBy.new`.
+
+```{r, eval = FALSE}
+occs$last.name <- lastName(occs$recordedBy.new)
+```
+
+
+### Collector number
+
+Species records are often associated with a number from a series of collections
+of a given collector, which is stored in the field 'recordNumber'. One would
+expect that this field would only contain numbers but this is not always the
+case. In addition, collectors may add modifiers to their collection numbers,
+such as '17-A' and '17-B'. 
+
+Therefore, the notation of this field also needs standardization, which in
+__plantR__ is performed using the function `colNumber()`:
+
+```{r, eval = FALSE}
+occs$recordNumber.new <- colNumber(occs$recordNumber, noNumb = "s.n.")
+```
+
+### Collection and identification year
+
+Similar to the collector number, the collection and identification years can
+have other information than the year itself (i.e. months). To make sure that
+these fields contain only years, we use the function `getYear()`. We set the
+character that will represent records without the year of collection and
+identification ("n.d.") using the argument `noYear`.
+
+```{r, eval = FALSE}
+occs$year.new <- getYear(occs$year, noYear = "n.d.")
+occs$yearIdentified.new <- getYear(occs$dateIdentified, noYear = "n.d.")
+```
+
+The year of collection is sometimes stored on the field 'eventDate' and not on
+the field 'year'. In this case, one should replace all missing information from
+the field 'year' with the information stored in the field 'eventDate'.
+
 
 ### The wrapper function `formatOcc()`
 
@@ -247,79 +284,75 @@ field. __plantR__ can execute all these steps at once using the wrapper function
 `formatOcc()`:
 
 ```{r, eval = FALSE}
-occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
 occs1 <- formatOcc(occs1)
 ```
 
-Let's compare if the output of the two approaches are the same, column by column:
+This wrapper will add the new columns containing the edited/formatted
+information regarding the collection codes, the names of collector and
+determiners, the dates of collection and identification, and collector number.
 
-```{r, eval = FALSE}
-identical(occs$recordedBy.new, occs1$recordedBy.new)
-identical(occs$identifiedBy.new, occs1$identifiedBy.new)
-identical(occs$year.new, occs1$year.new)
-identical(occs$yearIdentified.new, occs1$yearIdentified.new)
-identical(occs$last.name, occs1$last.name)
-rm(occs1)
-```
-
-Yes! So, the new data frame contains the original and edited/formatted
-information regarding the name of the collector and of the identificator, the
-dates of collection and identification, and collection number.
 
 ## Editing locality information
 
-One important step to find missing geographical coordinates and to validate the
-coordinates provided with the occurrence is to standardize the fields containing
-locality information, namely "country", "stateProvince", "municipality" and
-"locality".
+One type of information associated with species records is the collection
+locality, namely "country", "stateProvince", "municipality" and "locality". 
+__plantR__ provide tools to edit and validate this type of information, which
+also is an important step to find missing geographical coordinates and to
+validate the original coordinates provided with the records.
+
+### Formatting locality information
 
 __plantR__ has a function to edit and standardize locality fields: function
 `fixLoc()`. By default, this function formats all four locality fields
-simultaneously (returns the entry data.frame with the new columns), but the user
-can choose one field at a time by changing the function argument 'admin.levels'
-(in this case, the function returns a vector). However, some of the editing
-processes become more complete if all the information is available for the four
-fields.
-
-To exemplify, we will use all locality fields:
+simultaneously and returns the input data frame with the new locality columns.
+But the user can choose to edit one field at a time by changing the function
+argument 'admin.levels' (in this case, the function returns a vector). However,
+some of the editing processes become more complete if all the information is
+available for the four fields.
 
 ```{r, eval = FALSE}
 occs <- fixLoc(occs,
-               admin.levels = c("country","stateProvince","municipality","locality"),
+               loc.levels = c("country","stateProvince","municipality","locality"),
                scrap = TRUE)
 ```
 
 Note that we performed the editing of the locality fields using the argument
 `scrap = TRUE`. This argument controls the search for missing information from
-the field locality (i.e. text mining). It also performs some extra editing and
-cropping of the locality field in order to obtain more standardized locality
+the field 'locality' (i.e. text mining). It also performs some extra editing and
+cropping of the locality field to obtain more standardized locality
 descriptions. If the country, state, and municipality fields are given, they
 remain unaltered. Only missing information in these fields is completed by the
 editing and scrapping process.
 
 Although the search for missing localities generally results in empty fields
 (i.e. NAs), it does not mean that the information retrieved from this search is
-accurate. It depends on the information being actually available in the field
-'locality' and how it is arranged. To make sure that the missing information
-obtained is indeed a locality, we need to crosscheck it with a gazetteer. In
-__plantR__, the search for missing information from a gazetteer is based on a
-standard locality string. This string simply is the concatenation of the country,
-state, municipality and locality fields, at the best resolution available. This
-string is created using the function `strLoc()`:
+accurate. It depends on whether the information is actually available in the field
+'locality' and how it is arranged. 
+
+
+### Crossing the locality information with the gazetteer
+
+To make sure that the original locality information and the missing information
+obtained from function `fixLoc()` are valid localities, we need to crosscheck it
+with a gazetteer. In __plantR__, the search for missing information from a
+gazetteer is based on a standard locality string. This string simply is the
+concatenation of the country, state, municipality and locality fields, at the
+best resolution available. This string is created using the function `strLoc()`:
 
 ```{r, eval = FALSE}
 locs <- strLoc(occs)
-head(locs, 5)
 ```
 
 If the municipality exists for a given state and country, then it is deemed as
-being a good locality name, and the locality string associated with it is given
+being a valid locality name, and the locality string associated with it is given
 priority for the validation of the locality information (see below). If there is
 missing information, then the alternative locality string (obtained using
-argument `scrap` of function `fixLoc()`) is used as a final attempt to search for
-missing information in the gazetteer. If both these alternatives do not work, then
-the upper administrative level available is used as the reference locality
-information.
+argument `scrap` of function `fixLoc()`) is used as a final attempt to search
+for missing information in the gazetteer. If both these alternatives do not
+work, then the upper administrative level available is used as the reference
+locality information.
 
 The notation of locality information varies a lot, and there are many mistakes
 regarding the notation of some localities (e.g. "Balneário do Camboriú" instead
@@ -333,27 +366,29 @@ locs$loc.string1 <- prepLoc(locs$loc.string1) # alternative string
 locs$loc.string2 <- prepLoc(locs$loc.string2) # alternative string
 ```
 
-After the construction and simplification of the locality strings, we can
+After the construction and simplification of the locality search strings, we can
 finally cross it with the gazetteer, using function `getLoc()`.
 
 ```{r, eval = FALSE}
 locs <- getLoc(locs, gazet = "plantR")
 ```
 
-Some of the locality strings were retrieved in the default __plantR__ gazetteer at
-the locality level (e.g. park, farm). The gazetteer is more complete for Latin
-America and has much more information at the locality level for Brazil.
-Therefore, info retrieval at the locality level should be biased towards
+Some of the locality strings were retrieved in the default __plantR__ gazetteer
+at the locality level (e.g. park, farm). The gazetteer is more complete for
+Latin America and it currently has information at the locality level mostly for
+Brazil. Therefore, info retrieval at the locality level should be biased towards
 specimens collected in Brazil. You can use the argument `gazet` to use your
 personal gazetteer instead of __plantR__ default, as long as it contains the
-same fields.  <!-- Which fields? does plantR standardize a foreing gazetteer?-->
-Note that the function also returns the geographical coordinates from the
-gazetteer. Note as well that the edited version of the localities is different
-from the original localities regarding their resolution (see details in the next
-section, 'Data validation'). <!-- ö add link to section-->
+same fields (see the help of function `getLoc()` for more details).
 
-We merge the data frame with the previous data processing (function
-`formatOcc()`) with the output of the locality data processing:
+Note that the function also returns the geographical coordinates from the
+gazetteer, if the locality information was found. Note as well that the edited
+version of the localities is different from the original localities regarding
+their resolution (see details in the next section, 'Data validation'). <!-- ö
+add link to section-->
+
+We then merge the new output of the locality data processing with the main data
+frame:
 
 ```{r, eval = FALSE}
 occs <- cbind.data.frame(occs, locs[, c("loc","loc.correct","latitude.gazetteer","longitude.gazetteer","resolution.gazetteer")])
@@ -363,15 +398,18 @@ occs <- cbind.data.frame(occs, locs[, c("loc","loc.correct","latitude.gazetteer"
 As before, we provide a function to execute the previous steps at once:
 
 ```{r, eval = FALSE}
-occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
 occs1 <- formatLoc(occs1)
 ```
 
-### Getting correct locality names: function `getAdmin()`
+### Getting correct locality names
 
-It may be useful to trace back the full names of the localities
+It may be useful to trace back the full and valid names of the localities
 retrieved from the gazetteer. This can be performed using the function
-`getAdmin()`, which returns the names of the subdivisions of each locality:
+`getAdmin()`, which makes the query based on the locality search string
+retrieved in the gazetteer:
+
 
 ```{r, eval = FALSE}
 head(getAdmin(occs))
@@ -381,15 +419,21 @@ head(getAdmin(occs))
 ## Editing geographical coordinates
 
 Previous to the validation of the original geographical coordinates, it is
-important to make sure that they are given and if they are in the required
-format: non-zero, non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees),
-with decimal digits separated by points.
+important to make sure that they are provided in the required format: non-zero,
+non-NA [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees), with
+decimal digits separated by points.
 
-Function `prepCoord()` transforms the coordinates into decimal degrees and add the columns "decimalLatitude.new"  and "decimalLongitude.new". 
+### Preparing geographical coordinates
+
+Function `prepCoord()` transforms the coordinates into decimal degrees and add
+the columns "decimalLatitude.new"  and "decimalLongitude.new", which store the
+edited coordinates.
 
 ```{r, eval = FALSE}
 occs <- prepCoord(occs)
 ```
+
+### Obtaining geographical coordinates from the gazetteer
 
 Geographical coordinates are often missing or are provided in a format that the
 function `prepCoord()` cannot convert to decimal degrees. For the dataset we are
@@ -400,46 +444,49 @@ geographical coordinates:
 table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 ```
 
-As we can see, 20% of the occurrences records have no coordinates. Therefore,
-one may want to use the coordinates obtained from the gazetteer to replace the
-missing coordinates. In __plantR__ we use the function `getCoord()` to do this
-procedure. This function also flags the origin and the probable precision of
-the original coordinates:
+As we can see, ca. 20% of the occurrences records have no coordinates.
+Therefore, one may want to use the coordinates obtained from the gazetteer to
+replace the missing coordinates. In __plantR__ we use the function `getCoord()`
+to do this procedure. This function also flags the origin and the probable
+precision of the original coordinates:
 
 ```{r, eval = FALSE}
 occs <- getCoord(occs)
 table(!is.na(occs$decimalLatitude.new))/dim(occs)[1]
 ```
 
-Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.
+Now, missing coordinates were obtained from a gazetteer and there is a
+coordinate at the best resolution available for almost all occurrences.
 
 ### The wrapper function `formatCoord()`
 
-Similarly to the functions `formatOcc()` and `formatLoc` from the previous
+Similarly to the functions `formatOcc()` and `formatLoc()` from the previous
 editing steps, we provide a function that perform all the edits related to the
 geographical coordinates at once, the function `formatCoord()`. Because getting
 missing coordinates from the gazetteer depends on the editing of the locality
-information, we need to run the before `formatLoc()` runnig `formatCoord()`:
+information, we need to run `formatLoc()` before runnig `formatCoord()`:
 
 ```{r, eval = FALSE}
-occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
 occs1 <- formatLoc(occs1)
 occs1 <- formatCoord(occs1)
 ```
 
 ## Editing species taxonomic information
 
-### Species names format: function `fixSpecies()`
-Although we downloaded occurrences for only two species names (i.e.
-\italic{Trema micrantha} and \italic{Casearia sylvestris}), the function
-`rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
-Flora 2020 (\url{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}). In addition, the speciesLink network
-(\url{http://splink.cria.org.br/}) stores the information as provided by the
-collections, which may vary in the way the scientific names are stored. For data
-downloaded from GBIF (\url{https://www.gbif.org/}) this step may be unnecessary
-since GBIF already stores data in a more standardized way.
+### Editing species names
 
-The `plantR` function ```fixSpecies``` performs several edits, including the
+Although we downloaded occurrences for only three species names, the function
+`rspeciesLink()` returned (as required) all synonyms accepted by the Brazilian
+Flora 2020 (\url{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}). In
+addition, the speciesLink network (\url{http://splink.cria.org.br/}) stores the
+information as provided by the collections, which may vary in the way the
+scientific names are stored. For data downloaded from GBIF
+(\url{https://www.gbif.org/}) this step may be unnecessary since GBIF already
+stores data in a more standardized way.
+
+The __plantR__ function `fixSpecies()` performs several edits, including the
 isolation of taxonomic rank abbreviations, the detection of name modificators
 ("cf." and "aff.") and a suggestion for the name status:
 
@@ -449,37 +496,46 @@ occs <- fixSpecies(occs)
 sort(table(occs$scientificName.new))
 ```
 
-Note that the number of names has decreased, but there are still many different names than the two names used in the search. The possible status of those name are stored in the new column ```scientificNameStatus```.
+Note that the number of names has decreased, but there are still many different
+names than the three names used in the search. The possible status of those
+names are stored in the new column 'scientificNameStatus'.
 
 ```{r, eval = FALSE}	
 sort(table(occs$scientificNameStatus))
 ```
 
-### Species synonyms and spelling: function `prepSpecies()`
-Although the function `fixSpecies()` presented above formatted the species names,
-there are still many more names than the ones we downloaded. Most of them are
-names at the infra-specific level, but others are probably synonyms,
-ortographical variants or even typos. There are R packages that check species
-nomenclature (e.g. `taxize`, `Taxonstand`, and `WorldFlora`). For species listed
-in the Brazilian Flora 2020, there is also the package `flora`, which follow the
-accepted nomenclature of the Brazilian Flora 2020 project. `plantR` uses the
-functionalities of some of these packages to inspect possible suggestions for
-species names, through the function `prepSpecies()`:
+### Species synonyms and spelling
+
+Although the function `fixSpecies()` presented above formatted the species
+names, there are still many more names than the ones we downloaded. Most of them
+are names at the infra-specific level, but others are probably synonyms,
+orthographical variants or even typos. There are R packages that check species
+nomenclature (e.g. __taxize__, __Taxonstand__, and __WorldFlora__). For species
+listed in the Brazilian Flora 2020, there is also the package `flora`, which
+follow the accepted nomenclature of the Brazilian Flora 2020 project. __plantR__
+uses the functionalities of some of these packages to inspect possible
+suggestions for species names, through the function `prepSpecies()`:
 
 ```{r, eval = FALSE}
 occs <- prepSpecies(occs, db = c("bfo", "tpl"), sug.dist = 0.85)
 table(occs$suggestedName)
-table(occs$notes)
+table(occs$tax.notes)
 ```
 
-The final output of the function provide the valid names for the names that were retrieved in the two databases selected. The function also returns which names were replaced or corrected (i.e. typos). In addition, the flag 'check +1 accepted' may represent an indication of possible homonyms, i.e., different species with the same binomial but different authorities. Together with names there were not found in both databases, those possible homonyms may deserve closer attention. 
+The final output of the function provides the valid names for the names that were
+retrieved in the two databases selected (column 'suggestedName'). The function
+also returns which names were replaced or corrected (column 'tax.notes'). In
+addition, the flag 'check +1 accepted' may represent an indication of possible
+homonyms, i.e., different species with the same binomial, but different
+authorities. Together with names there were not found in both databases, those
+possible homonyms may deserve closer attention.
 
-Note that there are still more names than the ones used to search for
-occurences. Some of these differences are due to differences in the assignnemt
-of synonyms between speciesLink and the Brazilian Flora interface used here, the
-package `flora`.
+Note that there are still more names than those used to search for species
+records. Some of these differences are due to differences in the assignment of
+synonyms between speciesLink and the Brazilian Flora interface used here, the
+package __flora__.
 
-For our example we decided to replace all edited species names (i.e.
+For our example, we decided to replace all edited species names (i.e.
 'scientificName.new') by the suggested species names from the function
 `prepSpecies()` (i.e. 'scientificName.new'). However, __plantR__ does not
 execute this step automatically and the decision to do it should be taken by the
@@ -489,26 +545,32 @@ user:
 occs$scientificName.new <- occs$suggestedName
 ```
 
-### Botanical family synonyms and standardization: function `prepFamily()`
+### Botanical family synonyms and standardization
+
 The classification of the taxonomic confidence in species determination of each
 occurrence is currently performed based on a global list of taxonomists per
 family (see details below). Because different plant classification systems can
 use different names to the same family, we need to standardize family names. The
-standard used by __plantR__ to obtain valid family names is the APG IV and the PPG
-I, which can be obtained using the function `prepFamily()`:
+standard used by __plantR__ to obtain valid family names is the APG IV and the
+PPG I, which can be obtained using the function `prepFamily()`:
 
 ```{r, eval = FALSE}
 occs <- prepFamily(occs)
 ```
 
-Note that the function return warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.
+Note that the function returns warnings in the case of conflicts on family names
+between the original occurrences and the APG IV/PPG I family list. Some are just
+differences in the list of names accepted from different classification systems,
+but some may represent errors.
 
 ### The wrapper function `formatTax()`
 
-As for the other parts of the data editing and standardization, we provide a simple wrapper function that executes the steps above at once:
+As for the other parts of the data editing and standardization, we provide a
+simple wrapper function that executes the steps above at once:
 
 ```{r, eval = FALSE}
-occs1 <- fixField(example$data, origin = "splink")
+occs1 <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
 occs1 <- formatTax(occs1)
 ```
 
@@ -516,23 +578,23 @@ occs1 <- formatTax(occs1)
 
 # Data validation
 
-In __plantR__, all validation steps add new columns to the occurrence data,
-flagging possible problems. Depending on the study aims and spatial scale, one
-can choose to try to correct some of the problems or drop them from the final
-data set.
+The validation steps in __plantR__ add new columns to the species data, flagging
+possible problems. Depending on the study aims and spatial scale, one can use
+these new columns to try to correct some of the problems or drop them from the
+final data set.
 
-## Locality validation: function `validateLoc()`
+## Validation of locality information
 
 The editing process of locality information and its comparison against the
 gazetteer return the localities (and coordinates) at the best resolution
 available. In this comparison, much information provided at the locality level
 is only retrieved at the municipality level, which is expected due to the
-completeness of the gazetteer used (not all place names are stored in the
-standard __plantR__ gazetteer at the locality level). But many of them are only retrieved at state/province level, meaning that fields containing state and municipality information may need to be checked.
+completeness of the gazetteer used (not all names of places are stored in the
+standard __plantR__ gazetteer at the locality level). But many of them are only retrieved at the state/province level, meaning that fields containing state and municipality information may need to be checked.
 
 In __plantR__ the resolution of the locality information provided with the
 specimen and the one found in the gazetteer are described using the function
-`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called `loc.check`:
+`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called 'loc.check':
 
 ```{r, eval = FALSE}
 occs <- validateLoc(occs)
@@ -548,103 +610,281 @@ resolution (i.e. "ok_same_resolution") and those that could be retrieved at a
 better locality resolution, also flagged with an "ok_" (e.g.
 'ok_state2municipality': a record which had its original resolution at the 'stateProvince' level is now at the 'municipality' level).
 
-Note that many occurrences were flagged with a "check_...". The class 
+Note that many occurrences were flagged with a "check_...". The class
 "check_local.2municip." should not be a problem, since the internal __plantR__
-gazetteer does not contain a comprehensive list of names at the locality level.
-However, other "check_..." classes (e.g. "check_local.2country") may indicate
-missing information or typos that may need some more careful inspection.
+gazetteer does not contain a comprehensive list of names at the locality level
+for the entire world. However, other "check_..." classes (e.g.
+"check_local.2country") may indicate missing information or typos that may need
+some more careful inspection.
 
 
-## Geographical validation: function `validateCoord()`
+## Validation of the geographical coordinates
 
-Check here other possible steps that can use __coordinateCleaner__ or other packages
+One important part of the validation process is to verify if the original
+geographical coordinates provided with the data are valid. In __plantR__, this
+validation is performed by comparing the locality information retrieved from the
+gazetteer with the locality information obtained from maps based on the original
+coordinates. But the validation process also flags inverted/swapped coordinates,
+records falling near shorelines, borders of neighbour countries, spatial
+outliers and records from cultivated individuals.
 
-### Flag occurrences from cultivated individuals: function `getCult()`
-
-Function `getCult()` flags cultivated or possibly cultivated records in a new column 
-
-```{r, eval = FALSE}
-antes <- names(occs)
-occs <- getCult(occs)
-despues <- names(occs)
-setdiff(despues, antes)
-table(occs$cult.check)
-
-```
-
-### Load and inspect the __plantR__ default world map
-
+<!--  ### Load and inspect the __plantR__ default world map -->
 
 ### Validate original coordinates at country, state and county level
 
+The first step of the validation of the geographical coordinates is to check the
+original coordinates against the world (at the country level) and Latin-American
+maps (at the county level). This step is performed by the function
+`checkCoord()`, which returns a new column 'geo.check' containing the results:
 
-### Coordinates falling into the sea or bays
+```{r, eval = FALSE}
+occs <- checkCoord(occs,
+                   keep.cols = c("geo.check", "NAME_0", "country.gazet"))
+unique(occs$geo.check)
+```
 
-### How distant original coordinates are from the county centroid?
+The new column 'geo.check' have some main types of classes. The first type
+starts with an 'ok_' and is followed by the level at which the coordinate was
+validated (e.g., country, state, county). It also contains the classes 'sea'
+(i.e., coordinates falling into the sea or bays), 'bad_country' (i.e.,
+coordinates falling in the land but in the wrong country), 'check_gazetteer' (i.e.,
+locality not found in the gazetteer) and 'no_cannot_check' (i.e., no coordinates
+available).
 
-### Verification of inverted and swapped coordinates
+The function `checkCoord()` can also return the distance (in meters) between the
+original coordinates from the county centroid listed in the locality information
+of the record. This may help to spot coordinates that were not validated but
+that are close to the reference locality.
 
-### Flagging based on coordinate resolution and distance from the target county
+### Coordinates falling in a neighbouring country 
 
-### Replacing coordinates according to the verified classes
+Sometimes geographical coordinates can fall in another country due to rounding
+or precision issues or simply because the collector was not aware that a coutry
+border was crossed before obtaining the coordinates. The function
+`checkBorders()` flag those cases, which is only done for the subset of records
+flagged previously as 'bad_country':
 
-### Flag possible spatial outliers
+```{r, eval = FALSE}
+occs <- checkBorders(occs, output = 'same.col')
+unique(occs$geo.check)
+```
+
+Note that for this example, we have set the argument `output` to 'same.col'. This
+means that the output of the function will be merged into the existing column
+'geo.check'. But if one wants to store this information in a separate column,
+this argument can be set to 'new.col' and a new column called 'border.check'
+will be created.
+
+<!-- Andrea, nenhum border foi encontrado... tá certo isso? lembro que antes
+encontrava aluma coisa... please double-check! --> 
+<!-- Andrea, algo mais a dizer/detalhar aqui? -->
+
+## Coordinates in the sea but close to the shore
+
+For those geographical coordinates flagged as falling into the sea, we can check
+if they are close to the shore. Sometimes the coordinate was noted on land, but
+it falls into the sea due to rounding or precision issues, or simply because
+the reference map does not contain all islands or contours of the shoreline.
+In __plantR__ this step is performed by the function `checkShore()`:
+
+```{r, eval = FALSE}
+occs <- checkShore(occs, output = 'same.col')
+unique(occs$geo.check)
+```
+
+As a result, the function `checkShore()` has re-classified all records flagged
+as 'sea' into 'shore' (i.e., near to the shore) and 'open_sea' (i.e., far from
+the shore). By default, this verification is performed by comparing the
+coordinates against a buffer of 0.5 degrees around continents and major islands
+(as above). So, open sea records are those more than 0.5 degrees (~ 55 km in the
+Equator) from continents and major islands. But this verification can also be
+performed by calculating the distance of each coordinate to the shore and
+establishing maximum distance as a limit to flag the coordinate as being close to
+shore (takes much longer).
+
+### Inverted and swapped coordinates
+
+There are still coordinates flagged a 'bad_contry' in our dataset. Some of those
+records can be due to inversions in the longitude and latitude or to the
+swapping/transposing between them (i.e. latitude as longitude or vice-versa).
+
+```{r, eval = FALSE}
+occs <- checkInverted(occs, output = 'same.col')
+unique(occs$geo.check)
+```
+
+As a result, some of the records could be validated by inverting or swapping
+their coordinates. These records are flagged as "ok_country" followed by the
+combination of inverted and/or swapped coordinates for which validation was
+acquired in brackets. Note that this function does not perform the validation
+of the newly arranged coordinates at the state and county levels. So, if deemed
+necessary, the user can re-include them in the function `checkCoord()`, and step
+which is automatically executed by the wapper function `validateCoord()`
+presented below.
 
 
-## Confidence level of species determinations: function `validateTax()`
+### Records from cultivated individuals
 
-Next step is to perform the classification of the species identification of each occurrence according to their taxonomic confidence level.
+Although records from cultivated individuals are not determined in __plantR__
+using the geographical coordinates, cultivated individuals can sometimes be
+related to records far away from the species' original distribution. Thus,
+flagging these records may be important for subsetting the data for downstream
+analysis. Function `getCult()` flags cultivated or possibly cultivated records
+in a new column called 'cult.check':
+
+```{r, eval = FALSE}
+occs <- getCult(occs)
+table(occs$cult.check)
+```
+
+Note that the function flags two categories: 'cultivated' and 'prob_cultivated'.
+The first is related to records with descriptions using terms that clearly denote
+cultivated individuals (e.g. 'Cultivated', 'Planted', 'Exotic'). The second
+category is related to records that contain those terms in their descriptions,
+but that may need some level of double-checking by the user before they can
+be safely removed as being true records from cultivated individuals.
+
+### Spatial outliers
+
+The last step of the validation of geographical coordinates is the search for
+spatial outliers (i.e., records too far away from species core distributions),
+which can indicate misidentifications or records obtained from cultivated
+individuals but not declared as such. In __plantR__, the search for spatial
+outliers is based on Mahalanobis distances and is executed using the function
+`checkOut()`:
+
+```{r, eval = FALSE}
+occs <- checkOut(occs, tax.name = "scientificName.new")
+```
+
+Note that since the search for spatial outliers is performed species by species,
+we need to provide the name of the column containing the species names. By
+default, the function also removes invalid geographical coordinates and
+records flagged as cultivated from the estimation of the center and co-variance
+matrix of the geographical coordinates, which are used to get the Mahalanobis
+distances.
+
+
+## Confidence level of species determinations
+
+One of the main features of __plantR__ is the possibility of validating species
+identifications against a global list of plant taxonomists. This validation
+consists of the classification of the species identification of each record into
+different confidence levels.
 
 ```{r, eval = F}
 occs <-  validateTax(occs)
 table(occs$tax.check)/dim(occs)[1]
 ```
 
-As expected, only ca. 15% of the specimens were identified by a family specialist. Note that the function also returns a list with up to 10 names in the TDWG format that have more identifications. Maybe this name could represent a missing taxonomist from the __plantR__ database of plant taxonomists. If this is the case, one can add taxonomist to the validation using the argument `miss.taxonomist`:
+As expected, only ca. 15% of the specimens were identified by a family
+specialist. Note that the function also returns a list with the names in the
+TDWG format that have many identifications but are not listed as family
+specialists in the __plantR__ database of plant taxonomists. Maybe this name
+could represent a missing taxonomist from the database. If this is the case, one
+can add one or more taxonomist names to the validation using the argument
+`miss.taxonomist`:
 
 ```{r, eval = FALSE}
 occs1 <- validateTax(occs, miss.taxonomist = c("Salicaceae_Hatschbach, G."))
 table(occs1$tax.check)/dim(occs)[1]
 ```
 
-This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinantions for many different families outside his speciality, often referred to as a generalist. There are some names of generalists in the __plantR__ default taxonomist database, and those names can be included in the taxonomic validation through the arguments `generalist`. However, this list of generalist names is biased towards South America, particularly Brazil.
+This is not the optimal example because Gerdt (Guenther) Hatschbach was not a
+Salicaceae specialist. However, he provided determinations for many different
+families outside his speciality, often referred to as a generalist. There are
+some names of generalists in the __plantR__ default taxonomist database, and
+those names can be included in the taxonomic validation through the arguments
+`generalist`. However, this list of generalist names is biased towards South
+America, particularly Brazil.
 
 <br/><br/>
 
 ## Duplicated specimens
 
-### Create unique record identifiers: function `getTombo()`
+Another main feature of __plantR__ is the search for duplicated records across
+collections (i.e. same specimen deposited in different biological collections)
+and the homogenization of the information within groups of duplicated records.
 
+### Create unique record identifiers
 
-### Prepare to merge: function `prepDup()`
+First we need to make sure that each records from each collection has it own
+record identifier. This identifier is used to created the groups of duplicated
+records. In __plantR__, we create this identifier by concatenating the
+collection code (edited field 'collectionCode.new') and accession number of each
+record (field 'catalogNumber') using the function `getTombo()`. And we are going
+to call it 'numTombo':
 
-First we need to prepare the dataset for the duplicate search. The function 
-`prepDup()` basically creates concatenated strings with different set of information, which will be used in the search. Different combinations of fields can be used to generate these search strings, through the argument `comb.fields`:
+```{r, eval = FALSE}
+occs$numTombo <- getTombo(occs[, "collectionCode.new"],
+                            occs[, "catalogNumber"])
+```
+
+The function returns identifiers such as "UEC_42115" or "CEPEC_1133".
+
+### Preparing to search for duplicates
+
+Before searching for the duplicates, we first need to prepare the dataset for
+the search. The function `prepDup()` basically creates concatenated strings with
+different sets of information, which will be used in the search. Different
+combinations of fields can be used to generate these search strings and they
+should be provided using the argument `comb.fields`:
 
 ```{r, eval = FALSE}
 dups <- prepDup(occs, 
-                comb.fields = list(c("family","col.last.name","col.number","municipality"),
+                comb.fields =   list(c("family","col.last.name","col.number","col.loc"),
      c("family","col.last.name","col.number","col.year")))
 ```
 
-Note that we used the default arguments of the `prepDup()` function, which exclude from the search the strings without collector name, number or year (e.g. 's.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.) increase as well.
+In this example we used two search strings, which differ on the last information (collection locality vs. collection year). The use of two or more search strings increases the chance of finding dupicates even if one or more infromation are missing.
 
-### Find duplicates across collections: function `getDup()`
+Note that we used the default arguments of the `prepDup()` function, which
+exclude from the search the strings without collector name, number or year (e.g.
+'s.n.' or 's.d.'), as well as missing information for these columns (i.e. NAs).
+If one decided to include those strings in the search, the number of specimens
+that will pass the duplicate search will increase but the chances of finding
+false duplicates increase as well (e.g. Salicaceae + s.n. + s.n. + Ubatuba or
+Salicaceae + s.n. + s.n. + s.d.).
 
-Next, we can actually perform the search for duplicated specimens using the function `getDup`:
+### Finding duplicates across collections
+
+Next, we can actually search for duplicated specimens using the function
+`getDup()`:
 
 ```{r, eval = FALSE}
 dups <- getDup(dups)
 head(dups[order(dups$dup.ID),],6)
 table(dups$dup.prop)
 ```
-As a result we found about 5300 specimens with a high chance of representing true duplicates, i.e. the proportion of search strings shared between them is maximum (dup.prop = 1). Other ~300 specimens had only one search string in common. Moreover, we have indication of possible ~4600 unicates, and for other ~6800 specimens we could not check for dupicates (i.e. all search strings used have missing information).
+As a result we found over 6000 records with a high chance of representing true
+duplicates, i.e. the proportion of search strings shared between them is maximum
+(dup.prop = 1). Other ~1000 specimens had only one search string in common.
+Moreover, we have indication of possible ~7000 unicates, and for other ~5000
+specimens we could not check for dupicates (i.e. all search strings used have
+missing information).
 
-Note that if there are duplicated record identifiers (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column 'dup.ID'.
+Note that if there are duplicated record identifiers (i.e. same accession number
+from the same collection) both are listed within the accession number grouped in
+the new column 'dup.ID'.
 
-It is important to notice that these duplicate search results are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information descreases the chance of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collecor number or collection year or locality), they can not enter the duplicate search.  
+It is important to notice that the results of this duplicate search are only
+indications. First of all, the retrieval of duplicates depends on the dataset
+itself: if the collection where the duplicate was deposited is not within the
+dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be
+retrieved for obvious reasons. But other issues may change the number of
+unicates and duplicates found. If the search string is too flexible (e.g. only
+collector name and number), false duplicates may be retrieved if collector names
+are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and
+collector numbers are low. So having more than one search string with at least 3
+combinations of information descreases the chance of false duplicates. On the
+other hand, we may have false unicates due to differences in the notation among
+collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A.
+vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.).
+Finally, many duplicates may still exist but due to missing information (e.g.
+collecor number or collection year or locality), they can not enter the
+duplicate search.
 
-### Homogenizing the information within duplicates: function `mergeDup()`
+### Homogenizing the information within duplicates
 
 Since the amount and quality of the information among collectiors may vary, one
 may want to homogenize the information within the duplicates. These
@@ -654,24 +894,31 @@ results of the duplicate search with the main data frame:
 
 ```{r, eval = FALSE}
 occs <- cbind.data.frame(occs, 
-                         dups[,c("numTombo","dup.ID","dup.numb","dup.prop")],
+                         dups[,c("dup.ID", "dup.numb", "dup.prop")],
                          stringsAsFactors = FALSE)
 ```
 
-Next, we use function `mergeDup` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
+Next, we use function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
 
 ```{r, eval = FALSE}
 occs <- mergeDup(occs)
 table(occs$tax.check, occs$tax.check1)
 ```
 
-In this example, we show that the function was able to retrieve high-confidence species identifications for about 700 specimens with low or unknown confidence levels. There was also an improvement on the stats regarding the geographical and locality checks (i.e. columns 'geo.check' vs. 'geo.check1' and 'loc.check' vs. 'loc.check1')
+In this example, we show that the function was able to retrieve high-confidence species identifications for about 6000 specimens with low or unknown confidence levels. There was also an improvement on the stats regarding the geographical and locality checks (i.e. columns 'geo.check' vs. 'geo.check1' and 'loc.check' vs. 'loc.check1')
 
 Note that we used the function defaults, which created new columns for the merged information. If one wants to save the new information in the same columns, the argument `overwrite` should be set to `TRUE`.
 
-### Removing duplicates after homogenization: function `rmDup()`
+### Removing duplicates after homogenization
 
-`plantR` provides a simple function for the (fast) removal of duplicates from the data. This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. Only the first specimen of each group of duplicates is maintained and the non-homogenized information contained in the other specimens is lost. 
+__plantR__ provides a simple function for the (fast) removal of duplicates from
+the data. By default, only duplicated records from the same collections are
+removed from the dataset. But if the argument `rm.all` is set to TRUE, all
+duplicates are removed from the data (i.e., only one record per group of
+duplicate emains in the dataset). This procedure should only be performed if the
+user deems it necessary and after the information among groups of duplicates has
+been homogenized. All the non-homogenized information contained in the other
+specimens is lost.
 
 ```{r, eval = FALSE}
 dim(occs)
@@ -681,43 +928,53 @@ dim(occs)
 
 ### The wrapper function `validateDup()`
 
-As the stesp above related to duplicated specimens can be performed at once, using the function `validateDup()`:
-
-```{r, eval = FALSE}
-occs1 <- fixField(example$data, origin = "splink")
-occs1 <- formatLoc(occs1)
-occs1 <- validateDup(occs1)
-```
+Similarly to the other validation steps, all the steps related to duplicated specimens can be performed at once, using the function `validateDup()`. Since this function uses information from localities, georgraphical coordinates and
+taxonomic information, all format and validation steps related to this information should have been carried previously.
 
 
 <br/><br/>
 
 # Data summary and export
 
+Finally, __plantR__ can help users to summarize their data sets and the flags of the validation process. It also provides species checklists with user-defined numbers of voucher specimens and the export of records by groups (e.g. families,  countries, collections). 
+
 ## Number of specimens, collections, species and other descriptors
 
+The function `summaryData()` prepare tables containing information on the number of records, collections, species, etc. It also provides summaries of the top collectors and the top countries with more records:
+
 ```{r, eval = FALSE}
-summaryData(occs)
+summ <- summaryData(occs)
 ```
 
 ## Summary of validation flags and other issues
 
+__plantR__ also provides summaries of the validation process, such as the number of duplicates found and the validation of the locality, coordinates and species identifications. This is performed by the function `summaryFlags()`:
+
 ```{r, eval = FALSE}
-summaryFlags(occs)
+flags <- summaryFlags(occs)
 ```
 
 ## Generating checklists
 
+Another feature of __plantR__ is the possibility of building species checklists.
+This is done using the function `checkList()` which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the propotion of records with high confidence species identification and with validated geographical coordinates.
+
 ```{r, eval = FALSE}
-checkList(occs)
+spp.check <- checkList(occs)
 ```
 
 ## Saving the occurrence data
+
+Finally, __plantR__ provides the function `saveData()` that saves the species
+records divided by any group of information, such as the species taxonomy,
+collections, years and countries. By default, records will be saved as
+compressed 'csv' files in the user working directory. But the user can provide
+any directory using the argument `dir.name`.
 
 ```{r, eval = FALSE}
 saveData(occs, by = "family")
 ```
 
 
-### Saving outputs to the format of other packages: *MODEL-R* and *ConR*
-[TO BE IMPLEMENTED]
+<!-- ### Saving outputs to the format of other packages: *MODEL-R* and *ConR*
+[TO BE IMPLEMENTED] -->

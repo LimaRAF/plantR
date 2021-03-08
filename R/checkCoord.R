@@ -13,9 +13,9 @@
 #'   output of function `getCoord()`)
 #' @param res.gazet Column with the locality resolution level retrieved from the
 #'   gazetteer
-#' @param dist.center Logical. Should the distance between the original
-#'   coordinates and those retrieved in the gazetteer be returned. Defaults to
-#'   FALSE.
+#' @param dist.center Logical. Should the distance (in meters) between the
+#'   original coordinates and those retrieved in the gazetteer be returned?
+#'   Defaults to FALSE.
 #' @param lon.gazet Column with the longitude obtained from a gazetteer
 #' @param lat.gazet Column with the latitude obtained from a gazetteer
 #' @param keep.cols character. Name of columns that should be kept in the

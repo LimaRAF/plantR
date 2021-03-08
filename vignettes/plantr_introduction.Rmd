@@ -31,52 +31,51 @@ devtools::load_all() # for development
 # Introduction
 
 The databases of biological collections are becoming increasingly available
-online, providing an unprecedented amount of species records for biodiversity
-studies. Managing the information associated with species records is an
-important but difficult task. The notation of collectors' names, numbers and
-dates vary between collections, and sometimes within them. In addition, it is
-often difficult to validate the localities, geographical coordinates and
-identifications associated with individual records, especially when working with
-thousands or millions of them. Thus, having tools to process and validate large
-amounts of species records can be quite handy.
+online, providing an unprecedented amount of species records for
+biodiversity-related studies. Managing the information associated with species
+records is an important but difficult task. The notation of collectors' names,
+numbers and dates vary between collections, and sometimes within them. In
+addition, it is often difficult to validate the localities, geographical
+coordinates and identifications associated with individual species records,
+especially when working with thousands or millions of them. Thus, having tools
+to process and validate large amounts of records can be quite handy.
 
 __plantR__ is an R package that was developed to manage, standardize and
 validate the information associated with species records from biological
 collections (e.g. herbaria). It can be used for data coming from a single
 collection or different biodiversity databases, such as
 [GBIF](https://www.gbif.org/). Moreover, __plantR__ can be used by collection
-curators to manage their databases and  by the final users of the occurrence
-data (e.g. taxonomists, ecologists and conservationists), allowing the
-comparison of data across collections.
+curators to manage their databases and  by final users of species records (e.g.
+taxonomists, ecologists and conservationists), allowing the comparison of data
+across collections.
 
 ## Main features and workflow
 
 The package __plantR__ provides tools to standardize the information from
-typical fields of species occurrence records, such as collectors' and species
+typical fields associated with species records, such as collectors' and species
 names. In addition, __plantR__ proposes a comprehensive and reproducible
-workflow to apply those tools while handling data from biological collections,
+workflow to apply those tools while handling records from biological collections,
 which includes the following steps:
 
-1. the download of species occurrence records for a list of species names,
-    collections codes or other search fields;
+1. the download of species records for a list of species names, collections
+codes or other search fields;
 
-2. the batch standardization of typical fields (e.g. collector
-    name);
+2. the batch standardization of typical fields (e.g., collector name);
 
-3. the validation of the locality and geographical coordinates of the
-    records, based on maps and gazetteers;
+3. the validation of the locality and geographical coordinates of the records,
+based on maps and gazetteers;
   
 4. the spell-checking and validation of botanical families and species names
-from different taxonomic backbones (e.g. Flora do Brasil);
+using different taxonomic backbones (e.g. Flora do Brasil);
 
 5. the assessment of the confidence level of species identifications, based on a
 global list of plant taxonomists.
     
-6. the retrieval of duplicated specimens across collections, including the 
-    homogenization of the information within duplicates.
+6. the retrieval of duplicated specimens across collections, including the
+homogenization of the information within duplicates.
 
-7. data and validation summaries and the (fast) export of occurrence data by 
-    groups (e.g. families or countries).
+7. the summary of species data and validation steps, and the (fast) export of
+the validated records by groups (e.g. families or countries).
     
 ## Basic assumptions and limitations
 
@@ -189,23 +188,20 @@ occs_splink <- read.csv("results/speciesLink.csv")
 occs_gbif <- read.csv("results/gbif.csv")
 ```
 
-
-### Data editing
-
 #### Field names
 
-It is important to make sure that the input field names follow the DarwinCore
-format. In __plantR__ this is performed using the function `formatDwc()`, which
-joins data from different sources (e.g. GBIF and speciesLink) and standardizes
-their field names:
-
-Here, we are using the argument `drop = TRUE` to drop any column that won't be
-used for data cleaning in the next steps.
+It is important to make sure that the field names of the input data follow the
+DarwinCore format. In __plantR__ this is performed using the function
+`formatDwc()`, which joins data from different sources (e.g. GBIF and
+speciesLink) and standardizes their field names:
 
 ```{r bind-data, eval = TRUE, collapse = TRUE}
 occs <- formatDwc(splink_data = occs_splink, 
                   gbif_data = occs_gbif)
 ```
+
+
+### Data editing
 
 
 #### Collection codes, people names, collector number and dates
@@ -229,8 +225,9 @@ occs <- formatLoc(occs)
 #### Geographical coordinates
 
 The geographical coordinates are prepared using function `formatCoord()`, which
-guarantees that they are in a good format for validation (i.e. decimal degrees)
-and get missing coordinates from a gazetteer based on the locality information:
+guarantees that they are in a good format for validation (i.e. decimal degrees).
+This function also retrieves missing coordinates from a gazetteer based on the
+locality information:
 
 ```{r formatCoord, eval = TRUE, collapse = TRUE}
 occs <- formatCoord(occs)
@@ -239,9 +236,9 @@ occs <- formatCoord(occs)
 #### Species and family names
 
 In this example, although we have dowloaded data for a single species (i.e.
-*Euterpe edulis*), there are differences in the notation of botanical family and
-species names, some of them being synonyms. To obtain only valid names, we use
-the function `formatTax()`:
+*Euterpe edulis* Mart.), there are differences in the notation of botanical
+family and species names, some of them being synonyms. To obtain only valid
+names, we use the function `formatTax()`:
 
 ```{r formatTax, eval = TRUE, collapse = FALSE}
 occs <- formatTax(occs)
@@ -252,8 +249,8 @@ occs <- formatTax(occs)
 #### Locality information
 
 Once the new columns with the edited and standardized information are available,
-the occurrence data can be validated. The first validation step regards the
-locality information, which is done using the function `validateLoc()`:
+the records can be validated. The first validation step regards the locality
+information, which is done using the function `validateLoc()`:
 
 ```{r validateLoc, eval = TRUE, collapse = FALSE}
 occs <- validateLoc(occs)
@@ -272,25 +269,25 @@ occs <- validateCoord(occs)
 #### Species taxonomy and identification
 
 The next validation step regards the confidence level in the species
-identification associated with the occurrence data, which is one of the main
-__plantR__ features and executed by function `validateTax()`:
+identification, which is one of the main __plantR__ features and executed by
+function `validateTax()`:
 
 ```{r validateTax, eval = TRUE, collapse = FALSE}
 occs <- validateTax(occs)
 ```
 
-Note that the function returns up to 10 names of identificators not taken as
+Note that the function returns up to 10 names of determiners not taken as
 specialists of the family. The argument `miss.taxonomist` can be used to include
 missing names of taxonomists (e.g. `miss.taxonomist = c("Arecaceae_Reis, A.")`)
 
 #### Duplicate specimens
 
-Another main feature of __plantR__ is the search for duplicated specimens across
-herbaria (i.e. same specimen with accession numbers in two or more collections).
-It uses different combinations of search strings and network analysis to find
-direct and indirect links between occurrences. Besides the search, the user can
-also homogenize information, such as species names or geographical coordinates,
-within groups of duplicates. This tool is performed using the function
+Another main feature of __plantR__ is the search for duplicated records across
+herbaria (i.e., same biological specimen with accession numbers in two or more
+collections). It uses different combinations of search strings to find direct
+and indirect links between records. Besides the search itself, the user can also
+homogenize information within groups of duplicates, such as species names or
+geographical coordinates, . This tool is performed using the function
 `validateDup()`:
 
 

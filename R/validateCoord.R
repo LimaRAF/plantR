@@ -50,24 +50,24 @@ validateCoord <- function(x,
 
   ## First coordinate check
   x1 <- checkCoord(x,
-                      lon = lon,
-                      lat = lat,
-                      dist.center = FALSE,
-                      keep.cols = c("geo.check", country.shape, country.gazetteer))
+                   lon = lon,
+                   lat = lat,
+                   dist.center = FALSE,
+                   keep.cols = c("geo.check", country.shape, country.gazetteer))
 
   ## Checking bad coordinates close to countries frontiers
   x2 <- checkBorders(x1,
-                        geo.check = "geo.check",
-                        country.shape = country.shape,
-                        country.gazetteer = country.gazetteer,
-                        output = output)
+                     geo.check = "geo.check",
+                     country.shape = country.shape,
+                     country.gazetteer = country.gazetteer,
+                     output = output)
 
   ## Checking bad coordinates in the sea but close to the shore
   x3 <- checkShore(x2,
-                 geo.check = "geo.check",
-                 lon = lon,
-                 lat = lat,
-                 output = output)
+                   geo.check = "geo.check",
+                   lon = lon,
+                   lat = lat,
+                   output = output)
 
   ## Checking inverted and swapped coordinates
   x4 <- checkInverted(x3,
@@ -84,10 +84,10 @@ validateCoord <- function(x,
   x4.1 <- x4[check_these, ]
   x4.1 <- x4.1[, -which(names(x4.1) %in% c("geo.check", country.shape, country.gazetteer))]
   x4.2 <- checkCoord(x4.1,
-                       lon = lon,
-                       lat = lat,
-                       dist.center = FALSE,
-                       keep.cols = c("geo.check"))
+                     lon = lon,
+                     lat = lat,
+                     dist.center = FALSE,
+                     keep.cols = c("geo.check"))
 
   if (output == "same.col") {
     #Writing new checks for the inverted/swapped coordinates
@@ -101,7 +101,7 @@ validateCoord <- function(x,
     ## REVER ESSA PARTE...
     #Writing new checks for the inverted/swapped coordinates
     x4$geo.check.new[check_these] <- paste0(x4.2$geo.check,
-                                        gsub(".*(?=\\[)", "", x4$geo.check.new[check_these], perl= TRUE))
+                                            gsub(".*(?=\\[)", "", x4$geo.check.new[check_these], perl= TRUE))
 
     #cria a coluna final; ## rafl: Rever aqui a necessidade; não fazendo por enquanto
     # x5 <- x4 %>%
