@@ -836,7 +836,7 @@ dups <- prepDup(occs,
      c("family","col.last.name","col.number","col.year")))
 ```
 
-In this example we used two search strings, which differ on the last information (collection locality vs. collection year). The use of two or more search strings increases the chance of finding dupicates even if one or more infromation are missing.
+In this example, we used two search strings, which differ on the last information (collection locality vs. collection year). The use of two or more search strings increases the chance of finding duplicates even if one or more information is missing.
 
 Note that we used the default arguments of the `prepDup()` function, which
 exclude from the search the strings without collector name, number or year (e.g.
@@ -856,11 +856,11 @@ dups <- getDup(dups)
 head(dups[order(dups$dup.ID),],6)
 table(dups$dup.prop)
 ```
-As a result we found over 6000 records with a high chance of representing true
+As a result, we found over 6000 records with a high chance of representing true
 duplicates, i.e. the proportion of search strings shared between them is maximum
 (dup.prop = 1). Other ~1000 specimens had only one search string in common.
-Moreover, we have indication of possible ~7000 unicates, and for other ~5000
-specimens we could not check for dupicates (i.e. all search strings used have
+Moreover, there is indication of possible ~7000 unicates, and of other ~5000
+specimens we could not check for duplicates (i.e. all search strings used have
 missing information).
 
 Note that if there are duplicated record identifiers (i.e. same accession number
@@ -876,19 +876,19 @@ unicates and duplicates found. If the search string is too flexible (e.g. only
 collector name and number), false duplicates may be retrieved if collector names
 are common (e.g. 'Silva', 'Santos' or 'Lima' for Portuguese family names) and
 collector numbers are low. So having more than one search string with at least 3
-combinations of information descreases the chance of false duplicates. On the
+combinations of information decreases the chance of false duplicates. On the
 other hand, we may have false unicates due to differences in the notation among
 collections, which could not be solved by __plantR__ (e.g. Mattos-Silva, L.A.
 vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.).
 Finally, many duplicates may still exist but due to missing information (e.g.
-collecor number or collection year or locality), they can not enter the
+collector number or collection year or locality), they can not enter the
 duplicate search.
 
 ### Homogenizing the information within duplicates
 
-Since the amount and quality of the information among collectiors may vary, one
-may want to homogenize the information within the duplicates. These
-homogenization can be carried out regarding the specimens identification or
+Since the amount and quality of the information among collections may vary, one
+may want to homogenize the information within the duplicates. This
+homogenization can be carried out regarding the specimen's identification or
 their locality and geographical coordinates. First, we need to combine the
 results of the duplicate search with the main data frame:
 
@@ -898,7 +898,7 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Next, we use function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
+Next, we use the function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
 
 ```{r, eval = FALSE}
 occs <- mergeDup(occs)
@@ -915,9 +915,9 @@ __plantR__ provides a simple function for the (fast) removal of duplicates from
 the data. By default, only duplicated records from the same collections are
 removed from the dataset. But if the argument `rm.all` is set to TRUE, all
 duplicates are removed from the data (i.e., only one record per group of
-duplicate emains in the dataset). This procedure should only be performed if the
-user deems it necessary and after the information among groups of duplicates has
-been homogenized. All the non-homogenized information contained in the other
+duplicate remains in the dataset). This procedure should only be performed if
+the user deems it necessary and after the information among groups of duplicates
+has been homogenized. All the non-homogenized information contained in the other
 specimens is lost.
 
 ```{r, eval = FALSE}
@@ -928,7 +928,7 @@ dim(occs)
 
 ### The wrapper function `validateDup()`
 
-Similarly to the other validation steps, all the steps related to duplicated specimens can be performed at once, using the function `validateDup()`. Since this function uses information from localities, georgraphical coordinates and
+Similar to the other validation steps, all the steps related to duplicated specimens can be performed at once, using the function `validateDup()`. Since this function uses information from localities, geographical coordinates and
 taxonomic information, all format and validation steps related to this information should have been carried previously.
 
 
@@ -940,7 +940,7 @@ Finally, __plantR__ can help users to summarize their data sets and the flags of
 
 ## Number of specimens, collections, species and other descriptors
 
-The function `summaryData()` prepare tables containing information on the number of records, collections, species, etc. It also provides summaries of the top collectors and the top countries with more records:
+The function `summaryData()` prepares tables containing information on the number of records, collections, species, etc. It also provides summaries of the top collectors and the top countries with more records:
 
 ```{r, eval = FALSE}
 summ <- summaryData(occs)
@@ -957,7 +957,7 @@ flags <- summaryFlags(occs)
 ## Generating checklists
 
 Another feature of __plantR__ is the possibility of building species checklists.
-This is done using the function `checkList()` which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the propotion of records with high confidence species identification and with validated geographical coordinates.
+This is done using the function `checkList()` which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the percentage of records with high confidence species identification and with validated geographical coordinates.
 
 ```{r, eval = FALSE}
 spp.check <- checkList(occs)

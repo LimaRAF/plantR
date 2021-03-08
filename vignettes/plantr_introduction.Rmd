@@ -287,7 +287,7 @@ herbaria (i.e., same biological specimen with accession numbers in two or more
 collections). It uses different combinations of search strings to find direct
 and indirect links between records. Besides the search itself, the user can also
 homogenize information within groups of duplicates, such as species names or
-geographical coordinates, . This tool is performed using the function
+geographical coordinates. This tool is performed using the function
 `validateDup()`:
 
 
