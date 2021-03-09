@@ -79,7 +79,6 @@ prepFamily <- function(x,
                        spp.name = "scientificName") {
 
   #Avoiding warnings in package check when using data.table
-  #family <- genus <- scientificName <- NULL
   flora.br <- name.correct <- name.correct.y <- string.plantr <- NULL
   tmp.fam <- tmp.gen <- tmp.spp <- NULL
 

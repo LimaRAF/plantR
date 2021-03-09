@@ -11,7 +11,6 @@
 #'
 #' @importFrom jsonlite fromJSON
 #'
-#' @export
 downFBO <- function(id, campos = c("estadosCerteza",
                                    "descricaoCamposControlados",
                                    "descricaoLivrePT",

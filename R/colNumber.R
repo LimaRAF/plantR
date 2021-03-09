@@ -54,10 +54,6 @@ colNumber <- function(x,
   # Number missing
   numbs[numbs %in% c(0, "0", "", " ", NA)] <- "SemNumero"
   numbs[!grepl("\\d", numbs, perl = TRUE)] <- "SemNumero"
-  # numbs <-
-  #   gsub('s\\.n\\.|s\\.n|s/nº|S/N|S\\.N\\.|s/nº|s/n°|^s/n$|^s/n\\.$',
-  #        "SemNumero",
-  #        numbs)
   numbs[!is.na(numbs) & grepl(" s.n. ", numbs)] <- "SemNumero"
 
   # Removing the collection code from the beggining of the collection number

@@ -83,10 +83,10 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  dup.ID <- numTombo <- typeStatus <- ordem <- NULL
-  temp.geo.check <- temp.rec.numb <-  temp.pais <- temp.accession <- NULL
-  coletores <- datas <- datas.tipo <- N <- N.all <- priority <- NULL
-  vchrs <- lista.vouchs <- NULL
+  dup.ID <- N <- N.all <- temp.geo.check <- priority <- NULL
+  typeStatus <- temp.rec.numb <- ordem <- temp.pais <- NULL
+  coletores <- temp.accession <- numTombo <- vchrs <- NULL
+  datas <- datas.tipo <- lista.vouchs <- . <- NULL
 
   ## PREPARING THE TABLE ##
   # Select which co-variables will be used in the summary (priority to the edited columns)

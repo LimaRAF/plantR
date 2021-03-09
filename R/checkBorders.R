@@ -9,9 +9,12 @@
 #'
 #' @keywords internal
 #'
-#' @export
 shares_border <- function(country1 = "brazil",
                           country2 = "argentina") {
+
+  #Escaping R CMD check notes
+  world <- world
+
   # w <- spData::world
   # w$nome <- tolower(textclean::replace_non_ascii(w$name_long))
   w <- world

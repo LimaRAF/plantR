@@ -79,7 +79,8 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
     stop ("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  dup.ID <- dup.IDs <- dup.prop <- numTombo <- tmp.ordem <- NULL
+  dup.IDs <- tmp.ordem <- temp.dup.prop <- dup.entries <- NULL
+  temp.rec.ID <- rename.IDs <- NULL
 
   #Checking essential columns
   if (!dup.name %in% names(df))

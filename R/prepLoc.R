@@ -29,12 +29,11 @@
 #' @seealso \link[plantR]{strLoc}
 #'
 #' @importFrom stringr str_trim
-#' @importFrom textclean replace_non_ascii
 #'
 prepLoc <- function(x) {
 
   # Removing unwanted characters
-  x <- tolower(textclean::replace_non_ascii(x))
+  x <- tolower(rmLatin(x))
 
   # Correcting NAs converted to lower caracters
   x <- gsub("_na_", "_NA_", x, fixed = TRUE)

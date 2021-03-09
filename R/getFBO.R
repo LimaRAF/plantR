@@ -9,7 +9,6 @@
 #' @param taxa Vector. A list of taxa names occurring in the Brazilian Flora Online.
 #' @param fields Vector. A list of fields to be returned.
 #'
-#' @export getFBO
 #'
 #' @keywords internal
 #'

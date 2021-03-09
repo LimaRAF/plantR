@@ -49,7 +49,7 @@ formatCoord <- function(coords,
     stop("input object needs to be a data frame!")
 
   # prepCoord
-  coords1 <- prepCoord(x = coords, lat , lon , flag)
+  coords1 <- prepCoord(x = coords, lat, lon, flag)
 
   # getCoord
   coords2 <- getCoord(x = coords1,

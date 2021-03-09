@@ -88,6 +88,7 @@ lastName <- function(name,
                      noName = "s.n.",
                      invert = FALSE,
                      initials = FALSE) {
+
   # detecting missing names
   miss.name <- name %in% c("NA", NA, "", " ", noName)
 

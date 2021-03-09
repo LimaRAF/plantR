@@ -20,9 +20,11 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @export capName
+#' @keywords internal
 #'
 #' @examples
+#'
+#' \dontrun{
 #' # Simple names
 #'   capName("gentry")
 #'   capName("HATSCHBACH")
@@ -45,6 +47,7 @@
 #'   capName("auguste saint-hilaire")
 #'   capName("a.h. gentry")
 #'   capName("AH gentry")
+#'  }
 #'
 capName <- function(x) {
 

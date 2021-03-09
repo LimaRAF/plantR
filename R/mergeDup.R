@@ -162,14 +162,11 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  dup.prop <- dup.ID <- loc.correct <- NULL
-  family.new <- identifiedBy.new <- yearIdentified.new <- NULL
-  scientificName.new <- identifiedBy.new1 <- yearIdentified.new1 <- NULL
-  tax.check <- tax.check1 <- geo.check <- NULL
+  dup.IDs <- dup.merge <- dup.prop <- same_spp <- tax.check.wk <- NULL
+  species.wk <- det.year.wk <- tax.check.wk1 <- geo.check.wk <- NULL
+  valor1 <- i.valor <- valor2 <- prioridade <- valor <- res.orig.wk <- NULL
   decimalLatitude.new <- decimalLongitude.new <- NULL
-  resolution.coord <- resol.orig <- origin.coord <- NULL
-  dup.merge <- work.tax.name <- same_spp <- loc.check <- NULL
-  valor <- valor1 <- i.valor <- valor2 <- prioridade <- NULL
+
 
   #Checking essential columns
   if(!dup.name %in% names(dups))

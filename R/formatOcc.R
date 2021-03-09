@@ -11,11 +11,11 @@
 #' @param x a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
 #' @param noNumb character. The standard notation for missing data in the field
-#'   'Number'
+#'   'Number'. Default to "s.n."
 #' @param noYear character. The standard notation for missing data in the field
-#'   'Year'
+#'   'Year'. Default to  "n.d."
 #' @param noName character. The standard notation for missing data in the field
-#'   'Name'
+#'   'Name'. Default to  "s.n."
 #'
 #' @details The function works similarly to a wrapper, where many individual
 #'   steps of the proposed __plantR__ workflow for editing collection
@@ -34,7 +34,6 @@
 #'   Missing year of collection in the field 'year' are internally replaced by
 #'   the date stored in the field 'eventDate', if this field is not empty as well.
 #'
-#'
 #' @seealso
 #'  \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
 #'  \link[plantR]{getYear}, \link[plantR]{prepTDWG}, \link[plantR]{prepName},
@@ -49,11 +48,11 @@
 formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
 
   #Escaping R CMD check notes from using data.table syntax
-  "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
-  "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
-  "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
-  "yearIdentified" <- "yearIdentified.new" <- "order" <- "tmp.ordem" <- NULL
-  "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
+  # "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
+  # "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
+  # "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
+  # "yearIdentified" <- "yearIdentified.new" <- "order" <- "tmp.ordem" <- NULL
+  # "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
 
   ## Check input
   if (!class(x) == "data.frame")

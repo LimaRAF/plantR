@@ -28,9 +28,10 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @export getInit
+#' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #'   # Full names and both full and abbreviated names
 #'   getInit("Alwyn")
 #'   getInit("Alwyn Howard Gentry")
@@ -65,6 +66,7 @@
 #'   getInit("Gentry, A.") # ignores comma
 #'   getInit("G., Alwyn") # ignores comma
 #'   getInit("Ah. Gentry") # discard the lower-case initial
+#'  }
 #'
 getInit <- function(x, upper = TRUE, max.initials = 5) {
 

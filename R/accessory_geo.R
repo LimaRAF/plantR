@@ -18,11 +18,12 @@
 #' lon = c(-47, -46, -47)
 #' lat = c(-23, -24, -23.5)
 #'
+#' \dontrun{
 #' geoDist(lon, lat)
+#' }
 #'
 #' @keywords internal
 #'
-#' @export
 geoDist <- function(lon, lat, radius = 6371) {
 
   if(length(lon) != length(lat))
@@ -74,13 +75,14 @@ geoDist <- function(lon, lat, radius = 6371) {
 #' lat = c(-23.475389, -23.475389, -23.475390, -23.475389)
 #' lon = c(-47.123768, -47.123768, -47.123768, -47.123868)
 #'
+#' \dontrun{
 #' minDist(lon, lat, output = 'group')
 #' minDist(lon, lat, output = 'flag')
 #' minDist(lon, lat, output = 'dist')
+#' }
 #'
 #' @keywords internal
 #'
-#' @export
 minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 
   if(length(lon) != length(lat))
@@ -122,9 +124,9 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' @param method character. Type of method desired: 'classic' and/or 'robust'
 #'   (see Details)
 #' @param center character. Which metric should be used to obtain he center of
-#'   the distribution of coordinates: 'mean' or 'median'? Default to 'mean'.
+#'   the distribution of coordinates: 'mean' or 'median'?
 #' @param n.min numerical. Minimun number of unique coordinates to be used in
-#'   the calculations. Default to 10
+#'   the calculations.
 #' @param geo character. A vector of the same length of lon/lat containing the
 #' result from the validation of the geographical coordinates. Default to NULL.
 #' @param cult character. A vector of the same length of lon/lat containing the
@@ -194,6 +196,7 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' lon <- c(-42.2,-42.6,-45.3,-42.5,-42.3,-39.0,-12.2)
 #' lat <- c(-44.6,-46.2,-45.4,-42.2,-43.7,-45.0,-8.0)
 #'
+#' \dontrun{
 #' # Assuming that all coordinates are valid
 #' mahalanobisDist(lon, lat, method = "classic", n.min = 1)
 #' mahalanobisDist(lon, lat, method = "robust", n.min = 1)
@@ -203,7 +206,7 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' geo = c(rep(TRUE, 6), FALSE))
 #' mahalanobisDist(lon, lat, method = "robust", n.min = 1,
 #' geo = c(rep(TRUE, 6), FALSE))
-#'
+#' }
 #'
 #' @seealso
 #'  \link[plantR]{uniqueCoord}, \link[plantR]{checkCoord},
@@ -211,7 +214,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'
 #' @author Renato A. Ferreira de Lima
 #'
-#' @export
+#' @keywords internal
+#'
 mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
                             center = "mean", geo = NULL, cult = NULL,
                             geo.patt = "ok_", cult.patt = NA) {
@@ -336,6 +340,67 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
   return(round(res, digits = digs))
 }
 #'
+#' @title Automatic Detection of Spatial Outliers
+#'
+#' @description This is a local copy the function `mvoutlier::arw()`, that
+#' implement adaptive reweighted estimator for location and scatter with
+#' hard-rejection weights. It is only used in one specific function of
+#' __plantR__: `distOutlier()`.
+#'
+#' @param x a data frame with longitude and latitude in decimal degrees
+#' @param m0 center of the distribution
+#' @param c0 covariance matrix (p x p) of the distribution
+#' @param alpha Maximum thresholding proportion. Default to 0.025.
+#' @param pcrit Critical value obtained by simulations
+#'
+#' @importFrom stats mahalanobis qchisq pchisq
+#'
+#' @keywords internal
+#'
+arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
+
+  n <- nrow(x)
+  p <- ncol(x)
+
+  if (missing(pcrit)) {
+    if (p <= 10)
+      pcrit <- (0.24 - 0.003 * p)/sqrt(n)
+    if (p > 10)
+      pcrit <- (0.252 - 0.0018 * p)/sqrt(n)
+  }
+
+  if (missing(alpha)) {
+    delta <- qchisq(0.975, p)
+  } else { delta <- stats::qchisq(1 - alpha, p) }
+
+  d2 <- stats::mahalanobis(x, m0, c0)
+  d2ord <- sort(d2)
+  dif <- stats::pchisq(d2ord, p) - (0.5:n)/n
+  i <- (d2ord >= delta) & (dif > 0)
+
+  if (sum(i) == 0) {
+    alfan <- 0
+  } else { alfan <- max(dif[i]) }
+
+  if (alfan < pcrit)
+    alfan <- 0
+  if (alfan > 0) {
+    cn <- max(d2ord[n - ceiling(n * alfan)], delta)
+  } else { cn <- Inf }
+
+  w <- d2 < cn
+  if (sum(w) == 0) {
+    m <- m0
+    c <- c0
+  }
+  else {
+    m <- apply(x[w, ], 2, mean)
+    c1 <- as.matrix(x - rep(1, n) %*% t(m))
+    c <- (t(c1 * w) %*% c1)/sum(w)
+  }
+  list(m = m, c = c, cn = cn, w = w)
+}
+#'
 #' @title Outlier Mahalanobis Distances
 #'
 #' @param lon numerical. Longitude in decimal degrees
@@ -357,8 +422,8 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 #' the more appropriated distance cutoffs to flag spatial outliers.
 #'
 #' The automatic detection of spatial outliers is based on an adjusted threshold
-#' of the Mahalanobis distances using package `mvoutlier` and its defaults
-#' (function `mvoutlier::arw()`).
+#' of the Mahalanobis distances based on function `arw()` from package
+#' __mvoutlier__.
 #'
 #' If the number of unique coordinates is below `n.min` or if the Minimum
 #' Covariance Determinant (MCD) estimator has issues, the function returns NAs.
@@ -367,13 +432,13 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 #'
 #' @importFrom stats mahalanobis
 #' @importFrom robustbase covMcd
-#' @importFrom mvoutlier arw
 #'
 #' @examples
 #' set.seed(123)
 #' lon <- runif(100, -45, -35)
 #' lat <- runif(100, -35, -25)
 #'
+#' \dontrun{
 #' distOutlier(lon, lat, method = "classic") # no outliers found...
 #' distOutlier(lon, lat, method = "robust")
 #'
@@ -383,13 +448,13 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 #'
 #' distOutlier(lon, lat, method = "classic") # quantiles for the 10 outliers found
 #' distOutlier(lon, lat, method = "robust")
+#' }
 #'
 #' @seealso
 #'  \link[plantR]{mahalanobisDist}.
 #'
 #' @author Renato A. Ferreira de Lima
 #'
-#' @export
 #'
 distOutlier <- function(lon, lat, method = "robust",
                         n.min = 10, digs = 3,
@@ -437,7 +502,7 @@ distOutlier <- function(lon, lat, method = "robust",
         distrob <- sqrt(stats::mahalanobis(df1[, 1:2],
                                            center = rob$center, cov = rob$cov))
 
-        xarw <- mvoutlier::arw(df1[, 1:2], rob$center, rob$cov, alpha = 0.025)
+        xarw <- arw1(df1[, 1:2], rob$center, rob$cov)
         if (xarw$cn != Inf) {
           alpha <- sqrt(c(xarw$cn, stats::qchisq(c(0.75, 0.5, 0.25), ncol(df1))))
         } else {

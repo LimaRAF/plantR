@@ -37,14 +37,12 @@ Imports:
     igraph,
     jsonlite,
     knitr,
-    mvoutlier,
     rgbif,
     sf,
     spatialrisk,
     stringi,
     stringr,
     Taxonstand,
-    textclean,
     tidyr,
     robustbase
 Suggests:

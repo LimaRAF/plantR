@@ -12,8 +12,8 @@
 #' that should be removed from names. Default to some common prpositions in
 #' Portuguese, Spanish and English (see Examples).
 #'
-#' @inherit fixName params
-#' @inherit prepTDWG params
+#' @inheritParams fixName
+#' @inheritParams prepTDWG
 #'
 #' @return The character string \code{x} in a standardized name format.
 #'
@@ -112,7 +112,7 @@ prepName <- function(x,
                      get.initials = TRUE) {
 
   #Escaping R CMD check notes from using data.table syntax
-  "V1" <- "tmp.ordem" <- NULL
+  tmp.ordem <- NULL
 
   # check input:
   if (is.null(x) | !class(x)[1] %in% "character")

@@ -87,8 +87,7 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  numTombo <- value <- i.memb <- new_id <- NULL
-
+  tmp.ordem <- numTombo <- value <- i.memb <- new_id <- dup.ind.test <- . <- NULL
 
   #Getting the search string names
   rec.ID <- names(df)[1]

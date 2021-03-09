@@ -56,8 +56,7 @@
 getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", habitat = "habitat") {
 
   #Avoiding warnings in package check when using data.table
-  "cult.check" <- "locality" <- "occurrenceRemarks" <- NULL
-  "decimalLatitude" <- "decimalLongitude" <- NULL
+  cult.check <- tmp.ordem <- tmp.vrl <- NULL
 
   #Checking the input
   if (!class(x) == "data.frame")

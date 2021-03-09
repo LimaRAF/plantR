@@ -53,6 +53,10 @@ checkShore <- function(x,
                      dist.max = 50,
                      output = "new.col") {
 
+  #Escaping R CMD check notes
+  landBuff <- landBuff
+  shoreLines <- shoreLines
+
   ## check input
   if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")

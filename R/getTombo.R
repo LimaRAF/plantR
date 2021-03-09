@@ -37,7 +37,6 @@
 #' @author Renato A. F. de Lima
 #'
 #' @importFrom stringr str_count
-#' @importFrom textclean replace_non_ascii
 #'
 #' @examples
 #' colls <- c("P", "P", "NY", "G", "P", "P", "NY", "G",
@@ -65,8 +64,8 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
   nas.acc <- is.na(accession)
 
   ## Cleanning non-ascii, no NAs
-  col <- textclean::replace_non_ascii(collection[!nas.acc])
-  tmb <- textclean::replace_non_ascii(accession[!nas.acc])
+  col <- rmLatin(collection[!nas.acc])
+  tmb <- rmLatin(accession[!nas.acc])
 
   #Editing accessions number with characters other than numbers
   ids <- grepl('\\D', tmb, perl = TRUE)

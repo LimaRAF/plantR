@@ -47,7 +47,6 @@
 #'
 #' @importFrom Taxonstand TPLck
 #'
-#' @export
 TPL1 <- function (splist, genus = NULL, species = NULL, infrasp = NULL,
           infra = TRUE, corr = TRUE, diffchar = 2, max.distance = 1,
           version = "1.1", encoding = "UTF-8", author = TRUE,

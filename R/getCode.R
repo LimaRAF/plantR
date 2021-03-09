@@ -60,7 +60,8 @@ getCode <- function(x,
                     print.miss = FALSE) {
 
   #Escaping R CMD check notes from using data.table syntax
-  cod.inst.tmp <- cod.coll.tmp <- collection.string <- NULL
+  cod.inst.tmp <- cod.coll.tmp <- ordem.dados <- collection.string <- NULL
+  index.herbariorum.or.working.code <- col.OBS <- NULL
 
   ## check input
   if (!class(x) == "data.frame")

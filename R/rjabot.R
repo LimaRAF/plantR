@@ -11,8 +11,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom utils write.table
 #'
-#' @export
-
+#'
 rjabot <- function(dir = "results/",
                    filename = "output",
                    species = NULL

@@ -148,7 +148,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
 
   if ("col.loc" %in% names(x1)) { # collection locality
     x1$col.loc <-
-      tolower(textclean::replace_non_ascii(x1$col.loc))
+      tolower(rmLatin(x1$col.loc))
     x1$col.loc <- prepLoc(x1$col.loc)
   }
 

@@ -13,18 +13,16 @@
 #' Default to 'decimalLatitude.new'
 #' @param tax.name character. Name of the columns containing the species name.
 #'   Default to "scientificName.new"
-#' @param n.min numerical. Minimun number of unique coordinates to be used in
-#'   the calculations. Default to 5
+#' @param geo.name character. Name of the column containing the validation of
+#'   the geographical coodinates. Default to "geo.check"
+#' @param cult.name character. Name of the column containing the validation of
+#'   records from cultiavted individuals. Default to "cult.check"
 #' @param clas.cut numerical. The threshold distance for outlier detection, using
-#' classic Mahalanobis distances
+#' classic Mahalanobis distances. Default to 3
 #' @param rob.cut numerical. The threshold distance for outlier detection, using
-#' classic Mahalanobis distances
-#' @param geo.patt character. The pattern passed to function `mahalanobisDist()`
-#'   for selecting the classes of geographical validation to be included in the
-#'   analyses. Default to "ok_".
-#' @param cult.patt character. The pattern passed to function
-#'   `mahalanobisDist()` for selecting the classes of cultivated specimens to be
-#'   included in the analyses. Default to NA.
+#' classic Mahalanobis distances. Default to 16
+#'
+#' @inheritParams mahalanobisDist
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -106,9 +104,15 @@ checkOut <- function(x,
                      geo.name = "geo.check",
                      cult.name = "cult.check",
                      n.min = 5,
-                     clas.cut = 3, rob.cut = 16,
+                     center = "median",
                      geo.patt = "ok_",
-                     cult.patt = NA) {
+                     cult.patt = NA,
+                     clas.cut = 3, rob.cut = 16) {
+
+  #Escaping R CMD check notes from using data.table syntax
+  tmp.order <- lon.wrk <- lat.wrk <- maha.classic <- NULL
+  geo.wrk <- cult.wrk <- maha.robust <- classic.cut <- NULL
+  robust.cut <- out.check <- NULL
 
   ## check input
   if (!class(x) == "data.frame")
@@ -145,7 +149,7 @@ checkOut <- function(x,
      .SDcols =  c(lon, lat, tax.name, geo.name, cult.name)]
   dt[!is.na(lon.wrk) & !is.na(lat.wrk),
      maha.classic := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
-                                     method = "classic", center = "median",
+                                     method = "classic", center = center,
                                      geo = geo.wrk, cult = cult.wrk,
                                      geo.patt = geo.patt,
                                      cult.patt = cult.patt),

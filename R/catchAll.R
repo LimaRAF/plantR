@@ -5,7 +5,6 @@
 #'
 #' @param fun a function.
 #'
-#' @export
 #' @keywords internal
 #'
 #' @return a list with the output of the function in the first element,

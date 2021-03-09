@@ -42,17 +42,20 @@
 #'         -23.575389, -23.575389, -23.575390, -23.485389),
 #' lon = c(-47.123768, -47.123768, -47.123768, -47.113768,
 #'         -47.223768, -47.223768, -47.223768, -47.113768))
+#' \dontrun{
 #' uniqueCoord(coords, lon = "lon", lat = "lat")
 #' uniqueCoord(coords, lon = "lon", lat = "lat", type = "dist")
 #' uniqueCoord(coords, lon = "lon", lat = "lat", min.dist = 0.0001)
 #' uniqueCoord(coords, lon = "lon", lat = "lat", output = "flag")
+#' }
 #'
 #' @seealso
 #'  \link[plantR]{geoDist} and \link[plantR]{minDist}.
 #'
 #' @author Renato A. Ferreira de Lima
 #'
-#' @export
+#' @keywords internal
+#'
 uniqueCoord <- function(x,
                          lon = "decimalLongitude.new",
                          lat = "decimalLatitude.new",
@@ -60,6 +63,10 @@ uniqueCoord <- function(x,
                          type = c("exact", "dist"),
                          output = "group",
                          min.dist = 0.001) {
+
+  #Escaping R CMD check notes from using data.table syntax
+  coord.string <- exact.ID <- exact <- coord.ID <- NULL
+  lon.wrk <- lat.wrk <- dist.ID <- dists <- NULL
 
   ## check input
   if (!class(x) == "data.frame")

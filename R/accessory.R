@@ -22,8 +22,8 @@
 #'
 #' @rdname accessory
 #' @examples
-#' my.head(letters)
-#' @export
+#' \dontrun{my.head(letters)}
+#'
 my.head <- function(x, n = 1) {
   if (n > length(x)) n <- length(x)
   x[1:n]
@@ -31,8 +31,8 @@ my.head <- function(x, n = 1) {
 #'
 #' @rdname accessory
 #' @examples
-#' my.tail(letters)
-#' @export
+#' \dontrun{my.tail(letters)}
+#'
 my.tail <- function(x, n = 0) {
   if (n >= length(x)) n <- length(x)
   x[((length(x) - n):length(x))]
@@ -40,8 +40,8 @@ my.tail <- function(x, n = 0) {
 #'
 #' @rdname accessory
 #' @examples
-#' rm.tail(letters)
-#' @export
+#' \dontrun{rm.tail(letters)}
+#'
 rm.tail <- function(x, n = 0) {
   if (n >= (length(x) - 1)) n <- length(x) - 1
   x[-((length(x) - n):length(x))]
@@ -49,8 +49,8 @@ rm.tail <- function(x, n = 0) {
 #'
 #' @rdname accessory
 #' @examples
-#' my.head.df(iris)
-#' @export
+#' \dontrun{my.head.df(iris)}
+#'
 my.head.df <- function(x, n = 5) {
   if (n > dim(x)[1]) n <- dim(x)[1]
   x[1:n,]

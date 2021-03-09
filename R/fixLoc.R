@@ -49,7 +49,6 @@
 #'
 #' @importFrom stringr str_trim str_replace_all
 #' @importFrom countrycode countrycode
-#' @importFrom textclean replace_non_ascii
 #'
 #' @export fixLoc
 #'
@@ -141,7 +140,7 @@ fixLoc <- function(x,
     #   countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
     #
     # # Removing unwanted characters
-    # x1[, "country"] <- tolower(textclean::replace_non_ascii(x1[, "country"]))
+    # x1[, "country"] <- tolower(rmLatin(x1[, "country"]))
     # x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
     #
     # # Replacing '&' by 'and' in compound country names
@@ -184,7 +183,7 @@ fixLoc <- function(x,
   ## ADM1: State/Province level ##
   if ("stateProvince" %in% loc.levels) {
     # Removing unwanted characters
-    x1[, "stateProvince"] <- tolower(textclean::replace_non_ascii(x1[, "stateProvince"]))
+    x1[, "stateProvince"] <- tolower(rmLatin(x1[, "stateProvince"]))
 
     # Replacing missing info by NA
     pattern <- paste(missLocs, collapse = "|")
@@ -213,7 +212,7 @@ fixLoc <- function(x,
   ## ADM2: County, Departament, Commune
     if ("municipality" %in% loc.levels) {
       # Removing unwanted characters and replacing missing info by NA
-      x1[, "municipality"] <- tolower(textclean::replace_non_ascii(x1[, "municipality"]))
+      x1[, "municipality"] <- tolower(rmLatin(x1[, "municipality"]))
 
       # Replacing missing info by NA
       pattern <- paste(missLocs, collapse = "|")
@@ -239,7 +238,7 @@ fixLoc <- function(x,
   ## ADM3: locality (park, farm, etc.)
     if (any(c("locality") %in% loc.levels)) {
       # Removing unwanted characters
-      x1[, "locality"] <- tolower(textclean::replace_non_ascii(x1[, "locality"]))
+      x1[, "locality"] <- tolower(rmLatin(x1[, "locality"]))
 
       # Removing unwanted prefixes and abbreviations (1st round)
       tmp1 <- dic[dic$class %in% "locality1" & apply(is.na(dic[,2:4]), 1, all),]

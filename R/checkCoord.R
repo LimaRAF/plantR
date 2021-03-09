@@ -42,7 +42,6 @@
 #' administrative levels from the maps: 'country.check', 'state.check' and
 #' 'county.check'.
 #'
-
 #'
 #' @export checkCoord
 #'
@@ -56,6 +55,12 @@ checkCoord <- function(x,
                        lon.gazet = "longitude.gazetteer",
                        lat.gazet = "latitude.gazetteer",
                        keep.cols = c("geo.check", "distCentroid_m")) {
+
+  #Escaping R CMD check notes from using dplyr syntax
+  NAME_0 <- pais_latam <- pais_wo <- NULL
+  #Escaping R CMD check notes
+  worldMap <- worldMap
+  latamMap <- latamMap
 
   ## check input
   if (!class(x)[1] == "data.frame")

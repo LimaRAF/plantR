@@ -48,6 +48,9 @@ checkInverted <- function(x,
                           lon = "decimalLongitude.new",
                           output = "new.col") {
 
+  #Escaping R CMD check notes from using dplyr syntax
+  worldMap <- worldMap
+
   ## check input
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
