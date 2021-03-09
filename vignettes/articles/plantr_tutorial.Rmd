@@ -107,11 +107,6 @@ nrow(occs_splink)
 nrow(occs_gbif)
 ```
 
-If the data download is taking too long, you can use the result of the same
-search performed in June 2020 and stored within __plantR__ using the command
-`data(example)`.
-
-
 ## Preparing the input data: function `fixDwc()`
 
 Before we start to process the species records, we need to combine our input
@@ -433,7 +428,7 @@ edited coordinates.
 occs <- prepCoord(occs)
 ```
 
-### Obtaining geographical coordinates from the gazetteer
+### Obtaining coordinates from the gazetteer
 
 Geographical coordinates are often missing or are provided in a format that the
 function `prepCoord()` cannot convert to decimal degrees. For the dataset we are
@@ -583,7 +578,7 @@ possible problems. Depending on the study aims and spatial scale, one can use
 these new columns to try to correct some of the problems or drop them from the
 final data set.
 
-## Validation of locality information
+## Validation of locality information: function `validateLoc()`
 
 The editing process of locality information and its comparison against the
 gazetteer return the localities (and coordinates) at the best resolution
@@ -679,7 +674,7 @@ will be created.
 encontrava aluma coisa... please double-check! --> 
 <!-- Andrea, algo mais a dizer/detalhar aqui? -->
 
-## Coordinates in the sea but close to the shore
+### Coordinates in the sea but close to the shore
 
 For those geographical coordinates flagged as falling into the sea, we can check
 if they are close to the shore. Sometimes the coordinate was noted on land, but
@@ -764,13 +759,33 @@ records flagged as cultivated from the estimation of the center and co-variance
 matrix of the geographical coordinates, which are used to get the Mahalanobis
 distances.
 
+### The wrapper function `validateCoord()`
 
-## Confidence level of species determinations
+Similar to the other steps of the __plantR__ workflow, all the steps related to 
+the validation of the geographical coordinates can be performed at once, using
+the function `validateCoord()`. Since this function uses information from
+localities,and taxonomic information, besides the geographical coordinates
+themselves, all format and validation steps related to these information should
+have been carried previously.
+
+```{r, eval = FALSE}
+occs1 <- formatDwc(splink_data = occs_splink,
+                  gbif_data = occs_gbif, drop = TRUE)
+occs1 <- formatLoc(occs1)
+occs1 <- formatCoord(occs1)
+occs1 <- formatTax(occs1)
+occs1 <- validateLoc(occs1)
+occs1 <- validateCoord(occs1)
+```
+
+
+## Confidence level of species determinations: function `validateTax()`
 
 One of the main features of __plantR__ is the possibility of validating species
 identifications against a global list of plant taxonomists. This validation
 consists of the classification of the species identification of each record into
-different confidence levels.
+different confidence levels and it is performed using the function
+`validateTax()`:
 
 ```{r, eval = F}
 occs <-  validateTax(occs)
@@ -928,19 +943,27 @@ dim(occs)
 
 ### The wrapper function `validateDup()`
 
-Similar to the other validation steps, all the steps related to duplicated specimens can be performed at once, using the function `validateDup()`. Since this function uses information from localities, geographical coordinates and
-taxonomic information, all format and validation steps related to this information should have been carried previously.
+Similar to the other validation steps, all the steps related to duplicated
+specimens can be performed at once, using the function `validateDup()`. Since
+this function uses information from localities, geographical coordinates and
+taxonomic information, all format and validation steps related to this
+information should have been carried previously.
 
 
 <br/><br/>
 
 # Data summary and export
 
-Finally, __plantR__ can help users to summarize their data sets and the flags of the validation process. It also provides species checklists with user-defined numbers of voucher specimens and the export of records by groups (e.g. families,  countries, collections). 
+Finally, __plantR__ can help users to summarize their data sets and the flags of
+the validation process. It also provides species checklists with user-defined
+numbers of voucher specimens and the export of records by groups (e.g. families,
+countries, collections).
 
 ## Number of specimens, collections, species and other descriptors
 
-The function `summaryData()` prepares tables containing information on the number of records, collections, species, etc. It also provides summaries of the top collectors and the top countries with more records:
+The function `summaryData()` prepares tables containing information on the
+number of records, collections, species, etc. It also provides summaries of the
+top collectors and the top countries with more records:
 
 ```{r, eval = FALSE}
 summ <- summaryData(occs)
@@ -948,7 +971,9 @@ summ <- summaryData(occs)
 
 ## Summary of validation flags and other issues
 
-__plantR__ also provides summaries of the validation process, such as the number of duplicates found and the validation of the locality, coordinates and species identifications. This is performed by the function `summaryFlags()`:
+__plantR__ also provides summaries of the validation process, such as the number
+of duplicates found and the validation of the locality, coordinates and species
+identifications. This is performed by the function `summaryFlags()`:
 
 ```{r, eval = FALSE}
 flags <- summaryFlags(occs)
@@ -957,7 +982,10 @@ flags <- summaryFlags(occs)
 ## Generating checklists
 
 Another feature of __plantR__ is the possibility of building species checklists.
-This is done using the function `checkList()` which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the percentage of records with high confidence species identification and with validated geographical coordinates.
+This is done using the function `checkList()` which returns the family, the
+total number of records and a list of vouchers (in a short or long format). The
+function also returns the percentage of records with high confidence species
+identification and with validated geographical coordinates.
 
 ```{r, eval = FALSE}
 spp.check <- checkList(occs)
