@@ -125,7 +125,8 @@ prepName <- function(x,
 
   # Editing the general name notation
   if (fix.names)
-    x <- fixName(x, sep.in = sep.in, sep.out = sep.out, special.char = special.char)
+    x <- fixName(x, sep.in = sep.in, sep.out = sep.out,
+                 special.char = special.char)
 
   # removing treatment prepositions (e.g. Dr., etc)
   patt.treat <-
@@ -151,7 +152,8 @@ prepName <- function(x,
 
   if (fix.names) {
     patt.split <- paste(sep.out1,
-                        paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
+                        paste0(stringr::str_trim(sep.out1),"(?=\\p{Lu})"),
+                        # paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {
     patt.split <- paste0(sep.in1, collapse = "|")
@@ -166,14 +168,16 @@ prepName <- function(x,
 
   if (output %in% c("all", "first")) {
     dt$V1 <- prepTDWG(dt$V1,
-                      format = format, get.prep = get.prep, get.initials = get.initials)
+                      format = format, get.prep = get.prep,
+                      get.initials = get.initials)
   }
 
   if (output %in% c("all", "aux") & length(cols) > 1) {
     cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
     for(i in cols1)
       dt[, i] <- prepTDWG(dt[, i],
-                          format = format, get.prep = get.prep, get.initials = get.initials)
+                          format = format, get.prep = get.prep,
+                          get.initials = get.initials)
   }
 
   # Preparing to return the result as a vector again

@@ -73,10 +73,22 @@ fixName <- function(nomes,
   sep0 <- "__"
 
   #Separation between names/initials
-  nomes <- gsub("(?<=[A-ZÀ-Ý])\\.(?=[a-zà-ý])", "\\1. ", nomes, perl = TRUE)
-  nomes <- gsub("(?<=[A-ZÀ-Ý])\\.([A-ZÀ-Ý])([a-zà-ý])", ". \\1\\2", nomes, perl = TRUE)
-  nomes <- gsub("(?<=[a-zà-ý])([A-ZÀ-Ý])\\.", " \\1.", nomes, perl = TRUE)
-  nomes <- gsub("(?<=[a-zà-ý]),(?=[a-zà-ýA-ZÀ-Ý])", "\\1, \\2", nomes, perl = TRUE)
+  nomes <- gsub("(?<=\\p{Lu})\\.(?=\\p{Ll})", "\\1. ",
+                nomes, perl = TRUE)
+  nomes <- gsub("(?<=\\p{Lu})\\.(\\p{Lu})(\\p{Ll})", ". \\1\\2",
+                nomes, perl = TRUE)
+  nomes <- gsub("(?<=\\p{Ll})(\\p{Lu})\\.", " \\1.",
+                nomes, perl = TRUE)
+  nomes <- gsub("(?<=\\p{Ll}),(?=\\p{L})", "\\1, \\2",
+                nomes, perl = TRUE)
+  # nomes <- gsub("(?<=[A-ZÀ-Ý])\\.(?=[a-zà-ý])", "\\1. ",
+  #               nomes, perl = TRUE)
+  # nomes <- gsub("(?<=[A-ZÀ-Ý])\\.([A-ZÀ-Ý])([a-zà-ý])", ". \\1\\2",
+  #               nomes, perl = TRUE)
+  # nomes <- gsub("(?<=[a-zà-ý])([A-ZÀ-Ý])\\.", " \\1.",
+  #               nomes, perl = TRUE)
+  # nomes <- gsub("(?<=[a-zà-ý]),(?=[a-zà-ýA-ZÀ-Ý])", "\\1, \\2",
+  #               nomes, perl = TRUE)
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
 
   #Separation between multiple authors
@@ -151,7 +163,7 @@ fixName <- function(nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub("j\u00fanior", "J\u00fanior", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(" F\u00ba| F\u00ba", " Filho", nomes,
+  nomes <- gsub(" F\u00ba| F\u00b0", " Filho", nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(' f\\.,', " Filho", nomes,
                 perl = TRUE, ignore.case = TRUE)
@@ -163,7 +175,7 @@ fixName <- function(nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" Filho\\.,", " Filho,", nomes,
                 perl = TRUE, ignore.case = TRUE)
-  nomes <- gsub(" Sobr\u00ba| Sobr\u00aa", " Sobrinho", nomes,
+  nomes <- gsub(" Sobr\u00ba| Sobr\u00b0", " Sobrinho", nomes,
                 perl = TRUE, ignore.case = TRUE)
   nomes <- gsub(" Sobrinho\\.,| Sobr\\.,", " Sobrinho,", nomes,
                 perl = TRUE, ignore.case = TRUE)

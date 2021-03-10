@@ -122,7 +122,8 @@
 prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.initials = TRUE) {
 
   # Detecting different name formats
-  patt <- paste0("[[:alpha:]]", sep, "[A-ZÀ-Ý]")
+  patt <- paste0("\\p{Ll}", sep, "\\p{Lu}")
+  # patt <- paste0("[[:alpha:]]", sep, "[A-ZÀ-Ý]")
   commas <- grepl(patt, x, perl = TRUE)
   NAs <- x %in% c("", " ", NA)
   words <- grepl(" ", x, fixed = TRUE)
@@ -155,9 +156,12 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
     } else {
 
-      split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
+      # split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
       split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
       split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
 
@@ -213,9 +217,12 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
 
     } else {
 
-      split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
+      split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
+      # split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
       split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
       split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
 

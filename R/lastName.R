@@ -78,7 +78,7 @@
 #'  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
 #'  # two or more names, separated by comma: output correct
 #'  lastName("A. Alvarez, A. Zamora & V. Huaraca")
-#'  # two or more names, not separated by comma: output incorrect (give names of authors)
+#'  # two or more names, not separated by comma: output incorrect
 #'  lastName("Karl Emrich & Balduino Rambo")
 #'
 #'  # Some problematic (unresolved) examples
@@ -98,7 +98,8 @@ lastName <- function(name,
   name <- gsub("^ | $", "", name, perl = TRUE) # removing end spaces
 
   # Defining the general name formats (single, mult. with comma, mult. without comma)
-  comma <- grepl("[a-z;A-Z;à-ý;À-Ý],", name[!miss.name], perl = TRUE)
+  comma <- grepl("\\p{L},", name[!miss.name], perl = TRUE)
+  # comma <- grepl("[a-z;A-Z;à-ý;À-Ý],", name[!miss.name], perl = TRUE)
   no.first <- !grepl(" ", name[!miss.name], perl = TRUE)
   outros <- !no.first & !comma
 
@@ -111,9 +112,12 @@ lastName <- function(name,
     last.name[outros] <- gsub(".*\\s", "", last.name[outros], perl = TRUE)
 
   # Detecting possible problems with abbreviated initials at the end of the name
-  probs <- grepl("^[a-z;A-Z;à-ý;À-Ý]\\.$", last.name)
+  probs <- grepl("^\\p{L}\\.$", last.name, perl = TRUE)
+  # probs <- grepl("^[a-z;A-Z;à-ý;À-Ý]\\.$", last.name)
   if (any(probs))
-    last.name[probs] <- gsub(" [a-z;A-Z;à-ý;À-Ý]\\..*", "", name[!miss.name][probs], perl = TRUE)
+    last.name[probs] <-
+    gsub(" \\p{L}\\..*", "", name[!miss.name][probs], perl = TRUE)
+    # gsub(" [a-z;A-Z;à-ý;À-Ý]\\..*", "", name[!miss.name][probs], perl = TRUE)
 
   # Detecting possible problems with non-abbreviated initials at the end of the name
   probs1 <- last.name == toupper(last.name) &
@@ -139,9 +143,11 @@ lastName <- function(name,
 
     #Removing initials
     last.name[gen.suf] <-
-      gsub("\\s[A-Zà-ýÀ-Ý]\\.", "", name[gen.suf], perl = TRUE)
+      gsub("\\s\\p{L}\\.", "", name[gen.suf], perl = TRUE)
+    # gsub("\\s[A-Zà-ýÀ-Ý]\\.", "", name[gen.suf], perl = TRUE)
     last.name[gen.suf] <-
-      gsub("[A-Zà-ýÀ-Ý]\\.\\s", "", last.name[gen.suf], perl = TRUE)
+      gsub("\\p{L}\\.\\s", "", last.name[gen.suf], perl = TRUE)
+    # gsub("[A-Zà-ýÀ-Ý]\\.\\s", "", last.name[gen.suf], perl = TRUE)
     last.name[gen.suf] <- gsub(",$", "", last.name[gen.suf], perl = TRUE)
 
     #Removing generational suffixes
@@ -180,28 +186,35 @@ lastName <- function(name,
     if (initials) {
 
       #Detecting the possible types of first name: full or abbreviated
-      inits <- grepl('[A-ZÀ-Ý]', other.names, perl = TRUE)
-      abrev.inits <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+|([a-zA-Zà-ýÀ-Ý]\\.)\\s([a-zA-Zà-ýÀ-Ý]\\.)+',
-                           other.names, perl = TRUE)
+      inits <- grepl('\\p{Lu}', other.names, perl = TRUE)
+      # inits <- grepl('[A-ZÀ-Ý]', other.names, perl = TRUE)
+      abrev.inits <-
+        grepl('(\\p{L}\\.)(\\p{L}\\.)+|(\\p{L}\\.)\\s(\\p{L}\\.)+',
+      # grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+|([a-zA-Zà-ýÀ-Ý]\\.)\\s([a-zA-Zà-ýÀ-Ý]\\.)+',
+                    other.names, perl = TRUE)
       combo <- inits | abrev.inits
       inits[abrev.inits] <- FALSE
 
       #Extracting the initials for each type of first name
       if (any(inits))
-        other.names[inits] <- gsub("[^A-ZÀ-Ý]+", "", other.names[inits], perl = TRUE)
+        other.names[inits] <- gsub("[^\\p{Lu}]+", "", other.names[inits], perl = TRUE)
+      # other.names[inits] <- gsub("[^A-ZÀ-Ý]+", "", other.names[inits], perl = TRUE)
 
       if (any(abrev.inits)) {
         other.names[abrev.inits] <-
-          gsub("[^a-zà-ýA-ZÀ-Ý]+", "", other.names[abrev.inits], perl = TRUE)
+          gsub("[^\\p{L}]+", "", other.names[abrev.inits], perl = TRUE)
+        # gsub("[^a-zà-ýA-ZÀ-Ý]+", "", other.names[abrev.inits], perl = TRUE)
         other.names[abrev.inits] <-
-          toupper(gsub("(?<=[A-ZÀ-Ý])[a-zà-ý].*", "", other.names[abrev.inits], perl = TRUE))
+          toupper(gsub("(?<=\\p{Lu})\\p{Ll}.*", "", other.names[abrev.inits], perl = TRUE))
+          # toupper(gsub("(?<=[A-ZÀ-Ý])[a-zà-ý].*", "", other.names[abrev.inits], perl = TRUE))
       }
 
       if (any(!combo))
         other.names[!combo] <- toupper(substr(other.names[!combo], 1, 1))
 
       #Preparing the initials
-      other.names <- gsub("([A-ZÀ-Ý])", "\\1.", other.names, perl = TRUE)
+      other.names <- gsub("(\\p{Lu})", "\\1.", other.names, perl = TRUE)
+      # other.names <- gsub("([A-ZÀ-Ý])", "\\1.", other.names, perl = TRUE)
 
     }
 

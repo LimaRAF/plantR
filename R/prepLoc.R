@@ -47,7 +47,7 @@ prepLoc <- function(x) {
   x <- gsub(" dos | das | des ", " ", x, perl = TRUE)
   x <- gsub(" do | da | de ", " ", x, perl = TRUE)
   # x <- gsub(' d\' | d\'| d`| d´| d\"| d’', " ", x, perl = TRUE)
-  x <- gsub(' d\' | d\'| d\x60| d\xB4| d\"| d’', " ", x, perl = TRUE)
+  x <- gsub(' d\' | d\'| d\u0060| d\u00b4| d\"| d\u2019', " ", x, perl = TRUE)
   x <- gsub('\\.$', "", x, perl = TRUE)
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
