@@ -8,10 +8,14 @@
 #'
 #' @param x Occurrences data frame
 #' @param check.names The columns with the results from the border checking and
-#'   coordinate checking, in that order. Defaults to 'border.check' and 'geo.check'.
-#' @param country.gazetteer Name of the column with the country that comes from the gazetteer
-#' @param lat Column with the corrected latitude. Defaults to 'decimalLatitude.new'
-#' @param lon Column with the corrected longitude. Defaults to 'decimalLongitude.new'
+#'   coordinate checking, in that order. Defaults to 'border.check' and
+#'   'geo.check'.
+#' @param country.gazetteer Name of the column with the country that comes from
+#'   the gazetteer
+#' @param lat Column with the corrected latitude. Defaults to
+#'   'decimalLatitude.new'
+#' @param lon Column with the corrected longitude. Defaults to
+#'   'decimalLongitude.new'
 #' @param output a character string with the type of output desired: 'new.col'
 #'   (new column with the newly validated coordinates are added to the input
 #'   data) or 'same.col' (results are overwritten into the existing columns).
@@ -19,8 +23,8 @@
 #' @return if `output` is 'new.col', new columns with a suffix '.new' are added
 #'   to the data, containing the update information on the columns defined by
 #'   `check.names`, `lat` and `lon`. If `output` is 'same.col', the columns
-#'   defined by these arguments are updated with the validated information
-#'   after inverting/swapping the coordinates.
+#'   defined by these arguments are updated with the validated information after
+#'   inverting/swapping the coordinates.
 #'
 #' @details Besides the newly validade geographical coordinates, the function
 #' returns a 'ok_country' followed by the information on which combination of
@@ -90,7 +94,7 @@ checkInverted <- function(x,
   check_inv <- rbind.data.frame(check_inv1, check_inv2,
                                 stringsAsFactors = FALSE)
   check_inv <- check_inv[!duplicated(check_inv$tmp.order),]
-  check_inv$check_inv <- NULL #we'll use this column
+  check_inv$check_inv <- NULL
 
   if (dim(check_inv)[1] == 0) {
 

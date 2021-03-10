@@ -143,7 +143,7 @@ lastName <- function(name,
 
     #Removing initials
     last.name[gen.suf] <-
-      gsub("\\s\\p{L}\\.", "", name[gen.suf], perl = TRUE)
+      gsub("\\s\\p{L}\\.", "", name[!miss.name][gen.suf], perl = TRUE)
     # gsub("\\s[A-Zà-ýÀ-Ý]\\.", "", name[gen.suf], perl = TRUE)
     last.name[gen.suf] <-
       gsub("\\p{L}\\.\\s", "", last.name[gen.suf], perl = TRUE)

@@ -1,7 +1,7 @@
 #' @title Check Geographical Coordinates
 #'
 #' @description This function makes the check of the coordinates
-#' against the world and Latin-American maps. It optionally returns the
+#' against the world and Latin-American maps. Optionally, it returns the
 #' distance between the original coordinates and those from a gazetteer
 #' for coordinates not validated at the county level.
 #'

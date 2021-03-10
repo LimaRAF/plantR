@@ -1,16 +1,17 @@
 #' @title Check Coordinates Near Shores
 #'
-#' @description Checks records whose coordinates in the sea but close to the
-#'   shore using different approaches.
+#' @description Checks records whose coordinates fall in the sea, but close to
+#'   the shoreline using different approaches.
 #'
-#' @param x Dataframe with species occurrence
+#' @param x a data frame with the species records
 #' @param geo.check character. Column with the result from the coordinate checking.
 #'   Defaults to 'geo.check'
 #' @param lat character. Column with the corrected latitude to be checked.
 #'   Defaults to 'decimalLatitude.new'
 #' @param lon character. Column with the corrected longitude to be checked.
 #'   Defaults to 'decimalLongitude.new'
-#' @param type character. Type ...
+#' @param type character. Type of approach to be used to flag records near the
+#'   shore (see Details). Default to "buffer".
 #' @param dist.max numerical. Maximum distance (in kilometers) to detect records
 #'   near to the shore. Default to 50 km.
 #' @param output a character string with the type of output desired: 'new.col'
@@ -36,9 +37,9 @@
 #' shore, which are controlled by the argumente `type`. The first one uses a 0.5
 #' degree (~ 55 km in the Equator) buffer around the world map (`type` =
 #' 'buffer'). The second approach calculates the distance between the shore and
-#' the record (`type` = 'buffer'), in which the user can provide a maximum distance
-#' from the shore. This second approach, however, is much slower. For the
-#' record, rounding or imprecision of coordinates at the degree and minute
+#' the record (`type` = 'buffer'), in which the user can provide a maximum
+#' distance from the shore. This second approach, however, is much slower. For
+#' the record, rounding or imprecision of coordinates at the degree and minute
 #' levels can generate distance up to 130-157 km and 2.2-2.6 km, respectively,
 #' depending on the latitude considered.
 #'

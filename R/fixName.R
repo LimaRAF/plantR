@@ -35,6 +35,8 @@
 #'
 #' @importFrom stringr str_trim
 #'
+#' @encoding UTF-8
+#'
 #' @examples
 #'   names <- c("J.E.Q. Faria Jr.",
 #'   "Leitão F°, H.F.", "Gert G. Hatschbach, et al.",
