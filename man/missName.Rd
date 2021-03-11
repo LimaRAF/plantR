@@ -7,34 +7,38 @@
 missName(x, type = NULL, noName = "Anonymous")
 }
 \arguments{
-\item{x}{the character string}
+\item{x}{the character string or vector with names.}
 
-\item{type}{type of ...}
+\item{type}{type of name: 'collector' or 'identificator'.}
 
-\item{noName}{standard for missing data in Name}
+\item{noName}{standard notation for missing names. Default to "Anonymous".}
 }
 \value{
-the character string \code{x} in the fixed TDWG format.
+the character string \code{x} in the standard notation for missing
+names.
 }
 \description{
-Standardize the different notation of missing collector or identifier names
+Standardize the different notation of missing collector or
+identifier names associated with biological records.
 }
 \examples{
-# Error: need to chose between 'collector' or 'identificator'
+# Needs to chose between 'collector' or 'identificator'
  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
            type = "collector",
            noName = "s./c.")
 
  missName(c("Gentry, AH", "s/col.", NA, "?", "s/c", "s/coletor"),
-         type = "collector",
-         noName = "Anonymous")
- missName(c("Gentry, AH", "s/det.","s/det","s/d","Determiner unknown"),
-          type = "identificator",
-          noName = "Anonymous")
-}
-\references{
+         type = "collector")
+
+ missName(c("Gentry, AH", "s/det.", "s/det", "s/d", "Determiner unknown"),
+          type = "identificator")
 
 }
+\references{
+Conn, Barry J. (ed.) (1996). HISPID 3 - Herbarium Information Standards and
+Protocols for Interchange of Data. Herbarium Information Systems Committee'
+(HISCOM). https://www.tdwg.org/standards/hispid3/
+}
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

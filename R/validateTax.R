@@ -1,218 +1,360 @@
-#' @title Validate Specimen Taxonomy
+#' @title Confidence on Species Identification
 #'
-#' @description
+#' @description This function assigns different categories of confidence level
+#'   (i.e. high, medium, low or unknown) to the identification of species
+#'   records, based on the name of the person who provided the species
+#'   identification and on type specimens.
 #'
-#' @param x Character. Species name
+#' @param x a data frame with the species records.
+#' @param col.names vector. A named vector containing the names of columns in
+#'   the input data frame for each of the information needed to assign
+#'   confidence levels to species identifications. Default to the __plantR__
+#'   output column names.
+#' @param special.collector Logical. Specimens collected by the family
+#'   specialist but with empty determiner field, should be classified as high
+#'   confidence level? Default to TRUE.
+#' @param generalist Logical. Should family generalists be considered for
+#'   taxonomic validation? Default to FALSE.
+#' @param generalist.class Character. Confidence level to be assigned to family
+#'   generalists. Default to "medium".
+#' @param other.records Character or Integer. The Confidence level (if
+#'   character) or the number of downgrading steps to be assigned to records
+#'   which are not preserved specimens. Default to NULL (all record typer are
+#'   treated the same).
+#' @param miss.taxonomist Vector. Any missing combination of family x taxonomist
+#'   that should be added to the validation?
+#' @param taxonomist.list a data.frame containing the list of taxonomist names. The
+#'   default is "plantR", the internal `plantR` global database of plant
+#'   taxonomists (see Details).
+#' @param voucher.list Vector. One or more unique record identifiers (i.e.
+#'   combination of collection code and number) that should be flagged with a
+#'   high confidence level? Default to NULL.
+#' @param rec.ID Character. The name of the columns containing the unique record
+#' identifier (see function `getTombo()`). Default to 'numTombo'.
+#' @param noName Vector. One or more characters (in lower cases) with the
+#'   standard notation for missing data in the field 'det.name'. Default to some
+#'   typical notation found in herbarium data.
+#' @param top.det Numerical. How many of the top missing identifiers should be printed?
+#'   Default to 10.
 #'
-validateTax = function(x) {
-  loc = x
-  return(loc)
+#' @details
+#' The input data frame \code{x} must contain at least the columns with the
+#' information on the record family and the name of the person that provided the
+#' species identification. Preferably, this data frame should also contain
+#' information on type specimens and collectors names. If the user provide a
+#' list of records to be flagged as having a high confidence level in the
+#' identification, the user must alfo provide the column where the record unique
+#' identifiers are stored. The names of these columns should be provided as a
+#' named vector to the argument `col.names`, as follows:
+#'   - 'family': the botanical family (default: 'family.new')
+#'   - 'det.name': the identifier name (default: 'identifiedBy.new')
+#'   - 'col.name': the collector name (default: 'recordedBy.new')
+#'   - 'types': type specimens (default: 'typeStatus')
+#'   - 'rec.ID': the collector serial number (default: 'numTombo')
+#'   - 'rec.type': the type of record (default: 'basisOfRecord')
+#'
+#' As for other functions in __plantR__, using a data frame \code{x} that has
+#' already passed by the editing steps of the __plantR__ workflow should result
+#' in more accurate outputs.
+#'
+#' The function classifies as high confidence level all records whose species
+#' identifications were performed by a family specialist or any type specimens
+#' (isotype, paratypes, etc). By default, the names of family specialists are
+#' obtained from a global list of about 8,500 plant taxonomists names
+#' constructed by Lima et al. (2020) and provided with __plantR__. This
+#' list was built based on information from the
+#' [Harvard University Herbaria](http://kiki.huh.harvard.edu/databases), the
+#' [Brazilian Herbaria Network](http://www.botanica.org.br/rbh) and the
+#' [American Society of Plant Taxonomists](https://members.aspt.net).
+#' The dictionary was manually complemented for missing names of taxonomists and
+#' it includes common variants of taxonomists names (e.g., missing initials,
+#' typos, married or maiden names).
+#'
+#' If a column containing the Darwin Core field 'basisOfRecord' or equivalent is
+#' provided ('rec.type' in argument `col.names`), then by default, __all
+#' occurrences that are not preserved specimens (i.e. human/machine
+#' observations, photos, living specimens, etc.) are classified as having a low
+#' confidence level__.
+#'
+#' Some specimens are collected by a specialist of the family, but the
+#' identifier information is missing. By default, we assume the same confidence
+#' level for these specimens as that assigned for specimens where the identifier
+#' is the family specialist. But users can choose otherwise by setting the
+#' argument `special.collector` to FALSE.
+#'
+#' The arguments `generalist` and `generalist.class` define if taxonomists that
+#' provide identifications for many different families outside his specialty,
+#' often referred to as a generalist, should be considered in the validation and
+#' under which confidence level. There are some names of generalists in the
+#' __plantR__ default taxonomist database; however, this list of generalist
+#' names is currently biased towards plant collectors in South America,
+#' particularly in Brazil.
+#'
+#' The argument `other.records` controls what to do with types of records which
+#' are not preserved specimens (Darwin Core field
+#' [basisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord). If the argument
+#' is NULL (default), all record types are treated the same. Users can set the
+#' argument to one of the confidence levels (i.e. 'unknown', 'low', 'medium' or
+#' 'high') to assign the same class for all non preserved specimens or to a
+#' value (i.e. 1 or 2), which correspond to the number of downgrading steps
+#' among levels. For instance, if `other.records` is one, the 'high' level
+#' becomes 'medium' and the 'medium' level becomes 'low' ('unkown' and 'low'
+#' levels remain the same).
+#'
+#' If you miss the validation from one or more taxonomists, you can include them
+#' using the argument `miss.taxonomist`. The format should be:
+#' the name of the family of specialty followed by an underscore and then
+#' the taxonomist name in the TDWG format (e.g. "Bignoniaceae_Gentry, A.H.").
+#'
+#' A database of taxonomists different than the `plantR` default can be used.
+#' This database must be provided using the argument `taxonomist.list` and it
+#' must contain the columns 'family' and 'tdwg.name'. The first column is the
+#' family of specialty of the taxonomist and the second one is her/his name in
+#' the TDWG format. See `plantR` function `prepName()` on how to get names in
+#' the TDWG format from a list of people's names.
+#'
+#' Finally, the user can provide a list of records that should be flagged as
+#' having a high confidence level on their identification. This list should be
+#' provided using the argument `voucher.list` and the information that should be
+#' provided is the record unique identifier (i.e. combination of collection code
+#' and number). It is important that the way in which the list of unique
+#' identifiers was generated matches the one used to construct the the
+#' identifiers in the input data frame \code{x} (see help of function
+#' `getTombo()`). If a list of records is provided, the user must also
+#' provide a valid column name in \code{x} containing the unique record
+#' identifiers in `col.names`.
+#'
+#' @return The input data frame \code{x}, plus a new column 'tax.check'
+#'   containing the classes of confidence in species identifications.
+#'
+#' @seealso
+#'  \link[plantR]{prepName} and \link[plantR]{getTombo}.
+#'
+#' @references
+#' Lima, R.A.F. et al. 2020. Defining endemism levels for biodiversity
+#' conservation: Tree species in the Atlantic Forest hotspot. Biological
+#' Conservation, 252: 108825.
+#'
+#' @importFrom stringr str_trim str_replace_all
+#'
+#' @export validateTax
+#'
+#' @examples
+#' (df <- data.frame(
+#' family.new = c("Bignoniaceae", "Bignoniaceae","Bignoniaceae",
+#' "Bignoniaceae","Bignoniaceae","Bignoniaceae"),
+#' identifiedBy.new = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA, "Hatschbach, G."),
+#' recordedBy.new = c(NA, NA, NA, "Gentry, A.H.", NA, NA),
+#' typeStatus = c(NA, NA, "isotype", NA, NA, NA),
+#' numTombo = c("a_1","b_3","c_7","d_5","e_3","f_4"),
+#' stringsAsFactors = FALSE))
+#'
+#' validateTax(df)
+#' validateTax(df, generalist = TRUE)
+#' validateTax(df, voucher.list = "f_4")
+#'
+validateTax <- function(x, col.names = c(family = "family.new",
+                                         det.name = "identifiedBy.new",
+                                         col.name = "recordedBy.new",
+                                         types = "typeStatus",
+                                         rec.ID = "numTombo",
+                                         rec.type = "basisOfRecord"),
+                        special.collector = TRUE,
+                        generalist = FALSE,
+                        generalist.class = "medium",
+                        other.records = NULL,
+                        miss.taxonomist = NULL,
+                        taxonomist.list = "plantR",
+                        voucher.list = NULL,
+                        noName = c("semdeterminador",
+                                   "anonymus",
+                                   "anonymous",
+                                   "anonimo",
+                                   "incognito",
+                                   "unknown",
+                                   "s.d.",
+                                   "s.n."),
+                        top.det = 10) {
+
+  #Checking the input
+  if (!class(x) == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  #list of column names in the data
+  id.cols <- col.names %in% names(x)
+
+  #second try without the '.new' suffix
+  if (any(!id.cols)) {
+    col.names.sub <- gsub("\\.new", "", col.names)
+    id.cols.sub <- col.names.sub %in% names(x)
+    col.names[!id.cols & id.cols.sub] <-
+      col.names.sub[!id.cols & id.cols.sub]
+    id.cols[!id.cols & id.cols.sub] <- TRUE
+  }
+
+  if (all(!id.cols))
+    stop("Please provide the necessary columns names to assess the confidence in species identifications")
+
+  #filtering only the columns found in the data
+  cols <- col.names[id.cols]
+  cols.miss <- col.names[!id.cols]
+
+  if (length(cols.miss) > 0 ) {
+    if ("family" %in% names(cols.miss) | "det.name" %in% names(cols.miss))
+      stop("Input data frame needs at least the columns with the record botanical family and identifier")
+
+    if (!is.null(voucher.list) & "rec.ID" %in% names(cols.miss))
+      stop("Please provide a valid column name containing the record unique IDs")
+  }
+
+  #Getting the dictionaries
+  families.apg <- familiesSynonyms
+  if (all(taxonomist.list %in% c("plantR", "plantr"))) {
+
+    autores <- taxonomists
+    autores <- merge(autores,
+                     families.apg[, c("name", "name.correct")],
+                     by.x = "family", by.y = "name", all.x = TRUE)
+    autores <- autores[order(autores$order),]
+
+  } else {
+
+    if(!class(taxonomist.list) == "data.frame")
+      stop("The list of taxonomists must be provided as a data frame")
+    if(!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
+      stop("The list of taxonomists must contain at least two columns: 'family' and 'tdwg.name'")
+    autores <- taxonomist.list
+    autores <- merge(autores,
+                     families.apg[, c("name", "name.correct")],
+                     by.x = "family", by.y = "name", all.x = TRUE)
+  }
+
+  if(!generalist) {
+
+    autores <- autores[!grepl('Generalist', autores$family, fixed = TRUE),]
+
+  } else {
+
+    generalists <- autores[grepl('Generalist', autores$family, fixed = TRUE),]
+    autores <- autores[!grepl('Generalist', autores$family, fixed = TRUE),]
+
+  }
+
+  #Getting the unique family-specialist combinations from the reference list
+  combo <- unique(paste(autores$family, autores$tdwg.name, sep = "_"))
+  if (!is.null(miss.taxonomist))
+    combo <- c(combo, miss.taxonomist)
+
+  if (all(taxonomist.list %in% c("plantR", "plantr"))) {
+    tmp <- unique(paste(autores$name.correct[!is.na(autores$name.correct)],
+                        autores$tdwg.name[!is.na(autores$name.correct)],
+                        sep = "_"))
+    tmp <- tmp [!tmp %in% combo]
+    combo <- c(combo, tmp)
+  }
+  combo <- stringr::str_trim(combo)
+
+  #Getting the unique family-specialist combinations for each occurrence
+  #dt <- data.table::data.table(x) # not using data.table for now
+  combo.occs <- paste(x[ ,cols["family"]],
+                      x[ ,cols["det.name"]], sep = "_")
+  combo.occs <- stringr::str_trim(combo.occs)
+
+  #Crossing the occurrence and reference family-specialist combinations
+  x$tax.check <- combo.occs %in% combo
+
+  #Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
+  if ("types" %in% names(cols))
+    x$tax.check[!is.na(x[, cols["types"]]) &
+                  !grepl("not a type|notatype|probable type|tipo provavel|tipo prov\u00e1vel",
+                         x[, cols["types"]], perl = TRUE, ignore.case = TRUE)] <- TRUE
+
+  #Specifying occurrences with unkown determiner name
+  x$tax.check[x$tax.check == FALSE &
+                tolower(x[, cols["det.name"]]) %in% noName] <- "unknown"
+  x$tax.check[x$tax.check %in% FALSE &
+                is.na(x[, cols["det.name"]])] <- "unknown"
+
+  #Validating all specimens collected by the family specialist but with the determiner field empty
+  if (special.collector) {
+
+    # if (!is.na(covs.present[["collectors"]])) {
+    if ("col.name" %in% names(cols)) {
+
+      combo2 <- paste(x[, cols["family"]],
+                      x[, cols["col.name"]], sep = "_")
+      combo2 <- stringr::str_trim(combo2)
+      #Crossing the occurrence and reference family-specialist combinations
+      tax.check1 <- combo2 %in% combo
+      x$tax.check[x$tax.check %in% c("unknown") &
+                    tax.check1 %in% TRUE] <- TRUE
+
+    } else {
+      warning("Argument 'special.collector' set to TRUE but collector name is missing")
+    }
+  }
+
+  if (generalist) {
+
+    #Crossing the occurrences with the names of the generalists
+    tax.check2 <- x[, cols["det.name"]] %in% generalists$tdwg.name
+    x$tax.check[x$tax.check %in% c("FALSE") &
+                  tax.check2 %in% TRUE] <- generalist.class
+  }
+
+  x$tax.check[x$tax.check %in% "FALSE"] <- "low"
+  x$tax.check[x$tax.check %in% "TRUE"] <- "high"
+
+  #Any potential specialists missing form the taxonomist list?
+  non.tax.det <- sort(table(x[,cols["det.name"]][x$tax.check %in% "low"]))
+  if (length(non.tax.det) > 0) {
+    non.tax.det.df <- data.frame(names(non.tax.det), as.double(non.tax.det))
+    row.names(non.tax.det.df) <- NULL
+    non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
+    cat("Top people with many determinations but not in the taxonomist list: \n",
+        knitr::kable(my.head.df(non.tax.det.df, top.det),
+                     row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
+  }
+
+  #Assigning different levels to non preserved specimens
+  if ("rec.type" %in% names(cols) & !is.null(other.records)) {
+    PS <- c("preservedspecimen","preserved_specimen","s","exsicata de planta",
+            "esicata de planta","exsicata")
+
+    if (class(other.records) == "character")
+      if (other.records %in% c("unknown", "low", "medium", "high")) {
+        x$tax.check[!is.na(x[, cols["rec.type"]]) |
+                    !tolower(x[, cols["rec.type"]]) %in% PS] <- other.records
+      } else {
+        warning("If a character, argument `other.records` must be 'unknown', 'low', 'medium' or 'high') (no changes performed)")
+      }
+
+    if (class(other.records) == "numeric") {
+      if (is.integer(other.records)) {
+      current <- x$tax.check[!is.na(x[, cols["rec.type"]]) |
+                    !tolower(x[, cols["rec.type"]]) %in% PS]
+      rpl1 <- c("unknown" = "-1", "low" = "0", "medium" = "1", "high" = "2")
+      current <- stringr::str_replace_all(current, rpl1)
+      current <- as.double(current) - as.double(other.records)
+
+      rpl2 <- c("unknown", "low", "medium", "high")
+      names(rpl2) <- as.character(c(-1, 0, 1, 2) - as.double(other.records))
+      rpl2[-1][as.double(names(rpl2)[-1]) <= 0] <- "low"
+      rpl2[-1][as.double(names(rpl2)[-1]) == 1] <- "medium"
+      rpl2[-1][as.double(names(rpl2)[-1]) == 2] <- "high"
+      current <- stringr::str_replace_all(current, rpl2)
+      x$tax.check[!is.na(x[, cols["rec.type"]]) |
+                    !tolower(x[, cols["rec.type"]]) %in% PS] <- current
+
+      } else {
+        warning("If a number, argument `other.records` must be an integer (no changes performed)")
+      }
+    }
+  }
+
+  #Assigning high confidence levels to the user-provided voucher list
+  if (!is.null(voucher.list))
+    x$tax.check[x[, cols["rec.ID"]] %in% voucher.list] <- "high"
+
+  return(x)
 }
-### LOADING PACKAGES ###
-# require(flora)
-# require(taxize)
-# require(stringr)
-# require(dplyr)
-# require(raster)
-# require(rgeos)
-# require(sp)
-# require(parallel)
-# require(doParallel)
-# require(rgdal)
-# require(geosphere)
-# #require(ModelR)
-# source("functions.R")
-#
-#
-# #### TAXONOMIC VALIDATION ####
-#
-# ### Reading and editing the validated species name and synonyms list ###
-# spp = read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//DomainsKnownTreesNeotropics.csv", as.is=TRUE, na.string=c(NA,""," "))
-# #removing unecessary columns
-# spp = spp[,c("TreeCo_status","SpeciesKTSA","family.reflora","genus.reflora","species.reflora","taxon.rank.reflora","name.status.reflora","notes.reflora",
-#              "Accepted_name_family","Accepted_name_genus","Accepted_name","Accepted_name_rank","Taxonomic_status","DataSource",
-#              "Family.TPL","New.Genus.TPL","NewTaxon.TPL","Taxonomic.status.TPL")]
-#
-# #replacing names not found in ReFlora by The Plant List (previous to TNRS)
-# spp[is.na(spp$species.reflora) & spp$TreeCo_status%in%"ok_use_TPL",c("family.reflora","genus.reflora","species.reflora")] =
-#   spp[is.na(spp$species.reflora) & spp$TreeCo_status%in%"ok_use_TPL",c("Family.TPL","New.Genus.TPL","NewTaxon.TPL")]
-# #replacing names not found in ReFlora by the TNRS/Hans taxonomy
-# spp[is.na(spp$species.reflora),c("family.reflora","genus.reflora","species.reflora","name.status.reflora")] =
-#   spp[is.na(spp$species.reflora),c("Accepted_name_family","Accepted_name_genus","Accepted_name","Taxonomic_status")]
-# #replacing final names not found in ReFlora and TNRS by the Plant List
-# spp[is.na(spp$species.reflora) & grepl("ok",spp$TreeCo_status),c("family.reflora","genus.reflora","species.reflora")] =
-#   spp[is.na(spp$species.reflora) & grepl("ok",spp$TreeCo_status),c("Family.TPL","New.Genus.TPL","NewTaxon.TPL")]
-#
-# #flagging problematic names (and putting them down the list)
-# table(spp[is.na(spp$species.reflora),]$Taxonomic_status)
-# table(spp[is.na(spp$species.reflora),]$TreeCo_status)
-# tmp = spp[is.na(spp$species.reflora),]
-# tmp$species.reflora = tmp$SpeciesKTSA
-# tmp$name.status.reflora = "problematic"
-# spp = spp[!is.na(spp$species.reflora),]
-# table(spp$Taxonomic_status)
-# table(spp$TreeCo_status)
-# spp = rbind.data.frame(spp,tmp) #recombining valid and problematic names into a single data frame
-# rm(tmp)
-#
-# #filtering columns
-# spp = spp[,c("SpeciesKTSA","family.reflora","genus.reflora","species.reflora","taxon.rank.reflora","name.status.reflora","notes.reflora","DataSource","TreeCo_status"),]
-# names(spp) = c("name","family.correct","genus.correct","species.correct","taxon.rank","name.status","notes","source","status")
-#
-# #checking possible problems with family names
-# tmp = aggregate(spp$family.correct,list(spp$genus.correct),function(x)as.character(unique(x)))
-# tmp[is.na(tmp[,2]),]
-# tmp[is.na(tmp[,1]),]
-# tmp[grep(" ",tmp[,1]),]
-# tmp[grep("-",tmp[,1]),]
-# tmp[grep("-",tmp[,2]),]
-#
-# ##Considering names only at species level
-# #getting the names with any of the infra-specific notation
-# tmp = spp[grepl(" var\\.| subsp\\.| f\\.| fo\\.| ssp\\.| subf\\.| subfo\\.| subvar\\.",spp$name),]
-# #removing the infra-specific notation from the input names
-# spp$name = gsub(" var\\.| subsp\\.| f\\.| fo\\.| ssp\\.| subf\\.| subfo\\.| subvar\\.","",spp$name)
-# spp = spp[!grepl("\\.",spp$name),]
-# #Re-adding the infra-specific taxa in their original notation to make sure all names are found, and thus all family names from the occurrences are corrected
-# spp = rbind.data.frame(spp,tmp)
-#
-# ### Reading the specialists' name dictionary ###
-# autores = read.csv("autores.csv", as.is=TRUE,na.string=c(NA,""," "))
-# autores = autores[!is.na(autores$tdwg.name),]
-# autores = autores[!is.na(autores$family),]
-# autores = autores[!grepl('\\?',autores$family),]
-# autores = autores[!grepl('Floristics/Generalist (all families)|Wood anatomist, autores$family'),]
-#
-# #Standardizing family names
-# families.apg = read.csv("families_synonyms.csv", as.is=TRUE,na.string=c(NA,""," "))
-# autores = merge(autores,families.apg[,c("name","name.correct")],by.x="family",by.y="name",all.x=TRUE)
-# autores = autores[order(autores$order),]
-# #Getting misspelled family names
-# tmp = autores[is.na(autores$name.correct),]
-# head(tmp) #only fungi and cyano bacteria are not in the dictionary of name synonyms
-# #tmp1 = get.taxa (unique(tmp$family), life.form = FALSE, habitat = FALSE, states = FALSE,
-# #	suggestion.distance = 0.92, drop = c("id","accepted.name","search.str","scientific.name","specific.epiteth","infra.epiteth","authorship","threat.status"))
-# #tmp1.1 = tmp1[!is.na(tmp1$taxon.rank) & tmp1$taxon.rank %in% "family",]
-# #tmp1.1 = tmp1.1[order(tmp1.1$order),]
-# #autores[is.na(autores$name.correct),c("name.correct")] = tmp1.1[is.na(autores$name.correct),c("family.y")]
-# #Getting names not found
-# #tmp1.2 = tmp1[tmp1$notes %in% c("not found"),]
-# #sort(tmp1.2$original.search)
-#
-# #Getting the unique family-specialist combinations (3 options: tdwg, last.name, finger.print)
-# combo = unique(paste(autores$family,autores$tdwg.name,sep="_"))
-# tmp = unique(paste(autores$name.correct[!is.na(autores$name.correct)],autores$tdwg.name[!is.na(autores$name.correct)],sep="_"))
-# tmp = tmp [!tmp %in% combo]
-# combo = c(combo,tmp)
-# combo = str_trim(combo)
-# table(duplicated(combo))
-#
-# #combo1 = c(paste(autores$family,autores$last.name,sep="_")) #,paste(autores$family.y,autores$last.name,sep="_")))
-# #combo2 = c(paste(autores$family,autores$finger.print,sep="_")) #,paste(autores$family.y,autores$finger.print,sep="_")))
-#
-# ### Getting the file paths for the herbarium data
-# splink = read.csv("speciesLink.csv", as.is=T)
-# splink.new = read.csv("speciesLink_new.csv", as.is=T)
-# paths = dir("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//herbaria//specieslink",full.names=TRUE)
-# paths1 = "C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//herbaria//specieslink_new"
-# paths2 = "C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//herbaria//jabot"
-# #paths1 = dir(paths1,full.names=TRUE)[!dir(paths1) %in% splink$acronym]
-# #paths2 = dir(paths2,full.names=TRUE)[!dir(paths2) %in% splink$acronym]
-# paths1 = dir(paths1,full.names=TRUE)
-# paths2 = dir(paths2,full.names=TRUE)
-# #putting paths for all collections together
-# paths = c(paths,paths1,paths2)
-# paths = list.files(paths,full.names=TRUE)
-# paths = c(paths, list.files("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//herbaria//gbif",full.names=TRUE))
-# paths = paths[grep("-edited-cleaned-loc-coord.csv",paths)]
-#
-# ### Perfoming the taxonomical validation for all collections ###
-# for(i in 1:length(paths)) {
-#   #for(i in 1:199) {
-#   myfiles0 = paths[i]
-#   herb.data = read.csv(myfiles0,as.is=TRUE,header=TRUE,na.strings=c(""," ","NA"))
-#   ##Removing unwanted columns
-#   cols = c("family","familia",
-#            "scientificName","scientificname",
-#            "determinador.name","coletor.name",
-#            "typeStatus","typestatus","nat_typus")
-#   #"dateIdentified","yearidentified,"anodeterm") #columns not present in GBIF
-#   cls =  c(unique(cols[cols %in% names(herb.data)]),"order")
-#   herb.data$order = as.vector(1:dim(herb.data)[1]) #column to put the data back on its original order
-#   herb.data1 = herb.data[,cls]
-#   names(herb.data1)[1] = "family.original"
-#   names(herb.data1)[2] = "scientificName"
-#   names(herb.data1)[length(names(herb.data1))-1] = "typeStatus"
-#   ##Standardizing species notation for JABOT - Not needed anymore, the species dictionary now has infra-specific taxons with and without the notations below
-#   #if(grepl("/jabot/",myfiles0)) {
-#   #	spp1 = spp
-#   #	spp1$name = gsub(' var\\.| subsp\\.| f\\.| fo\\.| ssp\\.| subf\\.| subfo\\.','',spp1$name)
-#   #} else {
-#   #
-#   #	spp1 = spp
-#   #}
-#   ##Obtainig the valid species name and family for each occurrence
-#   herb.data1 = merge(herb.data1, spp[,c("name","family.correct","species.correct","name.status","notes","source","status")],
-#                      by.x="scientificName",by.y="name",all.x=TRUE)
-#   herb.data1$family.correct[is.na(herb.data1$family.correct)] = herb.data1$family.original[is.na(herb.data1$family.correct)]
-#   herb.data1$species.correct[is.na(herb.data1$species.correct)] = herb.data1$scientificName[is.na(herb.data1$species.correct)]
-#   herb.data1 = herb.data1[order(herb.data1$order),]
-#   ##Putting all infrageneric identifications at species level
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " var\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " subsp\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " f\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " fo\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " ssp\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " subf\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " subfo\\."),function(x) x[1])
-#   herb.data1$species.correct = sapply(strsplit(herb.data1$species.correct, " subvar\\."),function(x) x[1])
-#   ##Obtainig the family-specialist combinations for each occurrence
-#   herb.data1$combo = paste(herb.data1$family.correct,herb.data1$determinador.name,sep="_")
-#   herb.data1$combo = str_trim(herb.data1$combo)
-#   ##Crossing the occurrence and reference family-specialist combinations
-#   herb.data1$tax.check = herb.data1$combo %in% combo
-#   ##Finding possible missing determinations due to small typos (max.2 letters of difference)
-#   #tmp = unique(herb.data1[!herb.data1$tax.check & !herb.data1$determinador.name %in% c("SemDeterminador","Semdeterminador"),]$combo)
-#   #names(tmp) = unique(herb.data1[!herb.data1$tax.check & !herb.data1$determinador.name %in% c("SemDeterminador","Semdeterminador"),]$combo)
-#   #if(length(tmp)==0) { herb.data1$tax.check.new = FALSE
-#   #} else {
-#   #	cl <- makeCluster(detectCores()-1)
-#   #	clusterExport(cl, list("tmp","combo"),envir=environment())
-#   #	tmp2 <- parLapply(cl,1:length(tmp), fun= function(j) {
-#   #					tmp1 = agrep(tmp[j], combo, value=TRUE, max.distance=2)
-#   #					if(length(tmp1)==0) {
-#   #						tmp[j] = tmp[j]
-#   #					} else {
-#   #						dst = adist(tmp[j],tmp1)
-#   #						id = which(dst==min(dst))
-#   #						tmp[j] = head(tmp1[id],1)
-#   #					} } )
-#   #	stopImplicitCluster()
-#   #	stopCluster(cl)
-#   #	tmp2 = do.call(c, tmp2)
-#   #	tmp1 = data.frame(combo=names(tmp),combo.new=tmp2, stringsAsFactors=FALSE)
-#   #	tmp2 = herb.data1[!herb.data1$tax.check & !herb.data1$determinador.name %in% c("SemDeterminador","Semdeterminador"),c("order","combo")]
-#   #	tmp3 = merge(tmp2,tmp1,by="combo",all.x=TRUE)
-#   #	tmp3 = tmp3[order(tmp3$order),] #putting the data back on its original order
-#   #	herb.data1[!herb.data1$tax.check & !herb.data1$determinador.name %in% c("SemDeterminador","Semdeterminador"),]$combo = as.character(tmp3$combo.new)
-#   #	herb.data1$tax.check.new = herb.data1$combo %in% combo
-#   #}
-#   ##Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
-#     herb.data1$tax.check[!is.na(herb.data1$typeStatus)&!grepl("not a type|notatype|probable type|tipo provavel|tipo prov?vel",herb.data1$typeStatus,ignore.case = TRUE)] = TRUE
-#   ##Specifying why taxonomy was not validated
-#    herb.data1$tax.check[herb.data1$tax.check == FALSE &
-#                          herb.data1$determinador.name %in% c("Semdeterminador","SemDeterminador","Anonymus","Anonymous","Anonimo","Incognito","Unknown","s.d.")] = "cannot_check"
-#   ##Validating all specimens collected by the family specialist but with the determiner field empty
-#    herb.data1$combo1 = paste(herb.data1$family.correct,herb.data1$coletor.name,sep="_")
-#    herb.data1$combo1 = str_trim(herb.data1$combo1)
-#    #Crossing the occurrence and reference family-specialist combinations
-#    herb.data1$tax.check1 = herb.data1$combo1 %in% combo
-#    #Replacing the specimens that could by validated
-#    herb.data1$tax.check[herb.data1$tax.check %in% c("cannot_check") & herb.data1$tax.check1 %in% TRUE] = TRUE
-#   ##Saving the filtered data
-#     herb.data = merge(herb.data,herb.data1[,c("order","family.correct","species.correct","name.status","notes","source","status","tax.check")],by="order",all.x=T)
-#     herb.data = herb.data[!duplicated(herb.data$order),]
-#     path.csv = gsub("coord.csv","coord-tax.csv",myfiles0)
-#     write.csv(x=herb.data,file=path.csv, row.names = FALSE)
-#     cat(i,"\n")
-# }

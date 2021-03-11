@@ -1,0 +1,298 @@
+﻿seq,,collectionCode,institutionCode,collectionName,institutionName,scope,numberOfRecords,city,state,country,keywords_en
+1,AcariESALQ_USP,AcariESALQ,USP,Coleção de Ácaros da ESALQ,Universidade de São Paulo,animais,17606,Piracicaba,SP,Brasil,acari mites animals arachnids terrestrial invertebrates
+3,AMNH-Bee_AMNH,AMNH-Bee,AMNH,Collaborative databasing of North American bee collections within a global informatics network project,American Museum of Natural History,animais,60651,Nova York,NY,Estados Unidos,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+4,ANSP-Ichthyology_ANSP,ANSP-Ichthyology,ANSP,The Academy of Natural Sciences Fish Collection,The Academy of Natural Sciences,animais,146747,Philadelphia,PA,Estados Unidos,animals fishes vertebrates
+5,Aranhas-Solobioma_UFPR,Aranhas-Solobioma,UFPR,Coleção de Aranhas Solobioma,Universidade Federal do Paraná,animais,47,Curitiba,PR,Brasil,animals arachnids terrestrial invertebrates
+6,ARAR_UPF,ARAR,UPF,Coleção Aracnídeos da UPF,Universidade de Passo Fundo,animais,904,Passo Fundo,RS,Brasil,animals arachnids terrestrial invertebrates
+25,CAHZ_UFPB,CAHZ,UFPB,Coleção de Aves Heretiano Zenaide,Universidade Federal da Paraíba,animais,2949,Areia,PB,Brasil,animals birds vertebrates
+28,CAUPF_UPF,CAUPF,UPF,Coleção de Anfíbios da UPF,Universidade de Passo Fundo,animais,214,Passo Fundo,RS,Brasil,animals reptiles and amphibians vertebrates
+29,CAVESUPF_UPF,CAVESUPF,UPF,Coleção de Aves da Universidade de Passo Fundo,Universidade de Passo Fundo,animais,300,Passo Fundo,RS,Brasil,animals birds vertebrates
+31,CBVS_IFSULDEMINAS,CBVS,IFSULDEMINAS,Coleção Biológica de Vespas Sociais,Instituto Federal Sul de Minas Gerais,animais,6197,Inconfidentes,MG,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+33,CECA_UEMA,CECA,UEMA,Coleção Entomológica do Curso de Agronomia,Universidade Estadual do Maranhão,animais,400,São Luís,MA,Brasil,acari mites animals arachnids terrestrial invertebrates
+34,CECG_UEPG,CECG,UEPG,Coleção Entomológica dos Campos Gerais do Paraná,Universidade Estatual de Ponta Grossa,animais,1864,Ponta Grossa,PR,Brasil,animals insects terrestrial invertebrates
+35,CEMeC_EBDA,CEMeC,EBDA,Coleção Entomológica Moure & Costa,Empresa Baiana de Desenvolvimento Agrícola,animais,18656,Salvador,BA,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+36,CE-MHS_UFSC,CE-MHS,UFSC,Coleção Entomológica Mítia Heusi Silveira,Universidade Federal de Santa Catarina,animais,2722,Florianópolis,SC,Brasil,animals coleoptera beetles and scarabs insects terrestrial invertebrates
+37,CEMT_UFMT,CEMT,UFMT,Setor de Entomologia da Coleção Zoológica da Universidade Federal de Mato Grosso,Universidade Federal de Mato Grosso,animais,56423,Cuiabá,MT,Brasil,animals arachnids araneae spiders insects pseudoscorpiones pseudoscorpions book scorpions terrestrial invertebrates
+39,CEPANN_USP,CEPANN,USP,Coleção Entomológica Paulo Nogueira-Neto - IB/USP,Universidade de São Paulo,animais,41650,São Paulo,SP,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+42,CESC_UNISC,CESC,UNISC,Coleção Entomológica de Santa Cruz do Sul,Universidade de Santa Cruz do Sul,animais,29373,Santa Cruz do Sul,RS,Brasil,animals arachnids insects terrestrial invertebrates
+44,CE-UFPE_UFPE,CE-UFPE,UFPE,Coleção Entomológica da UFPE,Universidade Federal de Pernambuco,animais,4080,Recife,PE,Brasil,animals coleoptera beetles and scarabs diptera flies and mosquitoes hymenoptera ants bees and wasps insects lepidoptera butterflies and moths terrestrial invertebrates trichoptera caddisflies
+45,CEUPF_UPF,CEUPF,UPF,Coleção Entomologia da UPF,Universidade de Passo Fundo,animais,466,Passo Fundo,RS,Brasil,animals insects terrestrial invertebrates
+46,CEUPF-Lepidopteros-Urticantes_UPF,CEUPF-Lepidopteros-Urticantes,UPF,Coleção Entomologia da UPF - Lepidópteros Urticantes,Universidade de Passo Fundo,animais,821,Passo Fundo,RS,Brasil,animals insects lepidoptera butterflies and moths terrestrial invertebrates
+47,CEUPF-Lonomia-Obliqua_UPF,CEUPF-Lonomia-Obliqua,UPF,Coleção Entomologia da UPF - Lonomia obliqua,Universidade de Passo Fundo,animais,1464,Passo Fundo,RS,Brasil,animals insects lepidoptera butterflies and moths terrestrial invertebrates
+49,CFBH_UNESP,CFBH,UNESP,Coleção Célio F. B. Haddad,Universidade Estadual Paulista,animais,30593,Rio Claro,SP,Brasil,animals reptiles and amphibians vertebrates
+54,CH_UFBA,CH,UFBA,Coleção Herpetológica do Museu de História Natural da Bahia,Universidade Federal da Bahia,animais,4499,Salvador,BA,Brasil,animals reptiles and amphibians vertebrates
+55,CHUFJF-Repteis_UFJF,CHUFJF-Repteis,UFJF,Coleção Herpetológica da Universidade Federal de Juiz de Fora - Répteis,Universidade Federal de Juiz de Fora,animais,1602,Juiz de Fora,MG,Brasil,animals reptiles and amphibians vertebrates
+56,CIAMT_UFMT,CIAMT,UFMT,Coleção de Invertebrados Aquáticos da UFMT,Universidade Federal de Mato Grosso,animais,1606,Cuiabá,MT,Brasil,animals aquatic invertebrates insects terrestrial invertebrates
+58,CIUFES_UFES,CIUFES,UFES,Coleção Ictiológica da Universidade Federal do Espírito Santo,Universidade Federal do Espírito Santo,animais,4527,Vitória,ES,Brasil,animals fishes vertebrates
+59,CM_UNEMAT,CM,UNEMAT,Coleção de Mamíferos da UNEMAT - Campus Nova Xavantina,Universidade do Estado de Mato Grosso,animais,784,Nova Xavantina,MT,Brasil,animals mammals vertebrates
+60,CM-Birds_CARNEGIEMNH,CM-Birds,CARNEGIEMNH,Carnegie Museum Birds Collection,Carnegie Museum of Natural History,animais,66822,Pittsburgh,PA,Estados Unidos,animals birds vertebrates
+61,CMOUPF_UPF,CMOUPF,UPF,Coleção Moluscos da UPF,Universidade de Passo Fundo,animais,712,Passo Fundo,RS,Brasil,animals aquatic invertebrates mollusca
+62,CMPHRM_UFC,CMPHRM,UFC,Coleção Malacológica Prof. Henry Ramos Matthews Série B,Universidade Federal do Ceará,animais,6190,Fortaleza,CE,Brasil,animals aquatic invertebrates mollusca
+64,CMUFMT_UFMT,CMUFMT,UFMT,Coleção de Mamíferos da Universidade Federal de Mato Grosso,Universidade Federal de Mato Grosso,animais,3042,Cuiabá,MT,Brasil,animals mammals vertebrates
+65,CMUPF_UPF,CMUPF,UPF,Coleção Mamíferos da UPF,Universidade de Passo Fundo,animais,145,Passo Fundo,RS,Brasil,animals mammals vertebrates
+67,COLFlebIEC_IEC,COLFlebIEC,IEC,Coleção de Flebotomíneos do Instituto Evandro Chagas,Instituto Evandro Chagas,animais,64,Levilândia,PA,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+70,COUFMT_UFMT,COUFMT,UFMT,Coleção de Ornitologia da Universidade Federal de Mato Grosso,Universidade Federal de Mato Grosso,animais,23,Cuiabá,MT,Brasil,animals birds vertebrates
+72,CPATU-Ento_EMBRAPA,CPATU-Ento,EMBRAPA,Coleção Entomológica da Embrapa Amazônia Oriental - Apoidea,Empresa Brasileira de Pesquisa Agropecuária,animais,18731,Belém,PA,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+73,CP-LIPAN_UNEMAT,CP-LIPAN,UNEMAT,Coleção de Peixes do Laboratório de Ictiologia do Pantanal Norte,Universidade do Estado de Mato Grosso,animais,259,Cáceres,MT,Brasil,animals fishes vertebrates
+75,CPUFMT_UFMT,CPUFMT,UFMT,Coleção de Peixes da Universidade Federal de Mato Grosso,Universidade Federal de Mato Grosso,animais,4482,Cuiabá,MT,Brasil,animals fishes vertebrates
+76,CPUPF_UPF,CPUPF,UPF,Coleção Peixes da UPF,Universidade de Passo Fundo,animais,235,Passo Fundo,RS,Brasil,animals fishes vertebrates
+77,CRAR_UNIR,CRAR,UNIR,Coleção de Referência da Avifauna de Rondônia,Universidade Federal de Rondônia,animais,24,Porto Velho,RO,Brasil,animals birds vertebrates
+78,CRHRO_UNIR,CRHRO,UNIR,Coleção de Referência da Herpetofauna de Rondônia,Universidade Federal de Rondônia,animais,240,Porto Velho,RO,Brasil,animals reptiles and amphibians vertebrates
+80,CRMB_UFMG,CRMB,UFMG,Coleção de Referência de Macroinvertebrados Bentônicos,Universidade Federal de Minas Gerais,animais,10945,Belo Horizonte,MG,Brasil,animals annelida aquatic invertebrates arthropoda equinodermata mollusca
+81,CRMRO_UNIR,CRMRO,UNIR,Coleção de Referência da Mastofauna de Rondônia,Universidade Federal de Rondônia,animais,129,Porto Velho,RO,Brasil,animals mammals vertebrates
+84,CSUEL_UEL,CSUEL,UEL,Coleção de Sons,Universidade Estadual de Londrina,animais,1341,Londrina,PR,Brasil,animals birds vertebrates
+85,CSUPF_UPF,CSUPF,UPF,Coleção de Serpentes da UPF,Universidade de Passo Fundo,animais,1784,Passo Fundo,RS,Brasil,animals reptiles and amphibians vertebrates
+90,CZDP-Amphibia_UFPI,CZDP-Amphibia,UFPI,Coleção Zoológica Delta do Parnaíba-Amphibia,Universidade Federal do Piauí,animais,701,Parnaíba,PI,Brasil,animals reptiles and amphibians vertebrates
+91,CZDP-Crustacea_UFPI,CZDP-Crustacea,UFPI,Coleção Zoológica Delta do Parnaíba-Crustacea,Universidade Federal do Piauí,animais,70,Parnaíba,PI,Brasil,animals aquatic invertebrates arthropoda
+92,CZDP-Pisces_UFPI,CZDP-Pisces,UFPI,Coleção Zoológica Delta do Parnaíba - Pisces,Universidade Federal do Piauí,animais,48,Parnaíba,PI,Brasil,animals fishes vertebrates
+93,CZDP-Reptilia_UFPI,CZDP-Reptilia,UFPI,Coleção Zoológica Delta do Parnaíba - Reptilia,Universidade Federal do Piauí,animais,236,Parnaíba,PI,Brasil,animals reptiles and amphibians vertebrates
+94,DCBU_UFSCar,DCBU,UFSCar,Coleção Taxonômica do Departamento de Ecologia e Biologia Evolutiva da UFSCar,Universidade Federal de São Carlos,animais,97297,São Carlos,SP,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+95,DSEC_UFPB,DSEC,UFPB,Coleção Entomológica do Depto. de Sistemática e Ecologia,Universidade Federal da Paraíba,animais,13689,João Pessoa,PB,Brasil,animals insects terrestrial invertebrates
+98,DZSJRP-Acari_UNESP,DZSJRP-Acari,UNESP,Coleção de Ácaros DZSJRP,Universidade Estadual Paulista,animais,11990,São José do Rio Preto,SP,Brasil,acari mites animals arachnids terrestrial invertebrates
+99,DZSJRP-Amphibia-adults_UNESP,DZSJRP-Amphibia-adults,UNESP,Coleção de Anfíbios DZSJRP,Universidade Estadual Paulista,animais,15136,São José do Rio Preto,SP,Brasil,animals reptiles and amphibians vertebrates
+100,DZSJRP-Amphibia-tadpoles_UNESP,DZSJRP-Amphibia-tadpoles,UNESP,Coleção de Girinos DZSJRP,Universidade Estadual Paulista,animais,9107,São José do Rio Preto,SP,Brasil,animals reptiles and amphibians vertebrates
+101,DZSJRP-Chiroptera_UNESP,DZSJRP-Chiroptera,UNESP,Coleção de Quirópteros DZSJRP,Universidade Estadual Paulista,animais,11305,São José do Rio Preto,SP,Brasil,animals mammals vertebrates
+102,DZSJRP-Pisces_UNESP,DZSJRP-Pisces,UNESP,Coleção de Peixes DZSJRP,Universidade Estadual Paulista,animais,22971,São José do Rio Preto,SP,Brasil,animals fishes vertebrates
+103,DZUB_UnB,DZUB,UnB,Coleção Entomológica da Universidade de Brasília,Universidade de Brasília,animais,5202,Brasília,DF,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+104,DZUP-Aphidoidea_UFPR,DZUP-Aphidoidea,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Aphidoidea),Universidade Federal do Paraná,animais,11006,Curitiba,PR,Brasil,animals hemiptera insects terrestrial invertebrates
+105,DZUP-Ascidiacea_UFPR,DZUP-Ascidiacea,UFPR,Coleção de Ascidiacea DZUP,Universidade Federal do Paraná,animais,410,Curitiba,PR,Brasil,animals aquatic invertebrates chordata
+106,DZUP-Coleoptera_UFPR,DZUP-Coleoptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Coleoptera),Universidade Federal do Paraná,animais,165715,Curitiba,PR,Brasil,animals coleoptera beetles and scarabs insects terrestrial invertebrates
+107,DZUP-Dermaptera_UFPR,DZUP-Dermaptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Dermaptera),Universidade Federal do Paraná,animais,430,Curitiba,PR,Brasil,animals dermaptera earwig insects terrestrial invertebrates
+108,DZUP-Diptera_UFPR,DZUP-Diptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Diptera),Universidade Federal do Paraná,animais,41631,Curitiba,PR,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+109,DZUP-Formicidae_UFPR,DZUP-Formicidae,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure,Universidade Federal do Paraná,animais,1156,Curitiba,PR,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+110,DZUP-Hemiptera_UFPR,DZUP-Hemiptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Hemiptera),Universidade Federal do Paraná,animais,70118,Curitiba,PR,Brasil,animals hemiptera insects terrestrial invertebrates
+111,DZUP-Hymenoptera_UFPR,DZUP-Hymenoptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Hymenoptera),Universidade Federal do Paraná,animais,16423,Curitiba,PR,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+112,DZUP-Lepidoptera_UFPR,DZUP-Lepidoptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Lepidoptera),Universidade Federal do Paraná,animais,5291,Curitiba,PR,Brasil,animals insects lepidoptera butterflies and moths terrestrial invertebrates
+113,DZUP-Mammalia_UFPR,DZUP-Mammalia,UFPR,Coleção Mastozoológica DZUP,Universidade Federal do Paraná,animais,1722,Curitiba,PR,Brasil,animals mammals vertebrates
+114,DZUP-Mantodea_UFPR,DZUP-Mantodea,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Mantodea),Universidade Federal do Paraná,animais,13,Curitiba,PR,Brasil,animals insects terrestrial invertebrates
+115,DZUP-Plecoptera_UFPR,DZUP-Plecoptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Plecoptera),Universidade Federal do Paraná,animais,179,Curitiba,PR,Brasil,animals insects terrestrial invertebrates
+116,DZUP-Trichoptera_UFPR,DZUP-Trichoptera,UFPR,Coleção Entomológica Pe. Jesus Santiago Moure (Trichoptera),Universidade Federal do Paraná,animais,4278,Curitiba,PR,Brasil,animals insects terrestrial invertebrates trichoptera caddisflies
+127,FCM_FCM,FCM,FCM,Fototeca Cristiano Menezes,Fototeca Cristiano Menezes,animais,1119,Jaguariúna,SP,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+129,Fiocruz-CAVAISC_FIOCRUZ,Fiocruz-CAVAISC,FIOCRUZ,Coleção de Artrópodes Vetores Ápteros de Importância em Saúde das Comunidades,Fundação Oswaldo Cruz,animais,10370,Rio de Janeiro,RJ,Brasil,acari mites animals arachnids terrestrial invertebrates
+135,Fiocruz-CCER_FIOCRUZ,Fiocruz-CCER,FIOCRUZ,Coleção de Ceratopogonidae,Fundação Oswaldo Cruz,animais,5393,Rio de Janeiro,RJ,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+138,Fiocruz-CCULI_FIOCRUZ,Fiocruz-CCULI,FIOCRUZ,Coleção de Culicidae,Fundação Oswaldo Cruz,animais,4870,Rio de Janeiro,RJ,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+139,Fiocruz-CEIOC_FIOCRUZ,Fiocruz-CEIOC,FIOCRUZ,Coleção Entomológica do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,animais,49084,Rio de Janeiro,RJ,Brasil,animals coleoptera beetles and scarabs dermaptera earwig diptera flies and mosquitoes hemiptera hymenoptera ants bees and wasps insects lepidoptera butterflies and moths orthoptera grasshoppers crickets hopes terrestrial invertebrates
+142,Fiocruz-CHIOC_FIOCRUZ,Fiocruz-CHIOC,FIOCRUZ,Coleção Helmintológica do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,animais,39366,Rio de Janeiro,RJ,Brasil,animals annelida aquatic invertebrates arthropoda
+146,Fiocruz-CMIOC_FIOCRUZ,Fiocruz-CMIOC,FIOCRUZ,Coleção de Moluscos do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,animais,12317,Rio de Janeiro,RJ,Brasil,animals aquatic invertebrates mollusca
+147,Fiocruz-CMM_FIOCRUZ,Fiocruz-CMM,FIOCRUZ,Coleção de Malacologia Médica,Fundação Oswaldo Cruz,animais,16826,Belo Horizonte,MG,Brasil,animals aquatic invertebrates mollusca
+148,Fiocruz-CMN_FIOCRUZ,Fiocruz-CMN,FIOCRUZ,Coleção de Mosquitos Neotropicas,Fundação Oswaldo Cruz,animais,42127,Belo Horizonte,MG,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+149,Fiocruz-COLFLEB_FIOCRUZ,Fiocruz-COLFLEB,FIOCRUZ,Coleção de Flebotomíneos,Fundação Oswaldo Cruz,animais,56010,Belo Horizonte,MG,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+152,Fiocruz-COLVET_FIOCRUZ,Fiocruz-COLVET,FIOCRUZ,Coleção de Vetores de Tripanosomatídeos,Fundação Oswaldo Cruz,animais,13251,Belo Horizonte,MG,Brasil,animals hemiptera insects terrestrial invertebrates
+153,Fiocruz-CSIOC_FIOCRUZ,Fiocruz-CSIOC,FIOCRUZ,Coleção de Simulídeos do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,animais,20438,Rio de Janeiro,RJ,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+154,Fiocruz-CTIOC_FIOCRUZ,Fiocruz-CTIOC,FIOCRUZ,Coleção de Triatomíneos do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,animais,11591,Rio de Janeiro,RJ,Brasil,animals hemiptera insects terrestrial invertebrates
+164,FNJV_UNICAMP,FNJV,UNICAMP,Fonoteca Neotropical Jacques Vielliard,Universidade Estadual de Campinas,animais,31094,Campinas,SP,Brasil,animals
+170,Funed-Aran_FUNED,Funed-Aran,FUNED,Coleção de Aranhas,Fundação Ezequiel Dias,animais,1526,Belo Horizonte,MG,Brasil,animals arachnids araneae spiders terrestrial invertebrates
+171,Funed-Esc_FUNED,Funed-Esc,FUNED,Coleção de Escorpiões,Fundação Ezequiel Dias,animais,235,Belo Horizonte,MG,Brasil,animals arachnids scorpiones scorpions terrestrial invertebrates
+173,Funed-Serp_FUNED,Funed-Serp,FUNED,Coleção Científica de Serpentes,Fundação Ezequiel Dias,animais,4009,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+178,GEA_UFPA,GEA,UFPA,Laboratório de ictiologia do Grupo de Ecologia Aquática,Universidade Federal do Pará,animais,6972,Belém,PA,Brasil,animals fishes vertebrates
+231,HU-Zoo_HU,HU-Zoo,HU,Museum of Comparative Zoology,Harvard University,animais,154987,Cambridge,MA,Estados Unidos,animals
+237,HyMB_UFGD,HyMB,UFGD,Coleção de Hymenoptera do Museu de Biodiversidade da UFGD,Universidade Federal da Grande Dourados,animais,1965,Dourados,MS,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+239,IAL-aves_IAL,IAL-aves,IAL,Coleção Zoológica de Referência da Seção de Vírus Transmitidos por Artrópodos - Banco de Aves,Instituto Adolfo Lutz,animais,20956,São Paulo,SP,Brasil,animals birds vertebrates
+240,IAL-roedores_IAL,IAL-roedores,IAL,Coleção Zoológica de Referência da Seção de Vírus Transmitidos por Artrópodos,Instituto Adolfo Lutz,animais,12029,São Paulo,SP,Brasil,animals mammals vertebrates
+243,IBSP-Acari_BUTANTAN,IBSP-Acari,BUTANTAN,Coleção Acarológica do Instituto Butantan,Instituto Butantan,animais,3519,São Paulo,SP,Brasil,acari mites animals arachnids terrestrial invertebrates
+244,IBSP-Herpeto_BUTANTAN,IBSP-Herpeto,BUTANTAN,Coleção Herpetológica Alphonse Richard Hoge,Instituto Butantan,animais,66167,São Paulo,SP,Brasil,animals reptiles and amphibians vertebrates
+245,IBSP-IB_IB,IBSP-IB,IB,Coleção Entomológica Adolph Hempel do Instituto Biológico,Instituto Biológico,animais,5121,São Paulo,SP,Brasil,animals insects terrestrial invertebrates
+247,IctioPk_UFES,IctioPk,UFES,Coleção Ictioplanctônica da Universidade Federal do Espírito Santo,Universidade Federal do Espírito Santo,animais,8409,Vitória,ES,Brasil,animals
+249,INHS-Insects_INHS,INHS-Insects,INHS,INHS Insect Collection,Illinois Natural History Survey,animais,22155,Champaign,IL,Estados Unidos,animals coleoptera beetles and scarabs hemiptera hymenoptera ants bees and wasps insects lepidoptera butterflies and moths orthoptera grasshoppers crickets hopes terrestrial invertebrates
+251,INPA-Acanthocephala_INPA,INPA-Acanthocephala,INPA,Coleção de Acanthocephala INPA,Instituto Nacional de Pesquisas da Amazônia,animais,13,Manaus,AM,Brasil,animals terrestrial invertebrates
+252,INPA-Annelida_INPA,INPA-Annelida,INPA,Coleção de Anelídeos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,139,Manaus,AM,Brasil,animals annelida aquatic invertebrates
+253,INPA-Arachnida-Acari_INPA,INPA-Arachnida-Acari,INPA,Coleção de Ácaros INPA,Instituto Nacional de Pesquisas da Amazônia,animais,2110,Manaus,AM,Brasil,acari mites animals arachnids terrestrial invertebrates
+254,INPA-Arachnida-Amblypygi_INPA,INPA-Arachnida-Amblypygi,INPA,Coleção de Amblipígios INPA,Instituto Nacional de Pesquisas da Amazônia,animais,143,Manaus,AM,Brasil,amblypygi tailless whip scorpions animals arachnids terrestrial invertebrates
+255,INPA-Arachnida-Araneae_INPA,INPA-Arachnida-Araneae,INPA,Coleção de Aranhas INPA,Instituto Nacional de Pesquisas da Amazônia,animais,1932,Manaus,AM,Brasil,animals arachnids araneae spiders terrestrial invertebrates
+256,INPA-Arachnida-Opiliones_INPA,INPA-Arachnida-Opiliones,INPA,Coleção de Opiliões INPA,Instituto Nacional de Pesquisas da Amazônia,animais,3440,Manaus,AM,Brasil,animals arachnids opiliones harvestmen daddy longlegs terrestrial invertebrates
+257,INPA-Arachnida-Palpigradi_INPA,INPA-Arachnida-Palpigradi,INPA,Coleção de Palpigradi INPA,Instituto Nacional de Pesquisas da Amazônia,animais,42,Manaus,AM,Brasil,animals arachnids palpigradi microwhip scorpion terrestrial invertebrates
+258,INPA-Arachnida-Pseudoscorpiones_INPA,INPA-Arachnida-Pseudoscorpiones,INPA,Coleção de Pseudoescorpiões INPA,Instituto Nacional de Pesquisas da Amazônia,animais,771,Manaus,AM,Brasil,animals arachnids pseudoscorpiones pseudoscorpions book scorpions terrestrial invertebrates
+259,INPA-Arachnida-Ricinulei_INPA,INPA-Arachnida-Ricinulei,INPA,Coleção de Ricinuleis INPA,Instituto Nacional de Pesquisas da Amazônia,animais,92,Manaus,AM,Brasil,animals arachnids ricinuleis hooded tickspiders terrestrial invertebrates
+260,INPA-Arachnida-Schizomida_INPA,INPA-Arachnida-Schizomida,INPA,Coleção de Schizomidas INPA,Instituto Nacional de Pesquisas da Amazônia,animais,156,Manaus,AM,Brasil,animals arachnids schizomida terrestrial invertebrates
+261,INPA-Arachnida-Scorpiones_INPA,INPA-Arachnida-Scorpiones,INPA,Coleção de Escorpiões INPA,Instituto Nacional de Pesquisas da Amazônia,animais,622,Manaus,AM,Brasil,animals arachnids scorpiones scorpions terrestrial invertebrates
+262,INPA-Arachnida-Solifugae_INPA,INPA-Arachnida-Solifugae,INPA,Coleção de Solífugos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,7,Manaus,AM,Brasil,animals arachnids solifugae camel spider terrestrial invertebrates
+263,INPA-Arachnida-Thelyphonida_INPA,INPA-Arachnida-Thelyphonida,INPA,Coleção de Thelyphonidas INPA,Instituto Nacional de Pesquisas da Amazônia,animais,32,Manaus,AM,Brasil,animals arachnids terrestrial invertebrates thelyphonida whip scorpion
+265,INPA-Chilopoda_INPA,INPA-Chilopoda,INPA,Coleção de Chilopodas INPA,Instituto Nacional de Pesquisas da Amazônia,animais,430,Manaus,AM,Brasil,animals aquatic invertebrates chilopoda
+266,INPA-Crustacea_INPA,INPA-Crustacea,INPA,Coleção de Crustacea INPA,Instituto Nacional de Pesquisas da Amazônia,animais,142,Manaus,AM,Brasil,animals aquatic invertebrates arthropoda
+267,INPA-Diplopoda_INPA,INPA-Diplopoda,INPA,Coleção de Diplópodes INPA,Instituto Nacional de Pesquisas da Amazônia,animais,196,Manaus,AM,Brasil,animals terrestrial invertebrates
+269,INPA-Herpeto_INPA,INPA-Herpeto,INPA,Coleção de Anfíbios e Répteis INPA,Instituto Nacional de Pesquisas da Amazônia,animais,23108,Manaus,AM,Brasil,animals reptiles and amphibians vertebrates
+270,INPA-Hymenoptera_INPA,INPA-Hymenoptera,INPA,Coleção de Hymenoptera INPA,Instituto Nacional de Pesquisas da Amazônia,animais,31667,Manaus,AM,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+271,INPA-Insecta-tipos_INPA,INPA-Insecta-tipos,INPA,Coleção de tipos de Insetos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,2290,Manaus,AM,Brasil,animals insects terrestrial invertebrates
+272,INPA-Mamiferos-tipos_INPA,INPA-Mamiferos-tipos,INPA,Coleção de tipos de Mamíferos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,96,Manaus,AM,Brasil,animals mammals vertebrates
+273,INPA-Mollusca_INPA,INPA-Mollusca,INPA,Coleção de Moluscos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,1470,Manaus,AM,Brasil,animals aquatic invertebrates mollusca
+274,INPA-Nemata_INPA,INPA-Nemata,INPA,Coleção de Nemata INPA,Instituto Nacional de Pesquisas da Amazônia,animais,33,Manaus,AM,Brasil,animals terrestrial invertebrates
+275,INPA-Pauropoda_INPA,INPA-Pauropoda,INPA,Coleção Pauropoda INPA,Instituto Nacional de Pesquisas da Amazônia,animais,168,Manaus,AM,Brasil,animals aquatic invertebrates pauropoda
+276,INPA-Peixes_INPA,INPA-Peixes,INPA,Coleção de Peixes INPA,Instituto Nacional de Pesquisas da Amazônia,animais,37666,Manaus,AM,Brasil,animals fishes vertebrates
+277,INPA-Plathyhelminthes_INPA,INPA-Plathyhelminthes,INPA,Coleção de Platelmintos INPA,Instituto Nacional de Pesquisas da Amazônia,animais,518,Manaus,AM,Brasil,animals terrestrial invertebrates
+278,INPA-Porifera_INPA,INPA-Porifera,INPA,Coleção Porífera INPA,Instituto Nacional de Pesquisas da Amazônia,animais,70,Manaus,AM,Brasil,animals aquatic invertebrates mollusca
+279,INPA-Rotifera_INPA,INPA-Rotifera,INPA,Coleção de Rotifera INPA,Instituto Nacional de Pesquisas da Amazônia,animais,37,Manaus,AM,Brasil,animals aquatic invertebrates rotifera
+280,INPA-Symphyla_INPA,INPA-Symphyla,INPA,Coleção Symphyla INPA,Instituto Nacional de Pesquisas da Amazônia,animais,21,Manaus,AM,Brasil,animals aquatic invertebrates symphyla
+288,KU-SEMC_KU,KU-SEMC,KU,Snow Entomological Museum Collection,The University of Kansas,animais,374084,Lawrence,KS,Estados Unidos,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+291,LabZoo_UFES,LabZoo,UFES,Laboratório de Zooplâncton,Universidade Federal do Espírito Santo,animais,12977,Vitória,ES,Brasil,animals aquatic invertebrates
+294,LEACOL_UFMA,LEACOL,UFMA,Coleção de Abelhas do Laboratório de Estudos sobre Abelhas,Universidade Federal do Maranhão,animais,19014,São Luís,MA,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+295,LEBIC_UFCG,LEBIC,UFCG,Laboratório de Ecologia e Biogeografia de Insetos da Caatinga,Universidade Federal de Campina Grande,animais,3851,Patos,PB,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+296,LESPP_UFMA,LESPP,UFMA,Laboratório de Ecologia e Sistemática de Insetos Polinizadores e Predadores,Universidade Federal do Maranhão,animais,1479,São Luís,MA,Brasil,animals insects terrestrial invertebrates
+297,LIRP_USP,LIRP,USP,Coleção de Peixes do Laboratório de Ictiologia de Ribeirão Preto,Universidade de São Paulo,animais,15899,Ribeirão Preto,SP,Brasil,animals fishes vertebrates
+305,MBML-Anfibios_INMA,MBML-Anfibios,INMA,Coleção de Anfíbios MBML,Instituto Nacional da Mata Atlântica,animais,12102,Santa Teresa,ES,Brasil,animals reptiles and amphibians vertebrates
+306,MBML-Aves_INMA,MBML-Aves,INMA,Coleção de Aves MBML,Instituto Nacional da Mata Atlântica,animais,7718,Santa Teresa,ES,Brasil,animals birds vertebrates
+308,MBML-Mamiferos_INMA,MBML-Mamiferos,INMA,Coleção de Mamíferos,Instituto Nacional da Mata Atlântica,animais,3854,Santa Teresa,ES,Brasil,animals mammals vertebrates
+309,MBML-Peixes_INMA,MBML-Peixes,INMA,Coleção de Peixes,Instituto Nacional da Mata Atlântica,animais,14007,Santa Teresa,ES,Brasil,animals fishes vertebrates
+310,MBML-Repteis_INMA,MBML-Repteis,INMA,Coleção de Répteis,Instituto Nacional da Mata Atlântica,animais,4762,Santa Teresa,ES,Brasil,animals reptiles and amphibians vertebrates
+313,MCNAM_PUC-MINAS,MCNAM,PUC-MINAS,Coleção de Herpetologia,Pontifícia Universidade Católica de Minas Gerais,animais,1733,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+314,MCN-M_PUC-MINAS,MCN-M,PUC-MINAS,Coleção de Mastozoologia do Museu de Ciências Naturais PUC Minas,Pontifícia Universidade Católica de Minas Gerais,animais,1309,Belo Horizonte,MG,Brasil,animals mammals vertebrates
+315,MCNR_PUC-MINAS,MCNR,PUC-MINAS,Coleção de Herpetologia,Pontifícia Universidade Católica de Minas Gerais,animais,5350,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+316,MCP-Abelhas_PUCRS,MCP-Abelhas,PUCRS,Coleção de Abelhas,Pontifícia Universidade Católica do Rio Grande do Sul,animais,52212,Porto Alegre,RS,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+317,MCP-Anfibios_PUCRS,MCP-Anfibios,PUCRS,Coleção de Anfíbios,Pontifícia Universidade Católica do Rio Grande do Sul,animais,14565,Porto Alegre,RS,Brasil,animals reptiles and amphibians vertebrates
+318,MCP-Aves_PUCRS,MCP-Aves,PUCRS,Coleção de Aves,Pontifícia Universidade Católica do Rio Grande do Sul,animais,5514,Porto Alegre,RS,Brasil,animals birds vertebrates
+319,MCP-Crustaceos_PUCRS,MCP-Crustaceos,PUCRS,Coleção de Crustáceos,Pontifícia Universidade Católica do Rio Grande do Sul,animais,3218,Porto Alegre,RS,Brasil,animals aquatic invertebrates arthropoda
+321,MCP-Mamiferos_PUCRS,MCP-Mamiferos,PUCRS,Coleção de Mamíferos,Pontifícia Universidade Católica do Rio Grande do Sul,animais,1585,Porto Alegre,RS,Brasil,animals mammals vertebrates
+322,MCP-Moluscos_PUCRS,MCP-Moluscos,PUCRS,Coleção de Moluscos,Pontifícia Universidade Católica do Rio Grande do Sul,animais,10672,Porto Alegre,RS,Brasil,animals aquatic invertebrates mollusca
+323,MCP-Peixes_PUCRS,MCP-Peixes,PUCRS,Coleção de Peixes,Pontifícia Universidade Católica do Rio Grande do Sul,animais,54514,Porto Alegre,RS,Brasil,animals fishes vertebrates
+324,MCP-Repteis_PUCRS,MCP-Repteis,PUCRS,Coleção de Répteis,Pontifícia Universidade Católica do Rio Grande do Sul,animais,19633,Porto Alegre,RS,Brasil,animals reptiles and amphibians vertebrates
+325,MCTP-Aracnideos_PUCRS,MCTP-Aracnideos,PUCRS,Coleção de Arachnida e Myriapoda (ordens menores),Pontifícia Universidade Católica do Rio Grande do Sul,animais,694,Porto Alegre,RS,Brasil,acari mites amblypygi tailless whip scorpions animals arachnids pseudoscorpiones pseudoscorpions book scorpions ricinuleis hooded tickspiders terrestrial invertebrates
+326,MCTP-Aranhas_PUCRS,MCTP-Aranhas,PUCRS,Coleção de Arachnida e Myriapoda,Pontifícia Universidade Católica do Rio Grande do Sul,animais,43762,Porto Alegre,RS,Brasil,animals arachnids araneae spiders terrestrial invertebrates
+327,MCTP-Escorpioes_PUCRS,MCTP-Escorpioes,PUCRS,Coleção de Arachnida e Myriapoda,Pontifícia Universidade Católica do Rio Grande do Sul,animais,981,Porto Alegre,RS,Brasil,animals arachnids scorpiones scorpions terrestrial invertebrates
+328,MCTP-Insetos_PUCRS,MCTP-Insetos,PUCRS,Coleção de Insetos,Pontifícia Universidade Católica do Rio Grande do Sul,animais,66802,Porto Alegre,RS,Brasil,animals coleoptera beetles and scarabs dermaptera earwig diptera flies and mosquitoes hymenoptera ants bees and wasps insects lepidoptera butterflies and moths orthoptera grasshoppers crickets hopes terrestrial invertebrates trichoptera caddisflies
+329,MCTP-Miriapodes_PUCRS,MCTP-Miriapodes,PUCRS,Coleção de Arachnida e Myriapoda,Pontifícia Universidade Católica do Rio Grande do Sul,animais,203,Porto Alegre,RS,Brasil,animals arachnids myriapoda  terrestrial invertebrates
+330,MCTP-Opilioes_PUCRS,MCTP-Opilioes,PUCRS,Coleção de Arachnida e Myriapoda,Pontifícia Universidade Católica do Rio Grande do Sul,animais,687,Porto Alegre,RS,Brasil,animals arachnids opiliones harvestmen daddy longlegs terrestrial invertebrates
+331,MEFEIS_UNESP,MEFEIS,UNESP,Coleção do Museu de Entomologia da FEIS/Unesp,Universidade Estadual Paulista,animais,4699,Ilha Solteira,SP,Brasil,animals insects terrestrial invertebrates
+337,MHNCI-Arachnida_MHNCI,MHNCI-Arachnida,MHNCI,Coleção de Arachnida MHNCI,Museu de História Natural Capão da Imbuia,animais,1601,Curitiba,PR,Brasil,animals arachnids terrestrial invertebrates
+338,MHNCI-Aves_MHNCI,MHNCI-Aves,MHNCI,Coleção Ornitológica MHNCI,Museu de História Natural Capão da Imbuia,animais,4932,Curitiba,PR,Brasil,animals birds vertebrates
+339,MHNCI-Crustacea_MHNCI,MHNCI-Crustacea,MHNCI,Coleção de Crustacea MHNCI,Museu de História Natural Capão da Imbuia,animais,1850,Curitiba,PR,Brasil,animals aquatic invertebrates arthropoda
+340,MHNCI-Entomologia_MHNCI,MHNCI-Entomologia,MHNCI,Coleção Entomológica MHNCI,Museu de História Natural Capão da Imbuia,animais,1778,Curitiba,PR,Brasil,animals insects terrestrial invertebrates
+341,MHNCI-Herpeto_MHNCI,MHNCI-Herpeto,MHNCI,Coleção Herpetológica MHNCI,Museu de História Natural Capão da Imbuia,animais,12729,Curitiba,PR,Brasil,animals reptiles and amphibians vertebrates
+342,MHNCI-Mamiferos_MHNCI,MHNCI-Mamiferos,MHNCI,Coleção de Mamíferos MHNCI,Museu de História Natural Capão da Imbuia,animais,8149,Curitiba,PR,Brasil,animals mammals vertebrates
+343,MHNCI-Miriapoda_MHNCI,MHNCI-Miriapoda,MHNCI,Coleção de Miriapoda MHNCI,Museu de História Natural Capão da Imbuia,animais,273,Curitiba,PR,Brasil,animals aquatic invertebrates miriapoda
+344,MHNCI-Mollusca_MHNCI,MHNCI-Mollusca,MHNCI,Coleção de Mollusca MHNCI,Museu de História Natural Capão da Imbuia,animais,3989,Curitiba,PR,Brasil,animals aquatic invertebrates mollusca
+345,MHNCI-Peixes_MHNCI,MHNCI-Peixes,MHNCI,Coleção de Peixes MHNCI,Museu de História Natural Capão da Imbuia,animais,12478,Curitiba,PR,Brasil,animals fishes vertebrates
+351,MVZ-Bird_BERKELEY,MVZ-Bird,BERKELEY,MVZ Bird Collection (Arctos),"University of California, Berkeley",animais,11115,Berkeley,CA,Estados Unidos,animals birds vertebrates
+352,MVZ-Herp_BERKELEY,MVZ-Herp,BERKELEY,MVZ Herp Collection (Arctos),"University of California, Berkeley",animais,14232,Berkeley,CA,Estados Unidos,animals reptiles and amphibians vertebrates
+353,MVZ-Mammal_BERKELEY,MVZ-Mammal,BERKELEY,MVZ Mammal Collection (Arctos),"University of California, Berkeley",animais,20301,Berkeley,CA,Estados Unidos,animals vertebrates
+354,MZFS_UEFS,MZFS,UEFS,Coleção Científica da Divisão de Peixes do Museu de Zoologia,Universidade Estadual de Feira de Santana,animais,17999,Feira de Santana,BA,Brasil,animals fishes vertebrates
+355,MZUEL-Abelhas_UEL,MZUEL-Abelhas,UEL,Museu de Zoologia da Universidade Estadual de Londrina - Coleção de Abelhas,Universidade Estadual de Londrina,animais,483,Londrina,PR,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+356,MZUEL-Aves_UEL,MZUEL-Aves,UEL,Coleção de Aves do Museu de Zoologia,Universidade Estadual de Londrina,animais,47,Londrina,PR,Brasil,animals birds vertebrates
+357,MZUEL-Herpeto_UEL,MZUEL-Herpeto,UEL,Coleção de Herpetofauna do Museu de Zoologia,Universidade Estadual de Londrina,animais,1802,Londrina,PR,Brasil,animals reptiles and amphibians vertebrates
+358,MZUEL-Mamiferos_UEL,MZUEL-Mamiferos,UEL,Coleção de Mamíferos do Museu de Zoologia,Universidade Estadual de Londrina,animais,313,Londrina,PR,Brasil,animals mammals vertebrates
+359,MZUEL-Peixes_UEL,MZUEL-Peixes,UEL,Museu de Zoologia da Universidade Estadual de Londrina - Coleção de Peixes,Universidade Estadual de Londrina,animais,20773,Londrina,PR,Brasil,animals fishes vertebrates
+360,MZUSP_USP,MZUSP,USP,Coleção de Peixes do Museu de Zoologia da USP,Universidade de São Paulo,animais,79278,São Paulo,SP,Brasil,animals fishes vertebrates
+362,NHM-London-ENT_NHMLondon,NHM-London-ENT,NHMLondon,Entomological collections,Natural History Museum London,animais,10360,Londres,,Inglaterra,animals insects terrestrial invertebrates
+364,NHM-London-ZOO_NHMLondon,NHM-London-ZOO,NHMLondon,Zoological collection,Natural History Museum London,animais,13393,Londres,,Inglaterra,animals
+367,NL-Hymenoptera_NBC,NL-Hymenoptera,NBC,Naturalis Biodiversity Center (NL) - Hymenoptera,Naturalis Biodiversity Center,animais,1491,,,Holanda,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+368,NPM_UFRJ,NPM,UFRJ,Coleção de Peixes do NUPEM,Universidade Federal do Rio de Janeiro,animais,6548,Macaé,RJ,Brasil,animals fishes vertebrates
+369,NUP_UEM,NUP,UEM,Coleção Ictiológica do Nupélia,Universidade Estadual de Maringá,animais,22574,Maringá,PR,Brasil,animals fishes vertebrates
+374,OSUC-Insects_OSU,OSUC-Insects,OSU,"C.A. Triplehorn Insect Collection (OSUC), Ohio State University",Ohio State University,animais,107789,Athens,OH,Estados Unidos,animals insects terrestrial invertebrates
+382,PBI_BR_AMNH,PBI_BR,AMNH,Planetary Biodiversity Inventory for Plant Bugs,American Museum of Natural History,animais,3498,Nova York,NY,Estados Unidos,animals insects terrestrial invertebrates
+390,RECOLNAT_MNHN_EL_MNHN,RECOLNAT_MNHN_EL,MNHN,The Lepidoptera collection,Muséum national d'Histoire naturelle,animais,2477,,Paris,França,animals insects lepidoptera butterflies and moths terrestrial invertebrates
+391,RECOLNAT_MNHN_EY_MNHN,RECOLNAT_MNHN_EY,MNHN,The Hymenoptera collection (EY),Muséum national d'Histoire naturelle,animais,487,,Paris,França,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+392,RECOLNAT_MNHN_IC_MNHN,RECOLNAT_MNHN_IC,MNHN,The fishes collection,Muséum national d'Histoire naturelle,animais,14316,Paris,Île-de-France,França,animals fishes vertebrates
+395,RECOLNAT_MNHN_ZO_MNHN,RECOLNAT_MNHN_ZO,MNHN,The birds collection,Muséum national d'Histoire naturelle,animais,3689,Paris,Île-de-France,França,animals birds vertebrates
+400,RPSP_USP,RPSP,USP,"Coleção Entomológica “Prof. J.M.F. Camargo”, FFCLRP/USP",Universidade de São Paulo,animais,109585,Ribeirão Preto,SP,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+429,UBTU_UNESP,UBTU,UNESP,Coleção de Aranhas (Araneae) da Unesp,Universidade Estadual Paulista,animais,3469,Botucatu,SP,Brasil,animals arachnids araneae spiders terrestrial invertebrates
+432,UESPIPHB_UESPI,UESPIPHB,UESPI,Subcoleção Ictiológica do Campus Parnaíba da UESPI,Universidade Estadual do Piauí,animais,723,Parnaíba,PI,Brasil,animals fishes vertebrates
+434,UFBA-ARA_UFBA,UFBA-ARA,UFBA,Coleção Aracnológica do Museu de História Natural da Bahia - Araneae,Universidade Federal da Bahia,animais,2031,Salvador,BA,Brasil,animals arachnids terrestrial invertebrates
+435,UFBA-ESC_UFBA,UFBA-ESC,UFBA,Coleção Aracnológica do Museu de História Natural da Universidade Federal da Bahia - Scorpiones,Universidade Federal da Bahia,animais,3398,Salvador,BA,Brasil,animals arachnids terrestrial invertebrates
+436,UFES-CTA_UFES,UFES-CTA,UFES,Coleção de Tecidos Animais do Departamento de Ciências Biológicas da UFES,Universidade Federal do Espírito Santo,animais,4755,Vitória,ES,Brasil,animals tissues vertebrates
+437,UFES-Entomologia_UFES,UFES-Entomologia,UFES,Coleção Entomológica da UFES,Universidade Federal do Espírito Santo,animais,163896,Vitória,ES,Brasil,animals insects terrestrial invertebrates
+438,UFES-Entomologia-Amostras_UFES,UFES-Entomologia-Amostras,UFES,Coleção de Amostra de Insetos (via líquida),Universidade Federal do Espírito Santo,animais,2572,Vitória,ES,Brasil,animals insects terrestrial invertebrates
+439,UFES-Malacologia_UFES,UFES-Malacologia,UFES,Coleção Malacológica da UFES,Universidade Federal do Espírito Santo,animais,4749,Vitória,ES,Brasil,animals aquatic invertebrates mollusca
+440,UFES-MAM_UFES,UFES-MAM,UFES,Coleção de Mamíferos da Universidade Federal do Espírito Santo,Universidade Federal do Espírito Santo,animais,4912,Vitória,ES,Brasil,animals mammals vertebrates
+442,UFMG-AMP_UFMG,UFMG-AMP,UFMG,Coleção de Anfíbios do Centro de Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,18680,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+443,UFMG-ARA_UFMG,UFMG-ARA,UFMG,Coleção de Arachnida das Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,15527,Belo Horizonte,MG,Brasil,animals arachnids terrestrial invertebrates
+444,UFMG-BDT_UFMG,UFMG-BDT,UFMG,"Coleção de DNA, tecidos, células e subamostras biológicas do Centro de Coleções Taxonômicas da UFMG",Universidade Federal de Minas Gerais,animais,611,Belo Horizonte,MG,Brasil,animals vertebrates
+446,UFMG-CRU_UFMG,UFMG-CRU,UFMG,Coleção de Crustacea das Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,77,Belo Horizonte,MG,Brasil,animals terrestrial invertebrates
+447,UFMG-GIR_UFMG,UFMG-GIR,UFMG,Coleção de Girinos do Centro de Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,1976,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+448,UFMG-MYR_UFMG,UFMG-MYR,UFMG,Coleção de Myriapoda das Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,347,Belo Horizonte,MG,Brasil,animals terrestrial invertebrates
+449,UFMG-ONY_UFMG,UFMG-ONY,UFMG,Coleção de Onychophora das Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,188,Belo Horizonte,MG,Brasil,animals terrestrial invertebrates
+450,UFMG-REP_UFMG,UFMG-REP,UFMG,Coleção de Répteis do Centro de Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,animais,2946,Belo Horizonte,MG,Brasil,animals reptiles and amphibians vertebrates
+452,UFMT-A_UFMT,UFMT-A,UFMT,Coleção Zoológica da UFMT- Setor Herpetologia-Amphibia,Universidade Federal de Mato Grosso,animais,10541,Cuiabá,MT,Brasil,animals reptiles and amphibians vertebrates
+453,UFMT-CAP_UFMT,UFMT-CAP,UFMT,Coleção de Artrópodes do Pantanal da Universidade Federal de Mato Grosso,Universidade Federal de Mato Grosso,animais,1183,Cuiabá,MT,Brasil,animals arachnids insects terrestrial invertebrates
+454,UFMT-R_UFMT,UFMT-R,UFMT,Coleção Zoológica da UFMT- Setor Herpetologia-Répteis,Universidade Federal de Mato Grosso,animais,10093,Cuiabá,MT,Brasil,animals reptiles and amphibians vertebrates
+457,UFRGS_UFRGS,UFRGS,UFRGS,Coleção de Peixes,Universidade Federal do Rio Grande do Sul,animais,0,Porto Alegre,RS,Brasil,animals fishes vertebrates
+462,UNT_UFT,UNT,UFT,Coleção de Peixes do Laboratório de Ictiologia Sistemática da Universidade Federal do Tocantins,Universidade Federal do Tocantins,animais,14573,Porto Nacional,TO,Brasil,animals fishes vertebrates
+467,US-Animalia_SMITHSONIAN,US-Animalia,SMITHSONIAN,NMNH Extant Specimen and Observation Records,Smithsonian Institution,animais,346578,Washington,DC,Estados Unidos,animals
+473,YPM-ENT_YALE,YPM-ENT,YALE,"Entomology Division, Yale Peabody Museum",Yale University,animais,11078,New Haven,CT,Estados Unidos,animals coleoptera beetles and scarabs insects lepidoptera butterflies and moths orthoptera grasshoppers crickets hopes terrestrial invertebrates
+474,ZEE_AMPH_SEMA-AC,ZEE_AMPH,SEMA-AC,Zoneamento Ecológico Econômico do Acre - Amphibia,Secretaria de Estado de Meio Ambiente do Acre,animais,1340,Rio Branco,AC,Brasil,animals reptiles and amphibians vertebrates
+475,ZEE_AVI_SEMA-AC,ZEE_AVI,SEMA-AC,Zoneamento Ecológico Econômico do Acre - Avifauna,Secretaria de Estado de Meio Ambiente do Acre,animais,3561,Rio Branco,AC,Brasil,animals birds vertebrates
+476,ZEE_HERP_SEMA-AC,ZEE_HERP,SEMA-AC,Zoneamento Ecológico Econômico do Acre - Herpetofauna,Secretaria de Estado de Meio Ambiente do Acre,animais,343,Rio Branco,AC,Brasil,animals reptiles and amphibians vertebrates
+477,ZEE_ICTIO_SEMA-AC,ZEE_ICTIO,SEMA-AC,Zoneamento Ecológico Econômico do Acre - Ictiofauna,Secretaria de Estado de Meio Ambiente do Acre,animais,888,Rio Branco,AC,Brasil,animals fishes vertebrates
+478,ZEE_MAM_SEMA-AC,ZEE_MAM,SEMA-AC,Zoneamento Ecológico Econômico do Acre - Mammalia,Secretaria de Estado de Meio Ambiente do Acre,animais,2587,Rio Branco,AC,Brasil,animals mammals vertebrates
+479,ZUEC-AMP_UNICAMP,ZUEC-AMP,UNICAMP,Coleção de Anfíbios do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,24121,Campinas,SP,Brasil,animals reptiles and amphibians vertebrates
+481,ZUEC-APL_UNICAMP,ZUEC-APL,UNICAMP,Coleção de Aplacophora do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,251,Campinas,SP,Brasil,animals aquatic invertebrates mollusca
+482,ZUEC-ARA_UNICAMP,ZUEC-ARA,UNICAMP,Coleção de Aracnideos do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,2108,Campinas,SP,Brasil,animals arachnids terrestrial invertebrates
+483,ZUEC-ASC_UNICAMP,ZUEC-ASC,UNICAMP,Coleção de Ascidiacea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,127,Campinas,SP,Brasil,animals aquatic invertebrates chordata
+484,ZUEC-AST_UNICAMP,ZUEC-AST,UNICAMP,Coleção de Asteroidea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,562,Campinas,SP,Brasil,animals aquatic invertebrates equinodermata
+485,ZUEC-AVE_UNICAMP,ZUEC-AVE,UNICAMP,Coleção de Aves do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,1929,Campinas,SP,Brasil,animals birds vertebrates
+486,ZUEC-BIV_UNICAMP,ZUEC-BIV,UNICAMP,Coleção de Bivalvia do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,7856,Campinas,SP,Brasil,animals aquatic invertebrates mollusca
+487,ZUEC-BLA_UNICAMP,ZUEC-BLA,UNICAMP,Coleção de Blattodeado Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,390,Campinas,SP,Brasil,animals insects terrestrial invertebrates
+488,ZUEC-BRA_UNICAMP,ZUEC-BRA,UNICAMP,Coleção de Brachiopoda do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,7,Campinas,SP,Brasil,animals aquatic invertebrates
+489,ZUEC-BRY_UNICAMP,ZUEC-BRY,UNICAMP,Coleção de Bryozoa do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,58,Campinas,SP,Brasil,animals aquatic invertebrates
+490,ZUEC-CEP_UNICAMP,ZUEC-CEP,UNICAMP,Coleção de Cephalopoda do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,8,Campinas,SP,Brasil,animals aquatic invertebrates mollusca
+491,ZUEC-CLB_UNICAMP,ZUEC-CLB,UNICAMP,Coleção de Collembola do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3651,Campinas,SP,Brasil,animals insects terrestrial invertebrates
+492,ZUEC-CNI_UNICAMP,ZUEC-CNI,UNICAMP,Coleção de Cnidaria do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,65,Campinas,SP,Brasil,animals aquatic invertebrates cnidaria
+493,ZUEC-COL_UNICAMP,ZUEC-COL,UNICAMP,Coleção de Coleoptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3172,Campinas,SP,Brasil,animals coleoptera beetles and scarabs insects terrestrial invertebrates
+494,ZUEC-CPH_UNICAMP,ZUEC-CPH,UNICAMP,Coleção de Cephalochordata do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,1,Campinas,SP,Brasil,animals aquatic invertebrates chordata
+495,ZUEC-CRU_UNICAMP,ZUEC-CRU,UNICAMP,Coleção de Crustacea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,4340,Campinas,SP,Brasil,animals aquatic invertebrates arthropoda
+496,ZUEC-DER_UNICAMP,ZUEC-DER,UNICAMP,Coleção de Dermaptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,57,Campinas,SP,Brasil,animals dermaptera earwig insects terrestrial invertebrates
+497,ZUEC-DIP_UNICAMP,ZUEC-DIP,UNICAMP,Coleção de Diptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3361,Campinas,SP,Brasil,animals diptera flies and mosquitoes insects terrestrial invertebrates
+498,ZUEC-ECH_UNICAMP,ZUEC-ECH,UNICAMP,Coleção de Echinoidea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,71,Campinas,SP,Brasil,animals aquatic invertebrates equinodermata
+499,ZUEC-EPH_UNICAMP,ZUEC-EPH,UNICAMP,Coleção de Ephemeroptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,34,Campinas,SP,Brasil,animals ephemeroptera insects terrestrial invertebrates
+500,ZUEC-GAS_UNICAMP,ZUEC-GAS,UNICAMP,Coleção de Gastropoda do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,7242,Campinas,SP,Brasil,animals aquatic invertebrates mollusca
+501,ZUEC-GCH_UNICAMP,ZUEC-GCH,UNICAMP,Coleção de Gastrotricha do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,51,Campinas,SP,Brasil,animals aquatic invertebrates
+502,ZUEC-HEM_UNICAMP,ZUEC-HEM,UNICAMP,Coleção de Hemiptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,4583,Campinas,SP,Brasil,animals insects terrestrial invertebrates
+503,ZUEC-HOL_UNICAMP,ZUEC-HOL,UNICAMP,Coleção de Holothuroidea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,104,Campinas,SP,Brasil,animals aquatic invertebrates equinodermata
+504,ZUEC-HYM_UNICAMP,ZUEC-HYM,UNICAMP,Coleção de Hymenoptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3722,Campinas,SP,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+505,ZUEC-ISO_UNICAMP,ZUEC-ISO,UNICAMP,Coleção de Isopterado Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,557,Campinas,SP,Brasil,animals insects isoptera terrestrial invertebrates
+506,ZUEC-LEP_UNICAMP,ZUEC-LEP,UNICAMP,Coleção de Lepidoptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,10612,Campinas,SP,Brasil,animals insects lepidoptera butterflies and moths terrestrial invertebrates
+507,ZUEC-MAM_UNICAMP,ZUEC-MAM,UNICAMP,Coleção de Mamíferos do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,2365,Campinas,SP,Brasil,animals mammals vertebrates
+508,ZUEC-MYX_UNICAMP,ZUEC-MYX,UNICAMP,Coleção de Myxozoa do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,76,Campinas,SP,Brasil,animals
+509,ZUEC-NEM_UNICAMP,ZUEC-NEM,UNICAMP,Coleção de Nemertea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,40,Campinas,SP,Brasil,animals
+510,ZUEC-NEU_UNICAMP,ZUEC-NEU,UNICAMP,Coleção de Neuroptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,10,Campinas,SP,Brasil,animals insects neuroptera terrestrial invertebrates
+511,ZUEC-NMA_UNICAMP,ZUEC-NMA,UNICAMP,Coleção de Nematoda do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,24,Campinas,SP,Brasil,animals
+512,ZUEC-OPH_UNICAMP,ZUEC-OPH,UNICAMP,Coleção de Ophiuroidea do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3035,Campinas,SP,Brasil,animals aquatic invertebrates equinodermata
+513,ZUEC-ORT_UNICAMP,ZUEC-ORT,UNICAMP,Coleção de Orthoptera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,2505,Campinas,SP,Brasil,animals insects orthoptera grasshoppers crickets hopes terrestrial invertebrates
+514,ZUEC-PIS_UNICAMP,ZUEC-PIS,UNICAMP,Coleção de Peixes do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,17132,Campinas,SP,Brasil,animals fishes vertebrates
+515,ZUEC-PLA_UNICAMP,ZUEC-PLA,UNICAMP,Coleção de Platyhelmintes do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,153,Campinas,SP,Brasil,animals
+516,ZUEC-POL_UNICAMP,ZUEC-POL,UNICAMP,Coleção de Polychaeta do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,18571,Campinas,SP,Brasil,animals annelida aquatic invertebrates
+517,ZUEC-POP_UNICAMP,ZUEC-POP,UNICAMP,Coleção de Polyplacophora do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3,Campinas,SP,Brasil,animals aquatic invertebrates mollusca
+518,ZUEC-POR_UNICAMP,ZUEC-POR,UNICAMP,Coleção de Porifera do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,89,Campinas,SP,Brasil,animals aquatic invertebrates
+519,ZUEC-REP_UNICAMP,ZUEC-REP,UNICAMP,Coleção de Répteis do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,animais,3891,Campinas,SP,Brasil,animals reptiles and amphibians vertebrates
+520,ZUEC-VID_UNICAMP,ZUEC-VID,UNICAMP,Coleção Audiovisual do Museu de Zoologia Adão José Cardoso da UNICAMP - Coleção de vídeos,Universidade Estadual de Campinas,animais,761,Campinas,SP,Brasil,animals
+521,ZUFMS-AMP_UFMS,ZUFMS-AMP,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Amphibia,Universidade Federal de Mato Grosso do Sul,animais,11271,Campo Grande,MS,Brasil,animals reptiles and amphibians vertebrates
+522,ZUFMS-CRU_UFMS,ZUFMS-CRU,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Crustacea,Universidade Federal de Mato Grosso do Sul,animais,126,Campo Grande,MS,Brasil,animals aquatic invertebrates arthropoda
+524,ZUFMS-HYM_UFMS,ZUFMS-HYM,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Hymenoptera,Universidade Federal de Mato Grosso do Sul,animais,3047,Campo Grande,MS,Brasil,animals hymenoptera ants bees and wasps insects terrestrial invertebrates
+525,ZUFMS-MOL_UFMS,ZUFMS-MOL,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Mollusca,Universidade Federal de Mato Grosso do Sul,animais,94,,MS,Brasil,animals aquatic invertebrates mollusca
+526,ZUFMS-NEM_UFMS,ZUFMS-NEM,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Nematoda,Universidade Federal de Mato Grosso do Sul,animais,72,Campo Grande,MS,Brasil,animals terrestrial invertebrates
+527,ZUFMS-ODO_UFMS,ZUFMS-ODO,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Odonata,Universidade Federal de Mato Grosso do Sul,animais,31,Campo Grande,MS,Brasil,animals insects terrestrial invertebrates
+528,ZUFMS-ORT_UFMS,ZUFMS-ORT,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Orthoptera,Universidade Federal de Mato Grosso do Sul,animais,729,Campo Grande,MS,Brasil,animals insects orthoptera grasshoppers crickets hopes terrestrial invertebrates
+529,ZUFMS-PIS_UFMS,ZUFMS-PIS,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Peixes,Universidade Federal de Mato Grosso do Sul,animais,5859,Campo Grande,MS,Brasil,animals fishes vertebrates
+530,ZUFMS-REP_UFMS,ZUFMS-REP,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Reptilia,Universidade Federal de Mato Grosso do Sul,animais,3252,Campo Grande,MS,Brasil,animals reptiles and amphibians vertebrates
+320,MCP-Fosseis_PUCRS,MCP-Fosseis,PUCRS,Coleção de Fósseis,Pontifícia Universidade Católica do Rio Grande do Sul,fosseis,6909,Porto Alegre,RS,Brasil,fossil
+363,NHM-London-PAL_NHMLondon,NHM-London-PAL,NHMLondon,Palaeontological collections,Natural History Museum London,fosseis,413,Londres,,Inglaterra,fossil
+523,ZUFMS-FOS_UFMS,ZUFMS-FOS,UFMS,Coleção Zoológica de Referência da Universidade Federal de Mato Grosso do Sul - Fósseis,Universidade Federal de Mato Grosso do Sul,fosseis,132,Campo Grande,MS,Brasil,fossil
+13,BGB_EMBRAPA,BGB,EMBRAPA,Banco de Germoplasma de Bacillus spp. para controle biológico,Empresa Brasileira de Pesquisa Agropecuária,micro,1989,Brasília,DF,Brasil,bacteria microorganisms
+24,BR_EMBRAPA,BR,EMBRAPA,Coleção de Culturas de Bactérias Diazotróficas,Empresa Brasileira de Pesquisa Agropecuária,micro,311,Seropédica,RJ,Brasil,bacteria microorganisms
+30,CBMAI_UNICAMP,CBMAI,UNICAMP,Coleção Brasileira de Micro-organismos de Ambiente e Indústria,Universidade Estadual de Campinas,micro,582,Paulínia,SP,Brasil,microorganisms
+32,CCDCA_UFLA,CCDCA,UFLA,Coleção de Culturas de Microrganismos do Departamento de Ciência dos Alimentos/UFLA,Universidade Federal de Lavras,micro,396,Lavras,MG,Brasil,filamentous fungi microorganisms
+48,CFAF_EMBRAPA,CFAF,EMBRAPA,Coleção de Culturas de Fitopatógenos e Agentes de Controle Biológico de Fitopatógenos,Empresa Brasileira de Pesquisa Agropecuária,micro,138,Brasília,DF,Brasil,filamentous fungi microorganisms
+50,CFEOCA_IB,CFEOCA,IB,Coleção de Fungos Entomopatogênicos Oldemar Cardim Abreu,Instituto Biológico,micro,865,Campinas,SP,Brasil,filamentous fungi microorganisms
+51,CFEUnioeste_UNIOESTE,CFEUnioeste,UNIOESTE,Coleção de Fungos Entomopatogênicos do Laboratório de Biotecnologia Agrícola,Universidade Estadual do Oeste do Paraná,micro,74,Cascavel,PR,Brasil,filamentous fungi microorganisms
+52,CG_EMBRAPA,CG,EMBRAPA,Coleção de Culturas de Fungos Entomopatogênicos,Empresa Brasileira de Pesquisa Agropecuária,micro,889,Brasília,DF,Brasil,filamentous fungi microorganisms
+57,CICG_FURB,CICG,FURB,Coleção Internacional de Cultura de Glomeromycota,Universidade Regional de Blumenau,micro,92,Blumenau,SC,Brasil,filamentous fungi microorganisms
+63,CMRP_UFPR,CMRP,UFPR,Coleções Microbiológicas da Rede Paranaense - Taxonline,Universidade Federal do Paraná,micro,5008,Curitiba,PR,Brasil,bacteria filamentous fungi microorganisms
+82,CRM-UNESP_UNESP,CRM-UNESP,UNESP,Central de Recursos Microbianos da UNESP,Universidade Estadual Paulista,micro,982,Rio Claro,SP,Brasil,bacteria filamentous fungi microorganisms yeasts
+128,Fepagro-SEMIA_FEPAGRO,Fepagro-SEMIA,FEPAGRO,Coleção SEMIA de Rizóbios,Fundação Estadual de Pesquisa Agropecuária,micro,907,Porto Alegre,RS,Brasil,bacteria microorganisms
+130,Fiocruz-CBAM_FIOCRUZ,Fiocruz-CBAM,FIOCRUZ,Coleção de Bactérias da Amazônia,Fundação Oswaldo Cruz,micro,427,Manaus,AM,Brasil,bacteria microorganisms
+131,Fiocruz-CBAS_FIOCRUZ,Fiocruz-CBAS,FIOCRUZ,Coleção de Bactérias do Ambiente e Saúde,Fundação Oswaldo Cruz,micro,435,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+133,Fiocruz-CCAMP_FIOCRUZ,Fiocruz-CCAMP,FIOCRUZ,Coleção de Campylobacter,Fundação Oswaldo Cruz,micro,201,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+134,Fiocruz-CCBH_FIOCRUZ,Fiocruz-CCBH,FIOCRUZ,Coleção de Culturas de Bactérias de Origem Hospitalar,Fundação Oswaldo Cruz,micro,42,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+136,Fiocruz-CCFF_FIOCRUZ,Fiocruz-CCFF,FIOCRUZ,Coleção de Culturas de Fungos Filamentosos,Fundação Oswaldo Cruz,micro,1015,Rio de Janeiro,RJ,Brasil,filamentous fungi microorganisms
+137,Fiocruz-CCGB_FIOCRUZ,Fiocruz-CCGB,FIOCRUZ,Coleção de Culturas de Bacillus e Gêneros Correlatos,Fundação Oswaldo Cruz,micro,1152,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+140,Fiocruz-CFAM_FIOCRUZ,Fiocruz-CFAM,FIOCRUZ,Coleção de Fungos da Amazônia,Fundação Oswaldo Cruz,micro,347,Manaus,AM,Brasil,filamentous fungi microorganisms
+141,Fiocruz-CFP_FIOCRUZ,Fiocruz-CFP,FIOCRUZ,Coleção de Fungos Patogênicos,Fundação Oswaldo Cruz,micro,61,Rio de Janeiro,RJ,Brasil,filamentous fungi microorganisms
+143,Fiocruz-CLEP_FIOCRUZ,Fiocruz-CLEP,FIOCRUZ,Coleção de Leptospira,Fundação Oswaldo Cruz,micro,192,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+144,Fiocruz-CLIOC_FIOCRUZ,Fiocruz-CLIOC,FIOCRUZ,Coleção de Leishmania do Instituto Oswaldo Cruz,Fundação Oswaldo Cruz,micro,813,Rio de Janeiro,RJ,Brasil,microorganisms protozoários
+145,Fiocruz-CLIST_FIOCRUZ,Fiocruz-CLIST,FIOCRUZ,Coleção de Listeria,Fundação Oswaldo Cruz,micro,55,Rio de Janeiro,RJ,Brasil,bacteria microorganisms
+150,Fiocruz-COLPROT_FIOCRUZ,Fiocruz-COLPROT,FIOCRUZ,Coleção de Protozoários,Fundação Oswaldo Cruz,micro,94,Rio de Janeiro,RJ,Brasil,microorganisms protozoários
+151,Fiocruz-COLTRYP_FIOCRUZ,Fiocruz-COLTRYP,FIOCRUZ,"Coleção de Trypanosoma de Mamíferos Silvestres, Domésticos e Vetores",Fundação Oswaldo Cruz,micro,741,Rio de Janeiro,RJ,Brasil,microorganisms protozoários
+155,Fiocruz-CYP_FIOCRUZ,Fiocruz-CYP,FIOCRUZ,Coleção de Yersinia pestis,Fundação Oswaldo Cruz,micro,414,Recife,PE,Brasil,bacteria microorganisms
+242,IBSBF_IB,IBSBF,IB,Coleção de Culturas de Fitobactérias do Instituto Biológico,Instituto Biológico,micro,2715,Campinas,SP,Brasil,bacteria microorganisms
+292,LaFMA_UFPR,LaFMA,UFPR,Coleção de Foraminíferos,Universidade Federal do Paraná,micro,604,Curitiba,PR,Brasil,microorganisms protozoários
+336,MGSS_UEMA,MGSS,UEMA,Micoteca Prof. Gilson Soares da Silva,Universidade Estadual do Maranhão,micro,270,São Luís,MA,Brasil,filamentous fungi microorganisms
+445,UFMG-CM_UFMG,UFMG-CM,UFMG,Coleção de Micro-organismos do Centro de Coleções Taxonômicas da UFMG,Universidade Federal de Minas Gerais,micro,6296,Belo Horizonte,MG,Brasil,bacteria filamentous fungi microorganisms yeasts
+465,URM-Micoteca_UFPE,URM-Micoteca,UFPE,Micoteca URM,Universidade Federal de Pernambuco,micro,6201,Recife,PE,Brasil,filamentous fungi microorganisms yeasts
+480,ZUEC-API_UNICAMP,ZUEC-API,UNICAMP,Coleção de Apicomplexa do Museu de Zoologia da UNICAMP,Universidade Estadual de Campinas,micro,6,Campinas,SP,Brasil,microorganisms protozoários

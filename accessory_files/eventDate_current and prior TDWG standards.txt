@@ -1,0 +1,44 @@
+eventDate
+
+CURRENT (DARWIN CORE)
+Identifier	http://rs.tdwg.org/dwc/terms/eventDate
+Definition	The date-time or interval during which an Event occurred. For occurrences, this is 
+		the date-time when the event was recorded. Not suitable for a time in a geological context.
+Comments	Recommended best practice is to use a date that conforms to ISO 8601:2004(E).
+Examples	1963-03-08T14:07-0600 (8 Mar 1963 at 2:07pm in the time zone six hours earlier than UTC). 
+		2009-02-20T08:40Z (20 February 2009 8:40am UTC). 2018-08-29T15:19 (3:19pm local time on 29 August 2018). 
+		1809-02-12 (some time during 12 February 1809). 1906-06 (some time in June 1906). 1971 (some time in the year 1971). 
+		2007-03-01T13:00:00Z/2008-05-11T15:30:00Z (some time during the interval between 1 March 2007 1pm UTC and 11 May 2008 3:30pm UTC). 
+		1900/1909 (some time during the interval between the beginning of the year 1900 and the end of the year 1909). 
+		2007-11-13/15 (some time in the interval between 13 November 2007 and 15 November 2007).
+
+
+PREVIOUS (HISPID 3) - http://plantnet.rbgsyd.nsw.gov.au/HISCOM/HISPID/HISPID3/H3.html
+
+Collection Date
+Transfer code: cdat
+TDWG Short name: COLLDATE
+
+Description: The date on which the material was collected, as represented by this record or, if a second collection date 
+		is provided (refer Second Collection Date field below), then this field contains the earlier collection date.
+
+Relevant standards: ABIS, ITF
+
+Domain/Range/Values: Any chronologically acceptable date, year (4 digits) followed by month (2 digits) and then day (2 digits), 
+			without spaces between each.
+
+1. In this notation, leading zeroes must be included for months and days, ie. January is coded as '01' not '1' and the 4th day is 
+coded as '04' not '4'.
+
+Example:	19851109	9 November 1985
+19510203	3 February 1951
+
+2. If the day of the month is not known, then the last two digits should be omitted.
+
+Example: March 1901 would preferably be transferred as 190103.
+
+3. If the day and month are not known, the last four digits should be omitted and just the 4 digit year information interchanged.
+
+Note: The year is transferred as a full 4�digit number to facilitate the use of the system in the next century, as well as to 
+track verifications from the previous century.
+

@@ -7,28 +7,52 @@
 capName(x)
 }
 \arguments{
-\item{x}{the character string to be capitalized.}
+\item{x}{the character string or vector to be capitalized.}
 }
 \value{
-the character string equal to \code{x} with the first letter capitalized.
+the character string equal to \code{x} with the first letter
+capitalized.
 }
 \description{
-Capitalize the name of the collector or determiner of a biological specimen.
+Capitalize the first letter of people's (last) names.
 }
 \details{
-The function works for simple names and compound names which are separated by
-a space or by the character '-'. It also works for names that are entirely capitalized.
-This function was adapted from function simpleCap from package hpoPlot by Daniel Greene
+The function works for simple names and compound names that are
+separated by a space or by the character '-'. It also works for names that
+are entirely capitalized.
+
+This function was conceived to edit people's last names. So, the function
+only works for up to two names and it works only partially for names
+containing initials.
+
+For strings with more than two names, the function \code{str_to_title()} from
+package \code{stringr} can be used instead.
 }
 \examples{
-# Simple name
+# Simple names
   capName("gentry")
   capName("HATSCHBACH")
+  capName(c("gentry", "HATSCHBACH"))
+
 # Names with generational suffixes
   capName("leitao filho")
-# Compound name
+
+# Compound last names
   capName("saint-hilaire")
+
+# Other name formats
+  capName("o'brien")
+  capName("john o'brien")
+  capName("MacDonald")
+  capName("john MacDonald")
+
+# Full (>2) names (does not work properly)
+  capName("hermogenes leitao filho")
+  capName("auguste saint-hilaire")
+  capName("a.h. gentry")
+  capName("AH gentry")
+
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }

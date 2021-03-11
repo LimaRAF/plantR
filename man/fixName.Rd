@@ -2,40 +2,67 @@
 % Please edit documentation in R/fixName.R
 \name{fixName}
 \alias{fixName}
-\title{Preparing People's Name}
+\title{Preparing People's Names}
 \usage{
-fixName(x, special.char = FALSE, from = "UTF-8",
-  to = "windows-1252//TRANSLIT")
+fixName(
+  nomes,
+  sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
+  sep.out = "; ",
+  special.char = FALSE
+)
 }
 \arguments{
-\item{x}{the character string}
+\item{nomes}{a character string or a vector with names.
+to FALSE.}
 
-\item{special.char}{logical}
+\item{sep.in}{a vector of the symbols separating multiple names. Default to:
+";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
 
-\item{from}{original encoding}
+\item{sep.out}{a character string with the symbol separating multiple names
+in the output string. Defaults to "; ".}
 
-\item{to}{final encoding}
+\item{special.char}{logical. Should special characters be maintained? Default
+to FALSE.}
 }
 \value{
-the character string \code{x} in the starndard needed for further processing.
+The character string \code{x} in the standard notation to facilitate
+further data processing.
 }
 \description{
-Fix problems and stadardize name notation
+Standardize name notation
 }
 \details{
-The function fixes problems in name notation (e.g. orfan spaces) and
-standardized the notation (i.e. Faria Jr. to Faria Junior). Due to encoding
-problems, names are return without accents by default. But user can choose
-between outputs with and without accents and species characters.
+The function fixes small problems in name notation (e.g. orphan
+spaces), standardize the separation between multiple authors and between
+initials and/or prepositions within the same name. It also standardize the
+notation of some compound names (i.e. Faria Jr. to Faria Junior). In
+addition, the function removes numbers, some unwanted expressions (e.g. 'et
+al.') and symbols (e.g. ? or !).
+
+The function was created to deal with people's names, so input separators
+for multiple names composed only by letters should be surrounded by spaces.
+For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
+taken independently of the presence of spaces nearby.
+
+Due to common encoding problems related to Latin characters, names are
+returned without accents by default. But users can choose between outputs
+with and without accents and species characters, by setting the argument
+\code{special.char} to TRUE.
 }
 \examples{
-  fixName("J.E.Q. Faria Jr.")
-  fixName("J.E.Q. Faria Jr.", special.char = TRUE)
-  fixName("Leitão F°, H.F.")
-  fixName("Gert G. Hatschbach, et al.")
-  fixName("Karl Emrich & Balduino Rambo")
-  fixName('Pedro L.R.de Morães')
+  names <- c("J.E.Q. Faria Jr.",
+  "Leitão F°, H.F.", "Gert G. Hatschbach, et al.",
+  "Karl Emrich & Balduino Rambo",
+  '( Karl) Emrich ;(Balduino ) Rambo', "F.daS.N.Thomé",
+  'F. da S.N. Thomé', 'Pedro L.R.de Moraes (30/4/1998)')
+  Encoding(names) <- "latin1"
+  names
+
+  fixName(names)
+  fixName(names, special.char = TRUE)
+  fixName(names, sep.out = " | ")
+
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima & Hans ter Steege
 }

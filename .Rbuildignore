@@ -1,8 +1,10 @@
 # general R stuff
+
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 vignettes/tutorial.R
+vignettes/articles
 
 # so far ignoring zip data and dictionaries
 ^.zip
@@ -10,8 +12,21 @@ dictionaries/
 accessory_files/
 
 # ignoring local files to pass on check
-teste.R
-check_output.txt
+R/validateCoord2.R
+R/test_val.R
+R/cc.R
+vrac/
 
 # ignoring file that generates sysdata
-00_generating_sysdata.R
+data-raw/
+
+#ignoring test folder
+test/
+
+#ignoring other maps
+data/worldMap_0001
+data/worldMap_full
+
+
+#created by the vignette
+results/

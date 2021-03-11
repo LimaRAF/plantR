@@ -2,19 +2,58 @@
 % Please edit documentation in R/formatOcc.R
 \name{formatOcc}
 \alias{formatOcc}
-\title{Format Names, Numbers and Dates}
+\title{Format Names, Numbers, Dates and Codes}
 \usage{
-formatOcc(x, noNumb, noYear, noName)
+formatOcc(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.")
 }
 \arguments{
-\item{x}{a data frame or data table}
+\item{x}{a data frame, containing typical fields from occurrence records from
+herbarium specimens}
 
-\item{noNumb}{standard for missing data in Number}
+\item{noNumb}{character. The standard notation for missing data in the field
+'Number'}
 
-\item{noYear}{standard for missing data in Year}
+\item{noYear}{character. The standard notation for missing data in the field
+'Year'}
 
-\item{noName}{standard for missing data in Name}
+\item{noName}{character. The standard notation for missing data in the field
+'Name'}
+}
+\value{
+The input data frame \code{x}, plus the new columns with the
+formatted information. The new columns have the same name as proposed by
+the Darwin Core standards followed by the suffix '.new'.
 }
 \description{
-This function standardizes names, number and dates from data obtained from on-line data bases such as GBIF and speciesLink
+This function standardizes collector names, determiner names,
+collection number, dates and collection codes from herbarium occurrences
+obtained from on-line databases, such as GBIF or speciesLink.
+}
+\details{
+The function works similarly to a wrapper, where many individual
+steps of the proposed \strong{plantR} workflow for editing collection
+information are performed altogether (see the \strong{plantR} tutorial and the
+help of each function for details).
+
+Ideally, the input data frame must contain at least the following fields
+from the Darwin Core standards (the functions default):
+\itemize{
+\item 'institutionCode' and 'collectionCode' (codes of the institution and collection);
+\item 'year' and 'eventDate' (year of the collection);
+\item 'recordedBy' (collector(s) name(s));
+\item 'recordNumber' (collector number)
+\item 'identifiedBy' (identificator name);
+\item 'yearIdentified' and 'dateIdentified' (year of identification)
+}
+
+Missing year of collection in the field 'year' are internally replaced by
+the date stored in the field 'eventDate', if this field is not empty as well.
+}
+\seealso{
+\link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
+\link[plantR]{getYear}, \link[plantR]{prepTDWG}, \link[plantR]{prepName},
+\link[plantR]{missName} and \link[plantR]{lastName}.
+}
+\author{
+Renato A. F. de Lima
 }

@@ -1,29 +1,54 @@
 Package: plantR
-Type: Package
-Title: Management of Plant Occurrence Records
 Version: 0.1.0
+Date: 2020-07-30
+Title: Management of Plant Species Records
+Type: Package
+Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
+                     email = "raflima@usp.br", 
+	                   comment = c(ORCID = "0000-0002-1048-0138")),
+              person("Sara", "R. Mortara", role = "aut", 
+                     email = "saramortara@gmail.com"),
+              person("Andrea", "Sánchez-Tapia", role = "aut",
+                     email = "andreasancheztapia@gmail.com"))
 Author: 
-  - name: Renato A.F. Lima
-  - name: Sara R. Mortara
-  - name: Andrea Sanchéz-Tapia
-  - name: Author Four
-  - name: Author Five
-Maintainer: Renato A.F. Lima <renato.lima@naturalis.nl>
-Dependes: List of packages needed (e.g. stats)
-Import: List of acessory packages
+  Renato A. F. de Lima [aut, cre]
+  Sara R. Mortara [aut]
+  Andrea Sánchez-Tapia [aut]
+  Hans ter Steege [ctb]
+  Marinez Ferreira de Siqueira [ctb]
+Maintainer: Renato A. F. de Lima <raflima@usp.br>
+Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
-    occurrence records of plant species.
+    (plant) species records from biological collections.
 License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://github.com/LimaRAF/plantR
 BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
-RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9000
+VignetteBuilder: knitr
 Imports: 
     countrycode,
-    devtools,
     data.table,
+    dplyr,
+    flora,
+    igraph,
+    jsonlite,
     knitr,
-    stringr
-VignetteBuilder: knitr
+    rgbif,
+    sf,
+    spatialrisk,
+    stringi,
+    stringr,
+    Taxonstand,
+    tidyr,
+    robustbase
+Suggests:
+    devtools,
+    sp,
+    stats,
+    testthat (>= 3.0.0),
+    utils
+Config/testthat/edition: 3

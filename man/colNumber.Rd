@@ -7,37 +7,50 @@
 colNumber(x, colCodes = NULL, noNumb = "s.n.")
 }
 \arguments{
-\item{x}{the character string}
+\item{x}{a character string or vector}
 
-\item{colCodes}{colection Codes}
+\item{colCodes}{a character string with the collection codes to be removed
+from the collector number. Default to NULL.}
 
-\item{noNumb}{desired standart to identify abscence data in Collector Number}
+\item{noNumb}{character. The desired notation in the case of missing
+collector number. Defaults to "s.n."}
 }
 \value{
-the character string \code{x}
+a character vector with the same length of \code{x} with the edited
+collector numbers.
 }
 \description{
-Cleans the the collector number field from herbarium labels.
+The function standardizes the 'collector number' which is
+typically associated with biological records.
 }
 \details{
-The function puts
+The function performs several edits such as removal of unnecessary
+spaces, letters, parentheses, and the replacement of missing information of
+collector numbers into a standardized notation, defined by the argument
+\code{noNumb}. Zeros and strings without numbers are treated as missing
+information.
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
-numbers = c("3467","3467 "," 3467","ALCB3467","Gentry 3467","ALCB-3467","3467a","3467A","3467 A",
-"3467-A","PL671","57-685","685 - 4724","1-80","-4724","(3467)","(3467","3467)","32-3-77",
-"s/n.","s.n.","s.n","s/nº","",NA)
+numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467", "ALCB-3467",
+"3467a", "3467A", "3467 A", "3467-A", "PL671", "57-685", "685 - 4724", "1-80",
+"-4724", "(3467)", "(3467", "3467)", "32-3-77", "s/n.", "s.n.", "s.n", "", NA)
+
 # Using the function defaults
 colNumber(numbers)
+
 # Using the function to remove the collection code from the collector number
 colNumber(numbers, colCodes = c("ALCB","ESA"))
+
 # Defining user-specific abbreviations for the specimens without collector number
 colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
 
 }
 \references{
-Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008). Standardisation in data-entry across databases: Avoiding Babylonian confusion. Taxon 57(2): 343-345.
+Willemse, L.P., van Welzen, P.C. & Mols, J.B. (2008).
+Standardisation in data-entry across databases: Avoiding Babylonian
+confusion. Taxon 57(2): 343-345.
 }
 \author{
-Lima, R.A.F.
+Renato A. F. de Lima
 }
