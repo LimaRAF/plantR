@@ -1,7 +1,7 @@
 #' @title Checks if two countries share a border
 #'
-#' @param country1 First country to check
-#' @param country2 Second country to check
+#' @param country1 First country to check, use spData standard
+#' @param country2 Second country to check, use spData standard
 #'
 #' @importFrom sf st_union st_cast
 #'
@@ -17,15 +17,20 @@ shares_border <- function(country1 = "brazil",
 
   # w <- spData::world
   # w$nome <- tolower(textclean::replace_non_ascii(w$name_long))
-  w <- world
 
+  country1 <- tolower(country1)
+  country2 <- tolower(country2)
+
+  w <- world
+  #w <- spData::world
+  w$nome <- tolower(w$name)
   v <- w[w$nome %in% c(country1),]
   z <- w[w$nome %in% c(country2),]
-  y <- sf::st_union(v, z)
+  y <- suppressWarnings(sf::st_union(v, z))
 
-  v <- sf::st_cast(v, "POLYGON")
-  z <- sf::st_cast(z, "POLYGON")
-  y <- sf::st_cast(y, "POLYGON")
+  v <- suppressWarnings(sf::st_cast(v, "POLYGON"))
+  z <- suppressWarnings(sf::st_cast(z, "POLYGON"))
+  y <- suppressWarnings(sf::st_cast(y, "POLYGON"))
   polis <- nrow(v) + nrow(z)
   poli_u <- nrow(y)
   if (polis == poli_u) return(FALSE)
