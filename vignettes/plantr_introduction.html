@@ -12,12 +12,11 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2021-03-15" />
 
 <title>An Introduction to plantR</title>
 
-<link href="data:text/css;charset=utf-8,%0Aa%2Eanchor%2Dsection%20%7Bmargin%2Dleft%3A%2010px%3B%20visibility%3A%20hidden%3B%20color%3A%20inherit%3B%7D%0Aa%2Eanchor%2Dsection%3A%3Abefore%20%7Bcontent%3A%20%27%23%27%3B%7D%0A%2EhasAnchor%3Ahover%20a%2Eanchor%2Dsection%20%7Bvisibility%3A%20visible%3B%7D%0A" rel="stylesheet" />
-<script src="data:application/x-javascript;base64,Ly8gQW5jaG9yIHNlY3Rpb25zIHYxLjAgd3JpdHRlbiBieSBBdHN1c2hpIFlhc3Vtb3RvIG9uIE9jdCAzcmQsIDIwMjAuCmRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHsKICAvLyBEbyBub3RoaW5nIGlmIEFuY2hvckpTIGlzIHVzZWQKICBpZiAodHlwZW9mIHdpbmRvdy5hbmNob3JzID09PSAnb2JqZWN0JyAmJiBhbmNob3JzLmhhc093blByb3BlcnR5KCdoYXNBbmNob3JKU0xpbmsnKSkgewogICAgcmV0dXJuOwogIH0KCiAgY29uc3QgaCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2gxLCBoMiwgaDMsIGg0LCBoNSwgaDYnKTsKCiAgLy8gRG8gbm90aGluZyBpZiBzZWN0aW9ucyBhcmUgYWxyZWFkeSBhbmNob3JlZAogIGlmIChBcnJheS5mcm9tKGgpLnNvbWUoeCA9PiB4LmNsYXNzTGlzdC5jb250YWlucygnaGFzQW5jaG9yJykpKSB7CiAgICByZXR1cm4gbnVsbDsKICB9CgogIC8vIFVzZSBzZWN0aW9uIGlkIHdoZW4gcGFuZG9jIHJ1bnMgd2l0aCAtLXNlY3Rpb24tZGl2cwogIGNvbnN0IHNlY3Rpb25faWQgPSBmdW5jdGlvbih4KSB7CiAgICByZXR1cm4gKCh4LmNsYXNzTGlzdC5jb250YWlucygnc2VjdGlvbicpIHx8ICh4LnRhZ05hbWUgPT09ICdTRUNUSU9OJykpCiAgICAgICAgICAgID8geC5pZCA6ICcnKTsKICB9OwoKICAvLyBBZGQgYW5jaG9ycwogIGguZm9yRWFjaChmdW5jdGlvbih4KSB7CiAgICBjb25zdCBpZCA9IHguaWQgfHwgc2VjdGlvbl9pZCh4LnBhcmVudEVsZW1lbnQpOwogICAgaWYgKGlkID09PSAnJykgewogICAgICByZXR1cm4gbnVsbDsKICAgIH0KICAgIGxldCBhbmNob3IgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdhJyk7CiAgICBhbmNob3IuaHJlZiA9ICcjJyArIGlkOwogICAgYW5jaG9yLmNsYXNzTGlzdCA9IFsnYW5jaG9yLXNlY3Rpb24nXTsKICAgIHguY2xhc3NMaXN0LmFkZCgnaGFzQW5jaG9yJyk7CiAgICB4LmFwcGVuZENoaWxkKGFuY2hvcik7CiAgfSk7Cn0pOwo="></script>
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -31,41 +30,68 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -92,7 +118,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -105,19 +132,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">An Introduction to <strong>plantR</strong></h1>
-<h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></h4>
-<h4 class="date">30 November 2020</h4>
+<h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
+<h4 class="date">15 March 2021</h4>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a>
+<ul>
 <li><a href="#main-features-and-workflow"><span class="toc-section-number">1.1</span> Main features and workflow</a></li>
 <li><a href="#basic-assumptions-and-limitations"><span class="toc-section-number">1.2</span> Basic assumptions and limitations</a></li>
 </ul></li>
-<li><a href="#using-plantr"><span class="toc-section-number">2</span> Using <strong>plantR</strong></a><ul>
+<li><a href="#using-plantr"><span class="toc-section-number">2</span> Using <strong>plantR</strong></a>
+<ul>
 <li><a href="#installation"><span class="toc-section-number">2.1</span> Installation</a></li>
-<li><a href="#main-features"><span class="toc-section-number">2.2</span> Main features</a><ul>
+<li><a href="#main-features"><span class="toc-section-number">2.2</span> Main features</a>
+<ul>
 <li><a href="#data-entry"><span class="toc-section-number">2.2.1</span> Data entry</a></li>
 <li><a href="#data-editing"><span class="toc-section-number">2.2.2</span> Data editing</a></li>
 <li><a href="#data-validation"><span class="toc-section-number">2.2.3</span> Data validation</a></li>
@@ -129,177 +159,182 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 
 <p><br /><br /></p>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<p>The databases of biological collections are becoming increasingly available online, providing an unprecedented amount of species occurrence records for biodiversity studies. Managing the information associated with species records is an important but difficult task. The notation of collectors' names, numbers and dates vary between collections, and sometimes within them. In addition, it is often difficult to validate the localities, geographical coordinates and identifications associated with individual records, especially when working with thousands or millions of them. Thus, having tools to process and validate large amounts of species records can be quite handy.</p>
-<p><strong>plantR</strong> is an R package that was developed to manage, standardize and validate the information associated with species occurrence records from biological collections (e.g. herbaria). It can be used for data coming from a single collection or different biodiversity databases, such as <a href="https://www.gbif.org/">GBIF</a>. Therefore, <strong>plantR</strong> can be used by collection curators to manage their databases and by the final users of the occurrence data (e.g. taxonomists, ecologists and conservationists), allowing the comparison of data across collections.</p>
-<div id="main-features-and-workflow" class="section level2">
-<h2><span class="header-section-number">1.1</span> Main features and workflow</h2>
-<p>The package <strong>plantR</strong> provides tools to standardize the information from typical fields of species occurrence records, such as collectors' and species names. However, <strong>plantR</strong> also proposes a comprehensive and reproducible workflow to apply those tools while handling data from biological collections, which includes the following steps:</p>
+<div id="introduction" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>The databases of biological collections are becoming increasingly available online, providing an unprecedented amount of species records for biodiversity-related studies. Managing the information associated with species records is an important but difficult task. The notation of collectors’ names, numbers and dates vary between collections, and sometimes within them. In addition, it is often difficult to validate the localities, geographical coordinates and identifications associated with individual species records, especially when working with thousands or millions of them. Thus, having tools to process and validate large amounts of records can be quite handy.</p>
+<p><strong>plantR</strong> is an R package that was developed to manage, standardize and validate the information associated with species records from biological collections (e.g. herbaria). It can be used for data coming from a single collection or different biodiversity databases, such as <a href="https://www.gbif.org/">GBIF</a>. Moreover, <strong>plantR</strong> can be used by collection curators to manage their databases and by final users of species records (e.g. taxonomists, ecologists and conservationists), allowing the comparison of data across collections.</p>
+<div id="main-features-and-workflow" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> Main features and workflow</h2>
+<p>The package <strong>plantR</strong> provides tools to standardize the information from typical fields associated with species records, such as collectors’ and species names. In addition, <strong>plantR</strong> proposes a comprehensive and reproducible workflow to apply those tools while handling records from biological collections, which includes the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><p>the download of species occurrence records for a list of species names, collections codes or other search fields;</p></li>
-<li><p>the batch standardization of typical fields (e.g. collector name);</p></li>
+<li><p>the download of species records for a list of species names, collections codes or other search fields;</p></li>
+<li><p>the batch standardization of typical fields (e.g., collector name);</p></li>
 <li><p>the validation of the locality and geographical coordinates of the records, based on maps and gazetteers;</p></li>
-<li><p>the validation and spell-checking of plant names from different taxonomic backbones (e.g. Flora do Brasil);</p></li>
+<li><p>the spell-checking and validation of botanical families and species names using different taxonomic backbones (e.g. Flora do Brasil);</p></li>
 <li><p>the assessment of the confidence level of species identifications, based on a global list of plant taxonomists.</p></li>
 <li><p>the retrieval of duplicated specimens across collections, including the homogenization of the information within duplicates.</p></li>
-<li><p>data and validation summaries and the (fast) export of occurrence data by groups (e.g. families or countries).</p></li>
+<li><p>the summary of species data and validation steps, and the (fast) export of the validated records by groups (e.g. families or countries).</p></li>
 </ol>
 </div>
-<div id="basic-assumptions-and-limitations" class="section level2">
-<h2><span class="header-section-number">1.2</span> Basic assumptions and limitations</h2>
-<p>The tools provided by <strong>plantR</strong> do not edit the original information. All the outputs of each editing or validation step are stored in new, separated columns added to the original data. This is important for the collection curation process because it allows the comparison between the original and edited information. However, it can almost double the number of columns in the dataset, which may become a problem while managing and saving big datasets.</p>
+<div id="basic-assumptions-and-limitations" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> Basic assumptions and limitations</h2>
+<p>The tools provided by <strong>plantR</strong> do not edit the columns with the original information. All the outputs of each editing or validation step are stored in new, separated columns added to the original data. This is important for the collection curation process because it allows the comparison between the original and edited information. However, it increases the number of columns in the dataset, which may become a problem while managing and saving big datasets.</p>
 <p><strong>plantR</strong> was initially developed to manage plant records from herbaria. Therefore, some of the tools offered by the package are exclusive to plants, particularly the checking of species names. However, some of its main features are expected to work for other groups of organisms as well, as long as the data structure is similar.</p>
-<p>Currently, the download of records is available for the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a>, and <a href="http://splink.cria.org.br/">speciesLink</a>, but the user can also provide his own dataset as an input. Future versions of the package may include the download from data stored in <a href="http://jabot.jbrj.gov.br//">jabot</a>.</p>
-<p>Field editing and standardization cover most of the typical variation in the notation of people's names, trying to provide standardized outputs in the TDWG format. The same applies to collection codes and dates. However, <strong>plantR</strong> does not handle all possibilities of notation. So, some double-checking and corrections may be needed depending on the user's goals.</p>
-<p>Regarding the validation of geographical coordinates. In the case of invalid or missing coordinates, we assume that the locality information associated with the occurrence (e.g. country, state, county) is correct (i.e. locality prevails over coordinates), and so working coordinates are taken from a gazetteer. It is important to note that if the locality information is indeed mistaken (eg. wrong county name), then even if the original coordinates are good, they will not be validated (record locality and coordinate locality don't match). Thus, good coordinates may be replaced by other coordinates taken from the gazetteer.</p>
-<p>Currently, geographical validation can be performed at the county level for Latin American countries and at the country level for the rest of the world. We provide a gazetteer to retrieve and check geographical coordinates, which is currently biased towards Latin American countries, particularly Brazil. Therefore, the validation of geographical coordinates provided by other R packages (e.g. <code>CoordinateCleaner</code>) may be more appropriate (and maybe faster) for studies extending outside Latin America.</p>
-<p>Taxonomical validation is performed based on (i) the correction of plant names (i.e. synonyms, typos) and (ii) the confidence level on the species identification, based on a dictionary of plant taxonomist names from all over the world. For i, names are currently checked against the <a href="http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do">Flora do Brasil project</a> and <a href="http://www.theplantlist.org/">The Plant List</a>, using the R packages <code>flora</code> and <code>Taxonstand</code>. Future versions may include comparisons against Tropicos and GBIF backbones.</p>
-<p>During the assessment of the taxonomic confidence level of the identifications, we did not attempt to set priorities for different specialists within a given family. That is, all the specimens determined by the specialist within their family of expertise were taken as being validated. Although we recognize that there are specialists for genera within a family, the validation process is currently performed only at the family level. In the case of conflicting species identification among specialists for duplicates across different collections, we simply assume the most recent identification as being the most up-to-date one.</p>
-<p><strong>plantR</strong> provide tools for searching for duplicated specimens across herbaria. This search makes more sense when data from different collections are combined and it performs well using relatively large datasets (i.e. millions of records). However, the retrieval of duplicates greatly depends on the completeness of the input information, the notation standards and if <strong>plantR</strong> was able to handle those differences in notation among collections. In addition, true duplicates may not be found due to typos and false duplicates may be returned if the search fields are too flexible.</p>
+<p>Currently, the download of records is available for the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a>, and <a href="http://splink.cria.org.br/">speciesLink</a>, but the user can also provide his own dataset as an input. Future versions of the package may include the download from data stored in <a href="http://jabot.jbrj.gov.br//">JABOT</a>.</p>
+<p>Name editing and standardization cover most of the typical variation in the notation of people’s names, trying to provide standardized outputs in the TDWG format. The same applies to collection codes, collector numbers and dates. However, <strong>plantR</strong> does not handle all possibilities of notation. So, some double-checking and corrections may be needed depending on the user’s goals.</p>
+<p>Regarding the validation of geographical coordinates. In the case of invalid or missing coordinates, we assume that the locality information associated with the record (e.g. country, state, county) is correct (i.e. locality prevails over coordinates), and so working coordinates are taken from a gazetteer. It is important to note that if the locality information is indeed mistaken (eg. wrong county name), then even if the original coordinates are good, they will not be validated (record locality and coordinate locality don’t match) and may be replaced by coordinates taken from the gazetteer.</p>
+<p>Currently, geographical validation can be performed at the county level for Latin American countries and at the country level for the rest of the world. We provide a gazetteer to retrieve and check localities and geographical coordinates, which is currently biased towards Latin American countries, particularly Brazil. Therefore, the validation of geographical coordinates provided by other R packages (e.g. <strong>CoordinateCleaner</strong>) may be more appropriate for studies extending outside Latin America.</p>
+<p>Taxonomical validation is performed based on (i) the correction of plant family and species names (i.e. synonyms, typos) and (ii) the confidence level on the species identification, based on a dictionary of plant taxonomist names from all over the world. For i, names are currently checked against the <a href="http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do">Flora do Brasil project</a> and <a href="http://www.theplantlist.org/">The Plant List</a>, using the R packages <strong>flora</strong> and <strong>Taxonstand</strong>. Future versions may include comparisons against Tropicos and GBIF backbones.</p>
+<p>During the assessment of the taxonomic confidence level of the identifications, we did not attempt to set priorities for different specialists within a given family. That is, all species names determined by a specialist within their family of expertise are taken as being correct. Although we recognize that there are specialists for genera within a family, the validation process is currently performed only at the family level. In the case of conflicting species identification among family specialists for duplicates across collections, we assume the most recent identification as being the valid one.</p>
+<p><strong>plantR</strong> provide tools for searching for duplicated records across collections. This search makes more sense when data from different collections are combined and it performs welleven when using relatively large datasets (i.e. millions of records). However, the retrieval of duplicates greatly depends on the completeness of the input information, the notation standards and if <strong>plantR</strong> is able to handle those differences in notation across collections. In addition, true duplicates may not be found due to typos and false duplicates may be returned if the duplicate search fields are too flexible.</p>
 <p><br /><br /></p>
 </div>
 </div>
-<div id="using-plantr" class="section level1">
-<h1><span class="header-section-number">2</span> Using <strong>plantR</strong></h1>
-<div id="installation" class="section level2">
-<h2><span class="header-section-number">2.1</span> Installation</h2>
+<div id="using-plantr" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Using <strong>plantR</strong></h1>
+<div id="installation" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Installation</h2>
 <p>The package can be installed and loaded from <a href="https://github.com">GitHub</a> with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;remotes&quot;</span>)
-<span class="kw">install_github</span>(<span class="st">&quot;LimaRAF/plantR&quot;</span>)
-<span class="kw">library</span>(<span class="st">&quot;plantR&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;LimaRAF/plantR&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
 </div>
-<div id="main-features" class="section level2">
-<h2><span class="header-section-number">2.2</span> Main features</h2>
-<div id="data-entry" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Data entry</h3>
-<p>Users can provide their own dataset or download data using one of <strong>plantR</strong> functions. Here we provide an example for function <code>rspeciesLink</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">rspeciesLink</span>(<span class="dt">species =</span> <span class="st">&quot;Euterpe edulis&quot;</span>)
-## Making request to speciesLink...
-## Writing results/output.csv on disk.</code></pre></div>
-</div>
-<div id="data-editing" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Data editing</h3>
-<div id="people-names-collector-number-and-dates" class="section level4">
-<h4><span class="header-section-number">2.2.2.1</span> People names, collector number and dates</h4>
-<p>After making sure the input fields are in the DarwinCore format (function <code>fixField</code>), the names of the collectors and identifiers, collection numbers and dates can be edited using the function <code>formatOcc</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">fixField</span>(occs<span class="op">$</span>data, <span class="dt">origin =</span> <span class="st">&quot;splink&quot;</span>)
-## Warning in fixField(occs$data, origin = &quot;splink&quot;): Required field(s) 'county'
-## was(were) replaced by 'municipality'
-## Warning in fixField(occs$data, origin = &quot;splink&quot;): The following field(s) was(were) removed: 
-## record_id
-## barcode
-## imagecode
-## geoFlag
-## continentOcean
-## relatedCatalogItem
-## preparationType
-## relationshipType</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">formatOcc</span>(occs)</code></pre></div>
-</div>
-<div id="locality-information" class="section level4">
-<h4><span class="header-section-number">2.2.2.2</span> Locality information</h4>
-<p>The locality information associated with the occurrence data (e.g. country or city names) can be standardized using the function <code>formatLoc</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">formatLoc</span>(occs)</code></pre></div>
-</div>
-<div id="geographical-coordinates" class="section level4">
-<h4><span class="header-section-number">2.2.2.3</span> Geographical coordinates</h4>
-<p>The geographical coordinates are prepared using function <code>prepCoord</code>, which guarantees that they are in a good format for validation (i.e. decimal degrees). Missing coordinates can also be obtained from a gazetteer based on the locality information using function <code>getCoord</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">prepCoord</span>(occs)
-## Warning in prepCoord(occs): NAs introduced by coercion</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">getCoord</span>(occs)</code></pre></div>
+<div id="main-features" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Main features</h2>
+<div id="data-entry" class="section level3" number="2.2.1">
+<h3 number="2.2.1"><span class="header-section-number">2.2.1</span> Data entry</h3>
+<p>Users can provide their own dataset or download data using one of <strong>plantR</strong> download functions. They include the function <code>rspeciesLink()</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>occs_splink <span class="ot">&lt;-</span> <span class="fu">rspeciesLink</span>(<span class="at">species =</span> <span class="st">&quot;Euterpe edulis&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to speciesLink...</span></span></code></pre></div>
+<p>This function can also be used to search from records based on localities, collections, and other options (see ?rspeciesLink for details).</p>
+<p><strong>plantR</strong> also provides the function <code>rgbif2()</code>, which is a wrapper of the function <code>rgbif()</code> of the <strong>rgbif</strong> package, with an standardized output:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span> <span class="st">&quot;Euterpe edulis&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF...</span></span></code></pre></div>
+<div id="field-names" class="section level4" number="2.2.1.1">
+<h4 number="2.2.1.1"><span class="header-section-number">2.2.1.1</span> Field names</h4>
+<p>It is important to make sure that the field names of the input data follow the DarwinCore format. In <strong>plantR</strong> this is performed using the function <code>formatDwc()</code>, which joins data from different sources (e.g. GBIF and speciesLink) and standardizes their field names:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: some columns in splink_data do not follow the speciesLink pattern</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: some columns in gbif_data does not follow the gbif pattern!</span></span></code></pre></div>
 </div>
 </div>
-<div id="data-validation" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Data validation</h3>
-<div id="locality-information-1" class="section level4">
-<h4><span class="header-section-number">2.2.3.1</span> Locality information</h4>
-<p>Once the new columns with the edited and standardized information are available, the occurrence data can be validated. The first validation step regards the locality information, which is done using the function <code>validateLoc</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">validateLoc</span>(occs)
-## [1] &quot;Resolution of the localities in the original data vs. the edited data:&quot;
+<div id="data-editing" class="section level3" number="2.2.2">
+<h3 number="2.2.2"><span class="header-section-number">2.2.2</span> Data editing</h3>
+<div id="collection-codes-people-names-collector-number-and-dates" class="section level4" number="2.2.2.1">
+<h4 number="2.2.2.1"><span class="header-section-number">2.2.2.1</span> Collection codes, people names, collector number and dates</h4>
+<p>The names of the collections, collectors and identifiers, as well as the collection numbers and dates can be edited using the function <code>formatOcc()</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs)</span></code></pre></div>
+</div>
+<div id="locality-information" class="section level4" number="2.2.2.2">
+<h4 number="2.2.2.2"><span class="header-section-number">2.2.2.2</span> Locality information</h4>
+<p>The locality information associated with the occurrence data (e.g. country or city names) can be standardized using the function <code>formatLoc()</code>:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs)</span></code></pre></div>
+</div>
+<div id="geographical-coordinates" class="section level4" number="2.2.2.3">
+<h4 number="2.2.2.3"><span class="header-section-number">2.2.2.3</span> Geographical coordinates</h4>
+<p>The geographical coordinates are prepared using function <code>formatCoord()</code>, which guarantees that they are in a good format for validation (i.e. decimal degrees). This function also retrieves missing coordinates from a gazetteer based on the locality information:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs)</span></code></pre></div>
+</div>
+<div id="species-and-family-names" class="section level4" number="2.2.2.4">
+<h4 number="2.2.2.4"><span class="header-section-number">2.2.2.4</span> Species and family names</h4>
+<p>In this example, although we have dowloaded data for a single species (i.e. <em>Euterpe edulis</em> Mart.), there are differences in the notation of botanical family and species names, some of them being synonyms. To obtain only valid names, we use the function <code>formatTax()</code>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs)</span></code></pre></div>
+<pre><code>## The following family names were automatically replaced:
+## 
+## |Genus   |Old fam. |New fam.  |
+## |:-------|:--------|:---------|
+## |Euterpe |Palmae   |Arecaceae |</code></pre>
+</div>
+</div>
+<div id="data-validation" class="section level3" number="2.2.3">
+<h3 number="2.2.3"><span class="header-section-number">2.2.3</span> Data validation</h3>
+<div id="locality-information-1" class="section level4" number="2.2.3.1">
+<h4 number="2.2.3.1"><span class="header-section-number">2.2.3.1</span> Locality information</h4>
+<p>Once the new columns with the edited and standardized information are available, the records can be validated. The first validation step regards the locality information, which is done using the function <code>validateLoc()</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs)</span></code></pre></div>
+<pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
 ##                original
 ## edited          country locality municipality no_info stateProvince
-##   country            16        0            0       0             0
-##   locality            0      119            0       0             0
-##   municipality        0      286           71       0             0
-##   no_info             2        0            0       5             0
-##   stateProvince       0       32            2       0            69</code></pre></div>
+##   country           125        1            0       0             0
+##   locality            3      204            0       0             0
+##   municipality        0      463           94       0             0
+##   no_info             1        0            0       6             0
+##   stateProvince       0       73            3       0            69</code></pre>
 </div>
-<div id="geographical-coordinates-1" class="section level4">
-<h4><span class="header-section-number">2.2.3.2</span> Geographical coordinates</h4>
-<p>[TO BE FINISHED]</p>
+<div id="geographical-coordinates-1" class="section level4" number="2.2.3.2">
+<h4 number="2.2.3.2"><span class="header-section-number">2.2.3.2</span> Geographical coordinates</h4>
+<p>The second validation step regards the geographical coordinates of the records, which is performed using the function <code>validateCoord()</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateCoord</span>(occs)</span></code></pre></div>
 </div>
-<div id="species-taxonomy-and-identification" class="section level4">
-<h4><span class="header-section-number">2.2.3.3</span> Species taxonomy and identification</h4>
-<p>The next validation step regards species taxonomy and the confidence level in the species identification associated with the occurrence data. In this example, there is no need to format the species name (functions <code>prepSpecies</code> and <code>formatSpecies</code>), since we have only one valid species name (i.e. <em>Euterpe edulis</em>).</p>
-<p>But we have two botanical family names associated with the data. This can be standardized using function <code>formatFamily</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">formatFamily</span>(occs)
-## Warning: The following family names were automatically replaced:
-## Warning: Euterpe: Palmae -&gt; Arecaceae</code></pre></div>
-<p>Finally, we can assign confidence levels in the species identifications, which is one of the main <strong>plantR</strong> features.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">validateTax</span>(occs)
-## Top people with many determinations but not in the taxonomist list: 
+<div id="species-taxonomy-and-identification" class="section level4" number="2.2.3.3">
+<h4 number="2.2.3.3"><span class="header-section-number">2.2.3.3</span> Species taxonomy and identification</h4>
+<p>The next validation step regards the confidence level in the species identification, which is one of the main <strong>plantR</strong> features and executed by function <code>validateTax()</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs)</span></code></pre></div>
+<pre><code>## Top people with many determinations but not in the taxonomist list: 
 ## 
-## Identifier            Records
-## -------------------  --------
-## s.n.                       61
-## Fernandes/, H.Q.B.         17
-## Silva, E.F.L.P.            15
-## Caxambu, M.G.              12
-## Reis, A.                    7
-## Informacao, S.              6
-## Medeiros-Costa              6
-## Verdi, M.                   6
-## Wandekoken, D.T.            6
-## Demuner, V.                 5</code></pre></div>
-<p>Note that the function returns up to 10 names of indentificators not taken as specialists of the family. The argument <code>miss.taxonomist</code> can be used to include missing names of taxonomists (e.g. <code>miss.taxonomist = c(&quot;Arecaceae_Reis, A.&quot;)</code>)</p>
+## |Identifier       | Records|
+## |:----------------|-------:|
+## |Caxambu, M.G.    |      23|
+## |Silva, E.F.L.P.  |      15|
+## |Verdi, M.        |      13|
+## |Wandekoken, D.T. |      11|
+## |Demuner, V.      |      10|
+## |Rossato, M.      |       8|
+## |Thomas, W.W.     |       8|
+## |Guedes, M.L.     |       7|
+## |Reis, A.         |       7|
+## |Kohler, M.       |       6|</code></pre>
+<p>Note that the function returns up to 10 names of determiners not taken as specialists of the family. The argument <code>miss.taxonomist</code> can be used to include missing names of taxonomists (e.g. <code>miss.taxonomist = c(&quot;Arecaceae_Reis, A.&quot;)</code>)</p>
 </div>
-<div id="duplicate-specimens" class="section level4">
-<h4><span class="header-section-number">2.2.3.4</span> Duplicate specimens</h4>
-<p>Another main feature of <strong>plantR</strong> is the search for duplicated specimens across herbaria (i.e. same specimen with accession numbers in two or more collections). It uses different combinations of search strings and network analysis to find direct and indirect links between occurrences. Besides the search, the user can also homogenize information, such as species names or geographical coordinates, within groups of duplicates. This tool is performed using the function <code>validateDup</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">occs &lt;-<span class="st"> </span><span class="kw">validateDup</span>(occs, <span class="dt">info2merge =</span> <span class="kw">c</span>(<span class="st">&quot;tax&quot;</span>, <span class="st">&quot;loc&quot;</span>),
-                    <span class="dt">tax.name =</span> <span class="st">&quot;scientificName&quot;</span>)</code></pre></div>
+<div id="duplicate-specimens" class="section level4" number="2.2.3.4">
+<h4 number="2.2.3.4"><span class="header-section-number">2.2.3.4</span> Duplicate specimens</h4>
+<p>Another main feature of <strong>plantR</strong> is the search for duplicated records across herbaria (i.e., same biological specimen with accession numbers in two or more collections). It uses different combinations of search strings to find direct and indirect links between records. Besides the search itself, the user can also homogenize information within groups of duplicates, such as species names or geographical coordinates. This tool is performed using the function <code>validateDup()</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateDup</span>(occs)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: To merge geographic info, the input data must contain the following</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">## column(s): geo.check. Skipping &#39;geo&#39; from info to merge.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 235 truly duplicated records (same collection in different sources) were removed from the data</span></span></code></pre></div>
 </div>
 </div>
-<div id="data-summary-and-export" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Data summary and export</h3>
-<p>Once the editing and validation steps are finished, <strong>plantR</strong> provides tools for summarizing the occurrence data, using the function <code>summData</code>. In this example, the taxonomical summary is quite uninformative, since we have only one species.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summ &lt;-<span class="st"> </span><span class="kw">summaryData</span>(occs)
-## =========
+<div id="data-summary-and-export" class="section level3" number="2.2.4">
+<h3 number="2.2.4"><span class="header-section-number">2.2.4</span> Data summary and export</h3>
+<p>Once the editing and validation steps are finished, <strong>plantR</strong> provides tools for summarizing the occurrence data, using the function <code>summaryData()</code>. In this example, the taxonomical summary is quite uninformative, since we have only one species.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>summ <span class="ot">&lt;-</span> <span class="fu">summaryData</span>(occs)</span></code></pre></div>
+<pre><code>## =========
 ##  RECORDS 
 ## =========
-## Type                        Records
-## -------------------------  --------
-## Unicates                        270
-## Duplicates                      143
-## Unknown                         189
-## Total without duplicates        519
-## Total with duplicates           602
+## |Type                     | Records|
+## |:------------------------|-------:|
+## |Unicates                 |     172|
+## |Duplicates               |     282|
+## |Unknown                  |     353|
+## |Total without duplicates |     715|
+## |Total with duplicates    |     807|
 ## 
 ## =============
 ##  COLLECTIONS 
 ## =============
-## Number of biological collections: 87 
-## Number of collectors' names: 291 
-## Collection years: 1816-2020 (&gt;90% and &gt;50% after 1966 and 1997)
+## Number of biological collections: 101 
+## Number of collectors&#39; names: 336 
+## Collection years: 1816-2021 (&gt;90% and &gt;50% after 1972 and 2001)
 ## 
 ## Top collections in numbers of records:
-## Collection       Records
-## --------------  --------
-## SINBIOTA              57
-## NYBG                  41
-## MBML-HERBARIO         37
-## SP                    32
-## CEPEC                 31
+## |Collection   | Records|
+## |:------------|-------:|
+## |SINBIOTA     |      57|
+## |MBML         |      50|
+## |Observations |      48|
+## |NY           |      42|
+## |SP           |      33|
 ## 
 ## Top collectors in numbers of records:
-## Collector            Records
-## ------------------  --------
-## Fernandes, H.Q.B.         34
-## Noblick, L.R.             18
-## Silva, E.F.L.P.           15
-## Thomas, W.W.              10
-## Caxambu, M.G.             10
+## |Collector         | Records|
+## |:-----------------|-------:|
+## |Fernandes, H.Q.B. |      45|
+## |Noblick, L.R.     |      18|
+## |Silva, E.F.L.P.   |      15|
+## |Glaziou, A.       |      11|
+## |Caxambu, M.G.     |      10|
 ## 
 ## ==========
 ##  TAXONOMY 
@@ -309,99 +344,103 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Number of species: 1 
 ## 
 ## Top richest families:
-## family.new      N    S
-## -----------  ----  ---
-## Arecaceae     602    1
+## |family.new |   N|  S|
+## |:----------|---:|--:|
+## |Arecaceae  | 807|  1|
 ## 
 ## Top richest genera:
-## genus.new      N    S
-## ----------  ----  ---
-## Euterpe      602    1
+## |genus.new |   N|  S|
+## |:---------|---:|--:|
+## |Euterpe   | 807|  1|
 ## 
 ## ===========
 ##  COUNTRIES 
 ## ===========
-## Number of countries: 6 
+## Number of countries: 10 
 ## 
 ## Top countries in numbers of records:
-## Country      Records   Species
-## ----------  --------  --------
-## Brazil           581         1
-## Paraguay           9         1
-## NA                 5         1
-## Argentina          4         1
-## [brazil]           1         1</code></pre></div>
-<p>It also provides an overview of the validation results (function <code>summFlags</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flags &lt;-<span class="st"> </span><span class="kw">summaryFlags</span>(occs)
-## ==================
+## |Country   | Records| Species|
+## |:---------|-------:|-------:|
+## |Brazil    |     757|       1|
+## |Argentina |      24|       1|
+## |Paraguay  |      15|       1|
+## |[Unknown] |       5|       1|
+## |Norway    |       1|       1|</code></pre>
+<p><strong>plantR</strong> also provides an overview of the validation results (function <code>summaryFlags()</code>):</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>flags <span class="ot">&lt;-</span> <span class="fu">summaryFlags</span>(occs)</span></code></pre></div>
+<pre><code>## ==================
 ##  DUPLICATE SEARCH 
 ## ==================
 ## Records per strength of duplicate indication:
 ## 
-## Strenght                  Records
-## -----------------------  --------
-## 0%                            270
-## 25%                            25
-## 100%                          118
-## Cannot check (no info)        189
+## |Strenght               | Records|
+## |:----------------------|-------:|
+## |0%                     |     172|
+## |25%                    |      21|
+## |100%                   |     261|
+## |Cannot check (no info) |     353|
 ## 
 ## =====================
 ##  LOCALITY VALIDATION 
 ## =====================
 ## Results of the locality validation:
 ## 
-## Validation              Records
-## ---------------------  --------
-## probably ok                 283
-## ok (same resolution)        282
-## check (downgraded)           35
-## check (not found)             2
+## |Validation           | Records|
+## |:--------------------|-------:|
+## |ok (same resolution) |     582|
+## |probably ok          |     155|
+## |check (downgraded)   |      66|
+## |ok (upgraded)        |       3|
+## |check (not found)    |       1|
 ## 
-## Details of the validation (original vs. validated localities:
+## Details of the validation (original vs. validated localities):
 ## 
-## original.resolution    no_info   country   stateProvince   municipality   locality
-## --------------------  --------  --------  --------------  -------------  ---------
-## no_info                      5         0               0              0          0
-## country                      2        16               0              0          0
-## stateProvince                0         0              69              0          0
-## municipality                 0         0               2             71          0
-## locality                     0         0              32            286        119
+## |original.resolution | no_info| country| stateProvince| municipality| locality|
+## |:-------------------|-------:|-------:|-------------:|------------:|--------:|
+## |no_info             |       5|       0|             0|            0|        0|
+## |country             |       1|     123|             0|            0|        3|
+## |stateProvince       |       0|       0|            69|            0|        0|
+## |municipality        |       0|       0|             3|           79|        0|
+## |locality            |       0|       1|            67|          315|      141|
 ## 
 ## ======================
 ##  TAXONOMIC CONFIDENCE 
 ## ======================
 ## Confidence level of the taxonomic identifications:
 ## 
-## Confidence    Records
-## -----------  --------
-## low               341
-## unknown           163
-## high               98</code></pre></div>
-<p>The package <strong>plantR</strong> can also build species checklists using the function <code>checklist</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checklist</span>(occs, <span class="dt">n.vouch =</span> <span class="dv">3</span>, <span class="dt">type =</span> <span class="st">&quot;short&quot;</span>)</code></pre></div>
-<pre><code>##   family.new scientificName records tax.CL
-## 1  Arecaceae Euterpe edulis     511  11.74
-##                                                                                                                                           vouchers
-## 1 C, S., s.n. (RECOLNAT MNHN P P725195) [isotype]; Froes, R.L., 19919 (NYBG 567873, NYBG 568306); Zardini, E.M., 39966 (MOBOT 884075, NYBG 567876)</code></pre>
-<p>Finally, <strong>plantR</strong> exports data into a local folder, using function <code>saveData</code>, which can be used to save compressed '.csv' files based on different grouping fields (e.g. botanical family, country, biological collection). The export is performed using function <code>fwrite</code> from package <code>data.table</code> which is quite fast even for large datasets.</p>
+## |Confidence | Records|
+## |:----------|-------:|
+## |high       |     341|
+## |unknown    |     278|
+## |low        |     188|</code></pre>
+<p>The package <strong>plantR</strong> can also build species check-lists with vouchers using the function <code>checkList()</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkList</span>(occs, <span class="at">n.vouch =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&quot;short&quot;</span>)</span></code></pre></div>
+<pre><code>## 0 truly duplicated records (same collection in different sources) were removed from the data</code></pre>
+<pre><code>##   family.new scientificName.new records tax.CL
+## 1  Arecaceae     Euterpe edulis     807  42.26
+##                                                                                                                                         vouchers
+## 1 Fernandes, H.Q.B., 2519 (MBML 5289) [paratype]; Fernandes, H.Q.B., 2543 (MBML 5288) [paratype]; Fernandes, H.Q.B., 2564 (MBML 5301) [holotype]</code></pre>
+<p>Finally, <strong>plantR</strong> exports data into a local folder, using function <code>saveData()</code>, which can be used to save compressed ‘.csv’ files based on different grouping fields (e.g. botanical family, country, biological collection). The export is performed using function <code>fwrite()</code> from package <strong>data.table</strong> which is quite fast even for large datasets.</p>
 <p><br /><br /></p>
 </div>
 </div>
 </div>
-<div id="citation" class="section level1">
-<h1><span class="header-section-number">3</span> Citation</h1>
-<p>If you use the package, please cite it as:</p>
-<p>Lima, R.A.F et al. (2020) <em>plantR</em>: An R package and workflow for managing species records from biological collections. In preparation.</p>
-<p>If you use the function <code>prepSpecies</code>, please also cite the following packages, depending on the database used:</p>
-<p>Carvalho, G. (2019) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.1. <a href="http://www.github.com/gustavobio/flora" class="uri">http://www.github.com/gustavobio/flora</a></p>
-<p>Cayuela, L., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxo-355nomic Standardization of Plant Species Names. R package version 2.1. <a href="https://CRAN.R-project.org/package=Taxonstand" class="uri">https://CRAN.R-project.org/package=Taxonstand</a></p>
+<div id="citation" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Citation</h1>
+<p>If you use this package, please cite it as:</p>
+<p>Lima, R.A.F et al. (2021) plantR: An R package and workflow for managing species records from biological collections. In preparation.</p>
+<p>If you use the function <code>prepSpecies()</code>, please also cite the following packages (depending on the database used):</p>
+<p>Carvalho, G. (2020) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.4. <a href="https://CRAN.R-project.org/package=flora" class="uri">https://CRAN.R-project.org/package=flora</a></p>
+<p>Cayuela, L., Macarro, I., Stein, A. and Oksanen, J. (2017) Taxonstand: Taxonomic Standardization of Plant Species Names. R package version 2.2. <a href="https://CRAN.R-project.org/package=Taxonstand" class="uri">https://CRAN.R-project.org/package=Taxonstand</a></p>
+<p>If you use the function <code>rgbif2()</code>, please also cite the following package:</p>
+<p>Chamberlain, S. et al. (2021) rgbif: Interface to the Global Biodiversity Information Facility API. R package version 2.5.2. <a href="https://CRAN.R-project.org/package=rgbif" class="uri">https://CRAN.R-project.org/package=rgbif</a>&gt;.</p>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Naturalis Biodiversity Center and Universidade de São Paulo, <a href="https://github.com/LimaRAF" class="uri">https://github.com/LimaRAF</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Jardim Botânico do Rio de Janeiro, <a href="https://github.com/saramortara" class="uri">https://github.com/saramortara</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>Jardim Botânico do Rio de Janeiro,<a href="https://github.com/AndreaSanchezTapia" class="uri">https://github.com/AndreaSanchezTapia</a><a href="#fnref3">↩</a></p></li>
+<li id="fn1"><p>Naturalis Biodiversity Center and Universidade de São Paulo, <a href="https://github.com/LimaRAF" class="uri">https://github.com/LimaRAF</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Jardim Botânico do Rio de Janeiro, <a href="https://github.com/saramortara" class="uri">https://github.com/saramortara</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Jardim Botânico do Rio de Janeiro,<a href="https://github.com/AndreaSanchezTapia" class="uri">https://github.com/AndreaSanchezTapia</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
