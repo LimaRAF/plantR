@@ -32,12 +32,46 @@ the steps of the workflow, we present the functionalities and their options in
 more details so that user can better understand their goals and so adapted the
 functionalities even outside the workflow proposed here.
 
-Let's first install and load the package from [GitHub](https://github.com) with:
+<br/><br/>
+
+# Intalling __plantR__
+
+__plantR__ is currently only available remotely on [GitHub](https://github.com).
+This means that you cannot use R base functions to install it (i.e.
+`install.packages()`). There are different ways to install packages in R from remote repositories and here we suggest using the package __remotes__. So, first of all, we need to be sure that this package is installed and loaded.
+
+```{r, eval = F}
+install.packages(remotes)
+library("remotes")
+```
+
+Then we can use __remotes__ function `install_github()` to install __plantR__
+from GitHub. 
+
+Like many other R packages, __plantR__ depends on other packages to perform some tasks (i.e. dependencies), and these packages often depend on other packages (i.e. recursive dependencies). Therefore, to install __plantR__ you also need to install these dependencies. R should automatically install the packages you don't have (this may be a long list depending on which packages you have already installed). It also will prompt at your screen a list of packages that have more recent versions available for update. It is good to have the most up-to-date versions of all packages, but this is not a necessity to install __plantR__ (i.e. you can select to update none of the packages).
 
 ```{r, eval = F}
 remotes::install_github("LimaRAF/plantR")
 library("plantR")
 ```
+
+For windows users, you may get a warning while trying to install __plantR__,
+related to the installation of Rtools. This is a software that needs to be
+installed in your machine, so that R can build and install packages from their
+source code on Windows. It became necessary after R version 4.0. So make sure we
+have Rtools installed, restart your R session and try to install __plantR__
+again. Check [this link](https://cran.r-project.org/bin/windows/Rtools/) on how
+to install Rtools on Windows.
+
+Some users may still get the error below: 
+
+```{r, eval = F}
+Error: package '[name of the package]' was installed before R 4.0.0: please re-install it
+```
+
+If this is your case, we suggest installing/updating each of these packages individually, until you finally manage to run __plantR__ installation without problems. You may need to restart your R session again to make sure that the 
+all dependencies were installed correctly.
+
 
 <br/><br/>
 
