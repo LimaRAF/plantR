@@ -137,19 +137,20 @@ for (i in 1:length(country.list)) {
   tmp1 = tmp[,grepl("^NAME_", names(tmp))]
 
   #country
-  tmp1$NAME_0 <- tolower(textclean::replace_non_ascii(tmp1$NAME_0))
-  tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
-  tmp1$NAME_0 <- gsub("^st. ", "saint ", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
+  tmp1$NAME_0 <- prepCountry(tmp1$NAME_0)
+  # tmp1$NAME_0 <- tolower(textclean::replace_non_ascii(tmp1$NAME_0))
+  # tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
+  # tmp1$NAME_0 <- gsub("^st. ", "saint ", tmp1$NAME_0)
+  # tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
+  # tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
 
   toto1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
   toto2 <- as.character(toto1$replace)
   names(toto2) = as.character(toto1$pattern)
-  names(toto2) <- gsub("\\\\", "", names(toto2))
+  # names(toto2) <- gsub("\\\\", "", names(toto2))
   tmp1$NAME_0 <- sapply(strsplit(tmp1$NAME_0,' \\('), function(x) x[[1]][1])
   tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0, toto2)
-  tmp1$NAME_0 <- plantR::prepLoc(tmp1$NAME_0)
+  # tmp1$NAME_0 <- plantR::prepLoc(tmp1$NAME_0)
 
   tmp1$NAME_0 <- gsub("bonaire, sint eustatius and saba", "caribbean netherlands", tmp1$NAME_0)
   tmp1$NAME_0 <- gsub("saint vincent and the grenadines", "saint vincent and grenadines", tmp1$NAME_0)
@@ -191,8 +192,8 @@ names(country.list) = pais
 ## Standardizing the shapefile and gazetteer names (for Brazil only)
 
 #loading the gazetteer and removing possible duplicated localities
-#dic <- read.csv("data-raw//raw//gazetteer_utf8-win.csv",as.is=TRUE)
-dic <- read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//dictionaries//gazetteer.csv",as.is=TRUE)
+dic <- read.csv("data-raw//raw_dictionaries//gazetteer.csv",as.is=TRUE)
+# dic <- read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//dictionaries//gazetteer.csv",as.is=TRUE)
 dic <- dic[dic$status %in% "ok",]
 dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
 
@@ -244,7 +245,7 @@ if(any(id)) {
   # tmp$NAME_2[id] = tmp2[id,c("county")]
 
   #Saving the changes
-  country.list[[j]]$NAME_2[id] = tmp2[id,c("county")]
+  country.list[[j]]$NAME_2[id] <- tmp2$county[id]
   # country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
 }
 #}
@@ -281,7 +282,8 @@ save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
 
 #### WORLD ####
 # map for function share_borders()
-world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
+#world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
+world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units', category = 'cultural')
 world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
 world1 <- cleangeo::clgeo_Clean(world1)
 world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
@@ -301,6 +303,19 @@ names(tmp2) = as.character(tmp1$pattern)
 world3@data$name <- sapply(strsplit(world3@data$name,' \\('), function(x) x[[1]][1])
 world3@data$name <- stringr::str_replace_all(world3@data$name, tmp2)
 
+#Checking if all names in worldMap are in world
+world3@data$name[!world3@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"]]
+# tmp <- world3[!world3@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"],]
+# tmp1 <- raster::coordinates(tmp)
+# colnames(tmp1) <- c("x", "y")
+# tmp1 <- as.data.frame(tmp1)
+# sp::coordinates(tmp1) <- ~x+y
+# raster::crs(tmp1) <- raster::crs(world3)
+# tmp2 <- sp::SpatialPointsDataFrame(tmp1, tmp@data)
+# tmp2.sf <- sf::st_as_sf(tmp2)
+# tmp3 <- sf::st_intersection(tmp2.sf, worldMap)
+# sf::st_geometry(tmp3) <- NULL
+
 #Converting to sf and projecting to WSG84
 world <- sf::st_as_sf(world3)
 prj <- sf::st_crs(4326)
@@ -312,7 +327,7 @@ save(world, file = "./data/world.rda", compress = "xz")
 #Inspecting the maps and object sizes
 # format(object.size(world0), units = "Mb") ## 15.8 Mb
 # format(object.size(world2), units = "Mb") ## 15.6 Mb (not much but borders remains almost the same)
-# format(object.size(world), units = "Mb") ## 10.3 Mb
+# format(object.size(world), units = "Mb") ## 10.3 Mb before; now 0.4 Mb
 # sp::plot(world0, ylim=c(-24,-22), xlim=c(-45, -42))
 # sp::plot(world3, add = TRUE, border = 3)
 # sp::plot(world[,1], add = TRUE, border = 4)
