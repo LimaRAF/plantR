@@ -73,7 +73,6 @@ prepCountry <- function(x,
     x1 <- gsub("^St\\. ", "Saint ", x1, perl = TRUE, ignore.case = TRUE)
     x1 <- gsub(" I\\.", " Island", x1, perl = TRUE, ignore.case = TRUE)
     x1 <- gsub(" Is\\.", " Islands", x1, perl = TRUE, ignore.case = TRUE)
-
   }
 
   # Replacing abbreviated country descriptions
@@ -82,6 +81,7 @@ prepCountry <- function(x,
 
   # Removing some separators and prepositions from country names
   x1 <- gsub("-", " ", x1, fixed = TRUE)
+  x1 <- gsub("\\s+", " ", x1, perl = TRUE)
   x1 <- gsub(" of the ", " ", x1, fixed = TRUE)
   x1 <- gsub(" and the ", " ", x1, fixed = TRUE)
   x1 <- gsub(" of ", " ", x1, fixed = TRUE)

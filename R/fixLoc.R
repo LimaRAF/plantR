@@ -133,30 +133,17 @@ fixLoc <- function(x,
     # Standardizing country name notation
     x1[ ,"country"] <- prepCountry(x1[ ,"country"])
 
-    # # Converting any country codes into country names
-    # x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"] <-
-    #   countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 2 & !is.na(x1[ ,"country"]) ,"country"]), 'iso2c', 'country.name')
-    # x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"] <-
-    #   countrycode::countrycode(as.character(x1[nchar(x1[ ,"country"]) == 3 & !is.na(x1[ ,"country"]) ,"country"]), 'iso3c', 'country.name')
-    #
-    # # Removing unwanted characters
-    # x1[, "country"] <- tolower(rmLatin(x1[, "country"]))
-    # x1[, "country"] <- gsub("^\\[|\\]$", "", x1[, "country"], perl = TRUE)
-    #
-    # # Replacing '&' by 'and' in compound country names
-    # x1[, "country"] <- stringr::str_replace_all(x1[, "country"], " & ", " and ")
-    #
-    # # Replacing abbreviated 'Saint' names
-    # x1[, "country"] <- gsub("^st. ", "saint ", x1[, "country"], perl = TRUE)
-    #
-    # # Removing some prepositions from country names
-    # x1[, "country"] <- gsub(" of the ", " ", x1[, "country"], fixed = TRUE)
-    # x1[, "country"] <- gsub(" of ", " ", x1[, "country"], fixed = TRUE)
-
     # Replacing missing info by NA
     pattern <- paste(missLocs, collapse = "|")
     x1[, "country"] <- gsub(pattern, NA, x1[, "country"], perl = TRUE)
     x1[, "country"][grepl("desconhecid|unknown", x1[, "country"], perl = TRUE)] <- NA
+
+    # Removing brackets from country names
+    bracks <- grepl('^\\[', x1[, "country"], perl = TRUE) &
+                grepl('\\]$', x1[, "country"], perl = TRUE)
+    if (any(bracks))
+      x1[bracks, "country"] <-
+        gsub("^\\[|\\]$", "", x1[bracks, "country"], perl = TRUE)
 
     # Replacing variants, abbreviations, typos, and non-standard names
     tmp1 <- dic[dic$class %in% "country" & apply(is.na(dic[, 2:4]), 1, all), ]
@@ -166,6 +153,8 @@ fixLoc <- function(x,
     names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
     names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
     names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\[', "\\\\[", names(tmp2), perl = TRUE)
+    names(tmp2) <- gsub('\\]', "\\\\]", names(tmp2), perl = TRUE)
     x1[, "country"] <- stringr::str_replace_all(x1[, "country"], tmp2)
 
     # Missing country for non missing states and counties (only for uniquivocal states)
