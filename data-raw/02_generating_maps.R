@@ -165,6 +165,11 @@ for (i in 1:length(country.list)) {
     tmp1$NAME_2 <- plantR::prepLoc(tmp1$NAME_2)
   }
 
+  if ("NAME_3" %in% names(tmp1)) {
+    tmp1$NAME_3 <- tolower(textclean::replace_non_ascii(tmp1$NAME_3))
+    tmp1$NAME_3 <- plantR::prepLoc(tmp1$NAME_3)
+  }
+
   #Symplifying the maps
   # tmp.simp <- gSimplify(tmp, tol=0.0001, topologyPreserve = TRUE)
   # tmp.simp <- gBuffer(tmp.simp, byid=TRUE, width=0)
@@ -197,7 +202,7 @@ dic <- read.csv("data-raw//raw_dictionaries//gazetteer.csv",as.is=TRUE)
 dic <- dic[dic$status %in% "ok",]
 dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
 
-j=8
+j = which(names(country.list) == "brazil")
 #for(j in 31:length(country.list)) {
 #Creating the locality strings for the shapefile dataframe
 tmp = country.list[[j]]#@data
@@ -228,9 +233,9 @@ for(w in 1:sapply(tmp3, length)[1]) {
 }
 
 #comparing and replacing the correct info
-tmp2 = tmp2[order(tmp2$order),]
+tmp2 <- tmp2[match(tmp$order, tmp2$order),]
 table(tmp$order == tmp2$order)
-id = !tmp2$loc == tmp2$loc.correct
+id = !tmp2$loc %in% tmp2$loc.correct
 
 if(any(id)) {
   cat(paste(i,": ",unique(tmp$NAME_0),table(id)),"\n")
@@ -241,7 +246,8 @@ if(any(id)) {
   cbind(tmp$NAME_1[id], tmp2[id,c("state","county")])[tmp$NAME_1[id] == tmp2[id,c("state")],]
   #tmp[id,2] = tmp2[id,c("state")]
   table(!tmp$NAME_2[id] == tmp2[id,c("county")]) #all differences were double-checked and the gazetteer is right!
-  cbind(tmp[id,c("NAME_1","NAME_2")], tmp2[id,c("county")])[!tmp$NAME_2[id] == tmp2[id,c("county")],]
+
+  cbind(tmp$NAME_1[id],tmp$NAME_2[id], tmp2$county[id])[!tmp$NAME_2[id] == tmp2$county[id],]
   # tmp$NAME_2[id] = tmp2[id,c("county")]
 
   #Saving the changes
@@ -249,6 +255,89 @@ if(any(id)) {
   # country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
 }
 #}
+
+## Other GADM issues and mixed names
+#Manaus
+tmp <- country.list[[j]][country.list[[j]]$NAME_2 %in% "maues",]
+tmp1 <- sf::st_coordinates(sf::st_centroid(tmp))
+ids.manaus <- tmp1[,1] < (-59) & tmp1[,2] > (-3.5)
+country.list[[j]]$NAME_2[country.list[[j]]$NAME_2 %in% "maues"][ids.manaus] <- "manaus"
+
+#Brasilândia de Minas/Brazópolis
+replace_this <- country.list[[j]]$NAME_2 %in% "brazopolis" &
+  country.list[[j]]$NAME_3 %in% "brazilandia minas"
+country.list[[j]]$NAME_2[replace_this] <- "brasilandia minas"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#LEM
+replace_this <- country.list[[j]]$NAME_2 %in% "barreiras" &
+  country.list[[j]]$NAME_3 %in% "luis eduardo magalhaes"
+country.list[[j]]$NAME_2[replace_this] <- "luis eduardo magalhaes"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Barrocas
+replace_this <- country.list[[j]]$NAME_2 %in% "serrinha" &
+  country.list[[j]]$NAME_3 %in% "barrocas"
+country.list[[j]]$NAME_2[replace_this] <- "barrocas"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Capao Bonito do Sul
+replace_this <- country.list[[j]]$NAME_2 %in% "lagoa vermelha" &
+  country.list[[j]]$NAME_3 %in% "capao bonito"
+country.list[[j]]$NAME_2[replace_this] <- "capao bonito sul"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Santa Cecília do Sul
+replace_this <- country.list[[j]]$NAME_2 %in% "tapejara" &
+  country.list[[j]]$NAME_3 %in% "santa cecilia"
+country.list[[j]]$NAME_2[replace_this] <- "santa cecilia sul"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Balneario Rincão
+replace_this <- country.list[[j]]$NAME_2 %in% "icara" &
+  country.list[[j]]$NAME_3 %in% "balnerio rincao"
+country.list[[j]]$NAME_2[replace_this] <- "balneario rincao"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Três Barras/SC
+replace_this <- country.list[[j]]$NAME_2 %in% "sao mateus sul" &
+  country.list[[j]]$NAME_3 %in% "tres barras"
+country.list[[j]]$NAME_1[replace_this] <- "santa catarina"
+country.list[[j]]$NAME_2[replace_this] <- "tres barras"
+country.list[[j]]$NAME_3[replace_this] <- NA_character_
+
+#Teixeira Soares
+replace_this <- country.list[[j]]$NAME_2 %in% "texeira soares"
+country.list[[j]]$NAME_2[replace_this] <- "teixeira soares"
+
+#Mato Grosso as a county
+replace_this <- country.list[[j]]$NAME_2 %in% "mato grosso" &
+  country.list[[j]]$NAME_3 %in% "aguapei"
+country.list[[j]]$NAME_2[replace_this] <- "vila bela santissima trindade"
+
+#Itabirinha and Itabirito/MG
+replace_this <- country.list[[j]]$NAME_2 %in% "itabirito" &
+  country.list[[j]]$NAME_3 %in% "itabirinha mantena"
+country.list[[j]]$NAME_2[replace_this] <- "itabirinha"
+
+
+#Other counties
+map.checks <- readRDS("./data-raw/map.replacements.rds")
+paises <- sapply(map.checks$locs, function (x) strsplit(x, "_")[[1]][1])
+estados <- sapply(map.checks$locs, function (x) strsplit(x, "_")[[1]][2])
+j = which(names(country.list) == "brazil")
+for(w in 1:length(map.checks$locs)) {
+  pais.i <- paises[w]
+  estado.i <- estados[w]
+  bad <- map.checks$municipio.bad[w]
+  good <- map.checks$municipio.good[w]
+  replace_this <- country.list[[j]]$NAME_0 %in% pais.i &
+                  country.list[[j]]$NAME_1 %in% estado.i &
+                  country.list[[j]]$NAME_2 %in% bad &
+                  country.list[[j]]$NAME_3 %in% good
+  country.list[[j]]$NAME_2[replace_this] <- good
+  country.list[[j]]$NAME_3[replace_this] <- NA_character_
+}
 
 ## Converting all maps to 'sf'
 # for(i in 1:length(country.list)){
@@ -259,18 +348,18 @@ if(any(id)) {
 
 ## Inspecting
 latamMap <- country.list
-latamMap_full <- country.list
+# latamMap_full <- country.list
 
 #names(latamMap) <- pais
-plot(latamMap["belize"][[1]][,1])
-plot(latamMap["colombia"][[1]][,1])
-plot(latamMap["french guiana"][[1]][,1])
-plot(latamMap["paraguay"][[1]][,1])
-plot(latamMap["venezuela"][[1]][,1])
+# plot(latamMap["belize"][[1]][,1])
+# plot(latamMap["colombia"][[1]][,1])
+# plot(latamMap["french guiana"][[1]][,1])
+# plot(latamMap["paraguay"][[1]][,1])
+# plot(latamMap["venezuela"][[1]][,1])
 
 ## Saving
 save(latamMap, file = "./data/latamMap.rda", compress = "xz")
-save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
+# save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
 
 
 ################################################################################H
