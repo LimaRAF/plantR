@@ -7,15 +7,15 @@ country,NA,NA,NA,^equador,ecuador
 country,NA,NA,NA,^usa$|^u.s.a.$|^united states america$,united states
 country,NA,NA,NA,^franca|francia,france
 country,NA,NA,NA,^guadalupe,guadeloupe
-country,NA,NA,NA,^guiana$,guyana
 country,NA,NA,NA,^guiana francesa|^guyane francaise|^guyane$,french guiana
-country,NA,NA,NA,^guiana inglesa|^british guiana$|^guyane angloise|^british guiana [guyana]$,guyana
+country,NA,NA,NA,^guiana inglesa|^british guiana$|^guyane angloise|^british guiana [guyana],guyana
+country,NA,NA,NA,^guiana$,guyana
 country,NA,NA,NA,^inglaterra,england
 country,NA,NA,NA,^martinica,martinique
 country,NA,NA,NA,^japao|^japon,japan
 country,NA,NA,NA,^paraguai,paraguay
 country,NA,NA,NA,^peru oriental,peru
-country,NA,NA,NA,^port rico$,puerto rico
+country,NA,NA,NA,^porto rico$|^port rico$,puerto rico
 country,NA,NA,NA,^portugual,portugal
 country,NA,NA,NA,^republica dominicana|rep. dominicana,dominican republic
 country,NA,NA,NA,^suaca$,switzerland
@@ -23,11 +23,11 @@ country,NA,NA,NA,^suica| ^suiza,switzerland
 country,NA,NA,NA,^surinam$,suriname
 country,NA,NA,NA,^uruguai,uruguay
 country,NA,NA,NA,^burma,myanmar
-country,NA,NA,NA,^macau sar china,macau
+country,NA,NA,NA,^macau sar china|^macao sar china,macau
 country,NA,NA,NA,^macao$,macau
 country,NA,NA,NA,^hong kong sar china,hong kong
-country,NA,NA,NA,^congo - kinshasa,democratic republic congo
-country,NA,NA,NA,^congo - brazzaville,republic congo
+country,NA,NA,NA,^congo kinshasa,democratic republic congo
+country,NA,NA,NA,^congo brazzaville,republic congo
 country,NA,NA,NA,^cocos$,cocos islands
 country,NA,NA,NA,^czechia$,czech republic
 country,NA,NA,NA,^u.s.,united states
@@ -39,7 +39,7 @@ country,NA,NA,NA,^faeroe islands,faroe islands
 country,NA,NA,NA,^falkland islands (malvinas),falkland islands
 country,NA,NA,NA,^holy see,vatican city
 country,NA,NA,NA,^ilhas marshall,marshall islands
-country,NA,NA,NA,^ivory coast,cote ivoire
+country,NA,NA,NA,^ivory coast|^cote d’ivoire|^cote d'ivoire,cote ivoire
 country,NA,NA,NA,^lao people's democratic republic,laos
 country,NA,NA,NA,^libyan arab jamahiriya,libya
 country,NA,NA,NA,^federated states micronesia,micronesia
@@ -48,12 +48,26 @@ country,NA,NA,NA,^occupied palestinian territory,palestinian territories
 country,NA,NA,NA,^pitcairn$,pitcairn islands
 country,NA,NA,NA,^republic korea,south korea
 country,NA,NA,NA,^russian federation,russia
-country,NA,NA,NA,^svalbard and jan mayen islands,svalbard and jan mayen
+country,NA,NA,NA,^svalbard and jan mayen islands,svalbard jan mayen
 country,NA,NA,NA,^syrian arab republic,syria
 country,NA,NA,NA,^the netherlands$,netherlands
 country,NA,NA,NA,^yugoslav republic macedonia$,macedonia
 country,NA,NA,NA,^united republic tanzania,tanzania
 country,NA,NA,NA,^venezuela (bolivarian republic of),venezuela
+country,NA,NA,NA,^svalbard islands$,svalbard jan mayen
+country,NA,NA,NA,^french southern antarctic lands$,french southern territories
+country,NA,NA,NA,^eswatini$,swaziland
+country,NA,NA,NA,^west bank$|^palestina$,palestinian territories
+country,NA,NA,NA,^the gambia,gambia
+country,NA,NA,NA,^lao pdr$,laos
+country,NA,NA,NA,^democratic republic korea,north korea
+country,NA,NA,NA,^bougainville$|^bougainville island,papua new guinea
+country,NA,NA,NA,^northern ireland$,united kingdom
+country,NA,NA,NA,^england$,united kingdom
+country,NA,NA,NA,^somaliland$,somalia
+country,NA,NA,NA,^wales$,united kingdom
+country,NA,NA,NA,^scotland$,united kingdom
+country,NA,NA,NA,^north macedonia$|^republic north macedonia,macedonia
 country,NA,Acre,not_is.na,NA,brazil
 country,NA,Alagoas,not_is.na,NA,brazil
 country,NA,Amapá,not_is.na,NA,brazil
@@ -116,7 +130,7 @@ stateProvince,brazil,NA,NA,^ro$|^rodonia$|^rondonica$,rondonia
 stateProvince,brazil,NA,NA,^rr$|^roraima t.f.$,roraima
 stateProvince,brazil,NA,NA,^sc$|^santa caratina$|^santa catarinaa$|^santa cataria$|^s. catarina$,santa catarina
 stateProvince,brazil,NA,NA,^se$|^segipe$|^serjipe$,sergipe
-stateProvince,brazil,NA,NA,^sp$|^s. paulo$,sao paulo
+stateProvince,brazil,NA,NA,^sp$|^s. paulo$|^s.paulo$,sao paulo
 stateProvince,brazil,NA,NA,^to$|^tocantis$|^tocatins$,tocantins
 stateProvince,argentina,NA,NA,^ba$,buenos aires
 stateProvince,argentina,NA,NA,^ca$,catamarca
@@ -142,6 +156,12 @@ stateProvince,argentina,NA,NA,^se$,santiago del estero
 stateProvince,argentina,NA,NA,^tf$,tierra del fuego
 stateProvince,argentina,NA,NA,^tu$,tucuman
 stateProvince,paraguay,NA,NA,^canendeyu$,canindeyu
+stateProvince,guyana,NA,NA,^u. takutu-u. essequibo$|^rupununi$|^rupununi district$,upper takutu upper essequibo
+stateProvince,guyana,NA,NA,^e. berbice-corentyne$,east berbice corentyne
+stateProvince,guyana,NA,NA,^u. demerara-berbice$,upper demerara berbice
+stateProvince,ecuador,NA,NA,^colon$,galapagos
+stateProvince,mexico,NA,NA,^veracruz de ignacio de la llave$|^veracruz ignacio llave$,veracruz
+stateProvince,venezuela,NA,NA,^distrito federal$,distrito capital
 county,NA,NA,NA,^gral.,general
 county,NA,NA,NA,^rod.,rodovia
 county,NA,NA,NA,sma.,santissima
