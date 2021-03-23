@@ -52,7 +52,7 @@ prepLoc <- function(x) {
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
   # Removing possible problems
-  x <- gsub("s\\+", " ", x, perl = TRUE)
+  x <- gsub("\\s+", " ", x, perl = TRUE)
   x <- stringr::str_trim(x)
 
   return(x)

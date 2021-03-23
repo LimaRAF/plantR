@@ -114,7 +114,7 @@ checkCoord <- function(x,
   geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
 
   ##Comparing the spatial data frame with the selected country shapefiles
-  latam_all <- dplyr::bind_rows(latamMap) # ö checar poligonos faltantes tipo Manaus ##rafl: dava erro bind_rows pois older versions of dplyr não pode ser usado para sf objects; funcionou agora (loko nem o proprio sf faz isso para sf com diferentes numeros de colunas)
+  latam_all <- dplyr::bind_rows(latamMap)
   x2 <- suppressMessages(
     sf::st_join(tmp, latam_all, join = sf::st_intersects))
   x2 <- dplyr::rename(x2,
