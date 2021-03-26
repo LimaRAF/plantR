@@ -17,7 +17,7 @@ Author:
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
 Maintainer: Renato A. F. de Lima <raflima@usp.br>
-Depends: R (>= 3.3.0)
+Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
     (plant) species records from biological collections.
