@@ -12,7 +12,7 @@ dic_files <- list.files(path = "data-raw/raw_dictionaries",
                         full.names = TRUE)
 
 #filtering out unwanted files
-dic_files <- dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants", dic_files)]
+dic_files <- dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants|gadmCheck", dic_files)]
 
 #nome das tabelas
 data_names <- basename(dic_files) %>%

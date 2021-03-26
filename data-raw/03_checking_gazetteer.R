@@ -1,7 +1,7 @@
 # #### CHECKING THE GAZETTER ####
 #
 #
-# ## CHECKING THE FORMAT OF THE SEARCH STRING ##
+## CHECKING THE FORMAT OF THE SEARCH STRING ##
 # dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
 #                 encoding = "UTF-8")
 #
@@ -16,9 +16,10 @@
 # head(tmp[check_these, ])
 #
 # #Flagging problematic records by strings
-# check_these <- tmp$loc != dic$loc
-# tmp1 <- cbind(dic[, c("X.U.FEFF.order","country", "stateProvince", "municipality", "locality", "loc")], tmp[, "loc"])
+# check_these <- tmp$loc != dic$loc & tmp$loc.correct != dic$loc.correct
+# tmp1 <- cbind(dic[, c("X.U.FEFF.order","source","country", "stateProvince", "municipality", "locality", "loc")], tmp[, "loc"])
 # tmp1$check <- check_these
+# head(tmp1[check_these & tmp1$source %in% "ibge", ])
 # write.csv(tmp1, "gazet.check.tmp.csv")
 #
 # ## CHECKING THE GAZETTEER COORDINATES ##
@@ -63,6 +64,13 @@
 # toto <- tmp3[tmp3$check_these, c("source","loc.correct", "NAME_2", "NAME_3","decimalLatitude.new","decimalLongitude.new")]
 # toto[order(toto$loc.correct),]
 #
+# locs <- tmp3$loc.correct[tmp3$replace_these %in% TRUE]
+# paises <- sapply(locs, function (x) strsplit(x, "_")[[1]][1])
+# estados <- sapply(locs, function (x) strsplit(x, "_")[[1]][2])
+# bad <- tmp3$NAME_2[tmp3$replace_these %in% TRUE]
+# good <- tmp3$NAME_3[tmp3$replace_these %in% TRUE]
+# toto1 <- cbind(paises, estados, bad, good, "second")
+# write.csv(toto1, "./data-raw/check.csv", fileEncoding = "UTF-8")
 # # # write.csv(tmp3, "gazet.check.tmp.csv")
 # # # map.replace <- list(locs = tmp3$loc.correct[tmp3$replace_these %in% TRUE],
 # # #                      municipio.bad = tmp3$NAME_2[tmp3$replace_these %in% TRUE],
@@ -142,6 +150,20 @@
 #
 #
 # ## CHECKING MISSING LOCALITIES IN THE GAZETTEER ##
+## From latamMap
+# latam_all <- dplyr::bind_rows(latamMap)
+# sf::st_geometry(latam_all) <- NULL
+# names(latam_all) <- c("country", "stateProvince","municipality","locality")
+# latam_all1 <- formatLoc(latam_all)
+#
+# head(latam_all1[is.na(latam_all1$loc.correct),]) # ok
+#
+# dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
+#                  encoding = "UTF-8")
+# head(latam_all1[!latam_all1$loc %in% unique(dic$loc),]) #ok
+#
+#
+# ## From the vignette
 # occs1 <- formatLoc(occs0)
 # # occs1[occs1$resolution.gazetteer %in% "no_info" & !is.na(occs1$loc),
 # #       c("country","country.new","loc","loc.correct")]
@@ -149,6 +171,10 @@
 # occs2 <- validateLoc(occs1)
 # # occs2[grepl("2country",occs2$loc.check) & !occs2$country.new %in% "united states" ,
 # #       c("country","country.new","loc","loc.correct")]
+# toto <- unique(occs2[grepl("2country",occs2$loc.check) & !occs2$country.new %in% "united states" ,
+#                      +                   c("stateProvince","stateProvince.new","loc","loc.correct")])
+# write.csv(toto[order(toto$loc),],"check.csv")
+#
 # head(unique(occs2[grepl("2state",occs2$loc.check) & !occs2$country.new %in% "united states" ,
 #                   c("stateProvince","stateProvince.new","loc","loc.correct")]))
 # sort(table(occs2[grepl("2state",occs2$loc.check) & occs2$country.new %in% "brazil" ,
