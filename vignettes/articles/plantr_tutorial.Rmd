@@ -84,6 +84,12 @@ __plantR__ function `rspeciesLink()` and `rgbif2()`, which downloads data from
 and for the [GBIF](https://www.gbif.org/) (Global Biodiversity Information
 Facility).
 
+In addition, you can download a DarwinCore Archive (DwC-A) file from the
+[GBIF](https://www.gbif.org/) API or to load a DwC-A from a local directory
+using the function `readData()`. DwC-A files obtained from GBIF are provided as
+'.zip' files and they contain not only the species records, but also the
+information on the citations and rights of the the database collections.
+
 You can also use your own data, as long as the column names follow the
 DarwinCore (DwC) standards. If they don't follow the DwC standards, users can
 still standardize the notation of column names using the function `fixDwc()`. 
