@@ -1,7 +1,7 @@
 test_that("prepName works", {
   expect_equal(prepName("Alwyn H. Gentry"), "Gentry, A.H.")
   expect_equal(prepName("Karl Emrich & Balduino Rambo", sep.out = "&"),
-               "Emrich, K. & Rambo, B.")
+               "Emrich, K.&Rambo, B.")
   expect_equal(prepName("R. Reitz; R.M. Klein"), "Reitz, R.|Klein, R.M.")
   expect_equal(prepName("Reitz, Raulino et R.M. Klein"), "Reitz, R.|Klein, R.M.")
   expect_equal(
@@ -25,6 +25,6 @@ test_that("prepName works", {
                "Leitao Filho, H.F.")
   expect_equal(prepName("Sir G.T. Prance"), "Prance, S.G.T.")
   expect_equal(prepName("Dra. Gloria Galeano"), "Galeano, G.")
-  expect_equal(prepName("[D. Hugh-Jones]"), "Hugh-Jones, D.")
+  expect_equal(prepName("[D. Hugh-Jones]"), "[Hugh-Jones, D.]")
   expect_equal(prepName("L. McDade & J. O'Brien"), "McDade, L.|O'Brien, J.")
   })
