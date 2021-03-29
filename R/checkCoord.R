@@ -5,12 +5,22 @@
 #' distance between the original coordinates and those from a gazetteer
 #' for coordinates not validated at the county level.
 #'
-#' @param x Data.frame with coordinates in decimal degrees.
-#' @param lon Column with the longitude to be validated
-#' @param lat Column with the latitude to be validated
+#' @param x a data frame with the species records and their coordinates in
+#'   decimal degrees.
+#' @param lon Name of the column with the longitude to be validated. Default to
+#'   'decimalLongitude.new'
+#' @param lat Name of the column with the latitude to be validated. Default to
+#'   'decimalLatitude.new'
 #' @param str.name Column with the verified locality search string
 #' @param orig.coord Column with the origin of the coordinates (tipically the
 #'   output of function `getCoord()`)
+#' @param low.map a sf multipolygon object containing the global administrative
+#'   map at the lowest level (e.g. country). The default is "plantR", the
+#'   default map obtained from [GADM]{https://gadm.org} (see `worldMap`).
+#' @param high.map a sf multipolygon object or a list of sf objects containing
+#'   the regional map at the highest administrative level (e.g. municipality).
+#'   The default is "plantR", the map for all Latin American countries and
+#'   dependent territories  obtained [GADM]{https://gadm.org} (see `latamMap`).
 #' @param res.gazet Column with the locality resolution level retrieved from the
 #'   gazetteer
 #' @param dist.center Logical. Should the distance (in meters) between the
@@ -42,6 +52,14 @@
 #' administrative levels from the maps: 'country.check', 'state.check' and
 #' 'county.check'.
 #'
+#' By default, a global map and a regional for Latin America are used in the
+#' validation of the geographical coordinates. But, different maps than the
+#' __plantR__ defaults can be used. These maps must be provided using
+#' the arguments `low.map` and `high.map`. Ideally, these maps which should
+#' have the same format of the locality information in the gazetteer used for
+#' the validation of the locality information (see function `getLoc()` and the
+#' default __plantR__ maps 'worldMap' and 'latamMap').
+#'
 #'
 #' @export checkCoord
 #'
@@ -50,6 +68,8 @@ checkCoord <- function(x,
                        lat = "decimalLatitude.new",
                        str.name = "loc.correct",
                        orig.coord = "origin.coord",
+                       low.map = "plantR",
+                       high.map = "plantR",
                        res.gazet = "resolution.gazetteer",
                        dist.center = FALSE,
                        lon.gazet = "longitude.gazetteer",
@@ -106,17 +126,79 @@ checkCoord <- function(x,
   # set spatial coordinates
   prj <- sf::st_crs(4326)
   tmp <- sf::st_set_crs(tmp, prj)
-  tmp <- suppressMessages(
-    sf::st_join(tmp, worldMap, join = sf::st_intersects))
+
+  ##Getting the global map
+  class.low.map <- class(low.map)[1]
+  low_map <- NULL
+  if (class.low.map == "character") {
+    if (any(low.map %in% c("plantR", "plantr"))) {
+      low_map <- worldMap
+    } else {
+      stop("Please chose between the default map or a user-provided map")
+    }
+  }
+
+  if (class.low.map == "list") {
+    if (all(sapply(low.map, function(x) class(x)[1]) %in% "sf")) {
+      if(!"NAME_0" %in% names(low.map[[1]]))
+        stop("The sf objects must have a column 'NAME_0': the lowest administrative level")
+      low_map <- dplyr::bind_rows(low.map)
+    } else {
+      stop("The user-provided map must be an sf object or a list of sf objects")
+    }
+  }
+
+  if (class.low.map == "sf") {
+    if(!"NAME_0" %in% names(low.map))
+      stop("The global map must have a column 'NAME_0': the lowest administrative level")
+    low_map <- low.map
+  }
+
+  if(is.null(low_map))
+    stop("The user-provided map must be an sf object or a list of sf objects")
+
+  ##Crossing the coordinates with the global map
+  tmp <- suppressMessages(sf::st_join(tmp,
+                                      low_map,
+                                      join = sf::st_intersects))
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
   ##Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
   geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
 
+  ##Getting the high-resolution map
+  class.high.map <- class(high.map)[1]
+  high_map <- NULL
+  if (class.high.map == "character") {
+    if (any(high.map %in% c("plantR", "plantr"))) {
+      high_map <- dplyr::bind_rows(latamMap)
+    } else {
+      stop("Please chose between the default map or a user-provided map")
+    }
+  }
+
+  if (class.high.map == "list") {
+    if (all(sapply(high.map, function(x) class(x)[1]) %in% "sf")) {
+      if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
+        stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
+      high_map <- dplyr::bind_rows(high.map)
+    } else {
+      stop("The user-provided map must be an sf object or a list of sf objects")
+    }
+  }
+
+  if (class.high.map == "sf") {
+    if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
+      stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
+    high_map <- high.map
+  }
+
+  if (is.null(high_map))
+    stop("The user-provided map must be an sf object or a list of sf objects")
+
   ##Comparing the spatial data frame with the selected country shapefiles
-  latam_all <- dplyr::bind_rows(latamMap)
   x2 <- suppressMessages(
-    sf::st_join(tmp, latam_all, join = sf::st_intersects))
+    sf::st_join(tmp, high_map, join = sf::st_intersects))
   x2 <- dplyr::rename(x2,
                       pais_latam = NAME_0
                       #estado = NAME_1,
@@ -165,21 +247,8 @@ checkCoord <- function(x,
   geo.check[is.na(geo.check)] <- tmp1[is.na(geo.check)]
 
   ## Simplifying geo.check
-  #ast. sem usar os códigos numéricos podemos trazer o que estava no wrapper:
-  #rafl1: re-adicionei as 27 categorias e está tudo no 01_sysdata agora
-  #rafl2: agora estou editando tudo direto no geo.check (paste.check removido)
   repl.check <- simpGeoCheck
   geo.check <- stringr::str_replace_all(geo.check, repl.check)
-  # repl.check <- c(
-  #   "ok_country" = "ok_country",
-  #   "ok_country/ok_state" = "ok_state",
-  #   "ok_country/ok_state/ok_county" = "ok_county",
-  #   "ok_country/estado_bad" = "check_gazetteer_state",
-  #   "ok_country/estado_bad/county_bad" = "check_gazetteer_state_county",
-  #   "ok_country/estado_bad/ok_county" = "check_gazetteer_state",
-  #   "ok_country/ok_state/county_bad" = "check_gazetteer_county")
-  #(eu estava usando case_when) pergunta: precisamos das 27 categorias? tem outras funções que dão conta de parte destes problemas (tipo country_bad, mas para esse subset já tem a coluna country_check)
-  # rafl: por enquanto vamos deixar as 27 e em seguida a simplificacao. Quando fechamors tudo voltamos e revemos se precisa ou nao
 
   ## Calculating the distance between the original and the gazetter coordinates
   if (dist.center) {
