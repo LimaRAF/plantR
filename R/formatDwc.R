@@ -80,11 +80,12 @@
 #' @return Either a data.frame or list with the database fields formatted
 #'   following DarwinCore standards
 #'
+#' @import data.table
 #' @importFrom stringr str_trim
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
 #' @importFrom stats na.omit
-#' @import data.table
+#' @importFrom utils tail
 #'
 #' @export formatDwc
 #'
@@ -169,7 +170,8 @@ formatDwc <- function(splink_data = NULL,
     # fixing problematic GBIF names
     tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)]
     tmp1 <- sapply(tmp,
-                   function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
+                   function(x) utils::tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE)), n = 1))
+                   # function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
     #Sara: nem todos os nomes podem ser limpos pois removendo o longo prefixo, alguns campos ficam duplicados.

@@ -37,10 +37,10 @@
 #' For each country, the map contains the lowest administrative level available
 #' at [GADM](https://gadm.org). We considered an initial total of 51 countries
 #' and dependent territories for Latin America, but since seven of them are
-#' available only at the lowest administrative level (e.g. Aruba, Curaçao. St.
-#' Barthélemy), they were not included in this map (total of 44 individual
-#' polygons). The Latin American definition used here include all American
-#' territories but the United States and Canada.
+#' available only at the lowest administrative level (e.g. Aruba, Curacao), they
+#' were not included in this map (total of 44 individual polygons). The Latin
+#' American definition used here include all American territories but the United
+#' States and Canada.
 #'
 #' Locality names (e.g. country, state, county) were edited to match the
 #' __plantR__ default gazetteer, using the same __plantR__ functions used for

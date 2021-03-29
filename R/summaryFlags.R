@@ -20,6 +20,7 @@
 #' @import data.table
 #' @importFrom knitr kable
 #' @importFrom stats aggregate
+#' @importFrom utils head
 #'
 #' @export summaryFlags
 #'
@@ -42,7 +43,8 @@ summaryFlags <- function(x) {
             taxonomy = c("tax.check1", "tax.check"))
 
   #Get only the columns of interest
-  covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
+  covs.present <- lapply(covs, function(z) utils::head(z[which(z %in% names(x))], n=1))
+  # covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
   covs.present[sapply(covs.present, identical, character(0))] <- NA
   if (all(sapply(covs.present, nchar)==0))
     stop("The input data frame does not contain at least one of the required columns")

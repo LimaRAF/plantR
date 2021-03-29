@@ -49,6 +49,7 @@
 #'
 #' @importFrom stringr str_trim str_replace_all
 #' @importFrom countrycode countrycode
+#' @importFrom utils head
 #'
 #' @export fixLoc
 #'
@@ -162,9 +163,9 @@ fixLoc <- function(x,
     reps <- unique(tmp1$replace)
     if (all(c("stateProvince", "municipality") %in% names(x1)) & any(reps %in% unique(x1[ ,"country"]))) {
       reps1 <- reps[reps %in% unique(x1[, "country"])]
-      for (i in 1:length(reps)) {
-        x1[is.na(x1[ ,"country"]) & !is.na(x1[, "municipality"]) &
-             x1[ ,"stateProvince"] %in% tmp1$condition1[tmp1$replace %in% reps1[i]], "country"] <- reps1[i]
+      for (i in 1:length(reps1)) {
+        x1$country[is.na(x1[ ,"country"]) & !is.na(x1[, "municipality"]) &
+             x1[ ,"stateProvince"] %in% tmp1$condition1[tmp1$replace %in% reps1[i]]] <- reps1[i]
       }
     }
   }
@@ -192,8 +193,11 @@ fixLoc <- function(x,
     if ("country" %in% names(x1)) {
       if (any(cond0 %in% unique(x1[, "country"]))) {
           cond1 <- cond0[cond0 %in% unique(x1[, "country"])]
-          for (i in 1:length(cond1))  x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] <-
-              stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2)
+          for (i in 1:length(cond1)) {
+            tmp2.i <- tmp2[tmp1$condition0 %in% cond1[i]]
+            x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] <-
+              stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2.i)
+          }
       }
     }
   }
@@ -286,8 +290,10 @@ fixLoc <- function(x,
       n4.3[n4.3 %in% ""] <- NA
 
       #other localities, than the ones in 'locais' and counties (first sentence, prior to the first comma when n4.3 is empty)
-      n4.3[is.na(n4.3) & !is.na(x1[ ,"locality"])] <- as.character(sapply(n4[is.na(n4.3) & !is.na(x1[ ,"locality"])],
-                                                                         function(x) my.head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)])))
+      n4.3[is.na(n4.3) & !is.na(x1[ ,"locality"])] <-
+        as.character(sapply(n4[is.na(n4.3) & !is.na(x1[ ,"locality"])],
+                            function(x) utils::head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)], n = 1)))
+                            # function(x) my.head(x[!grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)])))
 
       # Replacing missing counties
       if (any(c("municipality", "county") %in% loc.levels)) {

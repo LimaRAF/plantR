@@ -136,6 +136,7 @@
 #' Conservation, 252: 108825.
 #'
 #' @importFrom stringr str_trim str_replace_all
+#' @importFrom utils head
 #'
 #' @export validateTax
 #'
@@ -312,7 +313,8 @@ validateTax <- function(x, col.names = c(family = "family.new",
     row.names(non.tax.det.df) <- NULL
     non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
     cat("Top people with many determinations but not in the taxonomist list: \n",
-        knitr::kable(my.head.df(non.tax.det.df, top.det),
+        knitr::kable(utils::head(non.tax.det.df, top.det),
+        # knitr::kable(my.head.df(non.tax.det.df, top.det),
                      row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
   }
 

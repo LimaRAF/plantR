@@ -49,10 +49,12 @@ formatTax <- function(tax,
     stop("input object needs to be a data frame!")
 
   # prepSpecies
-  tax1 <- fixSpecies(x = tax, tax.name, rm.rank)
+  tax1 <- fixSpecies(x = tax, tax.name = tax.name, rm.rank = rm.rank)
 
   # formatSpecies
-  tax1 <- prepSpecies(x = tax1, tax.names, db, sug.dist, use.authors, drop.cols)
+  tax1 <- prepSpecies(x = tax1, tax.names = tax.names, db = db,
+                      sug.dist = sug.dist, use.authors = use.authors,
+                      drop.cols = drop.cols)
   if (use.suggestion)
     tax1$scientificName.new <- tax1$suggestedName
 
