@@ -43,7 +43,7 @@ Imports:
     spatialrisk,
     stringi,
     stringr,
-    Taxonstand,
+    Taxonstand (>= 2.3),
     tidyr
 Suggests:
     devtools,
