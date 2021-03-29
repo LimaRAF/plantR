@@ -1,15 +1,17 @@
 #' @title Check Inverted/Swapped Coordinates
 #'
 #' @description The function detects possible inversions and/or swaps in the
-#' geographical coordinates of the records, by creating all possible combinations
-#' of inverted and swapped latitude/longitudes (see Details) and crossing them
-#' with the world map. If the procedure does not found at least one
-#' inverted/swapped coordinate, the input data is returned without edits.
+#'   geographical coordinates of the records, by creating all possible
+#'   combinations of inverted and swapped latitude/longitudes (see Details) and
+#'   crossing them with the world map. If the procedure does not found at least
+#'   one inverted/swapped coordinate, the input data is returned without edits,
+#'   even if the desired output is to produce new columns (see `output`).
 #'
-#' @param x Occurrences data frame
-#' @param check.names The columns with the results from the border checking and
-#'   coordinate checking, in that order. Defaults to 'border.check' and
-#'   'geo.check'.
+#'
+#' @param x a data frame containing the species records
+#' @param check.names The columns with the results from the coordinate checking,
+#' border checking and sea-shore checking, in that order. Defaults to 'geo.check',
+#' 'border.check' and 'shore.check'.
 #' @param country.gazetteer Name of the column with the country that comes from
 #'   the gazetteer
 #' @param lat Column with the corrected latitude. Defaults to
@@ -21,12 +23,12 @@
 #'   data) or 'same.col' (results are overwritten into the existing columns).
 #'
 #' @return if `output` is 'new.col', new columns with a suffix '.new' are added
-#'   to the data, containing the update information on the columns defined by
+#'   to the data, containing the update information on the columns defined in
 #'   `check.names`, `lat` and `lon`. If `output` is 'same.col', the columns
 #'   defined by these arguments are updated with the validated information after
 #'   inverting/swapping the coordinates.
 #'
-#' @details Besides the newly validade geographical coordinates, the function
+#' @details Besides the newly validated geographical coordinates, the function
 #' returns a 'ok_country' followed by the information on which combination of
 #' inverted (change in coordinate signal) and/or swapped coordinates (longitude
 #' as latitude and vice-versa) the validation was acquired. This information is
@@ -46,7 +48,7 @@
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
 #'
 checkInverted <- function(x,
-                          check.names = c("border.check", "geo.check"),
+                          check.names = c("geo.check", "border.check", "shore.check"),
                           country.gazetteer = "country.gazet",
                           lat = "decimalLatitude.new",
                           lon = "decimalLongitude.new",
@@ -62,6 +64,9 @@ checkInverted <- function(x,
   if (!all(c(lat, lon, country.gazetteer) %in% colnames(x)))
     stop("One or more column names declared do not match those of the input object: please rename or specify the correct names")
 
+  if (!check.names[1] %in% colnames(x))
+    stop("The column with the results from the coordinate checking was not found in the input data")
+
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
     country.gazet <- sapply(strsplit(x[, country.gazetteer], "_", fixed = TRUE),
@@ -76,24 +81,31 @@ checkInverted <- function(x,
 
   # the input data frame may not have all columns
   cols <- check.names[check.names %in% names(x)]
+  # coordinate check
   if (check.names[1] %in% cols) {
-    check_inv1 <- x[x[, check.names[1]] %in% FALSE,]
+    check_these <-
+      grepl("inverted|bad_country|open_sea", x[, check.names[1]], perl = TRUE)
+    check_inv1 <- x[check_these, ]
   } else {
     check_inv1 <- x[FALSE,]
   }
-
+  # country borders check
   if (check.names[2] %in% cols) {
-    check_these <-
-      grepl("inverted|bad_country|open_sea", x[, check.names[2]], perl = TRUE)
-    check_inv2 <- x[check_these, ]
+    check_inv2 <- x[x[, check.names[2]] %in% FALSE,]
   } else {
     check_inv2 <- x[FALSE,]
   }
+  # sea-shore check
+  if (check.names[3] %in% cols) {
+    check_inv3 <- x[x[, check.names[3]] %in% FALSE,]
+  } else {
+    check_inv3 <- x[FALSE,]
+  }
 
   # binding the two groups of checks and creating the results column
-  check_inv <- rbind.data.frame(check_inv1, check_inv2,
-                                stringsAsFactors = FALSE)
-  check_inv <- check_inv[!duplicated(check_inv$tmp.order),]
+  check_inv <- do.call(rbind.data.frame,
+                       list(check_inv1, check_inv2, check_inv3))
+  check_inv <- check_inv[!duplicated(check_inv$tmp.order), ]
   check_inv$check_inv <- NULL
 
   if (dim(check_inv)[1] == 0) {
@@ -148,22 +160,21 @@ checkInverted <- function(x,
         #getting the new coordinates
         new.coords <- sf::st_coordinates(check1)
         colnames(new.coords) <- c(lon, lat)
-        new.coords <- new.coords[check_these, ]
+        new.coords <- new.coords[check_these %in% TRUE, ]
         sf::st_geometry(check1) <- NULL
 
         #editing the validation columns
         cols2 <- c("types", "tmp.order", check.names)
         cols2 <- cols2[cols2 %in% names(check1)]
-        check1 <- check1[check_these, cols2]
+        check1 <- check1[check_these %in% TRUE, cols2]
 
-        if (length(cols2) == 4) {
-          check1[, check.names[1]] <- NA_character_
-          check1[, check.names[2]] <-
-            paste0("ok_country[", check1$types, "]")
-        } else {
-          check1[, check.names[2]] <-
-            paste0("ok_country[", check1$types, "]")
-        }
+        check1[, check.names[1]] <- # coordinates
+          paste0("ok_country[", check1$types, "]")
+        if (length(cols2) >= 4) # country borders
+          check1[, check.names[2]] <- NA_character_
+        if (length(cols2) == 5) # sea-shore
+          check1[, check.names[3]] <- NA_character_
+
         #combining coords and edited results
         check1 <- cbind.data.frame(check1[, -1], new.coords,
                                    stringsAsFactors = FALSE)
@@ -178,11 +189,23 @@ checkInverted <- function(x,
     ## Preparing to return
     if (is.null(check1)) {
       # update classes that were checked
-      x[, check.names[2]] <-
-        gsub("bad_country[inverted?]", "bad_country", x[, check.names[2]],
-             fixed = TRUE)
+      if (output == "new.col") {
+        x[, paste0(check.names[1], ".new")] <- # geographical coordinates
+          gsub("bad_country[inverted?]", "bad_country", x[, check.names[1]],
+               fixed = TRUE)
+        if (check.names[2] %in% colnames(x)) # country borders
+          x[, paste0(check.names[2], ".new")] <- x[, check.names[2]]
+        if (check.names[3] %in% colnames(x)) # sea-shores
+          x[, paste0(check.names[3], ".new")] <- x[, check.names[3]]
+      }
 
-      # remove temporary columns and returnig
+      if (output == "same.col") {
+        x[, check.names[1]] <-
+          gsub("bad_country[inverted?]", "bad_country", x[, check.names[1]],
+               fixed = TRUE)
+      }
+
+      # removing temporary columns and returnig
       tmp.cols <- c("tmp.order", "tmp.country.gazet")
       x <- x[, -which(names(x) %in% tmp.cols)]
       return(x)
@@ -198,19 +221,30 @@ checkInverted <- function(x,
       sub.cols.new <- paste0(sub.cols, ".new")
 
       if (output == "new.col") {
+        #Creating the new columns
         sub.rows <- x$tmp.order %in% check1$tmp.order
         x[sub.rows, sub.cols.new] <- y[sub.rows, sub.cols.new]
+        x[!sub.rows, sub.cols.new] <- y[!sub.rows, sub.cols]
+        x[, paste0(check.names[1], ".new")] <-
+          gsub("bad_country[inverted?]", "bad_country",
+               x[, paste0(check.names[1], ".new")], fixed = TRUE)
+        if (check.names[2] %in% colnames(x)) # country borders
+          x[, paste0(check.names[2], ".new")] <-
+            as.logical(x[, paste0(check.names[2], ".new")])
+        if (check.names[3] %in% colnames(x)) # sea-shores
+          x[, paste0(check.names[3], ".new")] <-
+            as.logical(x[, paste0(check.names[3], ".new")])
       }
 
       if (output == "same.col") {
+        #Replacing the old by the new info in the same columns
         sub.rows <- x$tmp.order %in% check1$tmp.order
         x[sub.rows, sub.cols] <- y[sub.rows, sub.cols.new]
+        # update classes that were checked
+        x[, check.names[1]] <-
+          gsub("bad_country[inverted?]", "bad_country", x[, check.names[1]],
+               fixed = TRUE)
       }
-
-      # update classes that were checked
-      x[, check.names[2]] <-
-        gsub("bad_country[inverted?]", "bad_country", x[, check.names[2]],
-             fixed = TRUE)
 
       # re-ordering, removing temporary columns and returnig
       x <- x[order(x$tmp.order),]
