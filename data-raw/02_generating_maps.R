@@ -71,7 +71,7 @@ wo@data$pais <- stringr::str_replace_all(wo@data$pais, tmp2)
 
 ## Comparing the map with the gazetteer
 tmp <- merge(wo@data, gazetteer[,c("loc", "loc.correct")], by.x = "pais", by.y = "loc", all.x = TRUE)
-tmp[!tmp$pais %in% tmp$loc.correct,]
+tmp[!tmp$pais %in% tmp$loc.correct,] #ok!
 
 #Transforming and simplifying
 wo@data <- wo@data[,c("GID_0","pais")]
@@ -81,19 +81,24 @@ wo.simp <- gBuffer(wo.simp, byid = TRUE, width = 0)
 wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
 worldMap <- sf::st_as_sf(wo.simp1)
 
-wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
-wo.simp2 <- gBuffer(wo.simp2, byid = TRUE, width = 0)
-wo.simp3 <- SpatialPolygonsDataFrame(wo.simp2, wo@data)
-worldMap_0001 <- sf::st_as_sf(wo.simp3)
+# wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
+# wo.simp2 <- gBuffer(wo.simp2, byid = TRUE, width = 0)
+# wo.simp3 <- SpatialPolygonsDataFrame(wo.simp2, wo@data)
+# worldMap_0001 <- sf::st_as_sf(wo.simp3)
 
-#wo.simp2 <- sf::st_buffer(wo.simp1, dist = 0)
-worldMap_full <- sf::st_as_sf(wo)
+# wo.simp4 <- gSimplify(wo, tol = 0.1, topologyPreserve = TRUE)
+# wo.simp4 <- gBuffer(wo.simp4, byid = TRUE, width = 0)
+# wo.simp5 <- SpatialPolygonsDataFrame(wo.simp4, wo@data)
+# worldMap_01 <- sf::st_as_sf(wo.simp5)
 
-#Inspecting
-par(mfrow = c(2,2), mar=c(0,0,1,0))
-plot(wo[1,], main="Aruba original")
-plot(wo.simp[1,], border = "red", main="Aruba gSimp 0.001")
-plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf")
+# #wo.simp2 <- sf::st_buffer(wo.simp1, dist = 0)
+# worldMap_full <- sf::st_as_sf(wo)
+#
+# #Inspecting
+# par(mfrow = c(2,2), mar=c(0,0,1,0))
+# plot(wo[1,], main="Aruba original")
+# plot(wo.simp[1,], border = "red", main="Aruba gSimp 0.001")
+# plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf")
 
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
@@ -137,23 +142,25 @@ for (i in 1:length(country.list)) {
   tmp1 = tmp[,grepl("^NAME_", names(tmp))]
 
   #country
-  tmp1$NAME_0 <- tolower(textclean::replace_non_ascii(tmp1$NAME_0))
-  tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
-  tmp1$NAME_0 <- gsub("^st. ", "saint ", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
+  tmp1$NAME_0 <- prepCountry(tmp1$NAME_0)
+  # tmp1$NAME_0 <- tolower(textclean::replace_non_ascii(tmp1$NAME_0))
+  # tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0,  " & ", " and ")
+  # tmp1$NAME_0 <- gsub("^st. ", "saint ", tmp1$NAME_0)
+  # tmp1$NAME_0 <- gsub(" of the ", " ", tmp1$NAME_0)
+  # tmp1$NAME_0 <- gsub(" of ", " ", tmp1$NAME_0)
 
   toto1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
   toto2 <- as.character(toto1$replace)
   names(toto2) = as.character(toto1$pattern)
-  names(toto2) <- gsub("\\\\", "", names(toto2))
+  # names(toto2) <- gsub("\\\\", "", names(toto2))
   tmp1$NAME_0 <- sapply(strsplit(tmp1$NAME_0,' \\('), function(x) x[[1]][1])
   tmp1$NAME_0 <- stringr::str_replace_all(tmp1$NAME_0, toto2)
-  tmp1$NAME_0 <- plantR::prepLoc(tmp1$NAME_0)
+  # tmp1$NAME_0 <- plantR::prepLoc(tmp1$NAME_0)
 
   tmp1$NAME_0 <- gsub("bonaire, sint eustatius and saba", "caribbean netherlands", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub("saint vincent and the grenadines", "saint vincent and grenadines", tmp1$NAME_0)
-  tmp1$NAME_0 <- gsub("virgin islands, u.s", "united states virgin islands", tmp1$NAME_0)
+  tmp1$NAME_0 <- gsub("bonaire, sint eustatius saba", "caribbean netherlands", tmp1$NAME_0)
+  tmp1$NAME_0 <- gsub("saint vincent and the grenadines", "saint vincent grenadines", tmp1$NAME_0)
+  tmp1$NAME_0 <- gsub("virgin islands, u.s.", "united states virgin islands", tmp1$NAME_0)
 
   #ADM_1
   tmp1$NAME_1 <- tolower(textclean::replace_non_ascii(tmp1$NAME_1))
@@ -162,6 +169,11 @@ for (i in 1:length(country.list)) {
   if ("NAME_2" %in% names(tmp1)) {
     tmp1$NAME_2 <- tolower(textclean::replace_non_ascii(tmp1$NAME_2))
     tmp1$NAME_2 <- plantR::prepLoc(tmp1$NAME_2)
+  }
+
+  if ("NAME_3" %in% names(tmp1)) {
+    tmp1$NAME_3 <- tolower(textclean::replace_non_ascii(tmp1$NAME_3))
+    tmp1$NAME_3 <- plantR::prepLoc(tmp1$NAME_3)
   }
 
   #Symplifying the maps
@@ -190,64 +202,277 @@ names(country.list) = pais
 
 ## Standardizing the shapefile and gazetteer names (for Brazil only)
 
-#loading the gazetteer and removing possible duplicated localities
-#dic <- read.csv("data-raw//raw//gazetteer_utf8-win.csv",as.is=TRUE)
-dic <- read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//dictionaries//gazetteer.csv",as.is=TRUE)
-dic <- dic[dic$status %in% "ok",]
-dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
+# #loading the gazetteer and removing possible duplicated localities
+# dic <- read.csv("data-raw//raw_dictionaries//gazetteer.csv",as.is=TRUE)
+# # dic <- read.csv("C://Users//renato//Documents//raflima//Pos Doc//Manuscritos//Artigo AF checklist//data analysis//dictionaries//gazetteer.csv",as.is=TRUE)
+# dic <- dic[dic$status %in% "ok",]
+# dic <- dic[dic$resolution.gazetteer %in% c("country","state","county"),]
+#
+# j = which(names(country.list) == "brazil")
+# #for(j in 31:length(country.list)) {
+# #Creating the locality strings for the shapefile dataframe
+# tmp = country.list[[j]]#@data
+# #for(i in 1:dim(tmp)[2]) tmp[,i] <- as.character(tmp[,i])
+#
+# tmp.df <- tmp
+# st_geometry(tmp.df) <- NULL
+# # tmp1= data.frame(loc=apply(tmp, 1, paste, collapse="_"))
+# ids <- names(tmp.df) %in% c("NAME_0","NAME_1","NAME_2")
+# tmp1= data.frame(loc=apply(tmp.df[, ids], 1, paste, collapse="_"),
+#                  stringsAsFactors = FALSE)
+# # tmp1$loc = as.character(tmp1$loc)
+#
+# tmp$order = 1:dim(tmp)[1]
+# tmp1$order = 1:dim(tmp1)[1]
+#
+# #merging the two sources of info
+# tmp2 <- merge(tmp1, dic[,c("NAME_0","NAME_1","NAME_2","loc","loc.correct")],
+#               by="loc", all.x=TRUE)
+# tmp3 <- strsplit(tmp2$loc.correct,"_")
+#
+# nms <- c("country", "state", "county")
+# for(w in 1:sapply(tmp3, length)[1]) {
+#   n <- rep(NA, dim(tmp2)[1])
+#   n <- sapply(tmp3, function(x) x[w])
+#   df <- data.frame(n, stringsAsFactors = FALSE); names(df) = nms[w]
+#   tmp2 <- cbind.data.frame(tmp2, df, stringsAsFactors = FALSE)
+# }
+#
+# #comparing and replacing the correct info
+# tmp2 <- tmp2[match(tmp$order, tmp2$order),]
+# table(tmp$order == tmp2$order)
+# id = !tmp2$loc %in% tmp2$loc.correct
+#
+# if(any(id)) {
+#   cat(paste(i,": ",unique(tmp$NAME_0),table(id)),"\n")
+#
+#   table(tmp$NAME_0[id] == tmp2[id,c("country")])
+#   #tmp[id,1] = tmp2[id,c("country")]
+#   table(tmp$NAME_1[id] == tmp2[id,c("state")]) #all differences were double-checked and the gazetteer is right!
+#   cbind(tmp$NAME_1[id], tmp2[id,c("state","county")])[tmp$NAME_1[id] == tmp2[id,c("state")],]
+#   #tmp[id,2] = tmp2[id,c("state")]
+#   table(!tmp$NAME_2[id] == tmp2[id,c("county")]) #all differences were double-checked and the gazetteer is right!
+#
+#   cbind(tmp$NAME_1[id],tmp$NAME_2[id], tmp2$county[id])[!tmp$NAME_2[id] == tmp2$county[id],]
+#   # tmp$NAME_2[id] = tmp2[id,c("county")]
+#
+#   #Saving the changes
+#   country.list[[j]]$NAME_2[id] <- tmp2$county[id]
+#   # country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
+# }
+# #}
 
-j=8
-#for(j in 31:length(country.list)) {
-#Creating the locality strings for the shapefile dataframe
-tmp = country.list[[j]]#@data
-#for(i in 1:dim(tmp)[2]) tmp[,i] <- as.character(tmp[,i])
+# ## Other GADM issues and mixed names
+# #Manaus
+# tmp <- country.list[[j]][country.list[[j]]$NAME_2 %in% "maues",]
+# tmp1 <- sf::st_coordinates(sf::st_centroid(tmp))
+# ids.manaus <- tmp1[,1] < (-59) & tmp1[,2] > (-3.5)
+# country.list[[j]]$NAME_2[country.list[[j]]$NAME_2 %in% "maues"][ids.manaus] <- "manaus"
+#
+# country.list[[j]]$check[country.list[[j]]$NAME_2 %in% "maues"] <- ids.manaus
+#
+# #Brasilândia de Minas/Brazópolis
+# replace_this <- country.list[[j]]$NAME_2 %in% "brazopolis" &
+#   country.list[[j]]$NAME_3 %in% "brazilandia minas"
+# country.list[[j]]$NAME_2[replace_this] <- "brasilandia minas"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #LEM
+# replace_this <- country.list[[j]]$NAME_2 %in% "barreiras" &
+#   country.list[[j]]$NAME_3 %in% "luis eduardo magalhaes"
+# country.list[[j]]$NAME_2[replace_this] <- "luis eduardo magalhaes"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Barrocas
+# replace_this <- country.list[[j]]$NAME_2 %in% "serrinha" &
+#   country.list[[j]]$NAME_3 %in% "barrocas"
+# country.list[[j]]$NAME_2[replace_this] <- "barrocas"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Capao Bonito do Sul
+# replace_this <- country.list[[j]]$NAME_2 %in% "lagoa vermelha" &
+#   country.list[[j]]$NAME_3 %in% "capao bonito"
+# country.list[[j]]$NAME_2[replace_this] <- "capao bonito sul"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Santa Cecília do Sul
+# replace_this <- country.list[[j]]$NAME_2 %in% "tapejara" &
+#   country.list[[j]]$NAME_3 %in% "santa cecilia"
+# country.list[[j]]$NAME_2[replace_this] <- "santa cecilia sul"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Balneario Rincão/SC
+# replace_this <- country.list[[j]]$NAME_2 %in% "icara" &
+#   country.list[[j]]$NAME_3 %in% "balnerio rincao"
+# country.list[[j]]$NAME_2[replace_this] <- "balneario rincao"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Três Barras/SC
+# replace_this <- country.list[[j]]$NAME_2 %in% "sao mateus sul" &
+#   country.list[[j]]$NAME_3 %in% "tres barras"
+# country.list[[j]]$NAME_1[replace_this] <- "santa catarina"
+# country.list[[j]]$NAME_2[replace_this] <- "tres barras"
+# country.list[[j]]$NAME_3[replace_this] <- NA_character_
+#
+# #Teixeira Soares
+# replace_this <- country.list[[j]]$NAME_2 %in% "texeira soares"
+# country.list[[j]]$NAME_2[replace_this] <- "teixeira soares"
+#
+# #Mato Grosso as a county
+# replace_this <- country.list[[j]]$NAME_2 %in% "mato grosso" &
+#   country.list[[j]]$NAME_3 %in% "aguapei"
+# country.list[[j]]$NAME_2[replace_this] <- "vila bela santissima trindade"
+#
+# #Itabirinha and Itabirito/MG
+# replace_this <- country.list[[j]]$NAME_2 %in% "itabirito" &
+#   country.list[[j]]$NAME_3 %in% "itabirinha mantena"
+# country.list[[j]]$NAME_2[replace_this] <- "itabirinha"
+#
+#
+# #Other counties
+# map.checks <- readRDS("./data-raw/map.replacements.rds")
+# paises <- sapply(map.checks$locs, function (x) strsplit(x, "_")[[1]][1])
+# estados <- sapply(map.checks$locs, function (x) strsplit(x, "_")[[1]][2])
+# j = which(names(country.list) == "brazil")
+# for(w in 1:length(map.checks$locs)) {
+#   pais.i <- paises[w]
+#   estado.i <- estados[w]
+#   bad <- map.checks$municipio.bad[w]
+#   good <- map.checks$municipio.good[w]
+#   replace_this <- country.list[[j]]$NAME_0 %in% pais.i &
+#                   country.list[[j]]$NAME_1 %in% estado.i &
+#                   country.list[[j]]$NAME_2 %in% bad &
+#                   country.list[[j]]$NAME_3 %in% good
+#   country.list[[j]]$NAME_2[replace_this] <- good
+#   country.list[[j]]$NAME_3[replace_this] <- NA_character_
+# }
 
-tmp.df <- tmp
-st_geometry(tmp.df) <- NULL
-# tmp1= data.frame(loc=apply(tmp, 1, paste, collapse="_"))
-ids <- names(tmp.df) %in% c("NAME_0","NAME_1","NAME_2")
-tmp1= data.frame(loc=apply(tmp.df[, ids], 1, paste, collapse="_"),
-                 stringsAsFactors = FALSE)
-# tmp1$loc = as.character(tmp1$loc)
+# Fixing GADM problems
+map.checks <- read.csv("./data-raw/raw_dictionaries/gadmCheck.csv")
+j = which(names(country.list) == "brazil")
 
-tmp$order = 1:dim(tmp)[1]
-tmp1$order = 1:dim(tmp1)[1]
+for(w in 1:dim(map.checks)[1]) {
+  pais.i <- map.checks$pais[w]
+  estado.i <- map.checks$estado[w]
+  bad.i <- map.checks$bad.mun[w]
+  target.i <- map.checks$target.mun[w]
+  replace.i <- map.checks$replace.mun[w]
+  case.i <- map.checks$case[w]
 
-#merging the two sources of info
-tmp2 <- merge(tmp1, dic[,c("NAME_0","NAME_1","NAME_2","loc","loc.correct")],
-              by="loc", all.x=TRUE)
-tmp3 <- strsplit(tmp2$loc.correct,"_")
+  if (case.i == "first") {
+    replace_this <- country.list[[j]]$NAME_0 %in% pais.i &
+                    country.list[[j]]$NAME_1 %in% estado.i &
+                    country.list[[j]]$NAME_2 %in% bad.i &
+                    country.list[[j]]$NAME_3 %in% target.i
+    if (any(replace_this))
+      country.list[[j]]$NAME_2[replace_this] <- replace.i
+  }
 
-nms <- c("country", "state", "county")
-for(w in 1:sapply(tmp3, length)[1]) {
-  n <- rep(NA, dim(tmp2)[1])
-  n <- sapply(tmp3, function(x) x[w])
-  df <- data.frame(n, stringsAsFactors = FALSE); names(df) = nms[w]
-  tmp2 <- cbind.data.frame(tmp2, df, stringsAsFactors = FALSE)
+  if (case.i == "second") {
+    replace_this <- country.list[[j]]$NAME_0 %in% pais.i &
+      country.list[[j]]$NAME_1 %in% estado.i &
+      country.list[[j]]$NAME_2 %in% bad.i
+    if (any(replace_this))
+      country.list[[j]]$NAME_2[replace_this] <- replace.i
+  }
+
+  if (case.i == "county_state") {
+    replace.i.1 <- strsplit(replace.i,"\\|")[[1]][1]
+    replace.i.2 <- strsplit(replace.i,"\\|")[[1]][2]
+    replace_this <- country.list[[j]]$NAME_0 %in% pais.i &
+      country.list[[j]]$NAME_1 %in% estado.i &
+      country.list[[j]]$NAME_2 %in% bad.i &
+      country.list[[j]]$NAME_3 %in% target.i
+    if (any(replace_this)) {
+      country.list[[j]]$NAME_1[replace_this] <- replace.i.1
+      country.list[[j]]$NAME_2[replace_this] <- replace.i.2
+    }
+  }
 }
 
-#comparing and replacing the correct info
-tmp2 = tmp2[order(tmp2$order),]
-table(tmp$order == tmp2$order)
-id = !tmp2$loc == tmp2$loc.correct
+# ## Finding possible problems in GADM polygons: counties with disjoint polygons
+# #Function that aggreagte polygons sharing their borders
+# clusterSF <- function(sfpolys, thresh){
+#   df <- sfpolys[, grepl("NAME_", names(sfpolys))]
+#   sf::st_geometry(df) <- NULL
+#   nome <- unique(apply(df[,1:3], 1, paste, collapse = "_"))[1]
+#
+#   dmat <- sf::st_distance(sfpolys)
+#   thresh.dist <- units::as_units('m', thresh)
+#   hc <- stats::hclust(as.dist(dmat > thresh.dist), method="single")
+#
+#   groups = stats::cutree(hc, h=0.5)
+#   d = sf::st_sf(
+#     geom = do.call(c,
+#                    lapply(1:max(groups), function(g){
+#                      sf::st_union(sfpolys[groups==g,])
+#                    })
+#     )
+#   )
+#   d$name <- nome
+#   d$group <- 1:nrow(d)
+#   d
+# }
+#
+# #Selected country map
+# country.pol <- country.list[[j]]
+# # country.pol <- country.list[[which(names(country.list) == "brazil")]]
+#
+# #List of counties with more than one polygon
+# toto <- paste(country.pol$NAME_1,country.pol$NAME_2, sep="_")
+# possible.counties <- unique(toto[duplicated(toto)])
+# #possible.counties <- possible.counties[country.pol$NAME_2 %in% unique(c(map.checks$bad.mun, map.checks$target.mun, map.checks$replace.mun))]
+#
+# #Applying the function to all counties (takes time)
+# require(parallel)
+# require(doParallel)
+# no_cores <- detectCores() - 2
+# cl <- makeCluster(no_cores)
+# clusterExport(cl, list("possible.counties","clusterSF","country.pol"),envir=environment())
+# clusterEvalQ(cl, library(sf))
+# clusterEvalQ(cl, library(units))
+# tmp2 <- parLapply(cl = cl, X = 1:length(possible.counties), fun = function(x) {
+#   state.i <- strsplit(possible.counties[x], "_")[[1]][1]
+#   county.i <- strsplit(possible.counties[x], "_")[[1]][2]
+#   check_these <- country.pol$NAME_1 %in% state.i &
+#     country.pol$NAME_2 %in% county.i
+#   polys <- country.pol[check_these,]
+#   clust.polys <- clusterSF(polys, 100)
+#   clust.polys$possible.counties[x]
+#   return(clust.polys)
+# })
+# stopImplicitCluster()
+# stopCluster(cl)
+# prob.counties <- possible.counties[sapply(tmp2, function(x) max(x$group) >1)]
+# prob.polys <- country.pol[toto %in% prob.counties,]
+# prob.data <- prob.polys
+# sf::st_geometry(prob.data) <- NULL
+# prob.data$loc <- toto[toto %in% prob.counties]
+#
+# for (i in 1:length(unique(prob.data$loc))) {
+#   loc <- unique(prob.data$loc)[i]
+#   plot_these <- prob.data$loc %in% loc
+#   plot(prob.polys[plot_these, 4],
+#        main = loc, key.pos = 1)
+#   # sf::st_coordinates(sf::st_centroid(prob.polys[plot_these, 4]))
+#   # plot(country.pol[country.pol$NAME_2 %in% prob.polys$NAME_3[plot_these],4],
+#   #      main = loc, key.pos = 1)
+#   options(locatorBell=FALSE)
+#   locator(1)
+# }
+#
+# resulta <- vector("list", length(possible.counties))
+# names(resulta) <- possible.counties
+# for (i in 1:length(possible.counties)) {
+#   state.i <- strsplit(possible.counties[i], "_")[[1]][1]
+#   county.i <- strsplit(possible.counties[i], "_")[[1]][2]
+#   check_these <- country.pol$NAME_1 %in% state.i &
+#                   country.pol$NAME_2 %in% county.i
+#   polys <- country.pol[check_these,]
+#   resulta[[i]] <- clusterSF(polys, 100)
+#   cat(i, "\n")
+# }
 
-if(any(id)) {
-  cat(paste(i,": ",unique(tmp$NAME_0),table(id)),"\n")
-
-  table(tmp$NAME_0[id] == tmp2[id,c("country")])
-  #tmp[id,1] = tmp2[id,c("country")]
-  table(tmp$NAME_1[id] == tmp2[id,c("state")]) #all differences were double-checked and the gazetteer is right!
-  cbind(tmp$NAME_1[id], tmp2[id,c("state","county")])[tmp$NAME_1[id] == tmp2[id,c("state")],]
-  #tmp[id,2] = tmp2[id,c("state")]
-  table(!tmp$NAME_2[id] == tmp2[id,c("county")]) #all differences were double-checked and the gazetteer is right!
-  cbind(tmp[id,c("NAME_1","NAME_2")], tmp2[id,c("county")])[!tmp$NAME_2[id] == tmp2[id,c("county")],]
-  # tmp$NAME_2[id] = tmp2[id,c("county")]
-
-  #Saving the changes
-  country.list[[j]]$NAME_2[id] = tmp2[id,c("county")]
-  # country.list[[j]]@data = tmp[,c("NAME_0","NAME_1","NAME_2")]
-}
-#}
 
 ## Converting all maps to 'sf'
 # for(i in 1:length(country.list)){
@@ -258,18 +483,18 @@ if(any(id)) {
 
 ## Inspecting
 latamMap <- country.list
-latamMap_full <- country.list
+# latamMap_full <- country.list
 
 #names(latamMap) <- pais
-plot(latamMap["belize"][[1]][,1])
-plot(latamMap["colombia"][[1]][,1])
-plot(latamMap["french guiana"][[1]][,1])
-plot(latamMap["paraguay"][[1]][,1])
-plot(latamMap["venezuela"][[1]][,1])
+# plot(latamMap["belize"][[1]][,1])
+# plot(latamMap["colombia"][[1]][,1])
+# plot(latamMap["french guiana"][[1]][,1])
+# plot(latamMap["paraguay"][[1]][,1])
+# plot(latamMap["venezuela"][[1]][,1])
 
 ## Saving
 save(latamMap, file = "./data/latamMap.rda", compress = "xz")
-save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
+# save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
 
 
 ################################################################################H
@@ -281,7 +506,8 @@ save(latamMap_full, file = "./data/latamMap_full.rda", compress = "xz")
 
 #### WORLD ####
 # map for function share_borders()
-world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
+#world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
+world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units', category = 'cultural')
 world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
 world1 <- cleangeo::clgeo_Clean(world1)
 world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
@@ -301,10 +527,46 @@ names(tmp2) = as.character(tmp1$pattern)
 world3@data$name <- sapply(strsplit(world3@data$name,' \\('), function(x) x[[1]][1])
 world3@data$name <- stringr::str_replace_all(world3@data$name, tmp2)
 
+#missing countries
+other0 <- wo[!worldMap$NAME_0 %in% world3$name,]
+names(other0@data) <- c("iso_a2","name")
+other1 <- rgeos::gSimplify(other0, tol = 0.1, topologyPreserve = TRUE)
+other1 <- rgeos::gBuffer(other1, byid = TRUE, width = 0)
+other1 <- cleangeo::clgeo_Clean(other1)
+other1 <- sp::SpatialPolygonsDataFrame(other1, other0@data)
+other2 <- disaggregate(other1)
+other2$area <- rgeos::gArea(other2, byid = TRUE)
+other2$max.area <- NA
+for (i in 1:length(unique(other2@data$name))) {
+  pais.i <- unique(other2$name)[i]
+  other2$max.area[other2$name %in% pais.i] <-
+    other2$area[other2$name %in% pais.i] == max(other2$area[other2$name %in% pais.i])
+}
+other3 <- other2[other2@data$max.area, c("iso_a2","name")]
+other3 <- other3[!other3$name %in% "caspian sea",]
+world4 <- rbind(world3, other3)
+
+#Checking if all names in worldMap are in world
+world4@data$name[!world4@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"]]
+# tmp <- world3[!world3@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"],]
+# tmp1 <- raster::coordinates(tmp)
+# colnames(tmp1) <- c("x", "y")
+# tmp1 <- as.data.frame(tmp1)
+# sp::coordinates(tmp1) <- ~x+y
+# raster::crs(tmp1) <- raster::crs(world3)
+# tmp2 <- sp::SpatialPointsDataFrame(tmp1, tmp@data)
+# tmp2.sf <- sf::st_as_sf(tmp2)
+# tmp3 <- sf::st_intersection(tmp2.sf, worldMap)
+# sf::st_geometry(tmp3) <- NULL
+
 #Converting to sf and projecting to WSG84
-world <- sf::st_as_sf(world3)
+world <- sf::st_as_sf(world4)
 prj <- sf::st_crs(4326)
 world <- sf::st_set_crs(world, prj)
+
+#Comparing with the original wolrd map
+object.size(world3)
+object.size(world4)
 
 ## Saving
 save(world, file = "./data/world.rda", compress = "xz")
@@ -312,9 +574,9 @@ save(world, file = "./data/world.rda", compress = "xz")
 #Inspecting the maps and object sizes
 # format(object.size(world0), units = "Mb") ## 15.8 Mb
 # format(object.size(world2), units = "Mb") ## 15.6 Mb (not much but borders remains almost the same)
-# format(object.size(world), units = "Mb") ## 10.3 Mb
+# format(object.size(world), units = "Mb") ## 10.3 Mb before; now 0.4 Mb
 # sp::plot(world0, ylim=c(-24,-22), xlim=c(-45, -42))
-# sp::plot(world3, add = TRUE, border = 3)
+# sp::plot(world4, add = TRUE, border = 3)
 # sp::plot(world[,1], add = TRUE, border = 4)
 
 

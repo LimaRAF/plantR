@@ -65,7 +65,6 @@
 #'   scientificNameAuthorship = aut_list)
 #'
 #' prepSpecies(df)
-#' prepSpecies(df, db = c("tpl","bfo"))
 #' prepSpecies(df, db = "tpl", sug.dist = 0.85)
 #'
 #' @seealso
@@ -210,31 +209,23 @@ prepSpecies <- function(x,
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # Species names, exact match
-      #my.TPL <- catchAll(Taxonstand::TPL)
-      my.TPL <- catchAll(TPL1)
+      my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
       exact_sp <- temp.obj[[1]]
       warns <- temp.obj[[2]]
-      # exact_sp <- Taxonstand::TPL(unique_sp, corr = FALSE)
-      # warns <- warnings()
 
     } else {
       # removing duplicated names
       unique_sp <- unique(df$verbatimSpecies)
       # Species names, exact match
-      #my.TPL <- catchAll(Taxonstand::TPL)
-      my.TPL <- catchAll(TPL1)
+      my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE)
       exact_sp <- temp.obj[[1]]
       warns <- temp.obj[[2]]
-      # exact_sp <- Taxonstand::TPL(unique_sp, corr = FALSE)
-      # warns <- warnings()
     }
 
     if (!is.null(warns)) {
       warns <- warns[grepl("more than one valid", warns, fixed = TRUE)]
-      # warns <-
-      #   names(unlist(warns))[grepl("more than one valid", names(unlist(warns)))]
       warns <- sapply(warns, function(x)
         paste(strsplit(x, " ")[[1]][1:2], collapse = " "))
     } else {
@@ -244,11 +235,9 @@ prepSpecies <- function(x,
     # Species names, fuzzy match
     miss_sp <- exact_sp$Taxon[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
                                 exact_sp$Taxonomic.status %in% ""]
-    # my.TPL <- catchAll(Taxonstand::TPL)
-    my.TPL <- catchAll(TPL1)
+    my.TPL <- catchAll(Taxonstand::TPL)
     temp.obj <- my.TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)
     fuzzy_sp <- temp.obj[[1]]
-    # fuzzy_sp <- Taxonstand::TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)
     exact_sp[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
                exact_sp$Taxonomic.status %in% "",] <- fuzzy_sp
 
@@ -261,9 +250,6 @@ prepSpecies <- function(x,
       exact_sp1 <- temp.obj[[1]]
       warns1 <- temp.obj[[1]]
       warns1 <- warns1[grepl("The input author", warns1)]
-      # exact_sp1 <- Taxonstand::TPL(unique_sp1, corr = FALSE)
-      # warns1 <- warnings()
-      # warns1 <- names(unlist(warns1))[grepl("The input author", names(unlist(warns1)))]
       warns1 <- sapply(warns1, function(x) paste(strsplit(x," ")[[1]][1:2], collapse = " "))
     } else {
       warns1 <- NULL

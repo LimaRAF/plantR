@@ -10,11 +10,11 @@
 #'   Default to "plantR_output".
 #' @param path character. The path to the directory of the output folder.
 #'   Default to the user working directory.
-#' @param by character. The variable used for separate the data into different
-#'   files.
+#' @param by character. The variable used for separating the data into different
+#'   files before saving.
 #' @param file.format character. The file extension to be used for saving.
 #'   Default to 'csv'.
-#' @param compress logical. Should the files be compressed?
+#' @param compress logical. Should the files be compressed? Default to TRUE.
 #' @param rm.dup logical. Should duplicated specimens be removed prior to
 #'   saving? Default to FALSE.
 #'
@@ -40,6 +40,7 @@
 #'   under a file called 'NA.csv' or 'NA.rds'.
 #'
 #' @import data.table
+#' @importFrom utils head
 #'
 #' @export saveData
 #'
@@ -78,7 +79,8 @@ saveData <- function(df, dir.name = "", path = "",
                geo = c("geo.check1", "geo.check"))
 
     #Get only the columns of interest
-    covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(df))]))
+    covs.present <- lapply(covs, function(z) utils::head(z[which(z %in% names(df))], n = 1))
+    # covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(df))]))
     if (all(sapply(covs.present, nchar)==0))
       stop("The input data frame does not contain at least one of the required columns")
 

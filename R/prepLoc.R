@@ -42,8 +42,8 @@ prepLoc <- function(x) {
 
   # Removing prepositions and other unwanted characters
   x <- gsub("-", " ", x, fixed = TRUE)
-  x <- gsub(" - ", " / ", x, fixed = TRUE)
-  x <- gsub(" de la | del | du ", " ", x, perl = TRUE)
+  # x <- gsub(" - ", " / ", x, fixed = TRUE)
+  x <- gsub(" de la | del | du | de los ", " ", x, perl = TRUE)
   x <- gsub(" dos | das | des ", " ", x, perl = TRUE)
   x <- gsub(" do | da | de ", " ", x, perl = TRUE)
   # x <- gsub(' d\' | d\'| d`| d´| d\"| d’', " ", x, perl = TRUE)
@@ -52,7 +52,7 @@ prepLoc <- function(x) {
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
   # Removing possible problems
-  x <- gsub("s\\+", " ", x, perl = TRUE)
+  x <- gsub("\\s+", " ", x, perl = TRUE)
   x <- stringr::str_trim(x)
 
   return(x)

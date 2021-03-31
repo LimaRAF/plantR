@@ -1,7 +1,7 @@
 Package: plantR
-Version: 0.1.0
-Date: 2020-07-30
-Title: Management of Plant Species Records
+Version: 0.1.1
+Date: 2021-03-30
+Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
                      email = "raflima@usp.br", 
@@ -38,16 +38,17 @@ Imports:
     jsonlite,
     knitr,
     rgbif,
+    robustbase,
     sf,
     spatialrisk,
     stringi,
     stringr,
-    Taxonstand,
-    tidyr,
-    robustbase
+    Taxonstand (>= 2.3),
+    tidyr
 Suggests:
     devtools,
     sp,
+    remotes,
     stats,
     testthat (>= 3.0.0),
     utils

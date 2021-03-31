@@ -72,6 +72,7 @@
 #'
 #' @import data.table
 #' @importFrom stringr str_replace str_trim
+#' @importFrom utils head
 #'
 #' @export checkList
 #'
@@ -366,7 +367,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     #getting more up-to-date collectionCode, if available
     if ("numTombo" %in% names(x)) {
       dt1[, temp.accession := toupper(gsub("_", " ", numTombo, perl = TRUE))]
-      dt1[, temp.accession := lapply(strsplit(temp.accession, " "), my.head)]
+      dt1[, temp.accession := lapply(strsplit(temp.accession, " "), utils::head, n = 1)]
+      # dt1[, temp.accession := lapply(strsplit(temp.accession, " "), my.head)]
     }
 
     #collectionCode
@@ -378,7 +380,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     if ("dup.ID" %in% names(dt1)) {
       getDupIDs1 <- function(id) {
         id <- toupper(gsub("_", " ", id, perl = TRUE))
-        id <- sapply(lapply(strsplit(id, "\\|"), strsplit, " ")[[1]], my.head)
+        id <- sapply(lapply(strsplit(id, "\\|"), strsplit, " ")[[1]], utils::head, n = 1)
+        # id <- sapply(lapply(strsplit(id, "\\|"), strsplit, " ")[[1]], my.head)
         id <- paste0(unique(id), collapse = ", ")
         return(id)
       }

@@ -110,29 +110,6 @@ checkShore <- function(x,
     }
   }
 
-  ## raflima: converting world map to sp (takes 9 seconds to convert: move to sysdata?)
-  # worldMap.sp <- sf::as_Spatial(worldMap)
-  # ## raflima: esse passo é mesmo necessário? Não mais!
-  # test <- ##raflima: 24 secs c/ 87 registros vs. worldMap.sp
-  #   CoordinateCleaner::cc_sea(x = check_sea,
-  #                             lon = lon,
-  #                             lat = lat,
-  #                             ref = worldMap.sp,
-  #                             value = "flagged")
-  # sea.check <- ifelse(test, "land", "sea")
-  #
-  # test_shore <-
-  #   CoordinateCleaner::cc_sea(check_sea,
-  #                             lon = lon,
-  #                             lat = lat,
-  #                             value = "flagged",
-  #                             ref = buffland)
-  # shore.check <- ifelse(test_shore, "shore", "sea")
-  # check_sea$sea.shore.check <-
-  #   if_else(sea.check == "sea" & shore.check == "sea", "sea",
-  #           if_else(sea.check == "sea" & shore.check == "land", "shore",
-  #                   "land"))
-
   return(x)
 }
 

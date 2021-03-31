@@ -2,7 +2,8 @@
 #'
 #' @description Calculate the distances between geographical coordinates, taking
 #'   into account that Earth is an oblate spheroid. By default, distances are
-#'   returned in kilometers.
+#'   returned in kilometers. This function is adapted from the function
+#'   `rdist.earth()` from package __fields__.
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
@@ -12,6 +13,11 @@
 #' @return A distance matrix
 #'
 #' @author Renato A. F. de Lima
+#'
+#' @references
+#'
+#' Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools for spatial
+#' data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
 #'
 #' @examples
 #'

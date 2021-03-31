@@ -64,6 +64,7 @@
 #' getAdmin(str)
 #'
 #' @importFrom dplyr left_join
+#' @importFrom utils head
 #'
 #' @export getAdmin
 #'
@@ -124,7 +125,8 @@ getAdmin <- function(x, gazet = "plantR", str.name = "loc.correct",
       tmp1 <- data.frame(loc.correct =
                 sapply(
                   strsplit(tmp1, "_"),
-                      function(x) paste0(rm.tail(x), collapse = "_")
+                  function(x) paste0(utils::head(x, n = -1), collapse = "_")
+                  # function(x) paste0(rm.tail(x), collapse = "_")
       ), stringsAsFactors = FALSE)
       tmp1 <- dplyr::left_join(tmp1, dic, by = str.name)
       tmp[is.na(tmp$NAME_0) & is.na(tmp$NAME_1), ] <- tmp1
@@ -136,7 +138,8 @@ getAdmin <- function(x, gazet = "plantR", str.name = "loc.correct",
       tmp1 <- data.frame(loc.correct =
                            sapply(
                              strsplit(tmp1, "_"),
-                             function(x) paste0(rm.tail(x, 1), collapse = "_")
+                             function(x) paste0(utils::head(x, n = -1), collapse = "_")
+                             # function(x) paste0(rm.tail(x, 1), collapse = "_")
                            ), stringsAsFactors = FALSE)
       tmp1 <- dplyr::left_join(tmp1, dic, by = str.name)
       tmp[is.na(tmp$NAME_0), ] <- tmp1

@@ -25,6 +25,7 @@
 #'   confusion. Taxon 57(2): 343-345.
 #'
 #' @importFrom stringr str_trim
+#' @importFrom utils tail
 #'
 #' @export colNumber
 #'
@@ -68,7 +69,8 @@ colNumber <- function(x,
           grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)] <-
             as.character(sapply(sapply(strsplit(numbs[!is.na(numbs) &
                 grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)], " "), function(x)
-                  x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), my.tail))
+                  x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), utils::tail, n = 1))
+                  # x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), my.tail))
   numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] = "SemNumero"
   numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] = "SemNumero"
 

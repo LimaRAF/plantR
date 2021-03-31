@@ -28,7 +28,7 @@ rmLatin <- function(x) {
   unwanted_latin <- names(unwantedLatin)
   replace_latin <- unwantedLatin
 
-  #Single letter replacements
+  #Single-letter replacements
   replace_latin1 <- replace_latin[nchar(replace_latin) == 1]
   unwanted_latin1 <- unwanted_latin[nchar(replace_latin) == 1]
   x <- chartr(
@@ -36,7 +36,7 @@ rmLatin <- function(x) {
     paste(replace_latin1, collapse = ''),
     x)
 
-  #Double letter replacements
+  #Double-letter replacements
   replace_latin2 <- replace_latin[nchar(replace_latin) == 2]
   names(replace_latin2) <- unwanted_latin[nchar(replace_latin) == 2]
   for (i in 1:length(replace_latin2))

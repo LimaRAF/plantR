@@ -16,16 +16,22 @@ shares_border <- function(country1 = "brazil",
   world <- world
 
   # w <- spData::world
-  # w$nome <- tolower(textclean::replace_non_ascii(w$name_long))
-
-  country1 <- tolower(country1)
-  country2 <- tolower(country2)
-
   w <- world
-  #w <- spData::world
-  w$nome <- tolower(w$name)
-  v <- w[w$nome %in% c(country1),]
-  z <- w[w$nome %in% c(country2),]
+  # w$name <- tolower(textclean::replace_non_ascii(w$name_long))
+
+  if (!country1 %in% w$name)
+    country1 <- prepLoc(prepCountry(country1))
+
+  if (!country2 %in% w$name)
+    country2 <- prepLoc(prepCountry(country2))
+
+  if (!country1 %in% w$name | !country2 %in% w$name)
+    stop(paste0("Country name(s) '",
+               c(country1, country2)[!c(country1, country2) %in% w$name],
+               "' not found"))
+
+  v <- w[w$name %in% c(country1),]
+  z <- w[w$name %in% c(country2),]
   y <- suppressWarnings(sf::st_union(v, z))
 
   v <- suppressWarnings(sf::st_cast(v, "POLYGON"))
@@ -131,7 +137,7 @@ checkBorders <- function(x,
 
   if (output == 'same.col') {
     x[check_these, geo.check][share_border] <-
-      "ok_country[border]"
+      "bad_country[border]"
     #paste0(x[check_these, geo.check][share_border],"[border]")
     x[check_these, geo.check][!share_border] <-
       "bad_country[inverted?]"
