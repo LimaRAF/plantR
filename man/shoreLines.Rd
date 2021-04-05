@@ -17,9 +17,12 @@ data(shoreLines)
 Map used to support the validation of the original geographical coordinates.
 It was generated from the map available in 'Natural Earth' at medium scale
 (i.e. 1:50 m), which includes continents and major islands. Original polygons
-of each country were aggregated, then simplified (tolerance 0.001 decimal
+of each country were aggregated, then simplified (tolerance: 0.001 decimal
 degrees) and finally converted into 'spatial lines'. For some reason this
 procedure generated objects smaller in size than the 'coastline' maps
-available in 'Natural Earth'. Reference system: WSG84
+available in 'Natural Earth'.
+}
+\details{
+Reference system: WSG84
 }
 \keyword{datasets}

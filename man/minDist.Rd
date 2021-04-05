@@ -39,9 +39,11 @@ duplicated coordinates.
 lat = c(-23.475389, -23.475389, -23.475390, -23.475389)
 lon = c(-47.123768, -47.123768, -47.123768, -47.123868)
 
+\dontrun{
 minDist(lon, lat, output = 'group')
 minDist(lon, lat, output = 'flag')
 minDist(lon, lat, output = 'dist')
+}
 
 }
 \seealso{

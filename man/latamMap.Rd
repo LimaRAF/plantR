@@ -3,7 +3,7 @@
 \docType{data}
 \name{latamMap}
 \alias{latamMap}
-\title{Maps of Latin American countries}
+\title{Maps of Latin American countries and dependent territories}
 \format{
 A list of 44 Multipolygon 'sf' objects
 }
@@ -15,9 +15,29 @@ data(latamMap)
 }
 \description{
 Maps used to perform the validation of the original geographical coordinates.
-For each country, the map contains the lowest administrative level
-available. Country, state and county (if present) names were edited to match
-the \strong{plantR} default gazetteer and original polygons were simplified
-(tolerance 0.0001 decimal degrees). Reference system: WSG84
+For each country, the map contains the lowest administrative level available
+at \href{https://gadm.org}{GADM}. We considered an initial total of 51 countries
+and dependent territories for Latin America, but since seven of them are
+available only at the lowest administrative level (e.g. Aruba, Curacao), they
+were not included in this map (total of 44 individual polygons). The Latin
+American definition used here include all American territories but the United
+States and Canada.
+}
+\details{
+Locality names (e.g. country, state, county) were edited to match the
+\strong{plantR} default gazetteer, using the same \strong{plantR} functions used for
+locality editing (i.e. \code{fixLoc()}, \code{prepLoc()}).
+
+For Brazil, we cross-checked and corrected about 400 issues in GADM (version
+3.6) related to municipality names with typos, old toponyms, switched names
+and even bad name assignment to polygons (e.g. Manaus assigned under another
+municipality, Maués). An internal list of those changes (\code{gadmCheck}) is
+provided for reproducibility.
+
+Finally, polygons were simplified (tolerance: 0.0001 decimal degrees) to make
+maps smaller in size and thus less burdensome for the geographical validation
+procedures.
+
+Reference system: WSG84
 }
 \keyword{datasets}

@@ -20,15 +20,22 @@ A distance matrix
 \description{
 Calculate the distances between geographical coordinates, taking
 into account that Earth is an oblate spheroid. By default, distances are
-returned in kilometers.
+returned in kilometers. This function is adapted from the function
+\code{rdist.earth()} from package \strong{fields}.
 }
 \examples{
 
 lon = c(-47, -46, -47)
 lat = c(-23, -24, -23.5)
 
+\dontrun{
 geoDist(lon, lat)
+}
 
+}
+\references{
+Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools for spatial
+data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
 }
 \author{
 Renato A. F. de Lima

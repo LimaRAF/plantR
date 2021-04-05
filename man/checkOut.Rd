@@ -9,7 +9,12 @@ checkOut(
   lon = "decimalLongitude.new",
   lat = "decimalLatitude.new",
   tax.name = "scientificName.new",
+  geo.name = "geo.check",
+  cult.name = "cult.check",
   n.min = 5,
+  center = "median",
+  geo.patt = "ok_",
+  cult.patt = NA,
   clas.cut = 3,
   rob.cut = 16
 )
@@ -26,14 +31,29 @@ Default to 'decimalLatitude.new'}
 \item{tax.name}{character. Name of the columns containing the species name.
 Default to "scientificName.new"}
 
+\item{geo.name}{character. Name of the column containing the validation of
+the geographical coodinates. Default to "geo.check"}
+
+\item{cult.name}{character. Name of the column containing the validation of
+records from cultiavted individuals. Default to "cult.check"}
+
 \item{n.min}{numerical. Minimun number of unique coordinates to be used in
-the calculations. Default to 5}
+the calculations.}
+
+\item{center}{character. Which metric should be used to obtain he center of
+the distribution of coordinates: 'mean' or 'median'?}
+
+\item{geo.patt}{character. The pattern to be used to search for classes of
+geographical validation to be included in the analyses. Default to "ok_".}
+
+\item{cult.patt}{character. The pattern to be used to search for classes of
+validation of cultivated specimens to be included in the analyses. Default to NA.}
 
 \item{clas.cut}{numerical. The threshold distance for outlier detection, using
-classic Mahalanobis distances}
+classic Mahalanobis distances. Default to 3}
 
 \item{rob.cut}{numerical. The threshold distance for outlier detection, using
-classic Mahalanobis distances}
+classic Mahalanobis distances. Default to 16}
 }
 \value{
 The input data frame with a new column containing the indication of
@@ -75,27 +95,27 @@ true outliers or detection of false outliers). See Examples.
 # few data and close coordinates (no outliers)
 lon <- c(-42.2,-42.3,-42.4,-42.3,-42.3)
 lat <- c(-44.3,-44.2,-44.2,-42.2,-42.2)
-df <- data.frame(lon = lon, lat = lat, spp = "a")
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", n.min = 4)
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", clas.cut = NULL, n.min = 4)
+df <- data.frame(lon = lon, lat = lat)
+checkOut(df, lon = "lon", lat = "lat", n.min = 4)
+checkOut(df, lon = "lon", lat = "lat", clas.cut = NULL, n.min = 4)
 
 # some data and one outlier
 lon <- c(runif(5, -45, -41), -12.2)
 lat <- c(runif(5, -45, -41), -18.2)
-df <- data.frame(lon = lon, lat = lat, spp = "a")
+df <- data.frame(lon = lon, lat = lat)
 
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp")
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", clas.cut = NULL)
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", rob.cut = NULL)
+checkOut(df, lon = "lon", lat = "lat")
+checkOut(df, lon = "lon", lat = "lat", clas.cut = NULL)
+checkOut(df, lon = "lon", lat = "lat", rob.cut = NULL)
 
 # more data and one outlier
 lon <- c(runif(9, -45, -41), -12.2)
 lat <- c(runif(9, -45, -41), -18.2)
-df <- data.frame(lon = lon, lat = lat, spp = "a")
+df <- data.frame(lon = lon, lat = lat)
 
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp")
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", clas.cut = NULL)
-checkOut(df, lon = "lon", lat = "lat", tax.name = "spp", rob.cut = NULL)
+checkOut(df, lon = "lon", lat = "lat")
+checkOut(df, lon = "lon", lat = "lat", clas.cut = NULL)
+checkOut(df, lon = "lon", lat = "lat", rob.cut = NULL)
 
 }
 \references{
@@ -107,7 +127,8 @@ Liu, C., White, M., and Newell, G. 2018. Detecting outliers in species
 distribution data. Journal of Biogeography, 45(1): 164–176.
 }
 \seealso{
-\link[plantR]{getCult}, \link[plantR]{mahalanobisDist}
+\link[plantR]{checkCoord}, \link[plantR]{getCult},
+\link[plantR]{mahalanobisDist}
 }
 \author{
 Renato A. F. de Lima

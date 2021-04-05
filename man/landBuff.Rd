@@ -21,6 +21,9 @@ Equator) around medium islands (scalerank < 3). All buffers were then
 aggregated and the aggregated buffers were simplified (tolerance 0.01 decimal
 degrees). Note that buffers were generated at the largest scale available
 in 'Natural Earth' (i.e. 1:10 m) and simplification was performed after
-generating and aggregating the buffered polygons. Reference system: WSG84
+generating and aggregating the buffered polygons.
+}
+\details{
+Reference system: WSG84
 }
 \keyword{datasets}

@@ -15,7 +15,7 @@ checkShore(
 )
 }
 \arguments{
-\item{x}{Dataframe with species occurrence}
+\item{x}{a data frame with the species records}
 
 \item{geo.check}{character. Column with the result from the coordinate checking.
 Defaults to 'geo.check'}
@@ -26,7 +26,8 @@ Defaults to 'decimalLatitude.new'}
 \item{lon}{character. Column with the corrected longitude to be checked.
 Defaults to 'decimalLongitude.new'}
 
-\item{type}{character. Type ...}
+\item{type}{character. Type of approach to be used to flag records near the
+shore (see Details). Default to "buffer".}
 
 \item{dist.max}{numerical. Maximum distance (in kilometers) to detect records
 near to the shore. Default to 50 km.}
@@ -44,8 +45,8 @@ previous class 'sea' is updated to 'shore' (records near the shore) and
 'open_sea' (records far from the shore)
 }
 \description{
-Checks records whose coordinates in the sea but close to the
-shore using different approaches.
+Checks records whose coordinates fall in the sea, but close to
+the shoreline using different approaches.
 }
 \details{
 Only coordinates flagged as 'sea' by the function \code{checkCoord()} are included
@@ -55,9 +56,9 @@ Two approaches can be used to detect coordinates in the sea but near to the
 shore, which are controlled by the argumente \code{type}. The first one uses a 0.5
 degree (~ 55 km in the Equator) buffer around the world map (\code{type} =
 'buffer'). The second approach calculates the distance between the shore and
-the record (\code{type} = 'buffer'), in which the user can provide a maximum distance
-from the shore. This second approach, however, is much slower. For the
-record, rounding or imprecision of coordinates at the degree and minute
+the record (\code{type} = 'buffer'), in which the user can provide a maximum
+distance from the shore. This second approach, however, is much slower. For
+the record, rounding or imprecision of coordinates at the degree and minute
 levels can generate distance up to 130-157 km and 2.2-2.6 km, respectively,
 depending on the latitude considered.
 }

@@ -65,10 +65,12 @@ lat = c(-23.475389, -23.475389, -23.475390, -23.485389,
         -23.575389, -23.575389, -23.575390, -23.485389),
 lon = c(-47.123768, -47.123768, -47.123768, -47.113768,
         -47.223768, -47.223768, -47.223768, -47.113768))
+\dontrun{
 uniqueCoord(coords, lon = "lon", lat = "lat")
 uniqueCoord(coords, lon = "lon", lat = "lat", type = "dist")
 uniqueCoord(coords, lon = "lon", lat = "lat", min.dist = 0.0001)
 uniqueCoord(coords, lon = "lon", lat = "lat", output = "flag")
+}
 
 }
 \seealso{
@@ -77,3 +79,4 @@ uniqueCoord(coords, lon = "lon", lat = "lat", output = "flag")
 \author{
 Renato A. Ferreira de Lima
 }
+\keyword{internal}

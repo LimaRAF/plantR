@@ -14,9 +14,16 @@ A Multipolygon 'sf' object with 256 features
 data(worldMap)
 }
 \description{
-Map used to perform the validation of the original geographical coordinates.
-Country names were edited to match the \strong{plantR} default gazetteer and
-original polygons were simplified (tolerance 0.001 decimal degrees).
+Map used to perform the validation of the original geographical coordinates
+at the lowest administrative level (e.g. country). Names were edited to match
+the \strong{plantR} default gazetteer, using the same \strong{plantR} function used for
+locality editing (i.e. \code{fixLoc()}).
+}
+\details{
+Original polygons were simplified (tolerance: 0.001 decimal degrees) to make
+maps smaller in size and thus less burdensome for the geographical validation
+procedures.
+
 Reference system: WSG84
 }
 \keyword{datasets}

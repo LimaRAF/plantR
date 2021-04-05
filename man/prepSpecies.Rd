@@ -74,7 +74,6 @@ df <- data.frame(scientificName.new = sp.list,
   scientificNameAuthorship = aut_list)
 
 prepSpecies(df)
-prepSpecies(df, db = c("tpl","bfo"))
 prepSpecies(df, db = "tpl", sug.dist = 0.85)
 
 }

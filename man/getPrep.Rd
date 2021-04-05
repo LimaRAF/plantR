@@ -69,13 +69,16 @@ names <- c("Silva, Maria A. Pereira da", "Silva, Maria A. Pereira Da",
 "Hans ter Braak", "Maria A. Pereirada Silva", "Hanster Braak", "da Silva",
 "Silva")
 
+\dontrun{
 getPrep("Maria da Silva")
 getPrep(names)
 getPrep(names, output = "vector")
 getPrep(names, output = "vector", format = "prep_last_init")
 getPrep(names, output = "vector", format = "init_last")
+}
 
 }
 \author{
 Renato A. F. de Lima
 }
+\keyword{internal}

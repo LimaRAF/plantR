@@ -39,6 +39,7 @@ The output is relatively stable regarding different name formats and notation
 standards, but it doe not work for all of them (see Examples).
 }
 \examples{
+\dontrun{
   # Full names and both full and abbreviated names
   getInit("Alwyn")
   getInit("Alwyn Howard Gentry")
@@ -73,8 +74,10 @@ standards, but it doe not work for all of them (see Examples).
   getInit("Gentry, A.") # ignores comma
   getInit("G., Alwyn") # ignores comma
   getInit("Ah. Gentry") # discard the lower-case initial
+ }
 
 }
 \author{
 Renato A. F. de Lima
 }
+\keyword{internal}
