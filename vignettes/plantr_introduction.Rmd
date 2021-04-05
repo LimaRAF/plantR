@@ -34,19 +34,19 @@ The databases of biological collections are becoming increasingly available
 online, providing an unprecedented amount of species records for
 biodiversity-related studies. Managing the information associated with species
 records is an important but difficult task. The notation of collectors' names,
-numbers and dates vary between collections, and sometimes within them. In
+numbers, and dates varies between collections, and sometimes within them. In
 addition, it is often difficult to validate the localities, geographical
 coordinates and identifications associated with individual species records,
 especially when working with thousands or millions of them. Thus, having tools
 to process and validate large amounts of records can be quite handy.
 
-__plantR__ is an R package that was developed to manage, standardize and
+__plantR__ is an R package that was developed to manage, standardize, and
 validate the information associated with species records from biological
 collections (e.g. herbaria). It can be used for data coming from a single
 collection or different biodiversity databases, such as
 [GBIF](https://www.gbif.org/). Moreover, __plantR__ can be used by collection
-curators to manage their databases and  by final users of species records (e.g.
-taxonomists, ecologists and conservationists), allowing the comparison of data
+curators to manage their databases and by final users of species records (e.g.
+taxonomists, ecologists, and conservationists), allowing the comparison of data
 across collections.
 
 ## Main features and workflow
@@ -69,10 +69,10 @@ based on maps and gazetteers;
 using different taxonomic backbones (e.g. Flora do Brasil);
 
 5. assessment of the confidence level of species identifications, based on a
-global list of plant taxonomists.
+global list of plant taxonomists;
     
 6. retrieval of duplicated specimens across collections, including the
-homogenization of the information within duplicates.
+homogenization of the information within duplicates;
 
 7. summary of species data and validation steps, and (fast) export of
 the validated records by groups (e.g. families or countries).
@@ -94,7 +94,7 @@ structure is similar.
 
 Currently, the download of records is available for the [Global Biodiversity
 Information Facility (GBIF)](https://www.gbif.org/), and
-[speciesLink](http://splink.cria.org.br/), but the user can also provide his own
+[speciesLink](http://splink.cria.org.br/), but the user can also provide their own
 dataset as an input. Future versions of the package may include the download
 from data stored in [JABOT](http://jabot.jbrj.gov.br//).
 
@@ -124,7 +124,7 @@ appropriate for studies extending outside Latin America.
 Taxonomical validation is performed based on (i) the correction of plant family
 and species names (i.e. synonyms, typos) and (ii) the confidence level on the
 species identification, based on a dictionary of plant taxonomist names from all
-over the world. For i, names are currently checked against the [Flora do Brasil
+over the world. For (i), names are currently checked against the [Flora do Brasil
 project](http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do)
 and [The Plant List](http://www.theplantlist.org/), using the R packages
 __flora__ and __Taxonstand__. Future versions may include comparisons against
@@ -141,7 +141,7 @@ assume the most recent identification as being the valid one.
 
 __plantR__ provide tools for searching for duplicated records across collections.
 This search makes more sense when data from different collections are combined
-and it performs welleven when using relatively large datasets (i.e. millions of records).
+and it performs well even when using relatively large datasets (i.e. millions of records).
 However, the retrieval of duplicates greatly depends on the completeness of the
 input information, the notation standards and if __plantR__ is able to handle
 those differences in notation across collections. In addition, true duplicates
@@ -167,7 +167,7 @@ library("plantR")
 ### Data entry
 
 Users can provide their own dataset, import it from a GBIF DwC-A zip file
-(function `readData()``) or download data directly from R using one of
+(function `readData()`) or download data directly from R using one of
 __plantR__ download functions. They include the function `rspeciesLink()`:
 
 ```{r splink-download, eval = TRUE, collapse = TRUE}
@@ -175,10 +175,10 @@ occs_splink <- rspeciesLink(species = "Euterpe edulis")
 ```
 
 This function can also be used to search from records based on localities,
-collections, and other options (see ?rspeciesLink for details).
+collections, and other options (see `?rspeciesLink` for details).
 
 __plantR__ also provides the function `rgbif2()`, which is a wrapper of the
-function `rgbif()` of the __rgbif__ package, with an standardized output:
+function `rgbif()` of the __rgbif__ package, with a standardized output:
 
 ```{r gbif-download, eval = TRUE, collapse = TRUE}
 occs_gbif <- rgbif2(species = "Euterpe edulis")
@@ -207,8 +207,8 @@ occs <- formatDwc(splink_data = occs_splink,
 
 #### Collection codes, people names, collector number and dates
 
-The names of the collections, collectors and identifiers, as well as the
-collection numbers and dates can be edited using the function `formatOcc()`:
+The names of the collections, collectors, and identifiers, as well as the
+collection numbers and dates, can be edited using the function `formatOcc()`:
 
 ```{r formatOcc, eval = TRUE, collapse = TRUE}
 occs <- formatOcc(occs)
@@ -236,7 +236,7 @@ occs <- formatCoord(occs)
 
 #### Species and family names
 
-In this example, although we have dowloaded data for a single species (i.e.
+In this example, although we have downloaded data for a single species (i.e.
 *Euterpe edulis* Mart.), there are differences in the notation of botanical
 family and species names, some of them being synonyms. To obtain only valid
 names, we use the function `formatTax()`:
