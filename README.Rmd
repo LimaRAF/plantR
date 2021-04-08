@@ -54,12 +54,15 @@ Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Hans ter Steege & 
 
 ### Citation
 
-Lima, R.A.F et al. (2020) *plantR*: An R package and workflow for managing
-  species records from biological collections. In preparation.
+Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H., Siqueira, M.F.   (2021). *plantR*: An R package and workflow for managing species records from   biological collections. bioRxiv: 2021.04.06.437754. https://doi.org/10.1101/2021.04.06.437754
 
 ### Funding
 
-The development of this package was supported by the European Union’s Horizon 2020 research and innovation program under the Marie Skłodowska-Curie grant agreement No 795114.
+The development of this package was supported by the European Union’s Horizon
+2020 research and innovation program under the Marie Skłodowska-Curie grant
+agreement No 795114, by the Coordination for the Improvement of Higher Education
+Personnel (CAPES, process 88887.145924/2017-00), and by the 'Instituto Nacional
+da Mata Atlântica' (INMA).
 
 ### Acknowledgements
 

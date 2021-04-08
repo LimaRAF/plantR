@@ -157,6 +157,7 @@ duplicate search fields are too flexible.
 ## Installation
 The package can be installed and loaded from [GitHub](https://github.com) with:
 ```{r, eval = FALSE}
+install.packages("remotes")
 library("remotes")
 install_github("LimaRAF/plantR")
 library("plantR")
@@ -319,7 +320,7 @@ flags <- summaryFlags(occs)
 The package __plantR__ can also build species check-lists with vouchers using
 the function `checkList()`:
 
-```{r, eval = TRUE, collapse= FALSE, collapse = FALSE} 
+```{r checkList, eval = TRUE, collapse= FALSE, collapse = FALSE} 
 checkList(occs, n.vouch = 3, type = "short")
 ```
 
@@ -335,9 +336,7 @@ __data.table__ which is quite fast even for large datasets.
 
 If you use this package, please cite it as: 
 
-Lima, R.A.F et al. (2021) plantR: An R package and workflow for managing
-  species records from biological collections. In preparation.
-
+Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H., Siqueira, M.F.   (2021). *plantR*: An R package and workflow for managing species records from   biological collections. bioRxiv: 2021.04.06.437754. https://doi.org/10.1101/2021.04.06.437754
 
 If you use the function `prepSpecies()`, please also cite the following packages
 (depending on the database used):
