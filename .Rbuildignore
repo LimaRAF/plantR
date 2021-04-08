@@ -1,5 +1,4 @@
 # general R stuff
-
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -8,8 +7,6 @@ vignettes/articles
 
 # so far ignoring zip data and dictionaries
 ^.zip
-dictionaries/
-accessory_files/
 
 # ignoring local files to pass on check
 R/validateCoord2.R
@@ -19,6 +16,8 @@ vrac/
 
 # ignoring file that generates sysdata
 data-raw/
+dictionaries/
+accessory_files/
 
 #ignoring test folder
 test/
@@ -30,3 +29,6 @@ data/worldMap_full
 
 #created by the vignette
 results/
+^cran-comments\.md$
+^cran-comments\\.md$
+cran-comments.md

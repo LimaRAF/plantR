@@ -12,7 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<meta name="date" content="2021-03-29" />
+<meta name="date" content="2021-04-08" />
 
 <title>An Introduction to plantR</title>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">An Introduction to <strong>plantR</strong></h1>
 <h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
-<h4 class="date">29 March 2021</h4>
+<h4 class="date">08 April 2021</h4>
 
 
 <div id="TOC">
@@ -167,13 +167,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 number="1.1"><span class="header-section-number">1.1</span> Main features and workflow</h2>
 <p>The package <strong>plantR</strong> provides tools to standardize the information from typical fields associated with species records, such as collectors’ and species names. In addition, <strong>plantR</strong> proposes a comprehensive and reproducible workflow to apply those tools while handling records from biological collections, which includes the following steps:</p>
 <ol style="list-style-type: decimal">
-<li><p>the import or download of species records for a list of species names, collections codes or other search fields;</p></li>
-<li><p>the batch standardization of typical fields (e.g., collector name);</p></li>
-<li><p>the validation of the locality and geographical coordinates of the records, based on maps and gazetteers;</p></li>
-<li><p>the spell-checking and validation of botanical families and species names using different taxonomic backbones (e.g. Flora do Brasil);</p></li>
-<li><p>the assessment of the confidence level of species identifications, based on a global list of plant taxonomists.</p></li>
-<li><p>the retrieval of duplicated specimens across collections, including the homogenization of the information within duplicates.</p></li>
-<li><p>the summary of species data and validation steps, and the (fast) export of the validated records by groups (e.g. families or countries).</p></li>
+<li><p>import or download of species records for a list of species names, collections codes or other search fields;</p></li>
+<li><p>batch standardization of typical fields (e.g., collector name);</p></li>
+<li><p>validation of the locality and geographical coordinates of the records, based on maps and gazetteers;</p></li>
+<li><p>spell-checking and validation of botanical families and species names using different taxonomic backbones (e.g. Flora do Brasil);</p></li>
+<li><p>assessment of the confidence level of species identifications, based on a global list of plant taxonomists.</p></li>
+<li><p>retrieval of duplicated specimens across collections, including the homogenization of the information within duplicates.</p></li>
+<li><p>summary of species data and validation steps, and (fast) export of the validated records by groups (e.g. families or countries).</p></li>
 </ol>
 </div>
 <div id="basic-assumptions-and-limitations" class="section level2" number="1.2">
@@ -195,9 +195,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="installation" class="section level2" number="2.1">
 <h2 number="2.1"><span class="header-section-number">2.1</span> Installation</h2>
 <p>The package can be installed and loaded from <a href="https://github.com">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;remotes&quot;</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;LimaRAF/plantR&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;remotes&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;LimaRAF/plantR&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
 </div>
 <div id="main-features" class="section level2" number="2.2">
 <h2 number="2.2"><span class="header-section-number">2.2</span> Main features</h2>
@@ -258,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## edited          country locality municipality no_info stateProvince
 ##   country           126        1            0       0             0
 ##   locality            3      199            0       0             0
-##   municipality        0      471           94       0             0
+##   municipality        0      476           95       0             0
 ##   no_info             0        0            0       6             0
-##   stateProvince       0       78            3       0            69</code></pre>
+##   stateProvince       0       80            3       0            69</code></pre>
 </div>
 <div id="geographical-coordinates-1" class="section level4" number="2.2.3.2">
 <h4 number="2.2.3.2"><span class="header-section-number">2.2.3.2</span> Geographical coordinates</h4>
@@ -291,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4 number="2.2.3.4"><span class="header-section-number">2.2.3.4</span> Duplicate specimens</h4>
 <p>Another main feature of <strong>plantR</strong> is the search for duplicates across herbaria (i.e., same biological specimen with accession numbers in two or more collections). It uses different combinations of search strings to find direct and indirect links between records. Besides the search itself, the user can also homogenize information within groups of duplicates, such as species names or geographical coordinates. This tool is performed using the function <code>validateDup()</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateDup</span>(occs)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 234 truly duplicated records (same collection in different sources) were removed from the data</span></span></code></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 237 truly duplicated records (same collection in different sources) were removed from the data</span></span></code></pre></div>
 </div>
 </div>
 <div id="data-summary-and-export" class="section level3" number="2.2.4">
@@ -303,23 +304,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## =========
 ## |Type                     | Records|
 ## |:------------------------|-------:|
-## |Unicates                 |     173|
-## |Duplicates               |     281|
-## |Unknown                  |     362|
-## |Total without duplicates |     724|
-## |Total with duplicates    |     816|
+## |Unicates                 |     174|
+## |Duplicates               |     284|
+## |Unknown                  |     363|
+## |Total without duplicates |     729|
+## |Total with duplicates    |     821|
 ## 
 ## =============
 ##  COLLECTIONS 
 ## =============
-## Number of biological collections: 101 
-## Number of collectors&#39; names: 343 
-## Collection years: 1816-2021 (&gt;90% and &gt;50% after 1973.5 and 2001)
+## Number of biological collections: 102 
+## Number of collectors&#39; names: 345 
+## Collection years: 1816-2021 (&gt;90% and &gt;50% after 1972 and 2001)
 ## 
 ## Top collections in numbers of records:
 ## |Collection   | Records|
 ## |:------------|-------:|
-## |Observations |      57|
+## |Observations |      58|
 ## |SINBIOTA     |      57|
 ## |MBML         |      50|
 ## |NY           |      42|
@@ -344,12 +345,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Top richest families:
 ## |family.new |   N|  S|
 ## |:----------|---:|--:|
-## |Arecaceae  | 816|  1|
+## |Arecaceae  | 821|  1|
 ## 
 ## Top richest genera:
 ## |genus.new |   N|  S|
 ## |:---------|---:|--:|
-## |Euterpe   | 816|  1|
+## |Euterpe   | 821|  1|
 ## 
 ## ===========
 ##  COUNTRIES 
@@ -359,7 +360,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Top countries in numbers of records:
 ## |Country   | Records| Species|
 ## |:---------|-------:|-------:|
-## |Brazil    |     767|       1|
+## |Brazil    |     772|       1|
 ## |Argentina |      24|       1|
 ## |Paraguay  |      15|       1|
 ## |[Unknown] |       5|       1|
@@ -373,10 +374,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Strenght               | Records|
 ## |:----------------------|-------:|
-## |0%                     |     173|
-## |25%                    |      21|
-## |100%                   |     260|
-## |Cannot check (no info) |     362|
+## |0%                     |     174|
+## |25%                    |      22|
+## |100%                   |     262|
+## |Cannot check (no info) |     363|
 ## 
 ## =====================
 ##  LOCALITY VALIDATION 
@@ -385,9 +386,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Validation           | Records|
 ## |:--------------------|-------:|
-## |ok (same resolution) |     581|
-## |probably ok          |     161|
-## |check (downgraded)   |      71|
+## |ok (same resolution) |     583|
+## |probably ok          |     162|
+## |check (downgraded)   |      73|
 ## |ok (upgraded)        |       3|
 ## 
 ## Details of the validation (original vs. validated localities):
@@ -398,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## |country             |       0|     124|             0|            0|        3|
 ## |stateProvince       |       0|       0|            69|            0|        0|
 ## |municipality        |       0|       0|             3|           79|        0|
-## |locality            |       0|       1|            72|          322|      138|
+## |locality            |       0|       1|            74|          325|      138|
 ## 
 ## =======================
 ##  COORDINATE VALIDATION 
@@ -407,16 +408,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Validated |Origin       | Records|
 ## |:---------|:------------|-------:|
-## |yes       |original     |     745|
-## |yes       |gazetter     |      66|
+## |yes       |original     |     749|
+## |yes       |gazetter     |      67|
 ## |no        |cannot_check |       5|
 ## 
 ## Valid coordinates per resolution:
 ## 
 ## |Validated |Resolution          | Records|
 ## |:---------|:-------------------|-------:|
-## |yes       |ok_county           |     460|
-## |yes       |ok_state            |     205|
+## |yes       |ok_county           |     463|
+## |yes       |ok_state            |     207|
 ## |yes       |ok_country          |     131|
 ## |yes       |shore               |      13|
 ## |no        |no_cannot_check     |       5|
@@ -430,8 +431,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Cultivated   | Records|
 ## |:------------|-------:|
-## |probably not |     809|
-## |probably yes |       6|
+## |probably not |     813|
+## |probably yes |       7|
 ## |yes          |       1|
 ## 
 ## ======================
@@ -441,14 +442,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Confidence | Records|
 ## |:----------|-------:|
-## |high       |     340|
-## |unknown    |     279|
-## |low        |     197|</code></pre>
+## |high       |     343|
+## |unknown    |     280|
+## |low        |     198|</code></pre>
 <p>The package <strong>plantR</strong> can also build species check-lists with vouchers using the function <code>checkList()</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkList</span>(occs, <span class="at">n.vouch =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&quot;short&quot;</span>)</span></code></pre></div>
 <pre><code>## 0 truly duplicated records (same collection in different sources) were removed from the data</code></pre>
 <pre><code>##   family.new scientificName.new records tax.CL geo.CL
-## 1  Arecaceae     Euterpe edulis     816  41.67   56.5
+## 1  Arecaceae     Euterpe edulis     821  41.78  56.52
 ##                                                                                                                                         vouchers
 ## 1 Fernandes, H.Q.B., 2519 (MBML 5289) [paratype]; Fernandes, H.Q.B., 2543 (MBML 5288) [paratype]; Fernandes, H.Q.B., 2564 (MBML 5301) [holotype]</code></pre>
 <p>Finally, <strong>plantR</strong> exports data into a local folder, using function <code>saveData()</code>, which can be used to save compressed ‘.csv’ files based on different grouping fields (e.g. botanical family, country, biological collection). The export is performed using function <code>fwrite()</code> from package <strong>data.table</strong> which is quite fast even for large datasets.</p>
@@ -459,7 +460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="citation" class="section level1" number="3">
 <h1 number="3"><span class="header-section-number">3</span> Citation</h1>
 <p>If you use this package, please cite it as:</p>
-<p>Lima, R.A.F et al. (2021) plantR: An R package and workflow for managing species records from biological collections. In preparation.</p>
+<p>Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H., Siqueira, M.F. (2021). <em>plantR</em>: An R package and workflow for managing species records from biological collections. bioRxiv: 2021.04.06.437754. <a href="https://doi.org/10.1101/2021.04.06.437754" class="uri">https://doi.org/10.1101/2021.04.06.437754</a></p>
 <p>If you use the function <code>prepSpecies()</code>, please also cite the following packages (depending on the database used):</p>
 <p>Carvalho, G. (2020) flora: Tools for Interacting with the Brazilian Flora 2020. R package version 0.3.4. <a href="https://CRAN.R-project.org/package=flora" class="uri">https://CRAN.R-project.org/package=flora</a></p>
 <p>Cayuela, L., Macarro, I., Stein, A. and Oksanen, J. (2021) Taxonstand: Taxonomic Standardization of Plant Species Names. R package version 2.3. <a href="https://CRAN.R-project.org/package=Taxonstand" class="uri">https://CRAN.R-project.org/package=Taxonstand</a></p>
