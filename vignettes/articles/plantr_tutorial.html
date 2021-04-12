@@ -12,7 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<meta name="date" content="2021-03-29" />
+<meta name="date" content="2021-04-12" />
 
 <title>A tutorial on how to use plantR</title>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">A tutorial on how to use <strong>plantR</strong></h1>
 <h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
-<h4 class="date">29 March 2021</h4>
+<h4 class="date">12 April 2021</h4>
 
 
 <div id="TOC">
@@ -143,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#data-entry"><span class="toc-section-number">3</span> Data entry</a>
 <ul>
 <li><a href="#downloading-species-records-with-plantr"><span class="toc-section-number">3.1</span> Downloading species records with <strong>plantR</strong></a></li>
-<li><a href="#preparing-the-input-data-function-fixdwc"><span class="toc-section-number">3.2</span> Preparing the input data: function <code>fixDwc()</code></a></li>
+<li><a href="#preparing-the-input-data-function-formatdwc"><span class="toc-section-number">3.2</span> Preparing the input data: function <code>formatDwc()</code></a></li>
 </ul></li>
 <li><a href="#data-editing"><span class="toc-section-number">4</span> Data editing</a>
 <ul>
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 number="3"><span class="header-section-number">3</span> Data entry</h1>
 <p>You can download species records directly from R, using the functions provided by <strong>plantR</strong> or by other R packages. For this tutorial, we are going to use the <strong>plantR</strong> function <code>rspeciesLink()</code> and <code>rgbif2()</code>, which downloads data from <a href="http://www.cria.org.br/">CRIA</a> (Centro de Referência em Informação Ambiental) and for the <a href="https://www.gbif.org/">GBIF</a> (Global Biodiversity Information Facility).</p>
 <p>In addition, you can download a DarwinCore Archive (DwC-A) file from the <a href="https://www.gbif.org/">GBIF</a> API or to load a DwC-A from a local directory using the function <code>readData()</code>. DwC-A files obtained from GBIF are provided as ‘.zip’ files and they contain not only the species records, but also the information on the citations and rights of the the database collections.</p>
-<p>You can also use your own data, as long as the column names follow the DarwinCore (DwC) standards. If they don’t follow the DwC standards, users can still standardize the notation of column names using the function <code>fixDwc()</code>. Besides the field name standardization, <code>fixDwc()</code> also binds together the records coming from different sources (e.g., CRIA, GBIF, user-provided data).</p>
+<p>You can also use your own data, as long as the column names follow the DarwinCore (DwC) standards. If they don’t follow the DwC standards, users can still standardize the notation of column names using the function <code>formatDwc()</code>. Besides the field name standardization, <code>formatDwc()</code> also binds together the records coming from different sources (e.g., CRIA, GBIF, user-provided data).</p>
 <div id="downloading-species-records-with-plantr" class="section level2" number="3.1">
 <h2 number="3.1"><span class="header-section-number">3.1</span> Downloading species records with <strong>plantR</strong></h2>
 <p>In this tutorial, we will use species records for three Neotropical tree species:</p>
@@ -259,10 +259,10 @@ só Casearia tem +15,000 entradas no GBIF e aqui retorna apenas 480 -->
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_splink)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_gbif)</span></code></pre></div>
 </div>
-<div id="preparing-the-input-data-function-fixdwc" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Preparing the input data: function <code>fixDwc()</code></h2>
+<div id="preparing-the-input-data-function-formatdwc" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Preparing the input data: function <code>formatDwc()</code></h2>
 <p>Before we start to process the species records, we need to combine our input data from CRIA and GBIF and make sure that the input data has all the required fields and that they are in the required format.</p>
-<p>We use the function <code>fixDwc()</code> to bind data and set up the required and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name (i.e., <code>occs</code>).</p>
+<p>We use the function <code>formatDwc()</code> to bind data and set up the required and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name (i.e., <code>occs</code>).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span></code></pre></div>
