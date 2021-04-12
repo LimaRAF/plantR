@@ -8,9 +8,12 @@ rgbif2(
   dir = "results/",
   filename = "output",
   species,
+  n.records = 5000,
   force = FALSE,
   remove_na = TRUE,
   save = FALSE,
+  file.format = "csv",
+  compress = FALSE,
   ...
 )
 }
@@ -20,8 +23,11 @@ create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{species}{Genus and specific epithet separated by space. Accepts author
-if inserted correctly. Either a single value or a vector}
+\item{species}{Name of the family, genus or species (i.e. genus and specific
+epithet separated by space). Accepts author if inserted correctly. Either a
+single character or a vector}
+
+\item{n.records}{Number of records to return. Default to 5000.}
 
 \item{force}{Logical. Force downloading data for more than 10 species in a
 loop. Default \code{force = FALSE}}
@@ -31,11 +37,16 @@ and decimalLongitude}
 
 \item{save}{Logical. Save output to filename? Defaults to FALSE}
 
+\item{file.format}{Character. The file extension to be used for saving ('csv'
+or 'rds'). Default to 'csv'.}
+
+\item{compress}{Logical. Should the file be compressed? Default to FALSE.}
+
 \item{...}{Any argument from occ_search in rgbif package}
 }
 \value{
 A data.frame with the search result. Columns species_id and download
-are added by the function. It can save the output on disk
+are added by the function. It can save the search output on disk
 }
 \description{
 This function uses the rgbif package to get occurrence data of a species.
@@ -45,6 +56,7 @@ This function uses the rgbif package to get occurrence data of a species.
 ex_rgbif <- rgbif2(filename = "ex-gbif",
                    species =  "Asplenium truncorum")
 }
+
 }
 \author{
 Sara Mortara & Andrea Sánchez-Tapia
