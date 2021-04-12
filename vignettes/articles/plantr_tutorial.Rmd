@@ -92,8 +92,8 @@ information on the citations and rights of the the database collections.
 
 You can also use your own data, as long as the column names follow the
 DarwinCore (DwC) standards. If they don't follow the DwC standards, users can
-still standardize the notation of column names using the function `fixDwc()`. 
-Besides the field name standardization, `fixDwc()` also binds together the
+still standardize the notation of column names using the function `formatDwc()`. 
+Besides the field name standardization, `formatDwc()` also binds together the
 records coming from different sources (e.g., CRIA, GBIF, user-provided data).
 
 ## Downloading species records with __plantR__
@@ -147,13 +147,13 @@ nrow(occs_splink)
 nrow(occs_gbif)
 ```
 
-## Preparing the input data: function `fixDwc()`
+## Preparing the input data: function `formatDwc()`
 
 Before we start to process the species records, we need to combine our input
 data from CRIA and GBIF and make sure that the input data has all the required
 fields and that they are in the required format.
 
-We use the function `fixDwc()` to bind data and set up the required and optional
+We use the function `formatDwc()` to bind data and set up the required and optional
 fields and to drop fields without essential information for the data processing
 and validation. We save the output of the function in an object with a different
 name (i.e., `occs`).
