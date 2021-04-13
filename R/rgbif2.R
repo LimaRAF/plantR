@@ -7,7 +7,7 @@
 #' @param filename Name of the output file
 #' @param species Name of the family, genus or species (i.e. genus and specific
 #'   epithet separated by space). Accepts author if inserted correctly. Either a
-#'   single character or a vector
+#'   single character or a vector.
 #' @param n.records Number of records to return. Default to 5000.
 #' @param force Logical. Force downloading data for more than 10 species in a
 #'   loop. Default `force = FALSE`

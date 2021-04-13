@@ -25,7 +25,7 @@ create a "results/" directory}
 
 \item{species}{Name of the family, genus or species (i.e. genus and specific
 epithet separated by space). Accepts author if inserted correctly. Either a
-single character or a vector}
+single character or a vector.}
 
 \item{n.records}{Number of records to return. Default to 5000.}
 
