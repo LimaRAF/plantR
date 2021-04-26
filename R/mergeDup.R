@@ -48,6 +48,7 @@
 #'   - 'det.name': the indentifier name (default: 'identifiedBy.new')
 #'   - 'det.year': the identification year (default: 'yearIdentified.new')
 #'   - 'tax.check': the confidence level of the taxonomic identification (default: 'tax.check')
+#'   - 'status': the status of the taxon name (default: 'scientificNameStatus')
 #'
 #'   For the merge of geographical information, the fields required by
 #'   `geo.names` are:
@@ -121,14 +122,16 @@
 #'   det = c("spec","n_spec","spec1","spec2","n_spec1",
 #'           "spec3","spec4","n_spec2","n_spec3","n_spec4"),
 #'   yr = c("2010","2019","2019","2000","2020",NA,"1812","2020","2020","2020"),
-#'   check = c("high","low","high","high","low","high","high","low","low","low")))
+#'   check = c("high","low","high","high","low","high","high","low","low","low"),
+#'   stat = rep("possibly_ok", 10)))
 #'
 #' mergeDup(df, info2merge = "tax",
 #'         tax.names = c(family = "fam",
 #'                       species = "sp",
 #'                       det.name = "det",
 #'                       det.year = "yr",
-#'                       tax.check = "check"))
+#'                       tax.check = "check",
+#'                       status = "stat"))
 #'
 #'
 #' @seealso
@@ -145,7 +148,8 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
                                    species = "scientificName.new",
                                    det.name = "identifiedBy.new",
                                    det.year = "yearIdentified.new",
-                                   tax.check = "tax.check"),
+                                   tax.check = "tax.check",
+                                   status = "scientificNameStatus"),
                      geo.names = c(lat = "decimalLatitude.new",
                                    lon = "decimalLongitude.new",
                                    org.coord = "origin.coord",
@@ -162,31 +166,30 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  dup.IDs <- dup.merge <- dup.prop <- same_spp <- tax.check.wk <- NULL
-  species.wk <- det.year.wk <- tax.check.wk1 <- geo.check.wk <- NULL
+  dup.IDs <- dup.merge <- dup.prop <- same_spp <- tax.check.wk <- status.wk <- NULL
+  species.wk <- det.year.wk <- tax.check.wk1 <- status.wk1 <- geo.check.wk <- NULL
   valor1 <- i.valor <- valor2 <- prioridade <- valor <- res.orig.wk <- NULL
-  decimalLatitude.new <- decimalLongitude.new <- NULL
-
+  decimalLatitude.new <- decimalLongitude.new <- prioridade.tax <- NULL
 
   #Checking essential columns
-  if(!dup.name %in% names(dups))
+  if (!dup.name %in% names(dups))
     stop(paste0("Merge is only possible if the input data contain a column with the duplicate IDs"))
 
-  if("tax" %in% info2merge & !all(tax.names %in% names(dups))) {
+  if ("tax" %in% info2merge & !all(tax.names %in% names(dups))) {
     warning(paste0("To merge taxonomic info, the input data must contain the following column(s): ",
                    paste0(tax.names[!tax.names %in% names(dups)], collapse = ", "),
                    ". Skipping 'tax' from info to merge."), call. = FALSE)
     info2merge <- info2merge[!info2merge %in% 'tax']
   }
 
-  if("geo" %in% info2merge & !all(geo.names %in% names(dups))) {
+  if ("geo" %in% info2merge & !all(geo.names %in% names(dups))) {
     warning(paste0("To merge geographic info, the input data must contain the following column(s): ",
                    paste0(geo.names[!geo.names %in% names(dups)], collapse = ", "),
                    ". Skipping 'geo' from info to merge."), call. = FALSE)
     info2merge <- info2merge[!info2merge %in% 'geo']
   }
 
-  if("loc" %in% info2merge & !all(loc.names %in% names(dups))) {
+  if ("loc" %in% info2merge & !all(loc.names %in% names(dups))) {
     warning(paste0("To merge locality info, the input data must contain the following column(s): ",
                    paste0(loc.names[loc.names %in% names(dups)], collapse = ", "),
                    ". Skipping 'loc' from info to merge."), call. = FALSE)
@@ -197,8 +200,11 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     stop(paste0("No information left to merge!"))
 
   #Making sure there are no factors
-  for (i in which(sapply(dups, class) == "factor"))
-    dups[[i]] = as.character(dups[[i]])
+  fatores <- sapply(dups, class) == "factor"
+  if (any(fatores)) {
+    for (i in which(fatores))
+      dups[[i]] <- as.character(dups[[i]])
+  }
 
   #Vector to keep the original data order
   dups$tmp.ordem <- 1:dim(dups)[1]
@@ -206,7 +212,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
   #Subsetting the data with any indication of duplicates
   dups1 <- dups[!is.na(dups[, dup.name]),]
   dt <- data.table::data.table(dups1) # transforming the data frame into a data.table
-  dt[ , dup.IDs := as.factor(.SD), .SDcols = c(dup.name)]
+  dt[ , dup.IDs := .SD, .SDcols = c(dup.name)]
   data.table::setkey(dt, dup.IDs) # setting 'dup.ID' as key to the data.table (makes computations faster)
 
   #Creating the duplicate categories
@@ -220,7 +226,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
 
   if ("tax" %in% info2merge) {
     # creating the new columns for taxonomic check
-    wk.cols <- paste0(names(tax.names),".wk")
+    wk.cols <- paste0(names(tax.names), ".wk")
     dt[, c(wk.cols) := .SD, .SDcols = tax.names]
 
     ## Finding the most recent, taxonomically valid name for each duplicate ID
@@ -254,48 +260,38 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     new.cols <- paste0(wk.cols, "1")
     dt[, c(new.cols) := .SD, .SDcols = tax.names]
 
-    #Saving for each duplicate group ID, the most recent identification, in the case of disagreement between the identification of taxonomically-validated specimens
-    data.table::setkey(dt, dup.IDs)
-    dt[same_spp == "no",
-        c(new.cols) := .SD[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-        by = dup.IDs, .SDcols = c(wk.cols)]
-    dt[same_spp == "sim",
-        c("det.name.wk1", "det.year.wk1") := .SD[tax.check.wk %in% tax.level &
-                                                   which.max(det.year.wk)][1],
-        by = dup.IDs, .SDcols = c("det.name.wk1", "det.year.wk1")]
-    dt[same_spp == "sim",
-        tax.check.wk1 := if (any(tax.check.wk1 %in% tax.level)) tax.level
-        else tax.check.wk1, by = dup.IDs]
-    # #table(dt$tax.check); table(dt$tax.check.wk1)
+    # creating the order to organize names according to their status
+    dt[ , status.wk := gsub("\\|name_w_authors", "", status.wk, perl = TRUE)]
+    status.lvs <- data.table::data.table(
+      status.wk = c("forma", "subspecies", "variety", "not_Genus_epithet_format",
+                    "hybrid_species","species_nova", "name_w_authors",
+                    "name_w_non_ascii", "name_w_wrong_case", "not_name_has_digits",
+                    "possibly_ok", "affinis", "conferre", "incertae_sedis",
+                    "abbreviated_genus", "indet", "subfamily_as_genus",
+                    "family_as_genus", "order_as_genus"),
+      valor = c(1,1,1,1.5, 2,2,3, 3,3,3, 3,4,4,5, 6,6,7, 8,9))
+    # add priority values of status to the data
+    data.table::setDT(dt)[status.lvs, valor1 := i.valor,
+                          on = c(status.wk = "status.wk")]
 
-    # #Saving for each duplicate group ID, the most recent identification, in the case of disagreement between the identification of taxonomically-validated specimens
-    # dt[same_spp == "no",
-    #    "family.wk1" := family.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-    #    by = dup.IDs]
-    # dt[same_spp == "no",
-    #    "species.wk1" := species.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-    #    by = dup.IDs]
-    # dt[same_spp == "no",
-    #    "det.name.wk1" := det.name.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-    #    by = dup.IDs]
-    # dt[same_spp == "no",
-    #    "det.year.wk1" := det.year.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-    #    by = dup.IDs]
-    # dt[same_spp == "no",
-    #    "tax.check.wk1" := tax.check.wk[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
-    #    by = dup.IDs]
-    # dt[same_spp == "sim",
-    #    det.name.wk1 := det.name.wk[tax.check.wk %in% tax.level &
-    #                                            which.max(det.year.wk)][1], by = dup.IDs]
-    # dt[same_spp == "sim",
-    #    det.year.wk1 := det.year.wk[tax.check.wk %in% tax.level &
-    #                                                which.max(det.year.wk)][1], by = dup.IDs]
-    # dt[same_spp == "sim",
-    #    tax.check.wk1 := if (any(tax.check.wk1 %in% tax.level)) tax.level
-    #    else tax.check.wk1, by = dup.IDs]
+    #Saving for each duplicate group ID, the most recent identification, in the case of disagreement between the identification of taxonomically-validated specimens
+    dt[ , prioridade.tax := valor1 + (1 - as.numeric(dup.prop))]
+    dt[ , c("valor1") := NULL]
+    data.table::setkey(dt, dup.IDs, prioridade.tax)
+
+    dt[same_spp == "no",
+       c(new.cols) := .SD[tax.check.wk %in% tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
+       by = dup.IDs, .SDcols = c(wk.cols)]
+    dt[same_spp == "sim",
+       c("det.name.wk1", "det.year.wk1") := .SD[tax.check.wk %in% tax.level &
+                                                  which.max(det.year.wk)][1],
+       by = dup.IDs, .SDcols = c("det.name.wk1", "det.year.wk1")]
+    dt[same_spp == "sim",
+       tax.check.wk1 := if (any(tax.check.wk1 %in% tax.level)) tax.level
+       else tax.check.wk1, by = dup.IDs]
 
     #Removing unecessary columns
-    dt[, c("same_spp", wk.cols) := NULL]
+    dt[, c("same_spp", "prioridade.tax", wk.cols) := NULL]
 
     #Renaming the new columns
     new.cols1 <- paste0(tax.names, "1")
@@ -325,14 +321,13 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     dt[, geo.check.wk := gsub('\\[\\]', "", geo.check.wk, perl = TRUE), ]
     geo.check.lvs <- data.table::data.table(
       geo.check.wk = c("ok_county", "ok_county_close","ok_locality_gazet","ok_county_gazet",
-                    "shore", "ok_state", "ok_state_gazet", "ok_country", "ok_country_gazet",
-                    "ok_country[border]",
-                    "no_cannot_check", "check_gazetteer", "bad_country", "open_sea"),
-      valor = c(1,3,4,5,6,8,9,10,11,
-                12,20,20,25,25))
+                       "shore", "ok_state", "ok_state_gazet", "ok_country", "ok_country_gazet",
+                       "ok_country[border]",
+                       "no_cannot_check", "check_gazetteer", "bad_country", "open_sea"),
+      valor = c(1,3,4,5,6,8,9,10,11,12,20,20,25,25))
     coord.prec.lvs <- data.table::data.table(
       prec.coord.wk = c("miliseconds", "seconds","seconds_centroid",
-                           "minutes", "degrees", "no_coord"),
+                        "minutes", "degrees", "no_coord"),
       valor = c(0,0,0,1,6,20))
 
     # add values of geo.check and coord. resolution to the original data
@@ -374,13 +369,13 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop", prop = 0
     # creating the order/priority for locality info replacement
     loc.check.lvs <- data.table::data.table(
       loc.check.wk = c("check_local.2no.info","check_local.2country","check_local.2state","check_local.2municip.",
-                    "check_municip.2no.info","check_municip.2country","check_municip.2state",
-                    "check_state2no.info","check_state2country",
-                    "check_country2no.info",
-                    "ok_country2state","ok_country2municip.","ok_country2locality",
-                    "ok_state2municip.","ok_state2locality",
-                    "ok_municip.2locality",
-                    "ok_same_resolution"),
+                       "check_municip.2no.info","check_municip.2country","check_municip.2state",
+                       "check_state2no.info","check_state2country",
+                       "check_country2no.info",
+                       "ok_country2state","ok_country2municip.","ok_country2locality",
+                       "ok_state2municip.","ok_state2locality",
+                       "ok_municip.2locality",
+                       "ok_same_resolution"),
       valor = c(5,4,3,2,5,4,3,5,4,5,3,2,1,2,1,1,NA_integer_))
 
     # add values of order/priority to the original data
