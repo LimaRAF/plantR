@@ -12,7 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<meta name="date" content="2021-04-12" />
+<meta name="date" content="2021-04-20" />
 
 <title>A tutorial on how to use plantR</title>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">A tutorial on how to use <strong>plantR</strong></h1>
 <h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
-<h4 class="date">12 April 2021</h4>
+<h4 class="date">20 April 2021</h4>
 
 
 <div id="TOC">
@@ -249,12 +249,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Synonyms =</span> <span class="st">&quot;flora2020&quot;</span>)</span></code></pre></div>
 <p>The function <code>rspeciesLink()</code> allows a wide variety of ways on how to search for species records. Searches can also be done by locality and collections, using all the filters available in CRIA. Please check the help of the function for more details on the arguments that can be used for this search.</p>
 <p>We will download records for the same species from GBIF, using the function <code>rgbif2()</code>. This function uses internally the function <code>occ_search()</code> from the package <strong>rgbif</strong>, which should be consulted for details on how searches can be performed.</p>
-<!-- Sara, o filtro 'basisOfRecord' não parece estar funcionando para rgbif2 -->
-<!-- Sara, o numero de registros do gbif está muuuito menor aqui que no site deles;
-só Casearia tem +15,000 entradas no GBIF e aqui retorna apenas 480 -->
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span>  spp,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">basisOfRecord =</span> <span class="st">&quot;PRESERVED_SPECIMEN&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">remove_na =</span> <span class="cn">FALSE</span>, <span class="at">limit =</span> <span class="dv">500000</span>)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">remove_na =</span> <span class="cn">FALSE</span>, <span class="at">n.records =</span> <span class="dv">500000</span>)</span></code></pre></div>
 <p>The occurrence data is now stored in the objects <code>occs_splink</code> and <code>occs_gbif</code>. We can inspect how many occurrences were downloaded:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_splink)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_gbif)</span></code></pre></div>

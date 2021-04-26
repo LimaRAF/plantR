@@ -130,13 +130,10 @@ package __rgbif__, which should be consulted for details on how searches can
 be performed.
 
 
-<!-- Sara, o filtro 'basisOfRecord' não parece estar funcionando para rgbif2 -->
-<!-- Sara, o numero de registros do gbif está muuuito menor aqui que no site deles;
-só Casearia tem +15,000 entradas no GBIF e aqui retorna apenas 480 -->
 ```{r, eval = FALSE}
 occs_gbif <- rgbif2(species =  spp,
                     basisOfRecord = "PRESERVED_SPECIMEN",
-                    remove_na = FALSE, limit = 500000)
+                    remove_na = FALSE, n.records = 500000)
 ```
 
 The occurrence data is now stored in the objects `occs_splink` and `occs_gbif`.
