@@ -15,7 +15,10 @@ worldMap_0001.rda
 latamMap_full.rda
 cran-comments.md
 plantR.Rproj
-
+gera_vinhetas.R
+teste.Rmd
+teste.html
+teste.pdf
 
 # ignoring locally ast
 test/
