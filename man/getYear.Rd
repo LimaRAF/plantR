@@ -24,6 +24,11 @@ The function extracts the year from a given date in various
 different formats, but not all of them (see examples below). So, please
 consider putting your vector of dates in a standardized format prior to the
 year extraction (see note below).
+
+For some types of format, the function assumes internaly that years are
+given as numbers with 4 digits or with 2 digits but higher than 31. If
+the year is not given in one of these formats, the function returns the
+date as it is provided.
 }
 \note{
 If your dates are all stored in some specific format, you can convert
@@ -57,7 +62,8 @@ as.Date(dates, format = "\%d \%b \%Y")
 # A vector with some typical examples of formats found in herbarium labels
 dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,981",
          "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
-         "March 1981","Mar. 1981","Mar 1981","25 Mar 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
+         "March 1981","Mar. 1981","Mar 1981","25 Mar 1981","n.d.","s.d.","s/d","",NA,
+         "1981-03-25", "81/01/25", "25/03/81", "21/12/21")
 
 # Using the function to extract the year
 getYear(dates)

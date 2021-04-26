@@ -6,6 +6,7 @@
 \usage{
 saveData(
   df,
+  file.name = "output",
   dir.name = "",
   path = "",
   by = NULL,
@@ -17,6 +18,9 @@ saveData(
 \arguments{
 \item{df}{a data frame with the occurrence data, generally as the output of
 the \strong{plantR} validation functions.}
+
+\item{file.name}{character. Name of the file in which the data will be saved,
+without the extension. Default to "output".}
 
 \item{dir.name}{character. Name of the folder where the data should be saved.
 Default to "plantR_output".}

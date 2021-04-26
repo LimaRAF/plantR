@@ -10,7 +10,7 @@ rgbif2(
   species,
   n.records = 5000,
   force = FALSE,
-  remove_na = TRUE,
+  remove_na = FALSE,
   save = FALSE,
   file.format = "csv",
   compress = FALSE,
@@ -32,8 +32,8 @@ single character or a vector.}
 \item{force}{Logical. Force downloading data for more than 10 species in a
 loop. Default \code{force = FALSE}}
 
-\item{remove_na}{Logical. Defalt \code{TRUE} removes NA in columns decimalLatitude
-and decimalLongitude}
+\item{remove_na}{Logical. Should records with NA in the columns
+decimalLatitude and decimalLongitude be removed? Default to FALSE.}
 
 \item{save}{Logical. Save output to filename? Defaults to FALSE}
 

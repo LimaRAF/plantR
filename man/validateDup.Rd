@@ -22,7 +22,8 @@ validateDup(
   prop = 0.75,
   info2merge = c("tax", "geo", "loc"),
   tax.names = c(family = "family.new", species = "scientificName.new", det.name =
-    "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check"),
+    "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check", status
+    = "scientificNameStatus"),
   geo.names = c(lat = "decimalLatitude.new", lon = "decimalLongitude.new", org.coord =
     "origin.coord", prec.coord = "precision.coord", geo.check = "geo.check"),
   loc.names = c(loc.str = "loc.correct", res.gazet = "resolution.gazetteer", res.orig =
