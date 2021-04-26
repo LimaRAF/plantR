@@ -124,7 +124,7 @@ prepFamily <- function(x,
                          by.x = "tmp.fam", by.y = "name", all.x = TRUE)
 
   # Getting missing family names from Brazilian Flora 2020
-  families.data[, flora.br := flora::get.taxa(tmp.gen, suggestion.distance = 0.95, drop <-NULL)$family,
+  families.data[, flora.br := flora::get.taxa(tmp.gen, suggestion.distance = 0.9, drop = NULL)$family,
                 by = "tmp.gen"]
   families.data[(is.na(tmp.fam) | is.na(name.correct) & !is.na(flora.br)),
                 name.correct :=  flora.br, ]

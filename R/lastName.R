@@ -116,8 +116,8 @@ lastName <- function(name,
   # probs <- grepl("^[a-z;A-Z;à-ý;À-Ý]\\.$", last.name)
   if (any(probs))
     last.name[probs] <-
-    gsub(" \\p{L}\\..*", "", name[!miss.name][probs], perl = TRUE)
-    # gsub(" [a-z;A-Z;à-ý;À-Ý]\\..*", "", name[!miss.name][probs], perl = TRUE)
+      gsub(" \\p{L}\\..*", "", name[!miss.name][probs], perl = TRUE)
+      # gsub(" [a-z;A-Z;à-ý;À-Ý]\\..*", "", name[!miss.name][probs], perl = TRUE)
 
   # Detecting possible problems with non-abbreviated initials at the end of the name
   probs1 <- last.name == toupper(last.name) &

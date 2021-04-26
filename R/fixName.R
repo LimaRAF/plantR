@@ -83,17 +83,10 @@ fixName <- function(nomes,
                 nomes, perl = TRUE)
   nomes <- gsub("(?<=\\p{Ll}),(?=\\p{L})", "\\1, \\2",
                 nomes, perl = TRUE)
-  # nomes <- gsub("(?<=[A-ZÀ-Ý])\\.(?=[a-zà-ý])", "\\1. ",
-  #               nomes, perl = TRUE)
-  # nomes <- gsub("(?<=[A-ZÀ-Ý])\\.([A-ZÀ-Ý])([a-zà-ý])", ". \\1\\2",
-  #               nomes, perl = TRUE)
-  # nomes <- gsub("(?<=[a-zà-ý])([A-ZÀ-Ý])\\.", " \\1.",
-  #               nomes, perl = TRUE)
-  # nomes <- gsub("(?<=[a-zà-ý]),(?=[a-zà-ýA-ZÀ-Ý])", "\\1, \\2",
-  #               nomes, perl = TRUE)
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
 
   #Separation between multiple authors
+  nomes <- gsub(",;|;,", sep.in3[1], nomes, perl = TRUE)
   nomes <- gsub(sep.other, sep0, nomes, perl = TRUE)
   nomes <- gsub("____", sep0, nomes, fixed = TRUE)
   nomes <- gsub("^__|__$", "", nomes, perl = TRUE)
