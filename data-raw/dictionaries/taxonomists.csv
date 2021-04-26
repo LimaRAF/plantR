@@ -7068,7 +7068,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 7261,herbaria,Bixaceae,NA,D.F.Baer,"Baer, D.F."
 7263,herbaria,Bixaceae,NA,Hans-Helmut Poppendieck,"Poppendieck, H."
 7264,herbaria,Bixaceae,NA,Hans-Helmut Poppendieck,"Poppendieck, H.H."
-7265,herbaria,Blechnaceae,NA,Fernando Bittencourt Matos,"Matos, F.B."
+7265,herbaria,Pteridophyta,fern floristics,Fernando Bittencourt Matos,"Matos, F.B."
 7266,herbaria,Malvaceae,Bombacoideae,Carlos Daniel Miranda Ferreira,"Ferreira, C.D.M."
 7267,herbaria,Bonnetiaceae,NA,Basset Maguire,"Maguire, B."
 7268,herbaria,Bonnetiaceae,NA,Anna Lisa Weitzman,"Weitzman, A.L."
@@ -8675,3 +8675,7 @@ order,source,family,family.obs,full.name1,tdwg.name
 9294,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Santo, F.E."
 9295,herbaria,Bignoniaceae,Bahia,Fabio da Silva do Espírito Santo,"Santo, F.S.E."
 9296,herbaria,Arecaceae,NA,Helio de Q. Boudet Fernandes,"Boudet Fernandes, H.Q."
+9297,herbaria,Blechnaceae,fern floristics,Vinícius Antonio de Oliveira Dittrich,"Dittrich, V.O."
+9298,herbaria,Blechnaceae,fern floristics,Vinícius Antonio de Oliveira Dittrich,Dittrich
+9299,herbaria,Blechnaceae,"Thelypteris, Cyathea, Dicksonia",Alan R. Smith,Smith A.R.
+9300,herbaria,Blechnaceae,NA,Alexandre Salino,"Salino, A."
