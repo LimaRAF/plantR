@@ -11,8 +11,8 @@
 #' @param n.records Number of records to return. Default to 5000.
 #' @param force Logical. Force downloading data for more than 10 species in a
 #'   loop. Default `force = FALSE`
-#' @param remove_na Logical. Defalt `TRUE` removes NA in columns decimalLatitude
-#'   and decimalLongitude
+#' @param remove_na Logical. Should records with NA in the columns
+#'   decimalLatitude and decimalLongitude be removed? Default to FALSE.
 #' @param save Logical. Save output to filename? Defaults to FALSE
 #' @param file.format Character. The file extension to be used for saving ('csv'
 #'   or 'rds'). Default to 'csv'.
@@ -40,7 +40,7 @@ rgbif2 <- function(dir = "results/",
                    species,
                    n.records = 5000,
                    force = FALSE,
-                   remove_na = TRUE,
+                   remove_na = FALSE,
                    save = FALSE,
                    file.format = "csv",
                    compress = FALSE,
