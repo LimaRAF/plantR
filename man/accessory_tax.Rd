@@ -56,7 +56,7 @@ rmInfra(c("Lindsaea lancea var. angulata",
 }
 
 \dontrun{
-rmHyb(c("Blechnum Ã—antillanum", "Blechnum Ã— antillanum",
+rmHyb(c("Blechnum ×antillanum", "Blechnum × antillanum",
        "Blechnum x antillanum", "Blechnum X antillanum"))
 }
 

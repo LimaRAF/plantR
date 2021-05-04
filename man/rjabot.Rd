@@ -12,8 +12,8 @@ create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{species}{Genus and epithet separated by space. More than one should be
-concatenated in a vector}
+\item{species}{Genus or genus and epithet separated by space. More than one
+should be concatenated in a vector}
 }
 \value{
 A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
