@@ -134,6 +134,8 @@ prepSpecies <- function(x,
     if (length(miss_sp) > 0) {
       #Are names missing due to lack of the infra-specific rank abbreviation?
       spcs <- stringr::str_count(miss_sp, stringr::fixed(" "))
+      if (any(spcs >= 2)) {
+
       miss_rank <- rbind(
         cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "var."), "added_var"),
         cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "subsp."), "added_ssp"),
@@ -141,6 +143,7 @@ prepSpecies <- function(x,
         cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2], perl = TRUE), "edited_x"))
 
       #Are names missing due to authorships with the binomial?
+
       no_case <- fixCase(miss_sp[spcs >= 2])
       patt <- " (?=[A-Z])| (?=\\()"
       has_authors <- stringr::str_detect(no_case, stringr::regex(patt))
@@ -149,6 +152,12 @@ prepSpecies <- function(x,
                       sapply(no_authors[has_authors],
                            function(x) flora::remove.authors(x)))
 
+      } else {
+
+        miss_rank <- data.frame(NULL)
+        no_authors <- NULL
+
+      }
       #Gettting possible missing names
       # miss_spp <- cbind.data.frame(miss_sp, miss_sp)
       if (dim(miss_rank)[1] > 0 | length(no_authors) > 0) {
