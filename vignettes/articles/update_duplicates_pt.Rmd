@@ -49,7 +49,7 @@ iremos baixar apenas os coletas realizadas no Brasil (i.e. campo `country` igual
 a 'BR').
 
 Para downloads do GBIF, o limite do número de registros baixados é controlado
-pelo argumento `n.records` e o padrão é baixar até 5000 registros por item 
+pelo argumento `n.records` e o padrão é baixar até 500 registros por item 
 buscado. Estão o limite foi modificado para 450,000 registros, pois o GBIF contém
 aproximadamente 430,000 registros no total para a família.
 
@@ -115,7 +115,7 @@ occs <- formatTax(occs, db = "fbo")
 ```
 
 Note que as funções não editam as colunas originais dos registros. Elas criam
-novas colunas que armazenam as informações editadas que em geral tem o mesmo
+novas colunas que armazenam as informações editadas que em geral têm o mesmo
 nome da coluna original seguido do sufixo '.new'.
 
 ## Validação das informações padronizadas
@@ -160,7 +160,7 @@ nomes podem estar listados porque a base de dados usada está incompleta.
 
 Para incluir nomes faltantes de taxonomistas, é possível usar o campo
 `miss.taxonomist`. Nesse exemplo vamos incluir dois nomes 'Kazmirczak, C.' e 
-'Prado, J.', que tem que ser fornecidos em um formato específico: nome da
+'Prado, J.', que têm que ser fornecidos em um formato específico: nome da
 'família + underline + nome do determinador.
 
 
@@ -170,7 +170,7 @@ occs <- validateTax(occs, miss.taxonomist = falta.tax,
                     top.det = 15)
 ```
 
-Note que agora os nomes incluídos já não são mais listados entre os  nomes
+Note que agora os nomes incluídos já não são mais listados entre os nomes
 com mais identificações, mas que não são especialistas da família.
 
 
@@ -188,7 +188,7 @@ occs$numTombo <- getTombo(occs[, "collectionCode.new"],
                           occs[, "catalogNumber"])
 ```
 
-Como muitas coleções tem suas bases de dados tanto no speciesLink/INCT quanto no
+Como muitas coleções têm suas bases de dados tanto no speciesLink/INCT quanto no
 GBIF é normal termos números de tombo repetidos nos dados, as chamadas
 duplicatas virtuais. Como nosso interesse é pelas informações contidas nas
 duplicatas físicas entre coleções, é indicado remover números de tombo
@@ -196,7 +196,7 @@ repetidos. Isso não afeta a busca por duplicatas, mas simplifica a sua checagem
 final, isto é, as duplicatas virtuais não estarão entre as duplicatas
 encontradas.
 
-Como alguns registros não tem número de tombo (tombo igual a 'US_NA'), usamos
+Como alguns registros não têm número de tombo (tombo igual a 'US_NA'), usamos
 o código abaixo para realizar a remoção apenas dos números de tombo repetidos:
 
 ```{r, eval = TRUE, collapse = FALSE}
@@ -284,7 +284,7 @@ com 'dup.prop' <0.5 (apenas 1 combinação em comum) sugere-se um 'pente-fino',
 pois esses casos podem representar problemas ou falsas duplicatas.
 
 
-# Homogeneizando as informações dentre grupos de duplicatas                               
+# Homogeneizando as informações entre grupos de duplicatas                               
 
 Por fim, podemos usar para todas as duplicatas de cada grupo as informações mais
 confiáveis ou recentes sobre os registros. Atualmente, o __plantR__ faz essa
@@ -358,12 +358,12 @@ coleção que é atribuída ao objeto chamado `colecao`.
 
 Podemos filtrar apenas as colunas que são de interesse para a checagem alvo que o
 André quer realizar, a checagem taxonômica. Para cada um dos campos de interesse
-iremos filtrar as informações básicas de cada registros, mais a informação
+iremos filtrar as informações básicas de cada registro, mais a informação
 original (em formato DwC), a editada pelo __plantR__ (sufixo '.new') e a
 homogeneizada a partir dos grupos de duplicatas (sufixo '.new1') relativas à
 identificação taxonômica dos registros.
 
-Note que como usamos os defaults do __plantR__ o filtro da colunas também seguem
+Note que como usamos os defaults do __plantR__ os filtros das colunas também seguem
 esse padrão. Caso você tenha selecionado outras colunas, os nomes abaixo têm
 que ser adaptados.
 
@@ -385,7 +385,7 @@ table(occs1[grepl("FURB_", occs1$numTombo, fixed = TRUE) &
               !occs1$tax.notes %in% "", c("scientificName","tax.notes")])
 ```
 
-Sem grandes problemas para o FURB! Algumas notas em relação a diferença como os
+Sem grandes problemas para o FURB! Algumas notas em relação à diferença como os
 híbridos são anotados na Flora do Brasil e a uma espécie que não ocorre no
 Brasil.
 
@@ -404,7 +404,7 @@ head(occs2.tax, 7)
 A função `head()` imprimiu os 7 primeiros resultados de duplicatas dos registros
 do FURB. Os dois primeiros casos (i.e. 'dup.ID' = 'CESJ_67491|FURB_50519' e
 'CESJ_71184|FURB_54226') tratam-se de registros identificados a nível de família
-no FURB mas que tem a identificação completa no CESJ. O primeiro caso, como o
+no FURB mas que têm a identificação completa no CESJ. O primeiro caso, como o
 determinador 'Lima, L.V.' não está entre os especialistas de Blechnaceae, suas
 informações não foram homogeneizadas para o registro do FURB (colunas terminando
 em '.new1'). No segundo caso, a determinação foi feita por Dittrich, V.A.O.,
