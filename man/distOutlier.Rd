@@ -43,8 +43,8 @@ the spatial outliers detected automatically, which can be used in the decision m
 the more appropriated distance cutoffs to flag spatial outliers.
 
 The automatic detection of spatial outliers is based on an adjusted threshold
-of the Mahalanobis distances using package \code{mvoutlier} and its defaults
-(function \code{mvoutlier::arw()}).
+of the Mahalanobis distances based on function \code{arw()} from package
+\strong{mvoutlier}.
 
 If the number of unique coordinates is below \code{n.min} or if the Minimum
 Covariance Determinant (MCD) estimator has issues, the function returns NAs.
@@ -56,6 +56,7 @@ set.seed(123)
 lon <- runif(100, -45, -35)
 lat <- runif(100, -35, -25)
 
+\dontrun{
 distOutlier(lon, lat, method = "classic") # no outliers found...
 distOutlier(lon, lat, method = "robust")
 
@@ -65,6 +66,7 @@ lon[96:100] <- lon[96:100] + runif(5, 10, 20)
 
 distOutlier(lon, lat, method = "classic") # quantiles for the 10 outliers found
 distOutlier(lon, lat, method = "robust")
+}
 
 }
 \seealso{

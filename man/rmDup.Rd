@@ -69,13 +69,14 @@ create the 'key' within the \code{data.table} parlance and order the data accord
 
 Finally, users can choose between removing all but one records within each
 group of duplicate, or to remove only those records with duplicated entries
-from the same collection in different sources using the argument \code{rm.all}.
-This option can be useful if the same collection has its database in two or
-more repositories (e.g. speciesLink and GBIF). It is important to note that
-this removal is dependent on the duplicate group ID found for each record.
-So, if the information was entered differently in the different sources, it
-is not guaranteed that they will be grouped under the same duplicate group
-ID, and thus be excluded from the data.
+from the same collection in different sources (i.e. virtual duplicates),
+using the argument \code{rm.all}. This option can be useful if the same
+collection has its database in two or more repositories (e.g. speciesLink
+and GBIF). It is important to note that this removal is dependent on the
+duplicate group ID found for each record. So, if the information was
+entered differently in the different sources, it is not guaranteed that
+they will be grouped under the same duplicate group ID, and thus be
+excluded from the data.
 }
 \examples{
 (df <- data.frame(numTombo = c("a1", "b2", "c3", "c3", "d5", "d5", "e7", "f4", "g9"),

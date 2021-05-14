@@ -11,7 +11,8 @@ mergeDup(
   prop = 0.75,
   info2merge = c("tax", "geo", "loc"),
   tax.names = c(family = "family.new", species = "scientificName.new", det.name =
-    "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check"),
+    "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check", status
+    = "scientificNameStatus"),
   geo.names = c(lat = "decimalLatitude.new", lon = "decimalLongitude.new", org.coord =
     "origin.coord", prec.coord = "precision.coord", geo.check = "geo.check"),
   loc.names = c(loc.str = "loc.correct", res.gazet = "resolution.gazetteer", res.orig =
@@ -86,6 +87,7 @@ For the merge of taxonomical information, the fields required by
 \item 'det.name': the indentifier name (default: 'identifiedBy.new')
 \item 'det.year': the identification year (default: 'yearIdentified.new')
 \item 'tax.check': the confidence level of the taxonomic identification (default: 'tax.check')
+\item 'status': the status of the taxon name (default: 'scientificNameStatus')
 }
 
 For the merge of geographical information, the fields required by
@@ -157,14 +159,16 @@ predicted, but not yet implemented in the current version.
   det = c("spec","n_spec","spec1","spec2","n_spec1",
           "spec3","spec4","n_spec2","n_spec3","n_spec4"),
   yr = c("2010","2019","2019","2000","2020",NA,"1812","2020","2020","2020"),
-  check = c("high","low","high","high","low","high","high","low","low","low")))
+  check = c("high","low","high","high","low","high","high","low","low","low"),
+  stat = rep("possibly_ok", 10)))
 
 mergeDup(df, info2merge = "tax",
         tax.names = c(family = "fam",
                       species = "sp",
                       det.name = "det",
                       det.year = "yr",
-                      tax.check = "check"))
+                      tax.check = "check",
+                      status = "stat"))
 
 
 }

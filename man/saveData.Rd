@@ -6,6 +6,7 @@
 \usage{
 saveData(
   df,
+  file.name = "output",
   dir.name = "",
   path = "",
   by = NULL,
@@ -18,19 +19,22 @@ saveData(
 \item{df}{a data frame with the occurrence data, generally as the output of
 the \strong{plantR} validation functions.}
 
+\item{file.name}{character. Name of the file in which the data will be saved,
+without the extension. Default to "output".}
+
 \item{dir.name}{character. Name of the folder where the data should be saved.
 Default to "plantR_output".}
 
 \item{path}{character. The path to the directory of the output folder.
 Default to the user working directory.}
 
-\item{by}{character. The variable used for separate the data into different
-files.}
+\item{by}{character. The variable used for separating the data into different
+files before saving.}
 
 \item{file.format}{character. The file extension to be used for saving.
 Default to 'csv'.}
 
-\item{compress}{logical. Should the files be compressed?}
+\item{compress}{logical. Should the files be compressed? Default to TRUE.}
 
 \item{rm.dup}{logical. Should duplicated specimens be removed prior to
 saving? Default to FALSE.}

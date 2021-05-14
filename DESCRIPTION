@@ -1,6 +1,6 @@
 Package: plantR
-Version: 0.1.1
-Date: 2021-03-30
+Version: 0.1.2
+Date: 2021-04-26
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
@@ -47,8 +47,9 @@ Imports:
     tidyr
 Suggests:
     devtools,
-    sp,
     remotes,
+    rmarkdown,
+    sp,
     stats,
     testthat (>= 3.0.0),
     utils

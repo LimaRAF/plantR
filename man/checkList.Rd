@@ -58,9 +58,8 @@ per taxa, but this number can be controlled using the argument \code{n.vouch}.
 
 The voucher list can be provided in the following output formats (the
 option 'list' is not implemented yet):
-
-+'short': Collector name, Collector number (collections of deposit)
 \itemize{
+\item 'short': Collector name, Collector number (collections of deposit)
 \item 'selected': COUNTRY, stateProvince: municipality, Date, Collector name,
 Collector number (collections of deposit)
 \item 'list': Collector name, Collector number(s) (species code)

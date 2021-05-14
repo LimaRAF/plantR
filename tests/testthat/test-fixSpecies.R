@@ -25,5 +25,5 @@ test_that("fixSpecies parameters work", {
                c("scientificName.new", "scientificNameStatus"))
   expect_equal(df_clean$scientificName.new[1], "Lindsaea lancea angulata")
   expect_equal(df_clean$scientificName.new[2], "Lindsaea lancea")
-  expect_equal(df_clean$scientificName.new[3], "Lindsaea lancea (L.) Bedd.")
+  expect_equal(df_clean$scientificName.new[3], "Lindsaea lancea")
 })

@@ -6,6 +6,8 @@
 #'
 #' @param df a data frame with the occurrence data, generally as the output of
 #'   the __plantR__ validation functions.
+#' @param file.name character. Name of the file in which the data will be saved,
+#'   without the extension. Default to "output".
 #' @param dir.name character. Name of the folder where the data should be saved.
 #'   Default to "plantR_output".
 #' @param path character. The path to the directory of the output folder.
@@ -44,7 +46,7 @@
 #'
 #' @export saveData
 #'
-saveData <- function(df, dir.name = "", path = "",
+saveData <- function(df, file.name = "output", dir.name = "", path = "",
                      by = NULL, file.format = "csv",
                      compress = TRUE, rm.dup = FALSE) {
 
@@ -107,26 +109,30 @@ saveData <- function(df, dir.name = "", path = "",
     if (file.format == "csv") {
 
       if (compress) {
+        file.name1 <- paste0(file.name, ".csv.zip")
         cat("Saving compressed occurrence data... ", sep = "")
-        data.table::fwrite(data.frame(dt), file = file.path(path, "output.csv.zip"),
+        data.table::fwrite(data.frame(dt), file = file.path(path, file.name1),
                            compress = "gzip")
         cat("saved!", sep = "")
       } else {
+        file.name1 <- paste0(file.name, ".csv")
         cat("Saving occurrence data... ", sep = "")
-        data.table::fwrite(data.frame(dt), file = file.path(path, "output.csv"))
+        data.table::fwrite(data.frame(dt), file = file.path(path, file.name1))
         cat("saved!", sep = "")
       }
     }
 
     if (file.format == "rds") {
 
+      file.name1 <- paste0(file.name, ".rds")
+
       if (compress) {
         cat("Saving compressed occurrence data... ", sep = "")
-        saveRDS(data.frame(dt), file = file.path(path, "output.rds"), compress = "gzip")
+        saveRDS(data.frame(dt), file = file.path(path, file.name1), compress = "gzip")
         cat("saved!\n", sep = "")
       } else {
         cat("Saving occurrence data... ", sep = "")
-        saveRDS(data.frame(dt), file = file.path(path, "output.rds"), compress = FALSE)
+        saveRDS(data.frame(dt), file = file.path(path, file.name1), compress = FALSE)
         cat("saved!\n", sep = "")
       }
     }

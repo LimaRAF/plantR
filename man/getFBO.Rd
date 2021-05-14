@@ -30,3 +30,4 @@ consulted in the Brazilian Flora database and your internet connection.
 If the Brazilian Flora server is down, the function will probably return a
 timeout error.
 }
+\keyword{internal}

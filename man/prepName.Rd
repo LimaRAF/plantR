@@ -7,12 +7,12 @@
 prepName(
   x,
   fix.names = TRUE,
+  output = "all",
+  treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.", "Sra.", "Mr.", "Mrs.",
+    "Mme."),
   sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "|",
   special.char = FALSE,
-  output = "all",
-  treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.", "Sra.", "Mr.", "Mrs.",
-    "Mme.", "Sir", "Dame"),
   format = "last_init",
   get.prep = FALSE,
   get.initials = TRUE
@@ -24,19 +24,21 @@ prepName(
 \item{fix.names}{logical. Should the general notation of names be
 standardized? Default to TRUE.}
 
+\item{output}{a character string with the type of output desired: all names,
+first name, or auxiliary names.}
+
+\item{treat.prep}{a character or vector containing the treatment prepositions
+that should be removed from names. Default to some common prpositions in
+Portuguese, Spanish and English (see Examples).}
+
 \item{sep.in}{a vector of the symbols separating multiple names. Default to:
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
 
 \item{sep.out}{a character string with the symbol separating multiple names
-in the output string. Defaults to "; ".}
+in the output string. Defaults to "|".}
 
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
-
-\item{output}{a character string with the type of output desired: all names,
-first name, or auxiliary names.}
-
-\item{treat.prep}{character}
 
 \item{format}{character. Output name format. The default is "last_init".}
 
@@ -45,8 +47,6 @@ FALSE.}
 
 \item{get.initials}{logical. Should last name prepositions be included? Default to
 TRUE.}
-
-\item{...}{Parameters from fixName}
 }
 \value{
 The character string \code{x} in a standardized name format.
@@ -67,11 +67,11 @@ defined in the argument \code{sep.in}, the argument \code{output} controls which
 should be returned: names of all person ("all", the default), first person's
 names ("first") or all but the first person's names ("aux").
 
-The function identifies (and removes) name prefixes or prepositions (e.g. de,
-dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Prof., Pe., Sr., Mr.)
-but not all of them (e.g. Doctor, Priest, Mister, etc.). The function also does not
-handle hyphenated first names. If only one name is given, the function
-returns \code{x} with the first letter capitalized.
+The function identifies (and removes) name prefixes or prepositions (e.g.
+de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
+Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). The
+function also does not handle hyphenated first names. If only one name is
+given, the function returns \code{x} with the first letter capitalized.
 
 The function has the option of stardardizing the general notation of names
 and the general format of names. These standardizations are controled by
@@ -97,6 +97,7 @@ the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
 
   # Names with titles
   prepName("Pe. Raulino Reitz")
+  prepName("Dra. Gloria Galeano")
   prepName("Prof. Hermogenes de Freitas Leitao Filho")
   prepName("Sir G.T. Prance")
   prepName("Sir G.T. Prance", treat.prep = "Sir")

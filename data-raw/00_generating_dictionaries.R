@@ -90,12 +90,14 @@ gazetteer <- dic$gazetteer[ ,c("order",
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
-priorities <- data.frame(source = unique(gazetteer$source), priority =
-                           c(2, 5, 4, 2, 5, 1, 4, 4, 3, 4, 1))
-priorities
-#ast ö checar que a ordem seja esta
 
-gazetteer <- left_join(gazetteer, priorities)
+priorities <- data.frame(source = c("gdam", "gdam_treeco", "treeco", "ibge",
+                                    "google", "ibge_treeco", "splink_jabot",
+                                    "gbif", "cncflora", "ibge?", "types"),
+                         priority = c(2, 4, 3, 2, 5, 1, 4, 4, 3, 3, 1))
+priorities[order(priorities$priority),]
+
+gazetteer <- dplyr::left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
 dplyr::count(gazetteer, source, priority) %>% arrange(priority)
 gazetteer <-

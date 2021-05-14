@@ -2,7 +2,7 @@
 % Please edit documentation in R/readData.R
 \name{readData}
 \alias{readData}
-\title{Read Species Occurrence Data From DwC-A File}
+\title{Read Data From DwC-A Files}
 \usage{
 readData(
   file = NULL,

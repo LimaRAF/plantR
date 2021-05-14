@@ -14,6 +14,11 @@
 #'   consider putting your vector of dates in a standardized format prior to the
 #'   year extraction (see note below).
 #'
+#'   For some types of format, the function assumes internaly that years are
+#'   given as numbers with 4 digits or with 2 digits but higher than 31. If
+#'   the year is not given in one of these formats, the function returns the
+#'   date as it is provided.
+#'
 #' @author Renato A. F. de Lima
 #'
 #' @references
@@ -34,7 +39,8 @@
 #' # A vector with some typical examples of formats found in herbarium labels
 #' dates <- c("25/03/1981","25-03-1981","03/1981","03-1981","1981","1.981","1,981",
 #'          "25/III/1981","25-III-1981","III/1981","III-1981","25031981","25 03 1981","'81",
-#'          "March 1981","Mar. 1981","Mar 1981","25 Mar 1981","n.d.","s.d.","s/d","",NA,"1981-03-25")
+#'          "March 1981","Mar. 1981","Mar 1981","25 Mar 1981","n.d.","s.d.","s/d","",NA,
+#'          "1981-03-25", "81/01/25", "25/03/81", "21/12/21")
 #'
 #' # Using the function to extract the year
 #' getYear(dates)
@@ -70,17 +76,20 @@
 #' dates <- c("25 Mar 1981", "05 Dec 1981")
 #' as.Date(dates, format = "%d %b %Y")
 #'
+#'
 getYear <- function (x, noYear = "s.d.") {
 
   # Preliminary edits
   tmp <- gsub('Data:|Date:', "", x, perl = TRUE, ignore.case = TRUE)
+  tmp <- gsub('Transcribed d/m/y: ', "", x, perl = TRUE, ignore.case = TRUE)
   tmp <- gsub('([0-9])(T).*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('\\s[0-9]:.*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('\\s[0-9][0-9]:.*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('-NA', "-01", tmp, perl = TRUE)
+  tmp <- gsub(' to ', ";;;", tmp, fixed = TRUE)
 
   # Converting NA entries
-  tmp[tmp %in% c("", " ", NA, "T00:00:00Z")] <- noYear
+  tmp[tmp %in% c("", " ", NA, "T00:00:00Z", "0/0/0", "00/00/0000")] <- noYear
 
   # Converting dates with no numbers
   tmp1 <- tmp[!grepl('\\d', tmp, perl = TRUE)]
@@ -121,63 +130,86 @@ getYear <- function (x, noYear = "s.d.") {
   tmp <- gsub('I', '01', tmp, fixed = TRUE)
 
   #years separated by points or commas
-  tmp1 <- tmp[grepl('^[0-9]\\.|^[0-9],', tmp, perl = TRUE)]
-  tmp1 <- as.character(sapply(strsplit(tmp1, "\\.|,", perl = TRUE),
+  check_these <- grepl('^[0-9]\\.|^[0-9],', tmp, perl = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], "\\.|,", perl = TRUE),
                               function(x) paste(x, collapse = "")))
   if (length(tmp1) > 0)
-    tmp[grepl('^[0-9]\\.|^[0-9],', tmp, perl = TRUE)] <- tmp1
+    tmp[check_these] <- tmp1
 
-  #complete dates, separated by slashs
-  tmp1 <- tmp[grepl('\\/', tmp, perl = TRUE)]
-  tmp1 <- as.character(sapply(strsplit(tmp1, "\\/", perl = TRUE),
-                              function(x) x[nchar(x) >= 4]))
-  if (length(tmp1) > 0)
-    tmp[grepl('\\/', tmp, perl = TRUE)] <- tmp1
-
-  #complete dates in a sequence, not separated by '-'
-  tmp1 <- tmp[nchar(tmp) %in% 8 & !grepl("-", tmp, fixed = TRUE)]
-  tmp1 <- substr(tmp1, 5, 8)
-  if (length(tmp1) > 0)
-    tmp[nchar(tmp) %in% 8 & !grepl("-", tmp, fixed = TRUE)] <- tmp1
-  tmp1 <- tmp[nchar(tmp) %in% 7 & !grepl("-", tmp, fixed = TRUE)]
-  tmp1 <- substr(tmp1, 4, 7)
-  if (length(tmp1) > 0)
-    tmp[nchar(tmp) %in% 7 & !grepl("-", tmp, fixed = TRUE)] <- tmp1
-  tmp1 <- tmp[nchar(tmp) %in% 6 & !grepl("-", tmp, fixed = TRUE)]
-  tmp1 <- substr(tmp1, 3, 6)
-  if (length(tmp1) > 0)
-    tmp[nchar(tmp) %in% 6 & !grepl("-", tmp, fixed = TRUE)] <- tmp1
-  tmp1 <- tmp[nchar(tmp) %in% 5 & !grepl("-", tmp, fixed = TRUE)]
-  tmp1 <- substr(tmp1, 2, 5)
-  if (length(tmp1) > 0)
-    tmp[nchar(tmp) %in% 5 & !grepl("-", tmp, fixed = TRUE)] <- tmp1
-
-  #dates separeted by '-' (only numbers)
-  tmp1 <- tmp[grepl("-", tmp, fixed = TRUE) &
-                !grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)]
-  tmp1 <- as.character(sapply(strsplit(tmp1, "-", fixed = TRUE),
-                              function(x) paste0(unique(x[nchar(stringr::str_trim(x)) >= 4]),
+  #complete dates, separated by slashs (and no '-')
+  check_these <- grepl('\\/', tmp, perl = TRUE) &
+                  !grepl('\\-', tmp, perl = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], "\\/|;;;", perl = TRUE),
+                              function(x) paste0(unique(x[nchar(x) >= 4]),
                                                  collapse = "-")))
-  if (length(tmp1) > 0)
-    tmp[grepl("-", tmp, fixed = TRUE) &
-          !grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)] <- tmp1
+  if (any(tmp1 %in% ""))
+    tmp1[tmp1 %in% ""] <-
+      as.character(sapply(strsplit(tmp[check_these][tmp1 %in% ""], "\\/|;;;", perl = TRUE),
+                        function(x) paste0(unique(
+                          x[!is.na(x) & !x %in% "" & as.double(x) > 31]),
+                          collapse = "-")))
+  if (any(tmp1 %in% ""))
+    tmp1[tmp1 %in% ""] <- tmp[check_these][tmp1 %in% ""]
 
-  #dates separeted by '-' (numbers and letters)
-  tmp1 <- tmp[grepl("-", tmp, fixed = TRUE) &
-                grepl('[a-z]', tmp, ignore.case = TRUE)]
-  tmp1 <- as.character(sapply(strsplit(tmp1, "-", fixed = TRUE),
-                              function(x) x[grepl('\\d', x, perl = TRUE, ignore.case = TRUE)]))
   if (length(tmp1) > 0)
-    tmp[grepl("-", tmp, fixed = TRUE) &
-          grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)] <- tmp1
+    tmp[check_these] <- tmp1
 
-  #dates separated by spaces
-  tmp1 <- tmp[grepl(" ", tmp, fixed = TRUE)]
-  tmp1 <- as.character(sapply(strsplit(tmp1, " ", fixed = TRUE),
+  #complete dates, separated by slashs and '-'
+  check_these <- grepl('\\/', tmp, perl = TRUE) & grepl('\\-', tmp, perl = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], "\\/|\\-", perl = TRUE),
                               function(x) paste0(unique(x[nchar(x) >= 4]),
                                                  collapse = "-")))
   if (length(tmp1) > 0)
-    tmp[grepl(" ", tmp, fixed = TRUE)] <- tmp1
+    tmp[check_these] <- tmp1
+
+  #complete dates in a sequence, not separated by '-'
+  avoid_these <- !grepl("-", tmp, fixed = TRUE) &
+                    !grepl("\\[", tmp, perl = TRUE) &
+                      !grepl("\\/", tmp, perl = TRUE)
+  check_these <- nchar(tmp) %in% 8 & avoid_these
+  tmp1 <- substr(tmp[check_these], 5, 8)
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  check_these <- nchar(tmp) %in% 7 & avoid_these
+  tmp1 <- substr(tmp[check_these], 4, 7)
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  check_these <- nchar(tmp) %in% 6 & avoid_these
+  tmp1 <- substr(tmp[check_these], 3, 6)
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  check_these <- nchar(tmp) %in% 5 & avoid_these
+  tmp1 <- substr(tmp[check_these], 2, 5)
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  #dates separeted by '-' (only numbers)
+  check_these <- grepl("-", tmp, fixed = TRUE) &
+                  !grepl('[a-z]', tmp, perl = TRUE, ignore.case = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], "-", fixed = TRUE),
+                              function(x) paste0(unique(x[nchar(stringr::str_trim(x)) >= 4]),
+                                                 collapse = "-")))
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  #dates separeted by '-' (numbers and letters)
+  check_these <- grepl("-", tmp, fixed = TRUE) &
+                  grepl('[a-z]', tmp, ignore.case = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], "-", fixed = TRUE),
+                              function(x) x[grepl('\\d', x, perl = TRUE, ignore.case = TRUE)]))
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  #dates separated by spaces
+  check_these <- grepl(" ", tmp, fixed = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], " ", fixed = TRUE),
+                              function(x) paste0(unique(x[nchar(x) >= 4]),
+                                                 collapse = "-")))
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
 
   return(tmp)
 }

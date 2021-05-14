@@ -70,9 +70,10 @@
 #' @seealso
 #'  Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
 #'
-#' @importFrom flora trim get.taxa fixCase remove.authors
-#' @importFrom stringr str_count str_trim
+#' @importFrom flora get.taxa remove.authors
+#' @importFrom stringr str_count str_trim str_squish fixed
 #' @importFrom Taxonstand TPL
+#' @importFrom dplyr left_join
 #'
 #' @export prepSpecies
 #'
@@ -125,26 +126,28 @@ prepSpecies <- function(x,
   # suggesting a valid name using flora pkg
   if (any(db %in% c("bfo", "fbo"))) {
     # cleaning spaces and removing duplicated names
-    trim_sp <- flora::trim(unique(x[,tax.names[1]]))
+    trim_sp <- stringr::str_squish(unique(x[, tax.names[1]]))
     # obtaining valid names from FBO-2020
     suggest_sp <- flora::get.taxa(trim_sp, drop = "", suggestion.distance = sug.dist)
     miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
 
     if (length(miss_sp) > 0) {
       #Are names missing due to lack of the infra-specific rank abbreviation?
-      add.rank <- function(x, rank = NULL){
-        x_sp <- strsplit(x, " ")
-        x1 <- as.character(sapply(x_sp, function(y) paste(y[1], y[2], rank, y[3], collapse = " ")))
-        return(x1)
-      }
-      spcs <- stringr::str_count(miss_sp, " ")
+      spcs <- stringr::str_count(miss_sp, stringr::fixed(" "))
       miss_rank <- rbind(
-        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "var.")),
-        cbind(miss_sp[spcs == 2], add.rank(miss_sp[spcs == 2], "subsp.")))
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "var."), "added_var"),
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "subsp."), "added_ssp"),
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "f."), "added_form"),
+        cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2], perl = TRUE), "edited_x"))
 
       #Are names missing due to authorships with the binomial?
-      no_authors <- sapply(miss_sp[spcs >= 2],
-                           function(x) flora::remove.authors(flora::fixCase(x)))
+      no_case <- fixCase(miss_sp[spcs >= 2])
+      patt <- " (?=[A-Z])| (?=\\()"
+      has_authors <- stringr::str_detect(no_case, stringr::regex(patt))
+      no_authors <- no_case
+      no_authors[has_authors] <- as.character(
+                      sapply(no_authors[has_authors],
+                           function(x) flora::remove.authors(x)))
 
       #Gettting possible missing names
       # miss_spp <- cbind.data.frame(miss_sp, miss_sp)
@@ -152,13 +155,13 @@ prepSpecies <- function(x,
 
         if (dim(miss_rank)[1] > 0 & length(no_authors) > 0) {
           miss_spp <- rbind(miss_rank,
-                            cbind(miss_sp[spcs >= 2], no_authors))
+                            cbind(miss_sp[spcs >= 2], no_authors, "rm_auth"))
           miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), , drop = FALSE]
         } else {
           if (dim(miss_rank)[1] > 0)
             miss_spp <- miss_rank
           if (length(no_authors) > 0)
-            miss_spp <- cbind(miss_sp[spcs >= 2], no_authors)
+            miss_spp <- cbind(miss_sp[spcs >= 2], no_authors, "rm_auth")
         }
 
         suggest_miss_sp <-
@@ -169,11 +172,15 @@ prepSpecies <- function(x,
         if (dim(suggest_miss_sp)[1] > 0) {
           suggest_miss_sp$original.search <-
             miss_spp[miss_spp[, 2] %in% suggest_miss_sp$original.search, 1]
+          suggest_miss_sp <- suggest_miss_sp[!duplicated(suggest_miss_sp$original.search),]
 
           #Merging names found at first and second tries
           found_ids <- suggest_sp$notes %in% "not found" &
-            suggest_sp$original.search %in% suggest_miss_sp$original.search
-          suggest_sp[found_ids, ] <- suggest_miss_sp
+                        suggest_sp$original.search %in% suggest_miss_sp$original.search
+          suggest_miss_sp1 <- suppressMessages(dplyr::left_join(
+                                data.frame(original.search = suggest_sp[found_ids, "original.search"]),
+                                suggest_miss_sp))
+          suggest_sp[found_ids, ] <- suggest_miss_sp1
         }
       }
     }

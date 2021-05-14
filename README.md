@@ -24,6 +24,9 @@ install_github("LimaRAF/plantR")
 library("plantR")
 ```
 
+If you run into errors while installing the package, please check the
+detailed package introduction for some alternatives.
+
 ##### Bug report and suggestions
 
 The plantR project is hosted on
@@ -62,5 +65,7 @@ We thank Sidnei Souza from speciesLink for his help with the web API. We
 also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the [TreeCo
 database](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start)
 for providing many of the localities used to construct the package
-gazetteer. We also thank Vinícius C. Souza (ESALQ/USP) who helped to
-validate and improve the list of plant taxonomists used in the package.
+gazetteer. We also thank Vinícius C. Souza (ESALQ/USP), who helped to
+validate and improve the list of plant taxonomists used in the package,
+and André L. de Gasper, for his valuable suggestions on how to make this
+package more useful for collection managers.

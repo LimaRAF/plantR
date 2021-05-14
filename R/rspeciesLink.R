@@ -11,8 +11,10 @@
 #'  'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
 #'  'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
 #'  search
-#' @param species Genus and epithet separated by space. More than one should be
-#' concatenated in a vector
+#' @param family Family name. More than one name should be concatenated in a
+#'   vector
+#' @param species Genus or genus and epithet separated by space. More than one
+#'   should be concatenated in a vector
 #' @param collectionCode Any collection available at speciesLink. Example: ALCB,
 #'  E, INPA, MOBOT_BR.  Accepts a vector of names
 #' @param country Any country name. No ASCII characters allowed. Accepts a
@@ -38,25 +40,38 @@
 #' It accepts: "Yes", "Live", "Polen", "Wood"
 #' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
 #' @param MaxRecords Numeric. Maximum number of records to be required
-#' @return A list of two elements. The first element is a character string
-#' containing the url search and the second element is a data.frame with the
-#' search result. It also saves the output on disk
+#' @param file.format Character. The file extension to be used for saving ('csv'
+#'   or 'rds'). Default to 'csv'.
+#' @param compress Logical. Should the file be compressed? Default to FALSE.
+#'
+#' @return A data.frame with the search result, which can also be saved on disk
+#'
+#' @details The time necessary to download records from the speciesLink API will
+#' depend on the number of records and species in the query and from the speed
+#' of the internet connection.
+#'
+#' The speciesLink API does not allow the download of 10 or more taxa at a time.
+#' So to download records from larger lists of species, you will probably need
+#' to make the queries in a loop.
+#'
 #' @author Sara Mortara
 #'
 #' @examples
 #'\dontrun{
-#'ex01 <- rspeciesLink(filename = "ex01",
+#'ex01 <-
+#'rspeciesLink(filename = "ex01",
 #'                     species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
 #'                     Scope = "plants")
 #'}
 #'
+#' @import data.table
 #' @importFrom jsonlite fromJSON
-#' @importFrom utils write.csv
 #' @export
 rspeciesLink <- function(dir = "results/",
                          filename = "output",
                          save = FALSE,
                          basisOfRecord = NULL,
+                         family = NULL,
                          species = NULL,
                          collectionCode = NULL,
                          country = NULL,
@@ -69,7 +84,9 @@ rspeciesLink <- function(dir = "results/",
                          Typus = FALSE,
                          Images = NULL,
                          RedList = FALSE,
-                         MaxRecords = NULL #		n > 0	 all records
+                         MaxRecords = NULL, #		n > 0	 all records
+                         file.format = "csv",
+                         compress = FALSE
 ) { # Yes | No | Live | Polen | Wood
   # speciesLink url
   my_url <- "https://api.splink.org.br/records/"
@@ -108,6 +125,19 @@ rspeciesLink <- function(dir = "results/",
     }
     else {
       stop("species must be a character")
+    }
+  }
+  # Family name
+  if (is.null(family)) {
+    my_url
+  }
+  else  {
+    if (is.character(family)) {
+      fam <- url_query(family, "family")
+      my_url <- paste0(my_url, fam)
+    }
+    else {
+      stop("family name must be a character")
     }
   }
   # Collection code
@@ -229,14 +259,43 @@ rspeciesLink <- function(dir = "results/",
   # requesting JSON format
   df <- jsonlite::fromJSON(my_url)$result
   #rrr <- readr::read_tsv(rr, locale = readr::locale(encoding = "UTF-8"))
+
   if (save) {
     # creating dir
-    if (!dir.exists(dir)) {dir.create(dir)}
-    fullname <- paste0(dir, filename, ".csv")
-    message(paste0("Writing ", fullname, " on disk."))
-    write.csv(df,
-              fullname,
-              row.names = FALSE)
+    if (!dir.exists(dir)) { dir.create(dir) }
+
+    # fullname <- paste0(dir, filename, ".csv")
+    # message(paste0("Writing ", fullname, " on disk."))
+    # write.csv(df,
+    #           fullname,
+    #           row.names = FALSE)
+
+    if (file.format == "csv") {
+
+      if (compress) {
+        fullname <- paste0(dir, filename, ".csv.zip")
+        message(paste0("Writing ", fullname, " on disk."))
+        data.table::fwrite(df, file = fullname, compress = "gzip")
+
+      } else {
+        fullname <- paste0(dir, filename, ".csv")
+        message(paste0("Writing ", fullname, " on disk."))
+        data.table::fwrite(df, file = fullname)
+      }
+    }
+
+    if (file.format == "rds") {
+
+      fullname <- paste0(dir, filename, ".rds")
+      message(paste0("Writing ", fullname, " on disk."))
+
+      if (compress) {
+        saveRDS(df, file = fullname, compress = "gzip")
+
+      } else {
+        saveRDS(df, file = fullname, compress = FALSE)
+      }
+    }
   }
   # if output is empty, return message
   if (is.null(dim(df))) {

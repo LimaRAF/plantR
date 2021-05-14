@@ -29,6 +29,8 @@ For strings with more than two names, the function \code{str_to_title()} from
 package \code{stringr} can be used instead.
 }
 \examples{
+
+\dontrun{
 # Simple names
   capName("gentry")
   capName("HATSCHBACH")
@@ -51,8 +53,10 @@ package \code{stringr} can be used instead.
   capName("auguste saint-hilaire")
   capName("a.h. gentry")
   capName("AH gentry")
+ }
 
 }
 \author{
 Renato A. F. de Lima
 }
+\keyword{internal}

@@ -84,7 +84,7 @@ to TRUE.
  lastName("Mendonca Filho, C.V. Neto, F.C.C.")
  # two or more names, separated by comma: output correct
  lastName("A. Alvarez, A. Zamora & V. Huaraca")
- # two or more names, not separated by comma: output incorrect (give names of authors)
+ # two or more names, not separated by comma: output incorrect
  lastName("Karl Emrich & Balduino Rambo")
 
  # Some problematic (unresolved) examples

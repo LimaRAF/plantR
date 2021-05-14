@@ -11,13 +11,13 @@ formatOcc(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.")
 herbarium specimens}
 
 \item{noNumb}{character. The standard notation for missing data in the field
-'Number'}
+'Number'. Default to "s.n."}
 
 \item{noYear}{character. The standard notation for missing data in the field
-'Year'}
+'Year'. Default to  "n.d."}
 
 \item{noName}{character. The standard notation for missing data in the field
-'Name'}
+'Name'. Default to  "s.n."}
 }
 \value{
 The input data frame \code{x}, plus the new columns with the

@@ -10,7 +10,28 @@ validateDup(
   cat.numb = "catalogNumber",
   merge = TRUE,
   remove = FALSE,
-  ...
+  noYear = "s.d.",
+  noName = "s.n.",
+  noNumb = "s.n.",
+  comb.fields = list(c("family", "col.last.name", "col.number", "col.loc"), c("family",
+    "col.year", "col.number", "col.loc"), c("species", "col.last.name", "col.number",
+    "col.year"), c("col.year", "col.last.name", "col.number", "col.loc")),
+  ignore.miss = TRUE,
+  dup.name = "dup.ID",
+  prop.name = "dup.prop",
+  prop = 0.75,
+  info2merge = c("tax", "geo", "loc"),
+  tax.names = c(family = "family.new", species = "scientificName.new", det.name =
+    "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check", status
+    = "scientificNameStatus"),
+  geo.names = c(lat = "decimalLatitude.new", lon = "decimalLongitude.new", org.coord =
+    "origin.coord", prec.coord = "precision.coord", geo.check = "geo.check"),
+  loc.names = c(loc.str = "loc.correct", res.gazet = "resolution.gazetteer", res.orig =
+    "resol.orig", loc.check = "loc.check"),
+  tax.level = "high",
+  overwrite = FALSE,
+  rec.ID = "numTombo",
+  print.rm = TRUE
 )
 }
 \arguments{
@@ -27,6 +48,61 @@ number (a.k.a. accession number) of the record. Default to "catalogNumber".}
 
 \item{remove}{logical. Should all duplicates be removed or only the
 duplicated entries from the same collection? Default to FALSE.}
+
+\item{noYear}{character. Standard for missing data in Year. Default to
+"n.d.".}
+
+\item{noName}{character. Standard for missing data in collector name. Default
+to "s.n.".}
+
+\item{noNumb}{character. Standard for missing data in collector number. Default
+to "s.n.".}
+
+\item{comb.fields}{list. A list containing one or more vectors with the
+information that should be used to create the duplicate search strings.
+Default to four vectors of information to be combined.}
+
+\item{ignore.miss}{logical. Should the duplicate search strings with
+missing/unknown information (e.g. 'n.d.', 's.n.', NA) be excluded from the
+duplicate search. Default to TRUE.}
+
+\item{dup.name}{character. The name of column in the input data frame with
+the duplicate group ID. Default to the \strong{plantR} output 'dup.ID'.}
+
+\item{prop.name}{character. The name of column in the input data frame with
+the proportion of duplicates found within the group ID. Default to the
+\strong{plantR} output 'dup.prop'.}
+
+\item{prop}{numerical. The threshold value of proportion of duplicated values
+retrieved (i.e. dup.prop) to enter the merging routine. Should be between
+zero and one. Default to 0.75.}
+
+\item{info2merge}{Vector. The groups of information (i.e. fields) to be
+merged. Currently, only taxonomic ('tax'), geographic ('geo') and/or
+locality ('loc') information can be merged. Default to merge all of them.}
+
+\item{tax.names}{Vector. A named vector containing the names of columns in
+the input data frame with the taxonomic information to be merged.}
+
+\item{geo.names}{Vector. A named vector containing the names of columns in
+the input data frame with the geographical information to be merged.}
+
+\item{loc.names}{Vector. A named vector containing the names of columns in
+the input data frame with the locality information to be merged.}
+
+\item{tax.level}{character. A vector with the confidence level of the
+identification that should be considered in the merge of taxonomic
+information. Default to "high".}
+
+\item{overwrite}{logical. Should the merged information be overwritten or
+stored in separate, new columns. Default to FALSE (new columns are
+created).}
+
+\item{rec.ID}{character. The name of the columns containing the unique record
+identifier (see function \code{getTombo()}). Default to 'numTombo'.}
+
+\item{print.rm}{logical. Should the number of records removed be printed?
+Default to TRUE.}
 }
 \value{
 The input data frame, plus the new columns with the formatted

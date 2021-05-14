@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Renato A. F. de Lima (raflima at usp.br)" />
+
+<meta name="date" content="2021-04-26" />
+
+<title>Usando o plantR para atualizar informações entre duplicatas</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Usando o <strong>plantR</strong> para atualizar informações entre duplicatas</h1>
+<h4 class="author">Renato A. F. de Lima (raflima at usp.br)</h4>
+<h4 class="date">26 April 2021</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introdução"><span class="toc-section-number">1</span> Introdução</a></li>
+<li><a href="#obtendo-os-registros"><span class="toc-section-number">2</span> Obtendo os registros</a>
+<ul>
+<li><a href="#baixando-os-registros-do-specieslink-e-gbif"><span class="toc-section-number">2.1</span> Baixando os registros do speciesLink e GBIF</a></li>
+<li><a href="#unindo-os-registros"><span class="toc-section-number">2.2</span> Unindo os registros</a></li>
+</ul></li>
+<li><a href="#padronização-e-validação-de-campos-relevantes"><span class="toc-section-number">3</span> Padronização e validação de campos relevantes</a>
+<ul>
+<li><a href="#padronização-das-informações"><span class="toc-section-number">3.1</span> Padronização das informações</a></li>
+<li><a href="#validação-das-informações-padronizadas"><span class="toc-section-number">3.2</span> Validação das informações padronizadas</a></li>
+</ul></li>
+<li><a href="#preparando-os-registros-para-a-busca-de-duplicatas"><span class="toc-section-number">4</span> Preparando os registros para a busca de duplicatas</a>
+<ul>
+<li><a href="#definindo-os-identificadores-únicos"><span class="toc-section-number">4.1</span> Definindo os identificadores únicos</a></li>
+<li><a href="#definindo-os-campos-a-serem-usados-na-busca"><span class="toc-section-number">4.2</span> Definindo os campos a serem usados na busca</a></li>
+</ul></li>
+<li><a href="#obtendo-as-indicações-de-duplicatas"><span class="toc-section-number">5</span> Obtendo as indicações de duplicatas</a>
+<ul>
+<li><a href="#inspecionando-os-resultados-de-número-de-duplicatas-encontradas"><span class="toc-section-number">5.1</span> Inspecionando os resultados de número de duplicatas encontradas</a></li>
+</ul></li>
+<li><a href="#homogeneizando-as-informações-dentre-grupos-de-duplicatas"><span class="toc-section-number">6</span> Homogeneizando as informações dentre grupos de duplicatas</a>
+<ul>
+<li><a href="#inspecionando-os-resultados-da-homogeneização"><span class="toc-section-number">6.1</span> Inspecionando os resultados da homogeneização</a></li>
+</ul></li>
+<li><a href="#preparando-os-dados-para-a-atualização-da-coleção"><span class="toc-section-number">7</span> Preparando os dados para a atualização da coleção</a>
+<ul>
+<li><a href="#filtrando-campos-para-atualização-de-coleções-ou-de-sua-base-de-dados"><span class="toc-section-number">7.1</span> Filtrando campos para atualização de coleções ou de sua base de dados</a>
+<ul>
+<li><a href="#qual-são-os-registros-da-coleção-que-podemdevem-ser-atualizadas"><span class="toc-section-number">7.1.1</span> Qual são os registros da coleção que podem/devem ser atualizadas?</a></li>
+</ul></li>
+<li><a href="#atualização-taxonômica"><span class="toc-section-number">7.2</span> Atualização taxonômica</a>
+<ul>
+<li><a href="#quais-campos-podem-ser-usados-na-atualização-taxonômica"><span class="toc-section-number">7.2.1</span> Quais campos podem ser usados na atualização taxonômica?</a></li>
+<li><a href="#algum-nome-não-encontrado-ou-com-notas-em-relação-à-flora-do-brasil"><span class="toc-section-number">7.2.2</span> Algum nome não encontrado ou com notas em relação à Flora do Brasil?</a></li>
+<li><a href="#alguma-atualização-taxonômica-feita-nas-duplicatas-em-outras-coleções"><span class="toc-section-number">7.2.3</span> Alguma atualização taxonômica feita nas duplicatas em outras coleções?</a></li>
+<li><a href="#salvando-os-resultados-da-atualização-taxonômica"><span class="toc-section-number">7.2.4</span> Salvando os resultados da atualização taxonômica</a></li>
+</ul></li>
+<li><a href="#atualização-de-coordenadas-geográficas"><span class="toc-section-number">7.3</span> Atualização de coordenadas geográficas</a></li>
+<li><a href="#atualização-de-informações-de-localidade"><span class="toc-section-number">7.4</span> Atualização de informações de localidade</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="introdução" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Introdução</h1>
+<p>Esse tutorial foi pensado para auxiliar curadores de herbário que pretendem atualizar suas coleções usando informações oriundas de duplicatas depositadas em outras coleções. Como realizar esse processo para a coleção inteira demandaria obter as bases de dados de todas as coleções biológicas, os códigos abaixo foram preparados para serem executados por famílias individualmente.</p>
+<p>Agradecimentos especiais ao André L. de Gasper pelos testes do pacote e pela sugestão de criar esse tutorial mais dirigido aos curadores de herbário.</p>
+</div>
+<div id="obtendo-os-registros" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Obtendo os registros</h1>
+<p>Antes de começar precisamos carregar o pacote usando a função <code>library()</code>, assumindo que você tem o pacote instalado junto ao seu <code>R</code>. Se você ainda não tem o pacote instalado em seu computador, siga as instruções do tutorial geral do pacote (i.e. ‘plantr_tutorial.html’).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
+<div id="baixando-os-registros-do-specieslink-e-gbif" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> Baixando os registros do speciesLink e GBIF</h2>
+<p>Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil, iremos baixar apenas os coletas realizadas no Brasil (i.e. campo <code>country</code> igual a ‘BR’).</p>
+<p>Para downloads do GBIF, o limite do número de registros baixados é controlado pelo argumento <code>n.records</code> e o padrão é baixar até 5000 registros por item buscado. Estão o limite foi modificado para 450,000 registros, pois o GBIF contém aproximadamente 430,000 registros no total para a família.</p>
+<p>Note que o campo <code>species</code> da função <code>rgbif2()</code> aceita não apenas nomes ao nível de espécie, mas em qualquer nível taxonômico. Para a função <code>rspeciesLink()</code>, há um campo específico para familia (i.e. <code>family</code>).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>familia <span class="ot">&lt;-</span> <span class="st">&quot;Blechnaceae&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>occs_splink <span class="ot">&lt;-</span> <span class="fu">rspeciesLink</span>(<span class="at">family =</span> familia)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span> familia, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">country =</span> <span class="st">&quot;BR&quot;</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n.records =</span> <span class="dv">450000</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs_splink)</span></code></pre></div>
+<pre><code>## [1] 24080    51</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs_gbif)</span></code></pre></div>
+<pre><code>## [1] 22803   164</code></pre>
+<p>Foram encontrados aproximadamente 24,000 registros para a família no speciesLink e aprox. 23,000 registros para o Brasil no GBIF.</p>
+</div>
+<div id="unindo-os-registros" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> Unindo os registros</h2>
+<p>Em seguida, combinamos os registros dos dois repositórios em apenas um objeto usando a função <code>formatDwc()</code> e removendo colunas desnecessárias para a busca de duplicatas:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span></code></pre></div>
+<pre><code>## [1] 46883    47</code></pre>
+<p>Veja que o objeto <code>occs</code> contém agora a soma dos registros vindos do speciesLink e GBIF (i.e. aprox. 47,000 em Abril de 2021).</p>
+</div>
+</div>
+<div id="padronização-e-validação-de-campos-relevantes" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Padronização e validação de campos relevantes</h1>
+<p>Mesmo que você esteja interessado apenas em atualizar um tipo de informação (e.g. nome da espécie), é importante padronizar a notação e formato de campos que são importantes para a busca de duplicatas. Essa padronização não é perfeita, mas ela aumenta as chances de recuperar duplicatas com pequenas diferenças de notação em campos como nome e número do coletor, a localidade da coleta, nome da família e a grafia e/ou formato do nome da espécie.</p>
+<div id="padronização-das-informações" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Padronização das informações</h2>
+<p>O pacote <strong>plantR</strong> possui funções que executam várias dessas edições de uma só vez. As funções <code>formatOcc()</code>, <code>formatLoc()</code>, <code>formatCoord()</code> e <code>formatTax()</code> fazem a padronização dos campos relacionados à coleta em si (e.g. código da coleção, nome e número do coletor), à localidade da coleta, às coordenadas geográficas associadas à coleta e à informação taxonômica.</p>
+<p>A verificação ortográfica e de sinônimos via o The Plant List é relativamente demorada. Portanto, iremos fazer a conferência e validação dos nomes apenas usando a Flora do Brasil (i.e. campo <code>db</code> igual a ‘fbo’)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs, <span class="at">db =</span> <span class="st">&quot;fbo&quot;</span>)</span></code></pre></div>
+<pre><code>## The following family names were automatically replaced:
+## 
+## |Genus         |Old fam.    |New fam.         |
+## |:-------------|:-----------|:----------------|
+## |Blechum       |Blechnaceae |Acanthaceae      |
+## |Didymoglossum |Blechnaceae |Hymenophyllaceae |
+## |Phyllitis     |Blechnaceae |Aspleniaceae     |
+## |Pteris        |Blechnaceae |Pteridaceae      |</code></pre>
+<p>Note que as funções não editam as colunas originais dos registros. Elas criam novas colunas que armazenam as informações editadas que em geral tem o mesmo nome da coluna original seguido do sufixo ‘.new’.</p>
+</div>
+<div id="validação-das-informações-padronizadas" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Validação das informações padronizadas</h2>
+<p>Para cada conjunto de duplicatas, a tomada de decisão de qual espécimen será usado para obter a informação válida ou a mais atual sobre localidade, coordenadas geográficas ou identificação taxonômica depende de um processo de validação. Esse processo de validação não é essencial para encontrar as duplicatas entre coleções, mas ela ajuda no processo de tomada de decisão sobre qual é a melhor informação disponível.</p>
+<p>Assim como para a padronização dos campos, o pacote <strong>plantR</strong> oferece funções que executam essas validações de uma só vez. As funções <code>validateLoc()</code> e <code>validateCoord()</code> fazem a validação dos campos de localidade e coordenadas geográficas, respectivamente.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs)</span></code></pre></div>
+<pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
+##                original
+## edited          country locality municipality no_info stateProvince
+##   country          4363      234            8       0            34
+##   locality           10     5933            0       0             0
+##   municipality        2    22953         4239       0             0
+##   no_info             7        7            2      80             0
+##   stateProvince       0     7473          221       0          1317</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateCoord</span>(occs)</span></code></pre></div>
+<p>A função <code>validateTax()</code> faz uma classificação da confiabilidade da identificação taxonômica dos registros. Essa avaliação é feita em uma base de dados global de nomes de taxonomistas por família (veja o help da função digitando ?validateTax no seu console do R).</p>
+<p>Contudo, essa base de dados não é completa. Assim, pode ser importante executar a função de maneira preliminar para avaliar se não há nomes de taxonomistas que sejam relevantes à essa avaliação e que não estejam na base de dados. Vamos portanto visualizar os 15 nomes com mais determinações para a família usado no exemplo, e que não estão listados na base de dados como especialistas da família:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs, <span class="at">top.det =</span> <span class="dv">15</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Top people with many determinations but not in the taxonomist list: </span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## |Identifier            | Records|</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## |:---------------------|-------:|</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1135|</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     959|</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     844|</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     842|</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Kazmirczak, C.        |     646|</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Sehnem, A.            |     495|</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     467|</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     444|</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## |Senna, R.M.           |     441|</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="do">## |Smith, A.R.           |     430|</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     391|</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     381|</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     341|</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Athayde Filho, F.P.   |     333|</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Prado, J.             |     329|</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(temp)</span></code></pre></div>
+<p>Note que entre os nomes listados há vários especialistas do grupo, mas que não são exatamente especialistas da família em questão (e.g. ‘Gonzatti, F.’). Outros nomes podem estar listados porque a base de dados usada está incompleta.</p>
+<p>Para incluir nomes faltantes de taxonomistas, é possível usar o campo <code>miss.taxonomist</code>. Nesse exemplo vamos incluir dois nomes ‘Kazmirczak, C.’ e ‘Prado, J.’, que tem que ser fornecidos em um formato específico: nome da ’família + underline + nome do determinador.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>falta.tax <span class="ot">&lt;-</span> <span class="fu">paste</span>(familia, <span class="fu">c</span>(<span class="st">&quot;Kazmirczak, C.&quot;</span>, <span class="st">&quot;Prado, J.&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs, <span class="at">miss.taxonomist =</span> falta.tax, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">top.det =</span> <span class="dv">15</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Top people with many determinations but not in the taxonomist list: </span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## |Identifier            | Records|</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## |:---------------------|-------:|</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1135|</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     959|</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     844|</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     842|</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">## |Sehnem, A.            |     495|</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     467|</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     444|</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="do">## |Senna, R.M.           |     441|</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Smith, A.R.           |     430|</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     391|</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     381|</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     341|</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Athayde Filho, F.P.   |     333|</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="do">## |Caxambu, M.G.         |     291|</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="do">## |Barros, I.C.L.        |     289|</span></span></code></pre></div>
+<p>Note que agora os nomes incluídos já não são mais listados entre os nomes com mais identificações, mas que não são especialistas da família.</p>
+</div>
+</div>
+<div id="preparando-os-registros-para-a-busca-de-duplicatas" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Preparando os registros para a busca de duplicatas</h1>
+<div id="definindo-os-identificadores-únicos" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Definindo os identificadores únicos</h2>
+<p>Para a busca de duplicatas, precisamos de algumas informações adicionais. Uma delas é ter um identificador único para cada registro (i.e. número de tombo). Para isso podemos concatenar o código padronizado da coleção e seu número de registro ou tombo na coleção correspondente. Isso pode ser feito usando a função <code>getTombo()</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>numTombo <span class="ot">&lt;-</span> <span class="fu">getTombo</span>(occs[, <span class="st">&quot;collectionCode.new&quot;</span>],</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                          occs[, <span class="st">&quot;catalogNumber&quot;</span>])</span></code></pre></div>
+<p>Como muitas coleções tem suas bases de dados tanto no speciesLink/INCT quanto no GBIF é normal termos números de tombo repetidos nos dados, as chamadas duplicatas virtuais. Como nosso interesse é pelas informações contidas nas duplicatas físicas entre coleções, é indicado remover números de tombo repetidos. Isso não afeta a busca por duplicatas, mas simplifica a sua checagem final, isto é, as duplicatas virtuais não estarão entre as duplicatas encontradas.</p>
+<p>Como alguns registros não tem número de tombo (tombo igual a ‘US_NA’), usamos o código abaixo para realizar a remoção apenas dos números de tombo repetidos:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 46883</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> occs[<span class="sc">!</span><span class="fu">duplicated</span>(occs<span class="sc">$</span>numTombo) <span class="sc">|</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">grepl</span>(<span class="st">&quot;_NA$&quot;</span>, occs<span class="sc">$</span>numTombo, <span class="at">perl =</span> <span class="cn">TRUE</span>),]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 31553</code></pre>
+<p>Note que cerca de um terço dos registros representavam duplicatas virtuais.</p>
+<p>Note também que existe a possibilidade de coleções terem um mesmo número de tombo para registros diferentes, devido a algum tipo um erro. Mas após o código acima, não estamos mais considerando esse tipo de erro.</p>
+</div>
+<div id="definindo-os-campos-a-serem-usados-na-busca" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> Definindo os campos a serem usados na busca</h2>
+<p>Uma informação essencial para a busca de duplicatas é a definição de quais campos serão usados na busca por duplicatas. No <strong>plantR</strong> é possível usar qualquer combinação dos campos contendo a informação do nome da família ou espécie, nome ou sobrenome do coletor, número do coletor, ano de coleta e localidade da coleta.</p>
+<p>Como há muita variação de notação entre coleções no nome do coletor, é possível usar apenas o seu sobrenome. Além disso, como o uso apenas do sobrenome e número de coletor pode retornar falsas duplicatas para nomes muito comuns e números de coletor baixos (e.g. Lima 10), é aconselhado incluir outros campos na busca. Neste exemplo iremos usar três combinações de campos, que são geradas usando a função <code>prepDup()</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">prepDup</span>(occs, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">comb.fields =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;species&quot;</span>,<span class="st">&quot;col.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">c</span>(<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.loc&quot;</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">c</span>(<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.year&quot;</span>)))</span></code></pre></div>
+<p>Note que salvamos os strings concatenados de busca em uma tabela à parte, pois essa informação não será necessária após a busca, evitando aumentar ainda mais o número de novas colunas.</p>
+<p>Note também que o padrão da função é não incluir na busca por duplicatas registros com informação faltante de coletor, data ou localidade, etc. Se você quiser incluir esses registros o campo <code>ignore.miss</code> deverá ser modificado de <code>TRUE</code> para <code>FALSE</code>. Mas tome cuidado pois isso pode resultar em muitas falsas duplicatas!!</p>
+</div>
+</div>
+<div id="obtendo-as-indicações-de-duplicatas" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Obtendo as indicações de duplicatas</h1>
+<p>Finalmente, podemos usar a nova tabela gerada para buscar os registros com alguma indicação de serem um mesmo espécimen com material depositado em diferentes coleções.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">getDup</span>(dups)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dups[<span class="fu">order</span>(dups<span class="sc">$</span>dup.ID),], <span class="dv">4</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          numTombo                              dup.srch.str1</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1374    ALCB_1558            Blechnaceae sp._Hurbath, F._133</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 30566 ALCB_100715 Telmatoblechnum serrulatum_Hurbath, F._133</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1412    ALCB_9580       Blechnaceae sp._Crestani, A.C.V._201</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 7326  ALCB_100921  Blechnum occidentale_Crestani, A.C.V._201</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                      dup.srch.str2     dup.srch.str3 dup.numb          dup.prop</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1374            Hurbath_133_mucuge  Hurbath_133_2011        2 0.666666666666667</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 30566           Hurbath_133_mucuge  Hurbath_133_2011        2 0.666666666666667</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1412  Crestani_201_licinio almeida Crestani_201_2011        2 0.666666666666667</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 7326  Crestani_201_licinio almeida Crestani_201_2011        2 0.666666666666667</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="do">##                        dup.ID</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 1374  [ALCB_100715|ALCB_1558]</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 30566 [ALCB_100715|ALCB_1558]</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1412  [ALCB_100921|ALCB_9580]</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 7326  [ALCB_100921|ALCB_9580]</span></span></code></pre></div>
+<div id="inspecionando-os-resultados-de-número-de-duplicatas-encontradas" class="section level2" number="5.1">
+<h2 number="5.1"><span class="header-section-number">5.1</span> Inspecionando os resultados de número de duplicatas encontradas</h2>
+<p>Novas colunas foram criadas. A coluna ‘dup.prop’ contém a força de indicação das duplicatas (i.e. quanto mais próximo de 1 mais segurança na indicação). Vamos inspecionar as categorias geradas:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dups<span class="sc">$</span>dup.prop)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                 0 0.333333333333333 0.666666666666667                 1 </span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">##             11820              1441              6940              6322 </span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                cc </span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">##              5030</span></span></code></pre></div>
+<p>Em seguida, precisamos reunir as colunas de interesse da busca de duplicatas com a nossa planilha geral:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                         dups[,<span class="fu">c</span>(<span class="st">&quot;dup.ID&quot;</span>, <span class="st">&quot;dup.numb&quot;</span>, <span class="st">&quot;dup.prop&quot;</span>)],</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Para esses dados, cerca de 20% dos registros possuem forte indicação de duplicatas e cerca de 40% não tiveram nenhuma indicação (i.e. prováveis unicatas). Além desses, 22% foram classificados com ‘dup.prop’ &gt; 0.5 (e.g. 2 sobre 3 combinações iguais) e outros 15% foram marcados como ‘cc’ de ‘cannot check’ por falta de informações associadas aos campos escolhidos. Para registros com ‘dup.prop’ &lt;0.5 (apenas 1 combinação em comum) sugere-se um ‘pente-fino’, pois esses casos podem representar problemas ou falsas duplicatas.</p>
+</div>
+</div>
+<div id="homogeneizando-as-informações-dentre-grupos-de-duplicatas" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Homogeneizando as informações dentre grupos de duplicatas</h1>
+<p>Por fim, podemos usar para todas as duplicatas de cada grupo as informações mais confiáveis ou recentes sobre os registros. Atualmente, o <strong>plantR</strong> faz essa homogeneização para as informações de localidade, coordenadas geográficas e/ou taxonomia. Ela é feita usando a função <code>mergeDup()</code> cujo padrão é fazer apenas o merge para registros com ‘dup.prop’ &gt; 0.75. Isso pode ser alterado usando o campo <code>prop</code> da função, como abaixo.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">mergeDup</span>(occs, <span class="at">prop =</span> <span class="fl">0.65</span>)</span></code></pre></div>
+<p>O default dessa função usa os campos já editados pelo <strong>plantR</strong> e cria novas colunas com um ‘1’ adicionado ao final do nome da coluna (e.g. coluna ‘family.new’ após a homogeneização será armazenada na nova coluna ‘family.new1’). Lembre-se, contudo, que os nomes das colunas que serão usadas podem ser definidas pelo usuário (e.g. usar a coluna ‘family’ ao invés da ‘family.new’).</p>
+<div id="inspecionando-os-resultados-da-homogeneização" class="section level2" number="6.1">
+<h2 number="6.1"><span class="header-section-number">6.1</span> Inspecionando os resultados da homogeneização</h2>
+<p>Podemos comparar as mudanças obtidas para um dos campos, como por exemplo, o campo que define o nível de confiança na identificação do registro. Note que mais de cerca de 700 registros que possuíam nível definido como ‘unknown’ e ‘low’ passaram a ter um nível definido como ‘high’.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check, occs<span class="sc">$</span>tax.check1, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;antes&quot;</span>, <span class="st">&quot;depois&quot;</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          depois</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">## antes      high   low unknown</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   high     5813     0       0</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   low       446 13849       0</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   unknown   248     0   11197</span></span></code></pre></div>
+</div>
+</div>
+<div id="preparando-os-dados-para-a-atualização-da-coleção" class="section level1" number="7">
+<h1 number="7"><span class="header-section-number">7</span> Preparando os dados para a atualização da coleção</h1>
+<div id="filtrando-campos-para-atualização-de-coleções-ou-de-sua-base-de-dados" class="section level2" number="7.1">
+<h2 number="7.1"><span class="header-section-number">7.1</span> Filtrando campos para atualização de coleções ou de sua base de dados</h2>
+<p>Para esse tutorial, vamos supor que o André L. de Gasper, atual curador do herbário FURB, queira comparar os materiais depositados no FURB com as demais coleções. Mais especificamente, ele quer atualizar as informações relacionadas à identificação taxonômica e aos campos de determinação.</p>
+<div id="qual-são-os-registros-da-coleção-que-podemdevem-ser-atualizadas" class="section level3" number="7.1.1">
+<h3 number="7.1.1"><span class="header-section-number">7.1.1</span> Qual são os registros da coleção que podem/devem ser atualizadas?</h3>
+<p>Primeiro, precisamos definir o nome da coleção focal e filtrar quais registros possuem direta ou indiretamente informações que podem ser relevantes. No caso, iremos definir o FURB como a coleção focal.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>colecao <span class="ot">&lt;-</span> <span class="st">&quot;FURB&quot;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> occs[<span class="fu">grepl</span>(colecao, occs<span class="sc">$</span>numTombo, <span class="at">perl =</span> <span class="cn">TRUE</span>) <span class="sc">|</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">grepl</span>(colecao, occs<span class="sc">$</span>dup.ID, <span class="at">perl =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs1)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1737  103</span></span></code></pre></div>
+<p>Podemos inspecionar quantos registros há por coleção:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs1<span class="sc">$</span>collectionCode.new)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    ALCB     ASE    BHCB BHCB-SL    CESJ    CGMS     CRI    CTBS    EAFM     EVB </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       2       1      18      18      24       1      15       1       1       6 </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    FCAB    FLOR     FPS    FUEL    FURB     HAS     HCF    HEPH    HSTM    HUCS </span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       7      37      20      21    1273       1      28      11       2      70 </span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    HURB    IRAI     JOI    LUSC     MBM      MO      NX      NY    PACA      RB </span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">##      22       1      43       2      38       1       3       1       2      30 </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     RON   SAMES    SLUI     UEC    UPCB     VIC    VIES       W </span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">##       1       4       5       2      13       7       4       1</span></span></code></pre></div>
+<p>Note que há cerca de 1700 registros de Blechnaceae no nosso filtro, dos quais aprox. 1300 são de registros do FURB mesmo, e o restante dos registros estão espalhados em cerca de 40 outras coleções.</p>
+<p>Se você quiser fazer o mesmo, mas para outra coleção basta trocar o nome da coleção que é atribuída ao objeto chamado <code>colecao</code>.</p>
+</div>
+</div>
+<div id="atualização-taxonômica" class="section level2" number="7.2">
+<h2 number="7.2"><span class="header-section-number">7.2</span> Atualização taxonômica</h2>
+<div id="quais-campos-podem-ser-usados-na-atualização-taxonômica" class="section level3" number="7.2.1">
+<h3 number="7.2.1"><span class="header-section-number">7.2.1</span> Quais campos podem ser usados na atualização taxonômica?</h3>
+<p>Podemos filtrar apenas as colunas que são de interesse para a checagem alvo que o André quer realizar, a checagem taxonômica. Para cada um dos campos de interesse iremos filtrar as informações básicas de cada registros, mais a informação original (em formato DwC), a editada pelo <strong>plantR</strong> (sufixo ‘.new’) e a homogeneizada a partir dos grupos de duplicatas (sufixo ‘.new1’) relativas à identificação taxonômica dos registros.</p>
+<p>Note que como usamos os defaults do <strong>plantR</strong> o filtro da colunas também seguem esse padrão. Caso você tenha selecionado outras colunas, os nomes abaixo têm que ser adaptados.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>colunas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;numTombo&quot;</span>, <span class="st">&quot;recordedBy.new&quot;</span>, <span class="st">&quot;recordNumber.new&quot;</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;identifiedBy&quot;</span>, <span class="st">&quot;identifiedBy.new&quot;</span>, <span class="st">&quot;identifiedBy.new1&quot;</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;yearIdentified&quot;</span>, <span class="st">&quot;yearIdentified.new&quot;</span>, <span class="st">&quot;yearIdentified.new1&quot;</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;family&quot;</span>, <span class="st">&quot;family.new&quot;</span>, <span class="st">&quot;family.new1&quot;</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;scientificName&quot;</span>, <span class="st">&quot;scientificName.new&quot;</span>, <span class="st">&quot;scientificName.new1&quot;</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;scientificNameStatus&quot;</span>, <span class="st">&quot;tax.notes&quot;</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;tax.check&quot;</span>,<span class="st">&quot;tax.check1&quot;</span>,<span class="st">&quot;dup.ID&quot;</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>occs1.tax <span class="ot">&lt;-</span> occs1[ , colunas]</span></code></pre></div>
+</div>
+<div id="algum-nome-não-encontrado-ou-com-notas-em-relação-à-flora-do-brasil" class="section level3" number="7.2.2">
+<h3 number="7.2.2"><span class="header-section-number">7.2.2</span> Algum nome não encontrado ou com notas em relação à Flora do Brasil?</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs1[<span class="fu">grepl</span>(<span class="st">&quot;FURB_&quot;</span>, occs1<span class="sc">$</span>numTombo, <span class="at">fixed =</span> <span class="cn">TRUE</span>) <span class="sc">&amp;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>              <span class="sc">!</span>occs1<span class="sc">$</span>tax.notes <span class="sc">%in%</span> <span class="st">&quot;&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;scientificName&quot;</span>,<span class="st">&quot;tax.notes&quot;</span>)])</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                        tax.notes</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="do">## scientificName                                          not found</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum ×caudatum Cav.                                       0</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino         0</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum australe L.                                          1</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                        tax.notes</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="do">## scientificName                                          was misspelled</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum ×caudatum Cav.                                            0</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino              1</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Blechnum australe L.                                               0</span></span></code></pre></div>
+<p>Sem grandes problemas para o FURB! Algumas notas em relação a diferença como os híbridos são anotados na Flora do Brasil e a uma espécie que não ocorre no Brasil.</p>
+</div>
+<div id="alguma-atualização-taxonômica-feita-nas-duplicatas-em-outras-coleções" class="section level3" number="7.2.3">
+<h3 number="7.2.3"><span class="header-section-number">7.2.3</span> Alguma atualização taxonômica feita nas duplicatas em outras coleções?</h3>
+<p>Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos apenas com os registro com indicações de duplicata (i.e. coluna ‘dup.ID’ não vazia):</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>occs2.tax <span class="ot">&lt;-</span> occs1.tax[<span class="sc">!</span><span class="fu">is.na</span>(occs1.tax<span class="sc">$</span>dup.ID), ]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>occs2.tax <span class="ot">&lt;-</span> occs2.tax[<span class="fu">order</span>(occs2.tax<span class="sc">$</span>dup.ID), ]</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(occs2.tax, <span class="dv">7</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">##         numTombo    recordedBy.new recordNumber.new    identifiedBy</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 893   FURB_50519        Lima, L.V.              112        Lima, LV</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748  CESJ_67491        Lima, L.V.              112       L.V. Lima</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 791   FURB_54226 Kassner Filho, A.              391    Gasper, A.L.</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580  CESJ_71184 Kassner Filho, A.              391 V.A.O. Dittrich</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745   FURB_6419  Falkenberg, D.B.             6751 Gasper, A.L. de</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194 FLOR_24680  Falkenberg, D.B.             6751 Gasper, A.L. de</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474 FURB_41755  Falkenberg, D.B.             6751 Gasper, A.L. de</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       identifiedBy.new identifiedBy.new1 yearIdentified yearIdentified.new</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 893         Lima, L.V.        Lima, L.V.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748        Lima, L.V.        Lima, L.V.           &lt;NA&gt;               2015</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 791       Gasper, A.L.  Dittrich, V.A.O.           &lt;NA&gt;               2017</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745      Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2017</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194     Gasper, A.L.      Gasper, A.L.           2010               2010</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474     Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2017</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="do">##       yearIdentified.new1      family  family.new family.new1</span></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 893                  n.d. Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748                 2015 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 791                  2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745                 2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194                2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474                2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a><span class="do">##                            scientificName   scientificName.new</span></span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 893                           Blechnaceae      Blechnaceae sp.</span></span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748              Blechnum occidentale L. Blechnum occidentale</span></span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 791                           Blechnaceae      Blechnaceae sp.</span></span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580            Blechnum auriculatum Cav. Blechnum auriculatum</span></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745                          Blechnaceae      Blechnaceae sp.</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194                 Blechnum binervatum  Blechnum binervatum</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474 Lomaridium plumieri (Desv.) C.Presl  Lomaridium plumieri</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a><span class="do">##        scientificName.new1 scientificNameStatus              tax.notes</span></span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 893        Blechnaceae sp.      family_as_genus                       </span></span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748  Blechnum occidentale       name_w_authors                       </span></span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 791   Blechnum auriculatum      family_as_genus                       </span></span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580  Blechnum auriculatum       name_w_authors                       </span></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745   Lomaridium plumieri      family_as_genus                       </span></span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194  Lomaridium plumieri          possibly_ok check no accepted name</span></span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474  Lomaridium plumieri       name_w_authors                       </span></span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a><span class="do">##       tax.check tax.check1                            dup.ID</span></span>
+<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 893         low        low           [CESJ_67491|FURB_50519]</span></span>
+<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 6748        low        low           [CESJ_67491|FURB_50519]</span></span>
+<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 791        high       high           [CESJ_71184|FURB_54226]</span></span>
+<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 6580       high       high           [CESJ_71184|FURB_54226]</span></span>
+<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 3745       high       high [FLOR_24680|FURB_41755|FURB_6419]</span></span>
+<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 24194      high       high [FLOR_24680|FURB_41755|FURB_6419]</span></span>
+<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 25474      high       high [FLOR_24680|FURB_41755|FURB_6419]</span></span></code></pre></div>
+<p>A função <code>head()</code> imprimiu os 7 primeiros resultados de duplicatas dos registros do FURB. Os dois primeiros casos (i.e. ‘dup.ID’ = ‘CESJ_67491|FURB_50519’ e ‘CESJ_71184|FURB_54226’) tratam-se de registros identificados a nível de família no FURB mas que tem a identificação completa no CESJ. O primeiro caso, como o determinador ‘Lima, L.V.’ não está entre os especialistas de Blechnaceae, suas informações não foram homogeneizadas para o registro do FURB (colunas terminando em ‘.new1’). No segundo caso, a determinação foi feita por Dittrich, V.A.O., especialista da família. Portanto, as novas colunas foram preenchidas automaticamente pelo <strong>plantR</strong> e podem ser usadas pelo curador do FURB para atualização.</p>
+<p>No terceiro caso (i.e. FLOR_24680|FURB_41755|FURB_6419), a duplicata do FLOR estava (em 25/04/2021) identificada como <em>Blechnum binervatum</em> pelo próprio Gasper, A.L., uma determinação de 2010. No FURB há duas duplicatas, com identificações diferentes, também feitas pelo Gasper, A.L.: uma apenas como Blechnaceae e outra como <em>Lomaridium plumieri</em>. Isso é comum pois as duplicatas vêm de um mesmo indivíduo, mas podem ter atributos bem diferentes representados na exsicata (e.g. partes reprodutivas diagnósticas). Ambas as identificações datam de 2017, então nesse caso a identificação com a melhor resolução taxonômica é usada e preenchidas automaticamente. Nesse caso, o curador do FURB pode atualizar a identificação feita ao nível de família.</p>
+</div>
+<div id="salvando-os-resultados-da-atualização-taxonômica" class="section level3" number="7.2.4">
+<h3 number="7.2.4"><span class="header-section-number">7.2.4</span> Salvando os resultados da atualização taxonômica</h3>
+<p>Para facilitar o trabalho do curador, podemos marcar essas duplicatas com indicação de alteração da identificação:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>occs2.tax<span class="sc">$</span>checar.taxon <span class="ot">&lt;-</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  occs2.tax<span class="sc">$</span>scientificName.new <span class="sc">!=</span> occs2.tax<span class="sc">$</span>scientificName.new1 <span class="sc">&amp;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">&quot;FURB_&quot;</span>, occs2.tax<span class="sc">$</span>numTombo, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Em seguida, podemos salvar em uma planilha à parte para conferência, usando a função <code>saveData()</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>nome.arquivo <span class="ot">&lt;-</span> <span class="fu">paste</span>(colecao, familia, <span class="st">&quot;taxonomia&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">saveData</span>(occs2.tax, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">file.name =</span> nome.arquivo, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">dir.name =</span> <span class="st">&quot;checagem_plantR&quot;</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">file.format =</span> <span class="st">&quot;csv&quot;</span>,  <span class="at">compress =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Como resultado final, há cerca de 500 registros do FURB que possuem uma duplicata com identificação mais recente ou em um nível taxonômica mais fino. Esses registros estão marcados como ‘TRUE’ na coluna ‘checar.taxon’ que foi salva na pasta ‘checagem_plantR’ do seu diretório local. Por fins de organização, usamos a combinação do nome da família e da coleção no nome do arquivo ‘.csv’ salvo localmente.</p>
+</div>
+</div>
+<div id="atualização-de-coordenadas-geográficas" class="section level2" number="7.3">
+<h2 number="7.3"><span class="header-section-number">7.3</span> Atualização de coordenadas geográficas</h2>
+<p>[EM BREVE]</p>
+</div>
+<div id="atualização-de-informações-de-localidade" class="section level2" number="7.4">
+<h2 number="7.4"><span class="header-section-number">7.4</span> Atualização de informações de localidade</h2>
+<p>[EM BREVE]</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -7,9 +7,9 @@
 shares_border(country1 = "brazil", country2 = "argentina")
 }
 \arguments{
-\item{country1}{First country to check}
+\item{country1}{First country to check, use spData standard}
 
-\item{country2}{Second country to check}
+\item{country2}{Second country to check, use spData standard}
 }
 \description{
 Checks if two countries share a border

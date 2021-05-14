@@ -9,7 +9,7 @@ missName(x, type = NULL, noName = "Anonymous")
 \arguments{
 \item{x}{the character string or vector with names.}
 
-\item{type}{type of name: 'collector' or 'identificator'.}
+\item{type}{type of name: 'collector' or 'determiner'.}
 
 \item{noName}{standard notation for missing names. Default to "Anonymous".}
 }
@@ -31,7 +31,7 @@ identifier names associated with biological records.
          type = "collector")
 
  missName(c("Gentry, AH", "s/det.", "s/det", "s/d", "Determiner unknown"),
-          type = "identificator")
+          type = "determiner")
 
 }
 \references{

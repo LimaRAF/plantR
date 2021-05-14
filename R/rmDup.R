@@ -48,13 +48,14 @@
 #'
 #'   Finally, users can choose between removing all but one records within each
 #'   group of duplicate, or to remove only those records with duplicated entries
-#'   from the same collection in different sources using the argument `rm.all`.
-#'   This option can be useful if the same collection has its database in two or
-#'   more repositories (e.g. speciesLink and GBIF). It is important to note that
-#'   this removal is dependent on the duplicate group ID found for each record.
-#'   So, if the information was entered differently in the different sources, it
-#'   is not guaranteed that they will be grouped under the same duplicate group
-#'   ID, and thus be excluded from the data.
+#'   from the same collection in different sources (i.e. virtual duplicates),
+#'   using the argument `rm.all`. This option can be useful if the same
+#'   collection has its database in two or more repositories (e.g. speciesLink
+#'   and GBIF). It is important to note that this removal is dependent on the
+#'   duplicate group ID found for each record. So, if the information was
+#'   entered differently in the different sources, it is not guaranteed that
+#'   they will be grouped under the same duplicate group ID, and thus be
+#'   excluded from the data.
 #'
 #' @import data.table
 #'
@@ -123,7 +124,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
     # re-ordering the data.table, using setorder()
     data.table::setkeyv(dt, c("dup.IDs", "temp.dup.prop", "tmp.ordem"))
     data.table::setorderv(dt,  cols = c("dup.IDs", "temp.dup.prop", "tmp.ordem"),
-                         order = c(1, -1, 1))
+                          order = c(1, -1, 1))
   } else {
     # re-ordering the data.table, using setorder()
     data.table::setorderv(dt,  c("dup.IDs", order.by))

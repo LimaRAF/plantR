@@ -20,11 +20,12 @@ Extended-A. For a more complete replacement of all non-ASCII characters,
 please use the function \code{replace_non_ascii()} from package \strong{textclean}.
 }
 \examples{
-  nomes <- c("Thomé", "Muñoz", "œuf")
-  Encoding(nomes) <- "latin1"
+  nomes <- c("Thom\u00e9", "Mu\u00f1oz", "\u0153uf")
   nomes
 
+\dontrun{
   rmLatin(nomes)
+}
 
 }
 \author{
