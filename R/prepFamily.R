@@ -66,9 +66,10 @@
 #'
 #' @examples
 #'
-#' df <- data.frame(family = c("Ulmaceae", "Cannabaceae", "Salicaceae",
-#' "Flacourtiaceae", "Vivianiaceae"), genus = c("Trema", "Trema", "Casearia",
-#' "Casearia", "Casearia"), speciesName = c("Trema micrantha", "Trema micrantha",
+#' df <- data.frame(
+#' family = c("Ulmaceae", "Cannabaceae", "Salicaceae", "Flacourtiaceae", "Vivianiaceae", ""),
+#' genus = c("Trema", "Trema", "Casearia", "Casearia", "Casearia", ""),
+#' speciesName = c("Trema micrantha", "Trema micrantha", "Casearia sylvestris",
 #' "Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"),
 #' stringsAsFactors = FALSE)
 #' prepFamily(df, spp.name = "speciesName")
@@ -80,7 +81,7 @@ prepFamily <- function(x,
 
   #Avoiding warnings in package check when using data.table
   flora.br <- name.correct <- name.correct.y <- string.plantr <- NULL
-  tmp.fam <- tmp.gen <- tmp.spp <- NULL
+  tmp.fam <- tmp.gen <- tmp.spp <- tmp.ordem <- NULL
 
   ## check input
   if (!class(x) == "data.frame")
@@ -92,7 +93,11 @@ prepFamily <- function(x,
   if (!spp.name %in% names(x))
     stop("Input data frame must have a column with species names")
 
+  x[[gen.name]][x[[gen.name]] %in% c("", " ", "NA", NA)] <- NA_character_
+  x[[spp.name]][x[[spp.name]] %in% c("", " ", "NA", NA)] <- NA_character_
+
   dt <- data.table::data.table(x)
+  dt[, tmp.ordem := .I,]
 
   getGenus <- function(x) {
     as.character(strsplit(x, " ")[[1]][1]) }
@@ -124,7 +129,7 @@ prepFamily <- function(x,
                          by.x = "tmp.fam", by.y = "name", all.x = TRUE)
 
   # Getting missing family names from Brazilian Flora 2020
-  families.data[, flora.br := flora::get.taxa(tmp.gen, suggestion.distance = 0.9, drop = NULL)$family,
+  families.data[, flora.br := as.character(flora::get.taxa(tmp.gen, suggestion.distance = 0.9, drop = NULL)$family),
                 by = "tmp.gen"]
   families.data[(is.na(tmp.fam) | is.na(name.correct) & !is.na(flora.br)),
                 name.correct :=  flora.br, ]
@@ -146,14 +151,13 @@ prepFamily <- function(x,
     genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
                      list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
                      by = "tmp.fam"]
-    tpl.families <- Taxonstand::TPL(genus.data$species, corr = FALSE, drop.lower.level = TRUE)$Family
-    tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
-    families.data[tmp.fam %in% miss.families$tmp.fam,
+    if (any(!is.na(genus.data$species)))
+      tpl.families <- Taxonstand::TPL(genus.data$species,
+                                      corr = FALSE, drop.lower.level = TRUE)$Family
+      tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
+      families.data[tmp.fam %in% miss.families$tmp.fam,
                   name.correct := tpl.families, ]
-    #Trying to solve remaining problems internally
-    #families.data[family %in% miss.families, lapply(.SD, na.omit), by = list(genus)]
-  }
-
+   }
 
   # Double checking if all names are in the APG dictionaire
   families.data <- merge(families.data,
@@ -167,13 +171,19 @@ prepFamily <- function(x,
   # Merging the results by family X genus with the occurrence data
   dt[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
   families.data[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
+  families.data[string.plantr == "_NA", string.plantr := NA_character_, ]
   dt <- data.table::merge.data.table(dt,
                                      families.data[,c("string.plantr","name.correct.y")],
                                      by = "string.plantr", all.x = TRUE)
+  # Preparing to return
   dt[, string.plantr := NULL, ]
   data.table::setnames(dt,
                          c("tmp.fam", "tmp.gen", "tmp.spp"),
                          c(fam.name, gen.name, spp.name))
   data.table::setnames(dt, dim(dt)[2], 'family.new')
+
+  setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
+  dt[, tmp.ordem := NULL, ]
+
   return(data.frame(dt))
 }
