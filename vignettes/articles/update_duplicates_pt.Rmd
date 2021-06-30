@@ -49,9 +49,12 @@ iremos baixar apenas os coletas realizadas no Brasil (i.e. campo `country` igual
 a 'BR').
 
 Para downloads do GBIF, o limite do número de registros baixados é controlado
-pelo argumento `n.records` e o padrão é baixar até 500 registros por item 
-buscado. Estão o limite foi modificado para 450,000 registros, pois o GBIF contém
-aproximadamente 430,000 registros no total para a família.
+pelo argumento `n.records` e o padrão é baixar até 5000 registros por item
+buscado. Então o limite foi modificado para baixar mais registros. Contudo, há
+um limite do número máximo de 100,000 registros que podem ser baixados de um só
+vez. Por isso, iremos baixar apenas os registros da família para o Brasil
+(<100,000). Veja o help da função `rgbif2()` para sugestões sobre como fazer
+para famílias com mais de 100,000 registros no GBIF.
 
 Note que o campo `species` da função `rgbif2()` aceita não apenas nomes ao nível
 de espécie, mas em qualquer nível taxonômico. Para a função `rspeciesLink()`,
@@ -275,13 +278,13 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Para esses dados, cerca de 20% dos registros possuem forte indicação de
-duplicatas e cerca de 40% não tiveram nenhuma indicação (i.e. prováveis
-unicatas). Além desses, 22% foram classificados com 'dup.prop' > 0.5 (e.g. 2
-sobre 3 combinações iguais) e outros 15% foram marcados como 'cc' de 'cannot
-check' por falta de informações associadas aos campos escolhidos. Para registros
-com 'dup.prop' <0.5 (apenas 1 combinação em comum) sugere-se um 'pente-fino',
-pois esses casos podem representar problemas ou falsas duplicatas.
+Para esses dados, cerca de 27% dos registros possuem forte indicação de
+duplicatas e cerca de 38% não tiveram nenhuma indicação (i.e. prováveis
+unicatas). Além desses, 16% foram classificados com 'dup.prop' > 0.5 (e.g. 2
+sobre 3 combinações iguais) e como 'cc' de 'cannot check' por falta de
+informações associadas aos campos escolhidos. Para registros com 'dup.prop' <0.5
+(apenas 1 combinação em comum) sugere-se um 'pente-fino', pois esses casos podem
+representar problemas ou falsas duplicatas.
 
 
 # Homogeneizando as informações entre grupos de duplicatas                               
@@ -386,7 +389,7 @@ table(occs1[grepl("FURB_", occs1$numTombo, fixed = TRUE) &
 ```
 
 Sem grandes problemas para o FURB! Algumas notas em relação à diferença como os
-híbridos são anotados na Flora do Brasil e a uma espécie que não ocorre no
+híbridos são anotados na Flora do Brasil e duas espécies que não ocorrem no
 Brasil.
 
 ### Alguma atualização taxonômica feita nas duplicatas em outras coleções?
@@ -398,44 +401,41 @@ vazia):
 ```{r, eval = TRUE, collapse = TRUE}
 occs2.tax <- occs1.tax[!is.na(occs1.tax$dup.ID), ]
 occs2.tax <- occs2.tax[order(occs2.tax$dup.ID), ]
-head(occs2.tax, 7)
 ```
 
-A função `head()` imprimiu os 7 primeiros resultados de duplicatas dos registros
-do FURB. Os dois primeiros casos (i.e. 'dup.ID' = 'CESJ_67491|FURB_50519' e
-'CESJ_71184|FURB_54226') tratam-se de registros identificados a nível de família
-no FURB mas que têm a identificação completa no CESJ. O primeiro caso, como o
-determinador 'Lima, L.V.' não está entre os especialistas de Blechnaceae, suas
-informações não foram homogeneizadas para o registro do FURB (colunas terminando
-em '.new1'). No segundo caso, a determinação foi feita por Dittrich, V.A.O.,
-especialista da família. Portanto, as novas colunas foram preenchidas
-automaticamente pelo __plantR__ e podem ser usadas pelo curador do FURB para
-atualização.
-
-No terceiro caso (i.e. FLOR_24680|FURB_41755|FURB_6419), a duplicata do FLOR
-estava (em 25/04/2021) identificada como *Blechnum binervatum* pelo próprio
-Gasper, A.L., uma determinação de 2010. No FURB há duas duplicatas, com
-identificações diferentes, também feitas pelo Gasper, A.L.: uma apenas como
-Blechnaceae e outra como *Lomaridium plumieri*. Isso é comum pois as duplicatas
-vêm de um mesmo indivíduo, mas podem ter atributos bem diferentes representados
-na exsicata (e.g. partes reprodutivas diagnósticas). Ambas as identificações datam
-de 2017, então nesse caso a identificação com a melhor resolução taxonômica é
-usada e preenchidas automaticamente. Nesse caso, o curador do FURB pode
-atualizar a identificação feita ao nível de família.
-
-### Salvando os resultados da atualização taxonômica
-
-Para facilitar o trabalho do curador, podemos marcar essas duplicatas com
+Para facilitar o trabalho do curador, podemos marcar as duplicatas com
 indicação de alteração da identificação: 
 
 ```{r, eval = TRUE, collapse = TRUE}
 occs2.tax$checar.taxon <- 
-  occs2.tax$scientificName.new != occs2.tax$scientificName.new1 & 
-    grepl("FURB_", occs2.tax$numTombo, fixed = TRUE)
+  !is.na(occs2.tax$scientificName.new) &
+    occs2.tax$scientificName.new != occs2.tax$scientificName.new1 & 
+      grepl("FURB_", occs2.tax$numTombo, fixed = TRUE)
+occs2.tax[occs2.tax$checar.taxon,]
 ```
 
-Em seguida, podemos salvar em uma planilha à parte para conferência, usando a
-função `saveData()`:
+Note que há cinco registros cujo nome encontrado do FURB é diferente do nome 
+encontrado nas demais coleções. Vamos imprimir um exemplo para entender o que as
+funções estão fazendo. Iremos usar como exemplo o identificador de duplicatas ('dup.ID')
+'FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|VIC_37877|VIES_27594'.
+
+```{r, eval = TRUE, collapse = TRUE}
+occs2.tax[grepl('FURB_6463', occs2.tax$dup.ID),]
+```
+
+Para esse caso há identificações feitas por diferentes pessoas e em diferentes
+datas. Como descrito no tutorial do __plantR__, o registro com identificação mais 
+recente feita por um especialista da família é usado como a identificação de 
+referência - nesse caso, a identificação feita por 'Dittrich, V.A.O.' em 2018.  
+O registro 'FURB_6463', assim como o 'SLUI_4389' e o 'VIC_37877', possuem 
+identificações diferentes e estes tiveram suas informações homogeneizadas 
+automaticamente pelo __plantR__ (colunas terminando em '.new1') e podem ser
+usadas pelo curador do FURB para atualização.
+
+### Salvando os resultados da atualização taxonômica
+
+Em seguida, podemos salvar os resultados em uma planilha à parte para
+conferência, usando a função `saveData()`:
 
 ```{r, eval = FALSE, collapse = TRUE}
 nome.arquivo <- paste(colecao, familia, "taxonomia", sep = "_")
@@ -445,8 +445,6 @@ saveData(occs2.tax,
          file.format = "csv",  compress = FALSE)
 ```
 
-Como resultado final, há cerca de 500 registros do FURB que possuem uma
-duplicata com identificação mais recente ou em um nível taxonômica mais fino.
 Esses registros estão marcados como 'TRUE' na coluna 'checar.taxon' que foi
 salva na pasta 'checagem_plantR' do seu diretório local. Por fins de
 organização, usamos a combinação do nome da família e da coleção no nome do

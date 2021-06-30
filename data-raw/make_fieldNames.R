@@ -1,24 +1,33 @@
 # Script to generate fieldNames table
 library(dplyr)
 
+# Downloading current versions of GBIF and speciesLink fiedls
+spp <- c("Casearia sylvestris",
+         "Euterpe edulis",
+         "Trema micrantha")
+occs_splink <- rspeciesLink(species = spp)
+write.csv(occs_splink, "data-raw/results/speciesLink.csv")
+occs_gbif <- rgbif2(species = spp)
+write.csv(occs_gbif, "data-raw/results/gbif.csv")
+
 # Reading data base results ----------------------------------------------------
 ### SARA: VER SE HÁ UM EFEITO NO NÚMERO DE COLUNAS ENCONTRADAS DEPENDENDO DA
 #ESPÉCIE USADA PARA O DOWNLOAD. SE SIM, DAR PREFERÊNCIA A UMA ESPÉCIES COM MAIS
 #REGISTRO QUE EUTERPE EDULIS
 ## gbif
-df_gbif <- read.csv("vignettes/results/gbif.csv")
+df_gbif <- read.csv("data-raw/results/gbif.csv")
 
 #editing gbif names (INCLUIDO PELO RENATO)
 tmp <- names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)]
 tmp1 <- sapply(tmp,
-               function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
+               function(x) tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE)),1))
 tmp[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)] <-
   tmp1[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)]
 names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
 
 
 ## species link
-df_splink <- read.csv("vignettes/results/speciesLink.csv")
+df_splink <- read.csv("data-raw/results/speciesLink.csv")
 
 # Necessary fields for plantR --------------------------------------------------
 must_plantr <- c("institutionCode", "collectionCode", "catalogNumber",
@@ -75,6 +84,10 @@ df <- dwc %>%
 cols_splink <- names(df_splink)
 low_splink <- tolower(cols_splink)
 
+#checking
+low_cols <- tolower(c(must_plantr, opt_plantr))
+low_splink[!low_splink %in% low_cols]
+
 splink <- data.frame(low_dwc = low_splink, speciesLink = cols_splink) %>%
   left_join(df, ., by = "low_dwc")
 
@@ -88,8 +101,8 @@ fieldNames <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
 
 # Missing fields
 #Renato: adicionando as opcionais, a lista aumenta. Problema? Acho que não.
-setdiff(low_must, low_gbif) # "yearidentified", "scientificnameauthorship"
-setdiff(low_must, low_splink)  # "municipality"
+setdiff(low_must, low_gbif) # "scientificnameauthorship"
+setdiff(low_must, low_splink)  # "municipality", "dateidentified"
 
 #### CODES ADDED BY RENATO ####
 # Adding optional fields in speciesLink missing from the standard names from Darwin Core ------------------------------

@@ -118,30 +118,36 @@ checkBorders <- function(x,
 
   ## Checking borders for selected records
   check_these <- grepl("bad_country", x[, geo.check], perl = TRUE)
-  shares_bord <- Vectorize(shares_border)
-  share_border <- suppressMessages(suppressWarnings(
-    shares_bord(country.shp[check_these],
-                country.gazet[check_these])))
-  # border.check <-
-  #   dplyr::if_else(share_border == TRUE,
-  #           "check_borders", "check_inverted")
+  if (any(check_these)) {
+    shares_bord <- Vectorize(shares_border)
+    share_border <- suppressMessages(suppressWarnings(
+      shares_bord(country.shp[check_these],
+                  country.gazet[check_these])))
+    # border.check <-
+    #   dplyr::if_else(share_border == TRUE,
+    #           "check_borders", "check_inverted")
 
-  ## Preparing to return
-  # x1 <- dplyr::left_join(x, x1)
-  #rafl: alguma chance de `shares_bord()` mudar a ordem do data frame, se não sugiro:
-  if (output == 'new.col') {
-    x$border.check <- NA
-    x$border.check[check_these] <-
-      share_border
-  }
+    ## Preparing to return
+    if (output == 'new.col') {
+      x$border.check <- NA
+      x$border.check[check_these] <-
+        share_border
+    }
 
-  if (output == 'same.col') {
-    x[check_these, geo.check][share_border] <-
-      "bad_country[border]"
-    #paste0(x[check_these, geo.check][share_border],"[border]")
-    x[check_these, geo.check][!share_border] <-
-      "bad_country[inverted?]"
-    #paste0(x[check_these, geo.check][!share_border],"[inverted?]")
+    if (output == 'same.col') {
+      x[check_these, geo.check][share_border] <-
+        "bad_country[border]"
+      #paste0(x[check_these, geo.check][share_border],"[border]")
+      x[check_these, geo.check][!share_border] <-
+        "bad_country[inverted?]"
+      #paste0(x[check_these, geo.check][!share_border],"[inverted?]")
+    }
+
+  } else {
+
+    if (output == 'new.col')
+      x$border.check <- FALSE
+
   }
 
   return(x)

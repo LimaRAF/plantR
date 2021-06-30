@@ -56,7 +56,8 @@ formatTax <- function(tax,
                       sug.dist = sug.dist, use.authors = use.authors,
                       drop.cols = drop.cols)
   if (use.suggestion)
-    tax1$scientificName.new <- tax1$suggestedName
+    tax1$scientificName.new[!is.na(tax1$suggestedName)] <-
+      tax1$suggestedName[!is.na(tax1$suggestedName)]
 
   # prepFamily
   tax1 <- prepFamily(x = tax1, fam.name, spp.name = "scientificName.new")
