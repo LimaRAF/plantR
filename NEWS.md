@@ -1,3 +1,21 @@
+# plantR 0.1.3
+
+* Fixing bugs in `formatDwc()` related to the difference in the number of
+columns that speciesLink returns for queries using different taxa and for the
+binding of columns with different data types.
+
+* `rgbif2()` now has warnings and workarounds related to the maximum limit of
+100,000 records per query
+
+* fixes in `formatOcc()`, `validateCoord()`, `validateDup()`, and
+`summaryFlags()` for the particular case of only one record per species
+
+* minor fix in `prepFamily()` to get missing family names based on genera
+
+* small improvements in `prepCoord()`, `getYear()`, `addRank()` and
+`formatTax()`
+
+
 # plantR 0.1.2
 
 * New tutorial on how __plantR__ can be used to update databases of biological
