@@ -37,6 +37,9 @@ Currently, the function does not differentiate missing coordinates from those
 provided in a format that \code{prepCoord} does not handle (e.g. UTM). Function
 should work fine for coordinates in the degrees + decimal minutes format.
 See examples below.
+
+Note that if one of the coordinates is valid and the other is not, the
+function returns NAs for both coordinates.
 }
 \examples{
 
@@ -52,6 +55,7 @@ stringsAsFactors = FALSE)
 Encoding(coords[,1]) <- "latin1"
 Encoding(coords[,2]) <- "latin1"
 coords
+
 
 ## Formatting the geographical coordinates
 prepCoord(coords)

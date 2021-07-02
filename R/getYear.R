@@ -87,6 +87,7 @@ getYear <- function (x, noYear = "s.d.") {
   tmp <- gsub('\\s[0-9][0-9]:.*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('-NA', "-01", tmp, perl = TRUE)
   tmp <- gsub(' to ', ";;;", tmp, fixed = TRUE)
+  tmp <- gsub('; |;', ";;;", tmp, perl = TRUE)
 
   # Converting NA entries
   tmp[tmp %in% c("", " ", NA, "T00:00:00Z", "0/0/0", "00/00/0000")] <- noYear
@@ -142,12 +143,17 @@ getYear <- function (x, noYear = "s.d.") {
   tmp1 <- as.character(sapply(strsplit(tmp[check_these], "\\/|;;;", perl = TRUE),
                               function(x) paste0(unique(x[nchar(x) >= 4]),
                                                  collapse = "-")))
+  tmp1 <- gsub("[^-0-9]", "", tmp1, perl=TRUE)
+  tmp1 <- gsub("-$", "", tmp1, perl=TRUE)
+
   if (any(tmp1 %in% ""))
     tmp1[tmp1 %in% ""] <-
-      as.character(sapply(strsplit(tmp[check_these][tmp1 %in% ""], "\\/|;;;", perl = TRUE),
+      as.character(suppressWarnings(
+        sapply(strsplit(tmp[check_these][tmp1 %in% ""], "\\/|;;;", perl = TRUE),
                         function(x) paste0(unique(
                           x[!is.na(x) & !x %in% "" & as.double(x) > 31]),
-                          collapse = "-")))
+                          collapse = "-"))))
+  tmp1[tmp1 %in% "NA"] <- ""
   if (any(tmp1 %in% ""))
     tmp1[tmp1 %in% ""] <- tmp[check_these][tmp1 %in% ""]
 
@@ -206,6 +212,14 @@ getYear <- function (x, noYear = "s.d.") {
   #dates separated by spaces
   check_these <- grepl(" ", tmp, fixed = TRUE)
   tmp1 <- as.character(sapply(strsplit(tmp[check_these], " ", fixed = TRUE),
+                              function(x) paste0(unique(x[nchar(x) >= 4]),
+                                                 collapse = "-")))
+  if (length(tmp1) > 0)
+    tmp[check_these] <- tmp1
+
+  #multiple years separated by semi-colons
+  check_these <- grepl(";;;", tmp, fixed = TRUE)
+  tmp1 <- as.character(sapply(strsplit(tmp[check_these], ";;;", fixed = TRUE),
                               function(x) paste0(unique(x[nchar(x) >= 4]),
                                                  collapse = "-")))
   if (length(tmp1) > 0)

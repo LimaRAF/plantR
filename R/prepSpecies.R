@@ -137,10 +137,10 @@ prepSpecies <- function(x,
       if (any(spcs >= 2)) {
 
       miss_rank <- rbind(
-        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "var."), "added_var"),
-        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "subsp."), "added_ssp"),
-        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "f."), "added_form"),
-        cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2], perl = TRUE), "edited_x"))
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "var.")),
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "subsp.")),
+        cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "f.")),
+        cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2], perl = TRUE)))
 
       #Are names missing due to authorships with the binomial?
 
@@ -164,13 +164,13 @@ prepSpecies <- function(x,
 
         if (dim(miss_rank)[1] > 0 & length(no_authors) > 0) {
           miss_spp <- rbind(miss_rank,
-                            cbind(miss_sp[spcs >= 2], no_authors, "rm_auth"))
+                            cbind(miss_sp[spcs >= 2], no_authors))
           miss_spp <- miss_spp[!duplicated(miss_spp[, 2]), , drop = FALSE]
         } else {
           if (dim(miss_rank)[1] > 0)
             miss_spp <- miss_rank
           if (length(no_authors) > 0)
-            miss_spp <- cbind(miss_sp[spcs >= 2], no_authors, "rm_auth")
+            miss_spp <- cbind(miss_sp[spcs >= 2], no_authors)
         }
 
         suggest_miss_sp <-

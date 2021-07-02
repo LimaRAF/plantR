@@ -25,6 +25,9 @@
 #'  should work fine for coordinates in the degrees + decimal minutes format.
 #'  See examples below.
 #'
+#' Note that if one of the coordinates is valid and the other is not, the
+#' function returns NAs for both coordinates.
+#'
 #' @author Renato A. F. de Lima
 #'
 #' @export prepCoord
@@ -43,6 +46,7 @@
 #' Encoding(coords[,1]) <- "latin1"
 #' Encoding(coords[,2]) <- "latin1"
 #' coords
+#'
 #'
 #' ## Formatting the geographical coordinates
 #' prepCoord(coords)
@@ -70,6 +74,7 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
     lati[is.na(lati) & !is.na(lati1)] <-
       lati1[is.na(lati) & !is.na(lati1)]
   }
+
   if ("verbatimLongitude" %in% names(x)) {
     long1 <- x[, "verbatimLongitude"]
     long[is.na(long) & !is.na(long1)] <-
@@ -78,8 +83,10 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
 
   ## Preliminary editing
   # coordinates without numbers
-  no.numb <- !grepl('\\d', lati) | !grepl('\\d', long)
-  lati[no.numb] <- long[no.numb] <- NA
+  no.numb <- !grepl('\\d', lati, perl = TRUE) |
+    !grepl('\\d', long, perl = TRUE)
+  if (any(no.numb))
+    lati[no.numb] <- long[no.numb] <- NA
 
   # zero coordinates as missing
   lati[lati %in% 0 & long %in% 0] <- NA
@@ -90,8 +97,10 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
   long[long %in% 0 & is.na(lati)] <- NA
 
   # possible problems with decimal division
-  lati <- gsub(',', '\\.', lati)
-  long <- gsub(',', '\\.', long)
+  lati <- sub(',', '.', lati, fixed = TRUE)
+  lati <- gsub(',', '', lati, fixed = TRUE)
+  long <- sub(',', '.', long, fixed = TRUE)
+  long <- gsub(',', '', long, fixed = TRUE)
 
   ## Any coordinate on non-decimal degrees format?
   lati.na <- !is.na(lati)
@@ -103,26 +112,28 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
     lati0 <- lati[ids]
     long0 <- long[ids]
 
-    lati.ref <- grepl("s|S", lati0) & !grepl("n|N", lati0)
-    long.ref <- grepl("w|W|o|O", long0) & !grepl("e|E|l|L", long0)
-    lati0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", lati0)
-    long0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", long0)
-    lati0 <- gsub('[a-z]', " ", lati0, ignore.case = TRUE)
-    long0 <- gsub('[a-z]', " ", long0, ignore.case = TRUE)
-    lati0 <- gsub('   ', ' ', lati0, perl = TRUE)
-    long0 <- gsub('   ', ' ', long0, perl = TRUE)
-    lati0 <- gsub('  ', ' ', lati0, perl = TRUE)
-    long0 <- gsub('  ', ' ', long0, perl = TRUE)
+    lati.ref <- grepl("s|S", lati0, perl = TRUE) &
+      !grepl("n|N", lati0, perl = TRUE)
+    long.ref <- grepl("w|W|o|O", long0, perl = TRUE) &
+      !grepl("e|E|l|L", long0, perl = TRUE)
+    lati0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", lati0, perl = TRUE)
+    long0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", long0, perl = TRUE)
+    lati0 <- gsub('[a-z]', " ", lati0, ignore.case = TRUE, perl = TRUE)
+    long0 <- gsub('[a-z]', " ", long0, ignore.case = TRUE, perl = TRUE)
+    lati0 <- gsub('   ', ' ', lati0, fixed = TRUE)
+    long0 <- gsub('   ', ' ', long0, fixed = TRUE)
+    lati0 <- gsub('  ', ' ', lati0, fixed = TRUE)
+    long0 <- gsub('  ', ' ', long0, fixed = TRUE)
     lati0 <- stringr::str_trim(lati0)
     long0 <- stringr::str_trim(long0)
     lati0[!is.na(lati0) & lati0 %in% c("0 0 0", "0 0")] <- NA
     long0[!is.na(long0) & long0 %in% c("0 0 0", "0 0")] <- NA
     lati0[!is.na(lati0) & lati0 %in% ""] <- NA
     long0[!is.na(long0) & long0 %in% ""] <- NA
-    lati0[grepl("\\.", lati0)] <-
-      sub("^([^.]*.[^.]*).", "\\1", lati0[grepl("\\.", lati0)])
-    long0[grepl("\\.", long0)] <-
-      sub("^([^.]*.[^.]*).", "\\1", long0[grepl("\\.", long0)])
+    lati0[grepl("\\.", lati0, perl = TRUE)] <-
+      sub("^([^.]*.[^.]*).", "\\1", lati0[grepl("\\.", lati0, perl = TRUE)])
+    long0[grepl("\\.", long0, perl = TRUE)] <-
+      sub("^([^.]*.[^.]*).", "\\1", long0[grepl("\\.", long0, perl = TRUE)])
     lati1 <- suppressWarnings(cbind.data.frame(grau = as.double(sapply(strsplit(lati0, " "), function(x) x[1])),
                                                min = as.double(sapply(strsplit(lati0, " "), function(x) x[2])) / 60,
                                                sec = as.double(sapply(strsplit(lati0, " "), function(x) x[3])) / 3600))

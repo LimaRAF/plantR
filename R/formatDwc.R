@@ -50,6 +50,8 @@
 #'   name of the next smaller administrative region than county (city,
 #'   municipality, etc.) in which the Location occurs. Do not use this term for
 #'   a nearby named place that does not contain the actual location
+#' @param locality The name of the column containing the specific description of
+#'   the place in which the Location occurs.
 #' @param decimalLatitude The name of the column containing the geographic
 #'   latitude (in decimal degrees, using the spatial reference system given in
 #'   geodeticDatum) of the geographic center of a Location. Positive values are
@@ -67,6 +69,8 @@
 #'   subject was identified as representing the Taxon
 #' @param typeStatus The name of the column containing a nomenclatural type
 #'   (type status, typified scientific name, publication) applied to the subject
+#' @param family The name of the column containing the family in which the taxon
+#'   is classified.
 #' @param scientificName The name of the column containing the full scientific
 #'   name, with authorship and date information if known. When forming part of
 #'   an Identification, this should be the name in lowest level taxonomic rank
@@ -89,7 +93,7 @@
 #'
 #' @export formatDwc
 #'
-#' @author Sara R. Mortara and Andrea Sánchez-Tapia
+#' @author Sara R. Mortara, Andrea Sánchez-Tapia & Renato A. F. de Lima
 #'
 formatDwc <- function(splink_data = NULL,
                       gbif_data = NULL,
@@ -108,11 +112,13 @@ formatDwc <- function(splink_data = NULL,
                       stateProvince = "stateProvince",
                       county = "county",
                       municipality = "municipality",
+                      locality = "locality",
                       decimalLatitude = "decimalLatitude",
                       decimalLongitude = "decimalLongitude",
                       identifiedBy = "identifiedBy",
                       dateIdentified = "dateIdentified",
                       typeStatus = "typeStatus",
+                      family = "family",
                       scientificName = "scientificName",
                       scientificNameAuthorship = "scientificNameAuthorship") {
 
@@ -120,38 +126,39 @@ formatDwc <- function(splink_data = NULL,
   must <- sort(unique(stats::na.omit(fieldNames$plantr[fieldNames$type %in% "required"])))
   opt <- sort(unique(stats::na.omit(fieldNames$plantr[fieldNames$type %in% "optional"])))
 
-    # formating user data --------------------------------------------------------
+  # formating user data --------------------------------------------------------
   if (!is.null(user_data)) {
-    user_colnames <- c(collectionCode, catalogNumber, recordNumber, recordedBy,
-                       year, country, stateProvince, county, municipality,
-                       decimalLatitude, decimalLongitude, identifiedBy, dateIdentified,
-                       typeStatus, scientificName, scientificNameAuthorship, institutionCode)
-    names(user_colnames) <- c("collectionCode", "catalogNumber", "recordNumber", "recordedBy",
-                              "year", "country", "stateProvince", "county", "municipality",
-                              "decimalLatitude", "decimalLongitude", "identifiedBy", "dateIdentified",
-                              "typeStatus", "scientificName", "scientificNameAuthorship", "institutionCode")
+    user_colnames <- c(institutionCode, collectionCode, catalogNumber,
+                       recordNumber, recordedBy,
+                       year, country, stateProvince, county, municipality, locality,
+                       decimalLatitude, decimalLongitude,
+                       identifiedBy, dateIdentified,
+                       typeStatus, family, scientificName, scientificNameAuthorship)
+    names(user_colnames) <- c("institutionCode", "collectionCode", "catalogNumber",
+                              "recordNumber", "recordedBy",
+                              "year", "country", "stateProvince", "county", "municipality", "locality",
+                              "decimalLatitude", "decimalLongitude",
+                              "identifiedBy", "dateIdentified",
+                              "typeStatus", "family", "scientificName", "scientificNameAuthorship")
     if (any(!user_colnames %in% names(user_data))) {
       stop("user_data does not have the minimum fields required for data cleaning!")
     }
-    # First ordering data frame
-    user_data_or <- user_data[, user_colnames]
-    # Now applying DwC names
-    names(user_data_or) <- names(user_colnames)
+    # Applying DwC names
+    names(user_data)[match(user_colnames, names(user_data))] <-
+      names(user_colnames)
   }
 
   # formating speciesLink data -------------------------------------------------
   if (!is.null(splink_data)) {
-    # checking name standards
-    splink_cols <- sort(unique(stats::na.omit(fieldNames$speciesLink)))
-    if (any(!splink_cols %in% names(splink_data))) {
-      # stop("splink_data does not follow the speciesLink pattern")
-      warning("some columns in splink_data do not follow the speciesLink pattern", call. = FALSE)
-    }
     # required absent fields in speciesLink: municipality and dateIdentified
     miss.cols <- must[!must %in% names(splink_data)]
     # Creating field municipality
     splink_data$municipality <- NA_character_
     # Creating field dateIdentified
+    if (!"monthIdentified" %in% names(splink_data))
+      splink_data$monthIdentified <- NA_character_
+    if (!"dayIdentified" %in% names(splink_data))
+      splink_data$dayIdentified <- NA_character_
     splink_date <- apply(X = splink_data[, c("yearIdentified", "monthIdentified", "dayIdentified")],
                          MARGIN = 1,
                          FUN = function(x) paste(x, collapse = "-"))
@@ -163,6 +170,16 @@ formatDwc <- function(splink_data = NULL,
       for (i in 1:length(miss.cols.opt)) splink_data[, miss.cols.opt[i]] <- NA_character_
     }
 
+    # checking name standards (only for mandatory and optional fields)
+    splink_cols <-
+      sort(unique(stats::na.omit(fieldNames$speciesLink[!is.na(fieldNames$type)])))
+    if (any(!splink_cols %in% names(splink_data))) {
+      # stop("splink_data does not follow the speciesLink pattern")
+      colunas <- splink_cols[!splink_cols %in% names(splink_data)]
+      aviso <- paste("Some important columns were not found in the splink_data: \n",
+                     paste(colunas, collapse = ", "))
+      warning(aviso, call. = FALSE)
+    }
   }
 
   # formating gbif data --------------------------------------------------------
@@ -171,19 +188,12 @@ formatDwc <- function(splink_data = NULL,
     tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)]
     tmp1 <- sapply(tmp,
                    function(x) utils::tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE)), n = 1))
-                   # function(x) my.tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE))))
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
     #Sara: nem todos os nomes podem ser limpos pois removendo o longo prefixo, alguns campos ficam duplicados.
     #Seria legal entender o que está rolando, pois esses campos as vezes tem informacao tb.
     names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)] <- tmp
 
-    # checking name standards
-    gbif_cols <- sort(unique(stats::na.omit(fieldNames$gbif)))
-    if (any(!gbif_cols %in% names(gbif_data))) {
-      #stop("gbif_data does not follow the gbif pattern!")
-      warning("some columns in gbif_data does not follow the gbif pattern!", call. = FALSE)
-    }
     # required absent fields in gbif: scientificNameAuthorship
     miss.cols <- must[!must %in% names(gbif_data)]
     # Creating field scientificNameAuthorship
@@ -197,20 +207,30 @@ formatDwc <- function(splink_data = NULL,
       for (i in 1:length(miss.cols.opt)) gbif_data[, miss.cols.opt[i]] <- NA_character_
     }
 
+    # checking name standards (only mandatory and )
+    gbif_cols <- sort(unique(stats::na.omit(fieldNames$gbif[!is.na(fieldNames$type)])))
+    if (any(!gbif_cols %in% names(gbif_data))) {
+      #stop("gbif_data does not follow the gbif pattern!")
+      colunas <- gbif_cols[!gbif_cols %in% names(gbif_data)]
+      aviso <- paste("Some important columns standard were not found in the gbif_data: \n",
+                     paste(colunas, collapse = ", "))
+      warning(aviso, call. = FALSE)
+    }
+
   }
 
-  # removing fields if drop = TRUE
+  # removing fields if drop = TRUE ---------------------------------------------
   if (drop) {
     if (drop.opt) {
       gbif_data <- gbif_data[, names(gbif_data) %in% must]
       splink_data <- splink_data[, names(splink_data) %in% must]
       user_data <- user_data[, names(user_data) %in% must]
-      message("Dropping all fields not essential to the data cleaning!")
+      message("Dropping fields not essential to the data cleaning!")
     } else {
       gbif_data <- gbif_data[, names(gbif_data) %in% sort(unique(c(must, opt)))]
       splink_data <- splink_data[, names(splink_data) %in% sort(unique(c(must, opt)))]
       user_data <- user_data[, names(user_data) %in% sort(unique(c(must, opt)))]
-      message("Dropping all fields not essential or recommended to the data cleaning!")
+      message("Dropping fields not essential or recommended to the data cleaning!")
     }
   }
 
@@ -218,22 +238,29 @@ formatDwc <- function(splink_data = NULL,
 
   if (bind_data) {
     # Forcing numeric columns to be characters
-    numerics <- c("year", "month", "day", "decimalLatitude", "decimalLongitude", "individualCount")
-    numerics <- numerics[numerics %in%
-                           unique(c(names(splink_data),
-                                    c(names(gbif_data))))]
-    for (i in numerics) {
-      splink_data[, i] <- as.character(splink_data[, i])
-      gbif_data[, i] <- as.character(gbif_data[, i])
-      # splink_data[, i] <- as.numeric(splink_data[, i])
-      # gbif_data[, i] <- as.numeric(gbif_data[, i])
+    if (!is.null(splink_data)) {
+      ids <- which(sapply(splink_data, class) %in% c("numeric", "integer"))
+      if (length(ids) > 0)
+        for (i in ids) splink_data[, i] <- as.character(splink_data[, i])
+    }
+
+    if (!is.null(gbif_data)) {
+      ids <- which(sapply(gbif_data, class) %in% c("numeric", "integer"))
+      if (length(ids) > 0)
+        for (i in ids) gbif_data[, i] <- as.character(gbif_data[, i])
+    }
+
+    if (!is.null(user_data)) {
+      ids <- which(sapply(user_data, class) %in% c("numeric", "integer"))
+      if (length(ids) > 0)
+        for (i in ids) user_data[, i] <- as.character(user_data[, i])
     }
 
     res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
     res_list <- res_list[sapply(res_list, function(x) !is.null(x))]
     res_list <- dplyr::bind_rows(res_list, .id = "data_source")
 
-    if (drop.empty) { ### ADDED BY RENATO: REMOVE ALL-NAs COLUMNS? NECESSÁRIO? PARA E.EDULIS NÃO, MAS TESTAR COM MULTIPLAS ESPÉCIES...
+    if (drop.empty) {
       DT <- data.table::as.data.table(res_list)
       res_list <- data.frame(
         DT[, which(unlist(lapply(DT, function(x) !all(is.na(x))))), with = FALSE],
@@ -244,7 +271,7 @@ formatDwc <- function(splink_data = NULL,
   } else {
     res_list <- list(gbif = gbif_data, speciesLink = splink_data, user = user_data)
 
-    if (drop.empty) { ### ADDED BY RENATO: REMOVE ALL-NAs COLUMNS? NECESSÁRIO? PARA E.EDULIS NÃO, MAS TESTAR COM MULTIPLAS ESPÉCIES...
+    if (drop.empty) {
       for(i in 1:length(list)) {
         DT <- data.table::as.data.table(res_list[[i]])
         res_list[[i]] <- data.frame(

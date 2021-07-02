@@ -51,13 +51,33 @@ are added by the function. It can save the search output on disk
 \description{
 This function uses the rgbif package to get occurrence data of a species.
 }
+\details{
+Despite its name, the argument \code{species} can be used to declare
+names at any taxonomic level (i.e. species, genus, family, order, etc.). But
+not that for some names with homonyms, you may need to declare the authorship
+as well so that GBIF can return the records for the right taxon key.
+
+By default, the function returns a maximum of 5000 records for each query.
+This limit can be changed using the argument \code{n.records}. But note that the
+maximum request imposed by the function \code{rgbif::occ_search()} is 100,000
+records per taxon. This may be the case for the download of records for
+entire families or orders and in this case only the first 100,000 records are
+returned with a warning. So, please consider downloading records separately
+for different regions, basis of records and/or higher taxonomic levels (i.e.
+genera or species).
+
+The time of download will depend on the number of taxa selected and the
+maximum number of records requested for download, as well as on the speed of
+the internet connection. If you want to download large dataset, consider doing
+your request using the GBIF web interface and load the DwC-A zip file using
+the \strong{plantR} function \code{readData()}.
+}
 \examples{
 \dontrun{
-ex_rgbif <- rgbif2(filename = "ex-gbif",
-                   species =  "Asplenium truncorum")
+ex_rgbif <- rgbif2(species =  "Paubrasilia echinata")
 }
 
 }
 \author{
-Sara Mortara & Andrea Sánchez-Tapia
+Sara R. Mortara, Andrea Sánchez-Tapia & Renato A. F. de Lima
 }

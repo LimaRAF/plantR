@@ -31,7 +31,7 @@ summaryFlags <- function(x) {
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax
-  N <- NULL
+  N <- tmp.order <- NULL
 
   #Select which co-variables will be used in the summary (priority to the edited columns)
   covs <- list(locations = c("loc.check1", "loc.check"),
@@ -61,11 +61,11 @@ summaryFlags <- function(x) {
 
     #dups <- table(is.na(dt$dup.ID), occs$dup.prop)
     #dups <- data.table::setDT(dt)[, .N, by = .(dup.ID, dup.prop)]
-    dt[,order := 1:dim(dt)[1]]
+    dt[, tmp.order := 1:dim(dt)[1]]
     dups <- data.table::dcast.data.table(
       data.table::setDT(dt),
-      dup.prop ~ 1, value.var = 'order', length)
-    dt[,order := NULL]
+      dup.prop ~ 1, value.var = 'tmp.order', length)
+    dt[, tmp.order := NULL]
     suppressWarnings(dups$dup.prop[!is.na(as.double(dups$dup.prop))] <-
                        paste0(100 * as.double(dups$dup.prop[!is.na(as.double(dups$dup.prop))]),"%"))
     dups$dup.prop[dups$dup.prop %in% "cc"] <- "Cannot check (no info)"
@@ -104,18 +104,19 @@ summaryFlags <- function(x) {
                              N = locs.clean$N, stringsAsFactors = FALSE)
 
     if (all(c("resol.orig", "resolution.gazetteer") %in% names(dt))) {
-      dt[,order := 1:dim(dt)[1]]
+      dt[, tmp.order := .I]
       locs1 <- data.table::dcast.data.table(
         data.table::setDT(dt),
-        resol.orig ~ resolution.gazetteer, value.var = 'order', length)
-      dt[,order := NULL]
+        resol.orig ~ resolution.gazetteer, value.var = 'tmp.order', length)
+      dt[, tmp.order := NULL]
 
       locs1 <- data.frame(locs1)
       levels <- c("no_info", "country", "stateProvince", "municipality", "locality")
-      locs1 <- locs1[match(levels, locs1$resol.orig) ,]
+      locs1 <- locs1[match(levels, locs1$resol.orig, nomatch = 0) ,]
+
       levels1 <- c("no_info", "country", "state", "county", "locality")
       locs1 <- cbind.data.frame(locs1[1],
-                                locs1[,match(levels1, names(locs1))],
+                                locs1[ , match(levels1, names(locs1), nomatch = 0)],
                                 stringsAsFactors = FALSE)
       names(locs1)[1] <- "original.resolution"
       names(locs1) <- gsub("state", "stateProvince", names(locs1))

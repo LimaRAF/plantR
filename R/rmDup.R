@@ -87,6 +87,12 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   if (!dup.name %in% names(df))
     stop(paste0("Removal is only possible if the input data contain a column with the duplicate IDs"))
 
+  if (all(is.na(df[[dup.name]]))) {
+    print("No duplicate IDs available. Returning the same input data frame",
+            call. = FALSE)
+    return(df)
+  }
+
   # creating the unique accession number and multiple-acession number for each specimen
   dt <- data.table::data.table(df)
   dt[ , dup.IDs := .SD, .SDcols = c(dup.name)]

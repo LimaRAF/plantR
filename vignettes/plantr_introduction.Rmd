@@ -185,11 +185,6 @@ function `rgbif()` of the __rgbif__ package, with a standardized output:
 occs_gbif <- rgbif2(species = "Euterpe edulis")
 ```
 
-```{r load-data, eval=FALSE, echo=FALSE}
-occs_splink <- read.csv("results/speciesLink.csv")
-occs_gbif <- read.csv("results/gbif.csv")
-```
-
 #### Field names
 
 It is important to make sure that the field names of the input data follow the

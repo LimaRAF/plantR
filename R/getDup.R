@@ -142,60 +142,62 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
   ## Filtering data with any evidence of duplicates
   df1 <- df[df$dup.check %in% "TRUE", ]  # only data with any indication of duplicates
 
-  ## Filtering the dataset and converting to the data.table format
-  dt <- data.table::data.table(df1)  # only data with any indication of duplicates
-  dt[, tmp.ordem := .I,]
+  if (dim(df1)[1] > 0) {
+    ## Filtering the dataset and converting to the data.table format
+    dt <- data.table::data.table(df1)  # only data with any indication of duplicates
+    dt[, tmp.ordem := .I,]
 
-  #Dealing with duplicated values of 'numTombo'
-  data.table::setnames(dt, rec.ID, "numTombo")
-  dt[duplicated(numTombo), numTombo := paste(numTombo, 1:.N, sep="_dup"), by = numTombo]
+    #Dealing with duplicated values of 'numTombo'
+    data.table::setnames(dt, rec.ID, "numTombo")
+    dt[duplicated(numTombo), numTombo := paste(numTombo, 1:.N, sep="_dup"), by = numTombo]
 
-  ## Finding indirect duplicated search strings
-  # melt data to long format (need to remove duplicated 'numTombo')
-  cols <- c(rec.ID, str_names)
-  d <- data.table::melt.data.table(dt[, 1:(length(cols)),], id.vars = "numTombo", na.rm = TRUE)
+    ## Finding indirect duplicated search strings
+    # melt data to long format (need to remove duplicated 'numTombo')
+    cols <- c(rec.ID, str_names)
+    d <- data.table::melt.data.table(dt[, 1:(length(cols)),], id.vars = "numTombo", na.rm = TRUE)
 
-  # convert to graph
-  g <- igraph::graph_from_data_frame(d[ , .(numTombo, value)])
+    # convert to graph
+    g <- igraph::graph_from_data_frame(d[ , .(numTombo, value)])
 
-  # get components
-  memb <- igraph::components(g)$membership
-  memb <- data.table::data.table(numTombo = names(memb),
-                                 memb = memb)
+    # get components
+    memb <- igraph::components(g)$membership
+    memb <- data.table::data.table(numTombo = names(memb),
+                                   memb = memb)
 
-  # add component id to original data
-  data.table::setDT(dt)[memb, memb := i.memb, on = c(numTombo = "numTombo")]
+    # add component id to original data
+    data.table::setDT(dt)[memb, memb := i.memb, on = c(numTombo = "numTombo")]
 
-  # putting duplicated numTombo back on their original format
-  `%like.ic%` <- function (x, pattern) {
-    grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
-  }
-  dt[numTombo %like.ic% "_dup[0-9]", numTombo := gsub("_dup[0-9]", "", numTombo, perl = TRUE)]
-
-  # concatenate 'id' by 'memb' column
-  data.table::setkeyv(dt, c("memb"))
-  dt[!is.na(memb), new_id := as.character(paste0(sort(numTombo), collapse = "|")), by = memb]
-
-  ## Flagging groups of duplicates based only on indirect duplicates
-  if (flag.ind) {
-    dup.cols <- data.table::copy(names(dt))
-    dup.cols <- dup.cols[grepl("dup.check[1-9]", dup.cols, perl = TRUE)]
-    for(i in 1:length(str_names)) {
-      data.table::setkeyv(dt, c(str_names[i]))
-      dt[NA_character_, (dup.cols[i]) := NA]
+    # putting duplicated numTombo back on their original format
+    `%like.ic%` <- function (x, pattern) {
+      grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
     }
-    data.table::setkey(dt, new_id)
-    dt[, dup.ind.test := lapply(.SD, function(x) any(sum(x) == 0, na.rm = TRUE)),
-       by = new_id, .SDcols = c(dup.cols)]
-    dt[!is.na(new_id), new_id := ifelse(dup.ind.test, paste0("[",new_id,"]",collapse=""), new_id), by = new_id]
+    dt[numTombo %like.ic% "_dup[0-9]", numTombo := gsub("_dup[0-9]", "", numTombo, perl = TRUE)]
+
+    # concatenate 'id' by 'memb' column
+    data.table::setkeyv(dt, c("memb"))
+    dt[!is.na(memb), new_id := as.character(paste0(sort(numTombo), collapse = "|")), by = memb]
+
+    ## Flagging groups of duplicates based only on indirect duplicates
+    if (flag.ind) {
+      dup.cols <- data.table::copy(names(dt))
+      dup.cols <- dup.cols[grepl("dup.check[1-9]", dup.cols, perl = TRUE)]
+      for(i in 1:length(str_names)) {
+        data.table::setkeyv(dt, c(str_names[i]))
+        dt[NA_character_, (dup.cols[i]) := NA]
+      }
+      data.table::setkey(dt, new_id)
+      dt[, dup.ind.test := lapply(.SD, function(x) any(sum(x) == 0, na.rm = TRUE)),
+         by = new_id, .SDcols = c(dup.cols)]
+      dt[!is.na(new_id), new_id := ifelse(dup.ind.test, paste0("[",new_id,"]",collapse=""), new_id), by = new_id]
+    }
+
+    # for groups of length one, set 'memb' to NA
+    dt[dt[, .I[.N == 1], by = memb]$V1, new_id := NA]
+
+    #Saving the duplicated IDs in the main data frame
+    setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
+    df$dup.ID[df$dup.check %in% "TRUE"] <- as.character(dt$new_id)
   }
-
-  # for groups of length one, set 'memb' to NA
-  dt[dt[, .I[.N == 1], by = memb]$V1, new_id := NA]
-
-  #Saving the duplicated IDs in the main data frame
-  setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
-  df$dup.ID[df$dup.check %in% "TRUE"] <- as.character(dt$new_id)
 
   #Filtering out unnecessary columns and returning
   drop.cols <- names(df)[grepl("dup.check", names(df))]

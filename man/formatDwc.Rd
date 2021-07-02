@@ -22,11 +22,13 @@ formatDwc(
   stateProvince = "stateProvince",
   county = "county",
   municipality = "municipality",
+  locality = "locality",
   decimalLatitude = "decimalLatitude",
   decimalLongitude = "decimalLongitude",
   identifiedBy = "identifiedBy",
   dateIdentified = "dateIdentified",
   typeStatus = "typeStatus",
+  family = "family",
   scientificName = "scientificName",
   scientificNameAuthorship = "scientificNameAuthorship"
 )
@@ -90,6 +92,9 @@ name of the next smaller administrative region than county (city,
 municipality, etc.) in which the Location occurs. Do not use this term for
 a nearby named place that does not contain the actual location}
 
+\item{locality}{The name of the column containing the specific description of
+the place in which the Location occurs.}
+
 \item{decimalLatitude}{The name of the column containing the geographic
 latitude (in decimal degrees, using the spatial reference system given in
 geodeticDatum) of the geographic center of a Location. Positive values are
@@ -111,6 +116,9 @@ subject was identified as representing the Taxon}
 
 \item{typeStatus}{The name of the column containing a nomenclatural type
 (type status, typified scientific name, publication) applied to the subject}
+
+\item{family}{The name of the column containing the family in which the taxon
+is classified.}
 
 \item{scientificName}{The name of the column containing the full scientific
 name, with authorship and date information if known. When forming part of
@@ -135,5 +143,5 @@ plantR. In addition, this functions can bind different sources of data
 after formatting.
 }
 \author{
-Sara R. Mortara and Andrea Sánchez-Tapia
+Sara R. Mortara, Andrea Sánchez-Tapia & Renato A. F. de Lima
 }

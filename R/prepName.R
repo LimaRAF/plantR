@@ -191,8 +191,12 @@ prepName <- function(x,
 
   if (output == "aux" & length(cols) > 1) {
     cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
-    names <- apply(dt[, cols1], 1, paste, collapse = sep.out)
-    names <- gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE)
+    if (length(cols1) == 1) {
+      names <- dt[, cols1]
+    } else {
+      names <- apply(dt[, cols1], 1, paste, collapse = sep.out)
+      names <- gsub(paste0(sep.out1, "NA"), "", names, perl = TRUE)
+    }
     names <- gsub("NA", NA_character_, names, fixed = TRUE)
     names.out <- as.character(names)
   }

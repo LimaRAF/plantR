@@ -365,14 +365,22 @@ fixSpecies <- function(x = NULL,
 
   #13. option to return names with or without infra-specific ranks
   if (!rm.rank) {
-    check$scientificName.new[status %in% "variety"] <-
-      addRank(check$scientificName.new[status %in% "variety"], "var.")
-    check$scientificName.new[status %in% "subspecies"] <-
-      addRank(check$scientificName.new[status %in% "subspecies"], "subsp.")
-    check$scientificName.new[status %in% "forma"] <-
-      addRank(check$scientificName.new[status %in% "forma"], "f.")
-    check$scientificName.new[status %in% "hybrid_species"] <-
-      addRank(check$scientificName.new[status %in% "hybrid_species"], "\u00d7")
+    if (any("variety" %in% status))
+      check$scientificName.new[status %in% "variety"] <-
+        addRank(check$scientificName.new[status %in% "variety"], "var.")
+
+    if (any("subspecies" %in% status))
+      check$scientificName.new[status %in% "subspecies"] <-
+        addRank(check$scientificName.new[status %in% "subspecies"], "subsp.")
+
+    if (any("forma" %in% status))
+      check$scientificName.new[status %in% "forma"] <-
+        addRank(check$scientificName.new[status %in% "forma"], "f.")
+
+    if (any("hybrid_species" %in% status))
+      check$scientificName.new[status %in% "hybrid_species"] <-
+        addRank(check$scientificName.new[status %in% "hybrid_species"], "\u00d7")
+
     check$scientificName.new <-
       gsub(" NA$", "", check$scientificName.new, perl = TRUE)
   }
