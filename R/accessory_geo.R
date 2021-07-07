@@ -21,8 +21,8 @@
 #'
 #' @examples
 #'
-#' lon = c(-47, -46, -47)
-#' lat = c(-23, -24, -23.5)
+#' lon <- c(-47, -46, -47)
+#' lat <- c(-23, -24, -23.5)
 #'
 #' \dontrun{
 #' geoDist(lon, lat)
@@ -32,7 +32,7 @@
 #'
 geoDist <- function(lon, lat, radius = 6371) {
 
-  if(length(lon) != length(lat))
+  if (length(lon) != length(lat))
     stop("Longitude and latitude must have the same length")
 
   coslat1 <- cos((lat * pi)/180)
@@ -58,7 +58,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #' @param lat numerical. Latitude in decimal degrees
 #' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates. Default to 1 meter.
-#' @param output character. The type of information that should be returned (see Details)
+#' @param output character. The type of information that should be returned (see
+#'   Details)
 #'
 #' @details The argument `output` controls the type of output that should be
 #'   returned:
@@ -78,8 +79,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #'
 #' @examples
 #'
-#' lat = c(-23.475389, -23.475389, -23.475390, -23.475389)
-#' lon = c(-47.123768, -47.123768, -47.123768, -47.123868)
+#' lat <- c(-23.475389, -23.475389, -23.475390, -23.475389)
+#' lon <- c(-47.123768, -47.123768, -47.123768, -47.123868)
 #'
 #' \dontrun{
 #' minDist(lon, lat, output = 'group')
@@ -140,9 +141,10 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' @param geo.patt character. The pattern to be used to search for classes of
 #' geographical validation to be included in the analyses. Default to "ok_".
 #' @param cult.patt character. The pattern to be used to search for classes of
-#'   validation of cultivated specimens to be included in the analyses. Default to NA.
-#' @param digs numerical. Number of digits to be returned after the decimal point.
-#' Default to 4
+#'   validation of cultivated specimens to be included in the analyses. Default
+#'   to NA.
+#' @param digs numerical. Number of digits to be returned after the decimal
+#'   point. Default to 4
 #'
 #' @return the input data frame and a new column(s) with the distances obtained
 #'   using the selected method(s)
@@ -167,8 +169,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'
 #'   If the MCD algorithm runs into singularity issues, the function silently
 #'   add some random noise to both coordinates and re-run the MCD algorithm.
-#'   This aims to deals with cases of few coordinates close to each other and
-#'   in practice should not change the overall result of the detection of spatial
+#'   This aims to deals with cases of few coordinates close to each other and in
+#'   practice should not change the overall result of the detection of spatial
 #'   outliers.
 #'
 #'   The presence of problematic coordinates and cultivated specimens can
@@ -180,8 +182,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   `getCult()` or a logical TRUE/FALSE vector. By default, if the input are
 #'   the outputs from functions `checkCoord()` and `getCult()`, only the
 #'   coordinates flagged as 'ok_...' in `geo` and those not flagged in `cult`
-#'   (i.e. NAs) will be used. But users can select different search patterns using
-#'   the arguments `geo.patt` and `cult.patt`. For both input options, the
+#'   (i.e. NAs) will be used. But users can select different search patterns
+#'   using the arguments `geo.patt` and `cult.patt`. For both input options, the
 #'   vector must have the same length of the coordinates provided in the
 #'   arguments `lat` and `lon`. By default, arguments `geo` and `cult` are set
 #'   to NULL, meaning that all coordinates will be used.
@@ -238,7 +240,7 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 
   df <- cbind.data.frame(lon = as.double(lon),
                          lat = as.double(lat),
-                         tmp.ordem = 1:length(lon))
+                         tmp.ordem = seq_along(lon))
 
   ## Adding columns to flag problematic coordinates
   if (!is.null(geo)) {
@@ -314,26 +316,32 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
     if (method == "robust") {
       use_these <- df1$geo & df1$cult
 
-      rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2], alpha = 1 / 2), TRUE))
+      rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2],
+                                                     alpha = 1 / 2), TRUE))
       if (class(rob) == "try-error") {
         df1$lon2 <- jitter(df1$lon, factor = 0.001)
         df1$lat2 <- jitter(df1$lat, factor = 0.001)
-        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1 / 2, tol = 1e-20)
+        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
+                                  alpha = 1 / 2, tol = 1e-20)
         res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                  res = sqrt(stats::mahalanobis(df1[, c("lon2", "lat2")],
-                                                               center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                               center = rob$center,
+                                                               cov = rob$cov, tol=1e-20)))
       } else {
         if (length(rob$singularity) > 0) {
-          df1$lon2 = jitter(df1$lon, factor = 0.005)
-          df1$lat2 = jitter(df1$lat, factor = 0.005)
-          rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1/2, tol=1e-20)
+          df1$lon2 <- jitter(df1$lon, factor = 0.005)
+          df1$lat2 <- jitter(df1$lat, factor = 0.005)
+          rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
+                                    alpha = 1/2, tol=1e-20)
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = sqrt(stats::mahalanobis(df1[,c("lon2", "lat2")],
-                                                                 center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                                 center = rob$center,
+                                                                 cov = rob$cov, tol=1e-20)))
         } else {
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = sqrt(stats::mahalanobis(df1[,c("lon", "lat")],
-                                                                 center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                                 center = rob$center,
+                                                                 cov = rob$cov, tol=1e-20)))
         }
       }
 
@@ -414,18 +422,19 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #' @param method character. Type of method desired: 'classic' or 'robust'
 #' @param n.min numerical. Minimun number of unique coordinates to be used in
 #'   the calculations. Default to 10
-#' @param digs numerical. Number of digits to be returned after the decimal point.
-#' Default to 4
+#' @param digs numerical. Number of digits to be returned after the decimal
+#'   point. Default to 4
 #' @param probs numerical. Vector of probabilities between 0 and 1 to calculate
-#' the sample quantiles. Defaul to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
+#'   the sample quantiles. Defaul to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
 #'
 #' @return the number of unique coordinates ('n'), the number of outliers
 #'   detected ('n.out') and the sample quantiles ('qt') of the Mahalanobis
 #'   distances.
 #'
 #' @details The function returns the quantiles of the Mahalanobis distances for
-#' the spatial outliers detected automatically, which can be used in the decision making of
-#' the more appropriated distance cutoffs to flag spatial outliers.
+#'   the spatial outliers detected automatically, which can be used in the
+#'   decision making of the more appropriated distance cutoffs to flag spatial
+#'   outliers.
 #'
 #' The automatic detection of spatial outliers is based on an adjusted threshold
 #' of the Mahalanobis distances based on function `arw()` from package
@@ -452,7 +461,7 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #' lat[1:5] <- lat[1:5] + runif(5, 10, 20)
 #' lon[96:100] <- lon[96:100] + runif(5, 10, 20)
 #'
-#' distOutlier(lon, lat, method = "classic") # quantiles for the 10 outliers found
+#' distOutlier(lon, lat, method = "classic") # quantiles found for 10 outliers
 #' distOutlier(lon, lat, method = "robust")
 #' }
 #'
@@ -479,7 +488,7 @@ distOutlier <- function(lon, lat, method = "robust",
   ## Preparing the data
   df <- cbind.data.frame(lon = as.double(lon),
                          lat = as.double(lat),
-                         tmp.ordem = 1:length(lon))
+                         tmp.ordem = seq_along(lon))
 
   tmp <- suppressWarnings(uniqueCoord(df,
                                       lon = "lon", lat = "lat",
@@ -494,7 +503,8 @@ distOutlier <- function(lon, lat, method = "robust",
       c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
   } else {
 
-    rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2], alpha = 1 / 2), TRUE))
+    rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2],
+                                                   alpha = 1 / 2), TRUE))
     if (class(rob) == "try-error") {
       res <-
         c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
@@ -504,7 +514,8 @@ distOutlier <- function(lon, lat, method = "robust",
           c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
       } else {
         distcla <- sqrt(stats::mahalanobis(df1[, 1:2],
-                                           center = apply(df1[, 1:2], 2, mean), cov = stats::cov(df1[, 1:2])))
+                                           center = apply(df1[, 1:2], 2, mean),
+                                           cov = stats::cov(df1[, 1:2])))
         distrob <- sqrt(stats::mahalanobis(df1[, 1:2],
                                            center = rob$center, cov = rob$cov))
 

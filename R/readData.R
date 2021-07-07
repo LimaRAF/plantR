@@ -169,7 +169,7 @@ readData <- function(file = NULL, path = "", dir.name = "",
     cite.path <- all.files[grepl("citations.txt", all.files)]
     citations <- scan(cite.path, what = "character", sep = "\n",
                       fileEncoding = "UTF-8", quiet = TRUE)[-1]
-    citations = data.frame(citations = citations, stringsAsFactors = FALSE)
+    citations <- data.frame(citations = citations, stringsAsFactors = FALSE)
     cat(scan(cite.path, what = "character", sep = "\n",
                  fileEncoding = "UTF-8", quiet = TRUE)[1], "\n")
   }

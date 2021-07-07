@@ -141,13 +141,14 @@ prepFamily <- function(x,
 
   if (dim(print.problems)[1] > 0) {
     cat("The following family names were automatically replaced:\n",
-        knitr::kable(print.problems[,c(2,1,4)], col.names = c("Genus", "Old fam.", "New fam.")),"",
+        knitr::kable(print.problems[,c(2,1,4)],
+                     col.names = c("Genus", "Old fam.", "New fam.")),"",
         sep="\n")
   }
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 
   if (families.data[, any(is.na(name.correct))]) {
-    miss.families <- families.data[is.na(name.correct), tmp.fam, F]
+    miss.families <- families.data[is.na(name.correct), tmp.fam, FALSE]
     genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
                      list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
                      by = "tmp.fam"]

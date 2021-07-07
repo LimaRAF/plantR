@@ -1,6 +1,5 @@
 Package: plantR
 Version: 0.1.3
-Date: 2021-07-02
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),

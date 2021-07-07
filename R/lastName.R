@@ -176,7 +176,7 @@ lastName <- function(name,
     other.names <- gsub(", ", "", other.names, fixed = TRUE)
 
     #Detecting possible multiple names and removing them
-    seps = c(";|&|\\|| e | y | and | und | et ")
+    seps <- c(";|&|\\|| e | y | and | und | et ")
     mult.names <- grepl(seps, other.names, perl = TRUE)
     if (any(mult.names))
       other.names[mult.names] <-

@@ -72,58 +72,58 @@ validateLoc <- function(x,
   # OK: change to a better resolution
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "locality" &
-                 x1[, res.orig] %in% "country"] = "ok_country2locality"
+                 x1[, res.orig] %in% "country"] <- "ok_country2locality"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "municipality" &
-                 x1[, res.orig] %in% "country"] = "ok_country2municip."
+                 x1[, res.orig] %in% "country"] <- "ok_country2municip."
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "stateProvince" &
-                 x1[, res.orig] %in% "country"] = "ok_country2state"
+                 x1[, res.orig] %in% "country"] <- "ok_country2state"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "locality" &
-                 x1[, res.orig] %in% "stateProvince"] = "ok_state2locality"
+                 x1[, res.orig] %in% "stateProvince"] <- "ok_state2locality"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "municipality" &
-                 x1[, res.orig] %in% "stateProvince"] = "ok_state2municip."
+                 x1[, res.orig] %in% "stateProvince"] <- "ok_state2municip."
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "locality" &
-                 x1[, res.orig] %in% "municipality"] = "ok_municip.2locality"
+                 x1[, res.orig] %in% "municipality"] <- "ok_municip.2locality"
 
   # Mismatches (check): locality info is given but was not found in the gazetteer
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "no_info" &
-                 x1[, res.orig] %in% "country"] = "check_country2no.info"
+                 x1[, res.orig] %in% "country"] <- "check_country2no.info"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "no_info" &
-                 x1[, res.orig] %in% "stateProvince"] = "check_state2no.info"
+                 x1[, res.orig] %in% "stateProvince"] <- "check_state2no.info"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "no_info" &
-                 x1[, res.orig] %in% "municipality"] = "check_municip.2no.info"
+                 x1[, res.orig] %in% "municipality"] <- "check_municip.2no.info"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "no_info" &
-                 x1[, res.orig] %in% "locality"] = "check_local.2no.info"
+                 x1[, res.orig] %in% "locality"] <- "check_local.2no.info"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "country" &
-                 x1[, res.orig] %in% "locality"] = "check_local.2country"
+                 x1[, res.orig] %in% "locality"] <- "check_local.2country"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "stateProvince" &
-                 x1[, res.orig] %in% "locality"] = "check_local.2state"
+                 x1[, res.orig] %in% "locality"] <- "check_local.2state"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "municipality" &
-                 x1[, res.orig] %in% "locality"] = "check_local.2municip."
+                 x1[, res.orig] %in% "locality"] <- "check_local.2municip."
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "country" &
-                 x1[, res.orig] %in% "municipality"] = "check_municip.2country"
+                 x1[, res.orig] %in% "municipality"] <- "check_municip.2country"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "stateProvince" &
-                 x1[, res.orig] %in% "municipality"] = "check_municip.2state"
+                 x1[, res.orig] %in% "municipality"] <- "check_municip.2state"
   x1$loc.check[x1$loc.check == FALSE &
                  resol.gazet %in% "country" &
-                 x1[, res.orig] %in% "stateProvince"] = "check_state2country"
+                 x1[, res.orig] %in% "stateProvince"] <- "check_state2country"
 
   # No changes and information not found even at country level (no_info)
-  x1$loc.check[x1$loc.check == TRUE] = "ok_same_resolution"
-  x1$loc.check[is.na(x1$loc.check)] = "no_info"
+  x1$loc.check[x1$loc.check == TRUE] <- "ok_same_resolution"
+  x1$loc.check[is.na(x1$loc.check)] <- "no_info"
 
   ## Reporting the validation results
   print("Locality resolution in the original data vs. edited data:")

@@ -253,7 +253,7 @@ fixLoc <- function(x,
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
       names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
-      x1[ ,"locality"] = stringr::str_replace_all(x1[ ,"locality"], tmp2)
+      x1[ ,"locality"] <- stringr::str_replace_all(x1[ ,"locality"], tmp2)
     }
 
     if (c("locality") %in% loc.levels & scrap) {

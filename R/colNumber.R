@@ -71,8 +71,8 @@ colNumber <- function(x,
                 grepl("[a-z][a-z][a-z] ", numbs, ignore.case = TRUE, perl = TRUE)], " "), function(x)
                   x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), utils::tail, n = 1))
                   # x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), my.tail))
-  numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] = "SemNumero"
-  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] = "SemNumero"
+  numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] <- "SemNumero"
+  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] <- "SemNumero"
 
   #Removing unwanted characters ans spacing
   numbs <- gsub(' - ', "-", numbs, fixed = TRUE)
@@ -104,11 +104,11 @@ colNumber <- function(x,
     m.x3 <- min(as.double(names(x1[grepl('[a-z]', x1, ignore.case = TRUE)])))
     if (m.x2 < m.x3) {
 
-      x4 = paste(x2, toupper(x3), sep = "-")
+      x4 <- paste(x2, toupper(x3), sep = "-")
 
     } else {
 
-      x4 = paste(toupper(x3), x2, sep = "-")
+      x4 <- paste(toupper(x3), x2, sep = "-")
     }
 
     return(x4)
