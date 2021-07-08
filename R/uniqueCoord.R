@@ -7,23 +7,25 @@
 #'   Default to "scientificName.new"
 #' @param type character. Type of approach to search for duplicated coordinates.
 #' @param output character. Type of output desired: 'group' and/or 'flag'.
-#' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
+#' @param min.dist numerical. Minimum threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates.
 #'
 #' @return the input data frame and the new columns with the results from the
-#'   'exact' and/or 'minimun distance' approaches to flag duplicated coordinates.
+#'   'exact' and/or 'minimum distance' approaches to flag duplicated
+#'   coordinates.
 #'
-#' @details If `type` is 'exact', only coodinates with the exact same coordinates
-#'   are flagged. If `type` is 'dist', coordinates below the minimun threshold
-#'   distance defined by `min.dist` are flagged. If both methods are selected,
-#'   the function returns the results for both approaches.
+#' @details If `type` is 'exact', only coordinates with the exact same
+#'   coordinates are flagged. If `type` is 'dist', coordinates below the minimum
+#'   threshold distance defined by `min.dist` are flagged. If both methods are
+#'   selected, the function returns the results for both approaches.
 #'
-#'   If `output` is 'group' (the default), the column returned contains the suffix
-#'   '.ID' and it stores a number that can be used as a species-specific ID to group
-#'   duplicated coordinates. If `output` is 'flag', then a TRUE/FALSE vector is
-#'   returned indicating which coordinates are duplicated within each species.
-#'   If both are selected, then both are returned. Note that the ID numbers for
-#'   each of the approaches ('exact' and 'dist') are not related.
+#'   If `output` is 'group' (the default), the column returned contains the
+#'   suffix '.ID' and it stores a number that can be used as a species-specific
+#'   ID to group duplicated coordinates. If `output` is 'flag', then a
+#'   TRUE/FALSE vector is returned indicating which coordinates are duplicated
+#'   within each species. If both are selected, then both are returned. Note
+#'   that the ID numbers for each of the approaches ('exact' and 'dist') are not
+#'   related.
 #'
 #'   If no column containing the species names is provided, the function assumes
 #'   that all coordinates belong to the same species, with a warning.
@@ -114,7 +116,7 @@ uniqueCoord <- function(x,
     dt[, c("coord.string") := NULL]
   }
 
-  # By minimun distance
+  # By minimum distance
   if (any("dist" %in% type)) {
     dt[, c("lon.wrk", "lat.wrk") := .SD, .SDcols =  c(lon, lat)]
     data.table::setkeyv(dt, c(tax.name))

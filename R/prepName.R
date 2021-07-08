@@ -1,6 +1,6 @@
 #' @title Format Multiple People's Names
 #'
-#' @description Format or convert multiple collector's or identificator's names
+#' @description Format or convert multiple collector's or identifier's names
 #'   into a standardized name format.
 #'
 #' @param x the character string or vector containing the names.
@@ -9,7 +9,7 @@
 #' @param output a character string with the type of output desired: all names,
 #'   first name, or auxiliary names.
 #' @param treat.prep a character or vector containing the treatment prepositions
-#' that should be removed from names. Default to some common prpositions in
+#' that should be removed from names. Default to some common prepositions in
 #' Portuguese, Spanish and English (see Examples).
 #'
 #' @inheritParams fixName
@@ -21,12 +21,13 @@
 #'   \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
 #'   then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
 #'   the names of multiple people associated to each record are separated by a
-#'   pipe (i.e. '|'). But this default can be altered using the argument `sep.out`.
+#'   pipe (i.e. '|'). But this default can be altered using the argument
+#'   `sep.out`.
 #'
 #'   In the case of names from more then one person (separated by the characters
-#'   defined in the argument `sep.in`, the argument `output` controls which names
-#'   should be returned: names of all person ("all", the default), first person's
-#'   names ("first") or all but the first person's names ("aux").
+#'   defined in the argument `sep.in`, the argument `output` controls which
+#'   names should be returned: names of all person ("all", the default), first
+#'   person's names ("first") or all but the first person's names ("aux").
 #'
 #'   The function identifies (and removes) name prefixes or prepositions (e.g.
 #'   de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
@@ -34,8 +35,8 @@
 #'   function also does not handle hyphenated first names. If only one name is
 #'   given, the function returns \code{x} with the first letter capitalized.
 #'
-#'   The function has the option of stardardizing the general notation of names
-#'   and the general format of names. These standardizations are controled by
+#'   The function has the option of standardizing the general notation of names
+#'   and the general format of names. These standardizations are controlled by
 #'   the arguments `fix.names` and `prep.tdwg`, which call internally the
 #'   __plantR__ functions `fixName()` and `prepTDWG()`.
 #'
@@ -103,7 +104,8 @@
 prepName <- function(x,
                      fix.names = TRUE,
                      output = "all",
-                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.", "Sra.", "Mr.", "Mrs.", "Mme."),
+                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.",
+                                    "Sr.", "Sra.", "Mr.", "Mrs.", "Mme."),
                      sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
                      sep.out = "|",
                      special.char = FALSE,

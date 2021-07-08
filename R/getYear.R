@@ -1,7 +1,7 @@
 #' @title Get Year From Date
 #'
 #' @description This function extracts the year from dates associated with
-#' the collection or identifiation of biological records.
+#' the collection or identification of biological records.
 #'
 #' @param x the character string or vector containing the dates.
 #' @param noYear character. Standard notation for missing date information.
@@ -14,7 +14,7 @@
 #'   consider putting your vector of dates in a standardized format prior to the
 #'   year extraction (see note below).
 #'
-#'   For some types of format, the function assumes internaly that years are
+#'   For some types of format, the function assumes internally that years are
 #'   given as numbers with 4 digits or with 2 digits but higher than 31. If
 #'   the year is not given in one of these formats, the function returns the
 #'   date as it is provided.

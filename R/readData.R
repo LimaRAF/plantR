@@ -22,7 +22,7 @@
 #'   combined into a single table? Default to TRUE.
 #' @param output character. Which information from the Darwin-Core file should
 #'   be returned/saved? Default to 'occurrence', 'verbatim' and 'citations'.
-#' @param save logical. Should the infromation be saved to file? Default to
+#' @param save logical. Should the information be saved to file? Default to
 #'   FALSE.
 #' @param file.format character. The file extension to be used for saving.
 #'   Default to 'csv'.
@@ -47,8 +47,8 @@
 #'   files within the DwC-A file are removed.
 #'
 #'   Downloading large files (more than 2GB) may be an issue for some R
-#'   versions. The `method` 'wget' may be more appropiate for users with proxy
-#'   firewalls ( see help of function `download.file()`).
+#'   versions. The `method` 'wget' may be more appropriate for users with proxy
+#'   firewalls (see help of function `download.file()`).
 #'
 #' @import data.table
 #' @importFrom utils download.file unzip

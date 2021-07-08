@@ -20,11 +20,12 @@
 #'
 #'   For single names or one-string initials the output depends on the presence
 #'   of abbreviation points, if names are provided in all caps and in the number
-#'   of letters. If the number of capital letters exceeds the value in the argument
-#'   `max.initials`, then it is taken as a name and not initials (see Examples).
+#'   of letters. If the number of capital letters exceeds the value in the
+#'   argument `max.initials`, then it is taken as a name and not initials (see
+#'   Examples).
 #'
-#'   The output is relatively stable regarding different name formats and notation
-#'   standards, but it doe not work for all of them (see Examples).
+#'   The output is relatively stable regarding different name formats and
+#'   notation standards, but it doe not work for all of them (see Examples).
 #'
 #' @author Renato A. F. de Lima
 #'

@@ -4,7 +4,7 @@
 #'   the original record with the resolution retrieved from the gazetteer.
 #'
 #' @param x a data frame containing the resolution of the original and the
-#'   gazetteer locality information.resolution from the gazetter.
+#'   gazetteer locality information.resolution from the gazetteer.
 #' @param res.orig character. The name of the column containing the resolution
 #'   of the locality information from the original records. Default to
 #'   'resol.orig'.

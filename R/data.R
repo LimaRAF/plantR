@@ -131,7 +131,8 @@
 #' 'Natural Earth' (i.e. 1:110 m), which consists in 183 polygons for 178
 #' countries in the world. This map was complemented with 77 polygons for
 #' missing countries and dependent territories (mainly islands), not included in
-#' 'Natural Earth', so that this map can macth the other maps used in __plantR__.
+#' 'Natural Earth', so that this map can match the other maps used in
+#' __plantR__.
 #'
 #' Country long names were edited to match the format of the __plantR__ default
 #' gazetteer and original polygons were simplified (tolerance: 0.001 decimal

@@ -16,7 +16,7 @@
 #'  be placed at any order and any given name. If using `user_data` argument,
 #'  the user must indicate the name of the column for each field if not already
 #'  in DwC standard
-#' @param bind_data Logical. Either to bind data from differents sources after
+#' @param bind_data Logical. Either to bind data from different sources after
 #'   formatting
 #' @param drop Logical. Either to drop non-essential fields to the data cleaning
 #'   routine performed by plantR
@@ -62,9 +62,9 @@
 #'   geodeticDatum) of the geographic center of a Location. Positive values are
 #'   east of the Greenwich Meridian, negative values are west of it. Legal
 #'   values lie between -180 and 180, inclusive
-#' @param identifiedBy The name of the column containing alist (concatenated and
-#'   separated) of names of people, groups, or organizations who assigned the
-#'   Taxon to the subject
+#' @param identifiedBy The name of the column containing a list (concatenated
+#'   and separated) of names of people, groups, or organizations who assigned
+#'   the Taxon to the subject
 #' @param dateIdentified The name of the column containing the date on which the
 #'   subject was identified as representing the Taxon
 #' @param typeStatus The name of the column containing a nomenclatural type

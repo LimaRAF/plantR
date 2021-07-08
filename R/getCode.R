@@ -7,7 +7,7 @@
 #' @param x a data frame containing the collection codes.
 #' @param inst.code character. The column name containing the institution codes.
 #' @param col.code character. The column name containing the collection codes.
-#' @param drop character. List of columns names that should be droped from the
+#' @param drop character. List of columns names that should be dropped from the
 #'   output.
 #' @param print.miss logical.
 #'
@@ -29,8 +29,8 @@
 #' GBIF and other data repositories. Sometimes, the same collection is referred
 #' differently between these repositories. Thus, this function tried to provide
 #' a common code for each institution. To avoid mismatches the collection codes
-#' are compared to the list of collections using a string which combines both the
-#' institution and collection code.
+#' are compared to the list of collections using a string which combines both
+#' the institution and collection code.
 #'
 #' If the collection code in not found in the Index Herbariorum, the same
 #' collection code is returned without modifications. A mention if the code is

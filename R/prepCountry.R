@@ -10,8 +10,8 @@
 #'   Default to TRUE.
 #' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
-#' @param rm.abbrev logical. Should common name abbreviation be replaced? Default
-#'   to TRUE.
+#' @param rm.abbrev logical. Should common name abbreviation be replaced?
+#'   Default to TRUE.
 #'
 #' @return The input vector \code{x} in the standard name notation (see Details)
 #'
@@ -25,7 +25,7 @@
 #'
 #'   All country information with less than four letters are treated as country
 #'   codes and they are converted to the long format. Currently, only the ISO
-#'   3166-1 aplha-2 and alpha-3 codes are considered for convertion to the long
+#'   3166-1 alpha-2 and alpha-3 codes are considered for conversion to the long
 #'   country name format.
 #'
 #' @author Renato A. F. de Lima

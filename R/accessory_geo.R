@@ -49,14 +49,14 @@ geoDist <- function(lon, lat, radius = 6371) {
   return(dists)
 }
 
-#' @title Minimun Distance between Coordinates
+#' @title Minimum Distance between Coordinates
 #'
 #' @description The function calculates the minimum distance between coordinates
-#'   or the coordinates which are below a mininum threshold distance.
+#'   or the coordinates which are below a minimum threshold distance.
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
+#' @param min.dist numerical. Minimum threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates. Default to 1 meter.
 #' @param output character. The type of information that should be returned (see
 #'   Details)
@@ -70,7 +70,7 @@ geoDist <- function(lon, lat, radius = 6371) {
 #'   - 'dist': the distance of each coordinate to the closest coordinated.
 #'
 #'
-#' @return A vector of TRUE/FALSE or of minimun distances in kilometers.
+#' @return A vector of TRUE/FALSE or of minimum distances in kilometers.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -132,7 +132,7 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   (see Details)
 #' @param center character. Which metric should be used to obtain he center of
 #'   the distribution of coordinates: 'mean' or 'median'?
-#' @param n.min numerical. Minimun number of unique coordinates to be used in
+#' @param n.min numerical. Minimum number of unique coordinates to be used in
 #'   the calculations.
 #' @param geo character. A vector of the same length of lon/lat containing the
 #' result from the validation of the geographical coordinates. Default to NULL.
@@ -420,12 +420,12 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
 #' @param method character. Type of method desired: 'classic' or 'robust'
-#' @param n.min numerical. Minimun number of unique coordinates to be used in
+#' @param n.min numerical. Minimum number of unique coordinates to be used in
 #'   the calculations. Default to 10
 #' @param digs numerical. Number of digits to be returned after the decimal
 #'   point. Default to 4
 #' @param probs numerical. Vector of probabilities between 0 and 1 to calculate
-#'   the sample quantiles. Defaul to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
+#'   the sample quantiles. Default to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
 #'
 #' @return the number of unique coordinates ('n'), the number of outliers
 #'   detected ('n.out') and the sample quantiles ('qt') of the Mahalanobis

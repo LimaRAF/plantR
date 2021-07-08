@@ -53,7 +53,7 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
 
   }
 
-  if (any(type %in% c("determiner", "identificator", "identificador", "determinador"))) {   #No identificator's name
+  if (any(type %in% c("determiner", "identificator", "identificador", "determinador", "identifier"))) {   #No identificator's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
     busca <- missDets

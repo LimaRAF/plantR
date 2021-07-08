@@ -1,6 +1,6 @@
 #' @title Get Valid Plant Names
 #'
-#' @description Provides valid plant names or corrects typos and orthographical
+#' @description Provides valid plant names or corrects typos and orthographic
 #'   variants based on the
 #'   \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
 #'    Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
