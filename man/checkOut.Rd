@@ -32,12 +32,12 @@ Default to 'decimalLatitude.new'}
 Default to "scientificName.new"}
 
 \item{geo.name}{character. Name of the column containing the validation of
-the geographical coodinates. Default to "geo.check"}
+the geographical coordinates. Default to "geo.check"}
 
 \item{cult.name}{character. Name of the column containing the validation of
-records from cultiavted individuals. Default to "cult.check"}
+records from cultivated individuals. Default to "cult.check"}
 
-\item{n.min}{numerical. Minimun number of unique coordinates to be used in
+\item{n.min}{numerical. Minimum number of unique coordinates to be used in
 the calculations.}
 
 \item{center}{character. Which metric should be used to obtain he center of
@@ -47,10 +47,11 @@ the distribution of coordinates: 'mean' or 'median'?}
 geographical validation to be included in the analyses. Default to "ok_".}
 
 \item{cult.patt}{character. The pattern to be used to search for classes of
-validation of cultivated specimens to be included in the analyses. Default to NA.}
+validation of cultivated specimens to be included in the analyses. Default
+to NA.}
 
-\item{clas.cut}{numerical. The threshold distance for outlier detection, using
-classic Mahalanobis distances. Default to 3}
+\item{clas.cut}{numerical. The threshold distance for outlier detection,
+using classic Mahalanobis distances. Default to 3}
 
 \item{rob.cut}{numerical. The threshold distance for outlier detection, using
 classic Mahalanobis distances. Default to 16}
@@ -69,8 +70,8 @@ obtained from cultivated individuals.
 \details{
 The function searches for spatial outliers using two different
 methods to detect outliers (Liu et al., 2018): the classic and the robust
-squared Mahalanobis distances (see help of \code{mahalanobisDist()} for details).
-They can be used separetely or combined (See Examples).
+squared Mahalanobis distances (see help of \code{mahalanobisDist()} for
+details). They can be used separately or combined (See Examples).
 
 To detect outliers, we need thresholds to be applied to the values of
 Mahalanobis distances obtained for each species (arguments \code{clas.cut} and

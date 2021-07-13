@@ -58,15 +58,16 @@ created).}
 }
 \value{
 If \code{overwrite == FALSE}, the function returns the input data frame
-\code{dups} and the new columns containing the homogeneized information. The
-names of these columns are the same of the previous one but with an added
-suffix '1'. If \code{overwrite == TRUE}, the homogeneized information is saved
-on the same columns of the input data and the names of the columns remain
-the same.
+\code{dups} and the new columns containing the homogenized information.
+The names of these columns are the same of the previous one but with an
+added suffix '1'. If \code{overwrite == TRUE}, the homogenized information is
+saved on the same columns of the input data and the names of the columns
+remain the same.
 }
 \description{
 This function homogenize the information of different groups of
-fields (e.g. taxonomic, geographic or locality) for groups of duplicate specimens.
+fields (e.g. taxonomic, geographic or locality) for groups of duplicate
+specimens.
 }
 \details{
 The homogenization of the information within groups of duplicates depends
@@ -77,16 +78,18 @@ identifiers, which is used to aggregate the records (see functions
 must be provided to the argument \code{dup.name} (default to 'dup.ID'). Other
 essential fields depend on the type of merge desired (argument
 \code{info2merge}), a different set of columns names are needed. These names
-should be provided to the arguments \code{tax.names}, \code{geo.names}, and \code{loc.names}.
+should be provided to the arguments \code{tax.names}, \code{geo.names}, and
+\code{loc.names}.
 
-For the merge of taxonomical information, the fields required by
+For the merge of taxonomic information, the fields required by
 \code{tax.names} are:
 \itemize{
 \item 'family': the botanical family (default: 'family.new')
 \item 'species': the scientific name (default: 'scientificName.new')
-\item 'det.name': the indentifier name (default: 'identifiedBy.new')
+\item 'det.name': the identifier name (default: 'identifiedBy.new')
 \item 'det.year': the identification year (default: 'yearIdentified.new')
-\item 'tax.check': the confidence level of the taxonomic identification (default: 'tax.check')
+\item 'tax.check': the confidence level of the taxonomic identification
+(default: 'tax.check')
 \item 'status': the status of the taxon name (default: 'scientificNameStatus')
 }
 
@@ -96,16 +99,20 @@ For the merge of geographical information, the fields required by
 \item 'lat': latitude in decimal degrees (default: 'decimalLatitude.new')
 \item 'lon': longitude in decimal degrees (default: 'decimalLongitude.new')
 \item 'org.coord': the origin of the coordinates (default: 'origin.coord')
-\item 'prec.coord': the precision of the coordinates (default: 'precision.coord')
-\item 'geo.check': the result of the geo. coordinate validation (default: 'geo.check')
+\item 'prec.coord': the precision of the coordinates (default:
+'precision.coord')
+\item 'geo.check': the result of the geo. coordinate validation (default:
+'geo.check')
 }
 
 For the merge of locality information, the fields required by \code{loc.names}
 are:
 \itemize{
 \item 'loc.str': the locality search string (default: 'loc.correct')
-\item 'res.gazet': the resolution of the gazetteer coordinates (default: 'resolution.gazetteer')
-\item 'res.orig': the resolution of the source coordinates (default: 'resol.orig')
+\item 'res.gazet': the resolution of the gazetteer coordinates (default:
+'resolution.gazetteer')
+\item 'res.orig': the resolution of the source coordinates (default:
+'resol.orig')
 \item 'loc.check': the result of the locality validation (default: 'loc.check')
 }
 
@@ -116,21 +123,22 @@ The best information available is then expanded for all records of the group
 of duplicates. The argument \code{prop} defines the duplicated proportion (given
 by \code{prop.name}) that should be used as a threshold. Only records with
 duplicated proportions above this threshold will be merged. For all other
-records, the output will be the same as the input. If no column \code{prop.name} is
-found in the input data, merge is performed for all records, with a warning.
+records, the output will be the same as the input. If no column \code{prop.name}
+is found in the input data, merge is performed for all records, with a
+warning.
 
-For the merge of taxonomical information, the specimen(s) with the highest
-confidence level of the identification is used as the standard, from
-which the taxonomic information is expanded to other specimens within the
-same group of duplicates. By default, \code{mergeDup()} uses specimens flagged as
+For the merge of taxonomic information, the specimen(s) with the highest
+confidence level of the identification is used as the standard, from which
+the taxonomic information is expanded to other specimens within the same
+group of duplicates. By default, \code{mergeDup()} uses specimens flagged as
 having a 'high' confidence level.
 
 In the case of conflicting species identification among specialists for the
 same group of duplicates, the most recent identification is assumed as the
 most up-to-date one. Note that if the year of identification is missing from
-one or more records, the corresponding identifications of these records are not
-taken into account while trying to assign the most up-to-date identification
-for a group of duplicates.
+one or more records, the corresponding identifications of these records are
+not taken into account while trying to assign the most up-to-date
+identification for a group of duplicates.
 
 For the merge of geographical information, specimens are ordered according
 to the result of their geographical validation (i.e. field 'geo.check') and
@@ -141,12 +149,12 @@ specimens validate at lower levels (e.g. state or country levels).
 
 A similar procedure is performed to expand the information regarding the
 locality description. Specimens are ordered according to the result of their
-locality validation (i.e. field 'loc.check'), and the one ranked best
-within the group of duplicates (e.g. 'ok_municip.2locality') is the one used
-as the standard.
+locality validation (i.e. field 'loc.check'), and the one ranked best within
+the group of duplicates (e.g. 'ok_municip.2locality') is the one used as the
+standard.
 
-The merge of collector information (i.e. collector name, number and year) are
-predicted, but not yet implemented in the current version.
+The merge of collector information (i.e. collector name, number and year)
+are predicted, but not yet implemented in the current version.
 }
 \examples{
 #An example for the merg of taxonomic information only

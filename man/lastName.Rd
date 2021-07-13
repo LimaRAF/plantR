@@ -33,7 +33,7 @@ relatively stable to the format and spacing of the string provided, but it
 may not work in all cases.
 
 It implicitly assumes that last names are (i) the ones provided at the end
-of the name string if there is no comma, or (ii) the first name preceeding
+of the name string if there is no comma, or (ii) the first name preceding
 the comma, if there is a comma in the name string. Few exceptions related to
 names not in the 'first + last name' or 'last name + comma + first name'
 formats (e.g. 'Hatschbach G.G.') are also considered. But

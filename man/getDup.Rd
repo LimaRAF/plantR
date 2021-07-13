@@ -16,13 +16,13 @@ flagged with brackets? Default to TRUE.}
 }
 \value{
 The input data frame with new columns containing the number and
-proportion of duplicated search strings found (i.e. 'dup.numb'and
+proportion of duplicated search strings found (i.e. 'dup.numb' and
 'dup.prop') and the duplicated ID string ('dup.ID'). If no duplicate was
 found dup.ID = NA.
 }
 \description{
-This function searches for duplicate specimens among collections, based
-on duplicate search strings.
+This function searches for duplicate specimens among
+collections, based on duplicate search strings.
 }
 \details{
 The function searches for duplicated specimens within and across
@@ -56,7 +56,7 @@ may need to be inspected more closely to detect possible spurious matches.
 
 Besides the duplicated ID, the function returns the number and proportion
 of duplicated search strings found for each record within its group of
-duplicates (i.e. 'dup.numb'and 'dup.prop'). These values can be used to assess
+duplicates (i.e. 'dup.numb' and 'dup.prop'). These values can be used to assess
 the confidence level that records are indeed true duplicates within its group.
 The higher the 'dup.prop', the greater the chances that the record is indeed
 a duplicate. To calculate the proportion of duplicates found within the

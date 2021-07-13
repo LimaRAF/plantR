@@ -8,7 +8,7 @@ validateLoc(x, res.orig = "resol.orig", res.gazet = "resolution.gazetteer")
 }
 \arguments{
 \item{x}{a data frame containing the resolution of the original and the
-gazetteer locality information.resolution from the gazetter.}
+gazetteer locality information.resolution from the gazetteer.}
 
 \item{res.orig}{character. The name of the column containing the resolution
 of the locality information from the original records. Default to

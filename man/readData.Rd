@@ -41,7 +41,7 @@ combined into a single table? Default to TRUE.}
 \item{output}{character. Which information from the Darwin-Core file should
 be returned/saved? Default to 'occurrence', 'verbatim' and 'citations'.}
 
-\item{save}{logical. Should the infromation be saved to file? Default to
+\item{save}{logical. Should the information be saved to file? Default to
 FALSE.}
 
 \item{file.format}{character. The file extension to be used for saving.
@@ -76,8 +76,8 @@ information, except if \code{save} is TRUE. In this case, only the unzipped
 files within the DwC-A file are removed.
 
 Downloading large files (more than 2GB) may be an issue for some R
-versions. The \code{method} 'wget' may be more appropiate for users with proxy
-firewalls ( see help of function \code{download.file()}).
+versions. The \code{method} 'wget' may be more appropriate for users with proxy
+firewalls (see help of function \code{download.file()}).
 }
 \examples{
 \dontrun{

@@ -55,8 +55,8 @@ duplicated entries from the same collection? Default to FALSE.}
 \item{noName}{character. Standard for missing data in collector name. Default
 to "s.n.".}
 
-\item{noNumb}{character. Standard for missing data in collector number. Default
-to "s.n.".}
+\item{noNumb}{character. Standard for missing data in collector number.
+Default to "s.n.".}
 
 \item{comb.fields}{list. A list containing one or more vectors with the
 information that should be used to create the duplicate search strings.

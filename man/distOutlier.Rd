@@ -20,14 +20,14 @@ distOutlier(
 
 \item{method}{character. Type of method desired: 'classic' or 'robust'}
 
-\item{n.min}{numerical. Minimun number of unique coordinates to be used in
+\item{n.min}{numerical. Minimum number of unique coordinates to be used in
 the calculations. Default to 10}
 
-\item{digs}{numerical. Number of digits to be returned after the decimal point.
-Default to 4}
+\item{digs}{numerical. Number of digits to be returned after the decimal
+point. Default to 4}
 
 \item{probs}{numerical. Vector of probabilities between 0 and 1 to calculate
-the sample quantiles. Defaul to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)}
+the sample quantiles. Default to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)}
 }
 \value{
 the number of unique coordinates ('n'), the number of outliers
@@ -39,8 +39,9 @@ Outlier Mahalanobis Distances
 }
 \details{
 The function returns the quantiles of the Mahalanobis distances for
-the spatial outliers detected automatically, which can be used in the decision making of
-the more appropriated distance cutoffs to flag spatial outliers.
+the spatial outliers detected automatically, which can be used in the
+decision making of the more appropriated distance cutoffs to flag spatial
+outliers.
 
 The automatic detection of spatial outliers is based on an adjusted threshold
 of the Mahalanobis distances based on function \code{arw()} from package
@@ -64,7 +65,7 @@ distOutlier(lon, lat, method = "robust")
 lat[1:5] <- lat[1:5] + runif(5, 10, 20)
 lon[96:100] <- lon[96:100] + runif(5, 10, 20)
 
-distOutlier(lon, lat, method = "classic") # quantiles for the 10 outliers found
+distOutlier(lon, lat, method = "classic") # quantiles found for 10 outliers
 distOutlier(lon, lat, method = "robust")
 }
 

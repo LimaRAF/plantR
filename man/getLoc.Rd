@@ -72,14 +72,14 @@ forest fragments, parks), obtained from \href{https://www.ibge.gov.br/}{IBGE},
 \href{http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start}{TreeCo}
 databases. It also includes common spelling variants and historical changes
 to locality names (currently biased for Brazil) and more common notation
-variants of locality names found in the lcoality description of records
+variants of locality names found in the locality description of records
 from GBIF, speciesLink and JABOT databases (include few type localities).
 In total the gazetteer has nearly 25,000 locality names associated with a
 valid geographical coordinates.
 
-A different gazetteer than the \strong{plantR} default can be used. This gazetteer
-must be provided using the argument \code{gazet} and it must contain the
-columns 'loc' (search string), 'loc.correct' (correct string),
+A different gazetteer than the \strong{plantR} default can be used. This
+gazetteer must be provided using the argument \code{gazet} and it must contain
+the columns 'loc' (search string), 'loc.correct' (correct string),
 'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
 'resolution.gazetteer' (e.g. country, state, etc). If the names for these
 columns are different, they can be supplied using argument \code{gazet.names}.

@@ -31,7 +31,7 @@ decimal degrees.}
 
 \item{str.name}{Column with the verified locality search string}
 
-\item{orig.coord}{Column with the origin of the coordinates (tipically the
+\item{orig.coord}{Column with the origin of the coordinates (typically the
 output of function \code{getCoord()})}
 
 \item{low.map}{a sf multipolygon object containing the global administrative
@@ -71,7 +71,7 @@ output that may be relevant are:
 \itemize{
 \item the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
 'NAME_2' and 'NAME_3';
-\item the locality string in the \strong{plantR} format combining the localty
+\item the locality string in the \strong{plantR} format combining the locality
 obtained from the maps: 'loc.coord';
 \item the checks between the locality info obtained from \code{str.name} and the
 administrative levels from the maps: 'country.check', 'state.check' and
