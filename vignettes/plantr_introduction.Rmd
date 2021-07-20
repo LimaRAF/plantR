@@ -108,7 +108,7 @@ Regarding the validation of geographical coordinates. In the case of invalid or
 missing coordinates, we assume that the locality information associated with the
 record (e.g. country, state, county) is correct (i.e. locality prevails over
 coordinates), and so working coordinates are taken from a gazetteer. It is
-important to note that if the locality information is indeed mistaken (eg. wrong
+important to note that if the locality information is indeed mistaken (e.g. wrong
 county name), then even if the original coordinates are good, they will not be
 validated (record locality and coordinate locality don't match) and may be
 replaced by coordinates taken from the gazetteer.
@@ -121,7 +121,7 @@ particularly Brazil. Therefore, the validation of geographical coordinates
 provided by other R packages (e.g. __CoordinateCleaner__) may be more
 appropriate for studies extending outside Latin America.
 
-Taxonomical validation is performed based on (i) the correction of plant family
+Taxonomic validation is performed based on (i) the correction of plant family
 and species names (i.e. synonyms, typos) and (ii) the confidence level on the
 species identification, based on a dictionary of plant taxonomist names from all
 over the world. For (i), names are currently checked against the [Flora do Brasil
@@ -296,7 +296,7 @@ occs <- validateDup(occs)
 
 Once the editing and validation steps are finished, __plantR__ provides tools
 for summarizing the occurrence data, using the function `summaryData()`. In this
-example, the taxonomical summary is quite uninformative, since we have only one
+example, the taxonomic summary is quite uninformative, since we have only one
 species.
 
 ```{r summaryData, eval = TRUE, include=TRUE, collapse= FALSE} 

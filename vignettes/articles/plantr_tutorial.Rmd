@@ -28,13 +28,13 @@ devtools::load_all() # for development
 
 This tutorial provides the details and explanations on the functions related to
 data download, editing and validation using the __plantR__ workflow. For each of
-the steps of the workflow, we present the functionalities and their options in
-more details so that user can better understand their goals and so adapted the
-functionalities even outside the workflow proposed here.
+the steps of the workflow, we present in more detail the functionalities and
+their options. The aim is that users can better understand their goals and so
+adapt functions according to their needs or for their use outside the workflow proposed here.
 
 <br/><br/>
 
-# Intalling __plantR__
+# Installing __plantR__
 
 __plantR__ is currently only available remotely on [GitHub](https://github.com).
 This means that you cannot use R base functions to install it (i.e.
@@ -56,9 +56,9 @@ library("plantR")
 ```
 
 For windows users, you may get a warning while trying to install __plantR__,
-related to the installation of Rtools. This is a software that needs to be
-installed in your machine, so that R can build and install packages from their
-source code on Windows. It became necessary after R version 4.0. So make sure we
+related to the installation of Rtools. This software needs to be installed in 
+your machine, so that R can build and install packages from their source code 
+on Windows. It became necessary after R version 4.0. So make sure we
 have Rtools installed, restart your R session and try to install __plantR__
 again. Check [this link](https://cran.r-project.org/bin/windows/Rtools/) on how
 to install Rtools on Windows.
@@ -87,8 +87,8 @@ Facility).
 In addition, you can download a DarwinCore Archive (DwC-A) file from the
 [GBIF](https://www.gbif.org/) API or to load a DwC-A from a local directory
 using the function `readData()`. DwC-A files obtained from GBIF are provided as
-'.zip' files and they contain not only the species records, but also the
-information on the citations and rights of the the database collections.
+'.zip' files and contain not only the species records, but also the
+information on the citations and rights of the database collections.
 
 You can also use your own data, as long as the column names follow the
 DarwinCore (DwC) standards. If they don't follow the DwC standards, users can
@@ -168,7 +168,7 @@ dim(occs)
 
 # Data editing
 
-## Standardizing collection codes, people names, collector number and dates
+## Standardizing collection codes, people names, collector numbers and dates
 
 Particularly when working with data coming from multiple sources, it
 is important to standardize the notation used by different collections and
@@ -228,7 +228,7 @@ names. To do so, we set the argument `output` of function `prepName()` to
 names).
 
 We also define that the symbol that will separate multiple people's names, which
-in our example will be a semi-colon followed by a space (argument `sep.out`). 
+in our example will be a semi-colon followed by space (argument `sep.out`). 
 
 By default, the function removes accents and special characters from names, but
 this can be controlled using the argument `special.char`. Also, the default name
@@ -322,7 +322,7 @@ occs1 <- formatOcc(occs1)
 ```
 
 This wrapper will add the new columns containing the edited/formatted
-information regarding the collection codes, the names of collector and
+information regarding the collection codes, the names of collectors and
 determiners, the dates of collection and identification, and collector number.
 
 
@@ -496,7 +496,7 @@ Similarly to the functions `formatOcc()` and `formatLoc()` from the previous
 editing steps, we provide a function that perform all the edits related to the
 geographical coordinates at once, the function `formatCoord()`. Because getting
 missing coordinates from the gazetteer depends on the editing of the locality
-information, we need to run `formatLoc()` before runnig `formatCoord()`:
+information, we need to run `formatLoc()` before running `formatCoord()`:
 
 ```{r, eval = FALSE}
 occs1 <- formatDwc(splink_data = occs_splink,
@@ -519,7 +519,7 @@ scientific names are stored. For data downloaded from GBIF
 stores data in a more standardized way.
 
 The __plantR__ function `fixSpecies()` performs several edits, including the
-isolation of taxonomic rank abbreviations, the detection of name modificators
+isolation of taxonomic rank abbreviations, the detection of name modifiers
 ("cf." and "aff.") and a suggestion for the name status:
 
 ```{r, eval = FALSE}
@@ -529,7 +529,7 @@ sort(table(occs$scientificName.new))
 ```
 
 Note that the number of names has decreased, but there are still many different
-names than the three names used in the search. The possible status of those
+names than the three names used in the search. The possible statuses of those
 names are stored in the new column 'scientificNameStatus'.
 
 ```{r, eval = FALSE}	
@@ -541,7 +541,7 @@ sort(table(occs$scientificNameStatus))
 Although the function `fixSpecies()` presented above formatted the species
 names, there are still many more names than the ones we downloaded. Most of them
 are names at the infra-specific level, but others are probably synonyms,
-orthographical variants or even typos. There are R packages that check species
+orthographic variants or even typos. There are R packages that check species
 nomenclature (e.g. __taxize__, __Taxonstand__, and __WorldFlora__). For species
 listed in the Brazilian Flora 2020, there is also the package `flora`, which
 follow the accepted nomenclature of the Brazilian Flora 2020 project. __plantR__
@@ -675,7 +675,7 @@ occs <- checkCoord(occs,
 unique(occs$geo.check)
 ```
 
-The new column 'geo.check' have some main types of classes. The first type
+The new column 'geo.check' has some main types of classes. The first type
 starts with an 'ok_' and is followed by the level at which the coordinate was
 validated (e.g., country, state, county). It also contains the classes 'sea'
 (i.e., coordinates falling into the sea or bays), 'bad_country' (i.e.,
@@ -691,8 +691,8 @@ that are close to the reference locality.
 ### Coordinates falling in a neighbouring country 
 
 Sometimes geographical coordinates can fall in another country due to rounding
-or precision issues or simply because the collector was not aware that a coutry
-border was crossed before obtaining the coordinates. The function
+or precision issues or simply because the collector was not aware that a 
+country's border was crossed before obtaining the coordinates. The function
 `checkBorders()` flag those cases, which is only done for the subset of records
 flagged previously as 'bad_country':
 
@@ -736,7 +736,7 @@ shore (takes much longer).
 
 ### Inverted and swapped coordinates
 
-There are still coordinates flagged a 'bad_contry' in our dataset. Some of those
+There are still coordinates flagged a 'bad_country' in our dataset. Some of those
 records can be due to inversions in the longitude and latitude or to the
 swapping/transposing between them (i.e. latitude as longitude or vice-versa).
 
@@ -751,7 +751,7 @@ combination of inverted and/or swapped coordinates for which validation was
 acquired in brackets. Note that this function does not perform the validation
 of the newly arranged coordinates at the state and county levels. So, if deemed
 necessary, the user can re-include them in the function `checkCoord()`, and step
-which is automatically executed by the wapper function `validateCoord()`
+which is automatically executed by the wrapper function `validateCoord()`
 presented below.
 
 
@@ -802,7 +802,7 @@ Similar to the other steps of the __plantR__ workflow, all the steps related to
 the validation of the geographical coordinates can be performed at once, using
 the function `validateCoord()`. Since this function uses information from
 localities,and taxonomic information, besides the geographical coordinates
-themselves, all format and validation steps related to these information should
+themselves, all format and validation steps related to this information should
 have been carried previously.
 
 ```{r, eval = FALSE}
@@ -844,7 +844,7 @@ table(occs1$tax.check)/dim(occs)[1]
 
 This is not the optimal example because Gerdt (Guenther) Hatschbach was not a
 Salicaceae specialist. However, he provided determinations for many different
-families outside his speciality, often referred to as a generalist. There are
+families outside his specialty, often referred to as a generalist. There are
 some names of generalists in the __plantR__ default taxonomist database, and
 those names can be included in the taxonomic validation through the arguments
 `generalist`. However, this list of generalist names is biased towards South
@@ -888,7 +888,10 @@ dups <- prepDup(occs,
      c("family","col.last.name","col.number","col.year")))
 ```
 
-In this example, we used two search strings, which differ on the last information (collection locality vs. collection year). The use of two or more search strings increases the chance of finding duplicates even if one or more information is missing.
+In this example, we used two search strings, which differ from the last
+information (collection locality vs. collection year). The use of two or more
+search strings increases the chance of finding duplicates even if one or more
+information is missing.
 
 Note that we used the default arguments of the `prepDup()` function, which
 exclude from the search the strings without collector name, number or year (e.g.
@@ -911,7 +914,7 @@ table(dups$dup.prop)
 As a result, we found over 6000 records with a high chance of representing true
 duplicates, i.e. the proportion of search strings shared between them is maximum
 (dup.prop = 1). Other ~1000 specimens had only one search string in common.
-Moreover, there is indication of possible ~7000 unicates, and of other ~5000
+Moreover, there is an indication of possible ~7000 unicates, and of other ~5000
 specimens we could not check for duplicates (i.e. all search strings used have
 missing information).
 
@@ -950,7 +953,7 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Next, we use the function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicate. 
+Next, we use the function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicates. 
 
 ```{r, eval = FALSE}
 occs <- mergeDup(occs)
@@ -967,7 +970,7 @@ __plantR__ provides a simple function for the (fast) removal of duplicates from
 the data. By default, only duplicated records from the same collections are
 removed from the dataset. But if the argument `rm.all` is set to TRUE, all
 duplicates are removed from the data (i.e., only one record per group of
-duplicate remains in the dataset). This procedure should only be performed if
+duplicates remains in the dataset). This procedure should only be performed if
 the user deems it necessary and after the information among groups of duplicates
 has been homogenized. All the non-homogenized information contained in the other
 specimens is lost.

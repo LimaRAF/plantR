@@ -45,7 +45,7 @@ library("plantR")
 Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do
 speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para
 a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil,
-iremos baixar apenas os coletas realizadas no Brasil (i.e. campo `country` igual
+iremos baixar apenas as coletas realizadas no Brasil (i.e. campo `country` igual
 a 'BR').
 
 Para downloads do GBIF, o limite do número de registros baixados é controlado
@@ -58,7 +58,7 @@ para famílias com mais de 100,000 registros no GBIF.
 
 Note que o campo `species` da função `rgbif2()` aceita não apenas nomes ao nível
 de espécie, mas em qualquer nível taxonômico. Para a função `rspeciesLink()`,
-há um campo específico para familia (i.e. `family`).
+há um campo específico para o nome da família (i.e. `family`).
 
 ```{r, eval = TRUE, message = FALSE, warning = FALSE}
 familia <- "Blechnaceae"
@@ -141,8 +141,8 @@ occs <- validateCoord(occs)
 ```
 
 A função `validateTax()` faz uma classificação da confiabilidade da
-identificação taxonômica dos registros. Essa avaliação é feita em uma base de
-dados global de nomes de taxonomistas por família (veja o help da função
+identificação taxonômica dos registros. Essa avaliação é feita em uma base 
+global de nomes de taxonomistas por família (veja o help da função
 digitando ?validateTax no seu console do R).
 
 Contudo, essa base de dados não é completa. Assim, pode ser importante executar
@@ -395,7 +395,7 @@ Brasil.
 ### Alguma atualização taxonômica feita nas duplicatas em outras coleções?
 
 Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos
-apenas com os registro com indicações de duplicata (i.e. coluna 'dup.ID' não
+apenas com os registros com indicações de duplicata (i.e. coluna 'dup.ID' não
 vazia):
 
 ```{r, eval = TRUE, collapse = TRUE}
