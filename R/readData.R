@@ -59,6 +59,7 @@
 #'                    path <- "https://api.gbif.org/v1/occurrence/download/request/")
 #' }
 #'
+#' @export readData
 #'
 readData <- function(file = NULL, path = "", dir.name = "",
                      dir.tmp = "plantR_input",
@@ -278,9 +279,11 @@ readData <- function(file = NULL, path = "", dir.name = "",
 
   ## RETURNING THE SELECTED OUTPUT
   selected.data <- all.data[output]
-  ids.dt <- sapply(selected.data, function (x) identical(class(x), c("data.table","data.frame")))
+  ids.dt <- sapply(selected.data,
+                   function (x) identical(class(x), c("data.table","data.frame")))
   if (any(ids.dt))
-    for(i in which(ids.dt == TRUE)) selected.data[[i]] <- as.data.frame(selected.data[[i]])
+    for(i in which(ids.dt == TRUE))
+      selected.data[[i]] <- as.data.frame(selected.data[[i]])
 
   if (length(output) > 1)
     return(selected.data)

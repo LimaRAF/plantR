@@ -22,7 +22,7 @@
 #'   different types of information (i.e. taxonomy, collection and locality).
 #'   For instance, a string combining information on taxonomy, collector last
 #'   name and number, and collection locality would look like:
-#'   ‘Myrtaceae_Silva_110_Curitiba’.
+#'   'Myrtaceae_Silva_110_Curitiba'.
 #'
 #'   Strings too flexible (e.g. 'Silva_110') return more duplicated records but
 #'   many may be false duplicates. Strings too strict, on the other hand, may
@@ -37,22 +37,32 @@
 #'   (2020) for an example of a conservative usage of different combinations
 #'   of strings to find duplicated specimens.
 #'
-#'   The function returns only direct matches for up to one search string. If
-#'   two or more search strings are provided, the search of duplicates uses tools
-#'   from network analysis to find both direct and indirect matches of strings
-#'   between records. If records are grouped under the same duplicated ID string
-#'   ('dup.ID') but only based on indirect matches with other records, 'dup.ID'
-#'   is returned between brackets (the default of argument `flag.ind`). These IDs
-#'   may need to be inspected more closely to detect possible spurious matches.
+#'   The function returns direct matches for up to one search string. If
+#'   two or more search strings are provided, the search of duplicates uses
+#'   tools from network analysis to find both direct and indirect matches of
+#'   strings between records. If records are grouped under the same duplicated
+#'   ID string ('dup.ID') but only based on indirect matches with other records,
+#'   'dup.ID' is returned between brackets (the default of argument `flag.ind`).
+#'   These IDs may need to be inspected more closely to detect possible spurious
+#'   matches.
+#'
+#'   Note that duplicate records can be physical (i.e. samples of the same
+#'   biological specimen incorporated in two or more collections) or virtual
+#'   (i.e. duplicated entries of the same record in different data
+#'   repositories). Although the function aims to detect the physical
+#'   duplicates, it also flags the virtual duplicates by adding 'virtual' inside
+#'   brackets  to the end of the duplicated ID string. Currently, this flag is
+#'   only added if the duplicate is purely virtual, i.e., if the virtual
+#'   duplicate is not also part of a physical duplicate.
 #'
 #'   Besides the duplicated ID, the function returns the number and proportion
 #'   of duplicated search strings found for each record within its group of
-#'   duplicates (i.e. 'dup.numb'and 'dup.prop'). These values can be used to assess
-#'   the confidence level that records are indeed true duplicates within its group.
-#'   The higher the 'dup.prop', the greater the chances that the record is indeed
-#'   a duplicate. To calculate the proportion of duplicates found within the
-#'   number of available search strings, mismatches due to different or to
-#'   missing strings are treated the same.
+#'   duplicates (i.e. 'dup.numb' and 'dup.prop'). These values can be used to
+#'   assess the confidence level that records are indeed true duplicates within
+#'   its group. The higher the 'dup.prop', the greater the chances that the
+#'   record is indeed a duplicate. To calculate the proportion of duplicates
+#'   found within the number of available search strings, mismatches due to
+#'   different or to missing strings are treated the same.
 #'
 #'
 #' @examples
@@ -86,6 +96,9 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
   if (!class(df) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(df)[1] == 0)
+    stop("Input data frame is empty!")
+
   #Escaping R CMD check notes from using data.table syntax
   tmp.ordem <- numTombo <- value <- i.memb <- new_id <- dup.ind.test <- . <- NULL
 
@@ -111,7 +124,8 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
   for(i in 1:length(str_names)) {
     col_name <- paste0("dup.check", i)
     forward <- duplicated(df[,str_names[i]], incomparables = NA)
-    reverse <- duplicated(df[,str_names[i]], incomparables = NA, fromLast = TRUE)
+    reverse <- duplicated(df[,str_names[i]], incomparables = NA,
+                          fromLast = TRUE)
     df[, col_name] <- forward | reverse
   }
 
@@ -149,12 +163,14 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
 
     #Dealing with duplicated values of 'numTombo'
     data.table::setnames(dt, rec.ID, "numTombo")
-    dt[duplicated(numTombo), numTombo := paste(numTombo, 1:.N, sep="_dup"), by = numTombo]
+    dt[duplicated(numTombo),
+       numTombo := paste(numTombo, 1:.N, sep="_dup"), by = numTombo]
 
     ## Finding indirect duplicated search strings
     # melt data to long format (need to remove duplicated 'numTombo')
     cols <- c(rec.ID, str_names)
-    d <- data.table::melt.data.table(dt[, 1:(length(cols)),], id.vars = "numTombo", na.rm = TRUE)
+    d <- data.table::melt.data.table(dt[, 1:(length(cols)),],
+                                     id.vars = "numTombo", na.rm = TRUE)
 
     # convert to graph
     g <- igraph::graph_from_data_frame(d[ , .(numTombo, value)])
@@ -171,31 +187,41 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
     `%like.ic%` <- function (x, pattern) {
       grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
     }
-    dt[numTombo %like.ic% "_dup[0-9]", numTombo := gsub("_dup[0-9]", "", numTombo, perl = TRUE)]
+    dt[numTombo %like.ic% "_dup[0-9]",
+       numTombo := gsub("_dup[0-9]", "", numTombo, perl = TRUE)]
 
     # concatenate 'id' by 'memb' column
     data.table::setkeyv(dt, c("memb"))
-    dt[!is.na(memb), new_id := as.character(paste0(sort(numTombo), collapse = "|")), by = memb]
+    dt[!is.na(memb),
+       new_id := as.character(paste0(sort(unique(numTombo)), collapse = "|")),
+       by = memb]
 
     ## Flagging groups of duplicates based only on indirect duplicates
     if (flag.ind) {
       dup.cols <- data.table::copy(names(dt))
       dup.cols <- dup.cols[grepl("dup.check[1-9]", dup.cols, perl = TRUE)]
-      for(i in 1:length(str_names)) {
+      for(i in seq_along(str_names)) {
         data.table::setkeyv(dt, c(str_names[i]))
         dt[NA_character_, (dup.cols[i]) := NA]
       }
       data.table::setkey(dt, new_id)
       dt[, dup.ind.test := lapply(.SD, function(x) any(sum(x) == 0, na.rm = TRUE)),
          by = new_id, .SDcols = c(dup.cols)]
-      dt[!is.na(new_id), new_id := ifelse(dup.ind.test, paste0("[",new_id,"]",collapse=""), new_id), by = new_id]
+      dt[!is.na(new_id),
+         new_id := ifelse(dup.ind.test, paste0("[",new_id,"]",collapse=""), new_id),
+         by = new_id]
     }
 
     # for groups of length one, set 'memb' to NA
     dt[dt[, .I[.N == 1], by = memb]$V1, new_id := NA]
 
+    # flagging virtual duplicates
+    data.table::setkeyv(dt, c("new_id"))
+    dt[!is.na(new_id) & !new_id %like.ic% "\\|",
+       new_id := paste0(new_id,"[virtual]",collapse=""), by = new_id]
+
     #Saving the duplicated IDs in the main data frame
-    setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
+    data.table::setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
     df$dup.ID[df$dup.check %in% "TRUE"] <- as.character(dt$new_id)
   }
 

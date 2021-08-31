@@ -4,8 +4,8 @@
 #'   species occurrences obtained from on-line databases, such as GBIF or
 #'   speciesLink
 #'
-#' @return The input data frame \code{x}, plus the new columns with the formatted
-#'   information.
+#' @return The input data frame \code{x}, plus the new columns with the
+#'   formatted information.
 #'
 #' @param x a data frame, containing typical fields from occurrence records from
 #'   herbarium specimens
@@ -47,6 +47,9 @@ formatLoc <- function(x,
   # check input:
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   # fixLoc
   x1 <- fixLoc(x, loc.levels, scrap)

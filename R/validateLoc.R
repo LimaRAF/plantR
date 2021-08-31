@@ -17,24 +17,26 @@
 #'
 #'
 #' @details The function simply compares if the original information provided
-#' with each specimen is found in the locality gazetteer and at which resolution
-#' (i.e. country, state, municipality). This comparison is strongly dependent on
-#' the completeness of the gazetteer used. Please remind that the gazetteer
-#' provided with __plantR__ is strongly biased towards Latin America, particularly
-#' Brazil.
+#'   with each specimen is found in the locality gazetteer and at which
+#'   resolution (i.e. country, state, municipality). This comparison is strongly
+#'   dependent on the completeness of the gazetteer used. Please remind that the
+#'   gazetteer provided with __plantR__ is strongly biased towards Latin
+#'   America, particularly Brazil.
 #'
-#' The records whose locality was not found in the gazetteer at the same
-#' resolution are flagged with a "check_...". For these records, the
-#' locality resolution is downgraded until a locality is found in the gazetteer.
-#' If even the country name is not found, then the locality is flagged
-#' as "no_info". Specimens retaining their resolution are flagged with a
-#' "ok_same_resolution" and those found at a better resolution are flagged with an
-#' "ok_" (e.g. 'ok_state2municipality': a record which had its original
-#' resolution at the ' 'stateProvince' level is now at the 'municipality' level).
+#'   The records whose locality was not found in the gazetteer at the same
+#'   resolution are flagged with a "check_...". For these records, the locality
+#'   resolution is downgraded until a locality is found in the gazetteer. If
+#'   even the country name is not found, then the locality is flagged as
+#'   "no_info". Specimens retaining their resolution are flagged with a
+#'   "ok_same_resolution" and those found at a better resolution are flagged
+#'   with an "ok_" (e.g. 'ok_state2municipality': a record which had its
+#'   original resolution at the ' 'stateProvince' level is now at the
+#'   'municipality' level).
 #'
-#' The records flagged with the class "check_local.2municip." should not be seen as
-#' problematic, since the __plantR__ gazetteer contain a list of county names
-#' that is much more comprehensive than the list of locality names.
+#'   The records flagged with the class "check_local.2municip." should not be
+#'   seen as problematic, since the __plantR__ gazetteer contain a list of
+#'   county names that is much more comprehensive than the list of locality
+#'   names.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -54,11 +56,15 @@ validateLoc <- function(x,
                         res.gazet = "resolution.gazetteer") {
 
   ## check input:
-  if (!class(x) == "data.frame") {
-    stop("input object needs to be a data frame!")
-  }
+  if (!class(x)[1] == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!all(c(res.orig, res.gazet) %in% colnames(x))) {
-    stop(paste0("input object needs to have the following fields: ",res.orig," and ",  res.gazet))
+    stop(paste0("input object needs to have the following fields: ",
+                res.orig," and ",  res.gazet))
   }
 
   ## putting the input data in the right order

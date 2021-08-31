@@ -5,10 +5,10 @@
 #'   the records.
 #'
 #' @param x a data frame with the species records.
-#' @param col.names vector. A named vector containing the names of columns in the
-#'   input data frame for each of the information that should be used to create
-#'   the duplicate search string(s). Default to the __plantR__ output column
-#'   names.
+#' @param col.names vector. A named vector containing the names of columns in
+#'   the input data frame for each of the information that should be used to
+#'   create the duplicate search string(s). Default to the __plantR__ output
+#'   column names.
 #' @param comb.fields list. A list containing one or more vectors with the
 #'   information that should be used to create the duplicate search strings.
 #'   Default to four vectors of information to be combined.
@@ -18,8 +18,8 @@
 #'   "n.d.".
 #' @param noName character. Standard for missing data in collector name. Default
 #'   to "s.n.".
-#' @param noNumb character. Standard for missing data in collector number. Default
-#'   to "s.n.".
+#' @param noNumb character. Standard for missing data in collector number.
+#'   Default to "s.n.".
 #' @param ignore.miss logical. Should the duplicate search strings with
 #'   missing/unknown information (e.g. 'n.d.', 's.n.', NA) be excluded from the
 #'   duplicate search. Default to TRUE.
@@ -28,7 +28,8 @@
 #'
 #' @details Three groups of fields are available to produce the duplicate search
 #'   string, and they are related to taxonomy, collection and locality of the
-#'   specimen. These fields should be provided to the argument `col.names` and they are:
+#'   specimen. These fields should be provided to the argument `col.names` and
+#'   they are:
 #'   - 'family': the botanical family (default: 'family.new')
 #'   - 'species': the scientific name (default: 'scientificName.new')
 #'   - 'col.name': the collector name (default: 'recordedBy.new')
@@ -45,15 +46,15 @@
 #'   If an element named 'loc.str' containing the column name of the __plantR__
 #'   locality string (i.e. 'loc.correct') is also provided, it can be used to
 #'   complement any missing locality information in the locality of the
-#'   collection (i.e 'col.loc') tha may have been retrieved in the data processing
-#'   within the __plantR__ workflow.
+#'   collection (i.e 'col.loc') tha may have been retrieved in the data
+#'   processing within the __plantR__ workflow.
 #'
 #'   The duplicate search strings are created by combining the fields listed
 #'   above. Each combination of those fields (e.g. 'col.name' and 'col.number')
 #'   should be provided to the argument `comb.fields` as a vector within a list.
-#'   The number of strings to be generated will correspond to the number of vectors
-#'   in this list. The order of the fields within vectors does not change the duplicate
-#'   search process.
+#'   The number of strings to be generated will correspond to the number of
+#'   vectors in this list. The order of the fields within vectors does not
+#'   change the duplicate search process.
 #'
 #'   The argument `rec.ID` should indicate the column name in the input data
 #'   containing the unique record identifier, which in the __plantR__ workflow
@@ -66,8 +67,8 @@
 #'   Please note that the retrieval of duplicates greatly depends on the
 #'   completeness of the input information and in the amount of differences of
 #'   notation standards among collections. In addition, the smaller the vectors
-#'   of fields to be combined to create the duplicate strings, the higher the number
-#'   of (true and false) duplicates will be retrieved.
+#'   of fields to be combined to create the duplicate strings, the higher the
+#'   number of (true and false) duplicates will be retrieved.
 #'
 #' @seealso
 #'  \link[plantR]{getTombo}, \link[plantR]{getDup} and \link[plantR]{mergeDup}.
@@ -93,6 +94,9 @@ prepDup <- function(x, col.names = c(family = "family.new",
   ## check input
   if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   ## Checking the input columns
   #unique record identifier
@@ -136,6 +140,11 @@ prepDup <- function(x, col.names = c(family = "family.new",
   x1 <- x[, match(cols, names(x))]
   names(x1) <- names(cols)[match(cols, names(x1))]
 
+  ## Replacing empty cell by NA
+  replace_these <- x1 == "" & !is.na(x1)
+  if (any(replace_these))
+    x1[replace_these] <- NA
+
   ## Editing the filtered columns to avoid misleading duplicates
   if ("col.year" %in% names(x1)) { # collection year
     ids <- nchar(x1$col.year) > 4
@@ -178,7 +187,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
 
   ## Creating the duplicate search strings
   srch.str <- vector("list", length(comb.fields))
-  for (i in 1:length(srch.str)) {
+  for (i in seq_along(srch.str)) {
     srch.str[[i]] <-
       as.character(apply(x1[,comb.fields[[i]]], 1, paste0, collapse = "_"))
   }
@@ -187,7 +196,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
   if (ignore.miss) {
     miss.patt <- paste0(c(noYear, noNumb, noName), collapse = '|')
     miss.patt <- gsub('\\.','\\\\.', miss.patt)
-    for (i in 1:length(srch.str)) {
+    for (i in seq_along(srch.str)) {
       srch.str[[i]][grepl(miss.patt,
                           srch.str[[i]], perl = TRUE, ignore.case=TRUE)] <- NA
       srch.str[[i]][grepl("^NA_|_NA_|_NA$",
@@ -198,11 +207,11 @@ prepDup <- function(x, col.names = c(family = "family.new",
   #Transforming the duplicate search strings into a data frame
   dup.srch.str <- do.call(cbind.data.frame, srch.str)
   names(dup.srch.str) <- paste0("dup.srch.str", 1:length(dup.srch.str))
-  for(i in 1:length(srch.str))
+  for(i in seq_along(srch.str))
     dup.srch.str[,i] <- as.character(dup.srch.str[,i])
 
   ##Saving the new info
   result <- cbind.data.frame(numTombo, dup.srch.str,
-                         stringsAsFactors = FALSE)
+                             stringsAsFactors = FALSE)
   return(result)
 }

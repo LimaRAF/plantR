@@ -32,7 +32,8 @@
 #'   categories:
 #'   - "cultivated": exact matches of the list of terms of cultivated
 #'   individuals with the text in at least one of the fields mentioned above.
-#'   - "prob_cultivated": presence of one or more terms in the fields mentioned above.
+#'   - "prob_cultivated": presence of one or more terms in the fields mentioned
+#'   above.
 #'
 #'   For assigning the "prob_cultivated", a second list of terms is used to
 #'   exclude possible spurious hits of cultivated individuals (e.g 'Cultivated
@@ -118,4 +119,3 @@ getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", hab
 
   return(x)
 }
-

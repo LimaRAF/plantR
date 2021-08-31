@@ -6,8 +6,8 @@
 #'
 #' @param x a data.frame containing the original coordinates and the coordinates
 #'   obtained from a gazetteer.
-#' @param lat.orig character. The name of the column containing the latitude. Default
-#'   to "decimalLatitude".
+#' @param lat.orig character. The name of the column containing the latitude.
+#'   Default to "decimalLatitude".
 #' @param lon.orig character. The name of the column containing the longitude.
 #'   Default to "decimalLongitude".
 #' @param lat.gazet character. The name of the column containing the latitude
@@ -24,7 +24,8 @@
 #'   longitude combining the coordinates from the source data and the gazetteer.
 #'   Default to "decimalLongitude.new".
 #' @param rm.gazet logical. Should the coordinates form the gazetterr be removed
-#'   from the data after the replacement of missing coordinates? Default to FALSE.
+#'   from the data after the replacement of missing coordinates? Default to
+#'   FALSE.
 #'
 #' @return The data frame \code{x} with the columns 'decimalLatitude.new' and
 #'   'decimalLongitude.new' containing the geographical coordinates at the best
@@ -49,11 +50,12 @@
 #'   and they are created internally.
 #'
 #'   The precision of the geographical coordinates are classified as: "degrees",
-#'   "minutes", "seconds" and "miliseconds". This classification is performed for
-#'   the latitude and longitude of each record and the worst precision retrieved is
-#'   assigned to both of them (i.e. if lat = "minutes" and lon= "seconds", the
-#'   precision = "minutes"). For simplicity, all latitude/longitude not classified as
-#'   "degrees", "minutes" or "seconds" are classified as "miliseconds".
+#'   "minutes", "seconds" and "miliseconds". This classification is performed
+#'   for the latitude and longitude of each record and the worst precision
+#'   retrieved is assigned to both of them (i.e. if lat = "minutes" and lon=
+#'   "seconds", the precision = "minutes"). For simplicity, all
+#'   latitude/longitude not classified as "degrees", "minutes" or "seconds" are
+#'   classified as "miliseconds".
 #'
 #'   The function implicitly assumes that NA coordinates are missing and they
 #'   are replaced by the coordinates coming from the gazetteer. See the examples

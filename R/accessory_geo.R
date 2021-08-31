@@ -58,7 +58,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #' @param lat numerical. Latitude in decimal degrees
 #' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates. Default to 1 meter.
-#' @param output character. The type of information that should be returned (see Details)
+#' @param output character. The type of information that should be returned (see
+#'   Details)
 #'
 #' @details The argument `output` controls the type of output that should be
 #'   returned:
@@ -140,9 +141,10 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #' @param geo.patt character. The pattern to be used to search for classes of
 #' geographical validation to be included in the analyses. Default to "ok_".
 #' @param cult.patt character. The pattern to be used to search for classes of
-#'   validation of cultivated specimens to be included in the analyses. Default to NA.
-#' @param digs numerical. Number of digits to be returned after the decimal point.
-#' Default to 4
+#'   validation of cultivated specimens to be included in the analyses. Default
+#'   to NA.
+#' @param digs numerical. Number of digits to be returned after the decimal
+#'   point. Default to 4
 #'
 #' @return the input data frame and a new column(s) with the distances obtained
 #'   using the selected method(s)
@@ -167,8 +169,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'
 #'   If the MCD algorithm runs into singularity issues, the function silently
 #'   add some random noise to both coordinates and re-run the MCD algorithm.
-#'   This aims to deals with cases of few coordinates close to each other and
-#'   in practice should not change the overall result of the detection of spatial
+#'   This aims to deals with cases of few coordinates close to each other and in
+#'   practice should not change the overall result of the detection of spatial
 #'   outliers.
 #'
 #'   The presence of problematic coordinates and cultivated specimens can
@@ -180,8 +182,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   `getCult()` or a logical TRUE/FALSE vector. By default, if the input are
 #'   the outputs from functions `checkCoord()` and `getCult()`, only the
 #'   coordinates flagged as 'ok_...' in `geo` and those not flagged in `cult`
-#'   (i.e. NAs) will be used. But users can select different search patterns using
-#'   the arguments `geo.patt` and `cult.patt`. For both input options, the
+#'   (i.e. NAs) will be used. But users can select different search patterns
+#'   using the arguments `geo.patt` and `cult.patt`. For both input options, the
 #'   vector must have the same length of the coordinates provided in the
 #'   arguments `lat` and `lon`. By default, arguments `geo` and `cult` are set
 #'   to NULL, meaning that all coordinates will be used.
@@ -424,17 +426,18 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #'   distances.
 #'
 #' @details The function returns the quantiles of the Mahalanobis distances for
-#' the spatial outliers detected automatically, which can be used in the decision making of
-#' the more appropriated distance cutoffs to flag spatial outliers.
+#'   the spatial outliers detected automatically, which can be used in the
+#'   decision making of the more appropriated distance cutoffs to flag spatial
+#'   outliers.
 #'
-#' The automatic detection of spatial outliers is based on an adjusted threshold
-#' of the Mahalanobis distances based on function `arw()` from package
-#' __mvoutlier__.
+#'   The automatic detection of spatial outliers is based on an adjusted
+#'   threshold of the Mahalanobis distances based on function `arw()` from
+#'   package __mvoutlier__.
 #'
-#' If the number of unique coordinates is below `n.min` or if the Minimum
-#' Covariance Determinant (MCD) estimator has issues, the function returns NAs.
-#' See the help of function `mahalanobisDist()` for details on the other
-#' parameters.
+#'   If the number of unique coordinates is below `n.min` or if the Minimum
+#'   Covariance Determinant (MCD) estimator has issues, the function returns
+#'   NAs. See the help of function `mahalanobisDist()` for details on the other
+#'   parameters.
 #'
 #' @importFrom stats mahalanobis
 #' @importFrom robustbase covMcd

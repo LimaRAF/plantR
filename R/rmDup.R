@@ -40,11 +40,12 @@
 #'
 #'   By default, the record retained for each group of duplicates is determined
 #'   by the proportion of duplicates the record has within the group (argument
-#'   `prop.name`) and by the original order of the input data frame \code{df}. So,
-#'   the first record with the highest proportion of duplicates will be the record
-#'   retained. But the user can use the argument `order.by` if the data should
-#'   be order by any of the columns in the input data. This column will be used to
-#'   create the 'key' within the `data.table` parlance and order the data accordingly.
+#'   `prop.name`) and by the original order of the input data frame \code{df}.
+#'   So, the first record with the highest proportion of duplicates will be the
+#'   record retained. But the user can use the argument `order.by` if the data
+#'   should be order by any of the columns in the input data. This column will
+#'   be used to create the 'key' within the `data.table` parlance and order the
+#'   data accordingly.
 #'
 #'   Finally, users can choose between removing all but one records within each
 #'   group of duplicate, or to remove only those records with duplicated entries
@@ -78,6 +79,9 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   ## check input
   if (!class(df) == "data.frame")
     stop ("Input object needs to be a data frame!")
+
+  if (dim(df)[1] == 0)
+    stop("Input data frame is empty!")
 
   #Escaping R CMD check notes from using data.table syntax
   dup.IDs <- tmp.ordem <- temp.dup.prop <- dup.entries <- NULL
@@ -160,7 +164,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   if (print.rm) {
     antes <- dim(dt)[1]
     depois <- dim(dt1)[1]
-    cat(antes - depois, "truly duplicated records (same collection in different sources) were removed from the data\n")
+    cat(antes - depois, "truly duplicate records (same record in different sources) were removed from the data\n")
   }
 
   return(data.frame(dt1))

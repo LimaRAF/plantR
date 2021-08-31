@@ -20,11 +20,12 @@
 #'
 #'   For single names or one-string initials the output depends on the presence
 #'   of abbreviation points, if names are provided in all caps and in the number
-#'   of letters. If the number of capital letters exceeds the value in the argument
-#'   `max.initials`, then it is taken as a name and not initials (see Examples).
+#'   of letters. If the number of capital letters exceeds the value in the
+#'   argument `max.initials`, then it is taken as a name and not initials (see
+#'   Examples).
 #'
-#'   The output is relatively stable regarding different name formats and notation
-#'   standards, but it doe not work for all of them (see Examples).
+#'   The output is relatively stable regarding different name formats and
+#'   notation standards, but it doe not work for all of them (see Examples).
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -80,8 +81,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   words <- grepl(" ", x, fixed = TRUE)
   abrev <- grepl('(\\p{L}\\.)(\\p{L}\\.)+',
                  x, perl = TRUE)
-  # abrev <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+',
-  #                x, perl = TRUE)
 
   types <- rep(NA, length(x))
   types[words] <- "1"
@@ -123,7 +122,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   #type 3: single words, no abbreviations
   if (any(types %in% "3")) {
     any.caps <- grepl('\\p{Lu}', x[types %in% "3"], perl = TRUE)
-    # any.caps <- grepl('[A-ZÀ-Ý]', x[types %in% "3"], perl = TRUE)
     all.caps <- x[types %in% "3"] == toupper(x[types %in% "3"])
     all.low <- !all.caps & !any.caps
 
@@ -150,7 +148,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   }
 
   x <- gsub("(\\p{L})", "\\1.", x, perl = TRUE)
-  # x <- gsub("([A-ZÀ-Ýa-zà-ý])", "\\1.", x, perl = TRUE)
   x <- gsub("\\.,\\.", ".", x, perl = TRUE)
 
   if (any(grepl("-\\.", x, perl = TRUE)))

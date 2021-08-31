@@ -1,19 +1,21 @@
 #' @title Isolate Family Name Prepositions
 #'
-#' @description This function isolates and removes (optional) last name prepositions
-#'   (i.e. 'da' in 'da Silva') from multiple people's names, if present.
+#' @description This function isolates and removes (optional) last name
+#'   prepositions (i.e. 'da' in 'da Silva') from multiple people's names, if
+#'   present.
 #'
 #' @param x a name string, a vector of names or a two-column matrix or
-#'   data.frame, containing the last name in the first column and other
-#'   names in the second.
+#'   data.frame, containing the last name in the first column and other names in
+#'   the second.
 #' @param preps a vector with the name prepositions to be isolated. Defaults to
-#' some common prepositions in portuguese, spanish, italian, french, and dutch
-#' family names.
+#'   some common prepositions in portuguese, spanish, italian, french, and dutch
+#'   family names.
 #' @param rm.prep logical. Should the preposition be removed? Default to FALSE.
 #' @param output character. Should the names be returned as a vector of
 #'   standardized names or organized as a matrix? Default to "matrix".
-#' @param format character. Format of the output vector of names The default ("last_init")
-#' is the TDWG standard, but the inverse format can also be chosen ("init_last").
+#' @param format character. Format of the output vector of names The default
+#'   ("last_init") is the TDWG standard, but the inverse format can also be
+#'   chosen ("init_last").
 #'
 #' @return A vector or a matrix containing the names provided in \code{x} with
 #'   the name prepositions isolated from the last name.
@@ -37,9 +39,10 @@
 #'   Names can be provided as vectors of names or as a two-column matrix/data
 #'   frame in which the last names are provided in the first column and other
 #'   names in the second. Users can also chose the output format between
-#'   "last_init_prep" or "last_init" (the default; e.g. "Silva, Maria A. Pereira"),
-#'   "prep_last_init" (e.g. "da Silva, Maria A. Pereira") or "init_last"
-#'   (e.g. "Maria A. Pereira (da) Silva"), using the argument `format`.
+#'   "last_init_prep" or "last_init" (the default; e.g. "Silva, Maria A.
+#'   Pereira"), "prep_last_init" (e.g. "da Silva, Maria A. Pereira") or
+#'   "init_last" (e.g. "Maria A. Pereira (da) Silva"), using the argument
+#'   `format`.
 #'
 #' @author Renato A. F. de Lima
 #'

@@ -8,19 +8,19 @@
 #'
 #' @param x a data frame with the species records.
 #' @param lon character. Column with the record longitude in decimal degrees.
-#' Default to 'decimalLongitude.new'.
+#'   Default to 'decimalLongitude.new'.
 #' @param lat character. Column with the record latitude in decimal degrees.
-#' Default to 'decimalLatitude.new'
+#'   Default to 'decimalLatitude.new'
 #' @param tax.name character. Name of the columns containing the species name.
 #'   Default to "scientificName.new"
 #' @param geo.name character. Name of the column containing the validation of
 #'   the geographical coodinates. Default to "geo.check"
 #' @param cult.name character. Name of the column containing the validation of
 #'   records from cultiavted individuals. Default to "cult.check"
-#' @param clas.cut numerical. The threshold distance for outlier detection, using
-#' classic Mahalanobis distances. Default to 3
+#' @param clas.cut numerical. The threshold distance for outlier detection,
+#'   using classic Mahalanobis distances. Default to 3
 #' @param rob.cut numerical. The threshold distance for outlier detection, using
-#' classic Mahalanobis distances. Default to 16
+#'   classic Mahalanobis distances. Default to 16
 #'
 #' @inheritParams mahalanobisDist
 #'
@@ -31,8 +31,8 @@
 #'
 #' @details The function searches for spatial outliers using two different
 #'   methods to detect outliers (Liu et al., 2018): the classic and the robust
-#'   squared Mahalanobis distances (see help of `mahalanobisDist()` for details).
-#'   They can be used separetely or combined (See Examples).
+#'   squared Mahalanobis distances (see help of `mahalanobisDist()` for
+#'   details). They can be used separetely or combined (See Examples).
 #'
 #'   To detect outliers, we need thresholds to be applied to the values of
 #'   Mahalanobis distances obtained for each species (arguments `clas.cut` and
@@ -48,9 +48,9 @@
 #'
 #'   The detection of outliers may depend on the amount of unique coordinates
 #'   available. Therefore, the detection of spatial outliers is safer for cases
-#'   where many unique coordinates are available. As a rule of thumb, ten
-#'   unique coordinates per taxa should avoid possible problems (undetected
-#'   true outliers or detection of false outliers). See Examples.
+#'   where many unique coordinates are available. As a rule of thumb, ten unique
+#'   coordinates per taxa should avoid possible problems (undetected true
+#'   outliers or detection of false outliers). See Examples.
 #'
 #' @examples
 #'

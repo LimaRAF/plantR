@@ -47,16 +47,12 @@
 #'
 formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
 
-  #Escaping R CMD check notes from using data.table syntax
-  # "recordedBy.new" <- "recordedBy" <- "identifiedBy.new" <- NULL
-  # "identifiedBy" <- "recordNumber.new" <- "recordNumber" <- NULL
-  # "year.new" <- "dateIdentified.new" <- "dateIdentified" <- NULL
-  # "yearIdentified" <- "yearIdentified.new" <- "order" <- "tmp.ordem" <- NULL
-  # "recordedBy.aux" <- "identifiedBy.aux" <- "last.name" <- NULL
-
   ## Check input
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   # Missing year of collection that may be stored in the field 'eventDate'
   if ("eventDate" %in% names(x) & "year" %in% names(x)) {
@@ -80,45 +76,25 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   }
 
   ## Standardizing collection codes
-  x <- getCode(x) # bm: 0.1s with 3 spp
+  x <- getCode(x)
 
   ## First edits to names, numbers and dates
-  # dt <- data.table::data.table(x)
-  # dt[ , tmp.ordem := .I, ]
-
-  # Collector name
-  # data.table::setkeyv(dt, "recordedBy")
-  # dt[, recordedBy.new := fixName(recordedBy),  by = "recordedBy"] # bm: 64s com as 3 spp
-  x$recordedBy.new <- fixName(x$recordedBy) # bm: 0.5s com as 3 spp
-
+  x$recordedBy.new <- fixName(x$recordedBy)
 
   # Collector number
-  # data.table::setkey(dt, recordNumber)
-  # dt[, recordNumber.new := colNumber(recordNumber, noNumb = noNumb),  by = recordNumber]  # bm: 13s com as 3 spp
-  x$recordNumber.new <- colNumber(x$recordNumber, noNumb = noNumb) # bm: 0.5s com as 3 spp
+  x$recordNumber.new <- colNumber(x$recordNumber, noNumb = noNumb)
 
   # Collection year
-  # data.table::setkey(dt, year)
-  # dt[, year.new := getYear(year, noYear = noYear),  by = year] # bm: 0.3s com as 3 spp
-  x$year.new <- getYear(x$year, noYear = noYear) # bm: 0.07s com as 3 spp
+  x$year.new <- getYear(x$year, noYear = noYear)
 
   # Identificator name
-  # data.table::setkey(dt, identifiedBy)
-  # dt[, identifiedBy.new := fixName(identifiedBy),  by = identifiedBy]
   x$identifiedBy.new <- fixName(x$identifiedBy)
 
   # Identification year
-  # data.table::setkey(dt, dateIdentified)
-  # dt[, yearIdentified.new := getYear(dateIdentified, noYear = noYear),  by = dateIdentified]
   x$yearIdentified.new <- getYear(x$dateIdentified, noYear = noYear)
 
   ## Putting people's names into the default name notation and
   #separating main and auxiliary names
-  # data.table::setkey(dt, recordedBy.new)
-  # dt[, recordedBy.aux := prepName(recordedBy.new, fix.names = FALSE, sep.out = "; ", output = "aux"),
-  #    by = recordedBy.new]
-  # dt[, recordedBy.new := prepName(recordedBy.new, fix.names = FALSE, output = "first"),
-  #    by = recordedBy.new]
   x$recordedBy.aux <- prepName(x$recordedBy.new,
                                fix.names = FALSE,
                                sep.out = "; ",
@@ -127,11 +103,6 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
                                fix.names = FALSE,
                                output = "first")
 
-  # data.table::setkey(dt, identifiedBy.new)
-  # dt[, identifiedBy.aux := prepName(identifiedBy.new, fix.names = FALSE, sep.out = "; ", output = "aux"),
-  #    by = identifiedBy.new]
-  # dt[, identifiedBy.new := prepName(identifiedBy.new, fix.names = FALSE, sep.out = "; ", output = "first"),
-  #    by = identifiedBy.new]
   x$identifiedBy.aux <- prepName(x$identifiedBy.new,
                                  fix.names = FALSE,
                                  sep.out = "; ",
@@ -141,12 +112,6 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
                                  output = "first")
 
   ## Standardize the notation for missing names
-  # data.table::setkey(dt, recordedBy.new)
-  # dt[, recordedBy.new := missName(recordedBy.new, type = "collector", noName = noName),
-  #    by = recordedBy.new]
-  # data.table::setkey(dt, identifiedBy.new)
-  # dt[, identifiedBy.new := missName(identifiedBy.new, type = "identificator", noName = noName),
-  #    by = identifiedBy.new]
   x$recordedBy.new <- missName(x$recordedBy.new,
                                type = "collector",
                                noName = noName)
@@ -155,16 +120,8 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
                                  noName = noName)
 
   ## Extract the last name of the collector
-  # data.table::setkey(dt, recordedBy.new)
-  # dt[, last.name := lastName(recordedBy.new, noName = "s.n."),
-  #    by = recordedBy.new]
   x$last.name <- lastName(x$recordedBy.new,
                           noName = noName)
 
-  ## Re-ordering and returning
-  # data.table::setorder(dt, "tmp.ordem")
-  # dt[, tmp.ordem := NULL,]
-  # df <- as.data.frame(dt)
-  # return(df)
   return(x)
 }

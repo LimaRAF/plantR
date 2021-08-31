@@ -204,7 +204,7 @@ prepSpecies <- function(x,
     suggest_flora <- merge(df, suggest_sp[,c("original.search","family","suggestedName","authorship","scientific.name","notes","id")],
                            by.x = "verbatimSpecies", "original.search", all.x = TRUE, sort = FALSE)
     suggest_flora <- suggest_flora[order(suggest_flora$tmp.ordem),]
-    suggest_flora$source <- "BR-Flora"
+    suggest_flora$tax.source <- "BR-Flora"
 
     results[[which(db %in% c("bfo", "fbo"))]] <- suggest_flora
   }
@@ -215,6 +215,9 @@ prepSpecies <- function(x,
     if (use.authors) {
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
+      # adding missing epiteths to names not at species level (avoid TPL errors)
+      unique_sp[!grepl(" ", unique_sp, fixed = TRUE)] <-
+        paste0(unique_sp[!grepl(" ", unique_sp, fixed = TRUE)], " sp.")
       # Species names, exact match
       my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
@@ -224,6 +227,9 @@ prepSpecies <- function(x,
     } else {
       # removing duplicated names
       unique_sp <- unique(df$verbatimSpecies)
+      # adding missing epiteths to names not at species level (avoid TPL errors)
+      unique_sp[!grepl(" ", unique_sp, fixed = TRUE)] <-
+        paste0(unique_sp[!grepl(" ", unique_sp, fixed = TRUE)], " sp.")
       # Species names, exact match
       my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE)
@@ -322,7 +328,7 @@ prepSpecies <- function(x,
                            by.x = "verbatimSpecies", by.y = "Taxon", all.x = TRUE, sort = FALSE)
     }
     suggest_TPL <- suggest_TPL[order(suggest_TPL$tmp.ordem),]
-    suggest_TPL$source <- "TPL"
+    suggest_TPL$tax.source <- "TPL"
     names(suggest_TPL)[grepl("Family|Authority|ID", names(suggest_TPL))] <-
       c("family", "authorship", "id")
     results[[which(db %in% "tpl")]] <- suggest_TPL
@@ -352,8 +358,8 @@ prepSpecies <- function(x,
     "scientificNameFull"
   names(final.results1)[which(names(final.results1) == "notes")] <-
     "tax.notes"
-  names(final.results1)[which(names(final.results1) == "source")] <-
-    "tax.source"
+  # names(final.results1)[which(names(final.results1) == "source")] <-
+  #   "tax.source"
 
   return(final.results1)
 }

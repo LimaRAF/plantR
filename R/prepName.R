@@ -21,12 +21,13 @@
 #'   \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
 #'   then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
 #'   the names of multiple people associated to each record are separated by a
-#'   pipe (i.e. '|'). But this default can be altered using the argument `sep.out`.
+#'   pipe (i.e. '|'). But this default can be altered using the argument
+#'   `sep.out`.
 #'
 #'   In the case of names from more then one person (separated by the characters
-#'   defined in the argument `sep.in`, the argument `output` controls which names
-#'   should be returned: names of all person ("all", the default), first person's
-#'   names ("first") or all but the first person's names ("aux").
+#'   defined in the argument `sep.in`, the argument `output` controls which
+#'   names should be returned: names of all person ("all", the default), first
+#'   person's names ("first") or all but the first person's names ("aux").
 #'
 #'   The function identifies (and removes) name prefixes or prepositions (e.g.
 #'   de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,

@@ -7,6 +7,8 @@
 #'
 #' @param x a data frame with the occurrence data and the columns containing the
 #'   outputs of the __plantR__ validation functions.
+#' @param print logical. Should the first part of the table be printed? Default
+#'   to TRUE.
 #'
 #' @details The summary output depends on the presence of some key columns in
 #'   the input data frame \code{x}. Most of these columns are returned from
@@ -24,7 +26,7 @@
 #'
 #' @export summaryFlags
 #'
-summaryFlags <- function(x) {
+summaryFlags <- function(x, print = TRUE) {
 
   ## check input
   if (!class(x) == "data.frame")
@@ -71,20 +73,23 @@ summaryFlags <- function(x) {
     dups$dup.prop[dups$dup.prop %in% "cc"] <- "Cannot check (no info)"
     names(dups)[2] <- "N"
 
-    cat("==================", sep="\n")
-    cat(" DUPLICATE SEARCH ", sep="\n")
-    cat("==================", sep="\n")
-    cat("Records per strength of duplicate indication:\n",
-        #dups,
-        knitr::kable(dups, col.names = c("Strenght", "Records")),
-        sep="\n")
+    if (print) {
+      cat("==================", sep="\n")
+      cat(" DUPLICATE SEARCH ", sep="\n")
+      cat("==================", sep="\n")
+      cat("Records per strength of duplicate indication:\n",
+          knitr::kable(dups, col.names = c("Strenght", "Records")),
+          sep="\n")
+    }
   } else { dups <- NULL}
 
   # How many valid localions?
   if (!is.na(covs.present[["locations"]])) {
-    cat("\n=====================", sep="\n")
-    cat(" LOCALITY VALIDATION ", sep="\n")
-    cat("=====================", sep="\n")
+    if (print) {
+      cat("\n=====================", sep="\n")
+      cat(" LOCALITY VALIDATION ", sep="\n")
+      cat("=====================", sep="\n")
+    }
 
     locs <- dt[ , .N, by = c(covs.present[["locations"]])]
     locs.clean <- data.frame(locs)
@@ -125,22 +130,24 @@ summaryFlags <- function(x) {
 
     } else { locs <- NULL }
 
-    cat("Results of the locality validation:\n",
-        #dups,
-        knitr::kable(locs.clean, col.names = c("Validation", "Records")),
-        sep="\n")
-    if (!is.null(locs1))
-      cat("\nDetails of the validation (original vs. validated localities):\n",
-          knitr::kable(locs1),
+    if (print) {
+      cat("Results of the locality validation:\n",
+          knitr::kable(locs.clean, col.names = c("Validation", "Records")),
           sep="\n")
-
+      if (!is.null(locs1))
+        cat("\nDetails of the validation (original vs. validated localities):\n",
+            knitr::kable(locs1),
+            sep="\n")
+    }
   }
 
   # How many geographically validated coordinates?
   if (!is.na(covs.present[["coordinates"]])) {
-    cat("\n=======================", sep="\n")
-    cat(" COORDINATE VALIDATION ", sep="\n")
-    cat("=======================", sep="\n")
+    if (print) {
+      cat("\n=======================", sep="\n")
+      cat(" COORDINATE VALIDATION ", sep="\n")
+      cat("=======================", sep="\n")
+    }
 
     coords <- dt[ , .N, by = c(covs.present[["coordinates"]])]
     coords <- coords[order(N, decreasing = TRUE),]
@@ -169,16 +176,15 @@ summaryFlags <- function(x) {
     coords.clean1 <- coords.clean1[order(coords.clean1$Records, decreasing = TRUE), , drop = FALSE]
     row.names(coords.clean1) <- NULL
 
-    cat("Valid coordinates per origin:\n",
-        #dups,
+    if (print) {
+      cat("Valid coordinates per origin:\n",
         knitr::kable(coords.clean0),
         sep="\n")
 
-    cat("\nValid coordinates per resolution:\n",
-        #dups,
+      cat("\nValid coordinates per resolution:\n",
         knitr::kable(coords.clean1),
         sep="\n")
-
+    }
   } else { coords <- NULL }
 
   # spatial outliers and duplicates
@@ -187,9 +193,11 @@ summaryFlags <- function(x) {
   # How many probably cultivated specimens?
   if (!is.na(covs.present[["cultivated"]])) {
 
-    cat("\n======================", sep="\n")
-    cat(" CULTIVATED SPECIMENS ", sep="\n")
-    cat("======================", sep="\n")
+    if (print) {
+      cat("\n======================", sep="\n")
+      cat(" CULTIVATED SPECIMENS ", sep="\n")
+      cat("======================", sep="\n")
+    }
 
     cults <- dt[ , .N, by = c(covs.present[["cultivated"]])]
     cults <- data.frame(cults[order(N, decreasing = TRUE),])
@@ -197,7 +205,8 @@ summaryFlags <- function(x) {
     cults[,1][cults[,1] == "prob_cultivated"] <- "probably yes"
     cults[,1][cults[,1] == "cultivated"] <- "yes"
 
-    cat("Number of specimens from cultivated individuals:\n",
+    if (print)
+      cat("Number of specimens from cultivated individuals:\n",
         knitr::kable(cults, col.names = c("Cultivated", "Records")),
         sep="\n")
 
@@ -206,15 +215,18 @@ summaryFlags <- function(x) {
   # Confidence level on species taxonomic identifications
   if (!is.na(covs.present[["taxonomy"]])) {
 
-    cat("\n======================", sep="\n")
-    cat(" TAXONOMIC CONFIDENCE ", sep="\n")
-    cat("======================", sep="\n")
+    if (print) {
+      cat("\n======================", sep="\n")
+      cat(" TAXONOMIC CONFIDENCE ", sep="\n")
+      cat("======================", sep="\n")
+    }
 
     taxs <- dt[ , .N, by = c(covs.present[["taxonomy"]])]
     taxs <- data.frame(taxs[order(N, decreasing = TRUE),])
     taxs[,1][is.na(taxs[,1])] <- "unknown"
 
-    cat("Confidence level of the taxonomic identifications:\n",
+    if (print)
+      cat("Confidence level of the taxonomic identifications:\n",
         knitr::kable(taxs, col.names = c("Confidence", "Records")),
         sep="\n")
 
@@ -227,7 +239,6 @@ summaryFlags <- function(x) {
             coordinates = coords,
             cultivated = cults,
             taxonomy = taxs)
-
 
   invisible(r)
 }
