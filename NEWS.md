@@ -47,10 +47,7 @@ binding of columns with different data types.
 * small improvements in `prepCoord()`, `getYear()`, `addRank()` and
 `formatTax()`
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
 # plantR 0.1.2
 
 * New tutorial on how __plantR__ can be used to update databases of biological
