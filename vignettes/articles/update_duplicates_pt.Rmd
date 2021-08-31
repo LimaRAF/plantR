@@ -34,7 +34,7 @@ sugestão de criar esse tutorial mais dirigido aos curadores de herbário.
 Antes de começar precisamos carregar o pacote usando a função `library()`,
 assumindo que você tem o pacote instalado junto ao seu `R`. Se você ainda não
 tem o pacote instalado em seu computador, siga as instruções do tutorial geral
-do pacote (i.e. 'plantr_tutorial.html').
+do pacote (i.e., 'plantr_tutorial.html').
 
 ```{r, eval = TRUE}
 library("plantR")
@@ -45,8 +45,13 @@ library("plantR")
 Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do
 speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para
 a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil,
+<<<<<<< Updated upstream
 iremos baixar apenas os coletas realizadas no Brasil (i.e. campo `country` igual
 a 'BR').
+=======
+iremos baixar apenas as coletas realizadas no Brasil (i.e., campo `country`
+igual a 'BR').
+>>>>>>> Stashed changes
 
 Para downloads do GBIF, o limite do número de registros baixados é controlado
 pelo argumento `n.records` e o padrão é baixar até 5000 registros por item
@@ -58,7 +63,11 @@ para famílias com mais de 100,000 registros no GBIF.
 
 Note que o campo `species` da função `rgbif2()` aceita não apenas nomes ao nível
 de espécie, mas em qualquer nível taxonômico. Para a função `rspeciesLink()`,
+<<<<<<< Updated upstream
 há um campo específico para familia (i.e. `family`).
+=======
+há um campo específico para o nome da família (i.e., `family`).
+>>>>>>> Stashed changes
 
 ```{r, eval = TRUE, message = FALSE, warning = FALSE}
 familia <- "Blechnaceae"
@@ -86,13 +95,13 @@ dim(occs)
 ```
 
 Veja que o objeto `occs` contém agora a soma dos registros vindos do speciesLink
-e GBIF (i.e. aprox. 47,000 em Abril de 2021).
+e GBIF (i.e., aprox. 47,000 em Abril de 2021).
 
 
 # Padronização e validação de campos relevantes 
 
 Mesmo que você esteja interessado apenas em atualizar um tipo de informação
-(e.g. nome da espécie), é importante padronizar a notação e formato de campos
+(e.g., nome da espécie), é importante padronizar a notação e formato de campos
 que são importantes para a busca de duplicatas. Essa padronização não é
 perfeita, mas ela aumenta as chances de recuperar duplicatas com pequenas
 diferenças de notação em campos como nome e número do coletor, a localidade da
@@ -102,13 +111,13 @@ coleta, nome da família e a grafia e/ou formato do nome da espécie.
 
 O pacote __plantR__ possui funções que executam várias dessas edições de uma só
 vez. As funções `formatOcc()`, `formatLoc()`, `formatCoord()` e `formatTax()`
-fazem a padronização dos campos relacionados à coleta em si (e.g. código da
+fazem a padronização dos campos relacionados à coleta em si (e.g., código da
 coleção, nome e número do coletor), à localidade da coleta, às coordenadas
 geográficas associadas à coleta e à informação taxonômica.
 
 A verificação ortográfica e de sinônimos via o The Plant List é relativamente
 demorada. Portanto, iremos fazer a conferência e validação dos nomes apenas
-usando a Flora do Brasil (i.e. campo `db` igual a 'fbo')
+usando a Flora do Brasil (i.e., campo `db` igual a 'fbo')
 
 ```{r, eval = TRUE, collapse = FALSE, message = FALSE, warning = FALSE}
 occs <- formatOcc(occs)
@@ -158,8 +167,8 @@ rm(temp)
 ```
 
 Note que entre os nomes listados há vários especialistas do grupo, mas que não
-são exatamente especialistas da família em questão (e.g. 'Gonzatti, F.'). Outros
-nomes podem estar listados porque a base de dados usada está incompleta. 
+são exatamente especialistas da família em questão (e.g., 'Gonzatti, F.').
+Outros nomes podem estar listados porque a base de dados usada está incompleta.
 
 Para incluir nomes faltantes de taxonomistas, é possível usar o campo
 `miss.taxonomist`. Nesse exemplo vamos incluir dois nomes 'Kazmirczak, C.' e 
@@ -181,7 +190,7 @@ com mais identificações, mas que não são especialistas da família.
 
 ## Definindo os identificadores únicos
 Para a busca de duplicatas, precisamos de algumas informações adicionais. Uma
-delas é ter um identificador único para cada registro (i.e. número de tombo).
+delas é ter um identificador único para cada registro (i.e., número de tombo).
 Para isso podemos concatenar o código padronizado da coleção e seu número de
 registro ou tombo na coleção correspondente. Isso pode ser feito usando a função
 `getTombo()`:
@@ -225,7 +234,7 @@ localidade da coleta.
 Como há muita variação de notação entre coleções no nome do coletor, é possível
 usar apenas o seu sobrenome. Além disso, como o uso apenas do sobrenome e número
 de coletor pode retornar falsas duplicatas para nomes muito comuns e números de
-coletor baixos (e.g. Lima 10), é aconselhado incluir outros campos na busca.
+coletor baixos (e.g., Lima 10), é aconselhado incluir outros campos na busca.
 Neste exemplo iremos usar três combinações de campos, que são geradas usando a
 função `prepDup()`:
 
@@ -261,7 +270,7 @@ head(dups[order(dups$dup.ID),], 4)
 ## Inspecionando os resultados de número de duplicatas encontradas
 
 Novas colunas foram criadas. A coluna 'dup.prop' contém a força de indicação das
-duplicatas (i.e. quanto mais próximo de 1 mais segurança na indicação). Vamos
+duplicatas (i.e., quanto mais próximo de 1 mais segurança na indicação). Vamos
 inspecionar as categorias geradas:
 
 
@@ -278,13 +287,13 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Para esses dados, cerca de 27% dos registros possuem forte indicação de
-duplicatas e cerca de 38% não tiveram nenhuma indicação (i.e. prováveis
-unicatas). Além desses, 16% foram classificados com 'dup.prop' > 0.5 (e.g. 2
-sobre 3 combinações iguais) e como 'cc' de 'cannot check' por falta de
-informações associadas aos campos escolhidos. Para registros com 'dup.prop' <0.5
-(apenas 1 combinação em comum) sugere-se um 'pente-fino', pois esses casos podem
-representar problemas ou falsas duplicatas.
+Para esses dados, cerca de 32% dos registros possuem forte indicação de
+duplicatas e cerca de 37% não tiveram nenhuma indicação (i.e., prováveis
+unicatas). Além desses, 16% foram classificados com 'dup.prop' igual a 0.667
+(e.g., 2 sobre 3 combinações iguais) e 16% como 'cc' de 'cannot check' por falta
+de informações associadas aos campos escolhidos. Para registros com 'dup.prop'
+<0.5 (apenas 1 combinação em comum) sugere-se um 'pente-fino', pois esses casos
+podem representar problemas ou falsas duplicatas.
 
 
 # Homogeneizando as informações entre grupos de duplicatas                               
@@ -301,18 +310,18 @@ occs <- mergeDup(occs, prop = 0.65)
 ```
 
 O default dessa função usa os campos já editados pelo __plantR__ e cria novas
-colunas com um '1' adicionado ao final do nome da coluna (e.g. coluna
+colunas com um '1' adicionado ao final do nome da coluna (e.g., coluna
 'family.new' após a homogeneização será armazenada na nova coluna
 'family.new1'). Lembre-se, contudo, que os nomes das colunas que serão usadas
-podem ser definidas pelo usuário (e.g. usar a coluna 'family' ao invés da
+podem ser definidas pelo usuário (e.g., usar a coluna 'family' ao invés da
 'family.new').
 
 ## Inspecionando os resultados da homogeneização
 
 Podemos comparar as mudanças obtidas para um dos campos, como por exemplo, o
-campo que define o nível de confiança na identificação do registro. Note que mais
-de cerca de 700 registros que possuíam nível definido como 'unknown' e 'low'
-passaram a ter um nível definido como 'high'.
+campo que define o nível de confiança na identificação do registro. Note que 300
+e 700 registros que possuíam nível definido como 'unknown' e 'low' passaram a
+ter um nível definido como 'high'.
 
 ```{r, eval = TRUE, collapse = TRUE}
 table(occs$tax.check, occs$tax.check1, dnn = c("antes", "depois"))
@@ -395,7 +404,11 @@ Brasil.
 ### Alguma atualização taxonômica feita nas duplicatas em outras coleções?
 
 Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos
+<<<<<<< Updated upstream
 apenas com os registro com indicações de duplicata (i.e. coluna 'dup.ID' não
+=======
+apenas com os registros com indicações de duplicata (i.e., coluna 'dup.ID' não
+>>>>>>> Stashed changes
 vazia):
 
 ```{r, eval = TRUE, collapse = TRUE}
@@ -417,7 +430,8 @@ occs2.tax[occs2.tax$checar.taxon,]
 Note que há cinco registros cujo nome encontrado do FURB é diferente do nome 
 encontrado nas demais coleções. Vamos imprimir um exemplo para entender o que as
 funções estão fazendo. Iremos usar como exemplo o identificador de duplicatas ('dup.ID')
-'FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|VIC_37877|VIES_27594'.
+'FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|
+VIC_37877|VIES_27594'.
 
 ```{r, eval = TRUE, collapse = TRUE}
 occs2.tax[grepl('FURB_6463', occs2.tax$dup.ID),]

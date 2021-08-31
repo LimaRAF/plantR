@@ -1,0 +1,67 @@
+---
+title: "Usando o __plantR__ para gerar listas de espécies por lacalidade"
+author: "Renato A. F. de Lima (raflima at usp.br)"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+header-includes:
+   - \renewcommand{\contentsname}{Sumário}
+output:
+  rmarkdown::html_vignette:
+      toc: true
+      number_sections: true
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Introdução
+
+Esse tutorial ... 
+
+
+# Obtendo os registros  
+
+Antes de começar precisamos carregar o pacote usando a função `library()`,
+assumindo que você tem o pacote instalado junto ao seu `R`. Se você ainda não
+tem o pacote instalado em seu computador, siga as instruções do tutorial geral
+do pacote (i.e. 'plantr_tutorial.html').
+
+```{r, eval = TRUE}
+library("plantR")
+```
+
+# Definindo os critérios de busca
+
+<!-- Listas muuuuito difíceis: Parna dos Veadeiros em GO ou Parna Chapada Diamantina na Bahia -->
+<!-- Lista que já temos para comparar, mas ainda não publicada: Rebio Duas Bocas no ES -->
+
+Para esse tutorial iremos usar como exemplo a Reserva Biológica de Duas Bocas,
+no município de Cariacica no Espírito Santo. Iremos baixar os registros do
+speciesLink (INCT) e do GBIF. 
+
+municipios <- c("Cariacica")
+
+
+
+# Baixando os registros do speciesLink e GBIF
+
+```{r, eval = TRUE, message = FALSE, warning = FALSE}
+occs_county_splk <- rspeciesLink(country = c("Brasil", "Brazil", "BR", "BRA"),
+                            county = municipios,
+                            Scope = "plants")
+table(occs_county$country)
+table(occs_county$county)
+
+occs_county_gbif <- rgbif2(species = "Plantae",
+                       n.records = 500000,
+                       country = "BR",
+                       stateProvince = "Espírito Santo")
+table(occs_county1$country)
+table(occs_county1$stateProvince)
+
+```
+
+
