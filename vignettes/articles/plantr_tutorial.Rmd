@@ -553,14 +553,8 @@ sort(table(occs$scientificNameStatus))
 Although the function `fixSpecies()` presented above formatted the species
 names, there are still many more names than the ones we downloaded. Most of them
 are names at the infra-specific level, but others are probably synonyms,
-<<<<<<< Updated upstream
-orthographical variants or even typos. There are R packages that check species
-nomenclature (e.g. __taxize__, __Taxonstand__, and __WorldFlora__). For species
-=======
 orthographic variants or even typos. There are R packages that check species
-nomenclature (e.g., __taxize__, __Taxonstand__, and __WorldFlora__). For species
->>>>>>> Stashed changes
-listed in the Brazilian Flora 2020, there is also the package `flora`, which
+nomenclature (e.g., __taxize__, __Taxonstand__, and __WorldFlora__). For species listed in the Brazilian Flora 2020, there is also the package `flora`, which
 follow the accepted nomenclature of the Brazilian Flora 2020 project. __plantR__
 uses the functionalities of some of these packages to inspect possible
 suggestions for species names, through the function `prepSpecies()`:
@@ -692,21 +686,12 @@ occs <- checkCoord(occs,
 unique(occs$geo.check)
 ```
 
-<<<<<<< Updated upstream
-The new column 'geo.check' have some main types of classes. The first type
-starts with an 'ok_' and is followed by the level at which the coordinate was
-validated (e.g., country, state, county). It also contains the classes 'sea'
-(i.e., coordinates falling into the sea or bays), 'bad_country' (i.e.,
-coordinates falling in the land but in the wrong country), 'check_gazetteer' (i.e.,
-locality not found in the gazetteer) and 'no_cannot_check' (i.e., no coordinates
-=======
 The new column 'geo.check' has some main types of classes. The first type starts
 with an 'ok_' and is followed by the level at which the coordinate was validated
 (e.g., country, state, county). It also contains the classes 'sea' (i.e.,
 coordinates falling into the sea or bays), 'bad_country' (i.e., coordinates
 falling in the land but in the wrong country), 'check_gazetteer' (i.e., locality
 not found in the gazetteer) and 'no_cannot_check' (i.e., no coordinates
->>>>>>> Stashed changes
 available).
 
 The function `checkCoord()` can also return the distance (in meters) between the
@@ -930,19 +915,11 @@ head(dups[order(dups$dup.ID),],6)
 table(dups$dup.prop)
 ```
 As a result, we found over 6000 records with a high chance of representing true
-<<<<<<< Updated upstream
-duplicates, i.e. the proportion of search strings shared between them is maximum
-(dup.prop = 1). Other ~1000 specimens had only one search string in common.
-Moreover, there is indication of possible ~7000 unicates, and of other ~5000
-specimens we could not check for duplicates (i.e. all search strings used have
-missing information).
-=======
 duplicates, i.e., the proportion of search strings shared between them is
 maximum (dup.prop = 1). Other ~1000 specimens had only one search string in
 common. Moreover, there is an indication of possible ~7000 unicates, and of
 other ~5000 specimens we could not check for duplicates (i.e., all search
 strings used have missing information).
->>>>>>> Stashed changes
 
 Note that if there are duplicated record identifiers (i.e., same accession
 number from the same collection) both are listed within the accession number

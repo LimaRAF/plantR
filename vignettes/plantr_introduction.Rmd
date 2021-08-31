@@ -108,17 +108,10 @@ Regarding the validation of geographical coordinates. In the case of invalid or
 missing coordinates, we assume that the locality information associated with the
 record (e.g. country, state, county) is correct (i.e. locality prevails over
 coordinates), and so working coordinates are taken from a gazetteer. It is
-<<<<<<< Updated upstream
-important to note that if the locality information is indeed mistaken (eg. wrong
-county name), then even if the original coordinates are good, they will not be
-validated (record locality and coordinate locality don't match) and may be
-replaced by coordinates taken from the gazetteer.
-=======
 important to note that if the locality information is indeed mistaken (e.g.,
 wrong county name), then even if the original coordinates are good, they will
 not be validated (record locality and coordinate locality don't match) and may
 be replaced by coordinates taken from the gazetteer.
->>>>>>> Stashed changes
 
 Currently, geographical validation can be performed at the county level for
 Latin American countries and at the country level for the rest of the world. We

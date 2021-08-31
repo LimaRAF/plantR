@@ -45,13 +45,8 @@ library("plantR")
 Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do
 speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para
 a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil,
-<<<<<<< Updated upstream
-iremos baixar apenas os coletas realizadas no Brasil (i.e. campo `country` igual
-a 'BR').
-=======
 iremos baixar apenas as coletas realizadas no Brasil (i.e., campo `country`
 igual a 'BR').
->>>>>>> Stashed changes
 
 Para downloads do GBIF, o limite do número de registros baixados é controlado
 pelo argumento `n.records` e o padrão é baixar até 5000 registros por item
@@ -63,11 +58,7 @@ para famílias com mais de 100,000 registros no GBIF.
 
 Note que o campo `species` da função `rgbif2()` aceita não apenas nomes ao nível
 de espécie, mas em qualquer nível taxonômico. Para a função `rspeciesLink()`,
-<<<<<<< Updated upstream
-há um campo específico para familia (i.e. `family`).
-=======
 há um campo específico para o nome da família (i.e., `family`).
->>>>>>> Stashed changes
 
 ```{r, eval = TRUE, message = FALSE, warning = FALSE}
 familia <- "Blechnaceae"
@@ -404,11 +395,7 @@ Brasil.
 ### Alguma atualização taxonômica feita nas duplicatas em outras coleções?
 
 Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos
-<<<<<<< Updated upstream
-apenas com os registro com indicações de duplicata (i.e. coluna 'dup.ID' não
-=======
 apenas com os registros com indicações de duplicata (i.e., coluna 'dup.ID' não
->>>>>>> Stashed changes
 vazia):
 
 ```{r, eval = TRUE, collapse = TRUE}

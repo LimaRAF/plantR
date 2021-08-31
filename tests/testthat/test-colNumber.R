@@ -15,4 +15,3 @@ test_that("ColNumber works", {
   expect_equal(colNumber("347A"), "347-A")
   expect_equal(colNumber("COL347A", colCodes = "COL"), "347-A")
 })
-#is there a way to auto-detect the collection codes?
