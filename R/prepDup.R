@@ -95,6 +95,9 @@ prepDup <- function(x, col.names = c(family = "family.new",
   if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   ## Checking the input columns
   #unique record identifier
   if (rec.ID %in% names(x)) {
@@ -136,6 +139,11 @@ prepDup <- function(x, col.names = c(family = "family.new",
   ## Removing unwanted columns in the data
   x1 <- x[, match(cols, names(x))]
   names(x1) <- names(cols)[match(cols, names(x1))]
+
+  ## Replacing empty cell by NA
+  replace_these <- x1 == "" & !is.na(x1)
+  if (any(replace_these))
+    x1[replace_these] <- NA
 
   ## Editing the filtered columns to avoid misleading duplicates
   if ("col.year" %in% names(x1)) { # collection year
@@ -179,7 +187,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
 
   ## Creating the duplicate search strings
   srch.str <- vector("list", length(comb.fields))
-  for (i in 1:length(srch.str)) {
+  for (i in seq_along(srch.str)) {
     srch.str[[i]] <-
       as.character(apply(x1[,comb.fields[[i]]], 1, paste0, collapse = "_"))
   }
@@ -188,7 +196,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
   if (ignore.miss) {
     miss.patt <- paste0(c(noYear, noNumb, noName), collapse = '|')
     miss.patt <- gsub('\\.','\\\\.', miss.patt)
-    for (i in 1:length(srch.str)) {
+    for (i in seq_along(srch.str)) {
       srch.str[[i]][grepl(miss.patt,
                           srch.str[[i]], perl = TRUE, ignore.case=TRUE)] <- NA
       srch.str[[i]][grepl("^NA_|_NA_|_NA$",
@@ -199,11 +207,11 @@ prepDup <- function(x, col.names = c(family = "family.new",
   #Transforming the duplicate search strings into a data frame
   dup.srch.str <- do.call(cbind.data.frame, srch.str)
   names(dup.srch.str) <- paste0("dup.srch.str", 1:length(dup.srch.str))
-  for(i in 1:length(srch.str))
+  for(i in seq_along(srch.str))
     dup.srch.str[,i] <- as.character(dup.srch.str[,i])
 
   ##Saving the new info
   result <- cbind.data.frame(numTombo, dup.srch.str,
-                         stringsAsFactors = FALSE)
+                             stringsAsFactors = FALSE)
   return(result)
 }

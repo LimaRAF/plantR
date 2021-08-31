@@ -15,9 +15,7 @@ shares_border <- function(country1 = "brazil",
   #Escaping R CMD check notes
   world <- world
 
-  # w <- spData::world
   w <- world
-  # w$name <- tolower(textclean::replace_non_ascii(w$name_long))
 
   if (!country1 %in% w$name)
     country1 <- prepLoc(prepCountry(country1))

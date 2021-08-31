@@ -1,0 +1,10 @@
+test_that("rmLatin works", {
+  expect_equal(rmLatin("Thom\u00e9"), "Thome")
+  expect_equal(rmLatin("Mu\u00f1oz"), "Munoz")
+  expect_equal(rmLatin("\u0153uf"), "oeuf")
+  expect_equal(rmLatin("\u0153uf"), "oeuf")
+  expect_equal(rmLatin("\u00c1lvaro"), "Alvaro")
+  expect_equal(rmLatin("Ara\u00fajo"), "Araujo")
+  expect_equal(rmLatin("Gr\u00f8tan"), "Grotan")
+  expect_equal(rmLatin("M\u00fcller"), "Muller")
+})

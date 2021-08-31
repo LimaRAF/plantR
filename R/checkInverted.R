@@ -61,6 +61,9 @@ checkInverted <- function(x,
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!all(c(lat, lon, country.gazetteer) %in% colnames(x)))
     stop("One or more column names declared do not match those of the input object: please rename or specify the correct names")
 
@@ -135,7 +138,7 @@ checkInverted <- function(x,
     trans.data <- vector("list", length(types))
     names(trans.data) <- names(types)
 
-    for(i in 1:length(types))
+    for(i in seq_along(types))
       trans.data[[i]] <- sf::st_as_sf(tmp, coords = types[[i]])
 
     check <- dplyr::bind_rows(trans.data, .id = "types")
@@ -160,7 +163,7 @@ checkInverted <- function(x,
         #getting the new coordinates
         new.coords <- sf::st_coordinates(check1)
         colnames(new.coords) <- c(lon, lat)
-        new.coords <- new.coords[check_these %in% TRUE, ]
+        new.coords <- new.coords[check_these %in% TRUE, , drop = FALSE]
         sf::st_geometry(check1) <- NULL
 
         #editing the validation columns

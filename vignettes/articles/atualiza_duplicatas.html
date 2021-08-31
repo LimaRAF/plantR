@@ -12,7 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima (raflima at usp.br)" />
 
-<meta name="date" content="2021-07-20" />
+<meta name="date" content="2021-08-31" />
 
 <title>Usando o plantR para atualizar informações entre duplicatas</title>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Usando o <strong>plantR</strong> para atualizar informações entre duplicatas</h1>
 <h4 class="author">Renato A. F. de Lima (raflima at usp.br)</h4>
-<h4 class="date">20 July 2021</h4>
+<h4 class="date">31 August 2021</h4>
 
 
 <div id="TOC">
@@ -188,22 +188,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="obtendo-os-registros" class="section level1" number="2">
 <h1 number="2"><span class="header-section-number">2</span> Obtendo os registros</h1>
-<p>Antes de começar precisamos carregar o pacote usando a função <code>library()</code>, assumindo que você tem o pacote instalado junto ao seu <code>R</code>. Se você ainda não tem o pacote instalado em seu computador, siga as instruções do tutorial geral do pacote (i.e. ‘plantr_tutorial.html’).</p>
+<p>Antes de começar precisamos carregar o pacote usando a função <code>library()</code>, assumindo que você tem o pacote instalado junto ao seu <code>R</code>. Se você ainda não tem o pacote instalado em seu computador, siga as instruções do tutorial geral do pacote (i.e., ‘plantr_tutorial.html’).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
 <div id="baixando-os-registros-do-specieslink-e-gbif" class="section level2" number="2.1">
 <h2 number="2.1"><span class="header-section-number">2.1</span> Baixando os registros do speciesLink e GBIF</h2>
-<p>Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil, iremos baixar apenas as coletas realizadas no Brasil (i.e. campo <code>country</code> igual a ‘BR’).</p>
+<p>Iremos usar a família Blechnaceae para esse exemplo, e baixando dados tanto do speciesLink (INCT) quanto do GBIF. O GBIF possui mais de 430,000 registros para a família no mundo todo. Assumindo que o curador seja de uma coleção do Brasil, iremos baixar apenas as coletas realizadas no Brasil (i.e., campo <code>country</code> igual a ‘BR’).</p>
 <p>Para downloads do GBIF, o limite do número de registros baixados é controlado pelo argumento <code>n.records</code> e o padrão é baixar até 5000 registros por item buscado. Então o limite foi modificado para baixar mais registros. Contudo, há um limite do número máximo de 100,000 registros que podem ser baixados de um só vez. Por isso, iremos baixar apenas os registros da família para o Brasil (&lt;100,000). Veja o help da função <code>rgbif2()</code> para sugestões sobre como fazer para famílias com mais de 100,000 registros no GBIF.</p>
-<p>Note que o campo <code>species</code> da função <code>rgbif2()</code> aceita não apenas nomes ao nível de espécie, mas em qualquer nível taxonômico. Para a função <code>rspeciesLink()</code>, há um campo específico para o nome da família (i.e. <code>family</code>).</p>
+<p>Note que o campo <code>species</code> da função <code>rgbif2()</code> aceita não apenas nomes ao nível de espécie, mas em qualquer nível taxonômico. Para a função <code>rspeciesLink()</code>, há um campo específico para o nome da família (i.e., <code>family</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>familia <span class="ot">&lt;-</span> <span class="st">&quot;Blechnaceae&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>occs_splink <span class="ot">&lt;-</span> <span class="fu">rspeciesLink</span>(<span class="at">family =</span> familia)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span> familia, </span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">country =</span> <span class="st">&quot;BR&quot;</span>,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">n.records =</span> <span class="dv">450000</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs_splink)</span></code></pre></div>
-<pre><code>## [1] 24201    51</code></pre>
+<pre><code>## [1] 24243    51</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs_gbif)</span></code></pre></div>
-<pre><code>## [1] 23212   166</code></pre>
+<pre><code>## [1] 23279   166</code></pre>
 <p>Foram encontrados aproximadamente 24,000 registros para a família no speciesLink e aprox. 23,000 registros para o Brasil no GBIF.</p>
 </div>
 <div id="unindo-os-registros" class="section level2" number="2.2">
@@ -212,17 +212,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span></code></pre></div>
-<pre><code>## [1] 47413    47</code></pre>
-<p>Veja que o objeto <code>occs</code> contém agora a soma dos registros vindos do speciesLink e GBIF (i.e. aprox. 47,000 em Abril de 2021).</p>
+<pre><code>## [1] 47522    47</code></pre>
+<p>Veja que o objeto <code>occs</code> contém agora a soma dos registros vindos do speciesLink e GBIF (i.e., aprox. 47,000 em Abril de 2021).</p>
 </div>
 </div>
 <div id="padronização-e-validação-de-campos-relevantes" class="section level1" number="3">
 <h1 number="3"><span class="header-section-number">3</span> Padronização e validação de campos relevantes</h1>
-<p>Mesmo que você esteja interessado apenas em atualizar um tipo de informação (e.g. nome da espécie), é importante padronizar a notação e formato de campos que são importantes para a busca de duplicatas. Essa padronização não é perfeita, mas ela aumenta as chances de recuperar duplicatas com pequenas diferenças de notação em campos como nome e número do coletor, a localidade da coleta, nome da família e a grafia e/ou formato do nome da espécie.</p>
+<p>Mesmo que você esteja interessado apenas em atualizar um tipo de informação (e.g., nome da espécie), é importante padronizar a notação e formato de campos que são importantes para a busca de duplicatas. Essa padronização não é perfeita, mas ela aumenta as chances de recuperar duplicatas com pequenas diferenças de notação em campos como nome e número do coletor, a localidade da coleta, nome da família e a grafia e/ou formato do nome da espécie.</p>
 <div id="padronização-das-informações" class="section level2" number="3.1">
 <h2 number="3.1"><span class="header-section-number">3.1</span> Padronização das informações</h2>
-<p>O pacote <strong>plantR</strong> possui funções que executam várias dessas edições de uma só vez. As funções <code>formatOcc()</code>, <code>formatLoc()</code>, <code>formatCoord()</code> e <code>formatTax()</code> fazem a padronização dos campos relacionados à coleta em si (e.g. código da coleção, nome e número do coletor), à localidade da coleta, às coordenadas geográficas associadas à coleta e à informação taxonômica.</p>
-<p>A verificação ortográfica e de sinônimos via o The Plant List é relativamente demorada. Portanto, iremos fazer a conferência e validação dos nomes apenas usando a Flora do Brasil (i.e. campo <code>db</code> igual a ‘fbo’)</p>
+<p>O pacote <strong>plantR</strong> possui funções que executam várias dessas edições de uma só vez. As funções <code>formatOcc()</code>, <code>formatLoc()</code>, <code>formatCoord()</code> e <code>formatTax()</code> fazem a padronização dos campos relacionados à coleta em si (e.g., código da coleção, nome e número do coletor), à localidade da coleta, às coordenadas geográficas associadas à coleta e à informação taxonômica.</p>
+<p>A verificação ortográfica e de sinônimos via o The Plant List é relativamente demorada. Portanto, iremos fazer a conferência e validação dos nomes apenas usando a Flora do Brasil (i.e., campo <code>db</code> igual a ‘fbo’)</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs)</span>
@@ -245,11 +245,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
 ##                original
 ## edited          country locality municipality no_info stateProvince
-##   country          4640      234            8       0            34
-##   locality           10     6122            1       0             0
-##   municipality        2    23511         3697       0             0
-##   no_info             7        7            2      74             0
-##   stateProvince       0     7522          208       0          1334</code></pre>
+##   country          4592      336            9       0            34
+##   locality           10     6129            2       0             0
+##   municipality        2    23534         3634       0             0
+##   no_info             7        9            4      71             0
+##   stateProvince       0     7596          223       0          1330</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateCoord</span>(occs)</span></code></pre></div>
 <p>A função <code>validateTax()</code> faz uma classificação da confiabilidade da identificação taxonômica dos registros. Essa avaliação é feita em uma base global de nomes de taxonomistas por família (veja o help da função digitando ?validateTax no seu console do R).</p>
 <p>Contudo, essa base de dados não é completa. Assim, pode ser importante executar a função de maneira preliminar para avaliar se não há nomes de taxonomistas que sejam relevantes à essa avaliação e que não estejam na base de dados. Vamos portanto visualizar os 15 nomes com mais determinações para a família usado no exemplo, e que não estão listados na base de dados como especialistas da família:</p>
@@ -258,23 +258,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## |Identifier            | Records|</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## |:---------------------|-------:|</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1146|</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     937|</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     849|</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     838|</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Kazmirczak, C.        |     681|</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Prado, J.             |     589|</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1148|</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     938|</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     853|</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Prado, J.             |     837|</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     795|</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Kazmirczak, C.        |     678|</span></span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">## |Sehnem, A.            |     498|</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     466|</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     449|</span></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="do">## |Senna, R.M.           |     442|</span></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="do">## |Smith, A.R.           |     431|</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     391|</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     381|</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     388|</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     380|</span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="do">## |Athayde Filho, F.P.   |     333|</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     321|</span></span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     315|</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     324|</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     320|</span></span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(temp)</span></code></pre></div>
-<p>Note que entre os nomes listados há vários especialistas do grupo, mas que não são exatamente especialistas da família em questão (e.g. ‘Gonzatti, F.’). Outros nomes podem estar listados porque a base de dados usada está incompleta.</p>
+<p>Note que entre os nomes listados há vários especialistas do grupo, mas que não são exatamente especialistas da família em questão (e.g., ‘Gonzatti, F.’). Outros nomes podem estar listados porque a base de dados usada está incompleta.</p>
 <p>Para incluir nomes faltantes de taxonomistas, é possível usar o campo <code>miss.taxonomist</code>. Nesse exemplo vamos incluir dois nomes ‘Kazmirczak, C.’ e ‘Prado, J.’, que têm que ser fornecidos em um formato específico: nome da ’família + underline + nome do determinador.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>falta.tax <span class="ot">&lt;-</span> <span class="fu">paste</span>(familia, <span class="fu">c</span>(<span class="st">&quot;Kazmirczak, C.&quot;</span>, <span class="st">&quot;Prado, J.&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs, <span class="at">miss.taxonomist =</span> falta.tax, </span>
@@ -283,19 +283,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## |Identifier            | Records|</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## |:---------------------|-------:|</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1146|</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     937|</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     849|</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     838|</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">## |Gonzatti, F.          |    1148|</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">## |Matos, F.B.           |     938|</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## |Almeida, T.E.         |     853|</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom, M.R.       |     795|</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">## |Sehnem, A.            |     498|</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     466|</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## |(uc, A.R.S.           |     449|</span></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## |Senna, R.M.           |     442|</span></span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="do">## |Smith, A.R.           |     431|</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     391|</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     381|</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">## |Moran, R.C.           |     388|</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## |Mickel, J.T.          |     380|</span></span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">## |Athayde Filho, F.P.   |     333|</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     321|</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     315|</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">## |Pietrobom-Silva, M.R. |     324|</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="do">## |Michelon, C.          |     320|</span></span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="do">## |Caxambu, M.G.         |     295|</span></span>
 <span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="do">## |Barros, I.C.L.        |     289|</span></span></code></pre></div>
 <p>Note que agora os nomes incluídos já não são mais listados entre os nomes com mais identificações, mas que não são especialistas da família.</p>
@@ -305,24 +305,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 number="4"><span class="header-section-number">4</span> Preparando os registros para a busca de duplicatas</h1>
 <div id="definindo-os-identificadores-únicos" class="section level2" number="4.1">
 <h2 number="4.1"><span class="header-section-number">4.1</span> Definindo os identificadores únicos</h2>
-<p>Para a busca de duplicatas, precisamos de algumas informações adicionais. Uma delas é ter um identificador único para cada registro (i.e. número de tombo). Para isso podemos concatenar o código padronizado da coleção e seu número de registro ou tombo na coleção correspondente. Isso pode ser feito usando a função <code>getTombo()</code>:</p>
+<p>Para a busca de duplicatas, precisamos de algumas informações adicionais. Uma delas é ter um identificador único para cada registro (i.e., número de tombo). Para isso podemos concatenar o código padronizado da coleção e seu número de registro ou tombo na coleção correspondente. Isso pode ser feito usando a função <code>getTombo()</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>numTombo <span class="ot">&lt;-</span> <span class="fu">getTombo</span>(occs[, <span class="st">&quot;collectionCode.new&quot;</span>],</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                          occs[, <span class="st">&quot;catalogNumber&quot;</span>])</span></code></pre></div>
 <p>Como muitas coleções têm suas bases de dados tanto no speciesLink/INCT quanto no GBIF é normal termos números de tombo repetidos nos dados, as chamadas duplicatas virtuais. Como nosso interesse é pelas informações contidas nas duplicatas físicas entre coleções, é indicado remover números de tombo repetidos. Isso não afeta a busca por duplicatas, mas simplifica a sua checagem final, isto é, as duplicatas virtuais não estarão entre as duplicatas encontradas.</p>
 <p>Como alguns registros não têm número de tombo (tombo igual a ‘US_NA’), usamos o código abaixo para realizar a remoção apenas dos números de tombo repetidos:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## [1] 47413</code></pre>
+<pre><code>## [1] 47522</code></pre>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> occs[<span class="sc">!</span><span class="fu">duplicated</span>(occs<span class="sc">$</span>numTombo) <span class="sc">|</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">grepl</span>(<span class="st">&quot;_NA$&quot;</span>, occs<span class="sc">$</span>numTombo, <span class="at">perl =</span> <span class="cn">TRUE</span>),]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
-<pre><code>## [1] 31777</code></pre>
+<pre><code>## [1] 31822</code></pre>
 <p>Note que cerca de um terço dos registros representavam duplicatas virtuais.</p>
 <p>Note também que existe a possibilidade de coleções terem um mesmo número de tombo para registros diferentes, devido a algum tipo um erro. Mas após o código acima, não estamos mais considerando esse tipo de erro.</p>
 </div>
 <div id="definindo-os-campos-a-serem-usados-na-busca" class="section level2" number="4.2">
 <h2 number="4.2"><span class="header-section-number">4.2</span> Definindo os campos a serem usados na busca</h2>
 <p>Uma informação essencial para a busca de duplicatas é a definição de quais campos serão usados na busca por duplicatas. No <strong>plantR</strong> é possível usar qualquer combinação dos campos contendo a informação do nome da família ou espécie, nome ou sobrenome do coletor, número do coletor, ano de coleta e localidade da coleta.</p>
-<p>Como há muita variação de notação entre coleções no nome do coletor, é possível usar apenas o seu sobrenome. Além disso, como o uso apenas do sobrenome e número de coletor pode retornar falsas duplicatas para nomes muito comuns e números de coletor baixos (e.g. Lima 10), é aconselhado incluir outros campos na busca. Neste exemplo iremos usar três combinações de campos, que são geradas usando a função <code>prepDup()</code>:</p>
+<p>Como há muita variação de notação entre coleções no nome do coletor, é possível usar apenas o seu sobrenome. Além disso, como o uso apenas do sobrenome e número de coletor pode retornar falsas duplicatas para nomes muito comuns e números de coletor baixos (e.g., Lima 10), é aconselhado incluir outros campos na busca. Neste exemplo iremos usar três combinações de campos, que são geradas usando a função <code>prepDup()</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">prepDup</span>(occs, </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">comb.fields =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;species&quot;</span>,<span class="st">&quot;col.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>),</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">c</span>(<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.loc&quot;</span>),</span>
@@ -337,45 +337,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">getDup</span>(dups)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dups[<span class="fu">order</span>(dups<span class="sc">$</span>dup.ID),], <span class="dv">4</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="do">##        numTombo                           dup.srch.str1       dup.srch.str2</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 8219 ALCB_56777             Blechnum_Loureiro, D.M._501 Loureiro_501_ilheus</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 8275  ALCB_1518 Blechnum occidentale_Loureiro, D.M._501 Loureiro_501_ilheus</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2464  JPB_49351      Blechnum binervatum_Gomes, L.A._95     Gomes_95_capela</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2494  ASE_21027  Neoblechnum brasiliense_Gomes, L.A._95     Gomes_95_capela</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 8252 ALCB_56777             Blechnum_Loureiro, D.M._501 Loureiro_501_ilheus</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 8308  ALCB_1518 Blechnum occidentale_Loureiro, D.M._501 Loureiro_501_ilheus</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2489  JPB_49351      Blechnum binervatum_Gomes, L.A._95     Gomes_95_capela</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2519  ASE_21027  Neoblechnum brasiliense_Gomes, L.A._95     Gomes_95_capela</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="do">##          dup.srch.str3 dup.numb          dup.prop                 dup.ID</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8219 Loureiro_501_2001        2 0.666666666666667 [ALCB_1518|ALCB_56777]</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 8275 Loureiro_501_2001        2 0.666666666666667 [ALCB_1518|ALCB_56777]</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2464     Gomes_95_2011        2 0.666666666666667  [ASE_21027|JPB_49351]</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2494     Gomes_95_2011        2 0.666666666666667  [ASE_21027|JPB_49351]</span></span></code></pre></div>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8252 Loureiro_501_2001        2 0.666666666666667 [ALCB_1518|ALCB_56777]</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 8308 Loureiro_501_2001        2 0.666666666666667 [ALCB_1518|ALCB_56777]</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2489     Gomes_95_2011        2 0.666666666666667  [ASE_21027|JPB_49351]</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2519     Gomes_95_2011        2 0.666666666666667  [ASE_21027|JPB_49351]</span></span></code></pre></div>
 <div id="inspecionando-os-resultados-de-número-de-duplicatas-encontradas" class="section level2" number="5.1">
 <h2 number="5.1"><span class="header-section-number">5.1</span> Inspecionando os resultados de número de duplicatas encontradas</h2>
-<p>Novas colunas foram criadas. A coluna ‘dup.prop’ contém a força de indicação das duplicatas (i.e. quanto mais próximo de 1 mais segurança na indicação). Vamos inspecionar as categorias geradas:</p>
+<p>Novas colunas foram criadas. A coluna ‘dup.prop’ contém a força de indicação das duplicatas (i.e., quanto mais próximo de 1 mais segurança na indicação). Vamos inspecionar as categorias geradas:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dups<span class="sc">$</span>dup.prop)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                 0 0.333333333333333 0.666666666666667                 1 </span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">##             11825              1130              3459             10237 </span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="do">##             12114              1362              3411              9809 </span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                cc </span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">##              5126</span></span></code></pre></div>
 <p>Em seguida, precisamos reunir as colunas de interesse da busca de duplicatas com a nossa planilha geral:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                         dups[,<span class="fu">c</span>(<span class="st">&quot;dup.ID&quot;</span>, <span class="st">&quot;dup.numb&quot;</span>, <span class="st">&quot;dup.prop&quot;</span>)],</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>Para esses dados, cerca de 27% dos registros possuem forte indicação de duplicatas e cerca de 38% não tiveram nenhuma indicação (i.e. prováveis unicatas). Além desses, 16% foram classificados com ‘dup.prop’ &gt; 0.5 (e.g. 2 sobre 3 combinações iguais) e como ‘cc’ de ‘cannot check’ por falta de informações associadas aos campos escolhidos. Para registros com ‘dup.prop’ &lt;0.5 (apenas 1 combinação em comum) sugere-se um ‘pente-fino’, pois esses casos podem representar problemas ou falsas duplicatas.</p>
+<p>Para esses dados, cerca de 32% dos registros possuem forte indicação de duplicatas e cerca de 37% não tiveram nenhuma indicação (i.e., prováveis unicatas). Além desses, 16% foram classificados com ‘dup.prop’ igual a 0.667 (e.g., 2 sobre 3 combinações iguais) e 16% como ‘cc’ de ‘cannot check’ por falta de informações associadas aos campos escolhidos. Para registros com ‘dup.prop’ &lt;0.5 (apenas 1 combinação em comum) sugere-se um ‘pente-fino’, pois esses casos podem representar problemas ou falsas duplicatas.</p>
 </div>
 </div>
 <div id="homogeneizando-as-informações-entre-grupos-de-duplicatas" class="section level1" number="6">
 <h1 number="6"><span class="header-section-number">6</span> Homogeneizando as informações entre grupos de duplicatas</h1>
 <p>Por fim, podemos usar para todas as duplicatas de cada grupo as informações mais confiáveis ou recentes sobre os registros. Atualmente, o <strong>plantR</strong> faz essa homogeneização para as informações de localidade, coordenadas geográficas e/ou taxonomia. Ela é feita usando a função <code>mergeDup()</code> cujo padrão é fazer apenas o merge para registros com ‘dup.prop’ &gt; 0.75. Isso pode ser alterado usando o campo <code>prop</code> da função, como abaixo.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">mergeDup</span>(occs, <span class="at">prop =</span> <span class="fl">0.65</span>)</span></code></pre></div>
-<p>O default dessa função usa os campos já editados pelo <strong>plantR</strong> e cria novas colunas com um ‘1’ adicionado ao final do nome da coluna (e.g. coluna ‘family.new’ após a homogeneização será armazenada na nova coluna ‘family.new1’). Lembre-se, contudo, que os nomes das colunas que serão usadas podem ser definidas pelo usuário (e.g. usar a coluna ‘family’ ao invés da ‘family.new’).</p>
+<p>O default dessa função usa os campos já editados pelo <strong>plantR</strong> e cria novas colunas com um ‘1’ adicionado ao final do nome da coluna (e.g., coluna ‘family.new’ após a homogeneização será armazenada na nova coluna ‘family.new1’). Lembre-se, contudo, que os nomes das colunas que serão usadas podem ser definidas pelo usuário (e.g., usar a coluna ‘family’ ao invés da ‘family.new’).</p>
 <div id="inspecionando-os-resultados-da-homogeneização" class="section level2" number="6.1">
 <h2 number="6.1"><span class="header-section-number">6.1</span> Inspecionando os resultados da homogeneização</h2>
-<p>Podemos comparar as mudanças obtidas para um dos campos, como por exemplo, o campo que define o nível de confiança na identificação do registro. Note que mais de cerca de 700 registros que possuíam nível definido como ‘unknown’ e ‘low’ passaram a ter um nível definido como ‘high’.</p>
+<p>Podemos comparar as mudanças obtidas para um dos campos, como por exemplo, o campo que define o nível de confiança na identificação do registro. Note que 300 e 700 registros que possuíam nível definido como ‘unknown’ e ‘low’ passaram a ter um nível definido como ‘high’.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check, occs<span class="sc">$</span>tax.check1, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;antes&quot;</span>, <span class="st">&quot;depois&quot;</span>))</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          depois</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="do">## antes      high   low unknown</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   high     5890     0       0</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   low       609 13571       0</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   unknown   283     0   11424</span></span></code></pre></div>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   high     6003     0       0</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   low       701 13493       0</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   unknown   363     0   11262</span></span></code></pre></div>
 </div>
 </div>
 <div id="preparando-os-dados-para-a-atualização-da-coleção" class="section level1" number="7">
@@ -390,18 +390,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> occs[<span class="fu">grepl</span>(colecao, occs<span class="sc">$</span>numTombo, <span class="at">perl =</span> <span class="cn">TRUE</span>) <span class="sc">|</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">grepl</span>(colecao, occs<span class="sc">$</span>dup.ID, <span class="at">perl =</span> <span class="cn">TRUE</span>), ]</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs1)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1762  103</span></span></code></pre></div>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1763  106</span></span></code></pre></div>
 <p>Podemos inspecionar quantos registros há por coleção:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs1<span class="sc">$</span>collectionCode.new)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    ALCB     ASE    BHCB BHCB-SL    CESJ    CGMS     CRI    CTBS    EAFM     EVB </span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       2       1      18      18      23       1      15       1       1       6 </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##       2       1      18      18      24       1      15       1       1       6 </span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    FCAB    FLOR     FPS    FUEL    FURB     HAS     HCF    HEPH    HSTM    HUCS </span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       7      37      20      21    1286       1      28      11       2      70 </span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    HURB    IRAI     JOI    LUSC     MBM      MO      NX      NY    PACA      RB </span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">##      22       1      43       2      38       1       3       1       2      32 </span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     RON   SAMES    SHPR    SLUI     UEC    UPCB     VIC    VIES </span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">##       1       4       7      10       2      13       7       4</span></span></code></pre></div>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">##       7      37      20      21    1288       1      28      11       2      71 </span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">##    HURB    HVAT    IRAI     JOI    LUSC     MBM      MO      NX      NY    PACA </span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">##      22       1       1      43       2      38       1       3       1       2 </span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      RB     RON   SAMES    SHPR    SLUI     UEC    UPCB     VIC    VIES </span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">##      33       1       4       7       5       2      13       7       4</span></span></code></pre></div>
 <p>Note que há cerca de 1700 registros de Blechnaceae no nosso filtro, dos quais aprox. 1300 são de registros do FURB mesmo, e o restante dos registros estão espalhados em cerca de 40 outras coleções.</p>
 <p>Se você quiser fazer o mesmo, mas para outra coleção basta trocar o nome da coleção que é atribuída ao objeto chamado <code>colecao</code>.</p>
 </div>
@@ -441,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="alguma-atualização-taxonômica-feita-nas-duplicatas-em-outras-coleções" class="section level3" number="7.2.3">
 <h3 number="7.2.3"><span class="header-section-number">7.2.3</span> Alguma atualização taxonômica feita nas duplicatas em outras coleções?</h3>
-<p>Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos apenas com os registros com indicações de duplicata (i.e. coluna ‘dup.ID’ não vazia):</p>
+<p>Para realizar essa operação, podemos realizar uma filtragem mais, para ficarmos apenas com os registros com indicações de duplicata (i.e., coluna ‘dup.ID’ não vazia):</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>occs2.tax <span class="ot">&lt;-</span> occs1.tax[<span class="sc">!</span><span class="fu">is.na</span>(occs1.tax<span class="sc">$</span>dup.ID), ]</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>occs2.tax <span class="ot">&lt;-</span> occs2.tax[<span class="fu">order</span>(occs2.tax<span class="sc">$</span>dup.ID), ]</span></code></pre></div>
 <p>Para facilitar o trabalho do curador, podemos marcar as duplicatas com indicação de alteração da identificação:</p>
@@ -451,127 +451,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">grepl</span>(<span class="st">&quot;FURB_&quot;</span>, occs2.tax<span class="sc">$</span>numTombo, <span class="at">fixed =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>occs2.tax[occs2.tax<span class="sc">$</span>checar.taxon,]</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="do">##         numTombo   recordedBy.new recordNumber.new     identifiedBy</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560 FURB_41754 Falkenberg, D.B.             6416   A.L. de Gasper</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587  FURB_6461 Falkenberg, D.B.             6416    Gasper, AL de</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520  FURB_35038    Schmitt, J.L.             3169   A.L. de Gasper</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559   FURB_6656    Schmitt, J.L.             3169  Gasper, A.L. de</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302   FURB_6463     Gonzatti, F.              597 Dittrich, V.A.O.</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="do">##       identifiedBy.new identifiedBy.new1 yearIdentified yearIdentified.new</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560     Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2010</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587     Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2010</span></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520      Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2016</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559      Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               n.d.</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="do">##       yearIdentified.new1      family  family.new family.new1</span></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560                2010 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587                2010 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520                 2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559                 2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="do">##                                               scientificName</span></span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560                              Blechnum auriculatum Cav.</span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587                              Blechnum auriculatum Cav.</span></span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520  Lomaria spannagelii (Rosenst.) Gasper &amp; V.A.O.Dittrich</span></span>
-<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559  Lomaria spannagelii (Rosenst.) Gasper &amp; V.A.O.Dittrich</span></span>
-<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302                                             Blechnum L.</span></span>
-<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="do">##         scientificName.new   scientificName.new1 scientificNameStatus tax.notes</span></span>
-<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560 Blechnum auriculatum     Blechnum australe       name_w_authors          </span></span>
-<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587 Blechnum auriculatum     Blechnum australe       name_w_authors          </span></span>
-<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520   Lomaria spannagelii Parablechnum cordatum       name_w_authors          </span></span>
-<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559   Lomaria spannagelii Parablechnum cordatum       name_w_authors          </span></span>
-<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302              Blechnum Blechnum xleopoldense indet|name_w_authors          </span></span>
-<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="do">##       tax.check tax.check1</span></span>
-<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560      high       high</span></span>
-<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587      high       high</span></span>
-<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520       high       high</span></span>
-<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559       high       high</span></span>
-<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302       high       high</span></span>
-<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                                      dup.ID</span></span>
-<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560                   BHCB-SL_28997|BHCB_28997|FLOR_23621|FUEL_19780|FURB_41754|FURB_6461</span></span>
-<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587                   BHCB-SL_28997|BHCB_28997|FLOR_23621|FUEL_19780|FURB_41754|FURB_6461</span></span>
-<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520                                              FLOR_17332|FURB_35038|FURB_6656|JOI_11850</span></span>
-<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559                                              FLOR_17332|FURB_35038|FURB_6656|JOI_11850</span></span>
-<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a><span class="do">##       checar.taxon</span></span>
-<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 10560         TRUE</span></span>
-<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 10587         TRUE</span></span>
-<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 2520          TRUE</span></span>
-<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 2559          TRUE</span></span>
-<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302          TRUE</span></span></code></pre></div>
-<p>Note que há cinco registros cujo nome encontrado do FURB é diferente do nome encontrado nas demais coleções. Vamos imprimir um exemplo para entender o que as funções estão fazendo. Iremos usar como exemplo o identificador de duplicatas (‘dup.ID’) ‘FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|VIC_37877|VIES_27594’.</p>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899 FURB_42074      Krieger, L.            20140  V.A.O. Dittrich</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904  FURB_6711      Krieger, L.            20140    Dittrich, VAO</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605 FURB_41754 Falkenberg, D.B.             6416   A.L. de Gasper</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632  FURB_6461 Falkenberg, D.B.             6416    Gasper, AL de</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545  FURB_35038    Schmitt, J.L.             3169   A.L. de Gasper</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584   FURB_6656    Schmitt, J.L.             3169  Gasper, A.L. de</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327   FURB_6463     Gonzatti, F.              597 Dittrich, V.A.O.</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       identifiedBy.new identifiedBy.new1 yearIdentified yearIdentified.new</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899 Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904 Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605     Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632     Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               2010</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545      Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584      Gasper, A.L.      Gasper, A.L.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="do">##       yearIdentified.new1      family  family.new family.new1</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899                2009 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904                2009 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605                2010 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632                2010 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545                 2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584                 2017 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a><span class="do">##                                               scientificName</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899                           Blechnum polypodioides Raddi</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904                           Blechnum polypodioides Raddi</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605                              Blechnum auriculatum Cav.</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632                              Blechnum auriculatum Cav.</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545  Lomaria spannagelii (Rosenst.) Gasper &amp; V.A.O.Dittrich</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584  Lomaria spannagelii (Rosenst.) Gasper &amp; V.A.O.Dittrich</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                                             Blechnum L.</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="do">##           scientificName.new   scientificName.new1 scientificNameStatus</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899 Blechnum polypodioides Blechnum asplenioides       name_w_authors</span></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904 Blechnum polypodioides Blechnum asplenioides       name_w_authors</span></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605   Blechnum auriculatum     Blechnum australe       name_w_authors</span></span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632   Blechnum auriculatum     Blechnum australe       name_w_authors</span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545     Lomaria spannagelii Parablechnum cordatum       name_w_authors</span></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584     Lomaria spannagelii Parablechnum cordatum       name_w_authors</span></span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                Blechnum Blechnum xleopoldense indet|name_w_authors</span></span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a><span class="do">##       tax.notes tax.check tax.check1</span></span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899                high       high</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904                high       high</span></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605                high       high</span></span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632                high       high</span></span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545                 high       high</span></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584                 high       high</span></span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                 high       high</span></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                            dup.ID</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899                             BHCB-SL_165022|BHCB_165022|FURB_42074|FURB_6711</span></span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904                             BHCB-SL_165022|BHCB_165022|FURB_42074|FURB_6711</span></span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605         BHCB-SL_28997|BHCB_28997|FLOR_23621|FUEL_19780|FURB_41754|FURB_6461</span></span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632         BHCB-SL_28997|BHCB_28997|FLOR_23621|FUEL_19780|FURB_41754|FURB_6461</span></span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545                                    FLOR_17332|FURB_35038|FURB_6656|JOI_11850</span></span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584                                    FLOR_17332|FURB_35038|FURB_6656|JOI_11850</span></span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a><span class="do">##       checar.taxon</span></span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 12899         TRUE</span></span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 12904         TRUE</span></span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a><span class="do">## 10605         TRUE</span></span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a><span class="do">## 10632         TRUE</span></span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a><span class="do">## 2545          TRUE</span></span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a><span class="do">## 2584          TRUE</span></span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327          TRUE</span></span></code></pre></div>
+<p>Note que há cinco registros cujo nome encontrado do FURB é diferente do nome encontrado nas demais coleções. Vamos imprimir um exemplo para entender o que as funções estão fazendo. Iremos usar como exemplo o identificador de duplicatas (‘dup.ID’) ‘FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389| VIC_37877|VIES_27594’.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>occs2.tax[<span class="fu">grepl</span>(<span class="st">&#39;FURB_6463&#39;</span>, occs2.tax<span class="sc">$</span>dup.ID),]</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          numTombo recordedBy.new recordNumber.new     identifiedBy</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259   FURB_39824   Gonzatti, F.              597  V.A.O. Dittrich</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260   HUCS_39468   Gonzatti, F.              597     Gonzatti, F.</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265   VIES_27594   Gonzatti, F.              597     Gonzatti, F.</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266    SLUI_4389   Gonzatti, F.              597             &lt;NA&gt;</span></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290    VIC_37877   Gonzatti, F.              597             &lt;NA&gt;</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294   FUEL_53109   Gonzatti, F.              597    Dittrich, VAO</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302    FURB_6463   Gonzatti, F.              597 Dittrich, V.A.O.</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711 SLUI_4389.0   Gonzatti, F.              597             &lt;NA&gt;</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="do">##       identifiedBy.new identifiedBy.new1 yearIdentified yearIdentified.new</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260      Gonzatti, F.  Dittrich, V.A.O.           &lt;NA&gt;               2019</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265      Gonzatti, F.  Dittrich, V.A.O.           &lt;NA&gt;               2012</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266              s.n.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290              s.n.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302  Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711             s.n.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="do">##       yearIdentified.new1      family  family.new family.new1</span></span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302                 2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="do">##                                              scientificName</span></span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259  Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260  Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265  Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266                                   Blechnum australe L.</span></span>
-<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290                                            Blechnaceae</span></span>
-<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294  Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
-<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302                                            Blechnum L.</span></span>
-<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711                                     Blechnum australe</span></span>
-<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="do">##          scientificName.new   scientificName.new1          scientificNameStatus</span></span>
-<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259  Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
-<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260  Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
-<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265  Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
-<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266      Blechnum australe Blechnum xleopoldense                name_w_authors</span></span>
-<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290        Blechnaceae sp. Blechnum xleopoldense               family_as_genus</span></span>
-<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294  Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
-<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302               Blechnum Blechnum xleopoldense          indet|name_w_authors</span></span>
-<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711     Blechnum australe Blechnum xleopoldense                   possibly_ok</span></span>
-<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a><span class="do">##            tax.notes tax.check tax.check1</span></span>
-<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259  was misspelled      high       high</span></span>
-<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260  was misspelled       low       high</span></span>
-<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265  was misspelled       low       high</span></span>
-<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266       not found   unknown       high</span></span>
-<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290                   unknown       high</span></span>
-<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294  was misspelled      high       high</span></span>
-<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302                      high       high</span></span>
-<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711      not found   unknown       high</span></span>
-<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                                      dup.ID</span></span>
-<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302  FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
-<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a><span class="do">##       checar.taxon</span></span>
-<span id="cb32-66"><a href="#cb32-66" aria-hidden="true" tabindex="-1"></a><span class="do">## 2259         FALSE</span></span>
-<span id="cb32-67"><a href="#cb32-67" aria-hidden="true" tabindex="-1"></a><span class="do">## 2260         FALSE</span></span>
-<span id="cb32-68"><a href="#cb32-68" aria-hidden="true" tabindex="-1"></a><span class="do">## 2265         FALSE</span></span>
-<span id="cb32-69"><a href="#cb32-69" aria-hidden="true" tabindex="-1"></a><span class="do">## 2266         FALSE</span></span>
-<span id="cb32-70"><a href="#cb32-70" aria-hidden="true" tabindex="-1"></a><span class="do">## 2290         FALSE</span></span>
-<span id="cb32-71"><a href="#cb32-71" aria-hidden="true" tabindex="-1"></a><span class="do">## 2294         FALSE</span></span>
-<span id="cb32-72"><a href="#cb32-72" aria-hidden="true" tabindex="-1"></a><span class="do">## 2302          TRUE</span></span>
-<span id="cb32-73"><a href="#cb32-73" aria-hidden="true" tabindex="-1"></a><span class="do">## 31711        FALSE</span></span></code></pre></div>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">##         numTombo recordedBy.new recordNumber.new     identifiedBy</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285  FURB_39824   Gonzatti, F.              597  V.A.O. Dittrich</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286  HUCS_39468   Gonzatti, F.              597     Gonzatti, F.</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291  VIES_27594   Gonzatti, F.              597     Gonzatti, F.</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315   VIC_37877   Gonzatti, F.              597             &lt;NA&gt;</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319  FUEL_53109   Gonzatti, F.              597    Dittrich, VAO</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327   FURB_6463   Gonzatti, F.              597 Dittrich, V.A.O.</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331 SLUI_4389.0   Gonzatti, F.              597             &lt;NA&gt;</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="do">##      identifiedBy.new identifiedBy.new1 yearIdentified yearIdentified.new</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285 Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286     Gonzatti, F.  Dittrich, V.A.O.           &lt;NA&gt;               2019</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291     Gonzatti, F.  Dittrich, V.A.O.           &lt;NA&gt;               2012</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315             s.n.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319 Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327 Dittrich, V.A.O.  Dittrich, V.A.O.           &lt;NA&gt;               2018</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331             s.n.  Dittrich, V.A.O.           &lt;NA&gt;               n.d.</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="do">##      yearIdentified.new1      family  family.new family.new1</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331                2018 Blechnaceae Blechnaceae Blechnaceae</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a><span class="do">##                                             scientificName</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285 Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286 Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291 Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315                                           Blechnaceae</span></span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319 Blechnum ×leopoldense (Dutra) V.A.O.Dittrich &amp; Salino</span></span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                                           Blechnum L.</span></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331                                  Blechnum australe L.</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a><span class="do">##         scientificName.new   scientificName.new1          scientificNameStatus</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285 Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286 Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291 Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315       Blechnaceae sp. Blechnum xleopoldense               family_as_genus</span></span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319 Blechnum xleopoldense Blechnum xleopoldense hybrid_species|name_w_authors</span></span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327              Blechnum Blechnum xleopoldense          indet|name_w_authors</span></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331     Blechnum australe Blechnum xleopoldense                name_w_authors</span></span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a><span class="do">##           tax.notes tax.check tax.check1</span></span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285 was misspelled      high       high</span></span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286 was misspelled       low       high</span></span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291 was misspelled       low       high</span></span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315                  unknown       high</span></span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319 was misspelled      high       high</span></span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327                     high       high</span></span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331      not found   unknown       high</span></span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a><span class="do">##                                                                           dup.ID</span></span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-55"><a href="#cb32-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-56"><a href="#cb32-56" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-57"><a href="#cb32-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331 FUEL_53109|FURB_39824|FURB_6463|HUCS_39468|SLUI_4389.0|VIC_37877|VIES_27594</span></span>
+<span id="cb32-58"><a href="#cb32-58" aria-hidden="true" tabindex="-1"></a><span class="do">##      checar.taxon</span></span>
+<span id="cb32-59"><a href="#cb32-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 2285        FALSE</span></span>
+<span id="cb32-60"><a href="#cb32-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 2286        FALSE</span></span>
+<span id="cb32-61"><a href="#cb32-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 2291        FALSE</span></span>
+<span id="cb32-62"><a href="#cb32-62" aria-hidden="true" tabindex="-1"></a><span class="do">## 2315        FALSE</span></span>
+<span id="cb32-63"><a href="#cb32-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 2319        FALSE</span></span>
+<span id="cb32-64"><a href="#cb32-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 2327         TRUE</span></span>
+<span id="cb32-65"><a href="#cb32-65" aria-hidden="true" tabindex="-1"></a><span class="do">## 2331        FALSE</span></span></code></pre></div>
 <p>Para esse caso há identificações feitas por diferentes pessoas e em diferentes datas. Como descrito no tutorial do <strong>plantR</strong>, o registro com identificação mais recente feita por um especialista da família é usado como a identificação de referência - nesse caso, a identificação feita por ‘Dittrich, V.A.O.’ em 2018.<br />
 O registro ‘FURB_6463’, assim como o ‘SLUI_4389’ e o ‘VIC_37877’, possuem identificações diferentes e estes tiveram suas informações homogeneizadas automaticamente pelo <strong>plantR</strong> (colunas terminando em ‘.new1’) e podem ser usadas pelo curador do FURB para atualização.</p>
 </div>

@@ -83,6 +83,9 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   #Escaping R CMD check notes from using data.table syntax
   dup.ID <- N <- N.all <- temp.geo.check <- priority <- NULL
   typeStatus <- temp.rec.numb <- ordem <- temp.pais <- NULL
@@ -120,7 +123,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   if (rm.dup) {
     if ("numTombo" %in% names(x)) {
       dt <- data.table::data.table(suppressMessages(
-                  rmDup(x[, names(x) %in% covs.final])))
+                  rmDup(x[, names(x) %in% covs.final],
+                        rm.all = FALSE, print.rm = FALSE)))
     } else {
       dt <- data.table::data.table(x[, names(x) %in% covs.final])
       warning("Duplicated specimens cannot be removed; using the all occurrences instead")
@@ -145,7 +149,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   checklist$geo.CL <- NA
   checklist$vouchers <- NA
 
-  ## NUMBER OF RECORS PER SPECIES ##
+  ## NUMBER OF RECORDS PER SPECIES ##
   records <- dt[, .N , by = c(covs.present[["species"]])]
 
   if ("dup.ID" %in% names(dt)) {
@@ -163,10 +167,10 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
 
     records <- records[unicatas, on = c(covs.present[["species"]])]
     records <- records[duplicatas, on = c(covs.present[["species"]])]
+
     checklist$records <-
       records$N[match(checklist[, covs.present[["species"]]],
                       data.frame(records)[,1])]
-
   } else {
     checklist$records <-
       records$N[match(checklist[, covs.present[["species"]]],
@@ -226,7 +230,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
   dt[ , priority := 0]
   if ("typeStatus" %in% names(dt)) {
     dt[ , typeStatus := tolower(typeStatus), ]
-    dt[!is.na(typeStatus) & !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
+    dt[(!is.na(typeStatus) & !typeStatus %in% "") &
+         !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
        priority := rank.type, ]
   }
 
@@ -337,9 +342,11 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
         id <- gsub("\\|", ", ", id, perl = TRUE)
         return(id)
       }
-      dt1[!is.na(dup.ID) , temp.accession := as.character(lapply(dup.ID, getDupIDs))]
+      dt1[!is.na(dup.ID) ,
+          temp.accession := as.character(lapply(dup.ID, getDupIDs))]
     }
     dt1[ , temp.accession := paste("(", temp.accession, ")", sep="")]
+    dt1[ , temp.accession := gsub("\\[VIRTUAL\\]", "", temp.accession, perl = TRUE)]
 
     #getting the voucher vector itslef
     dt1[ , vchrs := do.call(paste, c(.SD, sep=" ")),
@@ -348,6 +355,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     if ("typeStatus" %in% names(dt)) {
       dt1[!is.na(typeStatus) & !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
           vchrs := paste(vchrs, " [",tolower(typeStatus),"]", sep="")]
+      dt1[, vchrs := gsub(" \\[\\]$", "", vchrs, perl = TRUE)]
     }
 
     #combining all voucher into a single string
@@ -388,6 +396,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
       dt1[!is.na(dup.ID) , temp.accession := lapply(dup.ID, getDupIDs1)]
     }
     dt1[ , temp.accession := paste("(", temp.accession, ")", sep="")]
+    dt1[ , temp.accession := gsub("\\[VIRTUAL\\]", "", temp.accession, perl = TRUE)]
 
     #getting the voucher vector itself
     dt1[ , vchrs := do.call(paste, c(.SD, sep=" ")),
@@ -396,6 +405,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     # if ("typeStatus" %in% names(dt)) {
     #   dt1[!is.na(typeStatus) & !grepl("not a type|notatype|probable type|tipo provavel|tipo provavel", typeStatus),
     #       vchrs := paste(vchrs, " [",tolower(typeStatus),"]", sep="")]
+    #   dt1[, vchrs := gsub(" \\[\\]$", "", vchrs, perl = TRUE)]
     # }
 
     # LOCALITY
@@ -404,7 +414,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
         any(!sapply(covs.present[c("countries","state","county")], is.na))) {
       loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]
       loc.df <- fixLoc(data.frame(loc.df), scrap = FALSE,
-             loc.levels = c("country", "stateProvince", "municipality"))
+                       loc.levels = c("country", "stateProvince", "municipality"))
       loc.df <- strLoc(loc.df)
       loc.df$loc.string  <- prepLoc(loc.df$loc.string)
       loc.df <- getLoc(loc.df)
@@ -439,7 +449,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     # DATES
     if (all(c("month", "day") %in% names(dt1))) {
       dt1[, datas := do.call(paste, c(.SD, sep = "-")),
-         .SDcols = c("day", "month", covs.present[["colYears"]])]
+          .SDcols = c("day", "month", covs.present[["colYears"]])]
       dt1[, datas.tipo := "full",]
       `%like.ic%` <- function (x, pattern) {
         grepl(pattern, x, perl = TRUE, ignore.case = TRUE)
@@ -449,26 +459,26 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
       dt1[datas %like.ic% "^NA-NA-", datas.tipo := "year_only",]
       dt1[datas %like.ic% "^NA-[0-9]", datas.tipo := "month_year",]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
-                            datas := stringr::str_replace(datas, "^NA-NA-", "01-01-")]
+                             datas := stringr::str_replace(datas, "^NA-NA-", "01-01-")]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
-                            datas := stringr::str_replace(datas, "^NA-", "01-")]
+                             datas := stringr::str_replace(datas, "^NA-", "01-")]
       dt1[!datas.tipo %in% c("no_date"), datas := format(as.Date(datas, "%d-%m-%Y"), date.format)]
       ### MAKE THE 4 AND 3 FROM THE SUBSTR ADAPTED TO DIFFERENT 'date.format'
       data.table::setDT(dt1)[datas.tipo %in% "year_only",
-                            datas := substr(datas, nchar(datas) - 4, nchar(datas))]
+                             datas := substr(datas, nchar(datas) - 4, nchar(datas))]
       data.table::setDT(dt1)[datas.tipo %in% "month_year",
-                            datas := substr(datas, 3, nchar(datas))]
+                             datas := substr(datas, 3, nchar(datas))]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
-                            datas := stringr::str_trim(datas)]
+                             datas := stringr::str_trim(datas)]
     } else {
       dt1[, datas := .SD,
-         .SDcols = c(covs.present[["colYears"]])]
+          .SDcols = c(covs.present[["colYears"]])]
     }
 
     #COMBINING LOCALITIES, DATES AND VOUCHERS
     dt1[ , locais := locais$string , ]
     dt1[ , lista.vouchs := do.call(paste, c(.SD, sep=", ")), ,
-            .SDcols = c("locais", "datas", "vchrs")]
+         .SDcols = c("locais", "datas", "vchrs")]
 
     #combining all voucher into a single string
     data.table::setorderv(dt1, c(covs.present[["species"]], "lista.vouchs"), c(1,1))
@@ -483,8 +493,8 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
 
   # Organizing and ordering the output
   cols <- as.character(
-            c(unlist(covs.present[names(covs.present) %in% c("families", "species")]),
-              "scientific.name", "records", "tax.CL", "geo.CL","vouchers"))
+    c(unlist(covs.present[names(covs.present) %in% c("families", "species")]),
+      "scientific.name", "records", "tax.CL", "geo.CL","vouchers"))
   if (all(c(covs.present[["species"]], "scientific.name") %in% names(checklist)))
     cols <- cols[!cols %in% covs.present[["species"]]]
 

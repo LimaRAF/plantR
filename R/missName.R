@@ -37,13 +37,15 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
   if (is.null(noName))
     stop("Please provide a character to replace missing names")
 
-  if (is.null(type) | all(!type %in% c("collector","coletor","colector","determiner",
-                                       "identificator","identificador","determinador")))
+  if (is.null(type) | all(!type %in% c("collector","coletor","colector",
+                                       "determiner","identifier",
+                                       "identificator","identificador",
+                                       "determinador")))
     stop("Please chose between 'collector' or 'determiner' to replace missing names")
 
   nomes <- x
 
-  if (any(type %in% c("collector", "coletor", "colector"))) {   #No collector's name
+  if (any(type %in% c("collector", "coletor", "colector"))) { #No collector's name
 
     nomes[nomes %in% c("", " ", NA)] <- noName
     busca <- missColls
@@ -53,7 +55,8 @@ missName <- function(x, type = NULL, noName = "Anonymous") {
 
   }
 
-  if (any(type %in% c("determiner", "identificator", "identificador", "determinador", "identifier"))) {   #No identificator's name
+  if (any(type %in% c("determiner", "identificator", "identificador",
+                      "determinador", "identifier"))) { #No identificator's name
 
     nomes[is.na(nomes) | nomes %in% ""] <- noName
     busca <- missDets

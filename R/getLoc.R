@@ -14,10 +14,11 @@
 #' @param gazet a data.frame containing the gazetteer. The default is "plantR",
 #'   the internal __plantR__ gazetteer (biased towards Latin America).
 #' @param gazet.names a vector of at least four columns names containing the
-#'   locality search string, latitude and longitude, in that order. If available,
-#'   the resolution of the gazetteer can be provided as a fifth name. Defaults
-#'   to columns names of the __plantR__ gazetteer: 'loc', 'loc.correct',
-#'   'latitude.gazetteer', 'longitude.gazetteer' and 'resolution.gazetteer'.
+#'   locality search string, latitude and longitude, in that order. If
+#'   available, the resolution of the gazetteer can be provided as a fifth name.
+#'   Defaults to columns names of the __plantR__ gazetteer: 'loc',
+#'   'loc.correct', 'latitude.gazetteer', 'longitude.gazetteer' and
+#'   'resolution.gazetteer'.
 #' @param orig.names logical. Should the original columns names of the gazetteer
 #'   be preserved. Default to FALSE.
 #'
@@ -38,8 +39,8 @@
 #'   also be provided and in this case, these additional strings are used to
 #'   search for information below the municipality/county level, that is, to
 #'   retrieve from the gazetteer information at the locality level or below. If
-#'   these columns have different names in \code{x}, these names can be supplied using,
-#'   the argument `str.names`. See Examples below.
+#'   these columns have different names in \code{x}, these names can be supplied
+#'   using, the argument `str.names`. See Examples below.
 #'
 #'   The default __plantR__ gazetteer includes information for all countries at
 #'   the country level (i.e. administrative level 0) and at the lowest
@@ -94,7 +95,8 @@
 #'
 #' ## Using the function under the __plantR__ workflow
 #' (df <- data.frame(country = c("BR", "Brazil", "Brasil", "USA"),
-#'                      stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro","Florida"),
+#'                      stateProvince = c("RJ", "Rio de Janeiro",
+#'                                        "Rio de Janeiro","Florida"),
 #'                      municipality = c("Paraty", "Paraty", "Parati", NA),
 #'                      locality = c(NA,"Paraty-Mirim", NA, NA),
 #'                      stringsAsFactors = FALSE))

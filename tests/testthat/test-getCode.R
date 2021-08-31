@@ -20,6 +20,7 @@ test_that("getCode parameter works", {
                               "collection.string"))
   expect_equal(setdiff(names(df), names(df_code)), character(0))
   #check that all column names are created
-  expect_true(all(setdiff(names(df_code), names(df)) %in% c("collectionCode.new", "collectionObs", "organization")))
+  expect_true(all(setdiff(names(df_code), names(df)) %in%
+                    c("collectionCode.new", "collectionObs", "organization")))
   expect_equal(nrow(df_code), nrow(df))
 })

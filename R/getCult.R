@@ -119,4 +119,3 @@ getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", hab
 
   return(x)
 }
-

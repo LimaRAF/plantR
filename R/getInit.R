@@ -81,8 +81,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   words <- grepl(" ", x, fixed = TRUE)
   abrev <- grepl('(\\p{L}\\.)(\\p{L}\\.)+',
                  x, perl = TRUE)
-  # abrev <- grepl('([a-zA-Zà-ýÀ-Ý]\\.)([a-zA-Zà-ýÀ-Ý]\\.)+',
-  #                x, perl = TRUE)
 
   types <- rep(NA, length(x))
   types[words] <- "1"
@@ -124,7 +122,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   #type 3: single words, no abbreviations
   if (any(types %in% "3")) {
     any.caps <- grepl('\\p{Lu}', x[types %in% "3"], perl = TRUE)
-    # any.caps <- grepl('[A-ZÀ-Ý]', x[types %in% "3"], perl = TRUE)
     all.caps <- x[types %in% "3"] == toupper(x[types %in% "3"])
     all.low <- !all.caps & !any.caps
 
@@ -151,7 +148,6 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   }
 
   x <- gsub("(\\p{L})", "\\1.", x, perl = TRUE)
-  # x <- gsub("([A-ZÀ-Ýa-zà-ý])", "\\1.", x, perl = TRUE)
   x <- gsub("\\.,\\.", ".", x, perl = TRUE)
 
   if (any(grepl("-\\.", x, perl = TRUE)))

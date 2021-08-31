@@ -48,6 +48,9 @@ formatTax <- function(tax,
   if (!class(tax) == "data.frame")
     stop("input object needs to be a data frame!")
 
+  if (dim(tax)[1] == 0)
+    stop("Input data frame is empty!")
+
   # prepSpecies
   tax1 <- fixSpecies(x = tax, tax.name = tax.name, rm.rank = rm.rank)
 

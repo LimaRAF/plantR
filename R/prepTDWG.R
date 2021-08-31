@@ -107,7 +107,8 @@
 #'   prepTDWG(names, format = "init_last")
 #'   prepTDWG(names, format = "init_last", get.prep = TRUE)
 #'   prepTDWG(names, get.prep = TRUE, format = "prep_last_init")
-#'   prepTDWG(names, get.prep = TRUE, format = "prep_last_init", get.initials = FALSE)
+#'   prepTDWG(names, get.prep = TRUE, format = "prep_last_init",
+#'            get.initials = FALSE)
 #'
 #'   ## Unusual formatting (function won't work always...)
 #'   # two or more people names: output incorrect (combine names of authors)
@@ -119,7 +120,8 @@
 #'   #' one name, abbreviations in the start and end: fails to get all names
 #'   prepTDWG("C.S. Esteves F.")
 #'
-prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.initials = TRUE) {
+prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE,
+                     get.initials = TRUE) {
 
   # Detecting different name formats
   patt <- paste0("\\p{Ll}", sep, "\\p{Lu}")
@@ -157,11 +159,11 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
     } else {
 
       split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
       # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      # split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
+      split[,2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.", split[,2], perl = TRUE)
+      split[,2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.", split[,2], perl = TRUE)
       split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
       split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
 
@@ -199,7 +201,7 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
     # Names ending with (collection) codes in parentheses
     remove_these <-
       grepl(" \\([A-Z]", x[!commas & words & !NAs]) &
-        grepl("[A-Z]\\)$", x[!commas & words & !NAs])
+      grepl("[A-Z]\\)$", x[!commas & words & !NAs])
     if (any(remove_these))
       x[!commas & words & !NAs][remove_these] <-
         gsub(" \\([A-Z].*", "",
@@ -218,11 +220,11 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE, get.
     } else {
 
       split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
+      # split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
       # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      # split[,2] <- gsub("([A-Zà-ý])(\\s)([A-Zà-ý])+", "\\1.\\3.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("([A-Zà-ý])([A-Zà-ý])+", "\\1.\\2.", split[,2], perl = TRUE)
+      split[,2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.", split[,2], perl = TRUE)
+      split[,2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.", split[,2], perl = TRUE)
       split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
       split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
 

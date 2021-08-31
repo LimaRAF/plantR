@@ -15,8 +15,8 @@
 #' Details for a description of flags in the column `scientificNameStatus`.
 #'
 #' @details Possible flags returned in `scientificNameStatus`: \describe{
-#' \item{\code{possibly_ok}}{scientific name following the expected pattern 'Genus
-#' epithet'}
+#' \item{\code{possibly_ok}}{scientific name following the expected pattern
+#' 'Genus epithet'}
 #' \item{\code{not_Genus_epithet_format}}{scientific name not following
 #' the expected pattern Genus epithet}
 #' \item{\code{variety}}{scientific name with variety}
@@ -88,6 +88,9 @@ fixSpecies <- function(x = NULL,
   ## check input
   if (!class(x) == "data.frame")
     stop("input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   if (!tax.name %in% names(x))
     stop("Input data frame must have a column named: ", tax.name)
@@ -212,7 +215,6 @@ fixSpecies <- function(x = NULL,
             "species_nova", "indet")
 
   #2. recognizing authors ####
-  ### ö Sara, já atualizei o código para fazer o eidting para unique(espécies) e fazer o left_join antes de retornar
   #Escaping the issues from function flora::remove.authors
   no_authors <- check$species_new
   prob.ids <- grepl(" f\\. | form\\. | \u00D7 ", check$species_new, perl = TRUE) |

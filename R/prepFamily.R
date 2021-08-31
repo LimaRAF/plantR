@@ -11,6 +11,8 @@
 #'   Default to "genus"
 #' @param spp.name character. The name of the column containing the species
 #'   names. Default to "scientificName"
+#' @param print logical. Should the automatically replaced family names be
+#'   printed? Default to TRUE.
 #'
 #' @return the data frame \code{x} with an additional column called
 #'   'family.new'.
@@ -79,7 +81,8 @@
 prepFamily <- function(x,
                        fam.name = "family",
                        gen.name = "genus",
-                       spp.name = "scientificName") {
+                       spp.name = "scientificName",
+                       print = TRUE) {
 
   #Avoiding warnings in package check when using data.table
   flora.br <- name.correct <- name.correct.y <- string.plantr <- NULL
@@ -89,14 +92,22 @@ prepFamily <- function(x,
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!fam.name %in% names(x))
     stop("Input data frame must have a column with family names")
+
+  na.strings <- c("", " ", "NA", NA)
+  x[[fam.name]][x[[fam.name]] %in% na.strings] <- NA_character_
 
   if (!spp.name %in% names(x))
     stop("Input data frame must have a column with species names")
 
-  x[[gen.name]][x[[gen.name]] %in% c("", " ", "NA", NA)] <- NA_character_
-  x[[spp.name]][x[[spp.name]] %in% c("", " ", "NA", NA)] <- NA_character_
+  x[[spp.name]][x[[spp.name]] %in% na.strings] <- NA_character_
+
+  if (gen.name %in% names(x))
+    x[[gen.name]][x[[gen.name]] %in% na.strings] <- NA_character_
 
   dt <- data.table::data.table(x)
   dt[, tmp.ordem := .I,]
@@ -141,11 +152,13 @@ prepFamily <- function(x,
   print.problems <- print.problems[order(print.problems[, 1]), ]
   print.problems <- print.problems[order(print.problems[, 2]), ]
 
-  if (dim(print.problems)[1] > 0) {
-    cat("The following family names were automatically replaced:\n",
-        knitr::kable(print.problems[,c(2,1,4)],
-                     col.names = c("Genus", "Old fam.", "New fam.")),"",
-        sep="\n")
+  if (print) {
+    if (dim(print.problems)[1] > 0) {
+      cat("The following family names were automatically replaced:\n",
+          knitr::kable(print.problems[,c(2,1,4)],
+                       col.names = c("Genus", "Old fam.", "New fam.")),"",
+          sep="\n")
+    }
   }
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 

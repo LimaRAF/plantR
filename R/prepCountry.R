@@ -18,10 +18,9 @@
 #' @details Country information is formatted into a standard notation, i.e. long
 #'   name format (in English). By default, all letters are lower-cased (argument
 #'   `to.lower`) and special characters (argument `special.char`) and common
-#'   abbreviations (e.g. 'st.') are removed (argument `rm.abbrev`). These
-#'   edits aim at reducing possible variation in country name notation and
-#'   facilitate further data processing and comparison within the __plantR__
-#'   workflow.
+#'   abbreviations (e.g. 'st.') are removed (argument `rm.abbrev`). These edits
+#'   aim at reducing possible variation in country name notation and facilitate
+#'   further data processing and comparison within the __plantR__ workflow.
 #'
 #'   All country information with less than four letters are treated as country
 #'   codes and they are converted to the long format. Currently, only the ISO

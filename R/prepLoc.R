@@ -28,7 +28,7 @@
 #'
 #' @seealso \link[plantR]{strLoc}
 #'
-#' @importFrom stringr str_trim
+#' @importFrom stringr str_squish
 #'
 prepLoc <- function(x) {
 
@@ -46,14 +46,12 @@ prepLoc <- function(x) {
   x <- gsub(" de la | del | du | de los ", " ", x, perl = TRUE)
   x <- gsub(" dos | das | des ", " ", x, perl = TRUE)
   x <- gsub(" do | da | de ", " ", x, perl = TRUE)
-  # x <- gsub(' d\' | d\'| d`| d´| d\"| d’', " ", x, perl = TRUE)
   x <- gsub(' d\' | d\'| d\u0060| d\u00b4| d\"| d\u2019', " ", x, perl = TRUE)
   x <- gsub('\\.$', "", x, perl = TRUE)
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
   # Removing possible problems
-  x <- gsub("\\s+", " ", x, perl = TRUE)
-  x <- stringr::str_trim(x)
+  x <- stringr::str_squish(x)
 
   return(x)
 }

@@ -38,12 +38,11 @@ help of each function for details).
 Ideally, the input data frame must contain at least the following fields
 from the Darwin Core standards (the functions default):
 \itemize{
-\item 'institutionCode' and 'collectionCode' (codes of the institution and
-collection);
+\item 'institutionCode' and 'collectionCode' (codes of the institution and collection);
 \item 'year' and 'eventDate' (year of the collection);
 \item 'recordedBy' (collector(s) name(s));
 \item 'recordNumber' (collector number)
-\item 'identifiedBy' (identifier name);
+\item 'identifiedBy' (identificator name);
 \item 'yearIdentified' and 'dateIdentified' (year of identification)
 }
 

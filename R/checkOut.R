@@ -8,9 +8,9 @@
 #'
 #' @param x a data frame with the species records.
 #' @param lon character. Column with the record longitude in decimal degrees.
-#' Default to 'decimalLongitude.new'.
+#'   Default to 'decimalLongitude.new'.
 #' @param lat character. Column with the record latitude in decimal degrees.
-#' Default to 'decimalLatitude.new'
+#'   Default to 'decimalLatitude.new'
 #' @param tax.name character. Name of the columns containing the species name.
 #'   Default to "scientificName.new"
 #' @param geo.name character. Name of the column containing the validation of
@@ -48,9 +48,9 @@
 #'
 #'   The detection of outliers may depend on the amount of unique coordinates
 #'   available. Therefore, the detection of spatial outliers is safer for cases
-#'   where many unique coordinates are available. As a rule of thumb, ten
-#'   unique coordinates per taxa should avoid possible problems (undetected
-#'   true outliers or detection of false outliers). See Examples.
+#'   where many unique coordinates are available. As a rule of thumb, ten unique
+#'   coordinates per taxa should avoid possible problems (undetected true
+#'   outliers or detection of false outliers). See Examples.
 #'
 #' @examples
 #'

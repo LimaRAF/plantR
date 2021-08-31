@@ -149,7 +149,7 @@ addRank <- function(x, rank = NULL) {
                              split.mat[n.str >= 3, 3], sep = " ")
   x_new <- gsub(" NA NA NA$| NA NA$| NA$", "", x_new, perl = TRUE)
 
-  if (rank %in% c("\u00d7","x"))
+  if (any(rank %in% c("\u00d7", "x")))
     x_new <- gsub(paste0(" ", rank, " "), paste0(" ", rank), x_new, perl = TRUE)
 
   return(x_new)

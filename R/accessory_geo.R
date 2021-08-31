@@ -436,14 +436,14 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #'   decision making of the more appropriated distance cutoffs to flag spatial
 #'   outliers.
 #'
-#' The automatic detection of spatial outliers is based on an adjusted threshold
-#' of the Mahalanobis distances based on function `arw()` from package
-#' __mvoutlier__.
+#'   The automatic detection of spatial outliers is based on an adjusted
+#'   threshold of the Mahalanobis distances based on function `arw()` from
+#'   package __mvoutlier__.
 #'
-#' If the number of unique coordinates is below `n.min` or if the Minimum
-#' Covariance Determinant (MCD) estimator has issues, the function returns NAs.
-#' See the help of function `mahalanobisDist()` for details on the other
-#' parameters.
+#'   If the number of unique coordinates is below `n.min` or if the Minimum
+#'   Covariance Determinant (MCD) estimator has issues, the function returns
+#'   NAs. See the help of function `mahalanobisDist()` for details on the other
+#'   parameters.
 #'
 #' @importFrom stats mahalanobis
 #' @importFrom robustbase covMcd

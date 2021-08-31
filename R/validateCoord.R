@@ -50,6 +50,12 @@ validateCoord <- function(x,
                           tax.name = "scientificName.new",
                           output = "same.col") {
   ## Check input
+  if (!class(x)[1] == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!output %in% c("same.col", "new.col"))
     stop("Please choose an output between 'same.col' and 'new.col'")
 

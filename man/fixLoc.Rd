@@ -12,8 +12,7 @@ fixLoc(
 )
 }
 \arguments{
-\item{x}{a data frame containing typical locality fields from species
-records.}
+\item{x}{a data frame containing typical locality fields from species records.}
 
 \item{loc.levels}{a vector containing the names of the locality fields to be
 formatted.}
@@ -25,8 +24,8 @@ performed? Default to TRUE.}
 lower cases? Default to TRUE.}
 }
 \value{
-The input data frame \code{x}, plus the '.new' columns with the
-formatted fields and the resolution of the locality information available.
+The input data frame \code{x}, plus the '.new' columns with the formatted
+fields and the resolution of the locality information available.
 }
 \description{
 Standardize the notation of the locality fields country,
@@ -35,7 +34,7 @@ information within the available locality information.
 }
 \details{
 The function performs several edits and replacements. Country names
-are formatted into the international format, letters are lower-cased, and
+are formated into the international format, letters are lower-cased, and
 special characters and common abbreviations are removed.
 
 By default, this function formats all four locality fields simultaneously

@@ -197,9 +197,16 @@ formatDwc <- function(splink_data = NULL,
     # required absent fields in gbif: scientificNameAuthorship
     miss.cols <- must[!must %in% names(gbif_data)]
     # Creating field scientificNameAuthorship
-    author <- stringr::str_trim(sapply(gbif_data$scientificName,
+    species <- as.character(unique(gbif_data$scientificName))
+    authors <- stringr::str_trim(sapply(species,
                                        function(x) gsub(flora::remove.authors(x), "", x, perl = TRUE)))
-    gbif_data$scientificNameAuthorship <- author
+    df <- data.frame(scientificName = species,
+                     scientificNameAuthorship = authors)
+    gbif_data <- suppressMessages(dplyr::left_join(gbif_data, df,
+                                                   by = 'scientificName'))
+    # author <- stringr::str_trim(sapply(gbif_data$scientificName,
+    #                                    function(x) gsub(flora::remove.authors(x), "", x, perl = TRUE)))
+    # gbif_data$scientificNameAuthorship <- author
 
     # optional absent fields
     if (!drop.opt) {

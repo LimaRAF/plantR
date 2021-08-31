@@ -18,7 +18,5 @@ test_that("fixName separator work", {
 })
 
 test_that("fixName special character work", {
-  expect_equal(fixName("F. da S.N. Thomé",
-                       special.char = TRUE),
-                "F. da S.N. Thomé")
+  expect_equal(fixName("F. da S.N. Thomé", special.char = TRUE), "F. da S.N. Thomé")
 })

@@ -10,8 +10,8 @@
 #'   formatted.
 #' @param scrap logical. Should the search of missing locality information be
 #'   performed? Default to TRUE.
-#' @param to.lower logical. Should the output locality names be return in
-#'   lower cases? Default to TRUE.
+#' @param to.lower logical. Should the output locality names be return in lower
+#'   cases? Default to TRUE.
 #'
 #' @return The input data frame \code{x}, plus the '.new' columns with the
 #'   formatted fields and the resolution of the locality information available.
