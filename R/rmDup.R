@@ -21,7 +21,7 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @details The input data frame \code{df} must contain the typicall columns
+#' @details The input data frame \code{df} must contain the typical columns
 #'   resulting from __plantR__ workflow and functions. Otherwise, the names
 #'   of these columns should be provided using arguments `dup.name` (i.e.
 #'   characters used to aggregate records into groups of duplicates) and

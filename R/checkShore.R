@@ -34,7 +34,7 @@
 #' in the verification. For all other coordinates, the function returns NA.
 #'
 #' Two approaches can be used to detect coordinates in the sea but near to the
-#' shore, which are controlled by the argumente `type`. The first one uses a 0.5
+#' shore, which are controlled by the argument `type`. The first one uses a 0.5
 #' degree (~ 55 km in the Equator) buffer around the world map (`type` =
 #' 'buffer'). The second approach calculates the distance between the shore and
 #' the record (`type` = 'buffer'), in which the user can provide a maximum

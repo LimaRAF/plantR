@@ -23,7 +23,7 @@
 #'   of the name string if there is no comma, or (ii) the first name preceeding
 #'   the comma, if there is a comma in the name string. Few exceptions related
 #'   to names not in the 'first + last name' or 'last name + comma + first name'
-#'   formats (e.g. 'Hatschbach G.G.') are also considered. But
+#'   formats (e.g. 'Hatschbach G.G.') are also considered.
 #'
 #'   If only one name is given, the function returns the same name with the
 #'   first letter capitalized.
@@ -171,7 +171,7 @@ lastName <- function(name,
     other.names <- gsub(", ", "", other.names, fixed = TRUE)
 
     #Detecting possible multiple names and removing them
-    seps = c(";|&|\\|| e | y | and | und | et ")
+    seps <- c(";|&|\\|| e | y | and | und | et ")
     mult.names <- grepl(seps, other.names, perl = TRUE)
     if (any(mult.names))
       other.names[mult.names] <-

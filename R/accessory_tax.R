@@ -21,7 +21,7 @@
 #'
 #'   The function `rmHyb()` removes the hybrid symbol 'x'.
 #'
-#'   The function `addRank()` does the opposite opperation: it adds ranks, opena
+#'   The function `addRank()` does the opposite operation: it adds ranks, open
 #'   nomenclature or hybrid symbols into scientific names. For this function if
 #'   the number of ranks is equal to the number of names provided each rank is
 #'   assigned to the corresponding name. If the number of ranks is different,

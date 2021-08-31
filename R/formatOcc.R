@@ -24,11 +24,12 @@
 #'
 #'   Ideally, the input data frame must contain at least the following fields
 #'   from the Darwin Core standards (the functions default):
-#'   - 'institutionCode' and 'collectionCode' (codes of the institution and collection);
+#'   - 'institutionCode' and 'collectionCode' (codes of the institution and
+#'   collection);
 #'   - 'year' and 'eventDate' (year of the collection);
 #'   - 'recordedBy' (collector(s) name(s));
 #'   - 'recordNumber' (collector number)
-#'   - 'identifiedBy' (identificator name);
+#'   - 'identifiedBy' (identifier name);
 #'   - 'yearIdentified' and 'dateIdentified' (year of identification)
 #'
 #'   Missing year of collection in the field 'year' are internally replaced by
@@ -87,7 +88,7 @@ formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
   # Collection year
   x$year.new <- getYear(x$year, noYear = noYear)
 
-  # Identificator name
+  # Identifier name
   x$identifiedBy.new <- fixName(x$identifiedBy)
 
   # Identification year

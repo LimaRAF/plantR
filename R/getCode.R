@@ -7,7 +7,7 @@
 #' @param x a data frame containing the collection codes.
 #' @param inst.code character. The column name containing the institution codes.
 #' @param col.code character. The column name containing the collection codes.
-#' @param drop character. List of columns names that should be droped from the
+#' @param drop character. List of columns names that should be dropped from the
 #'   output.
 #' @param print.miss logical.
 #'

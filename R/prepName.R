@@ -1,6 +1,6 @@
 #' @title Format Multiple People's Names
 #'
-#' @description Format or convert multiple collector's or identificator's names
+#' @description Format or convert multiple collector's or identifier's names
 #'   into a standardized name format.
 #'
 #' @param x the character string or vector containing the names.
@@ -9,7 +9,7 @@
 #' @param output a character string with the type of output desired: all names,
 #'   first name, or auxiliary names.
 #' @param treat.prep a character or vector containing the treatment prepositions
-#' that should be removed from names. Default to some common prpositions in
+#' that should be removed from names. Default to some common prepositions in
 #' Portuguese, Spanish and English (see Examples).
 #'
 #' @inheritParams fixName
@@ -35,8 +35,8 @@
 #'   function also does not handle hyphenated first names. If only one name is
 #'   given, the function returns \code{x} with the first letter capitalized.
 #'
-#'   The function has the option of stardardizing the general notation of names
-#'   and the general format of names. These standardizations are controled by
+#'   The function has the option of standardizing the general notation of names
+#'   and the general format of names. These standardizations are controlled by
 #'   the arguments `fix.names` and `prep.tdwg`, which call internally the
 #'   __plantR__ functions `fixName()` and `prepTDWG()`.
 #'
@@ -104,7 +104,8 @@
 prepName <- function(x,
                      fix.names = TRUE,
                      output = "all",
-                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.", "Sra.", "Mr.", "Mrs.", "Mme."),
+                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.",
+                                    "Sr.", "Sra.", "Mr.", "Mrs.", "Mme."),
                      sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
                      sep.out = "|",
                      special.char = FALSE,

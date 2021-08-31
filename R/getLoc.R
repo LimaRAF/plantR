@@ -52,7 +52,7 @@
 #'   [TreeCo](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start)
 #'   databases. It also includes common spelling variants and historical changes
 #'   to locality names (currently biased for Brazil) and more common notation
-#'   variants of locality names found in the lcoality description of records
+#'   variants of locality names found in the locality description of records
 #'   from GBIF, speciesLink and JABOT databases (include few type localities).
 #'   In total the gazetteer has nearly 25,000 locality names associated with a
 #'   valid geographical coordinates.

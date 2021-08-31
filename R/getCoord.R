@@ -23,7 +23,7 @@
 #' @param lon.new character. The name of the column containing the working
 #'   longitude combining the coordinates from the source data and the gazetteer.
 #'   Default to "decimalLongitude.new".
-#' @param rm.gazet logical. Should the coordinates form the gazetterr be removed
+#' @param rm.gazet logical. Should the coordinates form the gazetteer be removed
 #'   from the data after the replacement of missing coordinates? Default to
 #'   FALSE.
 #'
@@ -36,7 +36,7 @@
 #'   validate geographical coordinates of plant occurrence data. It is possible
 #'   to use it separately, but it may be easier to use it under the workflow
 #'   presented in __plantR__ tutorial (see functions `getLoc` and `prepCoord`).
-#'   If used separately, users should provide a data frame preferabley with the
+#'   If used separately, users should provide a data frame preferably with the
 #'   following six columns (the defaults): 'decimalLatitude',
 #'   'decimalLongitude', 'latitude.gazetteer', 'longitude.gazetteer',
 #'   'resolution.gazetteer', 'decimalLatitude.new' and 'decimalLongitude.new')
@@ -44,7 +44,7 @@
 #'
 #'   The columns `lat.new` and `lon.new` are the columns containing the working
 #'   coordinates that may have been already edited by `prepCoord()`. It is also
-#'   the columns were the function will store the coordinates from the gazetter
+#'   the columns were the function will store the coordinates from the gazetteer
 #'   in the case of missing coordinates. If these columns are not provided in
 #'   the input data, they are assumed to be equal to `lat.orig` and `lon.orig`
 #'   and they are created internally.
@@ -196,7 +196,7 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
                            (x1$p.lat %in% "miliseconds" | x1$p.lon %in% "miliseconds")] <- "miliseconds"
     }
 
-  ##Replacing missing coordinates by the county coordinates from the gazetter
+  ##Replacing missing coordinates by the county coordinates from the gazetteer
   x1$decimalLatitude.new[is.na(lati) | is.na(long)] <-
     x1$latitude.gazetteer[is.na(lati) | is.na(long)]
   x1$decimalLongitude.new[is.na(lati) | is.na(long)] <-

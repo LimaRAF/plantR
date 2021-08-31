@@ -16,7 +16,8 @@ and Tutorial of the package for more details.
 
 #### Installation
 
-The package can installer in R from [github](https://github.com/) with:
+The package can be installed in R from [github](https://github.com/)
+with:
 
 ``` r
 library("remotes")
@@ -25,18 +26,18 @@ library("plantR")
 ```
 
 If you run into errors while installing the package, please check the
-detailed package introduction for some alternatives.
+detailed package introduction for alternatives.
 
 ##### Bug report and suggestions
 
 The plantR project is hosted on
-[GitHub](https://github.com/LimaRAF/plantR/). Please, report any bugs
-and suggestions of improvements for the package
+[GitHub](https://github.com/LimaRAF/plantR/). Please report any bugs and
+suggestions of improvements for the package
 [here](https://github.com/LimaRAF/plantR/issues).
 
 The package gazetteer and the list of taxonomists are constantly being
 improved. If you want to contribute with regional gazetteers or with
-missing names of taxonomists, please e-mail to <raflima@usp.br>.
+missing names of taxonomists, please e-mail <raflima@usp.br>.
 
 ### Authors and contributors
 
@@ -61,8 +62,9 @@ Improvement of Higher Education Personnel (CAPES, process
 
 ### Acknowledgements
 
-We thank Sidnei Souza from speciesLink for his help with the web API. We
-also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the [TreeCo
+We thank Sidnei Souza from CRIA/speciesLink for his help with the web
+API. We also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the
+[TreeCo
 database](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start)
 for providing many of the localities used to construct the package
 gazetteer. We also thank Vinícius C. Souza (ESALQ/USP), who helped to

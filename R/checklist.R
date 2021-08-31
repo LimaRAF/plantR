@@ -182,7 +182,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
 
   if (!is.na(covs.present[["taxonomy"]])) {
     # Proportion of validate identifications per species
-    colunas = c(covs.present[["taxonomy"]], covs.present[["species"]])
+    colunas <- c(covs.present[["taxonomy"]], covs.present[["species"]])
     data.table::setkeyv(dt, cols = colunas)
     taxs <- dt[, .N,
                by = c(covs.present[["species"]], covs.present[["taxonomy"]])]
@@ -211,7 +211,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     dt[temp.geo.check %in% c("ok_county", "ok_locality"), temp.geo.check := "1"]
     dt[!temp.geo.check %in% "1", temp.geo.check := "0"]
 
-    colunas = c("temp.geo.check", covs.present[["species"]])
+    colunas <- c("temp.geo.check", covs.present[["species"]])
     data.table::setkeyv(dt, cols = colunas)
     coords <- dt[, .N, by = colunas]
 
@@ -409,7 +409,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
     # }
 
     # LOCALITY
-    locais = NULL
+    locais <- NULL
     if (is.na(covs.present[["locality"]]) &
         any(!sapply(covs.present[c("countries","state","county")], is.na))) {
       loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]

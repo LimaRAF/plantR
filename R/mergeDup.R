@@ -45,13 +45,14 @@
 #'   should be provided to the arguments `tax.names`, `geo.names`, and
 #'   `loc.names`.
 #'
-#'   For the merge of taxonomical information, the fields required by
+#'   For the merge of taxonomic information, the fields required by
 #'   `tax.names` are:
 #'   - 'family': the botanical family (default: 'family.new')
 #'   - 'species': the scientific name (default: 'scientificName.new')
-#'   - 'det.name': the indentifier name (default: 'identifiedBy.new')
+#'   - 'det.name': the identifier name (default: 'identifiedBy.new')
 #'   - 'det.year': the identification year (default: 'yearIdentified.new')
-#'   - 'tax.check': the confidence level of the taxonomic identification (default: 'tax.check')
+#'   - 'tax.check': the confidence level of the taxonomic identification
+#'   (default: 'tax.check')
 #'   - 'status': the status of the taxon name (default: 'scientificNameStatus')
 #'
 #'   For the merge of geographical information, the fields required by
@@ -59,14 +60,18 @@
 #'   - 'lat': latitude in decimal degrees (default: 'decimalLatitude.new')
 #'   - 'lon': longitude in decimal degrees (default: 'decimalLongitude.new')
 #'   - 'org.coord': the origin of the coordinates (default: 'origin.coord')
-#'   - 'prec.coord': the precision of the coordinates (default: 'precision.coord')
-#'   - 'geo.check': the result of the geo. coordinate validation (default: 'geo.check')
+#'   - 'prec.coord': the precision of the coordinates (default:
+#'   'precision.coord')
+#'   - 'geo.check': the result of the geo. coordinate validation (default:
+#'   'geo.check')
 #'
 #'   For the merge of locality information, the fields required by `loc.names`
 #'   are:
 #'   - 'loc.str': the locality search string (default: 'loc.correct')
-#'   - 'res.gazet': the resolution of the gazetteer coordinates (default: 'resolution.gazetteer')
-#'   - 'res.orig': the resolution of the source coordinates (default: 'resol.orig')
+#'   - 'res.gazet': the resolution of the gazetteer coordinates (default:
+#'   'resolution.gazetteer')
+#'   - 'res.orig': the resolution of the source coordinates (default:
+#'   'resol.orig')
 #'   - 'loc.check': the result of the locality validation (default: 'loc.check')
 #'
 #'  For all groups of information (i.e. taxonomic, geographic and locality), the
@@ -80,10 +85,10 @@
 #'  is found in the input data, merge is performed for all records, with a
 #'  warning.
 #'
-#'  For the merge of taxonomical information, the specimen(s) with the highest
-#'  confidence level of the identification is used as the standard, from
-#'  which the taxonomic information is expanded to other specimens within the
-#'  same group of duplicates. By default, `mergeDup()` uses specimens flagged as
+#'  For the merge of taxonomic information, the specimen(s) with the highest
+#'  confidence level of the identification is used as the standard, from which
+#'  the taxonomic information is expanded to other specimens within the same
+#'  group of duplicates. By default, `mergeDup()` uses specimens flagged as
 #'  having a 'high' confidence level.
 #'
 #'  In the case of conflicting species identification among specialists for the
@@ -102,24 +107,23 @@
 #'
 #'  A similar procedure is performed to merge the information regarding the
 #'  locality description. Specimens are ordered according to the result of their
-#'  locality validation (i.e. field 'loc.check'), and the one ranked best
-#'  within the group of duplicates (e.g. 'ok_municip.2locality') is the one used
-#'  as the standard.
+#'  locality validation (i.e. field 'loc.check'), and the one ranked best within
+#'  the group of duplicates (e.g. 'ok_municip.2locality') is the one used as the
+#'  standard.
 #'
 #'  For the merge of taxonomic, geographic and locality information, the
 #'  specimens used as references of the best information available for each
 #'  group of duplicate are stored in the columns 'ref.spec.tax', 'ref.spec.geo'
-#'  and 'ref.spec.loc', respectively.
-#'
-#'  The merge of collector information (i.e. collector name, number and year)
-#'  are predicted, but not yet implemented in the current version.
+#'  and 'ref.spec.loc', respectively. The merge of collector information (i.e.
+#'  collector name, number and year) is predicted, but not yet implemented in
+#'  the current version of the package.
 #'
 #' @return If `overwrite == FALSE`, the function returns the input data frame
-#'   \code{dups} and the new columns containing the homogeneized information. The
-#'   names of these columns are the same of the previous one but with an added
-#'   suffix '1'. If `overwrite == TRUE`, the homogeneized information is saved
-#'   on the same columns of the input data and the names of the columns remain
-#'   the same.
+#'   \code{dups} and the new columns containing the homogenized information.
+#'   The names of these columns are the same of the previous one but with an
+#'   added suffix '1'. If `overwrite == TRUE`, the homogenized information is
+#'   saved on the same columns of the input data and the names of the columns
+#'   remain the same.
 #'
 #' @examples
 #' #An example for the merge of taxonomic information only

@@ -17,7 +17,7 @@
 #'   formatted fields and the resolution of the locality information available.
 #'
 #' @details The function performs several edits and replacements. Country names
-#'   are formated into the international format, letters are lower-cased, and
+#'   are formatted into the international format, letters are lower-cased, and
 #'   special characters and common abbreviations are removed.
 #'
 #'   By default, this function formats all four locality fields simultaneously
@@ -254,7 +254,7 @@ fixLoc <- function(x,
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       names(tmp2) <- gsub('\\(', "\\\\(", names(tmp2), perl = TRUE)
       names(tmp2) <- gsub('\\)', "\\\\)", names(tmp2), perl = TRUE)
-      x1[ ,"locality"] = stringr::str_replace_all(x1[ ,"locality"], tmp2)
+      x1[ ,"locality"] <- stringr::str_replace_all(x1[ ,"locality"], tmp2)
     }
 
     if (c("locality") %in% loc.levels & scrap) {

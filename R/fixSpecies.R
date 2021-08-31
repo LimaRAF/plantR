@@ -5,7 +5,7 @@
 #'   column with the new suggested name and it also flags problematic names
 #'   (character string with numbers, authors, wrong case, or other names besides
 #'   genus and epithet etc). Names can be returned with or without
-#'   infra-specific ranks (var. and subsp.) or abbreviations of unespecific
+#'   infra-specific ranks (var. and subsp.) or abbreviations of unspecific
 #'   names (sp. or spp.).
 #'
 #' @return
@@ -47,7 +47,7 @@
 #'   Default to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
 #'   removed from the name? Default to FALSE
-#' @param rm.indet logical. Should the abbreviations for unespecific names (i.e.
+#' @param rm.indet logical. Should the abbreviations for unspecific names (i.e.
 #'   sp. or spp.) be removed? Default to FALSE
 #'
 #' @author Sara Mortara & Renato A. Ferreira de Lima

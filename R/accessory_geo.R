@@ -21,8 +21,8 @@
 #'
 #' @examples
 #'
-#' lon = c(-47, -46, -47)
-#' lat = c(-23, -24, -23.5)
+#' lon <- c(-47, -46, -47)
+#' lat <- c(-23, -24, -23.5)
 #'
 #' \dontrun{
 #' geoDist(lon, lat)
@@ -32,7 +32,7 @@
 #'
 geoDist <- function(lon, lat, radius = 6371) {
 
-  if(length(lon) != length(lat))
+  if (length(lon) != length(lat))
     stop("Longitude and latitude must have the same length")
 
   coslat1 <- cos((lat * pi)/180)
@@ -49,14 +49,14 @@ geoDist <- function(lon, lat, radius = 6371) {
   return(dists)
 }
 
-#' @title Minimun Distance between Coordinates
+#' @title Minimum Distance between Coordinates
 #'
 #' @description The function calculates the minimum distance between coordinates
-#'   or the coordinates which are below a mininum threshold distance.
+#'   or the coordinates which are below a minimum threshold distance.
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
+#' @param min.dist numerical. Minimum threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates. Default to 1 meter.
 #' @param output character. The type of information that should be returned (see
 #'   Details)
@@ -70,7 +70,7 @@ geoDist <- function(lon, lat, radius = 6371) {
 #'   - 'dist': the distance of each coordinate to the closest coordinated.
 #'
 #'
-#' @return A vector of TRUE/FALSE or of minimun distances in kilometers.
+#' @return A vector of TRUE/FALSE or of minimum distances in kilometers.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -79,8 +79,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #'
 #' @examples
 #'
-#' lat = c(-23.475389, -23.475389, -23.475390, -23.475389)
-#' lon = c(-47.123768, -47.123768, -47.123768, -47.123868)
+#' lat <- c(-23.475389, -23.475389, -23.475390, -23.475389)
+#' lon <- c(-47.123768, -47.123768, -47.123768, -47.123868)
 #'
 #' \dontrun{
 #' minDist(lon, lat, output = 'group')
@@ -132,7 +132,7 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   (see Details)
 #' @param center character. Which metric should be used to obtain he center of
 #'   the distribution of coordinates: 'mean' or 'median'?
-#' @param n.min numerical. Minimun number of unique coordinates to be used in
+#' @param n.min numerical. Minimum number of unique coordinates to be used in
 #'   the calculations.
 #' @param geo character. A vector of the same length of lon/lat containing the
 #' result from the validation of the geographical coordinates. Default to NULL.
@@ -240,7 +240,7 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 
   df <- cbind.data.frame(lon = as.double(lon),
                          lat = as.double(lat),
-                         tmp.ordem = 1:length(lon))
+                         tmp.ordem = seq_along(lon))
 
   ## Adding columns to flag problematic coordinates
   if (!is.null(geo)) {
@@ -316,26 +316,32 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
     if (method == "robust") {
       use_these <- df1$geo & df1$cult
 
-      rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2], alpha = 1 / 2), TRUE))
+      rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2],
+                                                     alpha = 1 / 2), TRUE))
       if (class(rob) == "try-error") {
         df1$lon2 <- jitter(df1$lon, factor = 0.001)
         df1$lat2 <- jitter(df1$lat, factor = 0.001)
-        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1 / 2, tol = 1e-20)
+        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
+                                  alpha = 1 / 2, tol = 1e-20)
         res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                  res = sqrt(stats::mahalanobis(df1[, c("lon2", "lat2")],
-                                                               center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                               center = rob$center,
+                                                               cov = rob$cov, tol=1e-20)))
       } else {
         if (length(rob$singularity) > 0) {
-          df1$lon2 = jitter(df1$lon, factor = 0.005)
-          df1$lat2 = jitter(df1$lat, factor = 0.005)
-          rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")], alpha = 1/2, tol=1e-20)
+          df1$lon2 <- jitter(df1$lon, factor = 0.005)
+          df1$lat2 <- jitter(df1$lat, factor = 0.005)
+          rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
+                                    alpha = 1/2, tol=1e-20)
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = sqrt(stats::mahalanobis(df1[,c("lon2", "lat2")],
-                                                                 center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                                 center = rob$center,
+                                                                 cov = rob$cov, tol=1e-20)))
         } else {
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = sqrt(stats::mahalanobis(df1[,c("lon", "lat")],
-                                                                 center = rob$center, cov = rob$cov, tol=1e-20)))
+                                                                 center = rob$center,
+                                                                 cov = rob$cov, tol=1e-20)))
         }
       }
 
@@ -414,12 +420,12 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
 #' @param method character. Type of method desired: 'classic' or 'robust'
-#' @param n.min numerical. Minimun number of unique coordinates to be used in
+#' @param n.min numerical. Minimum number of unique coordinates to be used in
 #'   the calculations. Default to 10
-#' @param digs numerical. Number of digits to be returned after the decimal point.
-#' Default to 4
+#' @param digs numerical. Number of digits to be returned after the decimal
+#'   point. Default to 4
 #' @param probs numerical. Vector of probabilities between 0 and 1 to calculate
-#' the sample quantiles. Defaul to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
+#'   the sample quantiles. Default to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
 #'
 #' @return the number of unique coordinates ('n'), the number of outliers
 #'   detected ('n.out') and the sample quantiles ('qt') of the Mahalanobis
@@ -455,7 +461,7 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #' lat[1:5] <- lat[1:5] + runif(5, 10, 20)
 #' lon[96:100] <- lon[96:100] + runif(5, 10, 20)
 #'
-#' distOutlier(lon, lat, method = "classic") # quantiles for the 10 outliers found
+#' distOutlier(lon, lat, method = "classic") # quantiles found for 10 outliers
 #' distOutlier(lon, lat, method = "robust")
 #' }
 #'
@@ -482,7 +488,7 @@ distOutlier <- function(lon, lat, method = "robust",
   ## Preparing the data
   df <- cbind.data.frame(lon = as.double(lon),
                          lat = as.double(lat),
-                         tmp.ordem = 1:length(lon))
+                         tmp.ordem = seq_along(lon))
 
   tmp <- suppressWarnings(uniqueCoord(df,
                                       lon = "lon", lat = "lat",
@@ -497,7 +503,8 @@ distOutlier <- function(lon, lat, method = "robust",
       c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
   } else {
 
-    rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2], alpha = 1 / 2), TRUE))
+    rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2],
+                                                   alpha = 1 / 2), TRUE))
     if (class(rob) == "try-error") {
       res <-
         c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
@@ -507,7 +514,8 @@ distOutlier <- function(lon, lat, method = "robust",
           c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
       } else {
         distcla <- sqrt(stats::mahalanobis(df1[, 1:2],
-                                           center = apply(df1[, 1:2], 2, mean), cov = stats::cov(df1[, 1:2])))
+                                           center = apply(df1[, 1:2], 2, mean),
+                                           cov = stats::cov(df1[, 1:2])))
         distrob <- sqrt(stats::mahalanobis(df1[, 1:2],
                                            center = rob$center, cov = rob$cov))
 

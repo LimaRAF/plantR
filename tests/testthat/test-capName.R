@@ -1,4 +1,3 @@
-#library(testthat)
 test_that("capName works", {
   expect_equal(capName("gentry"), "Gentry")
   expect_equal(capName("GENTRY"), "Gentry")

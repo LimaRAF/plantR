@@ -8,7 +8,7 @@
 #'   data.frame, containing the last name in the first column and other names in
 #'   the second.
 #' @param preps a vector with the name prepositions to be isolated. Defaults to
-#'   some common prepositions in portuguese, spanish, italian, french, and dutch
+#'   some common prepositions in Portuguese, Spanish, Italian, French, and Dutch
 #'   family names.
 #' @param rm.prep logical. Should the preposition be removed? Default to FALSE.
 #' @param output character. Should the names be returned as a vector of

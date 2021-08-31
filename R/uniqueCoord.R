@@ -7,15 +7,15 @@
 #'   Default to "scientificName.new"
 #' @param type character. Type of approach to search for duplicated coordinates.
 #' @param output character. Type of output desired: 'group' and/or 'flag'.
-#' @param min.dist numerical. Minimun threshold distance (in kilometers) to be
+#' @param min.dist numerical. Minimum threshold distance (in kilometers) to be
 #'   used to detect duplicated coordinates.
 #'
 #' @return the input data frame and the new columns with the results from the
-#'   'exact' and/or 'minimun distance' approaches to flag duplicated
+#'   'exact' and/or 'minimum distance' approaches to flag duplicated
 #'   coordinates.
 #'
-#' @details If `type` is 'exact', only coodinates with the exact same
-#'   coordinates are flagged. If `type` is 'dist', coordinates below the minimun
+#' @details If `type` is 'exact', only coordinates with the exact same
+#'   coordinates are flagged. If `type` is 'dist', coordinates below the minimum
 #'   threshold distance defined by `min.dist` are flagged. If both methods are
 #'   selected, the function returns the results for both approaches.
 #'
@@ -116,7 +116,7 @@ uniqueCoord <- function(x,
     dt[, c("coord.string") := NULL]
   }
 
-  # By minimun distance
+  # By minimum distance
   if (any("dist" %in% type)) {
     dt[, c("lon.wrk", "lat.wrk") := .SD, .SDcols =  c(lon, lat)]
     data.table::setkeyv(dt, c(tax.name))

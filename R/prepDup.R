@@ -13,7 +13,7 @@
 #'   information that should be used to create the duplicate search strings.
 #'   Default to four vectors of information to be combined.
 #' @param rec.ID character. The name of the columns containing the unique record
-#' identifier (see function `getTombo()`). Default to 'numTombo'.
+#'   identifier (see function `getTombo()`). Default to 'numTombo'.
 #' @param noYear character. Standard for missing data in Year. Default to
 #'   "n.d.".
 #' @param noName character. Standard for missing data in collector name. Default
@@ -46,7 +46,7 @@
 #'   If an element named 'loc.str' containing the column name of the __plantR__
 #'   locality string (i.e. 'loc.correct') is also provided, it can be used to
 #'   complement any missing locality information in the locality of the
-#'   collection (i.e 'col.loc') tha may have been retrieved in the data
+#'   collection (i.e 'col.loc') that may have been retrieved in the data
 #'   processing within the __plantR__ workflow.
 #'
 #'   The duplicate search strings are created by combining the fields listed

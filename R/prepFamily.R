@@ -14,21 +14,23 @@
 #' @param print logical. Should the automatically replaced family names be
 #'   printed? Default to TRUE.
 #'
-#' @return the data frame \code{x} with an additional column called 'family.new'.
+#' @return the data frame \code{x} with an additional column called
+#'   'family.new'.
 #'
 #' @details
 #'
 #' The data frame \code{x} must contain at least two columns which stores the
-#' family and spcies names. By default, the names of these columns should be
+#' family and species names. By default, the names of these columns should be
 #' `family` and `speciesName`, following Darwin Core field names. Optionally,
 #' a column with the genus name can be provided (default column name: 'genus').
 #' If it is not provided, this columns is generated internally based on the
 #' species names provided.
 #'
 #' The first search of names is based on the list of families and accepted
-#' synonyms for vascular plants provided by __plantR__, which was mainly compiled
-#' from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
-#' which includes families cited in the APG IV (2016) and in the PPG I (2016).
+#' synonyms for vascular plants provided by __plantR__, which was mainly
+#' compiled from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG
+#' website}, which includes families cited in the APG IV (2016) and in the PPG I
+#' (2016).
 #'
 #' If the family name is not found in this list, a second search is carried in
 #' the Brazilian Flora 2020 (BF-2020), using package `flora` (Carvalho 2019). If
@@ -161,7 +163,7 @@ prepFamily <- function(x,
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 
   if (families.data[, any(is.na(name.correct))]) {
-    miss.families <- families.data[is.na(name.correct), tmp.fam, F]
+    miss.families <- families.data[is.na(name.correct), tmp.fam, FALSE]
     genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
                      list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
                      by = "tmp.fam"]

@@ -12,7 +12,7 @@
 #' @param lat Name of the column with the latitude to be validated. Default to
 #'   'decimalLatitude.new'
 #' @param str.name Column with the verified locality search string
-#' @param orig.coord Column with the origin of the coordinates (tipically the
+#' @param orig.coord Column with the origin of the coordinates (typically the
 #'   output of function `getCoord()`)
 #' @param low.map a sf multipolygon object containing the global administrative
 #'   map at the lowest level (e.g. country). The default is "plantR", the
@@ -46,7 +46,7 @@
 #' output that may be relevant are:
 #' - the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
 #'  'NAME_2' and 'NAME_3';
-#' - the locality string in the __plantR__ format combining the localty
+#' - the locality string in the __plantR__ format combining the locality
 #' obtained from the maps: 'loc.coord';
 #' - the checks between the locality info obtained from `str.name` and the
 #' administrative levels from the maps: 'country.check', 'state.check' and

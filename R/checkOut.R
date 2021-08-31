@@ -14,9 +14,9 @@
 #' @param tax.name character. Name of the columns containing the species name.
 #'   Default to "scientificName.new"
 #' @param geo.name character. Name of the column containing the validation of
-#'   the geographical coodinates. Default to "geo.check"
+#'   the geographical coordinates. Default to "geo.check"
 #' @param cult.name character. Name of the column containing the validation of
-#'   records from cultiavted individuals. Default to "cult.check"
+#'   records from cultivated individuals. Default to "cult.check"
 #' @param clas.cut numerical. The threshold distance for outlier detection,
 #'   using classic Mahalanobis distances. Default to 3
 #' @param rob.cut numerical. The threshold distance for outlier detection, using
@@ -32,7 +32,7 @@
 #' @details The function searches for spatial outliers using two different
 #'   methods to detect outliers (Liu et al., 2018): the classic and the robust
 #'   squared Mahalanobis distances (see help of `mahalanobisDist()` for
-#'   details). They can be used separetely or combined (See Examples).
+#'   details). They can be used separately or combined (See Examples).
 #'
 #'   To detect outliers, we need thresholds to be applied to the values of
 #'   Mahalanobis distances obtained for each species (arguments `clas.cut` and

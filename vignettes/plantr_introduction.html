@@ -12,11 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<<<<<<< Updated upstream
-<meta name="date" content="2021-04-08" />
-=======
-<meta name="date" content="2021-08-09" />
->>>>>>> Stashed changes
+<meta name="date" content="2021-08-31" />
 
 <title>An Introduction to plantR</title>
 
@@ -137,11 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">An Introduction to <strong>plantR</strong></h1>
 <h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
-<<<<<<< Updated upstream
-<h4 class="date">08 April 2021</h4>
-=======
-<h4 class="date">09 August 2021</h4>
->>>>>>> Stashed changes
+<h4 class="date">31 August 2021</h4>
 
 
 <div id="TOC">
@@ -169,13 +161,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br /><br /></p>
 <div id="introduction" class="section level1" number="1">
 <h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
-<<<<<<< Updated upstream
-<p>The databases of biological collections are becoming increasingly available online, providing an unprecedented amount of species records for biodiversity-related studies. Managing the information associated with species records is an important but difficult task. The notation of collectors’ names, numbers and dates vary between collections, and sometimes within them. In addition, it is often difficult to validate the localities, geographical coordinates and identifications associated with individual species records, especially when working with thousands or millions of them. Thus, having tools to process and validate large amounts of records can be quite handy.</p>
-<p><strong>plantR</strong> is an R package that was developed to manage, standardize and validate the information associated with species records from biological collections (e.g. herbaria). It can be used for data coming from a single collection or different biodiversity databases, such as <a href="https://www.gbif.org/">GBIF</a>. Moreover, <strong>plantR</strong> can be used by collection curators to manage their databases and by final users of species records (e.g. taxonomists, ecologists and conservationists), allowing the comparison of data across collections.</p>
-=======
 <p>The databases of biological collections are becoming increasingly available online, providing an unprecedented amount of species records for biodiversity-related studies. Managing the information associated with species records is an important but difficult task. The notation of collectors’ names, numbers, and dates varies between collections, and sometimes within them. In addition, it is often difficult to validate the localities, geographical coordinates and identifications associated with individual species records, especially when working with thousands or millions of them. Thus, having tools to process and validate large amounts of records can be quite handy.</p>
 <p><strong>plantR</strong> is an R package that was developed to manage, standardize, and validate the information associated with species records from biological collections (e.g., herbaria). It can be used for data coming from a single collection or different biodiversity databases, such as <a href="https://www.gbif.org/">GBIF</a>. Moreover, <strong>plantR</strong> can be used by collection curators to manage their databases and by final users of species records (e.g., taxonomists, ecologists, and conservationists), allowing the comparison of data across collections.</p>
->>>>>>> Stashed changes
 <div id="main-features-and-workflow" class="section level2" number="1.1">
 <h2 number="1.1"><span class="header-section-number">1.1</span> Main features and workflow</h2>
 <p>The package <strong>plantR</strong> provides tools to standardize the information from typical fields associated with species records, such as collectors’ and species names. In addition, <strong>plantR</strong> proposes a comprehensive and reproducible workflow to apply those tools while handling records from biological collections, which includes the following steps:</p>
@@ -184,8 +171,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>batch standardization of typical fields (e.g., collector name);</p></li>
 <li><p>validation of the locality and geographical coordinates of the records, based on maps and gazetteers;</p></li>
 <li><p>spell-checking and validation of botanical families and species names using different taxonomic backbones (e.g. Flora do Brasil);</p></li>
-<li><p>assessment of the confidence level of species identifications, based on a global list of plant taxonomists.</p></li>
-<li><p>retrieval of duplicated specimens across collections, including the homogenization of the information within duplicates.</p></li>
+<li><p>assessment of the confidence level of species identifications, based on a global list of plant taxonomists;</p></li>
+<li><p>retrieval of duplicated specimens across collections, including the homogenization of the information within duplicates;</p></li>
 <li><p>summary of species data and validation steps, and (fast) export of the validated records by groups (e.g. families or countries).</p></li>
 </ol>
 </div>
@@ -193,22 +180,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 number="1.2"><span class="header-section-number">1.2</span> Basic assumptions and limitations</h2>
 <p>The tools provided by <strong>plantR</strong> do not edit the columns with the original information. All the outputs of each editing or validation step are stored in new, separated columns added to the original data. This is important for the collection curation process because it allows the comparison between the original and edited information. However, it increases the number of columns in the dataset, which may become a problem while managing and saving big datasets.</p>
 <p><strong>plantR</strong> was initially developed to manage plant records from herbaria. Therefore, some of the tools offered by the package are exclusive to plants, particularly the checking of species names. However, some of its main features are expected to work for other groups of organisms as well, as long as the data structure is similar.</p>
-<p>Currently, the download of records is available for the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a>, and <a href="http://splink.cria.org.br/">speciesLink</a>, but the user can also provide his own dataset as an input. Future versions of the package may include the download from data stored in <a href="http://jabot.jbrj.gov.br//">JABOT</a>.</p>
+<p>Currently, the download of records is available for the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a>, and <a href="http://splink.cria.org.br/">speciesLink</a>, but the user can also provide their own dataset as an input. Future versions of the package may include the download from data stored in <a href="http://jabot.jbrj.gov.br//">JABOT</a>.</p>
 <p>Name editing and standardization cover most of the typical variation in the notation of people’s names, trying to provide standardized outputs in the TDWG format. The same applies to collection codes, collector numbers and dates. However, <strong>plantR</strong> does not handle all possibilities of notation. So, some double-checking and corrections may be needed depending on the user’s goals.</p>
-<<<<<<< Updated upstream
-<p>Regarding the validation of geographical coordinates. In the case of invalid or missing coordinates, we assume that the locality information associated with the record (e.g. country, state, county) is correct (i.e. locality prevails over coordinates), and so working coordinates are taken from a gazetteer. It is important to note that if the locality information is indeed mistaken (eg. wrong county name), then even if the original coordinates are good, they will not be validated (record locality and coordinate locality don’t match) and may be replaced by coordinates taken from the gazetteer.</p>
-=======
 <p>Regarding the validation of geographical coordinates. In the case of invalid or missing coordinates, we assume that the locality information associated with the record (e.g. country, state, county) is correct (i.e. locality prevails over coordinates), and so working coordinates are taken from a gazetteer. It is important to note that if the locality information is indeed mistaken (e.g., wrong county name), then even if the original coordinates are good, they will not be validated (record locality and coordinate locality don’t match) and may be replaced by coordinates taken from the gazetteer.</p>
->>>>>>> Stashed changes
 <p>Currently, geographical validation can be performed at the county level for Latin American countries and at the country level for the rest of the world. We provide a gazetteer to retrieve and check localities and geographical coordinates, which is currently biased towards Latin American countries, particularly Brazil. Therefore, the validation of geographical coordinates provided by other R packages (e.g. <strong>CoordinateCleaner</strong>) may be more appropriate for studies extending outside Latin America.</p>
-<p>Taxonomical validation is performed based on (i) the correction of plant family and species names (i.e. synonyms, typos) and (ii) the confidence level on the species identification, based on a dictionary of plant taxonomist names from all over the world. For i, names are currently checked against the <a href="http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do">Flora do Brasil project</a> and <a href="http://www.theplantlist.org/">The Plant List</a>, using the R packages <strong>flora</strong> and <strong>Taxonstand</strong>. Future versions may include comparisons against Tropicos and GBIF backbones.</p>
+<p>Taxonomic validation is performed based on (i) the correction of plant family and species names (i.e. synonyms, typos) and (ii) the confidence level on the species identification, based on a dictionary of plant taxonomist names from all over the world. For (i), names are currently checked against the <a href="http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do">Flora do Brasil project</a> and <a href="http://www.theplantlist.org/">The Plant List</a>, using the R packages <strong>flora</strong> and <strong>Taxonstand</strong>. Future versions may include comparisons against Tropicos and GBIF backbones.</p>
 <p>During the assessment of the taxonomic confidence level of the identifications, we did not attempt to set priorities for different specialists within a given family. That is, all species names determined by a specialist within their family of expertise are taken as being correct. Although we recognize that there are specialists for genera within a family, the validation process is currently performed only at the family level. In the case of conflicting species identification among family specialists for duplicates across collections, we assume the most recent identification as being the valid one.</p>
-<<<<<<< Updated upstream
-<p><strong>plantR</strong> provide tools for searching for duplicated records across collections. This search makes more sense when data from different collections are combined and it performs welleven when using relatively large datasets (i.e. millions of records). However, the retrieval of duplicates greatly depends on the completeness of the input information, the notation standards and if <strong>plantR</strong> is able to handle those differences in notation across collections. In addition, true duplicates may not be found due to typos and false duplicates may be returned if the duplicate search fields are too flexible.</p>
-=======
 <p><strong>plantR</strong> provide tools for searching for duplicated records across collections. This search makes more sense when data from different collections are combined and it performs well even when using relatively large datasets (i.e., millions of records).</p>
 <p>However, the retrieval of duplicates greatly depends on the completeness of the input information, the notation standards and if <strong>plantR</strong> is able to handle those differences in notation across collections. In addition, true duplicates may not be found due to typos and false duplicates may be returned if the duplicate search fields are too flexible.</p>
->>>>>>> Stashed changes
 <p><br /><br /></p>
 </div>
 </div>
@@ -226,27 +205,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 number="2.2"><span class="header-section-number">2.2</span> Main features</h2>
 <div id="data-entry" class="section level3" number="2.2.1">
 <h3 number="2.2.1"><span class="header-section-number">2.2.1</span> Data entry</h3>
-<p>Users can provide their own dataset, import it from a GBIF DwC-A zip file (function <code>readData()``) or download data directly from R using one of __plantR__ download functions. They include the function</code>rspeciesLink()`:</p>
+<p>Users can provide their own dataset, import it from a GBIF DwC-A zip file (function <code>readData()</code>) or download data directly from R using one of <strong>plantR</strong> download functions. They include the function <code>rspeciesLink()</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>occs_splink <span class="ot">&lt;-</span> <span class="fu">rspeciesLink</span>(<span class="at">species =</span> <span class="st">&quot;Euterpe edulis&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to speciesLink...</span></span></code></pre></div>
-<p>This function can also be used to search from records based on localities, collections, and other options (see ?rspeciesLink for details).</p>
-<p><strong>plantR</strong> also provides the function <code>rgbif2()</code>, which is a wrapper of the function <code>rgbif()</code> of the <strong>rgbif</strong> package, with an standardized output:</p>
+<p>This function can also be used to search from records based on localities, collections, and other options (see <code>?rspeciesLink</code> for details).</p>
+<p><strong>plantR</strong> also provides the function <code>rgbif2()</code>, which is a wrapper of the function <code>rgbif()</code> of the <strong>rgbif</strong> package, with a standardized output:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span> <span class="st">&quot;Euterpe edulis&quot;</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF...</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF for Euterpe edulis...</span></span></code></pre></div>
 <div id="field-names" class="section level4" number="2.2.1.1">
 <h4 number="2.2.1.1"><span class="header-section-number">2.2.1.1</span> Field names</h4>
 <p>It is important to make sure that the field names of the input data follow the DarwinCore format. In <strong>plantR</strong> this is performed using the function <code>formatDwc()</code>, which joins data from different sources (e.g. GBIF and speciesLink) and standardizes their field names:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink, </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: some columns in splink_data do not follow the speciesLink pattern</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: some columns in gbif_data does not follow the gbif pattern!</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif)</span></code></pre></div>
 </div>
 </div>
 <div id="data-editing" class="section level3" number="2.2.2">
 <h3 number="2.2.2"><span class="header-section-number">2.2.2</span> Data editing</h3>
 <div id="collection-codes-people-names-collector-number-and-dates" class="section level4" number="2.2.2.1">
 <h4 number="2.2.2.1"><span class="header-section-number">2.2.2.1</span> Collection codes, people names, collector number and dates</h4>
-<p>The names of the collections, collectors and identifiers, as well as the collection numbers and dates can be edited using the function <code>formatOcc()</code>:</p>
+<p>The names of the collections, collectors, and identifiers, as well as the collection numbers and dates, can be edited using the function <code>formatOcc()</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs)</span></code></pre></div>
 </div>
 <div id="locality-information" class="section level4" number="2.2.2.2">
@@ -261,11 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="species-and-family-names" class="section level4" number="2.2.2.4">
 <h4 number="2.2.2.4"><span class="header-section-number">2.2.2.4</span> Species and family names</h4>
-<<<<<<< Updated upstream
-<p>In this example, although we have dowloaded data for a single species (i.e. <em>Euterpe edulis</em> Mart.), there are differences in the notation of botanical family and species names, some of them being synonyms. To obtain only valid names, we use the function <code>formatTax()</code>:</p>
-=======
 <p>In this example, although we have downloaded data for a single species (i.e., <em>Euterpe edulis</em> Mart.), there are differences in the notation of botanical family and species names, some of them being synonyms. To obtain only valid names, we use the function <code>formatTax()</code>:</p>
->>>>>>> Stashed changes
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs)</span></code></pre></div>
 <pre><code>## The following family names were automatically replaced:
 ## 
@@ -283,19 +256,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
 ##                original
 ## edited          country locality municipality no_info stateProvince
-<<<<<<< Updated upstream
-##   country           126        1            0       0             0
-##   locality            3      199            0       0             0
-##   municipality        0      476           95       0             0
-##   no_info             0        0            0       6             0
-##   stateProvince       0       80            3       0            69</code></pre>
-=======
 ##   country           172        2            1       0             1
-##   locality            3      307            0       0             0
-##   municipality        0      729          207       0             0
+##   locality            3      303            0       0             0
+##   municipality        0      733          207       0             0
 ##   no_info             0        0            0      26             0
-##   stateProvince       0      149            5       0            89</code></pre>
->>>>>>> Stashed changes
+##   stateProvince       0      153            5       0            89</code></pre>
 </div>
 <div id="geographical-coordinates-1" class="section level4" number="2.2.3.2">
 <h4 number="2.2.3.2"><span class="header-section-number">2.2.3.2</span> Geographical coordinates</h4>
@@ -310,96 +275,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Identifier       | Records|
 ## |:----------------|-------:|
-## |Caxambu, M.G.    |      23|
+## |Caxambu, M.G.    |      66|
+## |Verdi, M.        |      22|
+## |Reis, A.         |      19|
+## |Wandekoken, D.T. |      18|
+## |Guedes, M.L.     |      15|
 ## |Silva, E.F.L.P.  |      15|
-<<<<<<< Updated upstream
-## |Verdi, M.        |      13|
-## |Wandekoken, D.T. |      11|
-## |Demuner, V.      |      10|
-## |Rossato, M.      |       8|
-## |Thomas, W.W.     |       8|
-## |Guedes, M.L.     |       7|
-## |Reis, A.         |       7|
-## |Kohler, M.       |       6|</code></pre>
-<p>Note that the function returns up to 10 names of determiners not taken as specialists of the family. The argument <code>miss.taxonomist</code> can be used to include missing names of taxonomists (e.g. <code>miss.taxonomist = c(&quot;Arecaceae_Reis, A.&quot;)</code>)</p>
-=======
 ## |Rossato, M.      |      14|
 ## |Medeiros-Costa   |      12|
 ## |Ribeiro, M.      |      12|
 ## |Thomas, W.W.     |      11|</code></pre>
 <p>Note that the function returns up to 10 names of determiners not taken as specialists of the family. The argument <code>miss.taxonomist</code> can be used to include missing names of taxonomists (e.g., <code>miss.taxonomist = c(&quot;Arecaceae_Reis, A.&quot;)</code>).</p>
->>>>>>> Stashed changes
 </div>
 <div id="duplicate-specimens" class="section level4" number="2.2.3.4">
 <h4 number="2.2.3.4"><span class="header-section-number">2.2.3.4</span> Duplicate specimens</h4>
 <p>Another main feature of <strong>plantR</strong> is the search for duplicates across herbaria (i.e., same biological specimen with accession numbers in two or more collections). It uses different combinations of search strings to find direct and indirect links between records. Besides the search itself, the user can also homogenize information within groups of duplicates, such as species names or geographical coordinates. This tool is performed using the function <code>validateDup()</code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateDup</span>(occs)</span>
-<<<<<<< Updated upstream
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 237 truly duplicated records (same collection in different sources) were removed from the data</span></span></code></pre></div>
-=======
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 615 truly duplicate records (same record in different sources) were removed from the data</span></span></code></pre></div>
->>>>>>> Stashed changes
 </div>
 </div>
 <div id="data-summary-and-export" class="section level3" number="2.2.4">
 <h3 number="2.2.4"><span class="header-section-number">2.2.4</span> Data summary and export</h3>
-<p>Once the editing and validation steps are finished, <strong>plantR</strong> provides tools for summarizing the occurrence data, using the function <code>summaryData()</code>. In this example, the taxonomical summary is quite uninformative, since we have only one species.</p>
+<p>Once the editing and validation steps are finished, <strong>plantR</strong> provides tools for summarizing the occurrence data, using the function <code>summaryData()</code>. In this example, the taxonomic summary is quite uninformative, since we have only one species.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>summ <span class="ot">&lt;-</span> <span class="fu">summaryData</span>(occs)</span></code></pre></div>
 <pre><code>## =========
 ##  RECORDS 
 ## =========
 ## |Type                     | Records|
 ## |:------------------------|-------:|
-<<<<<<< Updated upstream
-## |Unicates                 |     174|
-## |Duplicates               |     284|
-## |Unknown                  |     363|
-## |Total without duplicates |     729|
-## |Total with duplicates    |     821|
-=======
-## |Unicates                 |     100|
+## |Unicates                 |      99|
 ## |Duplicates               |     541|
-## |Unknown                  |     435|
-## |Total without duplicates |     866|
-## |Total with duplicates    |    1076|
->>>>>>> Stashed changes
+## |Unknown                  |     440|
+## |Total without duplicates |     871|
+## |Total with duplicates    |    1080|
 ## 
 ## =============
 ##  COLLECTIONS 
 ## =============
-<<<<<<< Updated upstream
-## Number of biological collections: 102 
-## Number of collectors&#39; names: 345 
-## Collection years: 1816-2021 (&gt;90% and &gt;50% after 1972 and 2001)
-=======
 ## Number of biological collections: 127 
-## Number of collectors&#39; names: 385 
+## Number of collectors&#39; names: 389 
 ## Collection years: 1816-2021 (&gt;90% and &gt;50% after 1967 and 2001)
->>>>>>> Stashed changes
 ## 
 ## Top collections in numbers of records:
 ## |Collection   | Records|
 ## |:------------|-------:|
-<<<<<<< Updated upstream
-## |Observations |      58|
-=======
 ## |RB           |      89|
-## |Observations |      63|
+## |Observations |      67|
 ## |HCF          |      59|
->>>>>>> Stashed changes
 ## |SINBIOTA     |      57|
 ## |MBML         |      50|
-## |NY           |      42|
-## |SP           |      33|
 ## 
 ## Top collectors in numbers of records:
 ## |Collector         | Records|
 ## |:-----------------|-------:|
-## |Fernandes, H.Q.B. |      45|
-## |Noblick, L.R.     |      18|
-## |Silva, E.F.L.P.   |      15|
-## |Glaziou, A.       |      11|
-## |Caxambu, M.G.     |      10|
+## |Fernandes, H.Q.B. |      65|
+## |Caxambu, M.G.     |      35|
+## |Lima, H.C.        |      27|
+## |Glaziou, A.       |      21|
+## |Noblick, L.R.     |      19|
 ## 
 ## ==========
 ##  TAXONOMY 
@@ -409,51 +342,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of species: 1 
 ## 
 ## Top richest families:
-<<<<<<< Updated upstream
-## |family.new |   N|  S|
-## |:----------|---:|--:|
-## |Arecaceae  | 821|  1|
-## 
-## Top richest genera:
-## |genus.new |   N|  S|
-## |:---------|---:|--:|
-## |Euterpe   | 821|  1|
-=======
 ## |family.new |    N|  S|
 ## |:----------|----:|--:|
-## |Arecaceae  | 1076|  1|
+## |Arecaceae  | 1080|  1|
 ## 
 ## Top richest genera:
 ## |genus.new |    N|  S|
 ## |:---------|----:|--:|
-## |Euterpe   | 1076|  1|
->>>>>>> Stashed changes
+## |Euterpe   | 1080|  1|
 ## 
 ## ===========
 ##  COUNTRIES 
 ## ===========
-<<<<<<< Updated upstream
-## Number of countries: 9 
-=======
 ## Number of countries: 16 
->>>>>>> Stashed changes
 ## 
 ## Top countries in numbers of records:
 ## |Country   | Records| Species|
 ## |:---------|-------:|-------:|
-<<<<<<< Updated upstream
-## |Brazil    |     772|       1|
-## |Argentina |      24|       1|
-## |Paraguay  |      15|       1|
-## |[Unknown] |       5|       1|
-## |Norway    |       1|       1|</code></pre>
-=======
-## |Brazil    |     990|       1|
+## |Brazil    |     993|       1|
 ## |Argentina |      28|       1|
-## |[Unknown] |      22|       1|
+## |[Unknown] |      23|       1|
 ## |Paraguay  |      19|       1|
 ## |Guyana    |       4|       1|</code></pre>
->>>>>>> Stashed changes
 <p><strong>plantR</strong> also provides an overview of the validation results (function <code>summaryFlags()</code>):</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>flags <span class="ot">&lt;-</span> <span class="fu">summaryFlags</span>(occs)</span></code></pre></div>
 <pre><code>## ==================
@@ -463,18 +373,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Strenght               | Records|
 ## |:----------------------|-------:|
-<<<<<<< Updated upstream
-## |0%                     |     174|
-## |25%                    |      22|
-## |100%                   |     262|
-## |Cannot check (no info) |     363|
-=======
-## |0%                     |     100|
+## |0%                     |      99|
 ## |25%                    |      31|
-## |50%                    |       1|
-## |100%                   |     509|
-## |Cannot check (no info) |     435|
->>>>>>> Stashed changes
+## |50%                    |       7|
+## |100%                   |     503|
+## |Cannot check (no info) |     440|
 ## 
 ## =====================
 ##  LOCALITY VALIDATION 
@@ -483,34 +386,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Validation           | Records|
 ## |:--------------------|-------:|
-<<<<<<< Updated upstream
-## |ok (same resolution) |     583|
-## |probably ok          |     162|
-## |check (downgraded)   |      73|
-=======
-## |ok (same resolution) |     557|
-## |probably ok          |     421|
-## |check (downgraded)   |      95|
->>>>>>> Stashed changes
+## |ok (same resolution) |     551|
+## |probably ok          |     426|
+## |check (downgraded)   |     100|
 ## |ok (upgraded)        |       3|
 ## 
 ## Details of the validation (original vs. validated localities):
 ## 
 ## |original.resolution | no_info| country| stateProvince| municipality| locality|
 ## |:-------------------|-------:|-------:|-------------:|------------:|--------:|
-<<<<<<< Updated upstream
-## |no_info             |       5|       0|             0|            0|        0|
-## |country             |       0|     124|             0|            0|        3|
-## |stateProvince       |       0|       0|            69|            0|        0|
-## |municipality        |       0|       0|             3|           79|        0|
-## |locality            |       0|       1|            74|          325|      138|
-=======
-## |no_info             |      22|       0|             0|            0|        0|
-## |country             |       0|     156|             0|            0|        3|
+## |no_info             |      23|       0|             0|            0|        0|
+## |country             |       0|     155|             0|            0|        3|
 ## |stateProvince       |       0|       1|            84|            0|        0|
 ## |municipality        |       0|       1|             3|          149|        0|
-## |locality            |       0|       2|            88|          403|      164|
->>>>>>> Stashed changes
+## |locality            |       0|       2|            92|          403|      164|
 ## 
 ## =======================
 ##  COORDINATE VALIDATION 
@@ -519,36 +408,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Validated |Origin       | Records|
 ## |:---------|:------------|-------:|
-<<<<<<< Updated upstream
-## |yes       |original     |     749|
-## |yes       |gazetter     |      67|
-## |no        |cannot_check |       5|
-=======
-## |yes       |original     |     793|
-## |yes       |gazetter     |     261|
-## |no        |cannot_check |      22|
->>>>>>> Stashed changes
+## |yes       |original     |     809|
+## |yes       |gazetter     |     248|
+## |no        |cannot_check |      23|
 ## 
 ## Valid coordinates per resolution:
 ## 
 ## |Validated |Resolution          | Records|
 ## |:---------|:-------------------|-------:|
-<<<<<<< Updated upstream
-## |yes       |ok_county           |     463|
-## |yes       |ok_state            |     207|
-## |yes       |ok_country          |     131|
-## |yes       |shore               |      13|
-## |no        |no_cannot_check     |       5|
-=======
-## |yes       |ok_county           |     633|
-## |yes       |ok_state            |     229|
-## |yes       |ok_country          |     163|
-## |yes       |ok_locality         |      24|
-## |no        |no_cannot_check     |      22|
+## |yes       |ok_county           |     639|
+## |yes       |ok_state            |     227|
+## |yes       |ok_country          |     161|
+## |yes       |ok_locality         |      25|
+## |no        |no_cannot_check     |      23|
 ## |yes       |shore               |       4|
->>>>>>> Stashed changes
 ## |yes       |bad_country[border] |       1|
-## |yes       |ok_locality         |       1|
 ## 
 ## ======================
 ##  CULTIVATED SPECIMENS 
@@ -557,13 +431,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Cultivated   | Records|
 ## |:------------|-------:|
-<<<<<<< Updated upstream
-## |probably not |     813|
-## |probably yes |       7|
-=======
-## |probably not |    1065|
-## |probably yes |      10|
->>>>>>> Stashed changes
+## |probably not |    1068|
+## |probably yes |      11|
 ## |yes          |       1|
 ## 
 ## ======================
@@ -573,30 +442,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## |Confidence | Records|
 ## |:----------|-------:|
-<<<<<<< Updated upstream
-## |high       |     343|
-## |unknown    |     280|
-## |low        |     198|</code></pre>
-<p>The package <strong>plantR</strong> can also build species check-lists with vouchers using the function <code>checkList()</code>:</p>
-=======
-## |unknown    |     450|
-## |low        |     419|
-## |high       |     207|</code></pre>
+## |unknown    |     449|
+## |low        |     421|
+## |high       |     210|</code></pre>
 <p>The package <strong>plantR</strong> can also build species checklists with vouchers using the function <code>checkList()</code>:</p>
->>>>>>> Stashed changes
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkList</span>(occs, <span class="at">n.vouch =</span> <span class="dv">3</span>, <span class="at">type =</span> <span class="st">&quot;short&quot;</span>)</span></code></pre></div>
 <pre><code>##   family.new scientificName.new records tax.CL geo.CL
-<<<<<<< Updated upstream
-## 1  Arecaceae     Euterpe edulis     821  41.78  56.52
-##                                                                                                                                         vouchers
-## 1 Fernandes, H.Q.B., 2519 (MBML 5289) [paratype]; Fernandes, H.Q.B., 2543 (MBML 5288) [paratype]; Fernandes, H.Q.B., 2564 (MBML 5301) [holotype]</code></pre>
-<p>Finally, <strong>plantR</strong> exports data into a local folder, using function <code>saveData()</code>, which can be used to save compressed ‘.csv’ files based on different grouping fields (e.g. botanical family, country, biological collection). The export is performed using function <code>fwrite()</code> from package <strong>data.table</strong> which is quite fast even for large datasets.</p>
-=======
-## 1  Arecaceae     Euterpe edulis    1076  19.24  61.06
+## 1  Arecaceae     Euterpe edulis    1080  19.44  61.48
 ##                                                                                                                                                                         vouchers
 ## 1 Fernandes, H.Q.B., 2519 (MBML 5289) [paratype]; Fernandes, H.Q.B., 2543 (MBML 5288, R-TIPOS 174930) [paratype]; Fernandes, H.Q.B., 2543 (MBML 5288, R-TIPOS 174930) [paratype]</code></pre>
 <p>Finally, <strong>plantR</strong> exports data into a local folder, using function <code>saveData()</code>, which can be used to save compressed ‘.csv’ files based on different grouping fields (e.g., botanical family, country, biological collection). The export is performed using function <code>fwrite()</code> from package <strong>data.table</strong> which is quite fast even for large datasets.</p>
->>>>>>> Stashed changes
 <p><br /><br /></p>
 </div>
 </div>

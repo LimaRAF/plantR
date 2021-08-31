@@ -106,11 +106,11 @@ colNumber <- function(x,
     m.x3 <- min(as.double(names(x1[grepl('[a-z]', x1, ignore.case = TRUE)])))
     if (m.x2 < m.x3) {
 
-      x4 = paste(x2, toupper(x3), sep = "-")
+      x4 <- paste(x2, toupper(x3), sep = "-")
 
     } else {
 
-      x4 = paste(toupper(x3), x2, sep = "-")
+      x4 <- paste(toupper(x3), x2, sep = "-")
     }
 
     return(x4)

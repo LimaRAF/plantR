@@ -19,7 +19,7 @@
 #'   generalists. Default to "medium".
 #' @param other.records Character or Integer. The Confidence level (if
 #'   character) or the number of downgrading steps to be assigned to records
-#'   which are not preserved specimens. Default to NULL (all record typer are
+#'   which are not preserved specimens. Default to NULL (all record types are
 #'   treated the same).
 #' @param miss.taxonomist Vector. Any missing combination of family x taxonomist
 #'   that should be added to the validation?
@@ -45,7 +45,7 @@
 #' species identification. Preferably, this data frame should also contain
 #' information on type specimens and collectors names. If the user provide a
 #' list of records to be flagged as having a high confidence level in the
-#' identification, the user must alfo provide the column where the record unique
+#' identification, the user must also provide the column where the record unique
 #' identifiers are stored. The names of these columns should be provided as a
 #' named vector to the argument `col.names`, as follows:
 #'   - 'family': the botanical family (default: 'family.new')
@@ -100,7 +100,7 @@
 #' 'high') to assign the same class for all non preserved specimens or to a
 #' value (i.e., 1 or 2), which correspond to the number of downgrading steps
 #' among levels. For instance, if `other.records` is one, the 'high' level
-#' becomes 'medium' and the 'medium' level becomes 'low' ('unkown' and 'low'
+#' becomes 'medium' and the 'medium' level becomes 'low' ('unknown' and 'low'
 #' levels remain the same).
 #'
 #' If you miss the validation from one or more taxonomists, you can include them
@@ -278,7 +278,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
                          perl = TRUE, ignore.case = TRUE)] <- TRUE
   }
 
-  #Specifying occurrences with unkown determiner name
+  #Specifying occurrences with unknown determiner name
   x$tax.check[x$tax.check == FALSE &
                 tolower(x[, cols["det.name"]]) %in% noName] <- "unknown"
   x$tax.check[x$tax.check %in% FALSE &

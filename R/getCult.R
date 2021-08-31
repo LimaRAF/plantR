@@ -26,7 +26,7 @@
 #'   'biologicalStatus' and 'fieldNotes'.
 #'
 #'   The search of records from cultivated individuals is performed on all the
-#'   fileds available and it is based on a list of terms that denotes clear
+#'   fields available and it is based on a list of terms that denotes clear
 #'   indication of cultivated individuals (e.g. 'Cultivated', 'Planted',
 #'   'Exotic'). The function returns the column 'cult.check' with two
 #'   categories:

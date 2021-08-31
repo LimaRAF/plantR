@@ -12,7 +12,7 @@
 #'   order to reduce variations in locality notation and thus to increase the
 #'   chances of match with the __plantR__ gazetteer and maps.
 #'
-#'   It tranforms the string to lowercase and removes special characters and
+#'   It transforms the string to lowercase and removes special characters and
 #'   prepositions of locality names.
 #'
 #' @author Renato A. F. de Lima

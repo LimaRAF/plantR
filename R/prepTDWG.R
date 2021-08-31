@@ -22,7 +22,7 @@
 #'
 #'   The functions uses internally another __plantR__ function: `lastName()`.
 #'   So, it assumes that people last names are the ones provided at the end of
-#'   the name string or preceeding the name separator (i.e. comma), if present.
+#'   the name string or preceding the name separator (i.e. comma), if present.
 #'
 #'   The function deals with simples last names, as well as with compound last
 #'   names and last names with common name prefixes or prepositions (e.g. de,
@@ -30,16 +30,16 @@
 #'   removed, but they can be returned if the argument `get.prep` is set to
 #'   TRUE.
 #'
-#'   The function asumes that all names containing separators (default to a
+#'   The function assumes that all names containing separators (default to a
 #'   comma) are in the format suggested by TDWG. But even for those cases, the
 #'   function fixes simple problems (e.g. missing points between name initials).
 #'
-#'   If only one name is given, the fucntion return the same name with the first
+#'   If only one name is given, the function return the same name with the first
 #'   letter capitalized.
 #'
 #'   The function output it is relatively stable regarding the input format,
 #'   lower/uppercasing and spacing. But if the name provided has unusual
-#'   formatting or if names for mutltiple people are provided within the same
+#'   formatting or if names for multiple people are provided within the same
 #'   string, the function may not work properly. So, the output may depend on
 #'   the input format and some level of double-checking may be necessary. See
 #'   examples below.

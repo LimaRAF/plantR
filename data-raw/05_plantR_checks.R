@@ -39,5 +39,3 @@ spelling::spell_check_files("./vignettes/articles/atualiza_duplicatas.Rmd",
 #Good practices
 goodpractice::gp()
 goodpractice::gp(".", checks = c("rcmdcheck_tests_pass"))
-
-
