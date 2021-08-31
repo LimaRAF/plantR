@@ -198,6 +198,8 @@ missColls <- c("s/col.",
                "available, n.",
                "informação, s.",
                "informacao, s.",
+               "unspecified, c.",
+               "unknown, c.",
                "sin",
                "?")
 
@@ -219,6 +221,8 @@ missDets <- c("s/det.",
               "available, n.",
               "informação, s.",
               "informacao, s.",
+              "unspecified, d.",
+              "unknown, d.",
               "sin",
               "?")
 
