@@ -18,7 +18,7 @@ test_that("fixSpecies parameters work", {
                                       "Lindsaea Aff. lancea",
                                       "Lindsaea aff. lancea (L.) Bedd."))
 
-  df_clean <- fixSpecies(df, rm.rank = T)
+  df_clean <- fixSpecies(df, rm.rank = TRUE)
   expect_length(df_clean, length(df) + 2)
   expect_equal(setdiff(names(df), names(df_clean)), character(0))
   expect_equal(setdiff(names(df_clean), names(df)),

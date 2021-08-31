@@ -1,0 +1,19 @@
+# Creating a data frame with locality information
+df <- data.frame(country = c("BR", "Brazil", "BR", "Brasil", "BRA", NA),
+        stateProvince = c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
+                  "Minas Geraes", "Minas Gerais"),
+        municipality = c("Parati", "Paraty", "Lavras", "lavras", NA, "Lavras"),
+        locality = c(NA,"Paraty-Mirim", NA, "UFLA", "municipio de Lavras, campus UFLA", NA))
+
+# Objects with the expected resolutions
+res0 <- c("municipality", "locality", "municipality", "locality", "locality", "municipality")
+res1 <- c("municipality", "locality", "municipality", "locality", "stateProvince", "municipality")
+res2 <- c("stateProvince", "stateProvince", "stateProvince", "stateProvince", "stateProvince", "no_info")
+
+# Tests
+test_that("fixLoc works", {
+  expect_equal(fixLoc(df)$resol.orig, res0)
+  expect_equal(fixLoc(df, scrap = FALSE)$resol.orig, res1)
+  expect_equal(fixLoc(df, loc.levels = c("country", "stateProvince"))$resol.orig, res2)
+})
+
