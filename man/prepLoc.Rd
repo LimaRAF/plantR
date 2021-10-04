@@ -22,7 +22,7 @@ The goal of this function is to simplify the locality strings in
 order to reduce variations in locality notation and thus to increase the
 chances of match with the \strong{plantR} gazetteer and maps.
 
-It tranforms the string to lowercase and removes special characters and
+It transforms the string to lowercase and removes special characters and
 prepositions of locality names.
 }
 \examples{

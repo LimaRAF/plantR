@@ -45,7 +45,7 @@ scientific name ('scientific.name'), the notes and the sources used to retrieve
 the suggested binomial (columns 'notes' and 'source').
 }
 \description{
-Provides valid plant names or corrects typos and orthographical
+Provides valid plant names or corrects typos and orthographic
 variants based on the
 \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
 Flora 2020} project and on the \href{http://www.theplantlist.org/}{The

@@ -20,6 +20,7 @@ validateDup(
   dup.name = "dup.ID",
   prop.name = "dup.prop",
   prop = 0.75,
+  rec.ID = "numTombo",
   info2merge = c("tax", "geo", "loc"),
   tax.names = c(family = "family.new", species = "scientificName.new", det.name =
     "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check", status
@@ -30,13 +31,12 @@ validateDup(
     "resol.orig", loc.check = "loc.check"),
   tax.level = "high",
   overwrite = FALSE,
-  rec.ID = "numTombo",
   print.rm = TRUE
 )
 }
 \arguments{
-\item{occ.df}{a data frame, containing typical fields from occurrence records from
-herbarium specimens}
+\item{occ.df}{a data frame, containing typical fields from occurrence records
+from herbarium specimens}
 
 \item{cat.code}{character. The name of the column containing the code of the
 collection. Default to the \strong{plantR} output column "collectionCode.new".}
@@ -55,8 +55,8 @@ duplicated entries from the same collection? Default to FALSE.}
 \item{noName}{character. Standard for missing data in collector name. Default
 to "s.n.".}
 
-\item{noNumb}{character. Standard for missing data in collector number. Default
-to "s.n.".}
+\item{noNumb}{character. Standard for missing data in collector number.
+Default to "s.n.".}
 
 \item{comb.fields}{list. A list containing one or more vectors with the
 information that should be used to create the duplicate search strings.
@@ -76,6 +76,9 @@ the proportion of duplicates found within the group ID. Default to the
 \item{prop}{numerical. The threshold value of proportion of duplicated values
 retrieved (i.e. dup.prop) to enter the merging routine. Should be between
 zero and one. Default to 0.75.}
+
+\item{rec.ID}{character. The name of the columns containing the unique record
+identifier (see function \code{getTombo()}). Default to 'numTombo'.}
 
 \item{info2merge}{Vector. The groups of information (i.e. fields) to be
 merged. Currently, only taxonomic ('tax'), geographic ('geo') and/or
@@ -97,9 +100,6 @@ information. Default to "high".}
 \item{overwrite}{logical. Should the merged information be overwritten or
 stored in separate, new columns. Default to FALSE (new columns are
 created).}
-
-\item{rec.ID}{character. The name of the columns containing the unique record
-identifier (see function \code{getTombo()}). Default to 'numTombo'.}
 
 \item{print.rm}{logical. Should the number of records removed be printed?
 Default to TRUE.}

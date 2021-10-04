@@ -25,10 +25,11 @@ locality resolution and search string(s), in that order. Defaults to
 the internal \strong{plantR} gazetteer (biased towards Latin America).}
 
 \item{gazet.names}{a vector of at least four columns names containing the
-locality search string, latitude and longitude, in that order. If available,
-the resolution of the gazetteer can be provided as a fifth name. Defaults
-to columns names of the \strong{plantR} gazetteer: 'loc', 'loc.correct',
-'latitude.gazetteer', 'longitude.gazetteer' and 'resolution.gazetteer'.}
+locality search string, latitude and longitude, in that order. If
+available, the resolution of the gazetteer can be provided as a fifth name.
+Defaults to columns names of the \strong{plantR} gazetteer: 'loc',
+'loc.correct', 'latitude.gazetteer', 'longitude.gazetteer' and
+'resolution.gazetteer'.}
 
 \item{orig.names}{logical. Should the original columns names of the gazetteer
 be preserved. Default to FALSE.}
@@ -59,8 +60,8 @@ provide a data frame with at least two columns ('resol.orig' and
 also be provided and in this case, these additional strings are used to
 search for information below the municipality/county level, that is, to
 retrieve from the gazetteer information at the locality level or below. If
-these columns have different names in \code{x}, these names can be supplied using,
-the argument \code{str.names}. See Examples below.
+these columns have different names in \code{x}, these names can be supplied
+using, the argument \code{str.names}. See Examples below.
 
 The default \strong{plantR} gazetteer includes information for all countries at
 the country level (i.e. administrative level 0) and at the lowest
@@ -72,14 +73,14 @@ forest fragments, parks), obtained from \href{https://www.ibge.gov.br/}{IBGE},
 \href{http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start}{TreeCo}
 databases. It also includes common spelling variants and historical changes
 to locality names (currently biased for Brazil) and more common notation
-variants of locality names found in the lcoality description of records
+variants of locality names found in the locality description of records
 from GBIF, speciesLink and JABOT databases (include few type localities).
 In total the gazetteer has nearly 25,000 locality names associated with a
 valid geographical coordinates.
 
-A different gazetteer than the \strong{plantR} default can be used. This gazetteer
-must be provided using the argument \code{gazet} and it must contain the
-columns 'loc' (search string), 'loc.correct' (correct string),
+A different gazetteer than the \strong{plantR} default can be used. This
+gazetteer must be provided using the argument \code{gazet} and it must contain
+the columns 'loc' (search string), 'loc.correct' (correct string),
 'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
 'resolution.gazetteer' (e.g. country, state, etc). If the names for these
 columns are different, they can be supplied using argument \code{gazet.names}.
@@ -105,7 +106,8 @@ getLoc(df, str.names = c("resol", "loc", "loc1"))
 
 ## Using the function under the __plantR__ workflow
 (df <- data.frame(country = c("BR", "Brazil", "Brasil", "USA"),
-                     stateProvince = c("RJ", "Rio de Janeiro", "Rio de Janeiro","Florida"),
+                     stateProvince = c("RJ", "Rio de Janeiro",
+                                       "Rio de Janeiro","Florida"),
                      municipality = c("Paraty", "Paraty", "Parati", NA),
                      locality = c(NA,"Paraty-Mirim", NA, NA),
                      stringsAsFactors = FALSE))

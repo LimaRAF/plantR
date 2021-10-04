@@ -4,12 +4,15 @@
 \alias{getInit}
 \title{Create Name Initials}
 \usage{
-getInit(x, upper = TRUE, max.initials = 5)
+getInit(x, upper = TRUE, rm.spaces = TRUE, max.initials = 5)
 }
 \arguments{
 \item{x}{the character string or vector to be standardized}
 
 \item{upper}{logical. Should initials be capitalized? Default to TRUE.}
+
+\item{rm.spaces}{logical. Should spaces between initials be removed?
+Default to TRUE.}
 
 \item{max.initials}{numerical. Upper limit of number of letter for a single
 word to be considered as initials and not as a name. Default to 5.}
@@ -32,11 +35,12 @@ name/abbreviation as the initials.
 
 For single names or one-string initials the output depends on the presence
 of abbreviation points, if names are provided in all caps and in the number
-of letters. If the number of capital letters exceeds the value in the argument
-\code{max.initials}, then it is taken as a name and not initials (see Examples).
+of letters. If the number of capital letters exceeds the value in the
+argument \code{max.initials}, then it is taken as a name and not initials (see
+Examples).
 
-The output is relatively stable regarding different name formats and notation
-standards, but it doe not work for all of them (see Examples).
+The output is relatively stable regarding different name formats and
+notation standards, but it doe not work for all of them (see Examples).
 }
 \examples{
 \dontrun{

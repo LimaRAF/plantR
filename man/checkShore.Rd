@@ -17,8 +17,8 @@ checkShore(
 \arguments{
 \item{x}{a data frame with the species records}
 
-\item{geo.check}{character. Column with the result from the coordinate checking.
-Defaults to 'geo.check'}
+\item{geo.check}{character. Column with the result from the coordinate
+checking. Defaults to 'geo.check'}
 
 \item{lat}{character. Column with the corrected latitude to be checked.
 Defaults to 'decimalLatitude.new'}
@@ -53,7 +53,7 @@ Only coordinates flagged as 'sea' by the function \code{checkCoord()} are includ
 in the verification. For all other coordinates, the function returns NA.
 
 Two approaches can be used to detect coordinates in the sea but near to the
-shore, which are controlled by the argumente \code{type}. The first one uses a 0.5
+shore, which are controlled by the argument \code{type}. The first one uses a 0.5
 degree (~ 55 km in the Equator) buffer around the world map (\code{type} =
 'buffer'). The second approach calculates the distance between the shore and
 the record (\code{type} = 'buffer'), in which the user can provide a maximum

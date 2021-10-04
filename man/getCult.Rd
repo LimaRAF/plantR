@@ -32,32 +32,36 @@ This function detects records from cultivated individuals,
 based on record locality, description and habitat.
 }
 \details{
-The input data frame \code{x} should contain at least the columns
-containing the description of the record (e.g. 'occurrenceRemarks'), the
-record locality description (e.g. 'locality') or the record habitat
-description. The names of columns in which these information is stored can
-de declared using the arguments \code{loc.name}, \code{remarks} and \code{habitat}
-(defaults to the Darwin Core standard notation).
+The input data frame \code{x} should contain at least one of the
+columns containing the description of the record locality (e.g.
+'locality'), remarks (e.g. 'occurrenceRemarks'), or habitat. The names of
+columns in which these information is stored can de declared using the
+arguments \code{loc.name}, \code{remarks} and \code{habitat} (defaults to the Darwin Core
+standard notation).
 
 If present, other Darwin Core fields are used internally to obtain missing
 information on the three fields declared above, namely: 'verbatimLocality',
-'biologicalStatus' and 'fieldNotes'.
+'biologicalStatus' and 'fieldNotes'. Therefore, the search for cultivated
+individuals in \strong{plantR} is NOT based on the geographical coordinates of
+the species records, although records flagged as spatial outliers by
+\strong{plantR} (see function \code{checkOut()}) may also be flagged as cultivated.
 
 The search of records from cultivated individuals is performed on all the
-fileds available and it is based on a list of terms that denotes clear
+fields available and it is based on a list of terms that denotes clear
 indication of cultivated individuals (e.g. 'Cultivated', 'Planted',
 'Exotic'). The function returns the column 'cult.check' with two
 categories:
 \itemize{
 \item "cultivated": exact matches of the list of terms of cultivated
 individuals with the text in at least one of the fields mentioned above.
-\item "prob_cultivated": presence of one or more terms in the fields mentioned above.
+\item "prob_cultivated": presence of one or more terms in the fields mentioned
+above.
 }
 
 For assigning the "prob_cultivated", a second list of terms is used to
 exclude possible spurious hits of cultivated individuals (e.g 'Cultivated
-area' or 'Presence of exotics'). But this list is not extensive, so this
-category may need some level of double-checking by the user.
+area' or 'Presence of exotic species'). But this list is not extensive and
+so this category may need some level of double-checking by the user.
 }
 \examples{
 

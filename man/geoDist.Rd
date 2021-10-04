@@ -25,8 +25,8 @@ returned in kilometers. This function is adapted from the function
 }
 \examples{
 
-lon = c(-47, -46, -47)
-lat = c(-23, -24, -23.5)
+lon <- c(-47, -46, -47)
+lat <- c(-23, -24, -23.5)
 
 \dontrun{
 geoDist(lon, lat)

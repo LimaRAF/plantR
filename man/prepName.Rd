@@ -8,12 +8,13 @@ prepName(
   x,
   fix.names = TRUE,
   output = "all",
-  treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.", "Sr.", "Sra.", "Mr.", "Mrs.",
-    "Mme."),
+  treat.prep = NULL,
+  add.treat = TRUE,
   sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "|",
   special.char = FALSE,
   format = "last_init",
+  pretty = TRUE,
   get.prep = FALSE,
   get.initials = TRUE
 )
@@ -28,8 +29,12 @@ standardized? Default to TRUE.}
 first name, or auxiliary names.}
 
 \item{treat.prep}{a character or vector containing the treatment prepositions
-that should be removed from names. Default to some common prpositions in
-Portuguese, Spanish and English (see Examples).}
+that should be removed from names. Default to some common prepositions in
+Portuguese, Spanish and English (see Details).}
+
+\item{add.treat}{logical. Should the treatment proposition(s) provided in
+'treat.prep' be concatenated with \strong{plantR} defaults or be used
+separately? Default to TRUE (concatenate prepositions).}
 
 \item{sep.in}{a vector of the symbols separating multiple names. Default to:
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
@@ -42,17 +47,23 @@ to FALSE.}
 
 \item{format}{character. Output name format. The default is "last_init".}
 
-\item{get.prep}{logical. Should last name prepositions be included? Default to
-FALSE.}
+\item{pretty}{logical. Should the output name be returned in a pretty
+presentation (i.e. only the first letter of names capitalized, initials
+separated by points and no spaces, and family name prepositions in lower
+cases). Default to TRUE. If FALSE, names are returned in the same way as
+the input object \code{x}.}
 
-\item{get.initials}{logical. Should last name prepositions be included? Default to
-TRUE.}
+\item{get.prep}{logical. Should last name prepositions be included? Default
+to FALSE.}
+
+\item{get.initials}{logical. Should last name prepositions be included?
+Default to TRUE.}
 }
 \value{
 The character string \code{x} in a standardized name format.
 }
 \description{
-Format or convert multiple collector's or identificator's names
+Format or convert multiple collector's or identifier's names
 into a standardized name format.
 }
 \details{
@@ -60,21 +71,28 @@ The default name format is the one suggested by the
 \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
 then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
 the names of multiple people associated to each record are separated by a
-pipe (i.e. '|'). But this default can be altered using the argument \code{sep.out}.
+pipe (i.e. '|'). But this default can be altered using the argument
+\code{sep.out}.
 
 In the case of names from more then one person (separated by the characters
-defined in the argument \code{sep.in}, the argument \code{output} controls which names
-should be returned: names of all person ("all", the default), first person's
-names ("first") or all but the first person's names ("aux").
+defined in the argument \code{sep.in}, the argument \code{output} controls which
+names should be returned: names of all person ("all", the default), first
+person's names ("first") or all but the first person's names ("aux").
 
 The function identifies (and removes) name prefixes or prepositions (e.g.
 de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
-Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). The
-function also does not handle hyphenated first names. If only one name is
-given, the function returns \code{x} with the first letter capitalized.
+Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). Users
+can use the \strong{plantR} default list of treatment prepositions (argument
+'treat.prep' = NULL; the default), their own list of prepositions or a
+combination of both (argument 'add.treat' = TRUE; the default). To inspect
+the \strong{plantR} default list of treatment prepositions please check
+the internal object 'treatPreps'.
 
-The function has the option of stardardizing the general notation of names
-and the general format of names. These standardizations are controled by
+The function also does not handle hyphenated first names. If only one name
+is given, the function returns \code{x} with the first letter capitalized.
+
+The function has the option of standardizing the general notation of names
+and the general format of names. These standardizations are controlled by
 the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
 \strong{plantR} functions \code{fixName()} and \code{prepTDWG()}.
 }
@@ -88,7 +106,7 @@ the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
 
   # Name with prepositions and compound last names
   prepName("Carl F. P. von Martius; Augustin Saint-hilaire")
-  prepName("Carl F. P. von Martius; Auguste de Saint-Hilaire", get.prep = TRUE)
+  prepName("Carl von Martius; Auguste de Saint-Hilaire", get.prep = TRUE)
   prepName("A. Ducke; Dárdano de Andrade-Lima")
   prepName("Ducke, A. ; Dárdano de Andrade-Lima")
 
@@ -112,7 +130,7 @@ the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
   prepName("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
 
   # Multiple names separated by commas
-  prepName("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect
+  prepName("A. Alvarez, A. Zamora & V. Huaraca") # bad output incorrect
   prepName("A. Alvarez, A. Zamora & V. Huaraca", sep.in=c(",","&")) # output correct
 
   # Multiple (last + first) names separated by commas

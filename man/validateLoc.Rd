@@ -8,7 +8,7 @@ validateLoc(x, res.orig = "resol.orig", res.gazet = "resolution.gazetteer")
 }
 \arguments{
 \item{x}{a data frame containing the resolution of the original and the
-gazetteer locality information.resolution from the gazetter.}
+gazetteer locality information.resolution from the gazetteer.}
 
 \item{res.orig}{character. The name of the column containing the resolution
 of the locality information from the original records. Default to
@@ -28,24 +28,26 @@ the original record with the resolution retrieved from the gazetteer.
 }
 \details{
 The function simply compares if the original information provided
-with each specimen is found in the locality gazetteer and at which resolution
-(i.e. country, state, municipality). This comparison is strongly dependent on
-the completeness of the gazetteer used. Please remind that the gazetteer
-provided with \strong{plantR} is strongly biased towards Latin America, particularly
-Brazil.
+with each specimen is found in the locality gazetteer and at which
+resolution (i.e. country, state, municipality). This comparison is strongly
+dependent on the completeness of the gazetteer used. Please remind that the
+gazetteer provided with \strong{plantR} is strongly biased towards Latin
+America, particularly Brazil.
 
 The records whose locality was not found in the gazetteer at the same
-resolution are flagged with a "check_...". For these records, the
-locality resolution is downgraded until a locality is found in the gazetteer.
-If even the country name is not found, then the locality is flagged
-as "no_info". Specimens retaining their resolution are flagged with a
-"ok_same_resolution" and those found at a better resolution are flagged with an
-"ok_" (e.g. 'ok_state2municipality': a record which had its original
-resolution at the ' 'stateProvince' level is now at the 'municipality' level).
+resolution are flagged with a "check_...". For these records, the locality
+resolution is downgraded until a locality is found in the gazetteer. If
+even the country name is not found, then the locality is flagged as
+"no_info". Specimens retaining their resolution are flagged with a
+"ok_same_resolution" and those found at a better resolution are flagged
+with an "ok_" (e.g. 'ok_state2municipality': a record which had its
+original resolution at the ' 'stateProvince' level is now at the
+'municipality' level).
 
-The records flagged with the class "check_local.2municip." should not be seen as
-problematic, since the \strong{plantR} gazetteer contain a list of county names
-that is much more comprehensive than the list of locality names.
+The records flagged with the class "check_local.2municip." should not be
+seen as problematic, since the \strong{plantR} gazetteer contain a list of
+county names that is much more comprehensive than the list of locality
+names.
 }
 \examples{
 (df <- data.frame(

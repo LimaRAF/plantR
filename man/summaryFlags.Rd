@@ -4,11 +4,14 @@
 \alias{summaryFlags}
 \title{Summary of Data Validation Flags}
 \usage{
-summaryFlags(x)
+summaryFlags(x, print = TRUE)
 }
 \arguments{
 \item{x}{a data frame with the occurrence data and the columns containing the
 outputs of the \strong{plantR} validation functions.}
+
+\item{print}{logical. Should the first part of the table be printed? Default
+to TRUE.}
 }
 \description{
 This function provides the summary of the validation steps of

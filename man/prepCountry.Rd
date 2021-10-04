@@ -15,8 +15,8 @@ Default to TRUE.}
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
 
-\item{rm.abbrev}{logical. Should common name abbreviation be replaced? Default
-to TRUE.}
+\item{rm.abbrev}{logical. Should common name abbreviation be replaced?
+Default to TRUE.}
 }
 \value{
 The input vector \code{x} in the standard name notation (see Details)
@@ -31,14 +31,13 @@ separators.
 Country information is formatted into a standard notation, i.e. long
 name format (in English). By default, all letters are lower-cased (argument
 \code{to.lower}) and special characters (argument \code{special.char}) and common
-abbreviations (e.g. 'st.') are removed (argument \code{rm.abbrev}). These
-edits aim at reducing possible variation in country name notation and
-facilitate further data processing and comparison within the \strong{plantR}
-workflow.
+abbreviations (e.g. 'st.') are removed (argument \code{rm.abbrev}). These edits
+aim at reducing possible variation in country name notation and facilitate
+further data processing and comparison within the \strong{plantR} workflow.
 
 All country information with less than four letters are treated as country
 codes and they are converted to the long format. Currently, only the ISO
-3166-1 aplha-2 and alpha-3 codes are considered for convertion to the long
+3166-1 alpha-2 and alpha-3 codes are considered for conversion to the long
 country name format.
 }
 \examples{

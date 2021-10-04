@@ -6,41 +6,54 @@
 \usage{
 getPrep(
   x,
-  preps = c("De", "Dos", "Do", "Da", "Das", "Del", "Du", "Des", "Di", "Dalla", "Della",
-    "Ter", "Von", "Van", "De La", "De Las", "De Lo", "De Los", "Van Der", "Van Den"),
+  preps = NULL,
+  add.preps = TRUE,
   rm.prep = FALSE,
   output = "matrix",
-  format = "last_init_prep"
+  format = "last_init_prep",
+  lower = FALSE
 )
 }
 \arguments{
 \item{x}{a name string, a vector of names or a two-column matrix or
-data.frame, containing the last name in the first column and other
-names in the second.}
+data.frame, containing the last name in the first column and other names in
+the second.}
 
 \item{preps}{a vector with the name prepositions to be isolated. Defaults to
-some common prepositions in portuguese, spanish, italian, french, and dutch
-family names.}
+some common prepositions in Portuguese, Spanish, Italian, French, and Dutch
+family names (see Details).}
+
+\item{add.preps}{logical. Should the vector of name prepositions provided in
+'preps' be concatenated with \strong{plantR} defaults or be used separately?
+Default to TRUE (concatenate prepositions).}
 
 \item{rm.prep}{logical. Should the preposition be removed? Default to FALSE.}
 
 \item{output}{character. Should the names be returned as a vector of
 standardized names or organized as a matrix? Default to "matrix".}
 
-\item{format}{character. Format of the output vector of names The default ("last_init")
-is the TDWG standard, but the inverse format can also be chosen ("init_last").}
+\item{format}{character. Format of the output vector of names The default
+("last_init") is the TDWG standard, but the inverse format can also be
+chosen ("init_last").}
+
+\item{lower}{logical. Should the preposion be converted to lower cases
+or returned as provided? Default to FALSE.}
 }
 \value{
 A vector or a matrix containing the names provided in \code{x} with
 the name prepositions isolated from the last name.
 }
 \description{
-This function isolates and removes (optional) last name prepositions
-(i.e. 'da' in 'da Silva') from multiple people's names, if present.
+This function isolates and removes (optional) last name
+prepositions (i.e. 'da' in 'da Silva') from multiple people's names, if
+present.
 }
 \details{
-By default, the function searches for common name prepositions but
-the user can provide a personal list.
+By default, the function uses the \strong{plantR} default list of common
+name prepositions (argument 'preps' = NULL). But users can use their own
+list of prepositions or a combination of both (argument 'add.preps' = TRUE;
+the default). To inspect the \strong{plantR} default list of family name
+prepositions, please check the internal object 'namePreps'.
 
 The function assumes that prepositions can be at the start/end of the
 string for names in the 'Last name, First name(s)' format (e.g. "da Silva,
@@ -53,14 +66,19 @@ In the case of a vector of names, the 'Last name, First name(s)' name
 format is prioritized over the 'First name(s) Last name' format while
 separating last from first names. In addition, only the prepositions in the
 last name are isolated and can be returned. Prepositions in middle names
-are silently excluded.
+are silently excluded. Furthermore, the function makes a distinction
+between names that are all capitas ('DA SILVA') and names that have
+only unnabreviated initials all capitals ('DA Silva'). Only in the first
+case the search for the preposition is done; in the second case, capital
+letters are assumed to be initials of names.
 
 Names can be provided as vectors of names or as a two-column matrix/data
 frame in which the last names are provided in the first column and other
 names in the second. Users can also chose the output format between
-"last_init_prep" or "last_init" (the default; e.g. "Silva, Maria A. Pereira"),
-"prep_last_init" (e.g. "da Silva, Maria A. Pereira") or "init_last"
-(e.g. "Maria A. Pereira (da) Silva"), using the argument \code{format}.
+"last_init_prep" or "last_init" (the default; e.g. "Silva, Maria A.
+Pereira"), "prep_last_init" (e.g. "da Silva, Maria A. Pereira") or
+"init_last" (e.g. "Maria A. Pereira (da) Silva"), using the argument
+\code{format}.
 }
 \examples{
 names <- c("Silva, Maria A. Pereira da", "Silva, Maria A. Pereira Da",

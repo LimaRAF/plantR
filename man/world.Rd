@@ -21,7 +21,8 @@ country borders. It was generated from the smallest scale available in
 'Natural Earth' (i.e. 1:110 m), which consists in 183 polygons for 178
 countries in the world. This map was complemented with 77 polygons for
 missing countries and dependent territories (mainly islands), not included in
-'Natural Earth', so that this map can macth the other maps used in \strong{plantR}.
+'Natural Earth', so that this map can match the other maps used in
+\strong{plantR}.
 }
 \details{
 Country long names were edited to match the format of the \strong{plantR} default

@@ -31,8 +31,8 @@ Default to "decimalLongitude".}
 \item{flag}{logical. Should the differences between the original and edited
 coordinates be flagged? Default to TRUE.}
 
-\item{lat.orig}{character. The name of the column containing the latitude. Default
-to "decimalLatitude".}
+\item{lat.orig}{character. The name of the column containing the latitude.
+Default to "decimalLatitude".}
 
 \item{lon.orig}{character. The name of the column containing the longitude.
 Default to "decimalLongitude".}
@@ -55,8 +55,9 @@ Default to "decimalLatitude.new".}
 longitude combining the coordinates from the source data and the gazetteer.
 Default to "decimalLongitude.new".}
 
-\item{rm.gazet}{logical. Should the coordinates form the gazetterr be removed
-from the data after the replacement of missing coordinates? Default to FALSE.}
+\item{rm.gazet}{logical. Should the coordinates form the gazetteer be removed
+from the data after the replacement of missing coordinates? Default to
+FALSE.}
 }
 \value{
 The input data frame \code{coords}, plus the new columns

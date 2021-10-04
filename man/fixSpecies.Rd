@@ -12,7 +12,7 @@ fixSpecies(
 )
 }
 \arguments{
-\item{x}{a data.frame containing the species name}
+\item{x}{a vector or data.frame containing the species name}
 
 \item{tax.name}{character. Name of the columns containing the species name.
 Default to "scientificName"}
@@ -20,14 +20,15 @@ Default to "scientificName"}
 \item{rm.rank}{logical. Should the infra-specific rank abbreviation be
 removed from the name? Default to FALSE}
 
-\item{rm.indet}{logical. Should the abbreviations for unespecific names (i.e.
+\item{rm.indet}{logical. Should the abbreviations for unspecific names (i.e.
 sp. or spp.) be removed? Default to FALSE}
 }
 \value{
-The original data frame with the new columns \code{verbatimSpecies} with small
-edits before flagging, \code{scientificNameStatus} with the flags in original data
-and \code{scientificName.new} with a suggestion for a more correct name. See
-Details for a description of flags in the column \code{scientificNameStatus}.
+The original data frame (or the input vector as a data frame) with the new
+columns \code{verbatimSpecies} with small edits before flagging,
+\code{scientificNameStatus} with the flags in original data and
+\code{scientificName.new} with a suggestion for a more correct name. See Details
+for a description of flags in the column \code{scientificNameStatus}.
 }
 \description{
 Identifies open nomenclature (aff., cf.) in scientific names,
@@ -35,13 +36,14 @@ classification under species level (var. and subsp.). It creates a new
 column with the new suggested name and it also flags problematic names
 (character string with numbers, authors, wrong case, or other names besides
 genus and epithet etc). Names can be returned with or without
-infra-specific ranks (var. and subsp.) or abbreviations of unespecific
-names (sp. or spp.).
+infra-specific ranks (var. and subsp.) or abbreviations of unspecific
+names (sp. or spp.). In the case of names with authors, authorship is
+currently removed from scientific names.
 }
 \details{
 Possible flags returned in \code{scientificNameStatus}: \describe{
-\item{\code{possibly_ok}}{scientific name following the expected pattern 'Genus
-epithet'}
+\item{\code{possibly_ok}}{scientific name following the expected pattern
+'Genus epithet'}
 \item{\code{not_Genus_epithet_format}}{scientific name not following
 the expected pattern Genus epithet}
 \item{\code{variety}}{scientific name with variety}

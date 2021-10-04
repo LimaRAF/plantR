@@ -42,7 +42,7 @@ This function keeps one and removes all other specimens within
 groups of duplicate specimens.
 }
 \details{
-The input data frame \code{df} must contain the typicall columns
+The input data frame \code{df} must contain the typical columns
 resulting from \strong{plantR} workflow and functions. Otherwise, the names
 of these columns should be provided using arguments \code{dup.name} (i.e.
 characters used to aggregate records into groups of duplicates) and
@@ -61,11 +61,12 @@ specific purposes before using this function.
 
 By default, the record retained for each group of duplicates is determined
 by the proportion of duplicates the record has within the group (argument
-\code{prop.name}) and by the original order of the input data frame \code{df}. So,
-the first record with the highest proportion of duplicates will be the record
-retained. But the user can use the argument \code{order.by} if the data should
-be order by any of the columns in the input data. This column will be used to
-create the 'key' within the \code{data.table} parlance and order the data accordingly.
+\code{prop.name}) and by the original order of the input data frame \code{df}.
+So, the first record with the highest proportion of duplicates will be the
+record retained. But the user can use the argument \code{order.by} if the data
+should be order by any of the columns in the input data. This column will
+be used to create the 'key' within the \code{data.table} parlance and order the
+data accordingly.
 
 Finally, users can choose between removing all but one records within each
 group of duplicate, or to remove only those records with duplicated entries

@@ -2,7 +2,7 @@
 % Please edit documentation in R/accessory_geo.R
 \name{minDist}
 \alias{minDist}
-\title{Minimun Distance between Coordinates}
+\title{Minimum Distance between Coordinates}
 \usage{
 minDist(lon, lat, min.dist = 0.001, output = NULL)
 }
@@ -11,17 +11,18 @@ minDist(lon, lat, min.dist = 0.001, output = NULL)
 
 \item{lat}{numerical. Latitude in decimal degrees}
 
-\item{min.dist}{numerical. Minimun threshold distance (in kilometers) to be
+\item{min.dist}{numerical. Minimum threshold distance (in kilometers) to be
 used to detect duplicated coordinates. Default to 1 meter.}
 
-\item{output}{character. The type of information that should be returned (see Details)}
+\item{output}{character. The type of information that should be returned (see
+Details)}
 }
 \value{
-A vector of TRUE/FALSE or of minimun distances in kilometers.
+A vector of TRUE/FALSE or of minimum distances in kilometers.
 }
 \description{
 The function calculates the minimum distance between coordinates
-or the coordinates which are below a mininum threshold distance.
+or the coordinates which are below a minimum threshold distance.
 }
 \details{
 The argument \code{output} controls the type of output that should be
@@ -36,8 +37,8 @@ duplicated coordinates.
 }
 \examples{
 
-lat = c(-23.475389, -23.475389, -23.475390, -23.475389)
-lon = c(-47.123768, -47.123768, -47.123768, -47.123868)
+lat <- c(-23.475389, -23.475389, -23.475390, -23.475389)
+lon <- c(-47.123768, -47.123768, -47.123768, -47.123868)
 
 \dontrun{
 minDist(lon, lat, output = 'group')

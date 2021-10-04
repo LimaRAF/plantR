@@ -50,17 +50,18 @@ locality resolution and search string(s), in that order. Defaults to
 the internal \strong{plantR} gazetteer (biased towards Latin America).}
 
 \item{gazet.names}{a vector of at least four columns names containing the
-locality search string, latitude and longitude, in that order. If available,
-the resolution of the gazetteer can be provided as a fifth name. Defaults
-to columns names of the \strong{plantR} gazetteer: 'loc', 'loc.correct',
-'latitude.gazetteer', 'longitude.gazetteer' and 'resolution.gazetteer'.}
+locality search string, latitude and longitude, in that order. If
+available, the resolution of the gazetteer can be provided as a fifth name.
+Defaults to columns names of the \strong{plantR} gazetteer: 'loc',
+'loc.correct', 'latitude.gazetteer', 'longitude.gazetteer' and
+'resolution.gazetteer'.}
 
 \item{orig.names}{logical. Should the original columns names of the gazetteer
 be preserved. Default to FALSE.}
 }
 \value{
-The input data frame \code{x}, plus the new columns with the formatted
-information.
+The input data frame \code{x}, plus the new columns with the
+formatted information.
 }
 \description{
 This function standardizes names of administrative levels from

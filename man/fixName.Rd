@@ -42,8 +42,8 @@ al.') and symbols (e.g. ? or !).
 
 The function was created to deal with people's names, so input separators
 for multiple names composed only by letters should be surrounded by spaces.
-For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
-taken independently of the presence of spaces nearby.
+For non-alphabetic characters (e.g. semi-colons, ampersand) the function
+are taken independently of the presence of spaces nearby.
 
 Due to common encoding problems related to Latin characters, names are
 returned without accents by default. But users can choose between outputs

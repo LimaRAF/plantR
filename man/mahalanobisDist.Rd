@@ -25,11 +25,11 @@ mahalanobisDist(
 \item{method}{character. Type of method desired: 'classic' and/or 'robust'
 (see Details)}
 
-\item{n.min}{numerical. Minimun number of unique coordinates to be used in
+\item{n.min}{numerical. Minimum number of unique coordinates to be used in
 the calculations.}
 
-\item{digs}{numerical. Number of digits to be returned after the decimal point.
-Default to 4}
+\item{digs}{numerical. Number of digits to be returned after the decimal
+point. Default to 4}
 
 \item{center}{character. Which metric should be used to obtain he center of
 the distribution of coordinates: 'mean' or 'median'?}
@@ -44,7 +44,8 @@ result from the validation of cultivated specimens. Default to NULL.}
 geographical validation to be included in the analyses. Default to "ok_".}
 
 \item{cult.patt}{character. The pattern to be used to search for classes of
-validation of cultivated specimens to be included in the analyses. Default to NA.}
+validation of cultivated specimens to be included in the analyses. Default
+to NA.}
 }
 \value{
 the input data frame and a new column(s) with the distances obtained
@@ -74,8 +75,8 @@ problems.
 
 If the MCD algorithm runs into singularity issues, the function silently
 add some random noise to both coordinates and re-run the MCD algorithm.
-This aims to deals with cases of few coordinates close to each other and
-in practice should not change the overall result of the detection of spatial
+This aims to deals with cases of few coordinates close to each other and in
+practice should not change the overall result of the detection of spatial
 outliers.
 
 The presence of problematic coordinates and cultivated specimens can
@@ -87,8 +88,8 @@ user can provide the output from \strong{plantR} functions \code{checkCoord()} a
 \code{getCult()} or a logical TRUE/FALSE vector. By default, if the input are
 the outputs from functions \code{checkCoord()} and \code{getCult()}, only the
 coordinates flagged as 'ok_...' in \code{geo} and those not flagged in \code{cult}
-(i.e. NAs) will be used. But users can select different search patterns using
-the arguments \code{geo.patt} and \code{cult.patt}. For both input options, the
+(i.e. NAs) will be used. But users can select different search patterns
+using the arguments \code{geo.patt} and \code{cult.patt}. For both input options, the
 vector must have the same length of the coordinates provided in the
 arguments \code{lat} and \code{lon}. By default, arguments \code{geo} and \code{cult} are set
 to NULL, meaning that all coordinates will be used.
