@@ -14,7 +14,9 @@
 #' @param family Family name. More than one name should be concatenated in a
 #'   vector
 #' @param species Genus or genus and epithet separated by space. More than one
-#'   should be concatenated in a vector
+#'   species can be concatenated into a vector. The request cannot be done
+#'   with more than 50 species per time. Use lapply, or any sort of loop when
+#'   dealing with multiple species.
 #' @param collectionCode Any collection available at speciesLink. Example: ALCB,
 #'  E, INPA, MOBOT_BR.  Accepts a vector of names
 #' @param country Any country name. No ASCII characters allowed. Accepts a
@@ -62,6 +64,11 @@
 #'rspeciesLink(filename = "ex01",
 #'                     species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
 #'                     Scope = "plants")
+#'
+#' # Running more than multiple species (needed in case of species > 50)
+#' sp =  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
+#'sp_list = lapply(sp, rspeciesLink, Scope = "plants", basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
+
 #'}
 #'
 #' @import data.table
@@ -116,22 +123,20 @@ rspeciesLink <- function(dir = "results/",
   # Species name
   if (is.null(species)) {
     my_url
-  }
-  else  {
+  } else  {
     if (is.character(species)) {
+      if (length(species) > 50) stop("Please make request of no more than 50 species a time!")
       species <- gsub(" ", "%20", species)
       sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
-    }
-    else {
+    } else {
       stop("species must be a character")
     }
   }
   # Family name
   if (is.null(family)) {
     my_url
-  }
-  else  {
+  } else  {
     if (is.character(family)) {
       fam <- url_query(family, "family")
       my_url <- paste0(my_url, fam)
