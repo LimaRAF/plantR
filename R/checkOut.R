@@ -1,10 +1,12 @@
 #' @title Search For Spatial Outliers
 #'
 #' @description This function searches for spatial outliers, i.e. records too
-#'   far away from species core distributions based
-#'   on \href{https://en.wikipedia.org/wiki/Mahalanobis_distance}{Mahalanobis
+#'   far away from species core distributions based on
+#'   \href{https://en.wikipedia.org/wiki/Mahalanobis_distance}{Mahalanobis
 #'   distances}. Spatial outliers can indicate misidentifications or records
-#'   obtained from cultivated individuals.
+#'   obtained from cultivated individuals, although not all cultivated
+#'   individuals are necessarily spatial outliers (see also the __plantR__
+#'   function `getCult()`).
 #'
 #' @param x a data frame with the species records.
 #' @param lon character. Column with the record longitude in decimal degrees.
