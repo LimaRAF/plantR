@@ -7,10 +7,10 @@ specimens.
 * Fixing a small issue related to non-preserved specimens observation in
 `validateTax()` to assign confidence levels to species identifications. 
 
-* Inclusion of the internal function `plotCoord()` to help the visualization of
-the coordinate validation process
+* Inclusion of the (simple) internal function `plotCoord()` to help the
+visualization of the coordinate validation process
 
-* Inclusion of an argument to make optional the prints of functions
+* Inclusion of an argument to make optional the prints of functions:
 `prepFamily()`, `summaryData()`, `summaryFlags()` and `validateTax()`
 
 * Major updates on the plant collection code dictionary and minor changes in
@@ -24,7 +24,16 @@ the information within groups of duplicates. The reference specimen is provided
 separately for the taxonomic, locality and coordinate information. We also fixed
 a bug related to the homogenization of the geographical and locality information
 
-* Minor improvements in functions `formatDwc()`, `checkList()`, `prepTDWG()`, 
+* Function `prepTDWG()` (and consequently `prepName()`) now provides the
+argument 'pretty' which controls the way in which the output names are
+presented. By default the function returns, as before, names in a 'pretty' way
+(i.e. only the first letter of names capitalized, initials separated by points
+and no spaces, and family name prepositions in lower cases). But now the
+function also returns the names in the desired format but presented in the same
+way as the input names
+
+* Minor improvements in functions `formatDwc()`, `checkList()`, ,
+`fixSpecies()`, `prepName()`, `getPrep()`, `getInit()`, `lastName()`,
 `prepFamily()` and `addRank()`.
 
 * Adding tests to most of the package functions
