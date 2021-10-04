@@ -9,10 +9,17 @@
 #' @param x the character string or vector containing the names.
 #' @param sep character. Input and output name separator. Default to ", ".
 #' @param format character. Output name format. The default is "last_init".
+#' @param pretty logical. Should the output name be returned in a pretty
+#'   presentation (i.e. only the first letter of names capitalized, initials
+#'   separated by points and no spaces, and family name prepositions in lower
+#'   cases). Default to TRUE. If FALSE, names are returned in the same way as
+#'   the input object \code{x}.
 #' @param get.prep logical. Should last name prepositions be included? Default
 #'   to FALSE.
 #' @param get.initials logical. Should last name prepositions be included?
 #'   Default to TRUE.
+#' @param max.initials numerical. Upper limit of number of letter for a single
+#' word to be considered as initials and not as a first name. Default to 4.
 #'
 #' @return The character string \code{x} in the standardized format.
 #'
@@ -60,6 +67,8 @@
 #'  \link[plantR]{lastName}, \link[plantR]{getPrep} and \link[plantR]{getInit}.
 #'
 #' @export prepTDWG
+#'
+#' @importFrom stringr str_squish
 #'
 #' @examples
 #'   # Single names
@@ -109,6 +118,8 @@
 #'   prepTDWG(names, get.prep = TRUE, format = "prep_last_init")
 #'   prepTDWG(names, get.prep = TRUE, format = "prep_last_init",
 #'            get.initials = FALSE)
+#'   prepTDWG(names, get.prep = TRUE, pretty = FALSE,
+#'            get.initials = FALSE)
 #'
 #'   ## Unusual formatting (function won't work always...)
 #'   # two or more people names: output incorrect (combine names of authors)
@@ -120,28 +131,44 @@
 #'   #' one name, abbreviations in the start and end: fails to get all names
 #'   prepTDWG("C.S. Esteves F.")
 #'
-prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE,
-                     get.initials = TRUE) {
+prepTDWG <- function(x,
+                     sep = ", ",
+                     format = "last_init",
+                     pretty = TRUE,
+                     get.prep = FALSE,
+                     get.initials = TRUE,
+                     max.initials = 4) {
 
   # Detecting different name formats
-  patt <- paste0("\\p{Ll}", sep, "\\p{Lu}")
-  # patt <- paste0("[[:alpha:]]", sep, "[A-ZÀ-Ý]")
+  patt <- paste0("\\p{L}", sep, "\\p{L}")
+  # patt <- paste0("\\p{Ll}", sep, "\\p{Lu}")
   commas <- grepl(patt, x, perl = TRUE)
   NAs <- x %in% c("", " ", NA)
   words <- grepl(" ", x, fixed = TRUE)
 
-  # Detecting other name formats
-  oa <- grepl("O'[A-Z]", x, perl = TRUE)
-  mac <- grepl('Mac[A-Z]', x, perl = TRUE)
-  mc <- grepl('Mc[A-Z]', x, perl = TRUE)
+  # Detecting and fixing other name formats
+  oa <- grepl("O'[A-Z]|O' [A-Z]", x, perl = TRUE)
+  if (any(oa))
+    x[oa] <- gsub("(O') ([A-Z])", "\\1\\2", x[oa], perl = TRUE)
+
+  mac <- grepl('Mac[A-Z]|Mac [A-Z]', x, perl = TRUE)
+  if (any(mac))
+    x[mac] <- gsub("(Mac) ([A-Z])", "\\1\\2", x[mac], perl = TRUE)
+
+  mc <- grepl('Mc[A-Z]|Mc [A-Z]', x, perl = TRUE)
+  if (any(mc))
+    x[mc] <- gsub("(Mc) ([A-Z])", "\\1\\2", x[mc], perl = TRUE)
 
   nomes <- x
 
   if (any(commas & words & !NAs)) { # Names already with commas and >1 word
 
-    # Getting last and first names, as well as the prefixes/prepositions and initials
-    split <- matrix(c(lastName(x[commas & words & !NAs]),
-                      lastName(x[commas & words & !NAs], invert = TRUE, initials = FALSE)),
+    # Getting last/first names, as well as prefixes/prepositions and initials
+    split <- matrix(c(lastName(x[commas & words & !NAs],
+                               first.capital = FALSE),
+                      lastName(x[commas & words & !NAs],
+                               invert = TRUE, initials = FALSE,
+                               first.capital = FALSE)),
                     ncol = 2)
     split <- getPrep(split, rm.prep = FALSE)
 
@@ -154,44 +181,148 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE,
         split[, 2][remove_these] <-
           gsub(" \\([A-Z].*", "", split[, 2][remove_these], perl = TRUE)
 
-      split[,2] <- getInit(split[, 2], max.initials = 10)
+      # Trying to isolate initials w/out periods that are equal to prepositions
+      check_caps <- split[, 1] == toupper(split[, 1]) &
+                      split[, 2] == toupper(split[, 2]) &
+                        !split[, 2] %in% ""
+
+      if (any(check_caps)) {
+        split[, 2][check_caps] <-
+          gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
+               split[, 2][check_caps], perl = TRUE)
+        split[, 2][check_caps] <-
+          gsub("(\\p{L})", "\\1.", split[, 2][check_caps], perl = TRUE)
+        split[, 2][check_caps] <-
+          gsub("\\.,\\.|\\.\\.", ".", split[, 2][check_caps], perl = TRUE)
+      }
+
+      split[, 2][!check_caps] <-
+        getInit(split[, 2][!check_caps], max.initials = 10,
+                rm.spaces = pretty)
 
     } else {
 
-      split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.", split[,2], perl = TRUE)
-      split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
-      split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
 
+      # split[, 2] <- gsub("(\\p{Lu})(\\s)(\\p{Lu})+", "\\1.\\2\\3.",
+      #                    split[, 2], perl = TRUE)
+      # split[, 2] <- gsub("(\\p{Lu})(\\.\\s)(\\p{Lu}$)", "\\1\\2\\3.",
+      #                    split[, 2], perl = TRUE)
+      #
+      # # Any name initials not separated by commas or spaces?
+      # check_caps <- !grepl("\\.", split[, 2], perl = TRUE) &
+      #                 !split[,1] == toupper(split[,1]) &
+      #                   split[,2] == toupper(split[,2]) &
+      #                     !split[,2] %in% ""
+      # split[, 2][check_caps] <- gsub("([A-Z])([A-Z])", "\\1.\\2.",
+      #                                      split[, 2][check_caps], perl = TRUE)
+
+      # split[, 2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4",
+      #                   split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[, 2], perl = TRUE)
+      # split[, 2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.",
+      #                   split[, 2], perl = TRUE)
+      # split[, 2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.",
+      #                   split[, 2], perl = TRUE)
+
+      split[, 2] <- stringr::str_squish(split[, 2])
+
+    }
+
+    if (pretty) {
+
+      # first/middle names of initials
+      if (get.initials) {
+
+        split[, 2] <- gsub(" ", "", split[, 2], fixed = TRUE)
+
+      } else {
+
+        # Detecting the first possible conditions
+        not_empty <- !split[,2] %in% ""
+        init_caps <- split[,2] == toupper(split[,2])
+        is_inits <- nchar(gsub("(*UCP)[^;](?<!\\p{L})",
+                               "", split[, 2], perl=TRUE)) < max.initials
+
+        # Adding periods to initials
+        check_inits <- init_caps & is_inits & not_empty
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\s)(\\p{Lu})+", "\\1.\\2\\3.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\p{Lu})+", "\\1.\\2.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\.\\s)(\\p{Lu}$)", "\\1\\2\\3.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(^\\p{Lu}$)", "\\1.",
+               split[, 2][check_inits], perl = TRUE)
+
+        # Detecting the second possible conditions
+        w_abbrev <- grepl("\\.", split[, 2], perl = TRUE)
+        init_low <- split[,2] == tolower(split[,2])
+
+        #Checking all caps/lower without abbreviation
+        check_these <- !w_abbrev & (init_caps | init_low) & not_empty
+        if (any(check_these))
+          split[, 2][check_these] <- capName(split[, 2][check_these])
+
+        # Any name initials not separated by commas or spaces? (Muted for now)
+        # w_spaces <- grepl(" ", split[, 2], fixed = TRUE)
+        # not_all_caps <- !split[,1] == toupper(split[,1]) & init_caps
+        # check_caps <- !w_abbrev & !w_spaces & init_caps &
+        #                 not_all_caps & not_empty
+        # if (any(check_caps))
+        #   split[, 2][check_caps] <- gsub("([A-Z])", "\\1.",
+        #                               split[, 2][check_caps], perl = TRUE)
+
+        #Removing spaces between initials
+        split[, 2] <- gsub("(\\.) (\\p{L}\\.)", "\\1\\2",
+                           split[, 2], perl = TRUE)
+        split[, 2] <- gsub("(\\.) (\\p{L}\\.)", "\\1\\2",
+                           split[, 2], perl = TRUE)
+
+        #Final edits (lowr case initials)
+        split[, 2][init_low] <- gsub("(\\p{Ll})(\\.)+",
+                                     "\\U\\1\\2",
+                                     split[, 2][init_low], perl = TRUE)
+
+      }
+
+      # family name
+      split[, 1] <- capName(split[, 1])
+      # split[, 1] <- gsub("(^\\p{Lu})(\\s\\p{Lu})", "\\1.\\2", # muted for now
+      #                    split[, 1], perl = TRUE)
+
+      # family name prepositions
+      split[, 3] <- tolower(split[, 3])
     }
 
     # Generating the name string
     if (get.prep) {
 
       if (format %in% c("last_init", "last_init_prep"))
-        names <- paste(paste(split[,1], split[,2], sep = sep), split[,3])
+        names <- paste(paste(split[, 1], split[, 2], sep = sep), split[, 3])
       if (format %in% c("prep_last_init"))
-        names <- paste(split[,3], paste(split[,1], split[,2], sep = sep))
+        names <- paste(split[, 3], paste(split[, 1], split[, 2], sep = sep))
       if (format %in% c("init_last"))
-        names <- paste(split[,2], split[,3], split[,1])
+        names <- paste(split[, 2], split[, 3], split[, 1])
 
     } else {
 
       if (format %in% c("last_init", "last_init_prep", "prep_last_init"))
-        names <- paste(split[,1], split[,2], sep = sep)
+        names <- paste(split[, 1], split[, 2], sep = sep)
       if (format %in% c("init_last"))
-        names <- paste(split[,2], split[,1])
+        names <- paste(split[, 2], split[, 1])
 
     }
 
     # Final edits on the name string
-    names <- gsub("\\s\\s+", " ", names, perl = TRUE)
-    names <- gsub("^ | $", "", names, perl = TRUE)
+    names <- stringr::str_squish(names)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
+    names <- gsub(",$", "", names, perl = TRUE)
     nomes[commas & words & !NAs] <- names
 
   }
@@ -201,57 +332,149 @@ prepTDWG <- function(x, sep = ", ", format = "last_init", get.prep = FALSE,
     # Names ending with (collection) codes in parentheses
     remove_these <-
       grepl(" \\([A-Z]", x[!commas & words & !NAs]) &
-      grepl("[A-Z]\\)$", x[!commas & words & !NAs])
+        grepl("[A-Z]\\)$", x[!commas & words & !NAs])
     if (any(remove_these))
       x[!commas & words & !NAs][remove_these] <-
         gsub(" \\([A-Z].*", "",
              x[!commas & words & !NAs][remove_these], perl = TRUE)
 
-    split <- matrix(c(lastName(x[!commas & words & !NAs]),
-                      lastName(x[!commas & words & !NAs], invert = TRUE, initials = FALSE)),
+    # Getting last/first names, as well as prefixes/prepositions and initials
+    split <- matrix(c(lastName(x[!commas & words & !NAs],
+                               first.capital = FALSE),
+                      lastName(x[!commas & words & !NAs],
+                               invert = TRUE, initials = FALSE,
+                               first.capital = FALSE)),
                     ncol = 2)
     split <- getPrep(split, rm.prep = FALSE)
 
     if (get.initials) {
 
-      split[,2] <- getInit(split[,2], max.initials = 10)
-      split[,2][split[,2] %in% "character(0)."] <- ""
+      # Trying to isolate initials w/out periods that are equal to prepositions
+      check_caps <- split[, 1] == toupper(split[, 1]) &
+                      split[, 2] == toupper(split[, 2]) &
+                        !split[, 2] %in% ""
+
+      if (any(check_caps)) {
+        split[, 2][check_caps] <-
+          gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
+               split[, 2][check_caps], perl = TRUE)
+        split[, 2][check_caps] <-
+          gsub("(\\p{L})", "\\1.", split[, 2][check_caps], perl = TRUE)
+        split[, 2][check_caps] <-
+          gsub("\\.,\\.|\\.\\.", ".", split[, 2][check_caps], perl = TRUE)
+      }
+
+      split[, 2][!check_caps] <-
+        getInit(split[, 2][!check_caps], max.initials = 10,
+                rm.spaces = pretty)
+      split[, 2][split[, 2] %in% "character(0)."] <- ""
 
     } else {
 
-      split[,2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[,2], perl = TRUE)
-      # split[,2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.", split[,2], perl = TRUE)
-      split[,2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.", split[,2], perl = TRUE)
-      split[,2] <- gsub("\\s\\s+", " ", split[,2], perl = TRUE)
-      split[,2] <- gsub("^ | $", "", split[,2], perl = TRUE)
+      # split[, 2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4",
+      #                   split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[, 2], perl = TRUE)
+      # # split[, 2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[, 2], perl = TRUE)
+      # split[, 2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.",
+      #                   split[, 2], perl = TRUE)
+      # split[, 2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.",
+      #                   split[, 2], perl = TRUE)
 
+      split[, 2] <- stringr::str_squish(split[, 2])
+
+    }
+
+    if (pretty) {
+
+      # first/middle names of initials
+      if (get.initials) {
+
+        split[, 2] <- gsub(" ", "", split[, 2], fixed = TRUE)
+
+      } else {
+
+        # Detecting the first possible conditions
+        not_empty <- !split[,2] %in% ""
+        init_caps <- split[,2] == toupper(split[,2])
+        is_inits <- nchar(gsub("(*UCP)[^;](?<!\\p{L})",
+                               "", split[, 2], perl=TRUE)) < max.initials
+
+        # Adding periods to initials
+        check_inits <- init_caps & is_inits & not_empty
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\s)(\\p{Lu})+", "\\1.\\2\\3.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\p{Lu})+", "\\1.\\2.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(\\p{Lu})(\\.\\s)(\\p{Lu}$)", "\\1\\2\\3.",
+               split[, 2][check_inits], perl = TRUE)
+        split[, 2][check_inits] <-
+          gsub("(^\\p{Lu}$)", "\\1.",
+               split[, 2][check_inits], perl = TRUE)
+
+        # Detecting the second possible conditions
+        w_abbrev <- grepl("\\.", split[, 2], perl = TRUE)
+        init_low <- split[,2] == tolower(split[,2])
+
+        #Checking all caps/lower without abbreviation
+        check_these <- !w_abbrev & (init_caps | init_low) & not_empty
+        if (any(check_these))
+          split[, 2][check_these] <- capName(split[, 2][check_these])
+
+        # Any name initials not separated by commas or spaces? (Muted for now)
+        # w_spaces <- grepl(" ", split[, 2], fixed = TRUE)
+        # not_all_caps <- !split[,1] == toupper(split[,1]) & init_caps
+        # check_caps <- !w_abbrev & !w_spaces & init_caps &
+        #                 not_all_caps & not_empty
+        # if (any(check_caps))
+        #   split[, 2][check_caps] <- gsub("([A-Z])", "\\1.",
+        #                               split[, 2][check_caps], perl = TRUE)
+
+        #Removing spaces between initials
+        split[, 2] <- gsub("(\\.) (\\p{L}\\.)", "\\1\\2",
+                           split[, 2], perl = TRUE)
+        split[, 2] <- gsub("(\\.) (\\p{L}\\.)", "\\1\\2",
+                           split[, 2], perl = TRUE)
+
+        #Final edits (lowr case initials)
+        split[, 2][init_low] <- gsub("(\\p{Ll})(\\.)+",
+                                     "\\U\\1\\2",
+                                     split[, 2][init_low], perl = TRUE)
+      }
+
+      # family name
+      split[, 1] <- capName(split[, 1])
+      # split[, 1] <- gsub("(^\\p{Lu})(\\s\\p{Lu})", "\\1.\\2", # muted for now
+      #                    split[, 1], perl = TRUE)
+
+      # family name prepositions
+      split[, 3] <- tolower(split[, 3])
     }
 
     # Generating the name string
     if (get.prep) {
 
       if(format %in% c("last_init", "last_init_prep"))
-        names <- paste(paste(split[,1], split[,2], sep = sep), split[,3])
+        names <- paste(paste(split[, 1], split[, 2], sep = sep), split[, 3])
       if(format %in% c("prep_last_init"))
-        names <- paste(split[,3], paste(split[,1], split[,2], sep = sep))
+        names <- paste(split[, 3], paste(split[, 1], split[, 2], sep = sep))
       if(format %in% c("init_last"))
-        names <- paste(split[,2], split[,3], split[,1])
+        names <- paste(split[, 2], split[, 3], split[, 1])
 
     } else {
 
       if(format %in% c("last_init", "last_init_prep", "prep_last_init"))
-        names <- paste(split[,1], split[,2], sep = sep)
+        names <- paste(split[, 1], split[, 2], sep = sep)
       if(format %in% c("init_last"))
-        names <- paste(split[,2], split[,1])
+        names <- paste(split[, 2], split[, 1])
 
     }
 
     # Final edits on the name string
-    names <- gsub("\\s\\s+", " ", names, perl = TRUE)
-    names <- gsub("^ | $", "", names, perl = TRUE)
+    names <- stringr::str_squish(names)
     names <- gsub(",$", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
     nomes[!commas & words & !NAs] <- names

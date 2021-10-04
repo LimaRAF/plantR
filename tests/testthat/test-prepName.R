@@ -3,6 +3,7 @@ test_that("prepName works", {
   expect_equal(prepName("Alwyn H. Gentry", fix.names = FALSE), "Gentry, A.H.")
   expect_equal(prepName("Alwyn H. Gentry", format = "init_last"), "A.H. Gentry")
   expect_equal(prepName("Alwyn H. Gentry", get.initials = FALSE, format = "init_last"), "Alwyn H. Gentry")
+  expect_equal(prepName("Alwyn H. GENTRY", pretty = FALSE), "GENTRY, A. H.")
   expect_equal(prepName("Karl Emrich & Balduino Rambo", sep.out = "&"),
                "Emrich, K.&Rambo, B.")
   expect_equal(prepName("R. Reitz; R.M. Klein"), "Reitz, R.|Klein, R.M.")

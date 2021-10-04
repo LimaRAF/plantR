@@ -11,12 +11,15 @@ test_that("prepTDWG works", {
   expect_equal(prepTDWG("Gentry, AH"), "Gentry, A.H.")
   expect_equal(prepTDWG("Gentry AH"), "Gentry, A.H.")
   expect_equal(prepTDWG("GENTRY, A H"), "Gentry, A.H.")
+  expect_equal(prepTDWG("GENTRY, A H", pretty = FALSE), "GENTRY, A. H.")
   expect_equal(prepTDWG("gentry, alwyn howard"), "Gentry, A.H.")
   expect_equal(prepTDWG("gentry, a.h."), "Gentry, A.H.")
   expect_equal(prepTDWG("gentry, a. h."), "Gentry, A.H.")
   # Name with prepositions
   expect_equal(prepTDWG("Carl F. P. von Martius"), "Martius, C.F.P.")
   expect_equal(prepTDWG("Carl F. P. von Martius", get.prep = TRUE), "Martius, C.F.P. von")
+  expect_equal(prepTDWG("Carl F. P. von Martius", get.prep = TRUE, pretty = FALSE),
+               "Martius, C. F. P. von")
   # Names with generational suffixes
   expect_equal(prepTDWG("Hermogenes de Freitas Leitao Filho"), "Leitao Filho, H.F.")
   expect_equal(prepTDWG("H.F. Leitao Filho"), "Leitao Filho, H.F.")

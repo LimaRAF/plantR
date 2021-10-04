@@ -5,6 +5,8 @@
 #'
 #' @param x the character string or vector to be standardized
 #' @param upper logical. Should initials be capitalized? Default to TRUE.
+#' @param rm.spaces logical. Should spaces between initials be removed?
+#'   Default to TRUE.
 #' @param max.initials numerical. Upper limit of number of letter for a single
 #' word to be considered as initials and not as a name. Default to 5.
 #'
@@ -30,6 +32,8 @@
 #' @author Renato A. F. de Lima
 #'
 #' @keywords internal
+#'
+#' @importFrom stringr str_squish
 #'
 #' @examples
 #' \dontrun{
@@ -69,13 +73,15 @@
 #'   getInit("Ah. Gentry") # discard the lower-case initial
 #'  }
 #'
-getInit <- function(x, upper = TRUE, max.initials = 5) {
+getInit <- function(x,
+                    upper = TRUE,
+                    rm.spaces = TRUE,
+                    max.initials = 5) {
 
   #Preparing the vector of names
   pts <- grepl("\\.", x, perl = TRUE)
   x[pts] <- gsub("[.]", ". ", x[pts], perl = TRUE)
-  x[pts] <- gsub("\\s\\s+", " ", x[pts], perl = TRUE)
-  x[pts] <- gsub("^ | $", "", x[pts], perl = TRUE)
+  x[pts] <- stringr::str_squish(x[pts])
 
   #Detecting the some general types of name formats: full, abbreviated or both
   words <- grepl(" ", x, fixed = TRUE)
@@ -110,13 +116,15 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
   #types 1: first letter of each word
   if (any(types %in% "1"))
     initials[types %in% "1"] <-
-    gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
-         "", initials[types %in% "1"], perl=TRUE)
+         gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
+         # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+           "", initials[types %in% "1"], perl=TRUE)
 
   #type 2: single words, with abbreviations
   if (any(types %in% "2"))
     initials[types %in% "2"] <-
-    gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+         gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
+         # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
          "", initials[types %in% "2"], perl=TRUE)
 
   #type 3: single words, no abbreviations
@@ -126,16 +134,19 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
     all.low <- !all.caps & !any.caps
 
     initials[types %in% "3"][!all.low] <-
-      gsub("(*UCP)[^;\\&\\-\\\\'](?<![A-Z])", "",
+          gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<![A-Z])", "",
+           # gsub("(*UCP)[^;\\&\\-\\\\'](?<![A-Z])", "",
            initials[types %in% "3"][!all.low], perl=TRUE)
     initials[types %in% "3"][all.low] <-
-      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
+          gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
+           # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
            initials[types %in% "3"][all.low], perl = TRUE)
 
     not.inits <- nchar(initials[types %in% "3"]) >= max.initials
     if (any(not.inits))
       initials[types %in% "3"][not.inits] <-
-      gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
+          gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
+           # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
            initials[types %in% "3"][not.inits], perl = TRUE)
 
   }
@@ -152,16 +163,38 @@ getInit <- function(x, upper = TRUE, max.initials = 5) {
 
   if (any(grepl("-\\.", x, perl = TRUE)))
     x[grepl("-\\.", x, perl = TRUE)] <-
-    gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
+      gsub("-\\.", "-", x[grepl("-\\.", x, perl = TRUE)])
 
-  if (any(oa))
-    x[oa] <- gsub("O\\.'", "O'", x[oa], perl = TRUE)
+  if (rm.spaces) {
+    x <- gsub(" ", "", x, fixed = TRUE)
+  } else {
+    x <- stringr::str_squish(x)
+    check_these <- grepl("\\p{L}\\.\\s-\\s\\p{L}\\.", x, perl = TRUE)
+    x[check_these] <-
+      gsub("\\.\\s-\\s", ".-", x[check_these], perl = TRUE)
+  }
+
+  if (any(oa)) {
+    if (rm.spaces) {
+      x[oa] <- gsub("O\\.'", "O'", x[oa], perl = TRUE)
+    } else {
+      x[oa] <- gsub("O\\.\\s'\\s", "O'", x[oa], perl = TRUE)
+    }
+  }
 
   if (any(mac))
-    x[mac] <- gsub("(M)(\\.)", "\\Mac", x[mac], perl = TRUE)
+    if (rm.spaces) {
+      x[mac] <- gsub("(M)(\\.)", "\\Mac", x[mac], perl = TRUE)
+    } else {
+      x[mac] <- gsub("(M)(\\.\\s)", "\\Mac", x[mac], perl = TRUE)
+    }
 
   if (any(mc))
-    x[mc] <- gsub("(M)(\\.)", "\\Mc", x[mc], perl = TRUE)
+    if (rm.spaces) {
+      x[mc] <- gsub("(M)(\\.)", "\\Mc", x[mc], perl = TRUE)
+    } else {
+      x[mc] <- gsub("(M)(\\.\\s)", "\\Mc", x[mc], perl = TRUE)
+    }
 
   return(x)
 }

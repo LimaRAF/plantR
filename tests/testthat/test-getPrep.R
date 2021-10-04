@@ -34,6 +34,12 @@ res5 <- c(rep("Hans ter Braak", 3), rep("Hanster Braak", 2),
 # Tests
 test_that("getPrep works", {
   expect_equal(getPrep("Maria da Silva"), res0)
+  expect_equal(getPrep("MARIA DA SILVA", output = "vector", lower = FALSE),
+               "SILVA, MARIA DA")
+  expect_equal(getPrep("MARIA DA SILVA", output = "vector", lower = FALSE, rm.prep = TRUE),
+               "SILVA, MARIA")
+  expect_equal(getPrep("MARIA DA SILVA", output = "vector", lower = TRUE, rm.prep = FALSE),
+               "SILVA, MARIA da")
   expect_equal(getPrep(names), res1)
   expect_equal(getPrep(names, rm.prep = TRUE), res2)
   expect_equal(getPrep(names, output = "vector"), res3)

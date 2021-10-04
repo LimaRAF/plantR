@@ -6,6 +6,7 @@ test_that("getInit works", {
   expect_equal(getInit("Alwyn H. Gentry"), "A.H.G.")
   expect_equal(getInit("A. Gentry"), "A.G.")
   expect_equal(getInit("A. H. Gentry"), "A.H.G.")
+  expect_equal(getInit("A. H. Gentry", rm.spaces = FALSE), "A. H. G.")
   expect_equal(getInit("A.H.Gentry"), "A.H.G.")
   # Abbreviations
   expect_equal(getInit("A"), "A.")
@@ -18,6 +19,8 @@ test_that("getInit works", {
   expect_equal(getInit("alwyn"), "A.")
   expect_equal(getInit("alwyn", upper = FALSE), "a.")
   expect_equal(getInit("Alwyn", upper = FALSE), "A.")
+  expect_equal(getInit("alwyn gentry", upper = FALSE), "a.g.")
+  expect_equal(getInit("alwyn gentry", upper = FALSE, rm.spaces = FALSE), "a. g.")
   expect_equal(getInit("ALWYN"), "A.")
   # Other formats
   expect_equal(getInit("Auguste Saint-Hilaire"), "A.S.-H.")
