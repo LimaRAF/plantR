@@ -6,13 +6,15 @@
 #'   (character string with numbers, authors, wrong case, or other names besides
 #'   genus and epithet etc). Names can be returned with or without
 #'   infra-specific ranks (var. and subsp.) or abbreviations of unspecific
-#'   names (sp. or spp.).
+#'   names (sp. or spp.). In the case of names with authors, authorship is
+#'   currently removed from scientific names.
 #'
 #' @return
-#' The original data frame with the new columns `verbatimSpecies` with small
-#' edits before flagging, `scientificNameStatus` with the flags in original data
-#' and `scientificName.new` with a suggestion for a more correct name. See
-#' Details for a description of flags in the column `scientificNameStatus`.
+#' The original data frame (or the input vector as a data frame) with the new
+#' columns `verbatimSpecies` with small edits before flagging,
+#' `scientificNameStatus` with the flags in original data and
+#' `scientificName.new` with a suggestion for a more correct name. See Details
+#' for a description of flags in the column `scientificNameStatus`.
 #'
 #' @details Possible flags returned in `scientificNameStatus`: \describe{
 #' \item{\code{possibly_ok}}{scientific name following the expected pattern
@@ -42,7 +44,7 @@
 #' \item{\code{not_name_has_digits}}{scientific name has digits, not a valid
 #' name} }
 #'
-#' @param x a data.frame containing the species name
+#' @param x a vector or data.frame containing the species name
 #' @param tax.name character. Name of the columns containing the species name.
 #'   Default to "scientificName"
 #' @param rm.rank logical. Should the infra-specific rank abbreviation be
@@ -86,8 +88,14 @@ fixSpecies <- function(x = NULL,
                        rm.indet = FALSE) {
 
   ## check input
-  if (!class(x) == "data.frame")
-    stop("input object needs to be a data frame!")
+  if (class(x)[1] == "character") {
+    x <- data.frame(x, check.names = FALSE, fix.empty.names = FALSE,
+                    stringsAsFactors = FALSE)
+    colnames(x) <- tax.name
+  }
+
+  if (!class(x)[1] == "data.frame")
+    stop("Input object needs to be a vector or data frame!")
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")

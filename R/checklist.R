@@ -1,7 +1,10 @@
-#' @title Create Species Checklist
+#' @title Create Species (Check-)List
 #'
-#' @description This function creates a check-list of the species contained
-#' in the occurrence data, including a list of voucher specimens
+#' @description This function creates a list of the species contained
+#' in the occurrence data, including a list of voucher specimens. If the
+#' occurrence data is associated to an specific geographical area, this list
+#' can be used as an inventory or check-list for the species occurring in that
+#' area.
 #'
 #' @param x a data frame with the occurrence data, generally as the output of the
 #'   __plantR__ validation functions.
@@ -17,11 +20,11 @@
 #'   to organize order and filter the voucher list. Defaults to 5.
 #' @param date.format The desired format for the dates. Defaults to "%d %b %Y"
 #'
-#' @details The check-list can be organized in alphabetic order by taxa or in
-#'   alphabetic order by family and then by taxa within families (the
+#' @details The list of species can be organized in alphabetic order by taxa or
+#'   in alphabetic order by family and then by taxa within families (the
 #'   default).
 #'
-#'   By default, the check-list provides the number of records found and the
+#'   By default, the output list provides the number of records found and the
 #'   overall taxonomic and geographic confidence level of the records (columns
 #'   'tax.CL' and 'geo.CL'), if available. The taxonomic confidence level is the
 #'   percentage of records with the identification flagged as 'high', while the

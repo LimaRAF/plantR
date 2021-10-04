@@ -27,10 +27,11 @@ devtools::load_all() # for development
 # Introduction
 
 This tutorial provides the details and explanations on the functions related to
-data download, editing and validation using the __plantR__ workflow. For each of
+data download, standardization and validation using the __plantR__ workflow. For each of
 the steps of the workflow, we present in more detail the functionalities and
 their options. The aim is that users can better understand their goals and so
-adapt functions according to their needs or for their use outside the workflow proposed here.
+adapt functions according to their needs or for their use outside the workflow
+proposed here.
 
 <br/><br/>
 
@@ -38,7 +39,9 @@ adapt functions according to their needs or for their use outside the workflow p
 
 __plantR__ is currently only available remotely on [GitHub](https://github.com).
 This means that you cannot use R base functions to install it (i.e.,
-`install.packages()`). There are different ways to install packages in R from remote repositories and here we suggest using the package __remotes__. So, first of all, we need to be sure that this package is installed and loaded.
+`install.packages()`). There are different ways to install packages in R from
+remote repositories and here we suggest using the package __remotes__. So, first
+of all, we need to be sure that this package is installed and loaded.
 
 ```{r, eval = F}
 install.packages(remotes)
@@ -77,8 +80,10 @@ Some users may still get the error below:
 Error: package '[name of the package]' was installed before R 4.0.0: please re-install it
 ```
 
-If this is your case, we suggest installing/updating each of these packages individually, until you finally manage to run __plantR__ installation without problems. You may need to restart your R session again to make sure that the 
-all dependencies were installed correctly.
+If this is your case, we suggest installing/updating each of these packages
+individually, until you finally manage to run __plantR__ installation without
+problems. You may need to restart your R session again to make sure that the all
+dependencies were installed correctly.
 
 
 <br/><br/>
@@ -118,7 +123,8 @@ spp <- c("Casearia sylvestris",
 After defining the species names, we proceed to the download of species records.
 We will first download only herbarium specimens (i.e., vouchers) for the names
 listed above, including their synonyms accepted in the List of Species of the
-Brazilian Flora 2020 project. This may take a minute depending on your internet connection:
+Brazilian Flora 2020 project. This may take a minute depending on your internet
+connection:
 
 
 ```{r, eval = TRUE, collapse = TRUE}
@@ -175,7 +181,7 @@ dim(occs)
 
 <br/><br/>
 
-# Data editing
+# Data standardization
 
 ## Standardizing collection codes, people names, collector numbers and dates
 
@@ -189,9 +195,9 @@ The first step is the standardization of the notation of collection codes, which
 is stored in the field 'collectionCode'. For some reason, not all collections
 store in this field their international collection codes (e.g., Index
 Herbariorum) and sometimes these codes are stored differently across data
-repositories. For the search of duplicate entries and the production of
-checklists (see below) it is important to standardize the codes of collections.
-In __plantR__ this is done using function `getCode`:
+repositories. For the search of duplicate entries and the production of lists of
+species (see below) it is important to standardize the codes of collections. In
+__plantR__ this is done using function `getCode`:
 
 ```{r, eval = TRUE}
 occs <- getCode(occs)
@@ -350,8 +356,8 @@ __plantR__ has a function to edit and standardize locality fields: function
 simultaneously and returns the input data frame with the new locality columns.
 But the user can choose to edit one field at a time by changing the function
 argument 'admin.levels' (in this case, the function returns a vector). However,
-some of the editing processes become more complete if all the information is
-available for the four fields.
+some of the standardization processes become more complete if all the
+information is available for the four fields.
 
 ```{r, eval = TRUE}
 occs <- fixLoc(occs,
@@ -566,13 +572,13 @@ table(occs$suggestedName)
 table(occs$tax.notes)
 ```
 
-The final output of the function provides the valid names for the names that were
-retrieved in the two databases selected (column 'suggestedName'). The function
-also returns which names were replaced or corrected (column 'tax.notes'). In
-addition, the flag 'check +1 accepted' may represent an indication of possible
-homonyms, i.e., different species with the same binomial, but different
-authorities. Together with names there were not found in both databases, those
-possible homonyms may deserve closer attention.
+The final output of the function provides the valid names for the names that
+were retrieved in the two databases selected (column 'suggestedName'). The
+function also returns which names were replaced or corrected (column
+'tax.notes'). In addition, the flag 'check +1 accepted' may represent an
+indication of possible homonyms, i.e., different species with the same binomial,
+but different authorities. Together with names there were not found in both
+databases, those possible homonyms may deserve closer attention.
 
 Note that there are still more names than those used to search for species
 records. Some of these differences are due to differences in the assignment of
@@ -629,16 +635,19 @@ final data set.
 
 ## Validation of locality information: function `validateLoc()`
 
-The editing process of locality information and its comparison against the
-gazetteer return the localities (and coordinates) at the best resolution
+The standardization process of locality information and its comparison against
+the gazetteer return the localities (and coordinates) at the best resolution
 available. In this comparison, much information provided at the locality level
 is only retrieved at the municipality level, which is expected due to the
 completeness of the gazetteer used (not all names of places are stored in the
-standard __plantR__ gazetteer at the locality level). But many of them are only retrieved at the state/province level, meaning that fields containing state and municipality information may need to be checked.
+standard __plantR__ gazetteer at the locality level). But many of them are only
+retrieved at the state/province level, meaning that fields containing state and
+municipality information may need to be checked.
 
 In __plantR__ the resolution of the locality information provided with the
 specimen and the one found in the gazetteer are described using the function
-`validateLoc()`, which compares the two resolutions and stores the result of this comparison in a new column called 'loc.check':
+`validateLoc()`, which compares the two resolutions and stores the result of
+this comparison in a new column called 'loc.check':
 
 ```{r, eval = TRUE}
 occs <- validateLoc(occs)
@@ -652,7 +661,8 @@ gazetteer. In the case that even the country is not found, then the locality is
 flagged as "no_info". We also flag all the specimens that retained their
 resolution (i.e., "ok_same_resolution") and those that could be retrieved at a
 better locality resolution, also flagged with an "ok_" (e.g.,
-'ok_state2municipality': a record which had its original resolution at the 'stateProvince' level is now at the 'municipality' level).
+'ok_state2municipality': a record which had its original resolution at the
+'stateProvince' level is now at the 'municipality' level).
 
 Note that many occurrences were flagged with a "check_...". The class
 "check_local.2municip." should not be a problem, since the internal __plantR__
@@ -745,8 +755,8 @@ to shore (takes much longer).
 
 ### Inverted and swapped coordinates
 
-There are still coordinates flagged a 'bad_country' in our dataset. Some of those
-records can be due to inversions in the longitude and latitude or to the
+There are still coordinates flagged a 'bad_country' in our dataset. Some of
+those records can be due to inversions in the longitude and latitude or to the
 swapping/transposing between them (i.e., latitude as longitude or vice-versa).
 
 ```{r, eval = TRUE}
@@ -766,12 +776,18 @@ presented below.
 
 ### Records from cultivated individuals
 
-Although records from cultivated individuals are not determined in __plantR__
-using the geographical coordinates, cultivated individuals can sometimes be
-related to records far away from the species' original distribution. Thus,
-flagging these records may be important for subsetting the data for downstream
-analysis. Function `getCult()` flags cultivated or possibly cultivated records
-in a new column called 'cult.check':
+Although records from cultivated individuals are not detected using their
+geographical coordinates, we included the search for cultivated individuals in
+this section because they are often related to records far away from the
+species' original distribution but not always. There are cases when cultivated
+individuals are within or close to the limits of the species range (i.e. public
+squares, botanical gardens, home yards) and so they will not be flagged as
+spatial outliers (see section 'Spatial outliers' below). Flagging these
+cultivated records may be important for subsetting the data for downstream
+analysis.
+
+Function `getCult()` flags cultivated or possibly cultivated records in a new
+column called 'cult.check':
 
 ```{r, eval = TRUE}
 occs <- getCult(occs)
@@ -779,31 +795,36 @@ table(occs$cult.check)
 ```
 
 Note that the function flags two categories: 'cultivated' and 'prob_cultivated'.
-The first is related to records with descriptions using terms that clearly denote
-cultivated individuals (e.g., 'Cultivated', 'Planted', 'Exotic'). The second
-category is related to records that contain those terms in their descriptions,
-but that may need some level of double-checking by the user before they can
-be safely removed as being true records from cultivated individuals.
+The first is related to records with descriptions that contain some terms that
+clearly denote records from cultivated individuals (e.g., 'Cultivated',
+'Planted', 'Exotic'). The second category is related to records that contain
+those terms in their descriptions, but not exclusively (e.g. 'Presence of exotic
+species'). These cases may lead to spurious flags of cultivated records and so
+they may need some level of double-checking by the user before they can be
+safely removed as being true records from cultivated individuals. But as the
+names of the two categories suggest, there is more certainty that a record was
+actually taken from a cultivated individual if it is flagged as 'cultivated'
+than if it is flagged as 'prob_cultivated'.
 
 ### Spatial outliers
 
 The last step of the validation of geographical coordinates is the search for
 spatial outliers (i.e., records too far away from species core distributions),
 which can indicate misidentifications or records obtained from cultivated
-individuals but not declared as such. In __plantR__, the search for spatial
-outliers is based on Mahalanobis distances and is executed using the function
-`checkOut()`:
+individuals, but not always (as explained in the previous section). In
+__plantR__, the search for spatial outliers is based on Mahalanobis distances
+and is executed using the function `checkOut()`:
 
 ```{r, eval = TRUE}
 occs <- checkOut(occs, tax.name = "scientificName.new")
 ```
 
 Note that since the search for spatial outliers is performed species by species,
-we need to provide the name of the column containing the species names. By
-default, the function also removes invalid geographical coordinates and
-records flagged as cultivated from the estimation of the center and co-variance
-matrix of the geographical coordinates, which are used to get the Mahalanobis
-distances.
+we need to provide the name of the column containing the taxon names. By
+default, the function internally removes invalid geographical coordinates and
+records flagged as cultivated prior to the estimation of the center and
+co-variance matrix of the geographical coordinates, which are used to get the
+Mahalanobis distances.
 
 ### The wrapper function `validateCoord()`
 
@@ -863,7 +884,8 @@ America, particularly Brazil.
 
 Another main feature of __plantR__ is the search for duplicated records across
 collections (i.e. same specimen deposited in different biological collections)
-and the homogenization of the information within groups of duplicated records.
+and the propagation and homogenization of the information within groups of
+duplicated records.
 
 ### Create unique record identifiers
 
@@ -949,7 +971,7 @@ duplicate search.
 ### Homogenizing the information within duplicates
 
 Since the amount and quality of the information among collections may vary, one
-may want to homogenize the information within the duplicates. This
+may want to propagate/homogenize the information within the duplicates. This
 homogenization can be carried out regarding the specimen's identification or
 their locality and geographical coordinates. First, we need to combine the
 results of the duplicate search with the main data frame:
@@ -960,7 +982,9 @@ occs <- cbind.data.frame(occs,
                          stringsAsFactors = FALSE)
 ```
 
-Next, we use the function `mergeDup()` to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicates. 
+Next, we use the function `mergeDup()` to perform the propagation and
+homogenization itself, which aims at expanding the best-quality information
+found across all specimens of each group of duplicates.
 
 ```{r, eval = TRUE}
 occs <- mergeDup(occs)
@@ -973,7 +997,9 @@ levels. There was also an improvement on the stats regarding the geographical
 and locality checks (i.e., columns 'geo.check' vs. 'geo.check1' and 'loc.check'
 vs. 'loc.check1').
 
-Note that we used the function defaults, which created new columns for the merged information. If one wants to save the new information in the same columns, the argument `overwrite` should be set to `TRUE`.
+Note that we used the function defaults, which created new columns for the
+merged information. If one wants to save the new information in the same
+columns, the argument `overwrite` should be set to `TRUE`.
 
 ### Removing duplicates after homogenization
 
@@ -1012,7 +1038,7 @@ information should have been carried previously.
 # Data summary and export
 
 Finally, __plantR__ can help users to summarize their data sets and the flags of
-the validation process. It also provides species checklists with user-defined
+the validation process. It also provides list of species with user-defined
 numbers of voucher specimens and the export of records by groups (e.g.,
 families, countries, collections).
 
@@ -1036,17 +1062,20 @@ identifications. This is performed by the function `summaryFlags()`:
 flags <- summaryFlags(occs)
 ```
 
-## Generating checklists
+## Generating species lists or checklists
 
-Another feature of __plantR__ is the possibility of building species checklists.
-This is done using the function `checkList()` which returns the family, the
-total number of records and a list of vouchers (in a short or long format). The
-function also returns the percentage of records with high confidence species
-identification and with validated geographical coordinates.
+Another feature of __plantR__ is the possibility of building species lists from
+the dataset of species records. This is done using the function `checkList()`
+which returns the family, the total number of records and a list of vouchers (in
+a short or long format). The function also returns the percentage of records
+with high confidence species identification and with validated geographical
+coordinates. If the dataset is associated to an specific geographical area, this
+list of species can be seen as a species checklist.
 
 ```{r, eval = TRUE}
 spp.check <- checkList(occs)
 ```
+
 
 ## Saving the occurrence data
 
