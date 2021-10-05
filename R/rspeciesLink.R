@@ -15,7 +15,7 @@
 #'   vector
 #' @param species Genus or genus and epithet separated by space. More than one
 #'   species can be concatenated into a vector. The request cannot be done
-#'   with more than 50 species per time. Use lapply, or any sort of loop when
+#'   with more than 50 species at a time. Use lapply, or any sort of loop when
 #'   dealing with multiple species.
 #' @param collectionCode Any collection available at speciesLink. Example: ALCB,
 #'  E, INPA, MOBOT_BR.  Accepts a vector of names
@@ -66,8 +66,9 @@
 #'                     Scope = "plants")
 #'
 #' # Running more than multiple species (needed in case of species > 50)
-#' sp =  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
-#'sp_list = lapply(sp, rspeciesLink, Scope = "plants", basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
+#' sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
+#' sp_list <- lapply(sp, rspeciesLink, Scope = "plants", 
+# 'basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
 
 #'}
 #'

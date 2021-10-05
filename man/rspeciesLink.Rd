@@ -44,7 +44,9 @@ search}
 vector}
 
 \item{species}{Genus or genus and epithet separated by space. More than one
-should be concatenated in a vector}
+species can be concatenated into a vector. The request cannot be done
+with more than 50 species at a time. Use lapply, or any sort of loop when
+dealing with multiple species.}
 
 \item{collectionCode}{Any collection available at speciesLink. Example: ALCB,
 E, INPA, MOBOT_BR.  Accepts a vector of names}
@@ -110,6 +112,10 @@ ex01 <-
 rspeciesLink(filename = "ex01",
                     species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
                     Scope = "plants")
+
+# Running more than multiple species (needed in case of species > 50)
+sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
+sp_list <- lapply(sp, rspeciesLink, Scope = "plants", 
 }
 
 }
