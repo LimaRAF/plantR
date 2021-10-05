@@ -110,12 +110,12 @@ to make the queries in a loop.
 \dontrun{
 ex01 <-
 rspeciesLink(filename = "ex01",
-                    species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+                    species =  c("Eugenia platyphylla"),
                     Scope = "plants")
-
-# Running more than multiple species (needed in case of species > 50)
+# Use lapply or similar for more than 50 species
 sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
 sp_list <- lapply(sp, rspeciesLink, Scope = "plants", 
+basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
 }
 
 }
