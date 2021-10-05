@@ -1,7 +1,8 @@
 #' Gets occurrence data from speciesLink
 #'
-#' This function access version beta 0.1 of speciesLink API
-#' (https://api.splink.org.br/) and returns occurrence data of species.
+#' This function access version beta 0.1 of the
+#' [speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
+#' species.
 #'
 #' @param dir Path to directory where the file will be saved. Default is to
 #' create a "results/" directory
@@ -52,22 +53,23 @@
 #' depend on the number of records and species in the query and from the speed
 #' of the internet connection.
 #'
-#' The speciesLink API does not allow the download of 10 or more taxa at a time.
-#' So to download records from larger lists of species, you will probably need
-#' to make the queries in a loop.
+#' The speciesLink API does not allow the download of ~50 or more taxa at a
+#' time. So to download records from larger lists of species, you will probably
+#' need to make the queries in a loop (see Examples).
 #'
 #' @author Sara Mortara
 #'
 #' @examples
 #'\dontrun{
-#'ex01 <-
-#'rspeciesLink(filename = "ex01",
+#' # Example for a single species, saving into a file called "ex01"
+#' ex01 <-
+#'  rspeciesLink(filename = "ex01",
 #'                     species =  c("Eugenia platyphylla"),
 #'                     Scope = "plants")
 #' # Use lapply or similar for more than 50 species
-#' sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
-#' sp_list <- lapply(sp, rspeciesLink, Scope = "plants", 
-#' basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
+#'  sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
+#'  sp_list <- lapply(sp, rspeciesLink, Scope = "plants",
+#'   basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
 #'}
 #'
 #' @import data.table
@@ -124,7 +126,8 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else  {
     if (is.character(species)) {
-      if (length(species) > 50) stop("Please make request of no more than 50 species a time!")
+      if (length(species) > 50)
+        stop("Please make request of no more than 50 species at a time!")
       species <- gsub(" ", "%20", species)
       sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
@@ -305,5 +308,10 @@ rspeciesLink <- function(dir = "results/",
   if (is.null(dim(df))) {
     message("Output is empty. Check your request.")
   }
+
+  message("Please make sure that the restrictions and citation indicated by
+  each speciesLink/CRIA data provider are observed and respected.")
+
+
   return(df)
 }
