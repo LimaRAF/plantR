@@ -27,11 +27,11 @@ devtools::load_all() # for development
 # Introduction
 
 This tutorial provides the details and explanations on the functions related to
-data download, standardization and validation using the __plantR__ workflow. For each of
-the steps of the workflow, we present in more detail the functionalities and
-their options. The aim is that users can better understand their goals and so
-adapt functions according to their needs or for their use outside the workflow
-proposed here.
+data download, standardization and validation using the __plantR__ workflow. For
+each of the steps of the workflow, we present in more detail the functionalities
+and their options. The aim is that users can better understand their goals and
+so adapt functions according to their needs or for their use outside the
+workflow proposed here.
 
 <br/><br/>
 
@@ -93,6 +93,7 @@ dependencies were installed correctly.
 You can download species records directly from R, using the functions provided
 by __plantR__ or by other R packages. For this tutorial, we are going to use the
 __plantR__ function `rspeciesLink()` and `rgbif2()`, which downloads data from
+the [speciesLink](https://specieslink.net/) network hosted in
 [CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental)
 and for the [GBIF](https://www.gbif.org/) (Global Biodiversity Information
 Facility).
@@ -137,7 +138,7 @@ occs_splink <- rspeciesLink(species =  spp,
 The function `rspeciesLink()` allows a wide variety of ways on how to search for
 species records. Searches can also be done by locality and collections, using
 all the filters available in CRIA. Please check the help of the function for
-more details on the arguments that can be used for this search.
+more details on the arguments that can be used for this search. 
 
 We will download records for the same species from GBIF, using the function
 `rgbif2()`. This function uses internally the function `occ_search()` from the 

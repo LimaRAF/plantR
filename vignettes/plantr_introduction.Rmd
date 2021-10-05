@@ -334,7 +334,10 @@ __data.table__ which is quite fast even for large datasets.
 
 If you use this package, please cite it as: 
 
-Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H., Siqueira, M.F.   (2021). *plantR*: An R package and workflow for managing species records from   biological collections. bioRxiv: 2021.04.06.437754. https://doi.org/10.1101/2021.04.06.437754
+Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H., Siqueira, M.F.
+(2021). *plantR*: An R package and workflow for managing species records from
+biological collections. bioRxiv: 2021.04.06.437754.
+https://doi.org/10.1101/2021.04.06.437754
 
 If you use the function `prepSpecies()`, please also cite the following packages
 (depending on the database used):
