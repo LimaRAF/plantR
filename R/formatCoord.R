@@ -48,6 +48,9 @@ formatCoord <- function(coords,
   if (!class(coords) == "data.frame")
     stop("input object needs to be a data frame!")
 
+  if (dim(coords)[1] == 0)
+    stop("Input data frame is empty!")
+
   # prepCoord
   coords1 <- prepCoord(x = coords, lat, lon, flag)
 

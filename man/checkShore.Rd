@@ -17,8 +17,8 @@ checkShore(
 \arguments{
 \item{x}{a data frame with the species records}
 
-\item{geo.check}{character. Column with the result from the coordinate checking.
-Defaults to 'geo.check'}
+\item{geo.check}{character. Column with the result from the coordinate
+checking. Defaults to 'geo.check'}
 
 \item{lat}{character. Column with the corrected latitude to be checked.
 Defaults to 'decimalLatitude.new'}

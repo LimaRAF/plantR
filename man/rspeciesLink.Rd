@@ -44,7 +44,9 @@ search}
 vector}
 
 \item{species}{Genus or genus and epithet separated by space. More than one
-should be concatenated in a vector}
+species can be concatenated into a vector. The request cannot be done
+with more than 50 species at a time. Use lapply, or any sort of loop when
+dealing with multiple species.}
 
 \item{collectionCode}{Any collection available at speciesLink. Example: ALCB,
 E, INPA, MOBOT_BR.  Accepts a vector of names}
@@ -92,24 +94,36 @@ or 'rds'). Default to 'csv'.}
 A data.frame with the search result, which can also be saved on disk
 }
 \description{
-This function access version beta 0.1 of speciesLink API
-(https://api.splink.org.br/) and returns occurrence data of species.
+This function access version beta 0.1 of the
+[speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
+species.
 }
 \details{
 The time necessary to download records from the speciesLink API will
 depend on the number of records and species in the query and from the speed
 of the internet connection.
 
-The speciesLink API does not allow the download of 10 or more taxa at a time.
-So to download records from larger lists of species, you will probably need
-to make the queries in a loop.
+The speciesLink API does not allow the download of ~50 or more taxa at a
+time. So to download records from larger lists of species, you will probably
+need to make the queries in a loop (see Examples).
 }
 \examples{
 \dontrun{
+# Example for a single species, saving into a file called "ex01"
 ex01 <-
-rspeciesLink(filename = "ex01",
-                    species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+ rspeciesLink(filename = "ex01",
+                    species =  c("Eugenia platyphylla"),
                     Scope = "plants")
+# Use lapply or similar for more than 50 species
+# Making a request for multiple species
+sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
+                                              Scope = "plants",
+                                              basisOfRecord = "PreservedSpecimen",
+                                              Synonyms = "flora2020"))
+# Adding species names to each element of the list
+names(sp_list) = sp
+# Binding all searchs and keeping a column w/ the named used in the search
+sp_df <- bind_rows(sp_list, .id = "original_search")
 }
 
 }

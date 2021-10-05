@@ -44,6 +44,20 @@
 #' your request using the GBIF web interface and load the DwC-A zip file using
 #' the __plantR__ function `readData()`.
 #'
+#' __Important note__: __plantR__ currently does not provide tools to cite data
+#' following the [GBIF citation guidelines]{https://www.gbif.org/citation-guidelines}.
+#' So, it is necessary that the user identify the dataset publishers and
+#' properly acknowledge each of them when citing the data. We recommend the
+#' package __occCite__ (Owens et al. 2021) to help citing data. Another option
+#' is to manually create a derived dataset and assign a unique DOI that can be
+#' used to cite the dataset (check more instructions
+#' [here]{https://www.gbif.org/citation-guidelines#derivedDatasets}).
+#'
+#' @references
+#' Hannah L. Owens, Cory Merow, Brian Maitner, Jamie M. Kass, Vijay Barve and
+#' Robert P. Guralnick (2021). occCite: Querying and Managing Large Biodiversity
+#' Occurrence Datasets. R package version 0.4.6.
+#' https://CRAN.R-project.org/package=occCite
 #'
 #' @examples
 #' \dontrun{
@@ -173,6 +187,9 @@ rgbif2 <- function(dir = "results/",
       }
     }
   }
+
+  message("Please make sure that the restrictions and citation indicated by
+  each GBIF data provider are observed and respected.")
 
   return(all_data)
 }

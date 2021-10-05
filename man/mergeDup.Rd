@@ -9,6 +9,7 @@ mergeDup(
   dup.name = "dup.ID",
   prop.name = "dup.prop",
   prop = 0.75,
+  rec.ID = "numTombo",
   info2merge = c("tax", "geo", "loc"),
   tax.names = c(family = "family.new", species = "scientificName.new", det.name =
     "identifiedBy.new", det.year = "yearIdentified.new", tax.check = "tax.check", status
@@ -34,6 +35,9 @@ the proportion of duplicates found within the group ID. Default to the
 \item{prop}{numerical. The threshold value of proportion of duplicated values
 retrieved (i.e. dup.prop) to enter the merging routine. Should be between
 zero and one. Default to 0.75.}
+
+\item{rec.ID}{character. The name of the columns containing the unique record
+identifier (see function \code{getTombo()}). Default to 'numTombo'.}
 
 \item{info2merge}{Vector. The groups of information (i.e. fields) to be
 merged. Currently, only taxonomic ('tax'), geographic ('geo') and/or
@@ -147,21 +151,25 @@ group of duplicates the specimen whose coordinates were validated at the
 best level (e.g. 'ok_county') is used to expand the information for the
 specimens validate at lower levels (e.g. state or country levels).
 
-A similar procedure is performed to expand the information regarding the
+A similar procedure is performed to merge the information regarding the
 locality description. Specimens are ordered according to the result of their
 locality validation (i.e. field 'loc.check'), and the one ranked best within
 the group of duplicates (e.g. 'ok_municip.2locality') is the one used as the
 standard.
 
-The merge of collector information (i.e. collector name, number and year)
-are predicted, but not yet implemented in the current version.
+For the merge of taxonomic, geographic and locality information, the
+specimens used as references of the best information available for each
+group of duplicate are stored in the columns 'ref.spec.tax', 'ref.spec.geo'
+and 'ref.spec.loc', respectively. The merge of collector information (i.e.
+collector name, number and year) is predicted, but not yet implemented in
+the current version of the package.
 }
 \examples{
-#An example for the merg of taxonomic information only
+#An example for the merge of taxonomic information only
 (df = data.frame(
   ID = c("a7","b2","c4","d1","e9","f3","g2","h8","i6","j5"),
   dup.ID = c("a7|b2","a7|b2","c4|d1|e9","c4|d1|e9","c4|d1|e9",
-             "f3|f2","f3|f2","h8|i6|j5","h8|i6|j5","h8|i6|j5"),
+             "f3|g2","f3|g2","h8|i6|j5","h8|i6|j5","h8|i6|j5"),
   fam = c("AA","AA","BB","BB","Bb","CC","DD","EE","Ee","ee"),
   sp = c("a a","a b","c c","c d","c d","e e","f f","h h","h h","h h"),
   det = c("spec","n_spec","spec1","spec2","n_spec1",
@@ -171,6 +179,7 @@ are predicted, but not yet implemented in the current version.
   stat = rep("possibly_ok", 10)))
 
 mergeDup(df, info2merge = "tax",
+        rec.ID = "ID",
         tax.names = c(family = "fam",
                       species = "sp",
                       det.name = "det",

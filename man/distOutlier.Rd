@@ -43,13 +43,13 @@ the spatial outliers detected automatically, which can be used in the
 decision making of the more appropriated distance cutoffs to flag spatial
 outliers.
 
-The automatic detection of spatial outliers is based on an adjusted threshold
-of the Mahalanobis distances based on function \code{arw()} from package
-\strong{mvoutlier}.
+The automatic detection of spatial outliers is based on an adjusted
+threshold of the Mahalanobis distances based on function \code{arw()} from
+package \strong{mvoutlier}.
 
 If the number of unique coordinates is below \code{n.min} or if the Minimum
-Covariance Determinant (MCD) estimator has issues, the function returns NAs.
-See the help of function \code{mahalanobisDist()} for details on the other
+Covariance Determinant (MCD) estimator has issues, the function returns
+NAs. See the help of function \code{mahalanobisDist()} for details on the other
 parameters.
 }
 \examples{

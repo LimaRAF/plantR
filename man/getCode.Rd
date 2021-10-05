@@ -36,9 +36,10 @@ Xylariorum, if available.
 }
 \details{
 The information on collection codes and names stored within \strong{plantR} is
-currently biased towards plant-related collections. The main sources
-of information used to construct the database of collection codes were the
-\href{http://sweetgum.nybg.org/science/ih/}{Index Herbariorum} (until 2019), the
+currently biased towards plant-related collections. The main sources of
+information used to construct the database of collection codes were the
+\href{http://sweetgum.nybg.org/science/ih/}{Index Herbariorum} (until 2019),
+the
 \href{https://www.botanica.org.br/a-rede-brasileira-de-herbarios/}{Brazilian
 Herbaria Network}, the
 \href{https://globaltimbertrackingnetwork.org/products/iawa-index-xylariorum/}{Index

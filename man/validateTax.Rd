@@ -18,7 +18,8 @@ validateTax(
   voucher.list = NULL,
   noName = c("semdeterminador", "anonymus", "anonymous", "anonimo", "incognito",
     "unknown", "s.d.", "s.n."),
-  top.det = 10
+  top.det = 10,
+  print = TRUE
 )
 }
 \arguments{
@@ -47,8 +48,8 @@ treated the same).}
 \item{miss.taxonomist}{Vector. Any missing combination of family x taxonomist
 that should be added to the validation?}
 
-\item{taxonomist.list}{a data.frame containing the list of taxonomist names. The
-default is "plantR", the internal \code{plantR} global database of plant
+\item{taxonomist.list}{a data.frame containing the list of taxonomist names.
+The default is "plantR", the internal \code{plantR} global database of plant
 taxonomists (see Details).}
 
 \item{voucher.list}{Vector. One or more unique record identifiers (i.e.
@@ -59,8 +60,11 @@ high confidence level? Default to NULL.}
 standard notation for missing data in the field 'det.name'. Default to some
 typical notation found in herbarium data.}
 
-\item{top.det}{Numerical. How many of the top missing identifiers should be printed?
-Default to 10.}
+\item{top.det}{Numerical. How many of the top missing identifiers should be
+printed? Default to 10.}
+
+\item{print}{logical. Should the table of missing identifiers be printed?
+Default to TRUE.}
 
 \item{rec.ID}{Character. The name of the columns containing the unique record
 identifier (see function \code{getTombo()}). Default to 'numTombo'.}
@@ -132,11 +136,11 @@ particularly in Brazil.
 
 The argument \code{other.records} controls what to do with types of records which
 are not preserved specimens (Darwin Core field
-\href{http://rs.tdwg.org/dwc/terms/basisOfRecord}{basisOfRecord}. If the argument
+\href{http://rs.tdwg.org/dwc/terms/basisOfRecord}{basisOfRecord}). If the argument
 is NULL (default), all record types are treated the same. Users can set the
 argument to one of the confidence levels (i.e. 'unknown', 'low', 'medium' or
 'high') to assign the same class for all non preserved specimens or to a
-value (i.e. 1 or 2), which correspond to the number of downgrading steps
+value (i.e., 1 or 2), which correspond to the number of downgrading steps
 among levels. For instance, if \code{other.records} is one, the 'high' level
 becomes 'medium' and the 'medium' level becomes 'low' ('unknown' and 'low'
 levels remain the same).

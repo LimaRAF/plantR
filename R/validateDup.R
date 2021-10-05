@@ -8,8 +8,8 @@
 #' @return The input data frame, plus the new columns with the formatted
 #'   fields.
 #'
-#' @param occ.df a data frame, containing typical fields from occurrence records from
-#'   herbarium specimens
+#' @param occ.df a data frame, containing typical fields from occurrence records
+#'   from herbarium specimens
 #' @param cat.code character. The name of the column containing the code of the
 #'   collection. Default to the __plantR__ output column "collectionCode.new".
 #' @param cat.numb character. The name of the column containing the catalog
@@ -44,11 +44,12 @@ validateDup <- function(occ.df,
                         noName = "s.n.",
                         noNumb = "s.n.",
                         comb.fields = list(c("family","col.last.name","col.number","col.loc"),
-                                        c("family","col.year","col.number","col.loc"),
-                                        c("species","col.last.name","col.number","col.year"),
-                                        c("col.year","col.last.name","col.number","col.loc")),
+                                           c("family","col.year","col.number","col.loc"),
+                                           c("species","col.last.name","col.number","col.year"),
+                                           c("col.year","col.last.name","col.number","col.loc")),
                         ignore.miss = TRUE,
-                        dup.name = "dup.ID", prop.name = "dup.prop", prop = 0.75,
+                        dup.name = "dup.ID", prop.name = "dup.prop",
+                        prop = 0.75, rec.ID = "numTombo",
                         info2merge = c("tax", "geo", "loc"),
                         tax.names = c(family = "family.new",
                                       species = "scientificName.new",
@@ -66,12 +67,14 @@ validateDup <- function(occ.df,
                                       res.orig = "resol.orig",
                                       loc.check = "loc.check"),
                         tax.level = "high", overwrite = FALSE,
-                        rec.ID = "numTombo",
                         print.rm = TRUE) {
 
   # check input:
   if (!class(occ.df) == "data.frame")
     stop("input object needs to be a data frame!")
+
+  if (dim(occ.df)[1] == 0)
+    stop("Input data frame is empty!")
 
   # getTombo
   occ.df$numTombo <- getTombo(occ.df[, cat.code],
@@ -89,15 +92,15 @@ validateDup <- function(occ.df,
   # mergeDup
   if (merge) {
     occ.df1 <- mergeDup(occ.df, dup.name = dup.name, prop.name = prop.name,
-                        prop = prop, info2merge = info2merge,
+                        rec.ID = rec.ID, prop = prop, info2merge = info2merge,
                         tax.names = tax.names, geo.names = geo.names,
                         loc.names = loc.names, tax.level = tax.level,
                         overwrite = overwrite)
   }
 
   # rmDup
-    occ.df2 <- rmDup(occ.df1, rm.all = remove, rec.ID = rec.ID,
-                     print.rm = print.rm)
+  occ.df2 <- rmDup(occ.df1, rm.all = remove, rec.ID = rec.ID,
+                   print.rm = print.rm)
 
   return(occ.df2)
 }

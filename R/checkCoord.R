@@ -86,6 +86,9 @@ checkCoord <- function(x,
   if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!all(c(lat, lon, str.name, orig.coord) %in% colnames(x)))
     stop("One or more column names declared do not match those of the input object: please rename or specify the correct names")
 

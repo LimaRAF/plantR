@@ -13,7 +13,9 @@ create a "results/" directory}
 \item{filename}{Name of the output file}
 
 \item{species}{Genus or genus and epithet separated by space. More than one
-should be concatenated in a vector}
+species can be concatenated into a vector. The request cannot be done
+with more than 50 species at a time. Use lapply, or any sort of loop when
+dealing with multiple species.}
 }
 \value{
 A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk

@@ -80,6 +80,9 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   if (!class(df) == "data.frame")
     stop ("Input object needs to be a data frame!")
 
+  if (dim(df)[1] == 0)
+    stop("Input data frame is empty!")
+
   #Escaping R CMD check notes from using data.table syntax
   dup.IDs <- tmp.ordem <- temp.dup.prop <- dup.entries <- NULL
   temp.rec.ID <- rename.IDs <- NULL
@@ -161,7 +164,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   if (print.rm) {
     antes <- dim(dt)[1]
     depois <- dim(dt1)[1]
-    cat(antes - depois, "truly duplicated records (same collection in different sources) were removed from the data\n")
+    cat(antes - depois, "truly duplicate records (same record in different sources) were removed from the data\n")
   }
 
   return(data.frame(dt1))

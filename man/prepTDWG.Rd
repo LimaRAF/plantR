@@ -8,8 +8,10 @@ prepTDWG(
   x,
   sep = ", ",
   format = "last_init",
+  pretty = TRUE,
   get.prep = FALSE,
-  get.initials = TRUE
+  get.initials = TRUE,
+  max.initials = 4
 )
 }
 \arguments{
@@ -19,11 +21,20 @@ prepTDWG(
 
 \item{format}{character. Output name format. The default is "last_init".}
 
+\item{pretty}{logical. Should the output name be returned in a pretty
+presentation (i.e. only the first letter of names capitalized, initials
+separated by points and no spaces, and family name prepositions in lower
+cases). Default to TRUE. If FALSE, names are returned in the same way as
+the input object \code{x}.}
+
 \item{get.prep}{logical. Should last name prepositions be included? Default
 to FALSE.}
 
 \item{get.initials}{logical. Should last name prepositions be included?
 Default to TRUE.}
+
+\item{max.initials}{numerical. Upper limit of number of letter for a single
+word to be considered as initials and not as a first name. Default to 4.}
 }
 \value{
 The character string \code{x} in the standardized format.
@@ -110,7 +121,10 @@ examples below.
   prepTDWG(names, format = "init_last")
   prepTDWG(names, format = "init_last", get.prep = TRUE)
   prepTDWG(names, get.prep = TRUE, format = "prep_last_init")
-  prepTDWG(names, get.prep = TRUE, format = "prep_last_init", get.initials = FALSE)
+  prepTDWG(names, get.prep = TRUE, format = "prep_last_init",
+           get.initials = FALSE)
+  prepTDWG(names, get.prep = TRUE, pretty = FALSE,
+           get.initials = FALSE)
 
   ## Unusual formatting (function won't work always...)
   # two or more people names: output incorrect (combine names of authors)

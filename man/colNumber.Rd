@@ -27,14 +27,16 @@ typically associated with biological records.
 The function performs several edits such as removal of unnecessary
 spaces, letters, parentheses, and the replacement of missing information of
 collector numbers into a standardized notation, defined by the argument
-\code{noNumb}. Zeros and strings without numbers are treated as missing
+\code{noNumb}. Names of authors are automatically removed but not collection
+codes. Zeros and strings without numbers are treated as missing
 information.
 }
 \examples{
 # A vector with some typical examples of formats found in herbarium labels
-numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467", "ALCB-3467",
-"3467a", "3467A", "3467 A", "3467-A", "PL671", "57-685", "685 - 4724", "1-80",
-"-4724", "(3467)", "(3467", "3467)", "32-3-77", "s/n.", "s.n.", "s.n", "", NA)
+numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467",
+"A. Gentry 3467", "Gentry, A. 3467", "ALCB-3467", "ALCB 3467", "3467a",
+"3467A", "3467 A", "3467-A", "PL671", "57-685", "685 - 4724", "1-80",
+"-4724", "(3467)", "(3467", "3467)", "32-3-77", "s/n.", "s.n.", "", NA)
 
 # Using the function defaults
 colNumber(numbers)
@@ -42,7 +44,7 @@ colNumber(numbers)
 # Using the function to remove the collection code from the collector number
 colNumber(numbers, colCodes = c("ALCB","ESA"))
 
-# Defining user-specific abbreviations for the specimens without collector number
+# Defining user-specific abbreviations for specimens without collector number
 colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
 
 }

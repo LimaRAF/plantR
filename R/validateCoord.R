@@ -50,6 +50,12 @@ validateCoord <- function(x,
                           tax.name = "scientificName.new",
                           output = "same.col") {
   ## Check input
+  if (!class(x)[1] == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!output %in% c("same.col", "new.col"))
     stop("Please choose an output between 'same.col' and 'new.col'")
 
@@ -103,6 +109,11 @@ validateCoord <- function(x,
     x4[check_these, good.col] <- paste0(x4.2$geo.check,
                                            gsub(".*(?=\\[)", "",
                                                 x4[check_these, good.col], perl= TRUE))
+  } else {
+    lon.new = ifelse(output == "same.col", lon, paste0(lon, ".new"))
+    lat.new = ifelse(output == "same.col", lat, paste0(lat, ".new"))
+    x4[[lon.new]] <- x4[,lon, drop = TRUE]
+    x4[[lat.new]] <- x4[,lat, drop = TRUE]
   }
 
   ## Removing unecessary columns and returning

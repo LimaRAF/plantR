@@ -8,7 +8,8 @@ prepFamily(
   x,
   fam.name = "family",
   gen.name = "genus",
-  spp.name = "scientificName"
+  spp.name = "scientificName",
+  print = TRUE
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ Default to "genus"}
 
 \item{spp.name}{character. The name of the column containing the species
 names. Default to "scientificName"}
+
+\item{print}{logical. Should the automatically replaced family names be
+printed? Default to TRUE.}
 }
 \value{
 the data frame \code{x} with an additional column called

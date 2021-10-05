@@ -4,12 +4,15 @@
 \alias{getInit}
 \title{Create Name Initials}
 \usage{
-getInit(x, upper = TRUE, max.initials = 5)
+getInit(x, upper = TRUE, rm.spaces = TRUE, max.initials = 5)
 }
 \arguments{
 \item{x}{the character string or vector to be standardized}
 
 \item{upper}{logical. Should initials be capitalized? Default to TRUE.}
+
+\item{rm.spaces}{logical. Should spaces between initials be removed?
+Default to TRUE.}
 
 \item{max.initials}{numerical. Upper limit of number of letter for a single
 word to be considered as initials and not as a name. Default to 5.}

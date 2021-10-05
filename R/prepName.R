@@ -10,7 +10,11 @@
 #'   first name, or auxiliary names.
 #' @param treat.prep a character or vector containing the treatment prepositions
 #' that should be removed from names. Default to some common prepositions in
-#' Portuguese, Spanish and English (see Examples).
+#' Portuguese, Spanish and English (see Details).
+#' @param add.treat logical. Should the treatment proposition(s) provided in
+#' 'treat.prep' be concatenated with __plantR__ defaults or be used
+#' separately? Default to TRUE (concatenate prepositions).
+#'
 #'
 #' @inheritParams fixName
 #' @inheritParams prepTDWG
@@ -31,9 +35,15 @@
 #'
 #'   The function identifies (and removes) name prefixes or prepositions (e.g.
 #'   de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
-#'   Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). The
-#'   function also does not handle hyphenated first names. If only one name is
-#'   given, the function returns \code{x} with the first letter capitalized.
+#'   Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). Users
+#'   can use the __plantR__ default list of treatment prepositions (argument
+#'   'treat.prep' = NULL; the default), their own list of prepositions or a
+#'   combination of both (argument 'add.treat' = TRUE; the default). To inspect
+#'   the __plantR__ default list of treatment prepositions please check
+#'   the internal object 'treatPreps'.
+#'
+#'   The function also does not handle hyphenated first names. If only one name
+#'   is given, the function returns \code{x} with the first letter capitalized.
 #'
 #'   The function has the option of standardizing the general notation of names
 #'   and the general format of names. These standardizations are controlled by
@@ -70,7 +80,7 @@
 #'
 #'   # Name with prepositions and compound last names
 #'   prepName("Carl F. P. von Martius; Augustin Saint-hilaire")
-#'   prepName("Carl F. P. von Martius; Auguste de Saint-Hilaire", get.prep = TRUE)
+#'   prepName("Carl von Martius; Auguste de Saint-Hilaire", get.prep = TRUE)
 #'   prepName("A. Ducke; Dárdano de Andrade-Lima")
 #'   prepName("Ducke, A. ; Dárdano de Andrade-Lima")
 #'
@@ -94,7 +104,7 @@
 #'   prepName("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
 #'
 #'   # Multiple names separated by commas
-#'   prepName("A. Alvarez, A. Zamora & V. Huaraca") # output incorrect
+#'   prepName("A. Alvarez, A. Zamora & V. Huaraca") # bad output incorrect
 #'   prepName("A. Alvarez, A. Zamora & V. Huaraca", sep.in=c(",","&")) # output correct
 #'
 #'   # Multiple (last + first) names separated by commas
@@ -104,12 +114,14 @@
 prepName <- function(x,
                      fix.names = TRUE,
                      output = "all",
-                     treat.prep = c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.",
-                                    "Sr.", "Sra.", "Mr.", "Mrs.", "Mme."),
-                     sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
+                     treat.prep = NULL,
+                     add.treat = TRUE,
+                     sep.in = c(";", "&", "|", " e ", " y ",
+                                " and ", " und ", " et "),
                      sep.out = "|",
                      special.char = FALSE,
                      format = "last_init",
+                     pretty = TRUE,
                      get.prep = FALSE,
                      get.initials = TRUE) {
 
@@ -122,17 +134,32 @@ prepName <- function(x,
 
   # name inside brackets or parentheses? removing here and adding after editions
   bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
+  if (any(bracks))
+    x <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[bracks], perl = TRUE) #
   parent <- grepl('^\\(', x, perl = TRUE) & grepl('\\)$', x, perl = TRUE)
-  x <- gsub("^\\[|\\]$|^\\(|\\)$", "", x, perl = TRUE) #
+  if (any(parent))
+    x <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[parent], perl = TRUE) #
 
   # Editing the general name notation
   if (fix.names)
     x <- fixName(x, sep.in = sep.in, sep.out = sep.out,
                  special.char = special.char)
 
-  # removing treatment prepositions (e.g. Dr., etc)
+  # getting treatment prepositions (e.g. Dr., Dra. etc)
+  if (!is.null(treat.prep)) {
+    if (add.treat) {
+      treat.prep.final <- unique(c(treatPreps, treat.prep))
+    } else {
+      treat.prep.final <- unique(as.character(treat.prep))
+    }
+
+  } else {
+    treat.prep.final <- treatPreps
+  }
+
+  # removing treatment prepositions
   patt.treat <-
-    gsub("\\.", "\\\\.", paste(treat.prep, collapse = " |"))
+    gsub("\\.", "\\\\.", paste(treat.prep.final, collapse = " |"))
   if (!grepl("\\|", patt.treat))
     patt.treat <- paste0(patt.treat, " ")
   x <- gsub(patt.treat, "", x, perl = TRUE)
@@ -154,7 +181,7 @@ prepName <- function(x,
 
   if (fix.names) {
     patt.split <- paste(sep.out1,
-                        paste0(stringr::str_trim(sep.out1),"(?=\\p{Lu})"),
+                        paste0(stringr::str_trim(sep.out1), "(?=\\p{Lu})"),
                         # paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {
@@ -166,19 +193,19 @@ prepName <- function(x,
   DT <- data.table::setDT(data.table::transpose(split, fill = NA))
   dt <- as.data.frame(DT)
   cols <- colnames(dt)
-  DT[ , tmp.ordem := .I, ]
+  # DT[ , tmp.ordem := .I, ]
 
   if (output %in% c("all", "first")) {
     dt$V1 <- prepTDWG(dt$V1,
-                      format = format, get.prep = get.prep,
-                      get.initials = get.initials)
+                      format = format, pretty = pretty, get.prep = get.prep,
+                      get.initials = get.initials,)
   }
 
   if (output %in% c("all", "aux") & length(cols) > 1) {
     cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
     for(i in cols1)
       dt[, i] <- prepTDWG(dt[, i],
-                          format = format, get.prep = get.prep,
+                          format = format, pretty = pretty, get.prep = get.prep,
                           get.initials = get.initials)
   }
 

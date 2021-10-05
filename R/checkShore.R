@@ -4,8 +4,8 @@
 #'   the shoreline using different approaches.
 #'
 #' @param x a data frame with the species records
-#' @param geo.check character. Column with the result from the coordinate checking.
-#'   Defaults to 'geo.check'
+#' @param geo.check character. Column with the result from the coordinate
+#'   checking. Defaults to 'geo.check'
 #' @param lat character. Column with the corrected latitude to be checked.
 #'   Defaults to 'decimalLatitude.new'
 #' @param lon character. Column with the corrected longitude to be checked.

@@ -62,10 +62,12 @@ spatial outliers.
 }
 \description{
 This function searches for spatial outliers, i.e. records too
-far away from species core distributions based
-on \href{https://en.wikipedia.org/wiki/Mahalanobis_distance}{Mahalanobis
+far away from species core distributions based on
+\href{https://en.wikipedia.org/wiki/Mahalanobis_distance}{Mahalanobis
 distances}. Spatial outliers can indicate misidentifications or records
-obtained from cultivated individuals.
+obtained from cultivated individuals, although not all cultivated
+individuals are necessarily spatial outliers (see also the \strong{plantR}
+function \code{getCult()}).
 }
 \details{
 The function searches for spatial outliers using two different
@@ -87,9 +89,9 @@ extreme outliers are removed) and so some outliers may remain undetected.
 
 The detection of outliers may depend on the amount of unique coordinates
 available. Therefore, the detection of spatial outliers is safer for cases
-where many unique coordinates are available. As a rule of thumb, ten
-unique coordinates per taxa should avoid possible problems (undetected
-true outliers or detection of false outliers). See Examples.
+where many unique coordinates are available. As a rule of thumb, ten unique
+coordinates per taxa should avoid possible problems (undetected true
+outliers or detection of false outliers). See Examples.
 }
 \examples{
 

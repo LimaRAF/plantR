@@ -4,7 +4,13 @@
 \alias{lastName}
 \title{Get Last Name}
 \usage{
-lastName(name, noName = "s.n.", invert = FALSE, initials = FALSE)
+lastName(
+  name,
+  noName = "s.n.",
+  invert = FALSE,
+  initials = FALSE,
+  first.capital = TRUE
+)
 }
 \arguments{
 \item{name}{the character string or vector containing the names.}
@@ -17,6 +23,9 @@ last name? Default to FALSE.}
 
 \item{initials}{logical. If first name(s) are chosen, should they be returned
 in full or only their initials? Default to FALSE.}
+
+\item{first.capital}{logical. Should the name returned have only the first
+letter(s) capitalized or returned as provided? Default to TRUE.}
 }
 \value{
 the last name provided in \code{name} with the first letter
@@ -33,21 +42,21 @@ relatively stable to the format and spacing of the string provided, but it
 may not work in all cases.
 
 It implicitly assumes that last names are (i) the ones provided at the end
-of the name string if there is no comma, or (ii) the first name preceding
-the comma, if there is a comma in the name string. Few exceptions related to
-names not in the 'first + last name' or 'last name + comma + first name'
-formats (e.g. 'Hatschbach G.G.') are also considered. But
+of the name string if there is no comma, or (ii) the first name preceeding
+the comma, if there is a comma in the name string. Few exceptions related
+to names not in the 'first + last name' or 'last name + comma + first name'
+formats (e.g. 'Hatschbach G.G.') are also considered.
 
-If only one name is given, the function returns the same name with the first
-letter capitalized.
+If only one name is given, the function returns the same name with the
+first letter capitalized.
 
 For missing names (i.e. "", " " or NAs) the function returns the character
 defined by the argument \code{noName}.
 
 The function can also return all names but the last name detected by
-setting the argument \code{invert} to TRUE. In this case, user can choose between
-full first names and only their initials by setting the argument \code{initials}
-to TRUE.
+setting the argument \code{invert} to TRUE. In this case, user can choose
+between full first names and only their initials by setting the argument
+\code{initials} to TRUE.
 }
 \examples{
 

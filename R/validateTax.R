@@ -23,8 +23,8 @@
 #'   treated the same).
 #' @param miss.taxonomist Vector. Any missing combination of family x taxonomist
 #'   that should be added to the validation?
-#' @param taxonomist.list a data.frame containing the list of taxonomist names. The
-#'   default is "plantR", the internal `plantR` global database of plant
+#' @param taxonomist.list a data.frame containing the list of taxonomist names.
+#'   The default is "plantR", the internal `plantR` global database of plant
 #'   taxonomists (see Details).
 #' @param voucher.list Vector. One or more unique record identifiers (i.e.
 #'   combination of collection code and number) that should be flagged with a
@@ -34,8 +34,10 @@
 #' @param noName Vector. One or more characters (in lower cases) with the
 #'   standard notation for missing data in the field 'det.name'. Default to some
 #'   typical notation found in herbarium data.
-#' @param top.det Numerical. How many of the top missing identifiers should be printed?
-#'   Default to 10.
+#' @param top.det Numerical. How many of the top missing identifiers should be
+#'   printed? Default to 10.
+#' @param print logical. Should the table of missing identifiers be printed?
+#'   Default to TRUE.
 #'
 #' @details
 #' The input data frame \code{x} must contain at least the columns with the
@@ -92,11 +94,11 @@
 #'
 #' The argument `other.records` controls what to do with types of records which
 #' are not preserved specimens (Darwin Core field
-#' [basisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord). If the argument
+#' [basisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord)). If the argument
 #' is NULL (default), all record types are treated the same. Users can set the
 #' argument to one of the confidence levels (i.e. 'unknown', 'low', 'medium' or
 #' 'high') to assign the same class for all non preserved specimens or to a
-#' value (i.e. 1 or 2), which correspond to the number of downgrading steps
+#' value (i.e., 1 or 2), which correspond to the number of downgrading steps
 #' among levels. For instance, if `other.records` is one, the 'high' level
 #' becomes 'medium' and the 'medium' level becomes 'low' ('unknown' and 'low'
 #' levels remain the same).
@@ -135,7 +137,7 @@
 #' conservation: Tree species in the Atlantic Forest hotspot. Biological
 #' Conservation, 252: 108825.
 #'
-#' @importFrom stringr str_trim str_replace_all
+#' @importFrom stringr str_squish str_replace_all
 #' @importFrom utils head
 #'
 #' @export validateTax
@@ -175,11 +177,15 @@ validateTax <- function(x, col.names = c(family = "family.new",
                                    "unknown",
                                    "s.d.",
                                    "s.n."),
-                        top.det = 10) {
+                        top.det = 10,
+                        print = TRUE) {
 
   #Checking the input
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   #list of column names in the data
   id.cols <- col.names %in% names(x)
@@ -253,22 +259,24 @@ validateTax <- function(x, col.names = c(family = "family.new",
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
-  combo <- stringr::str_trim(combo)
+  combo <- stringr::str_squish(combo)
 
   #Getting the unique family-specialist combinations for each occurrence
   #dt <- data.table::data.table(x) # not using data.table for now
   combo.occs <- paste(x[ ,cols["family"]],
                       x[ ,cols["det.name"]], sep = "_")
-  combo.occs <- stringr::str_trim(combo.occs)
+  combo.occs <- stringr::str_squish(combo.occs)
 
   #Crossing the occurrence and reference family-specialist combinations
   x$tax.check <- combo.occs %in% combo
 
   #Validating all type specimens (isotype, paratypes, etc) but not the "not a type"
-  if ("types" %in% names(cols))
-    x$tax.check[!is.na(x[, cols["types"]]) &
-                  !grepl("not a type|notatype|probable type|tipo provavel|tipo prov\u00e1vel",
-                         x[, cols["types"]], perl = TRUE, ignore.case = TRUE)] <- TRUE
+  if ("types" %in% names(cols)) {
+    not.type <- "not a type|notatype|probable type|tipo provavel|tipo prov\u00e1vel"
+    x$tax.check[(!is.na(x[, cols["types"]]) & !x[, cols["types"]] %in% "") &
+                  !grepl(not.type, x[, cols["types"]],
+                         perl = TRUE, ignore.case = TRUE)] <- TRUE
+  }
 
   #Specifying occurrences with unknown determiner name
   x$tax.check[x$tax.check == FALSE &
@@ -284,7 +292,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
       combo2 <- paste(x[, cols["family"]],
                       x[, cols["col.name"]], sep = "_")
-      combo2 <- stringr::str_trim(combo2)
+      combo2 <- stringr::str_squish(combo2)
       #Crossing the occurrence and reference family-specialist combinations
       tax.check1 <- combo2 %in% combo
       x$tax.check[x$tax.check %in% c("unknown") &
@@ -306,16 +314,18 @@ validateTax <- function(x, col.names = c(family = "family.new",
   x$tax.check[x$tax.check %in% "FALSE"] <- "low"
   x$tax.check[x$tax.check %in% "TRUE"] <- "high"
 
-  #Any potential specialists missing form the taxonomist list?
+  #Any potential specialists missing from the taxonomist list?
   non.tax.det <- sort(table(x[,cols["det.name"]][x$tax.check %in% "low"]))
   if (length(non.tax.det) > 0) {
     non.tax.det.df <- data.frame(names(non.tax.det), as.double(non.tax.det))
     row.names(non.tax.det.df) <- NULL
     non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
-    cat("Top people with many determinations but not in the taxonomist list: \n",
-        knitr::kable(utils::head(non.tax.det.df, top.det),
-        # knitr::kable(my.head.df(non.tax.det.df, top.det),
-                     row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
+    if (print) {
+      cat("Top people with many determinations but not in the taxonomist list: \n",
+          knitr::kable(utils::head(non.tax.det.df, top.det),
+                       # knitr::kable(my.head.df(non.tax.det.df, top.det),
+                       row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
+    }
   }
 
   #Assigning different levels to non preserved specimens
@@ -323,33 +333,39 @@ validateTax <- function(x, col.names = c(family = "family.new",
     PS <- c("preservedspecimen","preserved_specimen","s","exsicata de planta",
             "esicata de planta","exsicata")
 
-    if (class(other.records) == "character")
+    if (is.character(other.records))
       if (other.records %in% c("unknown", "low", "medium", "high")) {
-        x$tax.check[!is.na(x[, cols["rec.type"]]) |
-                    !tolower(x[, cols["rec.type"]]) %in% PS] <- other.records
+        check_these <- !x[, cols["rec.type"]] %in% c("", " ", NA) &
+          !tolower(x[, cols["rec.type"]]) %in% PS
+        x$tax.check[check_these] <- other.records
       } else {
-        warning("If a character, argument `other.records` must be 'unknown', 'low', 'medium' or 'high') (no changes performed)")
+        warning("If a character, 'other.records' must be 'unknown', 'low', 'medium' or 'high') (no changes performed)")
       }
 
-    if (class(other.records) == "numeric") {
-      if (is.integer(other.records)) {
-      current <- x$tax.check[!is.na(x[, cols["rec.type"]]) |
-                    !tolower(x[, cols["rec.type"]]) %in% PS]
-      rpl1 <- c("unknown" = "-1", "low" = "0", "medium" = "1", "high" = "2")
-      current <- stringr::str_replace_all(current, rpl1)
-      current <- as.double(current) - as.double(other.records)
+    if (is.numeric(other.records)) {
 
-      rpl2 <- c("unknown", "low", "medium", "high")
-      names(rpl2) <- as.character(c(-1, 0, 1, 2) - as.double(other.records))
-      rpl2[-1][as.double(names(rpl2)[-1]) <= 0] <- "low"
-      rpl2[-1][as.double(names(rpl2)[-1]) == 1] <- "medium"
-      rpl2[-1][as.double(names(rpl2)[-1]) == 2] <- "high"
-      current <- stringr::str_replace_all(current, rpl2)
-      x$tax.check[!is.na(x[, cols["rec.type"]]) |
-                    !tolower(x[, cols["rec.type"]]) %in% PS] <- current
+      if (!is.integer(other.records)) {
+        other.records <- as.integer(round(other.records, 0))
+      }
+
+      if (is.integer(other.records)) {
+        check_these <- !x[, cols["rec.type"]] %in% c("", " ", NA) &
+          !tolower(x[, cols["rec.type"]]) %in% PS
+        current <- x$tax.check[check_these]
+        rpl1 <- c("unknown" = "-1", "low" = "0", "medium" = "1", "high" = "2")
+        current <- stringr::str_replace_all(current, rpl1)
+        current <- as.double(current) - as.double(other.records)
+
+        rpl2 <- c("unknown", "low", "medium", "high")
+        names(rpl2) <- as.character(c(-1, 0, 1, 2) - as.double(other.records))
+        rpl2[-1][as.double(names(rpl2)[-1]) <= 0] <- "low"
+        rpl2[-1][as.double(names(rpl2)[-1]) == 1] <- "medium"
+        rpl2[-1][as.double(names(rpl2)[-1]) == 2] <- "high"
+        current <- stringr::str_replace_all(current, rpl2)
+        x$tax.check[check_these] <- current
 
       } else {
-        warning("If a number, argument `other.records` must be an integer (no changes performed)")
+        warning("If a number, argument 'other.records' must be an integer (no changes performed)")
       }
     }
   }

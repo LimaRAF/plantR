@@ -12,7 +12,7 @@
 
 <meta name="author" content="Renato A. F. de Lima, Sara R. Mortara and Andrea Sánchez-Tapia" />
 
-<meta name="date" content="2021-07-20" />
+<meta name="date" content="2021-10-04" />
 
 <title>A tutorial on how to use plantR</title>
 
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">A tutorial on how to use <strong>plantR</strong></h1>
 <h4 class="author">Renato A. F. de Lima<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, Sara R. Mortara<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and Andrea Sánchez-Tapia<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h4>
-<h4 class="date">20 July 2021</h4>
+<h4 class="date">04 October 2021</h4>
 
 
 <div id="TOC">
@@ -145,7 +145,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#downloading-species-records-with-plantr"><span class="toc-section-number">3.1</span> Downloading species records with <strong>plantR</strong></a></li>
 <li><a href="#preparing-the-input-data-function-formatdwc"><span class="toc-section-number">3.2</span> Preparing the input data: function <code>formatDwc()</code></a></li>
 </ul></li>
-<li><a href="#data-editing"><span class="toc-section-number">4</span> Data editing</a>
+<li><a href="#data-standardization"><span class="toc-section-number">4</span> Data standardization</a>
 <ul>
 <li><a href="#standardizing-collection-codes-people-names-collector-numbers-and-dates"><span class="toc-section-number">4.1</span> Standardizing collection codes, people names, collector numbers and dates</a>
 <ul>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><a href="#number-of-specimens-collections-species-and-other-descriptors"><span class="toc-section-number">6.1</span> Number of specimens, collections, species and other descriptors</a></li>
 <li><a href="#summary-of-validation-flags-and-other-issues"><span class="toc-section-number">6.2</span> Summary of validation flags and other issues</a></li>
-<li><a href="#generating-checklists"><span class="toc-section-number">6.3</span> Generating checklists</a></li>
+<li><a href="#generating-species-lists-or-checklists"><span class="toc-section-number">6.3</span> Generating species lists or checklists</a></li>
 <li><a href="#saving-the-occurrence-data"><span class="toc-section-number">6.4</span> Saving the occurrence data</a></li>
 </ul></li>
 </ul>
@@ -213,16 +213,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br /><br /></p>
 <div id="introduction" class="section level1" number="1">
 <h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>This tutorial provides the details and explanations on the functions related to data download, editing and validation using the <strong>plantR</strong> workflow. For each of the steps of the workflow, we present in more detail the functionalities and their options. The aim is that users can better understand their goals and so adapt functions according to their needs or for their use outside the workflow proposed here.</p>
+<p>This tutorial provides the details and explanations on the functions related to data download, standardization and validation using the <strong>plantR</strong> workflow. For each of the steps of the workflow, we present in more detail the functionalities and their options. The aim is that users can better understand their goals and so adapt functions according to their needs or for their use outside the workflow proposed here.</p>
 <p><br /><br /></p>
 </div>
 <div id="installing-plantr" class="section level1" number="2">
 <h1 number="2"><span class="header-section-number">2</span> Installing <strong>plantR</strong></h1>
-<p><strong>plantR</strong> is currently only available remotely on <a href="https://github.com">GitHub</a>. This means that you cannot use R base functions to install it (i.e. <code>install.packages()</code>). There are different ways to install packages in R from remote repositories and here we suggest using the package <strong>remotes</strong>. So, first of all, we need to be sure that this package is installed and loaded.</p>
+<p><strong>plantR</strong> is currently only available remotely on <a href="https://github.com">GitHub</a>. This means that you cannot use R base functions to install it (i.e., <code>install.packages()</code>). There are different ways to install packages in R from remote repositories and here we suggest using the package <strong>remotes</strong>. So, first of all, we need to be sure that this package is installed and loaded.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(remotes)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;remotes&quot;</span>)</span></code></pre></div>
 <p>Then we can use <strong>remotes</strong> function <code>install_github()</code> to install <strong>plantR</strong> from GitHub.</p>
-<p>Like many other R packages, <strong>plantR</strong> depends on other packages to perform some tasks (i.e. dependencies), and these packages often depend on other packages (i.e. recursive dependencies). Therefore, to install <strong>plantR</strong> you also need to install these dependencies. R should automatically install the packages you don’t have (this may be a long list depending on which packages you have already installed). It also will prompt at your screen a list of packages that have more recent versions available for update. It is good to have the most up-to-date versions of all packages, but this is not a necessity to install <strong>plantR</strong> (i.e. you can select to update none of the packages).</p>
+<p>Like many other R packages, <strong>plantR</strong> depends on other packages to perform some tasks (i.e., dependencies), and these packages often depend on other packages (i.e.m recursive dependencies). Therefore, to install <strong>plantR</strong> you also need to install these dependencies. R should automatically install the packages you don’t have (this may be a long list depending on which packages you have already installed). It also will prompt at your screen a list of packages that have more recent versions available for update. It is good to have the most up-to-date versions of all packages, but this is not a necessity to install <strong>plantR</strong> (i.e., you can select to update none of the packages).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;LimaRAF/plantR&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
 <p>For windows users, you may get a warning while trying to install <strong>plantR</strong>, related to the installation of Rtools. This software needs to be installed in your machine, so that R can build and install packages from their source code on Windows. It became necessary after R version 4.0. So make sure we have Rtools installed, restart your R session and try to install <strong>plantR</strong> again. Check <a href="https://cran.r-project.org/bin/windows/Rtools/">this link</a> on how to install Rtools on Windows.</p>
@@ -242,19 +242,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Casearia sylvestris&quot;</span>,</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Euterpe edulis&quot;</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Trema micrantha&quot;</span>)</span></code></pre></div>
-<p>After defining the species names, we proceed to the download of species records. We will first download only herbarium specimens (i.e. vouchers) for the names listed above, including their synonyms accepted in the List of Species of the Brazilian Flora 2020 project (this may take a minute):</p>
+<p>After defining the species names, we proceed to the download of species records. We will first download only herbarium specimens (i.e., vouchers) for the names listed above, including their synonyms accepted in the List of Species of the Brazilian Flora 2020 project. This may take a minute depending on your internet connection:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>occs_splink <span class="ot">&lt;-</span> <span class="fu">rspeciesLink</span>(<span class="at">species =</span>  spp,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Scope =</span> <span class="st">&quot;plants&quot;</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">basisOfRecord =</span> <span class="st">&quot;PreservedSpecimen&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Synonyms =</span> <span class="st">&quot;flora2020&quot;</span>)</span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Synonyms =</span> <span class="st">&quot;flora2020&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to speciesLink...</span></span></code></pre></div>
 <p>The function <code>rspeciesLink()</code> allows a wide variety of ways on how to search for species records. Searches can also be done by locality and collections, using all the filters available in CRIA. Please check the help of the function for more details on the arguments that can be used for this search.</p>
 <p>We will download records for the same species from GBIF, using the function <code>rgbif2()</code>. This function uses internally the function <code>occ_search()</code> from the package <strong>rgbif</strong>, which should be consulted for details on how searches can be performed.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>occs_gbif <span class="ot">&lt;-</span> <span class="fu">rgbif2</span>(<span class="at">species =</span>  spp,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">basisOfRecord =</span> <span class="st">&quot;PRESERVED_SPECIMEN&quot;</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">remove_na =</span> <span class="cn">FALSE</span>, <span class="at">n.records =</span> <span class="dv">500000</span>)</span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">remove_na =</span> <span class="cn">FALSE</span>, <span class="at">n.records =</span> <span class="dv">500000</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF for Casearia sylvestris...</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF for Euterpe edulis...</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Making request to GBIF for Trema micrantha...</span></span></code></pre></div>
 <p>The occurrence data is now stored in the objects <code>occs_splink</code> and <code>occs_gbif</code>. We can inspect how many occurrences were downloaded:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_splink)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_gbif)</span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 18285</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(occs_gbif)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 35849</span></span></code></pre></div>
 </div>
 <div id="preparing-the-input-data-function-formatdwc" class="section level2" number="3.2">
 <h2 number="3.2"><span class="header-section-number">3.2</span> Preparing the input data: function <code>formatDwc()</code></h2>
@@ -262,71 +268,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We use the function <code>formatDwc()</code> to bind data and set up the required and optional fields and to drop fields without essential information for the data processing and validation. We save the output of the function in an object with a different name (i.e., <code>occs</code>).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span></code></pre></div>
-<!-- Sara, talvez explicar mais em detalhe o que formatDwc faz internamente -->
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Dropping fields not essential or recommended to the data cleaning!</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 54134    47</span></span></code></pre></div>
 <p><br /><br /></p>
 </div>
 </div>
-<div id="data-editing" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Data editing</h1>
+<div id="data-standardization" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Data standardization</h1>
 <div id="standardizing-collection-codes-people-names-collector-numbers-and-dates" class="section level2" number="4.1">
 <h2 number="4.1"><span class="header-section-number">4.1</span> Standardizing collection codes, people names, collector numbers and dates</h2>
 <p>Particularly when working with data coming from multiple sources, it is important to standardize the notation used by different collections and sometimes by different collectors within the same collection.</p>
 <div id="collection-codes" class="section level3" number="4.1.1">
 <h3 number="4.1.1"><span class="header-section-number">4.1.1</span> Collection codes</h3>
-<p>The first step is the standardization of the notation of collection codes, which is stored in the field ‘collectionCode’. For some reason, not all collections store in this field their international collection codes (e.g. Index Herbariorum) and sometimes these codes are stored differently across data repositories. For the search of duplicate entries and the production of check-lists (see below) it is important to standardize the codes of collections. In <strong>plantR</strong> this is done using function <code>getCode</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCode</span>(occs)</span></code></pre></div>
-<p>This function returns a new column (‘collectionCode.new’) which contains the standardized collection codes found in a <strong>plantR</strong> list of herbaria, xylaria and other plant collections. It also returns the column ‘collectionObs’, which is empty if the collection code was found. But it also provides details if the code is in the (e.g. Index Herbariorum) and it flags the collection codes not found, which probably represent collections other than herbaria, xylaria or carpotheks.</p>
+<p>The first step is the standardization of the notation of collection codes, which is stored in the field ‘collectionCode’. For some reason, not all collections store in this field their international collection codes (e.g., Index Herbariorum) and sometimes these codes are stored differently across data repositories. For the search of duplicate entries and the production of lists of species (see below) it is important to standardize the codes of collections. In <strong>plantR</strong> this is done using function <code>getCode</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCode</span>(occs)</span></code></pre></div>
+<p>This function returns a new column (‘collectionCode.new’) which contains the standardized collection codes found in a <strong>plantR</strong> list of herbaria, xylaria and other plant collections. It also returns the column ‘collectionObs’, which is empty if the collection code was found. But it also provides details if the code is in the (e.g., Index Herbariorum) and it flags the collection codes not found, which probably represent collections other than herbaria, xylaria or carpotheks.</p>
 </div>
 <div id="names-of-collectors-and-determiners" class="section level3" number="4.1.2">
 <h3 number="4.1.2"><span class="header-section-number">4.1.2</span> Names of collectors and determiners</h3>
-<p>There is a lot of variation in the notation of people’s names both within and across biological collections. <strong>plantR</strong> offers different tools to edited and standardize those names. Several functions perform different operations, such as standardizing the separation between multiple people’s names, the generational suffixes and the removal of Latin characters (function <code>fixName()</code>). It also standardizes the format of name notation (i.e. Last Name, First Name(s) or First Name(s), Last Name) and the abbreviation of name initials (functions <code>prepTDWG()</code>, <code>getPrep()</code> and <code>getInit()</code>). These and other functionalities are included in the function <code>prepName()</code>, which also performs the removal of treatment prepositions (e.g. Dr., Profa.) and the separation between the first collector/determiner from other collectors/determiners (co-authors or auxiliary names), if present.</p>
+<p>There is a lot of variation in the notation of people’s names both within and across biological collections. <strong>plantR</strong> offers different tools to edited and standardize those names. Several functions perform different operations, such as standardizing the separation between multiple people’s names, the generational suffixes and the removal of Latin characters (function <code>fixName()</code>). It also standardizes the format of name notation (i.e., Last Name, First Name(s) or First Name(s), Last Name) and the abbreviation of name initials (functions <code>prepTDWG()</code>, <code>getPrep()</code> and <code>getInit()</code>). These and other functionalities are included in the function <code>prepName()</code>, which also performs the removal of treatment prepositions (e.g., Dr., Profa.) and the separation between the first collector/determiner from other collectors/determiners (co-authors or auxiliary names), if present.</p>
 <p>We will first standardize the names of collectors, which are stored in the field ‘recordedBy’:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.new <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>recordedBy,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;first&quot;</span>,</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.aux <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>recordedBy,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;aux&quot;</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span></code></pre></div>
-<p>Note that we separated the first and auxiliary names for multiple people’s names. To do so, we set the argument <code>output</code> of function <code>prepName()</code> to “first” and “aux” (by default <code>prepName()</code> edits and returns all people’s names).</p>
-<p>We also define that the symbol that will separate multiple people’s names, which in our example will be a semi-colon followed by space (argument <code>sep.out</code>).</p>
-<p>By default, the function removes accents and special characters from names, but this can be controlled using the argument <code>special.char</code>. Also, the default name format is ‘last_init’ (i.e. Last Name, First Names) which is controlled by the argument <code>format</code>.</p>
-<p>Next, we will do the same operation for the names of determiners, which are stored in the field ‘identifiedBy’:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.new <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>identifiedBy,</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.new <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>recordedBy,</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;first&quot;</span>,</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.aux <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>identifiedBy,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.aux <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>recordedBy,</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;aux&quot;</span>,</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span></code></pre></div>
+<p>Note that we separated the first and auxiliary names for multiple people’s names. To do so, we set the argument <code>output</code> of function <code>prepName()</code> to “first” and “aux” (by default <code>prepName()</code> edits and returns all people’s names).</p>
+<p>We also define that the symbol that will separate multiple people’s names, which in our example will be a semi-colon followed by space (argument <code>sep.out</code>).</p>
+<p>By default, the function removes accents and special characters from names, but this can be controlled using the argument <code>special.char</code>. Also, the default name format is ‘last_init’ (i.e., Last Name, First Names) which is controlled by the argument <code>format</code>.</p>
+<p>Next, we will do the same operation for the names of determiners, which are stored in the field ‘identifiedBy’:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.new <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>identifiedBy,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;first&quot;</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.aux <span class="ot">&lt;-</span> <span class="fu">prepName</span>(occs<span class="sc">$</span>identifiedBy,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">output =</span> <span class="st">&quot;aux&quot;</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sep.out =</span> <span class="st">&quot;; &quot;</span>)</span></code></pre></div>
 <p>The function <code>prepName()</code> standardizes the most common types of name notation, but not all of them. We recommend the user to look at the help of functions <code>fixName()</code>, <code>prepTDWG()</code> and <code>prepName()</code> for examples of formats that these functions cannot handle. However, this standardization will be useful for the search of duplicated records across collections (see below).</p>
-<p>We also recommend the user to look at all the options of output, which may include accents (e.g. ‘Araújo, J.’ instead of ‘Araujo, J.’), name prepositions (e.g. ‘de Araujo, J.’ or ’ Araujo, J. de’), abbreviations (e.g., ‘Araujo, Jose’) or different name formats (e.g. ‘J. Araujo’).</p>
+<p>We also recommend the user to look at all the options of output, which may include accents (e.g., ‘Araújo, J.’ instead of ‘Araujo, J.’), name prepositions (e.g., ‘de Araujo, J.’ or ’ Araujo, J. de’), abbreviations (e.g., ‘Araujo, Jose’) or different name formats (e.g., ‘J. Araujo’).</p>
 <p>It is also useful for the validation process to standardize the notation for missing collector and determiner names. To do so, we use the function <code>missName()</code> and we set missing names to “s.n.”.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.new <span class="ot">&lt;-</span> <span class="fu">missName</span>(occs<span class="sc">$</span>recordedBy.new, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">type =</span> <span class="st">&quot;collector&quot;</span>, <span class="at">noName =</span> <span class="st">&quot;s.n.&quot;</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.new <span class="ot">&lt;-</span> <span class="fu">missName</span>(occs<span class="sc">$</span>identifiedBy.new, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">type =</span> <span class="st">&quot;identificator&quot;</span>, <span class="at">noName =</span> <span class="st">&quot;s.n.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordedBy.new <span class="ot">&lt;-</span> <span class="fu">missName</span>(occs<span class="sc">$</span>recordedBy.new, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">type =</span> <span class="st">&quot;collector&quot;</span>, <span class="at">noName =</span> <span class="st">&quot;s.n.&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>identifiedBy.new <span class="ot">&lt;-</span> <span class="fu">missName</span>(occs<span class="sc">$</span>identifiedBy.new, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">type =</span> <span class="st">&quot;identificator&quot;</span>, <span class="at">noName =</span> <span class="st">&quot;s.n.&quot;</span>)</span></code></pre></div>
 <p>For some of the validation steps we will perform, it is also useful to extract the last name of the first collector from the formatted field <code>recordedBy.new</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>last.name <span class="ot">&lt;-</span> <span class="fu">lastName</span>(occs<span class="sc">$</span>recordedBy.new)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>last.name <span class="ot">&lt;-</span> <span class="fu">lastName</span>(occs<span class="sc">$</span>recordedBy.new)</span></code></pre></div>
 </div>
 <div id="collector-number" class="section level3" number="4.1.3">
 <h3 number="4.1.3"><span class="header-section-number">4.1.3</span> Collector number</h3>
 <p>Species records are often associated with a number from a series of collections of a given collector, which is stored in the field ‘recordNumber’. One would expect that this field would only contain numbers but this is not always the case. In addition, collectors may add modifiers to their collection numbers, such as ‘17-A’ and ‘17-B’.</p>
 <p>Therefore, the notation of this field also needs standardization, which in <strong>plantR</strong> is performed using the function <code>colNumber()</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordNumber.new <span class="ot">&lt;-</span> <span class="fu">colNumber</span>(occs<span class="sc">$</span>recordNumber, <span class="at">noNumb =</span> <span class="st">&quot;s.n.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>recordNumber.new <span class="ot">&lt;-</span> <span class="fu">colNumber</span>(occs<span class="sc">$</span>recordNumber, <span class="at">noNumb =</span> <span class="st">&quot;s.n.&quot;</span>)</span></code></pre></div>
 </div>
 <div id="collection-and-identification-year" class="section level3" number="4.1.4">
 <h3 number="4.1.4"><span class="header-section-number">4.1.4</span> Collection and identification year</h3>
 <p>Similar to the collector number, the collection and identification years can have other information than the year itself (i.e. months). To make sure that these fields contain only years, we use the function <code>getYear()</code>. We set the character that will represent records without the year of collection and identification (“n.d.”) using the argument <code>noYear</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>year.new <span class="ot">&lt;-</span> <span class="fu">getYear</span>(occs<span class="sc">$</span>year, <span class="at">noYear =</span> <span class="st">&quot;n.d.&quot;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>yearIdentified.new <span class="ot">&lt;-</span> <span class="fu">getYear</span>(occs<span class="sc">$</span>dateIdentified, <span class="at">noYear =</span> <span class="st">&quot;n.d.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>year.new <span class="ot">&lt;-</span> <span class="fu">getYear</span>(occs<span class="sc">$</span>year, <span class="at">noYear =</span> <span class="st">&quot;n.d.&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>yearIdentified.new <span class="ot">&lt;-</span> <span class="fu">getYear</span>(occs<span class="sc">$</span>dateIdentified, <span class="at">noYear =</span> <span class="st">&quot;n.d.&quot;</span>)</span></code></pre></div>
 <p>The year of collection is sometimes stored on the field ‘eventDate’ and not on the field ‘year’. In this case, one should replace all missing information from the field ‘year’ with the information stored in the field ‘eventDate’.</p>
 </div>
 <div id="the-wrapper-function-formatocc" class="section level3" number="4.1.5">
 <h3 number="4.1.5"><span class="header-section-number">4.1.5</span> The wrapper function <code>formatOcc()</code></h3>
 <p>All the previous steps are important to understand the editing process of each field. <strong>plantR</strong> can execute all these steps at once using the wrapper function <code>formatOcc()</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs1)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Dropping fields not essential or recommended to the data cleaning!</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatOcc</span>(occs1)</span></code></pre></div>
 <p>This wrapper will add the new columns containing the edited/formatted information regarding the collection codes, the names of collectors and determiners, the dates of collection and identification, and collector number.</p>
 </div>
 </div>
@@ -335,41 +343,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>One type of information associated with species records is the collection locality, namely “country”, “stateProvince”, “municipality” and “locality”. <strong>plantR</strong> provide tools to edit and validate this type of information, which also is an important step to find missing geographical coordinates and to validate the original coordinates provided with the records.</p>
 <div id="formatting-locality-information" class="section level3" number="4.2.1">
 <h3 number="4.2.1"><span class="header-section-number">4.2.1</span> Formatting locality information</h3>
-<p><strong>plantR</strong> has a function to edit and standardize locality fields: function <code>fixLoc()</code>. By default, this function formats all four locality fields simultaneously and returns the input data frame with the new locality columns. But the user can choose to edit one field at a time by changing the function argument ‘admin.levels’ (in this case, the function returns a vector). However, some of the editing processes become more complete if all the information is available for the four fields.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">fixLoc</span>(occs,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">loc.levels =</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>,<span class="st">&quot;stateProvince&quot;</span>,<span class="st">&quot;municipality&quot;</span>,<span class="st">&quot;locality&quot;</span>),</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">scrap =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>Note that we performed the editing of the locality fields using the argument <code>scrap = TRUE</code>. This argument controls the search for missing information from the field ‘locality’ (i.e. text mining). It also performs some extra editing and cropping of the locality field to obtain more standardized locality descriptions. If the country, state, and municipality fields are given, they remain unaltered. Only missing information in these fields is completed by the editing and scrapping process.</p>
-<p>Although the search for missing localities generally results in empty fields (i.e. NAs), it does not mean that the information retrieved from this search is accurate. It depends on whether the information is actually available in the field ‘locality’ and how it is arranged.</p>
+<p><strong>plantR</strong> has a function to edit and standardize locality fields: function <code>fixLoc()</code>. By default, this function formats all four locality fields simultaneously and returns the input data frame with the new locality columns. But the user can choose to edit one field at a time by changing the function argument ‘admin.levels’ (in this case, the function returns a vector). However, some of the standardization processes become more complete if all the information is available for the four fields.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">fixLoc</span>(occs,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">loc.levels =</span> <span class="fu">c</span>(<span class="st">&quot;country&quot;</span>,<span class="st">&quot;stateProvince&quot;</span>,<span class="st">&quot;municipality&quot;</span>,<span class="st">&quot;locality&quot;</span>),</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">scrap =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Note that we performed the editing of the locality fields using the argument <code>scrap = TRUE</code>. This argument controls the search for missing information from the field ‘locality’ (i.e., text mining). It also performs some extra editing and cropping of the locality field to obtain more standardized locality descriptions. If the country, state, and municipality fields are given, they remain unaltered. Only missing information in these fields is completed by the editing and scrapping process.</p>
+<p>Although the search for missing localities generally results in empty fields (i.e., NAs), it does not mean that the information retrieved from this search is accurate. It depends on whether the information is actually available in the field ‘locality’ and how it is arranged.</p>
 </div>
 <div id="crossing-the-locality-information-with-the-gazetteer" class="section level3" number="4.2.2">
 <h3 number="4.2.2"><span class="header-section-number">4.2.2</span> Crossing the locality information with the gazetteer</h3>
 <p>To make sure that the original locality information and the missing information obtained from function <code>fixLoc()</code> are valid localities, we need to crosscheck it with a gazetteer. In <strong>plantR</strong>, the search for missing information from a gazetteer is based on a standard locality string. This string simply is the concatenation of the country, state, municipality and locality fields, at the best resolution available. This string is created using the function <code>strLoc()</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>locs <span class="ot">&lt;-</span> <span class="fu">strLoc</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>locs <span class="ot">&lt;-</span> <span class="fu">strLoc</span>(occs)</span></code></pre></div>
 <p>If the municipality exists for a given state and country, then it is deemed as being a valid locality name, and the locality string associated with it is given priority for the validation of the locality information (see below). If there is missing information, then the alternative locality string (obtained using argument <code>scrap</code> of function <code>fixLoc()</code>) is used as a final attempt to search for missing information in the gazetteer. If both these alternatives do not work, then the upper administrative level available is used as the reference locality information.</p>
-<p>The notation of locality information varies a lot, and there are many mistakes regarding the notation of some localities (e.g. “Balneário do Camboriú” instead of “Balneário Camboriú”). Therefore, it is useful to further simplify the locality strings, by reducing all name variants into the same locality string. This simplification is performed by the function <code>prepLoc()</code>:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string  <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string) <span class="co"># priority string</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string1 <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string1) <span class="co"># alternative string</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string2 <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string2) <span class="co"># alternative string</span></span></code></pre></div>
+<p>The notation of locality information varies a lot, and there are many mistakes regarding the notation of some localities (e.g., “Balneário do Camboriú” instead of “Balneário Camboriú”). Therefore, it is useful to further simplify the locality strings, by reducing all name variants into the same locality string. This simplification is performed by the function <code>prepLoc()</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string  <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string) <span class="co"># priority string</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string1 <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string1) <span class="co"># alternative string</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>locs<span class="sc">$</span>loc.string2 <span class="ot">&lt;-</span> <span class="fu">prepLoc</span>(locs<span class="sc">$</span>loc.string2) <span class="co"># alternative string</span></span></code></pre></div>
 <p>After the construction and simplification of the locality search strings, we can finally cross it with the gazetteer, using function <code>getLoc()</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>locs <span class="ot">&lt;-</span> <span class="fu">getLoc</span>(locs, <span class="at">gazet =</span> <span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
-<p>Some of the locality strings were retrieved in the default <strong>plantR</strong> gazetteer at the locality level (e.g. park, farm). The gazetteer is more complete for Latin America and it currently has information at the locality level mostly for Brazil. Therefore, info retrieval at the locality level should be biased towards specimens collected in Brazil. You can use the argument <code>gazet</code> to use your personal gazetteer instead of <strong>plantR</strong> default, as long as it contains the same fields (see the help of function <code>getLoc()</code> for more details).</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>locs <span class="ot">&lt;-</span> <span class="fu">getLoc</span>(locs, <span class="at">gazet =</span> <span class="st">&quot;plantR&quot;</span>)</span></code></pre></div>
+<p>Some of the locality strings were retrieved in the default <strong>plantR</strong> gazetteer at the locality level (e.g., park, farm). The gazetteer is more complete for Latin America and it currently has information at the locality level mostly for Brazil. Therefore, info retrieval at the locality level should be biased towards specimens collected in Brazil. You can use the argument <code>gazet</code> to use your personal gazetteer instead of <strong>plantR</strong> default, as long as it contains the same fields (see the help of function <code>getLoc()</code> for more details).</p>
 <p>Note that the function also returns the geographical coordinates from the gazetteer, if the locality information was found. Note as well that the edited version of the localities is different from the original localities regarding their resolution (see details in the next section, ‘Data validation’). <!-- ö
 add link to section--></p>
 <p>We then merge the new output of the locality data processing with the main data frame:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, locs[, <span class="fu">c</span>(<span class="st">&quot;loc&quot;</span>,<span class="st">&quot;loc.correct&quot;</span>,<span class="st">&quot;latitude.gazetteer&quot;</span>,<span class="st">&quot;longitude.gazetteer&quot;</span>,<span class="st">&quot;resolution.gazetteer&quot;</span>)])</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, locs[, <span class="fu">c</span>(<span class="st">&quot;loc&quot;</span>,<span class="st">&quot;loc.correct&quot;</span>,<span class="st">&quot;latitude.gazetteer&quot;</span>,<span class="st">&quot;longitude.gazetteer&quot;</span>,<span class="st">&quot;resolution.gazetteer&quot;</span>)])</span></code></pre></div>
 </div>
 <div id="the-wrapper-function-formatloc" class="section level3" number="4.2.3">
 <h3 number="4.2.3"><span class="header-section-number">4.2.3</span> The wrapper function <code>formatLoc()</code></h3>
 <p>As before, we provide a function to execute the previous steps at once:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Dropping fields not essential or recommended to the data cleaning!</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span></code></pre></div>
 </div>
 <div id="getting-correct-locality-names" class="section level3" number="4.2.4">
 <h3 number="4.2.4"><span class="header-section-number">4.2.4</span> Getting correct locality names</h3>
 <p>It may be useful to trace back the full and valid names of the localities retrieved from the gazetteer. This can be performed using the function <code>getAdmin()</code>, which makes the query based on the locality search string retrieved in the gazetteer:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">getAdmin</span>(occs))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">getAdmin</span>(occs))</span></code></pre></div>
+<pre><code>##                             loc.correct NAME_0              NAME_1
+## 1        brazil_rio grande norte_touros Brazil Rio Grande do Norte
+## 2       brazil_rio grande norte_macaiba Brazil Rio Grande do Norte
+## 3 brazil_pernambuco_jaboatao guararapes Brazil          Pernambuco
+## 4              brazil_parana_nova tebas Brazil              Paraná
+## 5        brazil_espirito santo_linhares Brazil      Espírito Santo
+## 6          brazil_sao paulo_nova odessa Brazil           São Paulo
+##                    NAME_2 NAME_3 source
+## 1                  Touros   &lt;NA&gt;   ibge
+## 2                 Macaíba   &lt;NA&gt;   ibge
+## 3 Jaboatão dos Guararapes   &lt;NA&gt;   ibge
+## 4              Nova Tebas   &lt;NA&gt;   ibge
+## 5                Linhares   &lt;NA&gt;   ibge
+## 6             Nova Odessa   &lt;NA&gt;   ibge</code></pre>
 </div>
 </div>
 <div id="editing-geographical-coordinates" class="section level2" number="4.3">
@@ -378,61 +401,118 @@ add link to section--></p>
 <div id="preparing-geographical-coordinates" class="section level3" number="4.3.1">
 <h3 number="4.3.1"><span class="header-section-number">4.3.1</span> Preparing geographical coordinates</h3>
 <p>Function <code>prepCoord()</code> transforms the coordinates into decimal degrees and add the columns “decimalLatitude.new” and “decimalLongitude.new”, which store the edited coordinates.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepCoord</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepCoord</span>(occs)</span></code></pre></div>
 </div>
 <div id="obtaining-coordinates-from-the-gazetteer" class="section level3" number="4.3.2">
 <h3 number="4.3.2"><span class="header-section-number">4.3.2</span> Obtaining coordinates from the gazetteer</h3>
 <p>Geographical coordinates are often missing or are provided in a format that the function <code>prepCoord()</code> cannot convert to decimal degrees. For the dataset we are using in this tutorial, we can inspect the proportion of occurrences without geographical coordinates:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="sc">!</span><span class="fu">is.na</span>(occs<span class="sc">$</span>decimalLatitude.new))<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="sc">!</span><span class="fu">is.na</span>(occs<span class="sc">$</span>decimalLatitude.new))<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## 
+##     FALSE      TRUE 
+## 0.4324454 0.5675546</code></pre>
 <p>As we can see, ca. 20% of the occurrences records have no coordinates. Therefore, one may want to use the coordinates obtained from the gazetteer to replace the missing coordinates. In <strong>plantR</strong> we use the function <code>getCoord()</code> to do this procedure. This function also flags the origin and the probable precision of the original coordinates:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCoord</span>(occs)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="sc">!</span><span class="fu">is.na</span>(occs<span class="sc">$</span>decimalLatitude.new))<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCoord</span>(occs)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="sc">!</span><span class="fu">is.na</span>(occs<span class="sc">$</span>decimalLatitude.new))<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## 
+##      FALSE       TRUE 
+## 0.02490117 0.97509883</code></pre>
 <p>Now, missing coordinates were obtained from a gazetteer and there is a coordinate at the best resolution available for almost all occurrences.</p>
 </div>
 <div id="the-wrapper-function-formatcoord" class="section level3" number="4.3.3">
 <h3 number="4.3.3"><span class="header-section-number">4.3.3</span> The wrapper function <code>formatCoord()</code></h3>
 <p>Similarly to the functions <code>formatOcc()</code> and <code>formatLoc()</code> from the previous editing steps, we provide a function that perform all the edits related to the geographical coordinates at once, the function <code>formatCoord()</code>. Because getting missing coordinates from the gazetteer depends on the editing of the locality information, we need to run <code>formatLoc()</code> before running <code>formatCoord()</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs1)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Dropping fields not essential or recommended to the data cleaning!</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs1)</span></code></pre></div>
 </div>
 </div>
 <div id="editing-species-taxonomic-information" class="section level2" number="4.4">
 <h2 number="4.4"><span class="header-section-number">4.4</span> Editing species taxonomic information</h2>
 <div id="editing-species-names" class="section level3" number="4.4.1">
 <h3 number="4.4.1"><span class="header-section-number">4.4.1</span> Editing species names</h3>
-<p>Although we downloaded occurrences for only three species names, the function <code>rspeciesLink()</code> returned (as required) all synonyms accepted by the Brazilian Flora 2020 (). In addition, the speciesLink network () stores the information as provided by the collections, which may vary in the way the scientific names are stored. For data downloaded from GBIF () this step may be unnecessary since GBIF already stores data in a more standardized way.</p>
+<p>Although we downloaded occurrences for only three species names, the function <code>rspeciesLink()</code> returned (as required) all synonyms accepted by the Brazilian Flora 2020 (). In addition, the speciesLink network () stores the information as provided by the collections, which may vary in the way the scientific names are stored. For data downloaded only from GBIF () this step may be unnecessary since GBIF already stores data in a more standardized way.</p>
 <p>The <strong>plantR</strong> function <code>fixSpecies()</code> performs several edits, including the isolation of taxonomic rank abbreviations, the detection of name modifiers (“cf.” and “aff.”) and a suggestion for the name status:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificName))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">fixSpecies</span>(occs)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificName.new))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">fixSpecies</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificName))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificName.new))</span></code></pre></div>
 <p>Note that the number of names has decreased, but there are still many different names than the three names used in the search. The possible statuses of those names are stored in the new column ‘scientificNameStatus’.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificNameStatus))</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">table</span>(occs<span class="sc">$</span>scientificNameStatus))</span></code></pre></div>
+<pre><code>## 
+##                   affinis      forma|name_w_authors                subspecies 
+##                         1                         2                         2 
+## subspecies|name_w_authors                  conferre    variety|name_w_authors 
+##                         3                        17                       780 
+##                   variety            infra_specific               possibly_ok 
+##                      1952                      2724                     15515 
+##            name_w_authors 
+##                     33138</code></pre>
 </div>
 <div id="species-synonyms-and-spelling" class="section level3" number="4.4.2">
 <h3 number="4.4.2"><span class="header-section-number">4.4.2</span> Species synonyms and spelling</h3>
-<p>Although the function <code>fixSpecies()</code> presented above formatted the species names, there are still many more names than the ones we downloaded. Most of them are names at the infra-specific level, but others are probably synonyms, orthographic variants or even typos. There are R packages that check species nomenclature (e.g. <strong>taxize</strong>, <strong>Taxonstand</strong>, and <strong>WorldFlora</strong>). For species listed in the Brazilian Flora 2020, there is also the package <code>flora</code>, which follow the accepted nomenclature of the Brazilian Flora 2020 project. <strong>plantR</strong> uses the functionalities of some of these packages to inspect possible suggestions for species names, through the function <code>prepSpecies()</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepSpecies</span>(occs, <span class="at">db =</span> <span class="fu">c</span>(<span class="st">&quot;bfo&quot;</span>, <span class="st">&quot;tpl&quot;</span>), <span class="at">sug.dist =</span> <span class="fl">0.85</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>suggestedName)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.notes)</span></code></pre></div>
+<p>Although the function <code>fixSpecies()</code> presented above formatted the species names, there are still many more names than the ones we downloaded. Most of them are names at the infra-specific level, but others are probably synonyms, orthographic variants or even typos. There are R packages that check species nomenclature (e.g., <strong>taxize</strong>, <strong>Taxonstand</strong>, and <strong>WorldFlora</strong>). For species listed in the Brazilian Flora 2020, there is also the package <code>flora</code>, which follow the accepted nomenclature of the Brazilian Flora 2020 project. <strong>plantR</strong> uses the functionalities of some of these packages to inspect possible suggestions for species names, through the function <code>prepSpecies()</code>:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepSpecies</span>(occs, <span class="at">db =</span> <span class="fu">c</span>(<span class="st">&quot;bfo&quot;</span>, <span class="st">&quot;tpl&quot;</span>), <span class="at">sug.dist =</span> <span class="fl">0.85</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>suggestedName)</span></code></pre></div>
+<pre><code>## 
+##        Casearia comocladifolia              Casearia decandra 
+##                              3                              2 
+##            Casearia sylvestris          Casselia integrifolia 
+##                          29326                              1 
+##                    Celtis lima                 Celtis riparia 
+##                              2                              4 
+##                 Euterpe edulis               Sponia micrantha 
+##                           1416                             19 
+##                Trema micrantha Trema micrantha var. floridana 
+##                          22256                            289 
+##               Trema orientalis                   Trema rugosa 
+##                              2                              3</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.notes)</span></code></pre></div>
+<pre><code>## 
+##                                              accepted, but at a higher rank 
+##                                 48068                                    35 
+##                      replaced synonym                        was misspelled 
+##                                  3269                                    32 
+## was misspelled|check undefined status       was misspelled|replaced synonym 
+##                                    19                                  1900</code></pre>
 <p>The final output of the function provides the valid names for the names that were retrieved in the two databases selected (column ‘suggestedName’). The function also returns which names were replaced or corrected (column ‘tax.notes’). In addition, the flag ‘check +1 accepted’ may represent an indication of possible homonyms, i.e., different species with the same binomial, but different authorities. Together with names there were not found in both databases, those possible homonyms may deserve closer attention.</p>
 <p>Note that there are still more names than those used to search for species records. Some of these differences are due to differences in the assignment of synonyms between speciesLink and the Brazilian Flora interface used here, the package <strong>flora</strong>.</p>
-<p>For our example, we decided to replace all edited species names (i.e. ‘scientificName.new’) by the suggested species names from the function <code>prepSpecies()</code> (i.e. ‘scientificName.new’). However, <strong>plantR</strong> does not execute this step automatically and the decision to do it should be taken by the user:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>scientificName.new <span class="ot">&lt;-</span> occs<span class="sc">$</span>suggestedName</span></code></pre></div>
+<p>For our example, we decided to replace all edited species names (i.e., ‘scientificName.new’) by the suggested species names from the function <code>prepSpecies()</code> (i.e., ‘scientificName.new’). However, <strong>plantR</strong> does not execute this step automatically and the decision to do it should be taken by the user:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>scientificName.new <span class="ot">&lt;-</span> occs<span class="sc">$</span>suggestedName</span></code></pre></div>
 </div>
 <div id="botanical-family-synonyms-and-standardization" class="section level3" number="4.4.3">
 <h3 number="4.4.3"><span class="header-section-number">4.4.3</span> Botanical family synonyms and standardization</h3>
 <p>The classification of the taxonomic confidence in species determination of each occurrence is currently performed based on a global list of taxonomists per family (see details below). Because different plant classification systems can use different names to the same family, we need to standardize family names. The standard used by <strong>plantR</strong> to obtain valid family names is the APG IV and the PPG I, which can be obtained using the function <code>prepFamily()</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepFamily</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">prepFamily</span>(occs)</span></code></pre></div>
+<pre><code>## The following family names were automatically replaced:
+## 
+## |Genus    |Old fam.       |New fam.    |
+## |:--------|:--------------|:-----------|
+## |Casearia |Fabaceae       |Salicaceae  |
+## |Casearia |Vivianiaceae   |Salicaceae  |
+## |Euterpe  |Palmae         |Arecaceae   |
+## |Trema    |Connaraceae    |Cannabaceae |
+## |Trema    |Flacourtiaceae |Cannabaceae |
+## |Trema    |Ulmaceae       |Cannabaceae |</code></pre>
 <p>Note that the function returns warnings in the case of conflicts on family names between the original occurrences and the APG IV/PPG I family list. Some are just differences in the list of names accepted from different classification systems, but some may represent errors.</p>
 </div>
 <div id="the-wrapper-function-formattax" class="section level3" number="4.4.4">
 <h3 number="4.4.4"><span class="header-section-number">4.4.4</span> The wrapper function <code>formatTax()</code></h3>
 <p>As for the other parts of the data editing and standardization, we provide a simple wrapper function that executes the steps above at once:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs1)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Dropping fields not essential or recommended to the data cleaning!</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs1)</span></code></pre></div>
+<pre><code>## The following family names were automatically replaced:
+## 
+## |Genus    |Old fam.       |New fam.    |
+## |:--------|:--------------|:-----------|
+## |Casearia |Fabaceae       |Salicaceae  |
+## |Casearia |Vivianiaceae   |Salicaceae  |
+## |Euterpe  |Palmae         |Arecaceae   |
+## |Trema    |Connaraceae    |Cannabaceae |
+## |Trema    |Flacourtiaceae |Cannabaceae |
+## |Trema    |Ulmaceae       |Cannabaceae |</code></pre>
 <p><br /><br /></p>
 </div>
 </div>
@@ -442,12 +522,25 @@ add link to section--></p>
 <p>The validation steps in <strong>plantR</strong> add new columns to the species data, flagging possible problems. Depending on the study aims and spatial scale, one can use these new columns to try to correct some of the problems or drop them from the final data set.</p>
 <div id="validation-of-locality-information-function-validateloc" class="section level2" number="5.1">
 <h2 number="5.1"><span class="header-section-number">5.1</span> Validation of locality information: function <code>validateLoc()</code></h2>
-<p>The editing process of locality information and its comparison against the gazetteer return the localities (and coordinates) at the best resolution available. In this comparison, much information provided at the locality level is only retrieved at the municipality level, which is expected due to the completeness of the gazetteer used (not all names of places are stored in the standard <strong>plantR</strong> gazetteer at the locality level). But many of them are only retrieved at the state/province level, meaning that fields containing state and municipality information may need to be checked.</p>
+<p>The standardization process of locality information and its comparison against the gazetteer return the localities (and coordinates) at the best resolution available. In this comparison, much information provided at the locality level is only retrieved at the municipality level, which is expected due to the completeness of the gazetteer used (not all names of places are stored in the standard <strong>plantR</strong> gazetteer at the locality level). But many of them are only retrieved at the state/province level, meaning that fields containing state and municipality information may need to be checked.</p>
 <p>In <strong>plantR</strong> the resolution of the locality information provided with the specimen and the one found in the gazetteer are described using the function <code>validateLoc()</code>, which compares the two resolutions and stores the result of this comparison in a new column called ‘loc.check’:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>loc.check)</span></code></pre></div>
-<p>In this column, specimens for which the locality provided could not be found in the gazetteer at the same resolution are flagged with a “check_…”. In these cases, the locality resolution is downgraded until a locality is found in the gazetteer. In the case that even the country is not found, then the locality is flagged as “no_info”. We also flag all the specimens that retained their resolution (i.e. “ok_same_resolution”) and those that could be retrieved at a better locality resolution, also flagged with an “ok_” (e.g. ‘ok_state2municipality’: a record which had its original resolution at the ‘stateProvince’ level is now at the ‘municipality’ level).</p>
-<p>Note that many occurrences were flagged with a “check_…”. The class “check_local.2municip.” should not be a problem, since the internal <strong>plantR</strong> gazetteer does not contain a comprehensive list of names at the locality level for the entire world. However, other “check_…” classes (e.g. “check_local.2country”) may indicate missing information or typos that may need some more careful inspection.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs)</span></code></pre></div>
+<pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
+##                original
+## edited          country locality municipality no_info stateProvince
+##   country          6489      924           91       0            36
+##   locality           41     5446            2       0             0
+##   municipality       14    23587         4864       0             4
+##   no_info            54       33            0    1287             1
+##   stateProvince       2    10004          263       0           992</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>loc.check)</span></code></pre></div>
+<pre><code>##  [1] &quot;ok_same_resolution&quot;     &quot;check_local.2municip.&quot;  &quot;check_local.2state&quot;    
+##  [4] &quot;check_local.2country&quot;   &quot;ok_country2locality&quot;    &quot;check_municip.2state&quot;  
+##  [7] &quot;check_country2no.info&quot;  &quot;ok_country2municip.&quot;    &quot;check_local.2no.info&quot;  
+## [10] &quot;ok_state2municip.&quot;      &quot;ok_municip.2locality&quot;   &quot;ok_country2state&quot;      
+## [13] &quot;check_state2country&quot;    &quot;check_municip.2country&quot; &quot;check_state2no.info&quot;</code></pre>
+<p>In this column, specimens for which the locality provided could not be found in the gazetteer at the same resolution are flagged with a “check_…”. In these cases, the locality resolution is downgraded until a locality is found in the gazetteer. In the case that even the country is not found, then the locality is flagged as “no_info”. We also flag all the specimens that retained their resolution (i.e., “ok_same_resolution”) and those that could be retrieved at a better locality resolution, also flagged with an “ok_” (e.g., ‘ok_state2municipality’: a record which had its original resolution at the ‘stateProvince’ level is now at the ‘municipality’ level).</p>
+<p>Note that many occurrences were flagged with a “check_…”. The class “check_local.2municip.” should not be a problem, since the internal <strong>plantR</strong> gazetteer does not contain a comprehensive list of names at the locality level for the entire world. However, other “check_…” classes (e.g., “check_local.2country”) may indicate missing information or typos that may need some more careful inspection.</p>
 </div>
 <div id="validation-of-the-geographical-coordinates" class="section level2" number="5.2">
 <h2 number="5.2"><span class="header-section-number">5.2</span> Validation of the geographical coordinates</h2>
@@ -456,119 +549,192 @@ add link to section--></p>
 <div id="validate-original-coordinates-at-country-state-and-county-level" class="section level3" number="5.2.1">
 <h3 number="5.2.1"><span class="header-section-number">5.2.1</span> Validate original coordinates at country, state and county level</h3>
 <p>The first step of the validation of the geographical coordinates is to check the original coordinates against the world (at the country level) and Latin-American maps (at the county level). This step is performed by the function <code>checkCoord()</code>, which returns a new column ‘geo.check’ containing the results:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkCoord</span>(occs,</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">keep.cols =</span> <span class="fu">c</span>(<span class="st">&quot;geo.check&quot;</span>, <span class="st">&quot;NAME_0&quot;</span>, <span class="st">&quot;country.gazet&quot;</span>))</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkCoord</span>(occs,</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">keep.cols =</span> <span class="fu">c</span>(<span class="st">&quot;geo.check&quot;</span>, <span class="st">&quot;NAME_0&quot;</span>, <span class="st">&quot;country.gazet&quot;</span>))</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<pre><code>##  [1] &quot;ok_county&quot;         &quot;ok_county_gazet&quot;   &quot;ok_locality_gazet&quot;
+##  [4] &quot;ok_country&quot;        &quot;bad_country&quot;       &quot;ok_state&quot;         
+##  [7] &quot;sea&quot;               &quot;ok_state_gazet&quot;    &quot;ok_country_gazet&quot; 
+## [10] &quot;no_cannot_check&quot;   &quot;check_gazetteer&quot;</code></pre>
 <p>The new column ‘geo.check’ has some main types of classes. The first type starts with an ‘ok_’ and is followed by the level at which the coordinate was validated (e.g., country, state, county). It also contains the classes ‘sea’ (i.e., coordinates falling into the sea or bays), ‘bad_country’ (i.e., coordinates falling in the land but in the wrong country), ‘check_gazetteer’ (i.e., locality not found in the gazetteer) and ‘no_cannot_check’ (i.e., no coordinates available).</p>
 <p>The function <code>checkCoord()</code> can also return the distance (in meters) between the original coordinates from the county centroid listed in the locality information of the record. This may help to spot coordinates that were not validated but that are close to the reference locality.</p>
 </div>
 <div id="coordinates-falling-in-a-neighbouring-country" class="section level3" number="5.2.2">
 <h3 number="5.2.2"><span class="header-section-number">5.2.2</span> Coordinates falling in a neighbouring country</h3>
 <p>Sometimes geographical coordinates can fall in another country due to rounding or precision issues or simply because the collector was not aware that a country’s border was crossed before obtaining the coordinates. The function <code>checkBorders()</code> flag those cases, which is only done for the subset of records flagged previously as ‘bad_country’:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkBorders</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkBorders</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<pre><code>##  [1] &quot;ok_county&quot;              &quot;ok_county_gazet&quot;        &quot;ok_locality_gazet&quot;     
+##  [4] &quot;ok_country&quot;             &quot;bad_country[border]&quot;    &quot;ok_state&quot;              
+##  [7] &quot;sea&quot;                    &quot;ok_state_gazet&quot;         &quot;ok_country_gazet&quot;      
+## [10] &quot;no_cannot_check&quot;        &quot;bad_country[inverted?]&quot; &quot;check_gazetteer&quot;</code></pre>
 <p>Note that for this example, we have set the argument <code>output</code> to ‘same.col’. This means that the output of the function will be merged into the existing column ‘geo.check’. But if one wants to store this information in a separate column, this argument can be set to ‘new.col’ and a new column called ‘border.check’ will be created.</p>
-<!-- Andrea, nenhum border foi encontrado... tá certo isso? lembro que antes
-encontrava aluma coisa... please double-check! -->
-<!-- Andrea, algo mais a dizer/detalhar aqui? -->
 </div>
 <div id="coordinates-in-the-sea-but-close-to-the-shore" class="section level3" number="5.2.3">
 <h3 number="5.2.3"><span class="header-section-number">5.2.3</span> Coordinates in the sea but close to the shore</h3>
 <p>For those geographical coordinates flagged as falling into the sea, we can check if they are close to the shore. Sometimes the coordinate was noted on land, but it falls into the sea due to rounding or precision issues, or simply because the reference map does not contain all islands or contours of the shoreline. In <strong>plantR</strong> this step is performed by the function <code>checkShore()</code>:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkShore</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkShore</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<pre><code>##  [1] &quot;ok_county&quot;              &quot;ok_county_gazet&quot;        &quot;ok_locality_gazet&quot;     
+##  [4] &quot;ok_country&quot;             &quot;bad_country[border]&quot;    &quot;ok_state&quot;              
+##  [7] &quot;shore&quot;                  &quot;ok_state_gazet&quot;         &quot;open_sea&quot;              
+## [10] &quot;ok_country_gazet&quot;       &quot;no_cannot_check&quot;        &quot;bad_country[inverted?]&quot;
+## [13] &quot;check_gazetteer&quot;</code></pre>
 <p>As a result, the function <code>checkShore()</code> has re-classified all records flagged as ‘sea’ into ‘shore’ (i.e., near to the shore) and ‘open_sea’ (i.e., far from the shore). By default, this verification is performed by comparing the coordinates against a buffer of 0.5 degrees around continents and major islands (as above). So, open sea records are those more than 0.5 degrees (~ 55 km in the Equator) from continents and major islands. But this verification can also be performed by calculating the distance of each coordinate to the shore and establishing maximum distance as a limit to flag the coordinate as being close to shore (takes much longer).</p>
 </div>
 <div id="inverted-and-swapped-coordinates" class="section level3" number="5.2.4">
 <h3 number="5.2.4"><span class="header-section-number">5.2.4</span> Inverted and swapped coordinates</h3>
-<p>There are still coordinates flagged a ‘bad_country’ in our dataset. Some of those records can be due to inversions in the longitude and latitude or to the swapping/transposing between them (i.e. latitude as longitude or vice-versa).</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkInverted</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<p>There are still coordinates flagged a ‘bad_country’ in our dataset. Some of those records can be due to inversions in the longitude and latitude or to the swapping/transposing between them (i.e., latitude as longitude or vice-versa).</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkInverted</span>(occs, <span class="at">output =</span> <span class="st">&#39;same.col&#39;</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(occs<span class="sc">$</span>geo.check)</span></code></pre></div>
+<pre><code>##  [1] &quot;ok_county&quot;               &quot;ok_county_gazet&quot;        
+##  [3] &quot;ok_locality_gazet&quot;       &quot;ok_country&quot;             
+##  [5] &quot;bad_country[border]&quot;     &quot;ok_state&quot;               
+##  [7] &quot;shore&quot;                   &quot;ok_state_gazet&quot;         
+##  [9] &quot;open_sea&quot;                &quot;ok_country_gazet&quot;       
+## [11] &quot;no_cannot_check&quot;         &quot;bad_country&quot;            
+## [13] &quot;check_gazetteer&quot;         &quot;ok_country[invert_lat]&quot; 
+## [15] &quot;ok_country[transposed]&quot;  &quot;ok_country[invert_lon]&quot; 
+## [17] &quot;ok_country[invert_both]&quot;</code></pre>
 <p>As a result, some of the records could be validated by inverting or swapping their coordinates. These records are flagged as “ok_country” followed by the combination of inverted and/or swapped coordinates for which validation was acquired in brackets. Note that this function does not perform the validation of the newly arranged coordinates at the state and county levels. So, if deemed necessary, the user can re-include them in the function <code>checkCoord()</code>, and step which is automatically executed by the wrapper function <code>validateCoord()</code> presented below.</p>
 </div>
 <div id="records-from-cultivated-individuals" class="section level3" number="5.2.5">
 <h3 number="5.2.5"><span class="header-section-number">5.2.5</span> Records from cultivated individuals</h3>
-<p>Although records from cultivated individuals are not determined in <strong>plantR</strong> using the geographical coordinates, cultivated individuals can sometimes be related to records far away from the species’ original distribution. Thus, flagging these records may be important for subsetting the data for downstream analysis. Function <code>getCult()</code> flags cultivated or possibly cultivated records in a new column called ‘cult.check’:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCult</span>(occs)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>cult.check)</span></code></pre></div>
-<p>Note that the function flags two categories: ‘cultivated’ and ‘prob_cultivated’. The first is related to records with descriptions using terms that clearly denote cultivated individuals (e.g. ‘Cultivated’, ‘Planted’, ‘Exotic’). The second category is related to records that contain those terms in their descriptions, but that may need some level of double-checking by the user before they can be safely removed as being true records from cultivated individuals.</p>
+<p>Although records from cultivated individuals are not detected using their geographical coordinates, we included the search for cultivated individuals in this section because they are often related to records far away from the species’ original distribution but not always. There are cases when cultivated individuals are within or close to the limits of the species range (i.e. public squares, botanical gardens, home yards) and so they will not be flagged as spatial outliers (see section ‘Spatial outliers’ below). Flagging these cultivated records may be important for subsetting the data for downstream analysis.</p>
+<p>Function <code>getCult()</code> flags cultivated or possibly cultivated records in a new column called ‘cult.check’:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">getCult</span>(occs)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>cult.check)</span></code></pre></div>
+<pre><code>## 
+##      cultivated prob_cultivated 
+##              10             196</code></pre>
+<p>Note that the function flags two categories: ‘cultivated’ and ‘prob_cultivated’. The first is related to records with descriptions that contain some terms that clearly denote records from cultivated individuals (e.g., ‘Cultivated’, ‘Planted’, ‘Exotic’). The second category is related to records that contain those terms in their descriptions, but not exclusively (e.g. ‘Presence of exotic species’). These cases may lead to spurious flags of cultivated records and so they may need some level of double-checking by the user before they can be safely removed as being true records from cultivated individuals. But as the names of the two categories suggest, there is more certainty that a record was actually taken from a cultivated individual if it is flagged as ‘cultivated’ than if it is flagged as ‘prob_cultivated’.</p>
 </div>
 <div id="spatial-outliers" class="section level3" number="5.2.6">
 <h3 number="5.2.6"><span class="header-section-number">5.2.6</span> Spatial outliers</h3>
-<p>The last step of the validation of geographical coordinates is the search for spatial outliers (i.e., records too far away from species core distributions), which can indicate misidentifications or records obtained from cultivated individuals but not declared as such. In <strong>plantR</strong>, the search for spatial outliers is based on Mahalanobis distances and is executed using the function <code>checkOut()</code>:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkOut</span>(occs, <span class="at">tax.name =</span> <span class="st">&quot;scientificName.new&quot;</span>)</span></code></pre></div>
-<p>Note that since the search for spatial outliers is performed species by species, we need to provide the name of the column containing the species names. By default, the function also removes invalid geographical coordinates and records flagged as cultivated from the estimation of the center and co-variance matrix of the geographical coordinates, which are used to get the Mahalanobis distances.</p>
+<p>The last step of the validation of geographical coordinates is the search for spatial outliers (i.e., records too far away from species core distributions), which can indicate misidentifications or records obtained from cultivated individuals, but not always (as explained in the previous section). In <strong>plantR</strong>, the search for spatial outliers is based on Mahalanobis distances and is executed using the function <code>checkOut()</code>:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">checkOut</span>(occs, <span class="at">tax.name =</span> <span class="st">&quot;scientificName.new&quot;</span>)</span></code></pre></div>
+<p>Note that since the search for spatial outliers is performed species by species, we need to provide the name of the column containing the taxon names. By default, the function internally removes invalid geographical coordinates and records flagged as cultivated prior to the estimation of the center and co-variance matrix of the geographical coordinates, which are used to get the Mahalanobis distances.</p>
 </div>
 <div id="the-wrapper-function-validatecoord" class="section level3" number="5.2.7">
 <h3 number="5.2.7"><span class="header-section-number">5.2.7</span> The wrapper function <code>validateCoord()</code></h3>
 <p>Similar to the other steps of the <strong>plantR</strong> workflow, all the steps related to the validation of the geographical coordinates can be performed at once, using the function <code>validateCoord()</code>. Since this function uses information from localities,and taxonomic information, besides the geographical coordinates themselves, all format and validation steps related to this information should have been carried previously.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs1)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs1)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs1)</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateCoord</span>(occs1)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatDwc</span>(<span class="at">splink_data =</span> occs_splink,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gbif_data =</span> occs_gbif, <span class="at">drop =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Dropping fields not essential or recommended to the data cleaning!</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatLoc</span>(occs1)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatCoord</span>(occs1)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">formatTax</span>(occs1)</span></code></pre></div>
+<pre><code>## The following family names were automatically replaced:
+## 
+## |Genus    |Old fam.       |New fam.    |
+## |:--------|:--------------|:-----------|
+## |Casearia |Fabaceae       |Salicaceae  |
+## |Casearia |Vivianiaceae   |Salicaceae  |
+## |Euterpe  |Palmae         |Arecaceae   |
+## |Trema    |Connaraceae    |Cannabaceae |
+## |Trema    |Flacourtiaceae |Cannabaceae |
+## |Trema    |Ulmaceae       |Cannabaceae |</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateLoc</span>(occs1)</span></code></pre></div>
+<pre><code>## [1] &quot;Locality resolution in the original data vs. edited data:&quot;
+##                original
+## edited          country locality municipality no_info stateProvince
+##   country          6489      924           91       0            36
+##   locality           41     5446            2       0             0
+##   municipality       14    23587         4864       0             4
+##   no_info            54       33            0    1287             1
+##   stateProvince       2    10004          263       0           992</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateCoord</span>(occs1)</span></code></pre></div>
 </div>
 </div>
 <div id="confidence-level-of-species-determinations-function-validatetax" class="section level2" number="5.3">
 <h2 number="5.3"><span class="header-section-number">5.3</span> Confidence level of species determinations: function <code>validateTax()</code></h2>
 <p>One of the main features of <strong>plantR</strong> is the possibility of validating species identifications against a global list of plant taxonomists. This validation consists of the classification of the species identification of each record into different confidence levels and it is performed using the function <code>validateTax()</code>:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span>  <span class="fu">validateTax</span>(occs)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check)<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span>  <span class="fu">validateTax</span>(occs)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check)<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
 <p>As expected, only ca. 15% of the specimens were identified by a family specialist. Note that the function also returns a list with the names in the TDWG format that have many identifications but are not listed as family specialists in the <strong>plantR</strong> database of plant taxonomists. Maybe this name could represent a missing taxonomist from the database. If this is the case, one can add one or more taxonomist names to the validation using the argument <code>miss.taxonomist</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs, <span class="at">miss.taxonomist =</span> <span class="fu">c</span>(<span class="st">&quot;Salicaceae_Hatschbach, G.&quot;</span>))</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs1<span class="sc">$</span>tax.check)<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>occs1 <span class="ot">&lt;-</span> <span class="fu">validateTax</span>(occs, <span class="at">miss.taxonomist =</span> <span class="fu">c</span>(<span class="st">&quot;Salicaceae_Hatschbach, G.&quot;</span>))</span></code></pre></div>
+<pre><code>## Top people with many determinations but not in the taxonomist list: 
+## 
+## |Identifier    | Records|
+## |:-------------|-------:|
+## |(mo, N.L.R.L. |       1|
+## |(NA)          |       1|</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs1<span class="sc">$</span>tax.check)<span class="sc">/</span><span class="fu">dim</span>(occs)[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## 
+##         high          low      unknown 
+## 5.874312e-03 3.694536e-05 9.940887e-01</code></pre>
 <p>This is not the optimal example because Gerdt (Guenther) Hatschbach was not a Salicaceae specialist. However, he provided determinations for many different families outside his specialty, often referred to as a generalist. There are some names of generalists in the <strong>plantR</strong> default taxonomist database, and those names can be included in the taxonomic validation through the arguments <code>generalist</code>. However, this list of generalist names is biased towards South America, particularly Brazil.</p>
-<p><br /><br /></p>
 </div>
 <div id="duplicated-specimens" class="section level2" number="5.4">
 <h2 number="5.4"><span class="header-section-number">5.4</span> Duplicated specimens</h2>
-<p>Another main feature of <strong>plantR</strong> is the search for duplicated records across collections (i.e. same specimen deposited in different biological collections) and the homogenization of the information within groups of duplicated records.</p>
+<p>Another main feature of <strong>plantR</strong> is the search for duplicated records across collections (i.e. same specimen deposited in different biological collections) and the propagation and homogenization of the information within groups of duplicated records.</p>
 <div id="create-unique-record-identifiers" class="section level3" number="5.4.1">
 <h3 number="5.4.1"><span class="header-section-number">5.4.1</span> Create unique record identifiers</h3>
 <p>First we need to make sure that each records from each collection has it own record identifier. This identifier is used to created the groups of duplicated records. In <strong>plantR</strong>, we create this identifier by concatenating the collection code (edited field ‘collectionCode.new’) and accession number of each record (field ‘catalogNumber’) using the function <code>getTombo()</code>. And we are going to call it ‘numTombo’:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>numTombo <span class="ot">&lt;-</span> <span class="fu">getTombo</span>(occs[, <span class="st">&quot;collectionCode.new&quot;</span>],</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                            occs[, <span class="st">&quot;catalogNumber&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>occs<span class="sc">$</span>numTombo <span class="ot">&lt;-</span> <span class="fu">getTombo</span>(occs[, <span class="st">&quot;collectionCode.new&quot;</span>],</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>                            occs[, <span class="st">&quot;catalogNumber&quot;</span>])</span></code></pre></div>
 <p>The function returns identifiers such as “UEC_42115” or “CEPEC_1133”.</p>
 </div>
 <div id="preparing-to-search-for-duplicates" class="section level3" number="5.4.2">
 <h3 number="5.4.2"><span class="header-section-number">5.4.2</span> Preparing to search for duplicates</h3>
 <p>Before searching for the duplicates, we first need to prepare the dataset for the search. The function <code>prepDup()</code> basically creates concatenated strings with different sets of information, which will be used in the search. Different combinations of fields can be used to generate these search strings and they should be provided using the argument <code>comb.fields</code>:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">prepDup</span>(occs, </span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">comb.fields =</span>   <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;family&quot;</span>,<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.loc&quot;</span>),</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">c</span>(<span class="st">&quot;family&quot;</span>,<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.year&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">prepDup</span>(occs, </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">comb.fields =</span>   <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;family&quot;</span>,<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.loc&quot;</span>),</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">c</span>(<span class="st">&quot;family&quot;</span>,<span class="st">&quot;col.last.name&quot;</span>,<span class="st">&quot;col.number&quot;</span>,<span class="st">&quot;col.year&quot;</span>)))</span></code></pre></div>
 <p>In this example, we used two search strings, which differ from the last information (collection locality vs. collection year). The use of two or more search strings increases the chance of finding duplicates even if one or more information is missing.</p>
-<p>Note that we used the default arguments of the <code>prepDup()</code> function, which exclude from the search the strings without collector name, number or year (e.g. ‘s.n.’ or ‘s.d.’), as well as missing information for these columns (i.e. NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates increase as well (e.g. Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.).</p>
+<p>Note that we used the default arguments of the <code>prepDup()</code> function, which exclude from the search the strings without collector name, number or year (e.g., ‘s.n.’ or ‘s.d.’), as well as missing information for these columns (i.e., NAs). If one decided to include those strings in the search, the number of specimens that will pass the duplicate search will increase but the chances of finding false duplicates increase as well (e.g., Salicaceae + s.n. + s.n. + Ubatuba or Salicaceae + s.n. + s.n. + s.d.).</p>
 </div>
 <div id="finding-duplicates-across-collections" class="section level3" number="5.4.3">
 <h3 number="5.4.3"><span class="header-section-number">5.4.3</span> Finding duplicates across collections</h3>
 <p>Next, we can actually search for duplicated specimens using the function <code>getDup()</code>:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">getDup</span>(dups)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dups[<span class="fu">order</span>(dups<span class="sc">$</span>dup.ID),],<span class="dv">6</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dups<span class="sc">$</span>dup.prop)</span></code></pre></div>
-<p>As a result, we found over 6000 records with a high chance of representing true duplicates, i.e. the proportion of search strings shared between them is maximum (dup.prop = 1). Other ~1000 specimens had only one search string in common. Moreover, there is an indication of possible ~7000 unicates, and of other ~5000 specimens we could not check for duplicates (i.e. all search strings used have missing information).</p>
-<p>Note that if there are duplicated record identifiers (i.e. same accession number from the same collection) both are listed within the accession number grouped in the new column ‘dup.ID’.</p>
-<p>It is important to notice that the results of this duplicate search are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g. collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g. ‘Silva’, ‘Santos’ or ‘Lima’ for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information decreases the chance of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by <strong>plantR</strong> (e.g. Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g. collector number or collection year or locality), they can not enter the duplicate search.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>dups <span class="ot">&lt;-</span> <span class="fu">getDup</span>(dups)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dups[<span class="fu">order</span>(dups<span class="sc">$</span>dup.ID),],<span class="dv">6</span>)</span></code></pre></div>
+<pre><code>##     numTombo                      dup.srch.str1                dup.srch.str2
+## 1  HST_23333     Salicaceae_Gaudichaud_3_touros Salicaceae_Gaudichaud_3_2021
+## 2  HST_23363       Salicaceae_Riecre_47_macaiba    Salicaceae_Riecre_47_2021
+## 3  HST_23291                               &lt;NA&gt;                         &lt;NA&gt;
+## 4  HCF_31796                               &lt;NA&gt;                         &lt;NA&gt;
+## 5 CVRD_16660    Salicaceae_Spruce_1334_linhares  Salicaceae_Spruce_1334_2020
+## 6 UEC_207122 Salicaceae_Peckolt_680_nova odessa  Salicaceae_Peckolt_680_2020
+##   dup.numb dup.prop dup.ID
+## 1        0        0     NA
+## 2        0        0     NA
+## 3       cc       cc     NA
+## 4       cc       cc     NA
+## 5        0        0     NA
+## 6        0        0     NA</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dups<span class="sc">$</span>dup.prop)</span></code></pre></div>
+<pre><code>## 
+##     0    cc 
+##    12 54122</code></pre>
+<p>As a result, we found over 6000 records with a high chance of representing true duplicates, i.e., the proportion of search strings shared between them is maximum (dup.prop = 1). Other ~1000 specimens had only one search string in common. Moreover, there is an indication of possible ~7000 unicates, and of other ~5000 specimens we could not check for duplicates (i.e., all search strings used have missing information).</p>
+<p>Note that if there are duplicated record identifiers (i.e., same accession number from the same collection) both are listed within the accession number grouped in the new column ‘dup.ID’.</p>
+<p>It is important to notice that the results of this duplicate search are only indications. First of all, the retrieval of duplicates depends on the dataset itself: if the collection where the duplicate was deposited is not within the dataset (e.g., collection is not in speciesLink or GBIF), the duplicate cannot be retrieved for obvious reasons. But other issues may change the number of unicates and duplicates found. If the search string is too flexible (e.g. only collector name and number), false duplicates may be retrieved if collector names are common (e.g., ‘Silva’, ‘Santos’ or ‘Lima’ for Portuguese family names) and collector numbers are low. So having more than one search string with at least 3 combinations of information decreases the chance of false duplicates. On the other hand, we may have false unicates due to differences in the notation among collections, which could not be solved by <strong>plantR</strong> (e.g., Mattos-Silva, L.A. vs. Silva, L.A.M.), or typos (e.g. Hoffmannsegg, J.C. vs. Hoffmannseg, J.C.). Finally, many duplicates may still exist but due to missing information (e.g., collector number or collection year or locality), they can not enter the duplicate search.</p>
 </div>
 <div id="homogenizing-the-information-within-duplicates" class="section level3" number="5.4.4">
 <h3 number="5.4.4"><span class="header-section-number">5.4.4</span> Homogenizing the information within duplicates</h3>
-<p>Since the amount and quality of the information among collections may vary, one may want to homogenize the information within the duplicates. This homogenization can be carried out regarding the specimen’s identification or their locality and geographical coordinates. First, we need to combine the results of the duplicate search with the main data frame:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                         dups[,<span class="fu">c</span>(<span class="st">&quot;dup.ID&quot;</span>, <span class="st">&quot;dup.numb&quot;</span>, <span class="st">&quot;dup.prop&quot;</span>)],</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p>Next, we use the function <code>mergeDup()</code> to perform the homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicates.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">mergeDup</span>(occs)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check, occs<span class="sc">$</span>tax.check1)</span></code></pre></div>
-<p>In this example, we show that the function was able to retrieve high-confidence species identifications for about 6000 specimens with low or unknown confidence levels. There was also an improvement on the stats regarding the geographical and locality checks (i.e. columns ‘geo.check’ vs. ‘geo.check1’ and ‘loc.check’ vs. ‘loc.check1’)</p>
+<p>Since the amount and quality of the information among collections may vary, one may want to propagate/homogenize the information within the duplicates. This homogenization can be carried out regarding the specimen’s identification or their locality and geographical coordinates. First, we need to combine the results of the duplicate search with the main data frame:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(occs, </span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>                         dups[,<span class="fu">c</span>(<span class="st">&quot;dup.ID&quot;</span>, <span class="st">&quot;dup.numb&quot;</span>, <span class="st">&quot;dup.prop&quot;</span>)],</span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Next, we use the function <code>mergeDup()</code> to perform the propagation and homogenization itself, which aims at expanding the best-quality information found across all specimens of each group of duplicates.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">mergeDup</span>(occs)</span></code></pre></div>
+<pre><code>## Warning: To merge taxonomic info, the input data must contain the following
+## column(s): tax.check. Skipping &#39;tax&#39; from info to merge.</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(occs<span class="sc">$</span>tax.check, occs<span class="sc">$</span>tax.check1)</span></code></pre></div>
+<pre><code>## &lt; table of extent 0 x 0 &gt;</code></pre>
+<p>In this example, we show that the function was able to retrieve high-confidence species identifications for about 6000 specimens with low or unknown confidence levels. There was also an improvement on the stats regarding the geographical and locality checks (i.e., columns ‘geo.check’ vs. ‘geo.check1’ and ‘loc.check’ vs. ‘loc.check1’).</p>
 <p>Note that we used the function defaults, which created new columns for the merged information. If one wants to save the new information in the same columns, the argument <code>overwrite</code> should be set to <code>TRUE</code>.</p>
 </div>
 <div id="removing-duplicates-after-homogenization" class="section level3" number="5.4.5">
 <h3 number="5.4.5"><span class="header-section-number">5.4.5</span> Removing duplicates after homogenization</h3>
 <p><strong>plantR</strong> provides a simple function for the (fast) removal of duplicates from the data. By default, only duplicated records from the same collections are removed from the dataset. But if the argument <code>rm.all</code> is set to TRUE, all duplicates are removed from the data (i.e., only one record per group of duplicates remains in the dataset). This procedure should only be performed if the user deems it necessary and after the information among groups of duplicates has been homogenized. All the non-homogenized information contained in the other specimens is lost.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">rmDup</span>(occs)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 54134   100</span></span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>occs <span class="ot">&lt;-</span> <span class="fu">rmDup</span>(occs)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;No duplicate IDs available. Returning the same input data frame&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(occs)</span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 54134   100</span></span></code></pre></div>
 </div>
 <div id="the-wrapper-function-validatedup" class="section level3" number="5.4.6">
 <h3 number="5.4.6"><span class="header-section-number">5.4.6</span> The wrapper function <code>validateDup()</code></h3>
@@ -579,26 +745,168 @@ encontrava aluma coisa... please double-check! -->
 </div>
 <div id="data-summary-and-export" class="section level1" number="6">
 <h1 number="6"><span class="header-section-number">6</span> Data summary and export</h1>
-<p>Finally, <strong>plantR</strong> can help users to summarize their data sets and the flags of the validation process. It also provides species checklists with user-defined numbers of voucher specimens and the export of records by groups (e.g. families, countries, collections).</p>
+<p>Finally, <strong>plantR</strong> can help users to summarize their data sets and the flags of the validation process. It also provides list of species with user-defined numbers of voucher specimens and the export of records by groups (e.g., families, countries, collections).</p>
 <div id="number-of-specimens-collections-species-and-other-descriptors" class="section level2" number="6.1">
 <h2 number="6.1"><span class="header-section-number">6.1</span> Number of specimens, collections, species and other descriptors</h2>
 <p>The function <code>summaryData()</code> prepares tables containing information on the number of records, collections, species, etc. It also provides summaries of the top collectors and the top countries with more records:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>summ <span class="ot">&lt;-</span> <span class="fu">summaryData</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>summ <span class="ot">&lt;-</span> <span class="fu">summaryData</span>(occs)</span></code></pre></div>
+<pre><code>## =========
+##  RECORDS 
+## =========
+## |Type                     | Records|
+## |:------------------------|-------:|
+## |Unicates                 |      12|
+## |Duplicates               |       0|
+## |Unknown                  |   54122|
+## |Total without duplicates |   54134|
+## |Total with duplicates    |   54134|
+## 
+## =============
+##  COLLECTIONS 
+## =============
+## Number of biological collections: 332 
+## Number of collectors&#39; names: 6 
+## Collection years: 1760-2021 (&gt;90% and &gt;50% after 1946 and 1990)
+## 
+## Top collections in numbers of records:
+## |Collection                  | Records|
+## |:---------------------------|-------:|
+## |MO                          |    6388|
+## |NY                          |    2789|
+## |P                           |    2370|
+## |http://grbio.org/cool/id-nn |    1928|
+## |RB                          |    1852|
+## 
+## Top collectors in numbers of records:
+## |Collector     | Records|
+## |:-------------|-------:|
+## |[NA]          |      12|
+## |Regnell, A.F. |       3|
+## |Gaudichaud    |       2|
+## |Peckolt       |       1|
+## |Riecre        |       1|
+## 
+## ==========
+##  TAXONOMY 
+## ==========
+## Number of families: 3 
+## Number of genera: 6 
+## Number of species: 12 
+## 
+## Top richest families:
+## |family.new  |     N|  S|
+## |:-----------|-----:|--:|
+## |Cannabaceae | 22575|  7|
+## |Salicaceae  | 30143|  4|
+## |Arecaceae   |  1416|  1|
+## 
+## Top richest genera:
+## |genus.new |     N|  S|
+## |:---------|-----:|--:|
+## |Trema     | 22550|  4|
+## |Casearia  | 29331|  3|
+## |Celtis    |     6|  2|
+## |Euterpe   |  1416|  1|
+## |NA        |   811|  1|
+## 
+## ===========
+##  COUNTRIES 
+## ===========
+## Number of countries: 57 
+## 
+## Top countries in numbers of records:
+## |Country  | Records| Species|
+## |:--------|-------:|-------:|
+## |Brazil   |   34313|       6|
+## |Mexico   |    4159|       4|
+## |Colombia |    1852|       4|
+## |Peru     |    1371|       3|
+## |Paraguay |    1296|       4|</code></pre>
 </div>
 <div id="summary-of-validation-flags-and-other-issues" class="section level2" number="6.2">
 <h2 number="6.2"><span class="header-section-number">6.2</span> Summary of validation flags and other issues</h2>
 <p><strong>plantR</strong> also provides summaries of the validation process, such as the number of duplicates found and the validation of the locality, coordinates and species identifications. This is performed by the function <code>summaryFlags()</code>:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>flags <span class="ot">&lt;-</span> <span class="fu">summaryFlags</span>(occs)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>flags <span class="ot">&lt;-</span> <span class="fu">summaryFlags</span>(occs)</span></code></pre></div>
+<pre><code>## ==================
+##  DUPLICATE SEARCH 
+## ==================
+## Records per strength of duplicate indication:
+## 
+## |Strenght               | Records|
+## |:----------------------|-------:|
+## |0%                     |      12|
+## |Cannot check (no info) |   54122|
+## 
+## =====================
+##  LOCALITY VALIDATION 
+## =====================
+## Results of the locality validation:
+## 
+## |Validation           | Records|
+## |:--------------------|-------:|
+## |probably ok          |   23587|
+## |ok (same resolution) |   19078|
+## |check (downgraded)   |   11318|
+## |check (not found)    |      88|
+## |ok (upgraded)        |      63|
+## 
+## Details of the validation (original vs. validated localities):
+## 
+## |original.resolution | no_info| country| stateProvince| municipality| locality|
+## |:-------------------|-------:|-------:|-------------:|------------:|--------:|
+## |no_info             |    1287|       0|             0|            0|        0|
+## |country             |      54|    6489|             2|           14|       41|
+## |stateProvince       |       1|      36|           992|            4|        0|
+## |municipality        |       0|      91|           263|         4864|        2|
+## |locality            |      33|     924|         10004|        23587|     5446|
+## 
+## =======================
+##  COORDINATE VALIDATION 
+## =======================
+## Valid coordinates per origin:
+## 
+## |Validated |Origin       | Records|
+## |:---------|:------------|-------:|
+## |yes       |original     |   30699|
+## |yes       |gazetter     |   22087|
+## |no        |cannot_check |    1348|
+## 
+## Valid coordinates per resolution:
+## 
+## |Validated |Resolution          | Records|
+## |:---------|:-------------------|-------:|
+## |yes       |ok_county           |   28381|
+## |yes       |ok_state            |   13480|
+## |yes       |ok_country          |    8452|
+## |yes       |ok_locality         |    1869|
+## |no        |no_cannot_check     |    1348|
+## |yes       |shore               |     273|
+## |yes       |open_sea            |     140|
+## |yes       |bad_country[border] |      99|
+## |yes       |bad_country         |      67|
+## |yes       |check_gazetteer     |      25|
+## 
+## ======================
+##  CULTIVATED SPECIMENS 
+## ======================
+## Number of specimens from cultivated individuals:
+## 
+## |Cultivated   | Records|
+## |:------------|-------:|
+## |probably not |   53928|
+## |probably yes |     196|
+## |yes          |      10|</code></pre>
 </div>
-<div id="generating-checklists" class="section level2" number="6.3">
-<h2 number="6.3"><span class="header-section-number">6.3</span> Generating checklists</h2>
-<p>Another feature of <strong>plantR</strong> is the possibility of building species checklists. This is done using the function <code>checkList()</code> which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the percentage of records with high confidence species identification and with validated geographical coordinates.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>spp.check <span class="ot">&lt;-</span> <span class="fu">checkList</span>(occs)</span></code></pre></div>
+<div id="generating-species-lists-or-checklists" class="section level2" number="6.3">
+<h2 number="6.3"><span class="header-section-number">6.3</span> Generating species lists or checklists</h2>
+<p>Another feature of <strong>plantR</strong> is the possibility of building species lists from the dataset of species records. This is done using the function <code>checkList()</code> which returns the family, the total number of records and a list of vouchers (in a short or long format). The function also returns the percentage of records with high confidence species identification and with validated geographical coordinates. If the dataset is associated to an specific geographical area, this list of species can be seen as a species checklist.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>spp.check <span class="ot">&lt;-</span> <span class="fu">checkList</span>(occs)</span></code></pre></div>
+<pre><code>## [1] &quot;No duplicate IDs available. Returning the same input data frame&quot;</code></pre>
 </div>
 <div id="saving-the-occurrence-data" class="section level2" number="6.4">
 <h2 number="6.4"><span class="header-section-number">6.4</span> Saving the occurrence data</h2>
 <p>Finally, <strong>plantR</strong> provides the function <code>saveData()</code> that saves the species records divided by any group of information, such as the species taxonomy, collections, years and countries. By default, records will be saved as compressed ‘csv’ files in the user working directory. But the user can provide any directory using the argument <code>dir.name</code>.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveData</span>(occs, <span class="at">by =</span> <span class="st">&quot;family&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveData</span>(occs, <span class="at">by =</span> <span class="st">&quot;family&quot;</span>)</span></code></pre></div>
 <!-- ### Saving outputs to the format of other packages: *MODEL-R* and *ConR*
 [TO BE IMPLEMENTED] -->
 </div>
@@ -606,9 +914,9 @@ encontrava aluma coisa... please double-check! -->
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Naturalis Biodiversity Center and Universidade de São Paulo, <a href="https://github.com/LimaRAF" class="uri">https://github.com/LimaRAF</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Universidade de São Paulo and Naturalis Biodiversity Center, <a href="https://github.com/LimaRAF" class="uri">https://github.com/LimaRAF</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Jardim Botânico do Rio de Janeiro, <a href="https://github.com/saramortara" class="uri">https://github.com/saramortara</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Jardim Botânico do Rio de Janeiro,<a href="https://github.com/AndreaSanchezTapia" class="uri">https://github.com/AndreaSanchezTapia</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Jardim Botânico do Rio de Janeiro, <a href="https://github.com/AndreaSanchezTapia" class="uri">https://github.com/AndreaSanchezTapia</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

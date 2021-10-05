@@ -85,5 +85,4 @@ firewalls (see help of function \code{download.file()}).
                    path <- "https://api.gbif.org/v1/occurrence/download/request/")
 }
 
-
 }

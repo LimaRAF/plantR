@@ -1,3 +1,44 @@
+# plantR 0.1.4
+
+* Fixing an issue related to non-NA type specifications in `validateTax()` and
+`checkList()` used to validate species identifications and detect type
+specimens.
+
+* Fixing a small issue related to non-preserved specimens observation in
+`validateTax()` to assign confidence levels to species identifications. 
+
+* Inclusion of the (simple) internal function `plotCoord()` to help the
+visualization of the coordinate validation process
+
+* Inclusion of an argument to make optional the prints of functions:
+`prepFamily()`, `summaryData()`, `summaryFlags()` and `validateTax()`
+
+* Major updates on the plant collection code dictionary and minor changes in
+the plant taxonomist dictionary
+
+* Function `getDup()` now makes the distinction between physical and purely
+virtual duplicates
+
+* Function `mergeDup()` now provides the reference specimens used to homogenize
+the information within groups of duplicates. The reference specimen is provided
+separately for the taxonomic, locality and coordinate information. We also fixed
+a bug related to the homogenization of the geographical and locality information
+
+* Function `prepTDWG()` (and consequently `prepName()`) now provides the
+argument 'pretty' which controls the way in which the output names are
+presented. By default the function returns, as before, names in a 'pretty' way
+(i.e. only the first letter of names capitalized, initials separated by points
+and no spaces, and family name prepositions in lower cases). But now the
+function also returns the names in the desired format but presented in the same
+way as the input names
+
+* Minor improvements in functions `formatDwc()`, `checkList()`, ,
+`fixSpecies()`, `prepName()`, `getPrep()`, `getInit()`, `lastName()`,
+`prepFamily()` and `addRank()`.
+
+* Adding tests to most of the package functions
+
+
 # plantR 0.1.3
 
 * Fixing bugs in `formatDwc()` related to the difference in the number of
@@ -40,6 +81,7 @@ prioritize the merge of taxonomic information within duplicates
 
 * minor bug fixes and improvements in `prepSpecies()` and a small update of the
 list of taxonomists related to the new tutorial 
+
 
 # plantR 0.1.1
 

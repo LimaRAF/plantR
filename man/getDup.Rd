@@ -31,7 +31,7 @@ output of the \strong{plantR} function \code{prepDup()}. These strings combine
 different types of information (i.e. taxonomy, collection and locality).
 For instance, a string combining information on taxonomy, collector last
 name and number, and collection locality would look like:
-‘Myrtaceae_Silva_110_Curitiba’.
+'Myrtaceae_Silva_110_Curitiba'.
 
 Strings too flexible (e.g. 'Silva_110') return more duplicated records but
 many may be false duplicates. Strings too strict, on the other hand, may
@@ -46,22 +46,32 @@ using more than two combinations of fields is advised. See Lima et al.
 (2020) for an example of a conservative usage of different combinations
 of strings to find duplicated specimens.
 
-The function returns only direct matches for up to one search string. If
-two or more search strings are provided, the search of duplicates uses tools
-from network analysis to find both direct and indirect matches of strings
-between records. If records are grouped under the same duplicated ID string
-('dup.ID') but only based on indirect matches with other records, 'dup.ID'
-is returned between brackets (the default of argument \code{flag.ind}). These IDs
-may need to be inspected more closely to detect possible spurious matches.
+The function returns direct matches for up to one search string. If
+two or more search strings are provided, the search of duplicates uses
+tools from network analysis to find both direct and indirect matches of
+strings between records. If records are grouped under the same duplicated
+ID string ('dup.ID') but only based on indirect matches with other records,
+'dup.ID' is returned between brackets (the default of argument \code{flag.ind}).
+These IDs may need to be inspected more closely to detect possible spurious
+matches.
+
+Note that duplicate records can be physical (i.e. samples of the same
+biological specimen incorporated in two or more collections) or virtual
+(i.e. duplicated entries of the same record in different data
+repositories). Although the function aims to detect the physical
+duplicates, it also flags the virtual duplicates by adding 'virtual' inside
+brackets  to the end of the duplicated ID string. Currently, this flag is
+only added if the duplicate is purely virtual, i.e., if the virtual
+duplicate is not also part of a physical duplicate.
 
 Besides the duplicated ID, the function returns the number and proportion
 of duplicated search strings found for each record within its group of
-duplicates (i.e. 'dup.numb' and 'dup.prop'). These values can be used to assess
-the confidence level that records are indeed true duplicates within its group.
-The higher the 'dup.prop', the greater the chances that the record is indeed
-a duplicate. To calculate the proportion of duplicates found within the
-number of available search strings, mismatches due to different or to
-missing strings are treated the same.
+duplicates (i.e., 'dup.numb' and 'dup.prop'). These values can be used to
+assess the confidence level that records are indeed true duplicates within
+its group. The higher the 'dup.prop', the greater the chances that the
+record is indeed a duplicate. To calculate the proportion of duplicates
+found within the number of available search strings, mismatches due to
+different or to missing strings are treated the same.
 }
 \examples{
 

@@ -21,8 +21,8 @@ formatted.}
 \item{scrap}{logical. Should the search of missing locality information be
 performed? Default to TRUE.}
 
-\item{to.lower}{logical. Should the output locality names be return in
-lower cases? Default to TRUE.}
+\item{to.lower}{logical. Should the output locality names be return in lower
+cases? Default to TRUE.}
 }
 \value{
 The input data frame \code{x}, plus the '.new' columns with the

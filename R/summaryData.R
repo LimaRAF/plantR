@@ -5,13 +5,15 @@
 #'   countries.
 #'
 #' @param x a data frame with the occurrence data.
+#' @param print logical. Should the first part of the table be printed? Default
+#'   to TRUE.
 #' @param top numerical. Number of groups (e.g. collections, families) to be
 #'   printed. Default to 5.
 #'
 #' @details The summary output depends on the presence of some key columns in
-#'   the input data frame \code{x}, which should follow the Darwin Core standards.
-#'   If the edited columns from __plantR__ are given, they are given priority to
-#'   report the data summaries.
+#'   the input data frame \code{x}, which should follow the Darwin Core
+#'   standards. If the edited columns from __plantR__ are given, they are given
+#'   priority to report the data summaries.
 #'
 #'   The function prints the summary tables related to the occurrence data.
 #'   However, the tables generating those summaries can be saved into an object.
@@ -20,16 +22,19 @@
 #' @importFrom stringr str_trim
 #' @importFrom knitr kable
 #' @importFrom stats quantile
-#' @importFrom utils head
+#' @importFrom utils head tail
 #'
 #'
 #' @export summaryData
 #'
-summaryData <- function(x, top = 5) {
+summaryData <- function(x, print = TRUE, top = 5) {
 
   ## check input
   if (!class(x) == "data.frame")
     stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   #Escaping R CMD check notes from using data.table syntax
   dup.ID <- dup.prop <- year.new <- country.new <- NULL
@@ -46,7 +51,6 @@ summaryData <- function(x, top = 5) {
 
   #Get only the columns of interest
   covs.present <- lapply(covs, function(z) utils::head(z[which(z %in% names(x))], n = 1))
-  # covs.present <- lapply(covs, function(z) my.head(z[which(z %in% names(x))]))
   if (all(sapply(covs.present, nchar)==0))
     stop("The input data frame does not contain at least one of the required columns")
 
@@ -61,24 +65,30 @@ summaryData <- function(x, top = 5) {
     duplicatas <- dt[!is.na(dup.ID), .N, by = "dup.ID"]
     total1 <- ccs + unicatas + dim(duplicatas)[1]
     total <- dim(dt)[1]
-    cat("=========", sep="\n")
-    cat(" RECORDS ", sep="\n")
-    cat("=========", sep="\n")
-    cat(knitr::kable(data.frame(Type = c("Unicates", "Duplicates", "Unknown", "Total without duplicates", "Total with duplicates"),
-                                Records = c(unicatas, sum(duplicatas$N), ccs,  total1, total))), sep="\n")
+    if (print) {
+      cat("=========", sep="\n")
+      cat(" RECORDS ", sep="\n")
+      cat("=========", sep="\n")
+      cat(knitr::kable(data.frame(Type = c("Unicates", "Duplicates", "Unknown", "Total without duplicates", "Total with duplicates"),
+                                  Records = c(unicatas, sum(duplicatas$N), ccs,  total1, total))), sep="\n")
+    }
   } else {
-    cat("=========", sep="\n")
-    cat(" RECORDS ", sep="\n")
-    cat("=========", sep="\n")
-    cat("Total number of records:", dim(dt)[1],"\n", sep=" ")
-    warning("Columns 'dup.ID' and 'dup.prop' not found; cannot report number of duplicates and unicates")
+    if (print) {
+      cat("=========", sep="\n")
+      cat(" RECORDS ", sep="\n")
+      cat("=========", sep="\n")
+      cat("Total number of records:", dim(dt)[1],"\n", sep=" ")
+      warning("Columns 'dup.ID' and 'dup.prop' not found; cannot report number of duplicates and unicates")
+    }
   }
 
   ## Collections
   if (any(nchar(covs.present[c("collections","collectors","colYears")]) > 0)) {
-    cat("\n=============", sep="\n")
-    cat(" COLLECTIONS ", sep="\n")
-    cat("=============", sep="\n")
+    if (print) {
+      cat("\n=============", sep="\n")
+      cat(" COLLECTIONS ", sep="\n")
+      cat("=============", sep="\n")
+    }
 
     # How many collections?
     if (nchar(covs.present[["collections"]]) > 0) {
@@ -88,10 +98,12 @@ summaryData <- function(x, top = 5) {
         colls1 <- colls[!NA_character_]
         colls1 <- colls1[order(N, decreasing = TRUE),]
         colls <- rbind(colls1, colls[NA_character_])
-        cat("Number of biological collections:", dim(colls1)[1],"\n", sep=" ")
+        if (print)
+          cat("Number of biological collections:", dim(colls1)[1],"\n", sep=" ")
       } else {
         colls <- colls[order(N, decreasing = TRUE),]
-        cat("Number of biological collections:", dim(colls)[1],"\n", sep=" ")
+        if (print)
+          cat("Number of biological collections:", dim(colls)[1],"\n", sep=" ")
       }
     } else { colls <- NULL }
 
@@ -103,10 +115,12 @@ summaryData <- function(x, top = 5) {
         cols1 <- cols[!"s.n."]
         cols1 <- cols1[order(N, decreasing = TRUE),]
         cols <- rbind(cols1, cols["s.n."])
-        cat("Number of collectors' names:", dim(cols1)[1],"\n", sep=" ")
+        if (print)
+          cat("Number of collectors' names:", dim(cols1)[1],"\n", sep=" ")
       } else {
         cols <- cols[order(N, decreasing = TRUE),]
-        cat("Number of collectors' names:", dim(cols)[1],"\n", sep=" ")
+        if (print)
+          cat("Number of collectors' names:", dim(cols)[1],"\n", sep=" ")
       }
     } else { cols <- NULL }
 
@@ -117,26 +131,28 @@ summaryData <- function(x, top = 5) {
       suppressWarnings(dt[, year.new := as.double(year.new)])
       anos.qt <- as.double(dt[year.new <= ano.lim,
                               stats::quantile(year.new, prob=c(0,0.1,0.25,0.5,0.75,0.9,1), na.rm = TRUE),])
-      cat("Collection years: ", anos.qt[1],"-", utils::tail(anos.qt, n = 1)," (>90% and >50% after ",anos.qt[2]," and ",anos.qt[4],")","\n", sep="")
-      # cat("Collection years: ", anos.qt[1],"-", my.tail(anos.qt)," (>90% and >50% after ",anos.qt[2]," and ",anos.qt[4],")","\n", sep="")
+      if (print)
+        cat("Collection years: ", anos.qt[1],"-", utils::tail(anos.qt, n = 1)," (>90% and >50% after ",anos.qt[2]," and ",anos.qt[4],")","\n", sep="")
     } else { anos <- NULL }
 
     if (nchar(covs.present[["collections"]]) > 0)
-      cat("\nTop collections in numbers of records:",
-          knitr::kable(utils::head(colls, top), col.names = c("Collection", "Records")), sep="\n")
-          # knitr::kable(my.head.df(colls, top), col.names = c("Collection", "Records")), sep="\n")
+      if (print)
+        cat("\nTop collections in numbers of records:",
+            knitr::kable(utils::head(colls, top), col.names = c("Collection", "Records")), sep="\n")
 
     if (nchar(covs.present[["collectors"]]) > 0)
-      cat("\nTop collectors in numbers of records:",
-          knitr::kable(utils::head(cols, top), col.names = c("Collector", "Records")), sep="\n")
-          # knitr::kable(my.head.df(cols, top), col.names = c("Collector", "Records")), sep="\n")
+      if (print)
+        cat("\nTop collectors in numbers of records:",
+            knitr::kable(utils::head(cols, top), col.names = c("Collector", "Records")), sep="\n")
   }
 
   ## Taxonomy
   if (any(nchar(covs.present[c("families","genera","species")]) > 0)) {
-    cat("\n==========", sep="\n")
-    cat(" TAXONOMY ", sep="\n")
-    cat("==========", sep="\n")
+    if (print) {
+      cat("\n==========", sep="\n")
+      cat(" TAXONOMY ", sep="\n")
+      cat("==========", sep="\n")
+    }
 
     # How many families, genera and species?
     if (!"genus.new" %in% names(dt) & nchar(covs.present[["species"]]) > 0) {
@@ -149,17 +165,19 @@ summaryData <- function(x, top = 5) {
     tax.cols <- c(covs.present[["families"]],
                   "genus.new",
                   covs.present[["species"]])
-    tax <- as.character(dt[ , lapply(.SD, data.table::uniqueN),
-                            .SDcols = c(tax.cols)])
+    genus.only <- grepl(" ", dt[[covs.present[["species"]]]], fixed = TRUE)
+    tax <- as.character(dt[genus.only, lapply(.SD, data.table::uniqueN),
+                           .SDcols = c(tax.cols)])
     names(tax) <- tax.cols
 
     if (nchar(covs.present[["families"]]) > 0) {
       fams <- dt[ , .N, by = c(covs.present[["families"]])]
-      fams[, S := dt[ , data.table::uniqueN(.SD),
-                      by = c(covs.present[["families"]]),
-                      .SDcols = c(covs.present[["species"]])]$V1]
+      fams[, S := dt[genus.only , data.table::uniqueN(.SD),
+                     by = c(covs.present[["families"]]),
+                     .SDcols = c(covs.present[["species"]])]$V1]
       data.table::setorderv(fams, c("S", "N"), c(-1,-1))
-      cat("Number of families:", tax[covs.present[["families"]]],"\n", sep=" ")
+      if (print)
+        cat("Number of families:", tax[covs.present[["families"]]],"\n", sep=" ")
     } else { fams <- NULL }
 
     if (nchar(tax[["genus.new"]]) > 0) {
@@ -168,18 +186,20 @@ summaryData <- function(x, top = 5) {
                       by = c("genus.new"),
                       .SDcols = c(covs.present[["species"]])]$V1]
       data.table::setorderv(gens, c("S", "N"), c(-1,-1))
-      cat("Number of genera:", tax["genus.new"],"\n", sep=" ")
+      if (print)
+        cat("Number of genera:", tax["genus.new"],"\n", sep=" ")
     } else { gens <- NULL }
 
-    if (nchar(covs.present[["species"]]) > 0)
-      cat("Number of species:", tax[covs.present[["species"]]],"\n", sep=" ")
+    if (print)
+      if (nchar(covs.present[["species"]]) > 0)
+        cat("Number of species:", tax[covs.present[["species"]]],"\n", sep=" ")
 
-    if (nchar(covs.present[["families"]]) > 0)
-      cat("\nTop richest families:", knitr::kable(utils::head(fams, top)), sep="\n")
-      # cat("\nTop richest families:", knitr::kable(my.head.df(fams, top)), sep="\n")
+    if (print)
+      if (nchar(covs.present[["families"]]) > 0)
+        cat("\nTop richest families:", knitr::kable(utils::head(fams, top)), sep="\n")
 
-    cat("\nTop richest genera:", knitr::kable(utils::head(gens, top)), sep="\n")
-    # cat("\nTop richest genera:", knitr::kable(my.head.df(gens, top)), sep="\n")
+    if (print)
+      cat("\nTop richest genera:", knitr::kable(utils::head(gens, top)), sep="\n")
   }
 
   ## Countries
@@ -198,14 +218,18 @@ summaryData <- function(x, top = 5) {
     tmp <- gsub("NANA", NA, tmp)
     paises$country.new <- tmp
 
-    cat("\n===========", sep="\n")
-    cat(" COUNTRIES ", sep="\n")
-    cat("===========", sep="\n")
-    cat("Number of countries:", dim(paises[!is.na(country.new)])[1],"\n", sep=" ")
-    cat("\nTop countries in numbers of records:",
-        knitr::kable(utils::head(paises, top),
-        # knitr::kable(my.head.df(paises, top),
-                     col.names = c("Country", "Records", "Species")[1:dim(paises)[2]]), sep="\n")
+    if (print) {
+      cat("\n===========", sep="\n")
+      cat(" COUNTRIES ", sep="\n")
+      cat("===========", sep="\n")
+      cat("Number of countries:", dim(paises[!is.na(country.new) &
+                                               !country.new %in% "[Unknown]"])[1],
+          "\n", sep=" ")
+      cat("\nTop countries in numbers of records:",
+          knitr::kable(utils::head(paises, top),
+                       # knitr::kable(my.head.df(paises, top),
+                       col.names = c("Country", "Records", "Species")[1:dim(paises)[2]]), sep="\n")
+    }
   } else { paises <- NULL }
 
   # Organizing the output and returning

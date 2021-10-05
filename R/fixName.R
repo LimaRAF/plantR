@@ -23,8 +23,8 @@
 #'
 #'   The function was created to deal with people's names, so input separators
 #'   for multiple names composed only by letters should be surrounded by spaces.
-#'   For non-alphabetic characters (e.g. semi-colons, ampersand) the function are
-#'   taken independently of the presence of spaces nearby.
+#'   For non-alphabetic characters (e.g. semi-colons, ampersand) the function
+#'   are taken independently of the presence of spaces nearby.
 #'
 #'   Due to common encoding problems related to Latin characters, names are
 #'   returned without accents by default. But users can choose between outputs
@@ -33,7 +33,7 @@
 #'
 #' @author Renato A. F. de Lima & Hans ter Steege
 #'
-#' @importFrom stringr str_trim
+#' @importFrom stringr str_squish
 #'
 #' @encoding UTF-8
 #'
@@ -57,6 +57,7 @@ fixName <- function(nomes,
                     sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
                     sep.out = "|",
                     special.char = FALSE) {
+
   #Defining the input and temporary separators
   sep.in2 <- sep.in[grepl('[[:alpha:]]', sep.in) & !grepl(' et ', sep.in)]
   sep.in1 <- sep.in[!grepl('[[:alpha:]]', sep.in)]
@@ -177,7 +178,7 @@ fixName <- function(nomes,
 
   #Final formatting
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
-  nomes <- stringr::str_trim(nomes)
+  nomes <- stringr::str_squish(nomes)
   nomes <- gsub("^-+|-+$", "", nomes, perl = TRUE)
   nomes <- gsub("^\\.+|\\.\\.+$", "", nomes, perl = TRUE)
   nomes <- gsub("^,+|,+$", "", nomes, perl = TRUE)
@@ -189,7 +190,7 @@ fixName <- function(nomes,
   nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
   nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
-  nomes <- stringr::str_trim(nomes)
+  nomes <- stringr::str_squish(nomes)
   nomes[nomes %in% c("")] <- NA_character_
 
   #Replacing the temporary separator by sep.out

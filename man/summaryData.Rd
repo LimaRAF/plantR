@@ -4,10 +4,13 @@
 \alias{summaryData}
 \title{Summary of Species Occurrence Data}
 \usage{
-summaryData(x, top = 5)
+summaryData(x, print = TRUE, top = 5)
 }
 \arguments{
 \item{x}{a data frame with the occurrence data.}
+
+\item{print}{logical. Should the first part of the table be printed? Default
+to TRUE.}
 
 \item{top}{numerical. Number of groups (e.g. collections, families) to be
 printed. Default to 5.}
@@ -19,9 +22,9 @@ countries.
 }
 \details{
 The summary output depends on the presence of some key columns in
-the input data frame \code{x}, which should follow the Darwin Core standards.
-If the edited columns from \strong{plantR} are given, they are given priority to
-report the data summaries.
+the input data frame \code{x}, which should follow the Darwin Core
+standards. If the edited columns from \strong{plantR} are given, they are given
+priority to report the data summaries.
 
 The function prints the summary tables related to the occurrence data.
 However, the tables generating those summaries can be saved into an object.

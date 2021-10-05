@@ -14,16 +14,19 @@
 #' @return The input data frame with an additional column 'cult.check'
 #' with the result of the search for records from cultivated individuals.
 #'
-#' @details The input data frame \code{x} should contain at least the columns
-#'   containing the description of the record (e.g. 'occurrenceRemarks'), the
-#'   record locality description (e.g. 'locality') or the record habitat
-#'   description. The names of columns in which these information is stored can
-#'   de declared using the arguments `loc.name`, `remarks` and `habitat`
-#'   (defaults to the Darwin Core standard notation).
+#' @details The input data frame \code{x} should contain at least one of the
+#'   columns containing the description of the record locality (e.g.
+#'   'locality'), remarks (e.g. 'occurrenceRemarks'), or habitat. The names of
+#'   columns in which these information is stored can de declared using the
+#'   arguments `loc.name`, `remarks` and `habitat` (defaults to the Darwin Core
+#'   standard notation).
 #'
 #'   If present, other Darwin Core fields are used internally to obtain missing
 #'   information on the three fields declared above, namely: 'verbatimLocality',
-#'   'biologicalStatus' and 'fieldNotes'.
+#'   'biologicalStatus' and 'fieldNotes'. Therefore, the search for cultivated
+#'   individuals in __plantR__ is NOT based on the geographical coordinates of
+#'   the species records, although records flagged as spatial outliers by
+#'   __plantR__ (see function `checkOut()`) may also be flagged as cultivated.
 #'
 #'   The search of records from cultivated individuals is performed on all the
 #'   fields available and it is based on a list of terms that denotes clear
@@ -37,8 +40,8 @@
 #'
 #'   For assigning the "prob_cultivated", a second list of terms is used to
 #'   exclude possible spurious hits of cultivated individuals (e.g 'Cultivated
-#'   area' or 'Presence of exotics'). But this list is not extensive, so this
-#'   category may need some level of double-checking by the user.
+#'   area' or 'Presence of exotic species'). But this list is not extensive and
+#'   so this category may need some level of double-checking by the user.
 #'
 #' @import data.table
 #'
@@ -119,4 +122,3 @@ getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", hab
 
   return(x)
 }
-

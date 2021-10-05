@@ -1,7 +1,8 @@
 #' Gets occurrence data from speciesLink
 #'
-#' This function access version beta 0.1 of speciesLink API
-#' (https://api.splink.org.br/) and returns occurrence data of species.
+#' This function access version beta 0.1 of the
+#' [speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
+#' species.
 #'
 #' @param dir Path to directory where the file will be saved. Default is to
 #' create a "results/" directory
@@ -14,7 +15,9 @@
 #' @param family Family name. More than one name should be concatenated in a
 #'   vector
 #' @param species Genus or genus and epithet separated by space. More than one
-#'   should be concatenated in a vector
+#'   species can be concatenated into a vector. The request cannot be done
+#'   with more than 50 species at a time. Use lapply, or any sort of loop when
+#'   dealing with multiple species.
 #' @param collectionCode Any collection available at speciesLink. Example: ALCB,
 #'  E, INPA, MOBOT_BR.  Accepts a vector of names
 #' @param country Any country name. No ASCII characters allowed. Accepts a
@@ -50,18 +53,29 @@
 #' depend on the number of records and species in the query and from the speed
 #' of the internet connection.
 #'
-#' The speciesLink API does not allow the download of 10 or more taxa at a time.
-#' So to download records from larger lists of species, you will probably need
-#' to make the queries in a loop.
+#' The speciesLink API does not allow the download of ~50 or more taxa at a
+#' time. So to download records from larger lists of species, you will probably
+#' need to make the queries in a loop (see Examples).
 #'
 #' @author Sara Mortara
 #'
 #' @examples
 #'\dontrun{
-#'ex01 <-
-#'rspeciesLink(filename = "ex01",
-#'                     species =  c("Eugenia platyphylla", "Chaetocalyx acutifolia"),
+#' # Example for a single species, saving into a file called "ex01"
+#' ex01 <-
+#'  rspeciesLink(filename = "ex01",
+#'                     species =  c("Eugenia platyphylla"),
 #'                     Scope = "plants")
+#' # Use lapply or similar for more than 50 species
+#' # Making a request for multiple species
+#'sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
+#'                                               Scope = "plants",
+#'                                               basisOfRecord = "PreservedSpecimen",
+#'                                               Synonyms = "flora2020"))
+#'# Adding species names to each element of the list
+#'names(sp_list) = sp
+#'# Binding all searchs and keeping a column w/ the named used in the search
+#'sp_df <- bind_rows(sp_list, .id = "original_search")
 #'}
 #'
 #' @import data.table
@@ -116,22 +130,21 @@ rspeciesLink <- function(dir = "results/",
   # Species name
   if (is.null(species)) {
     my_url
-  }
-  else  {
+  } else  {
     if (is.character(species)) {
+      if (length(species) > 50)
+        stop("Please make request of no more than 50 species at a time!")
       species <- gsub(" ", "%20", species)
       sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
-    }
-    else {
+    } else {
       stop("species must be a character")
     }
   }
   # Family name
   if (is.null(family)) {
     my_url
-  }
-  else  {
+  } else  {
     if (is.character(family)) {
       fam <- url_query(family, "family")
       my_url <- paste0(my_url, fam)
@@ -299,7 +312,12 @@ rspeciesLink <- function(dir = "results/",
   }
   # if output is empty, return message
   if (is.null(dim(df))) {
-    message("Output is empty. Check your request.")
+    warning("Output is empty. Check your request.")
   }
+
+  warning("Please make sure that the restrictions and citation indicated by
+  each speciesLink/CRIA data provider are observed and respected.")
+
+
   return(df)
 }

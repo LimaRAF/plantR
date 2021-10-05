@@ -79,7 +79,11 @@ names(wo@data)[2] <- "NAME_0"
 wo.simp <- gSimplify(wo, tol=0.001, topologyPreserve = TRUE)
 wo.simp <- gBuffer(wo.simp, byid = TRUE, width = 0)
 wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
-worldMap <- sf::st_as_sf(wo.simp1)
+wo.simp1_sf <- sf::st_as_sf(wo.simp1)
+
+# set spatial coordinates
+prj <- sf::st_crs(4326)
+worldMap <- sf::st_set_crs(wo.simp1_sf, prj)
 
 # wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
 # wo.simp2 <- gBuffer(wo.simp2, byid = TRUE, width = 0)
@@ -191,6 +195,10 @@ for (i in 1:length(country.list)) {
   # #Create dataframe with correct rownames and merging
   # p.df <- as.data.frame(tmp1, row.names = pid, stringsAsFactors = FALSE)
   # tmp.simp1 <- SpatialPolygonsDataFrame(tmp.simp, p.df)
+
+  # set spatial coordinates
+  prj <- sf::st_crs(4326)
+  tmp.simp <- sf::st_set_crs(tmp.simp, prj)
 
   #Saving
   # pais[i] = unique(p.df$NAME_0)
