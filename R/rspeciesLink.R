@@ -67,9 +67,15 @@
 #'                     species =  c("Eugenia platyphylla"),
 #'                     Scope = "plants")
 #' # Use lapply or similar for more than 50 species
-#'  sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
-#'  sp_list <- lapply(sp, rspeciesLink, Scope = "plants",
-#'   basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
+#' # Making a request for multiple species
+#'sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
+#'                                               Scope = "plants",
+#'                                               basisOfRecord = "PreservedSpecimen",
+#'                                               Synonyms = "flora2020"))
+#'# Adding species names to each element of the list
+#'names(sp_list) = sp
+#'# Binding all searchs and keeping a column w/ the named used in the search
+#'sp_df <- bind_rows(sp_list, .id = "original_search")
 #'}
 #'
 #' @import data.table
@@ -306,10 +312,10 @@ rspeciesLink <- function(dir = "results/",
   }
   # if output is empty, return message
   if (is.null(dim(df))) {
-    message("Output is empty. Check your request.")
+    warning("Output is empty. Check your request.")
   }
 
-  message("Please make sure that the restrictions and citation indicated by
+  warning("Please make sure that the restrictions and citation indicated by
   each speciesLink/CRIA data provider are observed and respected.")
 
 

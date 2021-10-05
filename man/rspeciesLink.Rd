@@ -115,9 +115,15 @@ ex01 <-
                     species =  c("Eugenia platyphylla"),
                     Scope = "plants")
 # Use lapply or similar for more than 50 species
- sp <-  c("Eugenia platyphylla", "Chaetocalyx acutifolia")
- sp_list <- lapply(sp, rspeciesLink, Scope = "plants",
-  basisOfRecord = "PreservedSpecimen", Synonyms = "flora2020")
+# Making a request for multiple species
+sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
+                                              Scope = "plants",
+                                              basisOfRecord = "PreservedSpecimen",
+                                              Synonyms = "flora2020"))
+# Adding species names to each element of the list
+names(sp_list) = sp
+# Binding all searchs and keeping a column w/ the named used in the search
+sp_df <- bind_rows(sp_list, .id = "original_search")
 }
 
 }
