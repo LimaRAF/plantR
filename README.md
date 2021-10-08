@@ -67,7 +67,10 @@ API. We also thank the [CNCFlora](http://cncflora.jbrj.gov.br) and the
 [TreeCo
 database](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start)
 for providing many of the localities used to construct the package
-gazetteer. We also thank Vinícius C. Souza (ESALQ/USP), who helped to
-validate and improve the list of plant taxonomists used in the package,
-and André L. de Gasper, for his valuable suggestions on how to make this
-package more useful for collection managers.
+gazetteer. We thank the Harvard University Herbarium, Brazilian Herbaria
+Network and the American Society of Plant Taxonomists, who were main
+sources to compile the current list of taxonomists. We also thank
+Vinícius C. Souza (ESALQ/USP), who helped to validate and improve the
+list of plant taxonomists used in the package, and André L. de Gasper,
+for his valuable suggestions on how to make this package more useful for
+collection managers.
