@@ -59,7 +59,7 @@
 #' https://CRAN.R-project.org/package=Taxonstand
 #'
 #' PPG I (2016). A community-derived classification for extant lycophytes and
-#' ferns. Journal of Systematics and Evolution. 54 (6): 563–603.
+#' ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
 #'
 #' @import data.table
 #' @importFrom flora get.taxa

@@ -202,30 +202,6 @@ prepTDWG <- function(x,
 
     } else {
 
-
-      # split[, 2] <- gsub("(\\p{Lu})(\\s)(\\p{Lu})+", "\\1.\\2\\3.",
-      #                    split[, 2], perl = TRUE)
-      # split[, 2] <- gsub("(\\p{Lu})(\\.\\s)(\\p{Lu}$)", "\\1\\2\\3.",
-      #                    split[, 2], perl = TRUE)
-      #
-      # # Any name initials not separated by commas or spaces?
-      # check_caps <- !grepl("\\.", split[, 2], perl = TRUE) &
-      #                 !split[,1] == toupper(split[,1]) &
-      #                   split[,2] == toupper(split[,2]) &
-      #                     !split[,2] %in% ""
-      # split[, 2][check_caps] <- gsub("([A-Z])([A-Z])", "\\1.\\2.",
-      #                                      split[, 2][check_caps], perl = TRUE)
-
-      # split[, 2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4",
-      #                   split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[, 2], perl = TRUE)
-      # split[, 2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.",
-      #                   split[, 2], perl = TRUE)
-      # split[, 2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.",
-      #                   split[, 2], perl = TRUE)
-
       split[, 2] <- stringr::str_squish(split[, 2])
 
     }
@@ -370,16 +346,6 @@ prepTDWG <- function(x,
       split[, 2][split[, 2] %in% "character(0)."] <- ""
 
     } else {
-
-      # split[, 2] <- gsub("(\\.)(\\s)(\\p{L})(\\.)", "\\1\\3\\4",
-      #                   split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\p{L})(\\s)(\\p{L})+", "\\1.\\3.", split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\p{L})(\\p{L})+", "\\1.\\2.", split[, 2], perl = TRUE)
-      # # split[, 2] <- gsub("(\\.)(\\s)([A-Zà-ý])(\\.)", "\\1\\3\\4", split[, 2], perl = TRUE)
-      # split[, 2] <- gsub("([A-Z])(\\s)([A-Z])+", "\\1.\\3.",
-      #                   split[, 2], perl = TRUE)
-      # split[, 2] <- gsub("([A-Z])([A-Z])+", "\\1.\\2.",
-      #                   split[, 2], perl = TRUE)
 
       split[, 2] <- stringr::str_squish(split[, 2])
 

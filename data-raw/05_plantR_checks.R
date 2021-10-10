@@ -42,3 +42,13 @@ goodpractice::gp(".", checks = c("rcmdcheck_tests_pass"))
 # In 03/10/2021: 57% of code lines were covered by test cases
 # Larger functions pending tests: checkList, formatDwc, prepDup,
 #readData, rgibif2, rspeciesLink, saveData, summaryData, summaryFlags
+
+## Checking non-ascii characters in the code
+arquivos <- list.files("R/", full.names = TRUE)
+arquivos <- arquivos[!arquivos %in% "R/sysdata.rda"]
+for (i in seq_along(arquivos)) {
+  cat(arquivos[i], "\n")
+  non.ascii <- tools::showNonASCIIfile(arquivos[i])
+}
+
+

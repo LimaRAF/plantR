@@ -45,6 +45,8 @@
 #'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
+#' @encoding UTF-8
+#'
 #' @export checkShore
 checkShore <- function(x,
                      geo.check = "geo.check",

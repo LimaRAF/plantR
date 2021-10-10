@@ -91,9 +91,11 @@
 #' @importFrom stats na.omit
 #' @importFrom utils tail
 #'
-#' @export formatDwc
-#'
 #' @author Sara R. Mortara, Andrea Sánchez-Tapia & Renato A. F. de Lima
+#'
+#' @encoding UTF-8
+#'
+#' @export formatDwc
 #'
 formatDwc <- function(splink_data = NULL,
                       gbif_data = NULL,
@@ -191,7 +193,7 @@ formatDwc <- function(splink_data = NULL,
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
     #Sara: nem todos os nomes podem ser limpos pois removendo o longo prefixo, alguns campos ficam duplicados.
-    #Seria legal entender o que está rolando, pois esses campos as vezes tem informacao tb.
+    #Seria legal entender o que esta rolando, pois esses campos as vezes tem informacao tb.
     names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)] <- tmp
 
     # required absent fields in gbif: scientificNameAuthorship

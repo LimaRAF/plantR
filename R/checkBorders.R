@@ -7,6 +7,8 @@
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
 #'
+#' @encoding UTF-8
+#'
 #' @keywords internal
 #'
 shares_border <- function(country1 = "brazil",
@@ -75,6 +77,8 @@ shares_border <- function(country1 = "brazil",
 #' @importFrom dplyr left_join if_else
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
+#'
+#' @encoding UTF-8
 #'
 #' @export checkBorders
 #'

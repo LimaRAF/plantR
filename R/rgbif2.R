@@ -65,6 +65,8 @@
 #' ex_rgbif1 <- rgbif2(species =  "Alouatta fusca")
 #' }
 #'
+#' @encoding UTF-8
+#'
 #' @import data.table
 #' @importFrom rgbif name_backbone
 #' @importFrom rgbif occ_search

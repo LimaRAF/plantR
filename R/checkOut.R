@@ -87,7 +87,7 @@
 #' Conservation, 252: 108825.
 #'
 #' Liu, C., White, M., and Newell, G. 2018. Detecting outliers in species
-#' distribution data. Journal of Biogeography, 45(1): 164–176.
+#' distribution data. Journal of Biogeography, 45(1): 164-176.
 #'
 #'
 #' @seealso

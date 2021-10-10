@@ -60,6 +60,7 @@
 #' the validation of the locality information (see function `getLoc()` and the
 #' default __plantR__ maps 'worldMap' and 'latamMap').
 #'
+#' @encoding UTF-8
 #'
 #' @export checkCoord
 #'
@@ -99,7 +100,7 @@ checkCoord <- function(x,
   ##Preliminary edits
   cols.x <- names(x) # original data column names
   x$tmp.order <- 1:nrow(x)
-  x[, str.name][x[, str.name] %in% "no_loc"] <- NA #porque nao é pais (rafl: concordo, mas não achei nehuma funcao onde esse 'no_loc' é gerado; melhor alterar direto na função que obtém o string, getLoc()?)
+  x[, str.name][x[, str.name] %in% "no_loc"] <- NA #porque nao eh pais (rafl: concordo, mas nao achei nehuma funcao onde esse 'no_loc' eh gerado; melhor alterar direto na funcao que obtem o string, getLoc()?)
 
   ##Defining the country, state and county columns
   x <- tidyr::separate(
@@ -215,10 +216,10 @@ checkCoord <- function(x,
   # cria o vetor para checar
   x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
   x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
-  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
-  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessário, certo?
-  # ast: na real loc.coord nao é usado mais.então tudo isto poderia sumir.
-  # rafl: vdd, mas acho legal a possibilidade de retornar essa info. Pode ajudar na gestão/correção de coleções.
+  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessario, certo?
+  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessario, certo?
+  # ast: na real loc.coord nao eh usado mais. entao tudo isto poderia sumir.
+  # rafl: vdd, mas acho legal a possibilidade de retornar essa info. Pode ajudar na gestao/correcao de colecoes.
 
   # recupera todas as linhas
   x3 <- suppressMessages(
@@ -226,7 +227,7 @@ checkCoord <- function(x,
                      x2[,c("tmp.order",
                            "NAME_0", "NAME_1", "NAME_2", "NAME_3",
                            "loc.coord")]))
-  #ast: eu nao sei se vc está tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
+  #ast: eu nao sei se vc esta tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
   #rafl: ok! removi o geo.check e adicionei o suppressWarnings
 
   ### GEO-VALIDATION STEPS ###

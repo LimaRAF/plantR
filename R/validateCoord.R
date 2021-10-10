@@ -38,6 +38,8 @@
 #'
 #' @author Andrea Sánchez-Tapia, Sara R. Mortara & Renato A. F. de Lima
 #'
+#' @encoding UTF-8
+#'
 #' @export validateCoord
 #'
 validateCoord <- function(x,
