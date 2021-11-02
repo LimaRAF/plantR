@@ -105,7 +105,7 @@ checkOut <- function(x,
                      tax.name = "scientificName.new",
                      geo.name = "geo.check",
                      cult.name = "cult.check",
-                     n.min = 5,
+                     n.min = 6,
                      center = "median",
                      geo.patt = "ok_",
                      cult.patt = NA,
@@ -117,11 +117,14 @@ checkOut <- function(x,
   robust.cut <- out.check <- NULL
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
   if (!all(c(lat, lon) %in% colnames(x)))
-    stop("Coordinate column names do not match those of the input object: please rename or specify the correct names")
+    stop("Coordinates column names do not match those of the input object: please rename or specify the correct names")
 
   if (!tax.name %in% colnames(x)) {
     rm.tax <- TRUE
@@ -156,7 +159,6 @@ checkOut <- function(x,
                                      geo.patt = geo.patt,
                                      cult.patt = cult.patt),
      by = c("tax.wrk")]
-
 
   dt[!is.na(lon.wrk) & !is.na(lat.wrk),
      maha.robust := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,

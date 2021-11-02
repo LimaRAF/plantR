@@ -120,7 +120,6 @@ checkCoord <- function(x,
     paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
   ids.no.coord <- x[, orig.coord] %in% "no_coord"
   geo.check[ids.no.coord] <- "no_cannot_check"
-  #rafl: checar com mais dados se pode ter NAs ou outras classes
 
   ## Subsetting data for geographical checking
   tmp <- x[is.na(geo.check), ]
@@ -166,6 +165,21 @@ checkCoord <- function(x,
                                       low_map,
                                       join = sf::st_intersects))
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
+
+  ##Solving misterious problems with the country map (could not iolate the problem)
+  check_these <- grepl("\\.[0-9]", rownames(tmp))
+  if (any(check_these)){
+    tmp$keep_these <- rep(TRUE, dim(tmp)[1])
+    dup.orders <- tmp$tmp.order[check_these]
+    for(i in seq_along(dup.orders)) {
+      dups.i <- tmp[tmp$tmp.order %in% dup.orders[i], ]
+      dups.i$keep_these[dups.i$country.new != dups.i$pais_wo] <- FALSE
+      if (all(dups.i$keep_these))
+        dups.i$keep_these[-1] <- FALSE
+      tmp$keep_these[tmp$tmp.order %in% dup.orders[i]] <- dups.i$keep_these
+    }
+    tmp <- tmp[tmp$keep_these, ]
+  }
 
   ##Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
   geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
@@ -216,10 +230,8 @@ checkCoord <- function(x,
   # cria o vetor para checar
   x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
   x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
-  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessario, certo?
-  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE) #rafl: necessario, certo?
-  # ast: na real loc.coord nao eh usado mais. entao tudo isto poderia sumir.
-  # rafl: vdd, mas acho legal a possibilidade de retornar essa info. Pode ajudar na gestao/correcao de colecoes.
+  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE)
+  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE)
 
   # recupera todas as linhas
   x3 <- suppressMessages(
@@ -227,22 +239,23 @@ checkCoord <- function(x,
                      x2[,c("tmp.order",
                            "NAME_0", "NAME_1", "NAME_2", "NAME_3",
                            "loc.coord")]))
-  #ast: eu nao sei se vc esta tirando colunas aqui mas pelo menos tirei o by que ia criar colunas duplicadas.
-  #rafl: ok! removi o geo.check e adicionei o suppressWarnings
 
   ### GEO-VALIDATION STEPS ###
   ##1- Validating the coordinates at different levels - exact matches
   #1.1 Country-level: good country? All countries
   x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0,
-                                     "ok_country", "bad_country", missing = "no_country")
+                                     "ok_country", "bad_country",
+                                     missing = "no_country")
 
   #1.2 State-level: good state? All countries
   x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1,
-                                   "ok_state", "bad_state", missing = "no_state")
+                                   "ok_state", "bad_state",
+                                   missing = "no_state")
 
   #1.3 County-level. All countries
   x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2,
-                                    "ok_county", "bad_county", missing = "no_county")
+                                    "ok_county", "bad_county",
+                                    missing = "no_county")
 
   ## Updating geo.check
   tmp1 <- apply(x3[ , c("country.check",

@@ -109,8 +109,8 @@ validateCoord <- function(x,
                        keep.cols = c("geo.check"))
     #Writing new checks for the inverted/swapped coordinates
     x4[check_these, good.col] <- paste0(x4.2$geo.check,
-                                           gsub(".*(?=\\[)", "",
-                                                x4[check_these, good.col], perl= TRUE))
+                                        gsub(".*(?=\\[)", "",
+                                             x4[check_these, good.col], perl= TRUE))
   } else {
     lon.new = ifelse(output == "same.col", lon, paste0(lon, ".new"))
     lat.new = ifelse(output == "same.col", lat, paste0(lat, ".new"))
@@ -123,10 +123,14 @@ validateCoord <- function(x,
 
   if (output == "new.col") {
     #Renaming the check columns
-    x4$border.check.new[x4$border.check.new %in% TRUE] <- "bad_country[border]"
-    x4$border.check.new[x4$border.check.new %in% FALSE] <- "bad_country"
-    x4$shore.check.new[x4$shore.check.new %in% TRUE] <- "shore"
-    x4$shore.check.new[x4$shore.check.new %in% FALSE] <- "open_sea"
+    x4$border.check.new[x4$border.check.new %in% TRUE] <-
+      "bad_country[border]"
+    x4$border.check.new[x4$border.check.new %in% c(FALSE, "FALSE")] <-
+      "bad_country"
+    x4$shore.check.new[x4$shore.check.new %in% TRUE] <-
+      "shore"
+    x4$shore.check.new[x4$shore.check.new %in% c(FALSE, "FALSE")] <-
+      "open_sea"
   }
 
   ## Checking for records from cultivated individuals

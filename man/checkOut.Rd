@@ -11,7 +11,7 @@ checkOut(
   tax.name = "scientificName.new",
   geo.name = "geo.check",
   cult.name = "cult.check",
-  n.min = 5,
+  n.min = 6,
   center = "median",
   geo.patt = "ok_",
   cult.patt = NA,
@@ -127,7 +127,7 @@ conservation: Tree species in the Atlantic Forest hotspot. Biological
 Conservation, 252: 108825.
 
 Liu, C., White, M., and Newell, G. 2018. Detecting outliers in species
-distribution data. Journal of Biogeography, 45(1): 164–176.
+distribution data. Journal of Biogeography, 45(1): 164-176.
 }
 \seealso{
 \link[plantR]{checkCoord}, \link[plantR]{getCult},
