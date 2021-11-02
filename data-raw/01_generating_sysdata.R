@@ -113,17 +113,17 @@ wordsForSearch <- c("^prov\\. ",
                     "^estado ")
 
 unwanted_latin <- c('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ',
-                   'Ç', 'È', 'É', 'Ê', 'Ë',
-                   'Ì', 'Í', 'Î', 'Ï',
-                   'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
-                   'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',
-                   'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',
-                   'ç', 'è', 'é', 'ê', 'ë',
-                   'ì', 'í', 'î', 'ï',
-                   'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø',
-                   'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
-                   'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
-                   'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
+                    'Ç', 'È', 'É', 'Ê', 'Ë',
+                    'Ì', 'Í', 'Î', 'Ï',
+                    'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø',
+                    'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß',
+                    'à', 'á', 'â', 'ã', 'ä', 'å', 'æ',
+                    'ç', 'è', 'é', 'ê', 'ë',
+                    'ì', 'í', 'î', 'ï',
+                    'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø',
+                    'ü', 'ù', 'ú', 'û', 'ý', 'þ', 'ÿ',
+                    'Ŀ', 'ŀ', 'Ŋ', 'ŋ',
+                    'Œ', 'œ', 'Š', 'š', 'Ÿ', 'Ž', 'ž')
 unwantedLatin <- textclean::replace_non_ascii(unwanted_latin)
 names(unwantedLatin) <- unwanted_latin
 
@@ -190,13 +190,26 @@ missDets <- c("s/det.", "s/det", "s/d",
 
 
 treatPreps <- c("Dr.", "Dra.", "Pe.", "Prof.", "Profa.",
-               "Sr.", "Sra.", "Mr.", "Mrs.", "Mme.")
+                "Sr.", "Sra.", "Mr.", "Mrs.", "Mme.")
 
 namePreps <- c("De", "Dos", "Do", "Da", "Das",
                "Del", "Du", "Des",
                "Di", "Dalla", "Della", "Ter", "Von",
                "Van", "De La", "De Las", "De Lo", "De Los",
                "Van Der", "Van Den")
+
+badEncoding <- c("Ã€", "Ã‚", "Ãƒ", "Ã„", "Ã…", "Ã†", "Ã‡", "Ãˆ", "Ã‰",
+                 "ÃŠ", "Ã‹", "ÃŒ", "ÃŽ", "Ã‘", "Ã’", "Ã“", "Ã”",
+                 "Ã•", "Ã–", "Ã—", "Ã˜", "Ã™", "Ãš", "Ã›", "Ãœ", "Ãž", "ÃŸ",
+                 "Ã¡", "Ã¢", "Ã£", "Ã¤", "Ã¥", "Ã¦", "Ã§", "Ã¨", "Ã©", "Ãª",
+                 "Ã«", "Ã¬", "Ã®", "Ã¯", "Ã­", "Ã°", "Ã±", "Ã²", "Ã³", "Ã´", "Ãµ",
+                 "Ã¶", "Ã¸", "Ã¹", "Ãº", "Ã»", "Ã¼", "Ã½", "Ã¾", "Ã¿")
+names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "Ê", "Ë",
+                        "Ì", "Î", "Ñ", "Ò", "Ó", "Ô", "Õ", "Ö", "×", "Ø",
+                        "Ù", "Ú", "Û", "Ü", "Þ", "ß", "á", "â", "ã", "ä", "å",
+                        "æ", "ç", "è", "é", "ê", "ë", "ì", "î", "ï", "í", "ð", "ñ", "ò",
+                        "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ")
+
 
 simpGeoCheck <- c(
   #common cases
@@ -248,7 +261,13 @@ usethis::use_data(admin,
                   missDets,
                   treatPreps,
                   namePreps,
+                  badEncoding,
                   simpGeoCheck,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")
+#Removing data
+rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
+   replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
+   unwantedEncoding, cultivated, notCultivated, missColls, missDets,
+   treatPreps, namePreps, badEncoding, simpGeoCheck)
