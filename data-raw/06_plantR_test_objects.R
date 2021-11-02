@@ -45,7 +45,20 @@
 #           "John O'Brien", "John O' Brien", "John O'Reilly",
 #           "AL", "Carl F. P. von Martius",  #takes name preposition as name
 #           "AH gentry",  "Gentry, A.",  # ignores comma
-#           "G., Alwyn",  "Ah. Gentry") # problems
+#           "G., Alwyn",  "Ah. Gentry",  # problems
+#           "M. Nadruz; ,J.F. Baumgratz, M. Bovini, D.S.P. Silva",
+#           "M. A. Costa, J. Ribeiro, E. C. Pereira",
+#           "M. A. Costa|J. Ribeiro|E. C. Pereira",
+#           "M. A. Costa, J. Ribeiro & E. C. Pereira",
+#           "M. A. Costa, Ribeiro, J., E. C. Pereira",
+#           "M. A. Costa, Ribeiro, J. O., E. C. Pereira",
+#           "M. A. Costa, Ribeiro, J.O., E. C. Pereira",
+#           "Costa M. A., Ribeiro J., E. C. Pereira",
+#           "Costa, M. A., Ribeiro J., E. C. Pereira",
+#           "Costa, M. A., Ribeiro, J.",
+#           "J. F. Morales Quirós; Michael H. Grayum ; Maria M. Chavarría",
+#           "Tiritan, O; Paiva, M", "Costa, M. A., Ribeiro J., E. C. Pereira",
+#           "Souza 35", "15/04/2015", "", NA)
 
 
 # Comparing the outputs of the new and previous version

@@ -41,10 +41,10 @@
 #' colNumber(numbers)
 #'
 #' # Using the function to remove the collection code from the collector number
-#' colNumber(numbers, colCodes = c("ALCB","ESA"))
+#' colNumber(numbers, colCodes = c("ALCB", "ESA"))
 #'
 #' # Defining user-specific abbreviations for specimens without collector number
-#' colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
+#' colNumber(numbers, colCodes = c("ALCB", "ESA"), noNumb = "n.a.")
 #'
 colNumber <- function(x,
                       colCodes = NULL,
@@ -55,44 +55,61 @@ colNumber <- function(x,
   numbs <- x
 
   # Missing numbers
-  numbs[numbs %in% c(0, "0", "", " ", NA)] <- "SemNumero"
-  numbs[!grepl("\\d", numbs, perl = TRUE)] <- "SemNumero"
-  numbs[!is.na(numbs) & grepl(" s.n. ", numbs)] <- "SemNumero"
+  numbs[numbs %in% c(0, "0", "", " ", NA)] <-
+    "SemNumero"
+  numbs[!grepl("\\d", numbs, perl = TRUE)] <-
+    "SemNumero"
+  numbs[!is.na(numbs) & grepl(" s.n. ", numbs)] <-
+    "SemNumero"
 
   # Removing the collection code from the beggining of the collection number
   if (!is.null(colCodes))
     numbs[!is.na(numbs) &
-            grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE, perl = TRUE)] <-
-    gsub(paste("^", colCodes, collapse = "|", sep = ""), "", numbs[!is.na(numbs) &
-                                                                     grepl(paste("^", colCodes, collapse = "|", sep = ""), numbs, ignore.case = TRUE, perl = TRUE)])
+            grepl(paste("^", colCodes, collapse = "|", sep = ""),
+                  numbs, ignore.case = TRUE, perl = TRUE)] <-
+      gsub(paste("^", colCodes, collapse = "|", sep = ""), "",
+           numbs[!is.na(numbs) & grepl(paste("^", colCodes, collapse = "|", sep = ""),
+                                       numbs, ignore.case = TRUE, perl = TRUE)])
 
   # Removing names of collectors and others codes from the beginning of the numbers
-  check_these <- grepl("[a-z][a-z][a-z] ", numbs, perl = TRUE) |
-    grepl("[a-z], [A-Z]", numbs, perl = TRUE)
-  numbs[!is.na(numbs) & check_these ] <-
-    as.character(sapply(sapply(
-      strsplit(numbs[!is.na(numbs) & check_these ], " "), function(x)
-        x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), utils::tail, n = 1))
-  numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] <- "SemNumero"
-  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] <- "SemNumero"
+  check_these <- (grepl("[a-z][a-z][a-z] ", numbs, perl = TRUE) |
+                   grepl("[a-z], [A-Z]", numbs, perl = TRUE)) &
+                    !grepl("^[0-9]|^Diary", numbs, perl = TRUE)
+  if (any(check_these)) {
+    numbs[!is.na(numbs) & check_these] <-
+      as.character(sapply(sapply(
+        strsplit(numbs[!is.na(numbs) & check_these ], " "), function(x)
+          x[grepl('[0-9]|SemNumero', x, perl = TRUE)]), utils::tail, n = 1))
+  }
+  numbs[!is.na(numbs) & grepl("SemNumero", numbs, perl = TRUE)] <-
+    "SemNumero"
+  numbs[!is.na(numbs) & grepl("character\\(0\\)", numbs, perl = TRUE)] <-
+    "SemNumero"
 
-  #Removing unwanted characters ans spacing
+  #Removing unwanted characters and spacing
   numbs <- gsub(' - ', "-", numbs, fixed = TRUE)
 
   #Removing misplaced parenteses
   numbs <- gsub(' \\(', "\\(", numbs, perl = TRUE)
   numbs <- gsub('\\) ', "\\)", numbs, perl = TRUE)
-  numbs[grepl('^\\(', numbs, perl = TRUE) & !grepl('\\)$', numbs, perl = TRUE)] <-
-    gsub('^\\(', '', numbs[grepl('^\\(', numbs, perl = TRUE) & !grepl('\\)$', numbs, perl = TRUE)], perl = TRUE)
-  numbs[!grepl('^\\(', numbs, perl = TRUE) &  grepl('\\)$', numbs, perl = TRUE)] <-
-    gsub('\\)$', '', numbs[!grepl('^\\(', numbs, perl = TRUE) & grepl('\\)$', numbs, perl = TRUE)], perl = TRUE)
+  replace_these <- grepl('^\\(', numbs, perl = TRUE) &
+                    !grepl('\\)$', numbs, perl = TRUE)
+  numbs[replace_these] <-
+    gsub('^\\(', '', numbs[replace_these], perl = TRUE)
+
+  replace_these <- !grepl('^\\(', numbs, perl = TRUE) &
+                      grepl('\\)$', numbs, perl = TRUE)
+  numbs[replace_these] <-
+    gsub('\\)$', '', numbs[replace_these], perl = TRUE)
 
   #Replacing orphan spaces by separators
-  numbs <- gsub(' ', "-", numbs, fixed = TRUE)
+  numbs <- gsub('([0-9])( )(\\p{L})', "\\1-\\3", numbs, perl = TRUE)
+  numbs <- gsub('(\\p{L})( )([0-9])', "\\1-\\3", numbs, perl = TRUE)
 
   #Including separators between number qualificators
   numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)] <-
-    gsub(' ', "-", numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)], perl = TRUE)
+    gsub(' ', "-", numbs[grepl('[0-9] [A-Z]',
+                               numbs, ignore.case = TRUE, perl = TRUE)], perl = TRUE)
 
   #PUT THIS FUNCTION IN PACKAGE DOCUMENTATION?
   #NEED TO BE FIXED: CONVERTING 116F4 TO 1164-F!
@@ -123,7 +140,8 @@ colNumber <- function(x,
 
   numbs <- gsub(' e ', ", ", numbs, fixed = TRUE)
   numbs <- gsub('\\.[0]|\\.[0]', "", numbs, perl = TRUE)
-  numbs <- gsub('#|\\?|\\!|\\.', "", numbs, perl = TRUE)
+  numbs <- gsub('#|\\?|\\!', "", numbs, perl = TRUE)
+  numbs <- gsub('^\\.|\\.$', "", numbs, perl = TRUE)
   numbs <- gsub(", ", ",", numbs, fixed = TRUE)
   numbs <- gsub("Collector Number:", "", numbs, fixed = TRUE)
   numbs <- gsub("NANA", "SemNumero", numbs, fixed = TRUE)

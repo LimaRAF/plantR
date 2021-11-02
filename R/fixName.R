@@ -7,7 +7,11 @@
 #' @param sep.in a vector of the symbols separating multiple names. Default to:
 #'   ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".
 #' @param sep.out a character string with the symbol separating multiple names
-#'   in the output string. Defaults to "|".
+#'   in the output string. Defaults to "|".  If a character vector of length 2
+#'   or more is supplied, the first element is used with a warning.
+#' @param bad.comma logical. Should the cases when source data use commas to
+#'   separate last names and first names/initials, as well as multiple people's
+#'   names, be isolated and (tried to be) fixed?  Default to TRUE.
 #' @param special.char logical. Should special characters be maintained? Default
 #'   to FALSE.
 #'
@@ -23,8 +27,19 @@
 #'
 #'   The function was created to deal with people's names, so input separators
 #'   for multiple names composed only by letters should be surrounded by spaces.
-#'   For non-alphabetic characters (e.g. semi-colons, ampersand) the function
-#'   are taken independently of the presence of spaces nearby.
+#'   If separators are non-alphabetic characters (e.g. semi-colons, ampersand),
+#'   they are taken independently of the presence of spaces nearby.
+#'
+#'   By default, commas are not within the symbols separating multiple people's
+#'   names are, because commas are often used to separate people's last names
+#'   from their first names or initials. There are cases when the name notation
+#'   uses commas to separate last names and first names/initials, as well as
+#'   multiple people's names (which is not at all encouraged). For some cases
+#'   (e.g. "M. Costa, J. Ribeiro"), but not for all of those cases (e.g. 'Costa,
+#'   M., Ribeiro, J.'), the function tries to isolate and solve the separation
+#'   between multiple people's names. But this procedure currently is very
+#'   preliminary and it may include noise in the name notation. If this is the
+#'   case, it can be skipped by setting the argument `bad.comma` to FALSE.
 #'
 #'   Due to common encoding problems related to Latin characters, names are
 #'   returned without accents by default. But users can choose between outputs
@@ -50,13 +65,26 @@
 #'   fixName(names, special.char = TRUE)
 #'   fixName(names, sep.out = " | ")
 #'
-#'
 #' @export fixName
 #'
 fixName <- function(nomes,
                     sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
                     sep.out = "|",
+                    bad.comma = TRUE,
                     special.char = FALSE) {
+
+  ## Check input
+  if (!class(nomes)[1] %in% c("character", "factor"))
+    stop("Input object needs to be a character")
+
+  if (class(nomes)[1] == "factor")
+    nomes <- as.character(nomes)
+
+  if (length(sep.out) > 1) {
+    warning("Argument 'sep.out' has length > 1: only the first element will be used",
+            call. = FALSE)
+    sep.out <- sep.out[1]
+  }
 
   #Defining the input and temporary separators
   sep.in2 <- sep.in[grepl('[[:alpha:]]', sep.in) & !grepl(' et ', sep.in)]
@@ -75,6 +103,11 @@ fixName <- function(nomes,
   sep.et <- ifelse(" et " %in% sep.in, TRUE, FALSE)
   sep0 <- "__"
 
+  # detecting missing names
+  miss.name <- nomes %in% c( NA, "", " ")
+  orig.nomes <- nomes
+  nomes <- nomes[!miss.name]
+
   #Separation between names/initials
   nomes <- gsub("(?<=\\p{Lu})\\.(?=\\p{Ll})", "\\1. ",
                 nomes, perl = TRUE)
@@ -88,6 +121,35 @@ fixName <- function(nomes,
 
   #Separation between multiple authors
   nomes <- gsub(",;|;,", sep.in3[1], nomes, perl = TRUE)
+  nomes <- gsub("(; )(,)(\\p{Lu})", "\\1\\3", nomes, perl = TRUE)
+
+  #Trying to solve cases when both initials and multiple people's names are separate by commas
+  if (bad.comma) {
+    check_these <- grepl("^\\p{Lu}\\.", nomes, perl = TRUE) &
+      (grepl("\\p{Ll}, \\p{Lu}\\.", nomes, perl = TRUE) |
+         grepl("\\p{Ll}, \\p{Lu}\\p{Ll}", nomes, perl = TRUE))
+    #Fixing
+    if (any(check_these)) {
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(,)( \\p{Lu}\\.)", "\\1__\\3",
+             nomes[check_these], perl = TRUE)
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(,)( \\p{Lu}\\p{Ll})", "\\1__\\3",
+             nomes[check_these], perl = TRUE)
+      #Reverting particular cases
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(__)( \\p{Lu}\\.)(,)", "\\1,\\3__",
+             nomes[check_these], perl = TRUE)
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(__)( \\p{Lu}\\. \\p{Lu}\\.)(,)", "\\1,\\3__",
+             nomes[check_these], perl = TRUE)
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(__)( \\p{Lu}\\.\\p{Lu}\\.)(,)", "\\1,\\3__",
+             nomes[check_these], perl = TRUE)
+    }
+  }
+
+  #Standardizing the separation
   nomes <- gsub(sep.other, sep0, nomes, perl = TRUE)
   nomes <- gsub("____", sep0, nomes, fixed = TRUE)
   nomes <- gsub("^__|__$", "", nomes, perl = TRUE)
@@ -187,11 +249,12 @@ fixName <- function(nomes,
   nomes <- gsub("//", "", nomes, fixed = TRUE)
   nomes <- gsub("\\.\\.", "", nomes, perl = TRUE)
   nomes <- gsub("\\(\\)", "", nomes, perl = TRUE)
-  nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "", nomes, perl = TRUE)
+  nomes <- gsub('\\[\\]|\\[\\s+\\]|\\[-\\]|\\[/\\]', "",
+                nomes, perl = TRUE)
   nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
   nomes <- stringr::str_squish(nomes)
-  nomes[nomes %in% c("")] <- NA_character_
+  nomes[nomes %in% c("", NA)] <- NA_character_
 
   #Replacing the temporary separator by sep.out
   nomes <- gsub(" __ ", sep0, nomes, fixed = TRUE)
@@ -203,5 +266,11 @@ fixName <- function(nomes,
   if (special.char == FALSE)
     nomes <- rmLatin(nomes)
 
-  return(nomes)
+  #Saving
+  orig.nomes[!miss.name] <- nomes
+
+  if (any(miss.name))
+    orig.nomes[miss.name] <- NA_character_
+
+  return(orig.nomes)
 }
