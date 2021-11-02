@@ -85,7 +85,7 @@ Standardization of Plant Species Names. R package version 2.1.
 https://CRAN.R-project.org/package=Taxonstand
 
 PPG I (2016). A community-derived classification for extant lycophytes and
-ferns. Journal of Systematics and Evolution. 54 (6): 563–603.
+ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
 }
 \author{
 Renato A. F. de Lima

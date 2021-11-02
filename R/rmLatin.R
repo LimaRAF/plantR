@@ -39,7 +39,7 @@ rmLatin <- function(x) {
   #Double-letter replacements
   replace_latin2 <- replace_latin[nchar(replace_latin) == 2]
   names(replace_latin2) <- unwanted_latin[nchar(replace_latin) == 2]
-  for (i in 1:length(replace_latin2))
+  for (i in seq_along(replace_latin2))
     x <- gsub(names(replace_latin2)[i],
                   replace_latin2[i],
                   x, fixed = TRUE)

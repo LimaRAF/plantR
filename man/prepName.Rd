@@ -40,7 +40,8 @@ separately? Default to TRUE (concatenate prepositions).}
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
 
 \item{sep.out}{a character string with the symbol separating multiple names
-in the output string. Defaults to "|".}
+in the output string. Defaults to "|".  If a character vector of length 2
+or more is supplied, the first element is used with a warning.}
 
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
