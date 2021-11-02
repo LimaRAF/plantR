@@ -15,7 +15,6 @@ formatDwc(
   drop.opt = FALSE,
   drop.empty = FALSE,
   fix.encoding = NULL,
-  encoding = "UTF-8",
   institutionCode = "institutionCode",
   collectionCode = "collectionCode",
   catalogNumber = "catalogNumber",

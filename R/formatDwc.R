@@ -112,7 +112,6 @@ formatDwc <- function(splink_data = NULL,
                       drop.opt = FALSE,
                       drop.empty = FALSE,
                       fix.encoding = NULL,
-                      encoding = "UTF-8",
                       institutionCode = "institutionCode",
                       collectionCode = "collectionCode",
                       catalogNumber = "catalogNumber",
@@ -177,7 +176,7 @@ formatDwc <- function(splink_data = NULL,
         for (i in seq_along(user.cols)) {
           bad_enc <- badEncoding
           replace_these <- grepl(paste0(bad_enc, collapse = "|"),
-                                 user_data[, user.cols[i]])
+                                 user_data[, user.cols[i]], perl = TRUE)
           if (any(replace_these))
             user_data[replace_these, user.cols[i]] <-
               fixEncoding(user_data[replace_these, user.cols[i]])
@@ -234,7 +233,7 @@ formatDwc <- function(splink_data = NULL,
         for (i in seq_along(splink.cols)) {
           bad_enc <- badEncoding
           replace_these <- grepl(paste0(bad_enc, collapse = "|"),
-                                 splink_data[, splink.cols[i]])
+                                 splink_data[, splink.cols[i]], perl = TRUE)
           if (any(replace_these))
             splink_data[replace_these, splink.cols[i]] <-
               fixEncoding(splink_data[replace_these, splink.cols[i]])
@@ -296,7 +295,7 @@ formatDwc <- function(splink_data = NULL,
         for (i in seq_along(gbif.cols)) {
           bad_enc <- badEncoding
           replace_these <- grepl(paste0(bad_enc, collapse = "|"),
-                                 gbif_data[, gbif.cols[i]])
+                                 gbif_data[, gbif.cols[i]], perl = TRUE)
           if (any(replace_these))
             gbif_data[replace_these, gbif.cols[i]] <-
               fixEncoding(gbif_data[replace_these, gbif.cols[i]])
@@ -365,7 +364,7 @@ formatDwc <- function(splink_data = NULL,
         for (i in seq_along(bien.cols)) {
           bad_enc <- badEncoding
           replace_these <- grepl(paste0(bad_enc, collapse = "|"),
-                                 bien_data[, bien.cols[i]])
+                                 bien_data[, bien.cols[i]], perl = TRUE)
           if (any(replace_these))
             bien_data[replace_these, bien.cols[i]] <-
               fixEncoding(bien_data[replace_these, bien.cols[i]])
@@ -398,25 +397,29 @@ formatDwc <- function(splink_data = NULL,
   if (bind_data) {
     # Forcing numeric columns to be characters to allow binding
     if (!is.null(splink_data)) {
-      ids <- which(sapply(splink_data, class) %in% c("numeric", "integer"))
+      ids <- which(sapply(splink_data, class) %in%
+                     c("numeric", "integer"))
       if (length(ids) > 0)
         for (i in ids) splink_data[, i] <- as.character(splink_data[, i])
     }
 
     if (!is.null(gbif_data)) {
-      ids <- which(sapply(gbif_data, class) %in% c("numeric", "integer"))
+      ids <- which(sapply(gbif_data, class) %in%
+                     c("numeric", "integer"))
       if (length(ids) > 0)
         for (i in ids) gbif_data[, i] <- as.character(gbif_data[, i])
     }
 
     if (!is.null(bien_data)) {
-      ids <- which(sapply(bien_data, class) %in% c("numeric", "integer", "Date"))
+      ids <- which(sapply(bien_data, class) %in%
+                     c("numeric", "integer", "Date"))
       if (length(ids) > 0)
         for (i in ids) bien_data[, i] <- as.character(bien_data[, i])
     }
 
     if (!is.null(user_data)) {
-      ids <- which(sapply(user_data, class) %in% c("numeric", "integer", "Date"))
+      ids <- which(sapply(user_data, class) %in%
+                     c("numeric", "integer", "Date"))
       if (length(ids) > 0)
         for (i in ids) user_data[, i] <- as.character(user_data[, i])
     }

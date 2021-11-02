@@ -20,7 +20,7 @@ toto1 <- lengths(toto$found)
 names(toto1) <- toto$word
 head(tail(sort(toto1), 40))
 
-palavras <- c("american", "duplicata", "lima", "servicos")
+palavras <- c("microrganisms", "miliseconds", "preposion", "servico")
 toto2 <- toto$found[match(palavras, toto$word)]
 names(toto2) <- palavras
 toto2

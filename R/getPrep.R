@@ -19,7 +19,7 @@
 #' @param format character. Format of the output vector of names The default
 #'   ("last_init") is the TDWG standard, but the inverse format can also be
 #'   chosen ("init_last").
-#' @param lower logical. Should the preposion be converted to lower cases
+#' @param lower logical. Should the preposition be converted to lower cases
 #'   or returned as provided? Default to FALSE.
 #'
 #' @return A vector or a matrix containing the names provided in \code{x} with
