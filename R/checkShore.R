@@ -79,7 +79,7 @@ checkShore <- function(x,
     if (type == "buffer") {
       land <- landBuff
       test_shore <-
-        suppressMessages(sf::st_intersects(tmp, land, by_element = TRUE))
+        suppressMessages(sf::st_intersects(tmp, land))
       shore.check <- lengths(test_shore) == 1
     }
 

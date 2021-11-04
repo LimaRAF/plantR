@@ -53,6 +53,11 @@ people's names. This option is controlled by the new argument `bad.comma`
 
 * Adding tests to most of the package functions
 
+* Solving some minor problems in the world map objects to make them compatible
+to the use of the spherical geometry operators of package __s2__, which is now
+the default of package __sf__ version >= 1.0
+
+
 
 <br/>
 

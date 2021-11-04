@@ -38,7 +38,7 @@ Imports:
     knitr,
     rgbif,
     robustbase,
-    sf (>= 1.0),
+    sf,
     spatialrisk,
     stringi,
     stringr,
