@@ -1,6 +1,4 @@
----
-title: "plantR NEWS"
----
+# plantR NEWS
 
 <br/>
 
