@@ -4,13 +4,16 @@
 \alias{fixEncoding}
 \title{Fix Encoding Problems}
 \usage{
-fixEncoding(x)
+fixEncoding(x, encoding = NULL)
 }
 \arguments{
 \item{x}{a vector with characters to be replaced}
+
+\item{encoding}{a character containing the encoding used to mark the output
+vector}
 }
 \value{
-the input vector with the encoding replaced
+the input vector with the encoding problems replaced
 }
 \description{
 Simple function to replace typical encoding problems when
@@ -23,14 +26,17 @@ common enconding problems from text in latin1 to UTF-8 characters. So, make
 sure that this replacement makes sure to your data.
 }
 \examples{
-  nomes <- c("Ã€", "Ã‚", "Ã™", "Ãš")
+  nomes <- c("JosÃ©", "GonÃ§alves", "MÃ¼ller", "LondoÃ±o")
 
 \dontrun{
   fixEncoding(nomes)
+  fixEncoding(nomes, encoding = "UTF-8")
+  fixEncoding(nomes, encoding = "latin1")
+
 }
 
 }
 \author{
-Renato A. F. de Lima & Leila Meyer
+Renato A. F. de Lima
 }
 \keyword{internal}
