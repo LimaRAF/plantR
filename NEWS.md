@@ -1,9 +1,5 @@
 ---
 title: "plantR NEWS"
-output:
-    rmarkdown::github_document:
-        toc: false
-        number_sections: false
 ---
 
 <br/>
