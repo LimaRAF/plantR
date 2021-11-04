@@ -1,4 +1,14 @@
-# plantR 0.1.4
+---
+title: "plantR NEWS"
+output:
+    rmarkdown::github_document:
+        toc: false
+        number_sections: false
+---
+
+<br/>
+
+## version 0.1.4
 
 * Fixing an issue related to non-NA type specifications in `validateTax()` and
 `checkList()` used to validate species identifications and detect type
@@ -7,8 +17,11 @@ specimens.
 * Fixing a small issue related to non-preserved specimens observation in
 `validateTax()` to assign confidence levels to species identifications. 
 
-* Inclusion of the (simple) internal function `plotCoord()` to help the
+* New (simple) internal function `plotCoord()` to help the
 visualization of the coordinate validation process
+
+* New (simple) internal function `fixEncoding()` to help solving 
+common encoding problems of text in 'latin1'
 
 * Inclusion of an argument to make optional the prints of functions:
 `prepFamily()`, `summaryData()`, `summaryFlags()` and `validateTax()`
@@ -25,21 +38,29 @@ separately for the taxonomic, locality and coordinate information. We also fixed
 a bug related to the homogenization of the geographical and locality information
 
 * Function `prepTDWG()` (and consequently `prepName()`) now provides the
-argument 'pretty' which controls the way in which the output names are
-presented. By default the function returns, as before, names in a 'pretty' way
-(i.e. only the first letter of names capitalized, initials separated by points
-and no spaces, and family name prepositions in lower cases). But now the
-function also returns the names in the desired format but presented in the same
-way as the input names
+argument 'pretty' which controls how the output names are presented. By default
+the function returns, as before, names in a 'pretty' way (i.e. only the first
+letter of names capitalized, initials separated by points and no spaces, and
+family name prepositions in lower cases). But now the function also returns the
+names in the desired format but presented in the same way as the input names
 
-* Minor improvements in functions `formatDwc()`, `checkList()`, ,
-`fixSpecies()`, `prepName()`, `getPrep()`, `getInit()`, `lastName()`,
-`prepFamily()` and `addRank()`.
+* Function `formatDwc()` now accepts data downloaded from the BIEN database and
+it includes a dataset-specific option to solve common latin1 encoding problems
+
+* Function `fixName()` now includes an option to detect and solve potentially
+problematic cases when the name notation uses commas to separate multiple
+people's names. This option is controlled by the new argument `bad.comma`
+
+* Minor improvements in `checkList()`, `fixSpecies()`, `prepName()`,
+`getPrep()`, `getInit()`, `getYear()`, `colNumber()`, `lastName()`,
+`checkCoord()`, `mahalanobisDist()`, `prepFamily()` and `addRank()`.
 
 * Adding tests to most of the package functions
 
 
-# plantR 0.1.3
+<br/>
+
+## version 0.1.3
 
 * Fixing bugs in `formatDwc()` related to the difference in the number of
 columns that speciesLink returns for queries using different taxa and for the
@@ -57,7 +78,9 @@ binding of columns with different data types.
 `formatTax()`
 
 
-# plantR 0.1.2
+<br/>
+
+## version 0.1.2
 
 * New tutorial on how __plantR__ can be used to update databases of biological
 collections (currently in Portuguese, only)
@@ -83,9 +106,11 @@ prioritize the merge of taxonomic information within duplicates
 list of taxonomists related to the new tutorial 
 
 
-# plantR 0.1.1
+<br/>
 
-* Added function `readData()` to read DwC-A zip files from GBIF
+## version 0.1.1
+
+* New function `readData()` to read DwC-A zip files from GBIF
 
 * `checkCoord()` now supports user provided maps
 
@@ -94,6 +119,8 @@ list of taxonomists related to the new tutorial
 * Added a `NEWS.md` file to track changes to the package.
 
 
-# plantR 0.1.0
+<br/>
+
+## version 0.1.0
 
 * The first public version of the package in GitHub.
