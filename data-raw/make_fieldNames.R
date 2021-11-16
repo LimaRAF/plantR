@@ -39,6 +39,10 @@ names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
 ## species link
 df_splink <- read.csv("data-raw/results/speciesLink.csv")
 
+## species link (WEB based version) - INCLUDE THIS ONE
+df_splinkw <- read.delim("data-raw/results/speciesLink-20211105124052-0021061.txt")
+#https://specieslink.net/search/download/20211105124052-0021061
+ 
 ### Necessary fields for plantR
 must_plantr <- c("institutionCode", "collectionCode", "catalogNumber",
                  "recordNumber", "recordedBy",

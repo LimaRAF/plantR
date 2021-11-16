@@ -190,6 +190,7 @@ formatDwc <- function(splink_data = NULL,
   if (!is.null(splink_data)) {
     # required absent fields in speciesLink: municipality and dateIdentified
     miss.cols <- must[!must %in% names(splink_data)]
+
     # Creating field municipality
     splink_data$municipality <- NA_character_
     # Creating field dateIdentified
