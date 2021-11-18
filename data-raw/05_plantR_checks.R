@@ -20,7 +20,7 @@ toto1 <- lengths(toto$found)
 names(toto1) <- toto$word
 head(tail(sort(toto1), 40))
 
-palavras <- c("american", "duplicata", "lima", "servicos")
+palavras <- c("microrganisms", "miliseconds", "preposion", "servico")
 toto2 <- toto$found[match(palavras, toto$word)]
 names(toto2) <- palavras
 toto2
@@ -42,3 +42,13 @@ goodpractice::gp(".", checks = c("rcmdcheck_tests_pass"))
 # In 03/10/2021: 57% of code lines were covered by test cases
 # Larger functions pending tests: checkList, formatDwc, prepDup,
 #readData, rgibif2, rspeciesLink, saveData, summaryData, summaryFlags
+
+## Checking non-ascii characters in the code
+arquivos <- list.files("R/", full.names = TRUE)
+arquivos <- arquivos[!arquivos %in% "R/sysdata.rda"]
+for (i in seq_along(arquivos)) {
+  cat(arquivos[i], "\n")
+  non.ascii <- tools::showNonASCIIfile(arquivos[i])
+}
+
+

@@ -45,7 +45,7 @@ formatTax <- function(tax,
                       spp.name = "scientificName") {
 
   # check input:
-  if (!class(tax) == "data.frame")
+  if (!class(tax)[1] == "data.frame")
     stop("input object needs to be a data frame!")
 
   if (dim(tax)[1] == 0)

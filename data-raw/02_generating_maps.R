@@ -104,6 +104,19 @@ worldMap <- sf::st_set_crs(wo.simp1_sf, prj)
 # plot(wo.simp[1,], border = "red", main="Aruba gSimp 0.001")
 # plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf")
 
+#Repairing possible issues related to spherical geometries
+isv <- sf::st_is_valid(worldMap) #Senegal had an issue
+if (any(isv)) {
+  for (i in which(!isv)) {
+    tmp.i <- worldMap[i, ]$geometry
+    tmp.i.1 <- s2::as_s2_geography(sf::st_as_binary(tmp.i), check = FALSE)
+    tmp.i.2 <- s2::s2_as_binary(s2::s2_snap_to_grid(tmp.i.1, grid_size = 1e-7))
+    tmp.i.3 <- sf::st_as_sfc(s2::s2_geog_from_wkb(tmp.i.2, check = TRUE))
+    worldMap[i, ]$geometry <- tmp.i.3
+  }
+}
+# worldMap <- sf::st_make_valid(worldMap)
+
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
 # save(worldMap_0001, file = "./data/worldMap_0001.rda", compress = "xz")
@@ -515,7 +528,8 @@ save(latamMap, file = "./data/latamMap.rda", compress = "xz")
 #### WORLD ####
 # map for function share_borders()
 #world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
-world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units', category = 'cultural')
+world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units',
+                                     category = 'cultural')
 world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
 world1 <- cleangeo::clgeo_Clean(world1)
 world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
@@ -575,6 +589,20 @@ world <- sf::st_set_crs(world, prj)
 #Comparing with the original wolrd map
 object.size(world3)
 object.size(world4)
+
+#Repairing possible issues related to spherical geometries
+isv <- sf::st_is_valid(world) # Sudan and South Georgia South Sandwich islands
+if (any(isv)) {
+  for (i in which(!isv)) {
+    tmp.i <- world[i, ]$geometry
+    tmp.i.1 <- s2::as_s2_geography(tmp.i, check = FALSE)
+    tmp.i.2 <- s2::s2_union(tmp.i.1)
+    tmp.i.3 <- sf::st_as_sfc(
+      s2::s2_rebuild(tmp.i.2, s2::s2_options(split_crossing_edges = TRUE)))
+    world[i, ]$geometry <- tmp.i.3
+  }
+}
+# world <- sf::st_make_valid(world)
 
 ## Saving
 save(world, file = "./data/world.rda", compress = "xz")

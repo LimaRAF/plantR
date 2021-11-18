@@ -82,11 +82,15 @@ prepSpecies <- function(x,
                         db = c("bfo", "tpl"),
                         sug.dist = 0.9,
                         use.authors = TRUE,
-                        drop.cols = c("tmp.ordem","family","verbatimSpecies","author","full_sp","authorship","id")) {
+                        drop.cols = c("tmp.ordem","family","verbatimSpecies",
+                                      "author","full_sp","authorship","id")) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
 
   if (!tax.names[1] %in% names(x))
     stop("Input data frame must have a column with the species name")
@@ -114,7 +118,8 @@ prepSpecies <- function(x,
   } else {
     if (use.authors) {
       use.authors <- FALSE
-      warning("Argument 'use.authors' set to TRUE, but column with author names not found", call. = FALSE)
+      warning("Argument 'use.authors' set to TRUE, but column with author names not found",
+              call. = FALSE)
     }
     df <- data.frame(
       tmp.ordem = 1:length(x[, tax.names[1]]),
@@ -128,7 +133,8 @@ prepSpecies <- function(x,
     # cleaning spaces and removing duplicated names
     trim_sp <- stringr::str_squish(unique(x[, tax.names[1]]))
     # obtaining valid names from FBO-2020
-    suggest_sp <- flora::get.taxa(trim_sp, drop = "", suggestion.distance = sug.dist)
+    suggest_sp <- flora::get.taxa(trim_sp, drop = "",
+                                  suggestion.distance = sug.dist)
     miss_sp <- suggest_sp$original.search[suggest_sp$notes %in% "not found"]
 
     if (length(miss_sp) > 0) {
@@ -140,7 +146,8 @@ prepSpecies <- function(x,
         cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "var.")),
         cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "subsp.")),
         cbind(miss_sp[spcs == 2], addRank(miss_sp[spcs == 2], "f.")),
-        cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2], perl = TRUE)))
+        cbind(miss_sp[spcs == 2], gsub(" \u00d7 "," x", miss_sp[spcs == 2],
+                                       perl = TRUE)))
 
       #Are names missing due to authorships with the binomial?
 
@@ -225,8 +232,12 @@ prepSpecies <- function(x,
       # removing duplicated names
       unique_sp <- unique(df$full_sp)
       # adding missing epiteths to names not at species level (avoid TPL errors)
-      unique_sp[!grepl(" ", unique_sp, fixed = TRUE)] <-
-        paste0(unique_sp[!grepl(" ", unique_sp, fixed = TRUE)], " sp.")
+      check_these <- !grepl(" ", unique_sp, fixed = TRUE)
+      if (any(check_these)) {
+        unique_sp[check_these] <-
+          paste0(unique_sp[check_these], " sp.")
+        unique_sp <- unique(unique_sp)
+      }
       # Species names, exact match
       my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
@@ -237,8 +248,12 @@ prepSpecies <- function(x,
       # removing duplicated names
       unique_sp <- unique(df$verbatimSpecies)
       # adding missing epiteths to names not at species level (avoid TPL errors)
-      unique_sp[!grepl(" ", unique_sp, fixed = TRUE)] <-
-        paste0(unique_sp[!grepl(" ", unique_sp, fixed = TRUE)], " sp.")
+      check_these <- !grepl(" ", unique_sp, fixed = TRUE)
+      if (any(check_these)) {
+        unique_sp[check_these] <-
+          paste0(unique_sp[check_these], " sp.")
+        unique_sp <- unique(unique_sp)
+      }
       # Species names, exact match
       my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp, corr = FALSE)
@@ -267,6 +282,14 @@ prepSpecies <- function(x,
     if (!use.authors) {
       # removing duplicated names
       unique_sp1 <- unique(df$full_sp[df$verbatimSpecies %in% warns])
+      # adding missing epiteths to names not at species level (avoid TPL errors)
+      check_these <- !grepl(" ", unique_sp1, fixed = TRUE)
+      if (any(check_these)) {
+        unique_sp1[check_these] <-
+          paste0(unique_sp1[check_these], " sp.")
+        unique_sp1 <- unique(unique_sp1)
+      }
+
       my.TPL <- catchAll(Taxonstand::TPL)
       temp.obj <- my.TPL(unique_sp1, corr = FALSE)
       exact_sp1 <- temp.obj[[1]]

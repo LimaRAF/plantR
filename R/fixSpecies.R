@@ -110,10 +110,6 @@ fixSpecies <- function(x = NULL,
   species <- gsub("ssp\\.", "subsp. ", species, perl = TRUE)
   species <- gsub("aff\\.", "aff. ", species, perl = TRUE)
   species <- gsub("cf\\.", "cf. ", species, perl = TRUE)
-
-  ### INICIO PARTE INCLUIDA PELO RENATO ###
-  #ö Sara, várias edições tiverem de ser incluídas por conta da inflexibilidade de flora::remove.authors()
-  #Mas com elas os patterns ficam mais curtos e o tempo de proc. deve ficar igual no final
   species <- gsub(" f\\.", " f. ", species, perl = TRUE)
   species <- gsub(" var ", " var. ", species, fixed = TRUE)
   species <- gsub(" subsp ", " subsp. ", species, fixed = TRUE)
@@ -158,10 +154,8 @@ fixSpecies <- function(x = NULL,
 
   species <- stringr::str_squish(species)
   species[species %in% c("", " ", NA)] <- rplc
-  ### FIM PARTE INCLUIDA PELO RENATO ###
 
-  # ö: implement status parasite "f. sp." not f. from forma
-  # rafl: se quiser diminuir o código acho que dá pra trocar [[:space:]] por '\\s'
+  #implement status parasite "f. sp." not f. from forma
   #1. Open nomenclature and infraspecies class ####
   form_string <- "[[:space:]]f\\.$|[[:space:]]form\\.[[:space:]]|[[:space:]]f\\.[[:space:]]"
   inc_string <- "inc\\.[[:space:]]sed\\.|Incertae[[:space:]]sedis"
@@ -200,7 +194,6 @@ fixSpecies <- function(x = NULL,
   check$species_status[undecl.infraspp] <- "infra_specific"
 
   #1.1 Fixing cases (not using flora::fixCase anymore)
-  ### ö Sara, usando a nova função do plantR fixCase(): vetorizada, mais completa e um pouco mais rápida
   check$species_new <- check$species
 
   case <- as.vector(fixCase(check$species_new))
@@ -230,25 +223,26 @@ fixSpecies <- function(x = NULL,
       check$species_status %in% "infra_specific")
   no_authors[prob.ids] <-
     gsub(" [A-Z].*| \\(.*| [a-z][a-z] .*", "", no_authors[prob.ids], perl = TRUE)
+
   #Other cases where flora::remove.authors works fine
   no_authors[!prob.ids] <- sapply(no_authors[!prob.ids],
                                   function(x) flora::remove.authors(x))
   # no_authors <- sapply(check$species_new,
   #                      function(x) flora::remove.authors(flora::fixCase(x)))
   # aqui aff cf subsp var e indet prevalescem
-  ### ö Sara: não consegui entender porque a distinção para nomes em nivel de especie ou gênero: ambos podem tem autor
+  ### Sara: nao consegui entender porque a distincao para nomes em nivel de especie ou genero: ambos podem tem autor
   id_authors <- #is.na(check$species_status) | #&
     check$species_new != no_authors &
       grepl(" [A-Z]| \\(", check$species_new, perl = TRUE) &
         !grepl("^cf\\.|^aff\\.", check$species_new, perl = TRUE, ignore.case = TRUE)
     #sapply(strsplit(as.character(check$species), " "), length) > 2
-  ### ö Sara, aqui era o ponto que des-indexava os nomes com autores; deixei comentado por agora
+  ### Sara, aqui era o ponto que des-indexava os nomes com autores; deixei comentado por agora
   # id_authors <- id_authors & !check$species_status %in% prev |
   #   id_authors & sapply(strsplit(as.character(no_authors), " "), length) > 2 |
   #   sapply(strsplit(as.character(no_authors), " "), length) == 1 # genus + author
   # removing f. in the end of author name
   no_authors <- stringr::str_squish(gsub("f\\.$", "", no_authors, perl = TRUE))
-  ### ö Sara, aqui tb estava substituindo os nomes com var./subsp.; deixei comentado por agora
+  ### Sara, aqui tb estava substituindo os nomes com var./subsp.; deixei comentado por agora
   # no_authors <- ifelse(sapply(stringr::str_split(no_authors, " "), length) > 2,
   #                      sapply(stringr::str_split(no_authors, " "), function(x) paste(x[1], x[2])),
   #                      no_authors)
@@ -312,7 +306,7 @@ fixSpecies <- function(x = NULL,
   check$species_status[id_not_gensp] <- "not_Genus_epithet_format"
 
   #7. case ####
-  ### ö Sara, fazendo esse passo lá em cima agora
+  ### Sara, fazendo esse passo lah em cima agora
   # case <- sapply(check$species_new, flora::fixCase)
   # # aff cf subsp var e indet prevalescem
   # id_case <- check$species_new != case &
@@ -332,12 +326,12 @@ fixSpecies <- function(x = NULL,
   check$species_status[id_ord] <- "order_as_genus"
 
   #9.5 subfamily as genus ####
-  # ö: included by renato: ok?
   id_sub <- endsWith(gen, "deae")
   check$species_status[id_sub] <- "subfamily_as_genus"
 
 
-  #10. hybrid #### ö: Sara, passei essa parte para cima para ficar coerente com aff., cf., etc
+  #10. hybrid
+  ### Sara, passei essa parte para cima para ficar coerente com aff., cf., etc
   # hybrid_symbol <- stringr::str_detect(check$species, "\u00D7")
   # hybrid_string <- "[[:space:]]x[[:space:]]"
   # hybrid_x <- stringr::str_detect(check$species,
@@ -355,7 +349,6 @@ fixSpecies <- function(x = NULL,
   check$species_status[abbrev_gen] <- "abbreviated_genus"
 
   #11. possibly ok ####
-  # ö: talvez mudar para algo mais assertivo, tipo 'binomial_ok'?? Se mudar, mudar tb em mergeDup
   check$species_status[is.na(check$species_status)] <- "possibly_ok"
 
   #12. non-ascii ####
@@ -415,7 +408,7 @@ fixSpecies <- function(x = NULL,
            perl = TRUE, ignore.case = TRUE)
   }
 
-  # organizando a saída
+  # preparing the output
   check1 <- suppressMessages(dplyr::left_join(x,
                              check[,c('scientificName.new', 'scientificNameStatus',
                                    tax.name)]))

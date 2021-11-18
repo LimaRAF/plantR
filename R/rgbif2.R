@@ -40,18 +40,18 @@
 #'
 #' The time of download will depend on the number of taxa selected and the
 #' maximum number of records requested for download, as well as on the speed of
-#' the internet connection. If you want to download large dataset, consider doing
-#' your request using the GBIF web interface and load the DwC-A zip file using
-#' the __plantR__ function `readData()`.
+#' the internet connection. If you want to download large dataset, consider
+#' doing your request using the GBIF web interface and load the DwC-A zip file
+#' using the __plantR__ function `readData()`.
 #'
-#' __Important note__: __plantR__ currently does not provide tools to cite data
-#' following the [GBIF citation guidelines]{https://www.gbif.org/citation-guidelines}.
+#' __IMPORTANT NOTE__: __plantR__ currently does not provide tools to cite data
+#' following the [GBIF citation guidelines](https://www.gbif.org/citation-guidelines).
 #' So, it is necessary that the user identify the dataset publishers and
 #' properly acknowledge each of them when citing the data. We recommend the
 #' package __occCite__ (Owens et al. 2021) to help citing data. Another option
 #' is to manually create a derived dataset and assign a unique DOI that can be
 #' used to cite the dataset (check more instructions
-#' [here]{https://www.gbif.org/citation-guidelines#derivedDatasets}).
+#' [here](https://www.gbif.org/citation-guidelines#derivedDatasets)).
 #'
 #' @references
 #' Hannah L. Owens, Cory Merow, Brian Maitner, Jamie M. Kass, Vijay Barve and
@@ -61,8 +61,11 @@
 #'
 #' @examples
 #' \dontrun{
-#' ex_rgbif <- rgbif2(species =  "Paubrasilia echinata")
+#' ex_rgbif  <- rgbif2(species =  "Paubrasilia echinata")
+#' ex_rgbif1 <- rgbif2(species =  "Alouatta fusca")
 #' }
+#'
+#' @encoding UTF-8
 #'
 #' @import data.table
 #' @importFrom rgbif name_backbone

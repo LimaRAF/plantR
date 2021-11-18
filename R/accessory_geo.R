@@ -154,7 +154,7 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'   (`method`= 'robust'). The two methods take into account the geographical
 #'   center of the coordinates distribution and the spatial covariance between
 #'   them. But they vary in the way the covariance matrix of the distribution is
-#'   defined: the classic method uses an approach based on Pearson’s method,
+#'   defined: the classic method uses an approach based on Pearson's method,
 #'   while the robust method uses a Minimum Covariance Determinant (MCD)
 #'   estimator.
 #'
@@ -321,13 +321,21 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
       if (class(rob) == "try-error") {
         df1$lon2 <- jitter(df1$lon, factor = 0.001)
         df1$lat2 <- jitter(df1$lat, factor = 0.001)
-        rob <- robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
-                                  alpha = 1 / 2, tol = 1e-20)
-        res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
-                                 res = sqrt(stats::mahalanobis(df1[, c("lon2", "lat2")],
-                                                               center = rob$center,
-                                                               cov = rob$cov, tol=1e-20)))
+        rob <- suppressWarnings(try(
+                  robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
+                                  alpha = 1 / 2, tol = 1e-20), TRUE))
+        if (class(rob) == "try-error") {
+          res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
+                                   res = NA_character_)
+        } else {
+          res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
+                                   res = sqrt(stats::mahalanobis(df1[, c("lon2", "lat2")],
+                                                                 center = rob$center,
+                                                                 cov = rob$cov, tol=1e-20)))
+        }
+
       } else {
+
         if (length(rob$singularity) > 0) {
           df1$lon2 <- jitter(df1$lon, factor = 0.005)
           df1$lat2 <- jitter(df1$lat, factor = 0.005)

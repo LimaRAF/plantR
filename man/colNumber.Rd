@@ -42,10 +42,10 @@ numbers <- c("3467", "3467 ", " 3467", "ALCB3467", "Gentry 3467",
 colNumber(numbers)
 
 # Using the function to remove the collection code from the collector number
-colNumber(numbers, colCodes = c("ALCB","ESA"))
+colNumber(numbers, colCodes = c("ALCB", "ESA"))
 
 # Defining user-specific abbreviations for specimens without collector number
-colNumber(numbers, colCodes = c("ALCB","ESA"), noNumb = "n.a.")
+colNumber(numbers, colCodes = c("ALCB", "ESA"), noNumb = "n.a.")
 
 }
 \references{

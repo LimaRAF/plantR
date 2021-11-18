@@ -1,8 +1,9 @@
-# #### CHECKING PLANTR DEPENDENCIES ####
+# #### CHECKING PLANTR DEPENDENCIES AND THEIR LICENSES ####
 #
 # ## which are the R base packages
 # all.pckg <- installed.packages()
-# base.pckg <- as.data.frame(all.pckg[ all.pckg[,"Priority"] %in% c("base","recommended"), c("Package", "Priority")])
+# base.pckg <- as.data.frame(all.pckg[ all.pckg[,"Priority"] %in%
+#                                        c("base","recommended"), c("Package", "Priority")])
 # base.pckgs <- base.pckg[base.pckg$Priority %in% "base","Package"]
 #
 # ##Creating the list of plantR dependencies from package DESCRIPTION
@@ -50,3 +51,18 @@
 # foodweb( find.funs("package:plantR"), prune="haversine")
 # foodweb( find.funs("package:plantR"), prune="kable")
 # foodweb( find.funs("package:plantR"), prune="fixCase")
+#
+# ## Lista de licensas por dependências
+# licensas <- vector("list", length(import))
+# for (i in seq_along(import)) {
+#   licensas[[i]] <- packageDescription(import[i], fields = "License")
+# }
+# cbind(import, do.call(rbind, licensas))
+#
+# # MPL: Mozilla Public License:
+#     # Linking= Permissive, Distribution= Copylefted, Modification= Copylefted
+# # MIT: Mozilla Public License:
+#     # Linking= Permissive, Distribution= Permissive, Modification= Permissive
+# # GPL: General Public License
+#     # Linking= With restrictions, Distribution= Copylefted, Modification= Copylefted
+

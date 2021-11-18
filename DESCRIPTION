@@ -51,6 +51,7 @@ Suggests:
     remotes,
     rmarkdown,
     sp,
+    s2,
     stats,
     testthat (>= 3.0.0),
     utils

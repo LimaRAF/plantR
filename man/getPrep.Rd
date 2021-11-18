@@ -36,7 +36,7 @@ standardized names or organized as a matrix? Default to "matrix".}
 ("last_init") is the TDWG standard, but the inverse format can also be
 chosen ("init_last").}
 
-\item{lower}{logical. Should the preposion be converted to lower cases
+\item{lower}{logical. Should the preposition be converted to lower cases
 or returned as provided? Default to FALSE.}
 }
 \value{

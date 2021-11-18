@@ -9,6 +9,7 @@ fixName(
   nomes,
   sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "|",
+  bad.comma = TRUE,
   special.char = FALSE
 )
 }
@@ -20,7 +21,12 @@ to FALSE.}
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}
 
 \item{sep.out}{a character string with the symbol separating multiple names
-in the output string. Defaults to "|".}
+in the output string. Defaults to "|".  If a character vector of length 2
+or more is supplied, the first element is used with a warning.}
+
+\item{bad.comma}{logical. Should the cases when source data use commas to
+separate last names and first names/initials, as well as multiple people's
+names, be isolated and (tried to be) fixed?  Default to TRUE.}
 
 \item{special.char}{logical. Should special characters be maintained? Default
 to FALSE.}
@@ -42,8 +48,19 @@ al.') and symbols (e.g. ? or !).
 
 The function was created to deal with people's names, so input separators
 for multiple names composed only by letters should be surrounded by spaces.
-For non-alphabetic characters (e.g. semi-colons, ampersand) the function
-are taken independently of the presence of spaces nearby.
+If separators are non-alphabetic characters (e.g. semi-colons, ampersand),
+they are taken independently of the presence of spaces nearby.
+
+By default, commas are not within the symbols separating multiple people's
+names are, because commas are often used to separate people's last names
+from their first names or initials. There are cases when the name notation
+uses commas to separate last names and first names/initials, as well as
+multiple people's names (which is not at all encouraged). For some cases
+(e.g. "M. Costa, J. Ribeiro"), but not for all of those cases (e.g. 'Costa,
+M., Ribeiro, J.'), the function tries to isolate and solve the separation
+between multiple people's names. But this procedure currently is very
+preliminary and it may include noise in the name notation. If this is the
+case, it can be skipped by setting the argument \code{bad.comma} to FALSE.
 
 Due to common encoding problems related to Latin characters, names are
 returned without accents by default. But users can choose between outputs
@@ -62,7 +79,6 @@ with and without accents and species characters, by setting the argument
   fixName(names)
   fixName(names, special.char = TRUE)
   fixName(names, sep.out = " | ")
-
 
 }
 \author{

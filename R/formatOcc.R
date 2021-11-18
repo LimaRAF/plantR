@@ -46,10 +46,13 @@
 #'
 #' @export formatOcc
 #'
-formatOcc <- function(x, noNumb = "s.n.", noYear = "n.d.", noName = "s.n.") {
+formatOcc <- function(x,
+                      noNumb = "s.n.",
+                      noYear = "n.d.",
+                      noName = "s.n.") {
 
   ## Check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

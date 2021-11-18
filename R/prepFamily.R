@@ -59,7 +59,7 @@
 #' https://CRAN.R-project.org/package=Taxonstand
 #'
 #' PPG I (2016). A community-derived classification for extant lycophytes and
-#' ferns. Journal of Systematics and Evolution. 54 (6): 563–603.
+#' ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
 #'
 #' @import data.table
 #' @importFrom flora get.taxa
@@ -89,7 +89,7 @@ prepFamily <- function(x,
   tmp.fam <- tmp.gen <- tmp.spp <- tmp.ordem <- NULL
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -162,17 +162,42 @@ prepFamily <- function(x,
   }
   families.data[name.correct != flora.br, name.correct := flora.br, ]
 
+  # Any missing family names?
   if (families.data[, any(is.na(name.correct))]) {
     miss.families <- families.data[is.na(name.correct), tmp.fam, FALSE]
-    genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
-                     list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
-                     by = "tmp.fam"]
-    if (any(!is.na(genus.data$species)))
-      tpl.families <- Taxonstand::TPL(genus.data$species,
-                                      corr = FALSE, drop.lower.level = TRUE)$Family
+    if (!any(is.na(miss.families$tmp.fam))) {
+      genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
+                       list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
+                       by = "tmp.fam"]
+      if (any(!is.na(genus.data$species)))
+        tpl.families <- Taxonstand::TPL(genus.data$species,
+                                        corr = FALSE, drop.lower.level = TRUE)$Family
       tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
       families.data[tmp.fam %in% miss.families$tmp.fam,
-                  name.correct := tpl.families, ]
+                    name.correct := tpl.families, ]
+
+    } else {
+
+      miss.families <- families.data[is.na(name.correct), c("tmp.gen")]
+      families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
+      families.data.tmp <-
+        families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
+      if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
+        data.families <- merge(miss.families, families.data.tmp,
+                               by = "tmp.gen", all.x = TRUE, sort = FALSE)
+        data.families <-
+          data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
+      }
+      tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
+                                      corr = FALSE, drop.lower.level = TRUE)
+      replace_these <- tpl.families$Family %in% "" &
+                        !is.na(data.families$name.correct)
+      if (any(replace_these))
+        tpl.families$Family[replace_these] <-
+          data.families$name.correct[replace_these]
+      families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
+                    name.correct := tpl.families$Family, ]
+    }
    }
 
   # Double checking if all names are in the APG dictionaire

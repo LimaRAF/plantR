@@ -60,7 +60,7 @@ available: the classic (\code{method}= 'classic') and the robust methods
 (\code{method}= 'robust'). The two methods take into account the geographical
 center of the coordinates distribution and the spatial covariance between
 them. But they vary in the way the covariance matrix of the distribution is
-defined: the classic method uses an approach based on Pearson’s method,
+defined: the classic method uses an approach based on Pearson's method,
 while the robust method uses a Minimum Covariance Determinant (MCD)
 estimator.
 

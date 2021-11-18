@@ -45,6 +45,8 @@
 #'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
+#' @encoding UTF-8
+#'
 #' @export checkShore
 checkShore <- function(x,
                      geo.check = "geo.check",
@@ -77,7 +79,7 @@ checkShore <- function(x,
     if (type == "buffer") {
       land <- landBuff
       test_shore <-
-        suppressMessages(sf::st_intersects(tmp, land, by_element = TRUE))
+        suppressMessages(sf::st_intersects(tmp, land))
       shore.check <- lengths(test_shore) == 1
     }
 

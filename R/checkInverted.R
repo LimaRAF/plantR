@@ -43,9 +43,11 @@
 #'
 #' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates st_join st_intersects st_geometry
 #'
-#' @export checkInverted
-#'
 #' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#'
+#' @encoding UTF-8
+#'
+#' @export checkInverted
 #'
 checkInverted <- function(x,
                           check.names = c("geo.check", "border.check", "shore.check"),
@@ -127,7 +129,7 @@ checkInverted <- function(x,
     tmp$inv_lat <- -tmp[, lat]
     inv_lon <- "inv_lon"
     inv_lat <- "inv_lat"
-    #rafl: no codigo antigo eu fazia apenas os casos 1,2,3 e 4. Se me lembro bem, não achei os casos 5 e 6. Mas o 7 deve ter...
+    #rafl: no codigo antigo eu fazia apenas os casos 1,2,3 e 4. Se me lembro bem, nao achei os casos 5 e 6. Mas o 7 deve ter...
     types <- list(invert_lon = c(inv_lon, lat),
                invert_lat = c(lon, inv_lat),
                invert_both = c(inv_lon, inv_lat), #signos
