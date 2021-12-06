@@ -14,7 +14,10 @@ readData(
   output = c("occurrence", "verbatim", "citations"),
   save = FALSE,
   file.format = "csv",
-  compress = TRUE
+  compress = TRUE,
+  sep = "auto",
+  quote = "\\"",
+  na.strings = c("NA")
 )
 }
 \arguments{
@@ -23,31 +26,40 @@ species records.}
 
 \item{path}{character. The path to the directory where the file was saved or
 of the web Uniform Resource Locator (URL) from which the file can be
-downloaded from. Default to the user working directory or to gbif download
+downloaded from. Defaults to the user working directory or to gbif download
 path.}
 
 \item{dir.name}{character. Name of the folder where the processed data should
-be saved. Default the directory defined by \code{path}.}
+be saved. Defaults to the directory defined by \code{path}.}
 
 \item{dir.tmp}{character. Name of the sub-folder where the temporary files
-should be saved within \code{dir.name}. Default to "plantR_input".}
+should be saved within \code{dir.name}. Defaults to "plantR_input".}
 
 \item{method}{the method to be passed to function \code{download.file()} for
-downloading files. Default to 'auto'.}
+downloading files. Defaults to 'auto'.}
 
 \item{bind.data}{logical. Should the occurrence and verbatim information be
-combined into a single table? Default to TRUE.}
+combined into a single table? Defaults to TRUE.}
 
 \item{output}{character. Which information from the Darwin-Core file should
 be returned/saved? Default to 'occurrence', 'verbatim' and 'citations'.}
 
-\item{save}{logical. Should the information be saved to file? Default to
+\item{save}{logical. Should the information be saved to file? Defaults to
 FALSE.}
 
 \item{file.format}{character. The file extension to be used for saving.
-Default to 'csv'.}
+Defaults to 'csv'.}
 
 \item{compress}{logical. Should the files be compressed? Default to TRUE.}
+
+\item{sep}{character. The separator between columns to be passed to
+data.table::fread() (see the help of this function for details).}
+
+\item{quote}{character. The symbol for text quotes to be passed to
+data.table::fread(). Defaults to "\"".}
+
+\item{na.strings}{character. Vector of strings which are to be interpreted as
+NA values to be passed to data.table::fread(). Defaults to "NA".}
 }
 \description{
 This function reads species records from Darwin Core Archive

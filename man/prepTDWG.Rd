@@ -30,7 +30,7 @@ the input object \code{x}.}
 \item{get.prep}{logical. Should last name prepositions be included? Default
 to FALSE.}
 
-\item{get.initials}{logical. Should last name prepositions be included?
+\item{get.initials}{logical. Should the first name(s) be abbreviated?
 Default to TRUE.}
 
 \item{max.initials}{numerical. Upper limit of number of letter for a single

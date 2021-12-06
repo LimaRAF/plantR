@@ -10,23 +10,29 @@
 #'   species records.
 #' @param path character. The path to the directory where the file was saved or
 #'   of the web Uniform Resource Locator (URL) from which the file can be
-#'   downloaded from. Default to the user working directory or to gbif download
+#'   downloaded from. Defaults to the user working directory or to gbif download
 #'   path.
 #' @param dir.name character. Name of the folder where the processed data should
-#'  be saved. Default the directory defined by `path`.
+#'  be saved. Defaults to the directory defined by `path`.
 #' @param dir.tmp character. Name of the sub-folder where the temporary files
-#'  should be saved within `dir.name`. Default to "plantR_input".
+#'  should be saved within `dir.name`. Defaults to "plantR_input".
 #' @param method the method to be passed to function `download.file()` for
-#'   downloading files. Default to 'auto'.
+#'   downloading files. Defaults to 'auto'.
 #' @param bind.data logical. Should the occurrence and verbatim information be
-#'   combined into a single table? Default to TRUE.
+#'   combined into a single table? Defaults to TRUE.
 #' @param output character. Which information from the Darwin-Core file should
 #'   be returned/saved? Default to 'occurrence', 'verbatim' and 'citations'.
-#' @param save logical. Should the information be saved to file? Default to
+#' @param save logical. Should the information be saved to file? Defaults to
 #'   FALSE.
 #' @param file.format character. The file extension to be used for saving.
-#'   Default to 'csv'.
+#'   Defaults to 'csv'.
 #' @param compress logical. Should the files be compressed? Default to TRUE.
+#' @param sep character. The separator between columns to be passed to
+#'   data.table::fread() (see the help of this function for details).
+#' @param quote character. The symbol for text quotes to be passed to
+#'   data.table::fread(). Defaults to "\"".
+#' @param na.strings character. Vector of strings which are to be interpreted as
+#'   NA values to be passed to data.table::fread(). Defaults to "NA".
 #'
 #' @details This function provides different options to read DwC-A files,
 #'   typically the ones obtained from GBIF. Currently, this zip file can be read
@@ -53,6 +59,7 @@
 #' @import data.table
 #' @importFrom utils download.file unzip
 #'
+#'
 #' @examples
 #' \dontrun{
 #'   occs <- readData(file = "0227351-200613084148143.zip",
@@ -61,11 +68,19 @@
 #'
 #' @export readData
 #'
-readData <- function(file = NULL, path = "", dir.name = "",
+readData <- function(file = NULL,
+                     path = "",
+                     dir.name = "",
                      dir.tmp = "plantR_input",
-                     method = "auto", bind.data = TRUE,
-                     output = c("occurrence", "verbatim", "citations"), save = FALSE,
-                     file.format = "csv", compress = TRUE) {
+                     method = "auto",
+                     bind.data = TRUE,
+                     output = c("occurrence", "verbatim", "citations"),
+                     save = FALSE,
+                     file.format = "csv",
+                     compress = TRUE,
+                     sep = "auto",
+                     quote = "\"",
+                     na.strings = c("NA")) {
 
   # Check input
   if (is.null(file))
@@ -154,28 +169,45 @@ readData <- function(file = NULL, path = "", dir.name = "",
 
   ## Reading the txt files
   if ("occurrence" %in% output) {
+    cat("Reading the unzipped occurrences... \n", sep = "")
     occ.path <- all.files[grepl("occurrence.txt", all.files)]
-    occ.data <- data.table::fread(occ.path, na.strings=c("NA"))
+    occ.data <- data.table::fread(occ.path,
+                                  na.strings = na.strings,
+                                  quote = quote,
+                                  sep = sep)
 
-    verb.path <- all.files[grepl("verbatim.txt", all.files)]
-    verb.data <- data.table::fread(verb.path, na.strings=c("NA"))
+    if (grepl("verbatim.txt", all.files)) {
+      verb.path <- all.files[grepl("verbatim.txt", all.files)]
+      verb.data <- data.table::fread(verb.path,
+                                   na.strings = na.strings,
+                                   quote = quote,
+                                   sep = sep)
+    } else {
+      verb.data <- NULL
+    }
+    cat("done!\n", sep = "")
   }
 
   if ("multimedia" %in% output) {
+    cat("Reading the unzipped multimedia... ", sep = "")
     mult.path <- all.files[grepl("multimedia.txt", all.files)]
     mult.data <- data.table::fread(mult.path, na.strings=c("NA"))
+    cat("done!\n", sep = "")
   }
 
   if ("citations" %in% output) {
+    cat("Reading the unzipped citations... ", sep = "")
     cite.path <- all.files[grepl("citations.txt", all.files)]
     citations <- scan(cite.path, what = "character", sep = "\n",
                       fileEncoding = "UTF-8", quiet = TRUE)[-1]
     citations <- data.frame(citations = citations, stringsAsFactors = FALSE)
     cat(scan(cite.path, what = "character", sep = "\n",
                  fileEncoding = "UTF-8", quiet = TRUE)[1], "\n")
+    cat("done!\n", sep = "")
   }
 
   if ("rights" %in% output) {
+    cat("Reading the unzipped data rights... ", sep = "")
     right.path <- all.files[grepl("rights.txt", all.files)]
     rights0 <- scan(right.path, what = "character", sep = "\n",
                     fileEncoding = "UTF-8", quiet = TRUE)
@@ -183,6 +215,7 @@ readData <- function(file = NULL, path = "", dir.name = "",
                                Rights = rights0[grepl("Rights as supplied", rights0, fixed = TRUE)])
     rights$Dataset <- gsub("^Dataset\\: ", "", rights$Dataset, perl = TRUE)
     rights$Rights <- gsub("^Rights as supplied\\: ", "", rights$Rights, perl = TRUE)
+    cat("done!\n", sep = "")
   }
 
   ## Reading the xml files (currently not implemented)
@@ -201,10 +234,15 @@ readData <- function(file = NULL, path = "", dir.name = "",
   ## MERGING OCCURRENCE AND VERBATIM DATA ##
   if ("occurrence" %in% output) {
     if (bind.data) {
-    cols <- !names(verb.data) %in% names(occ.data)
-    verb.data <- verb.data[, cols, with = FALSE]
-    occurrence <- cbind(occ.data, verb.data)
-    output <- output[!grepl("verbatim", output)]
+      if (!is.null(verb.data)) {
+        cols <- !names(verb.data) %in% names(occ.data)
+        verb.data <- verb.data[, cols, with = FALSE]
+        occurrence <- cbind(occ.data, verb.data)
+      } else {
+        occurrence <- occ.data
+      }
+      output <- output[!grepl("verbatim", output)]
+
     } else {
       occurrence <- occ.data
       verbatim <- verb.data

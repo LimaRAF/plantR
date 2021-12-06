@@ -396,31 +396,31 @@ formatDwc <- function(splink_data = NULL,
   # binding data ---------------------------------------------------------------
 
   if (bind_data) {
-    # Forcing numeric columns to be characters to allow binding
+    # Forcing numeric/date columns to be characters to allow binding
     if (!is.null(splink_data)) {
-      ids <- which(sapply(splink_data, class) %in%
-                     c("numeric", "integer"))
+      ids <- which(sapply(splink_data, function(x) class(x)[1]) %in%
+                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
       if (length(ids) > 0)
         for (i in ids) splink_data[, i] <- as.character(splink_data[, i])
     }
 
     if (!is.null(gbif_data)) {
-      ids <- which(sapply(gbif_data, class) %in%
-                     c("numeric", "integer"))
+      ids <- which(sapply(gbif_data, function(x) class(x)[1]) %in%
+                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
       if (length(ids) > 0)
         for (i in ids) gbif_data[, i] <- as.character(gbif_data[, i])
     }
 
     if (!is.null(bien_data)) {
-      ids <- which(sapply(bien_data, class) %in%
-                     c("numeric", "integer", "Date"))
+      ids <- which(sapply(bien_data, function(x) class(x)[1]) %in%
+                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
       if (length(ids) > 0)
         for (i in ids) bien_data[, i] <- as.character(bien_data[, i])
     }
 
     if (!is.null(user_data)) {
-      ids <- which(sapply(user_data, class) %in%
-                     c("numeric", "integer", "Date"))
+      ids <- which(sapply(user_data, function(x) class(x)[1]) %in%
+                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
       if (length(ids) > 0)
         for (i in ids) user_data[, i] <- as.character(user_data[, i])
     }
@@ -435,7 +435,8 @@ formatDwc <- function(splink_data = NULL,
     if (drop.empty) {
       DT <- data.table::as.data.table(res_list)
       res_list <- data.frame(
-        DT[, which(unlist(lapply(DT, function(x) !all(is.na(x))))), with = FALSE],
+        DT[, which(unlist(lapply(DT, function(x) !all(is.na(x))))),
+           with = FALSE],
         stringsAsFactors = FALSE)
     }
 
@@ -450,7 +451,8 @@ formatDwc <- function(splink_data = NULL,
       for(i in 1:length(list)) {
         DT <- data.table::as.data.table(res_list[[i]])
         res_list[[i]] <- data.frame(
-          DT[, which(unlist(lapply(DT, function(x)!all(is.na(x))))), with = FALSE],
+          DT[, which(unlist(lapply(DT, function(x)!all(is.na(x))))),
+             with = FALSE],
           stringsAsFactors = FALSE)
       }
     }
