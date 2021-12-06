@@ -16,7 +16,7 @@
 #'   the input object \code{x}.
 #' @param get.prep logical. Should last name prepositions be included? Default
 #'   to FALSE.
-#' @param get.initials logical. Should last name prepositions be included?
+#' @param get.initials logical. Should the first name(s) be abbreviated?
 #'   Default to TRUE.
 #' @param max.initials numerical. Upper limit of number of letter for a single
 #' word to be considered as initials and not as a first name. Default to 4.
