@@ -67,7 +67,6 @@
 #'
 #' @export prepName
 #'
-#' @importFrom stringr str_trim
 #' @import data.table
 #'
 #' @examples
@@ -181,7 +180,7 @@ prepName <- function(x,
 
   if (fix.names) {
     patt.split <- paste(sep.out1,
-                        paste0(stringr::str_trim(sep.out1), "(?=\\p{Lu})"),
+                        paste0(gsub("^ | $", "", sep.out1, perl = TRUE), "(?=\\p{Lu})"),
                         # paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {

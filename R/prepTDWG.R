@@ -68,8 +68,6 @@
 #'
 #' @export prepTDWG
 #'
-#' @importFrom stringr str_squish
-#'
 #' @examples
 #'   # Single names
 #'   prepTDWG("gentry")
@@ -202,7 +200,9 @@ prepTDWG <- function(x,
 
     } else {
 
-      split[, 2] <- stringr::str_squish(split[, 2])
+      # split[, 2] <- stringr::str_squish(split[, 2])
+      split[, 2] <- gsub("\\s+", " ", split[, 2], perl = TRUE)
+      split[, 2] <- gsub("^ | $", "", split[, 2], perl = TRUE)
 
     }
 
@@ -296,7 +296,9 @@ prepTDWG <- function(x,
     }
 
     # Final edits on the name string
-    names <- stringr::str_squish(names)
+    # names <- stringr::str_squish(names)
+    names <- gsub("\\s+", " ", names, perl = TRUE)
+    names <- gsub("^ | $", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
     names <- gsub(",$", "", names, perl = TRUE)
     nomes[commas & words & !NAs] <- names
@@ -347,7 +349,9 @@ prepTDWG <- function(x,
 
     } else {
 
-      split[, 2] <- stringr::str_squish(split[, 2])
+      # split[, 2] <- stringr::str_squish(split[, 2])
+      split[, 2] <- gsub("\\s+", " ", split[, 2], perl = TRUE)
+      split[, 2] <- gsub("^ | $", "", split[, 2], perl = TRUE)
 
     }
 
@@ -440,7 +444,9 @@ prepTDWG <- function(x,
     }
 
     # Final edits on the name string
-    names <- stringr::str_squish(names)
+    # names <- stringr::str_squish(names)
+    names <- gsub("\\s+", " ", names, perl = TRUE)
+    names <- gsub("^ | $", "", names, perl = TRUE)
     names <- gsub(",$", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
     nomes[!commas & words & !NAs] <- names

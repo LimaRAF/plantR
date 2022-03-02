@@ -33,8 +33,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom stringr str_squish
-#'
 #' @examples
 #' \dontrun{
 #'   # Full names and both full and abbreviated names
@@ -81,7 +79,9 @@ getInit <- function(x,
   #Preparing the vector of names
   pts <- grepl("\\.", x, perl = TRUE)
   x[pts] <- gsub("[.]", ". ", x[pts], perl = TRUE)
-  x[pts] <- stringr::str_squish(x[pts])
+  x[pts] <- gsub("\\s+", " ", x[pts], perl = TRUE)
+  x[pts] <- gsub("^ | $", "", x[pts], perl = TRUE)
+  # x[pts] <- stringr::str_squish(x[pts])
 
   #Detecting the some general types of name formats: full, abbreviated or both
   words <- grepl(" ", x, fixed = TRUE)
@@ -168,7 +168,9 @@ getInit <- function(x,
   if (rm.spaces) {
     x <- gsub(" ", "", x, fixed = TRUE)
   } else {
-    x <- stringr::str_squish(x)
+    x <- gsub("\\s+", " ", x, perl = TRUE)
+    x <- gsub("^ | $", "", x, perl = TRUE)
+    # x <- stringr::str_squish(x)
     check_these <- grepl("\\p{L}\\.\\s-\\s\\p{L}\\.", x, perl = TRUE)
     x[check_these] <-
       gsub("\\.\\s-\\s", ".-", x[check_these], perl = TRUE)

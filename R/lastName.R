@@ -41,7 +41,7 @@
 #' @author
 #'   Renato A. F. de Lima & Hans ter Steege
 #'
-#' @importFrom stringr str_squish str_c
+#' @importFrom stringr str_c
 #'
 #' @export lastName
 #'
@@ -97,7 +97,9 @@ lastName <- function(name,
 
   # preliminary edits:
   name <- gsub("[.]", ". ", name, perl = TRUE) # adding a space between points
-  name <- stringr::str_squish(name) # removing double and end spaces
+  name <- gsub("\\s+", " ", name, perl = TRUE)
+  name <- gsub("^ | $", "", name, perl = TRUE)
+  # name <- stringr::str_squish(name) # removing double and end spaces
 
   # Defining the general name formats (single, mult. w/ comma, mult. w/out comma)
   comma <- grepl("\\p{L},", name[!miss.name], perl = TRUE)
@@ -185,7 +187,9 @@ lastName <- function(name,
     }
 
     #Fixing other names
-    other.names <- stringr::str_squish(other.names)
+    # other.names <- stringr::str_squish(other.names)
+    other.names <- gsub("\\s+", " ", other.names, perl = TRUE)
+    other.names <- gsub("^ | $", "", other.names, perl = TRUE)
     other.names <- gsub(", ", "", other.names, fixed = TRUE)
 
     #Detecting possible multiple names and removing them

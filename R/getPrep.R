@@ -60,7 +60,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom stringr str_squish
 #'
 #' @examples
 #' names <- c("Silva, Maria A. Pereira da", "Silva, Maria A. Pereira Da",
@@ -185,7 +184,9 @@ getPrep <- function(x, preps = NULL,
   } else {
 
     if (output == "matrix") {
-      split[,3] <- stringr::str_squish(split[,3])
+      split[,3] <- gsub("\\s+", " ", split[,3], perl = TRUE)
+      split[,3] <- gsub("^ | $", "", split[,3], perl = TRUE)
+      # split[,3] <- stringr::str_squish(split[,3])
       return(split)
     }
 
@@ -208,9 +209,11 @@ getPrep <- function(x, preps = NULL,
   }
 
   # Final edits
-  result <- stringr::str_squish(result)
+  result <- gsub("\\s+", " ", result, perl = TRUE)
+  result <- gsub("^ | $", "", result, perl = TRUE)
+  # result <- stringr::str_squish(result)
   result <- gsub(",$", "", result, perl = TRUE)
-  result <- gsub("\\s\\s+", " ", result)
+  result <- gsub("\\s+", " ", result, perl = TRUE)
 
   return(result)
 }

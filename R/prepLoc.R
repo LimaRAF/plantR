@@ -28,7 +28,6 @@
 #'
 #' @seealso \link[plantR]{strLoc}
 #'
-#' @importFrom stringr str_squish
 #'
 prepLoc <- function(x) {
 
@@ -51,7 +50,9 @@ prepLoc <- function(x) {
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
   # Removing possible problems
-  x <- stringr::str_squish(x)
+  x <- gsub("\\s+", " ", x, perl = TRUE)
+  x <- gsub("^ | $", "", x, perl = TRUE)
+  # x <- stringr::str_squish(x)
 
   return(x)
 }

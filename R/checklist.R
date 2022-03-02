@@ -471,8 +471,10 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                              datas := substr(datas, nchar(datas) - 4, nchar(datas))]
       data.table::setDT(dt1)[datas.tipo %in% "month_year",
                              datas := substr(datas, 3, nchar(datas))]
+      # data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
+      #                        datas := stringr::str_trim(datas)]
       data.table::setDT(dt1)[!datas.tipo %in% c("no_date", "full"),
-                             datas := stringr::str_trim(datas)]
+                             datas := gsub("^ | $", "", datas, perl = TRUE)]
     } else {
       dt1[, datas := .SD,
           .SDcols = c(covs.present[["colYears"]])]

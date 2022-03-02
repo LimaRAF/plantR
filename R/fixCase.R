@@ -68,7 +68,7 @@ fixCase <- function (x) {
       x[first] <- gsub("(^[a-z])", "\\U\\1", x[first], perl = TRUE)
 
     #Getting the position of the second space, if present
-    spc.loc <- stringi::stri_locate_all(x, fixed=" ")
+    spc.loc <- stringi::stri_locate_all(x, fixed = " ")
     spc.loc <- sapply(spc.loc, function(x) x[,1][1:3])
     spc.loc1 <- spc.loc[1, ]
     spc.loc2 <- spc.loc[2, ]
@@ -96,11 +96,13 @@ fixCase <- function (x) {
 
     #Specific or infra-specific epiteth with firt letter capitalized
     patt <- " (?=[A-Z])| (?=\\()"
-    split <- stringr::str_split(x, stringr::regex(patt))
+    # split <- stringr::str_split(x, stringr::regex(patt))
+    split <- strsplit(x, patt, perl = TRUE)
     n.str <- lengths(split)
     n.max <- max(n.str, na.rm = TRUE)
     split <- t(sapply(split, `length<-`, n.max))
     split[is.na(split)] <- ""
+
     if (n.max > 1) {
       upper_these <- n.str > 1 & !split[,1] %in% c("cf.","Cf.","aff.","Aff.") &
                         grepl("^[A-Z]", split[,2], perl = TRUE) &
