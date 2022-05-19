@@ -70,7 +70,7 @@ validateDup <- function(occ.df,
                         print.rm = TRUE) {
 
   # check input:
-  if (!class(occ.df) == "data.frame")
+  if (!class(occ.df)[1] == "data.frame")
     stop("input object needs to be a data frame!")
 
   if (dim(occ.df)[1] == 0)
