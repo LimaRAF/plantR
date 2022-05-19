@@ -78,12 +78,13 @@ fixLoc <- function(x,
                    scrap = TRUE, to.lower = TRUE) {
 
   ## checking input:
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("input object needs to be a data frame!")
 
+  na.strings <- c("", " ", "NA", NA)
   # Missing country that may be stored in the field 'countryCode'
   if ("countryCode" %in% names(x) & "country" %in% names(x)) {
-    ids <- !is.na(x$countryCode) & is.na(x$country)
+    ids <- !x$countryCode %in% na.strings  & x$country %in% na.strings
     x$country[ids] <- x$countryCode[ids]
   }
 
@@ -93,7 +94,7 @@ fixLoc <- function(x,
 
   # Missing municipality that may be stored in the field 'county'
   if ("municipality" %in% names(x) & "county" %in% names(x)) {
-    ids <- !is.na(x$county) & is.na(x$municipality)
+    ids <- !x$county %in% na.strings  & x$municipality %in% na.strings
     x$municipality[ids] <- x$county[ids]
   }
 
@@ -102,7 +103,7 @@ fixLoc <- function(x,
 
   # Missing locality that may be stored in the field 'verbatimLocality'
   if ("locality" %in% names(x) & "verbatimLocality" %in% names(x)) {
-    ids <- !is.na(x$verbatimLocality) & is.na(x$locality)
+    ids <- !x$verbatimLocality %in% na.strings  & x$locality %in% na.strings
     x$locality[ids] <- x$verbatimLocality[ids]
   }
 

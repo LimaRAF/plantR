@@ -113,7 +113,7 @@ prepFamily <- function(x,
   dt[, tmp.ordem := .I,]
 
   getGenus <- function(x) {
-    as.character(strsplit(x, " ")[[1]][1]) }
+    as.character(strsplit(x, " ", fixed = TRUE)[[1]][1]) }
 
   if (!gen.name %in% names(dt)) {
     dt[ , tmp.gen := lapply(.SD, getGenus),

@@ -47,7 +47,7 @@
 # ## Localizando em quais funções estão as dependências a remover
 # library(mvbutils)
 # library(plantR)
-# foodweb( find.funs("package:plantR"), prune="separate")
+# foodweb( find.funs("package:plantR"), prune="str_trim")
 # foodweb( find.funs("package:plantR"), prune="haversine")
 # foodweb( find.funs("package:plantR"), prune="kable")
 # foodweb( find.funs("package:plantR"), prune="fixCase")
