@@ -39,7 +39,7 @@
 #' @seealso
 #'  \link[plantR]{fixCase}.
 #'
-#' @importFrom stringr str_replace fixed regex str_split str_squish str_count
+#' @importFrom stringr str_replace fixed regex str_split str_count
 #'
 #' @examples
 #' \dontrun{
@@ -54,7 +54,9 @@ rmOpen <- function(x) {
 
     x_new <- stringr::str_replace(x, stringr::regex(aff_cf, ignore_case = TRUE), " ")
 
-    x_new <- stringr::str_squish(x_new)
+    # x_new <- stringr::str_squish(x_new)
+    x_new <- gsub("\\s+", " ", x_new, perl = TRUE)
+    x_new <- gsub("^ | $", "", x_new, perl = TRUE)
 
     return(x_new)
 }
@@ -82,7 +84,10 @@ rmInfra <- function(x) {
   if (dim(split.mat)[2] == 0) {
     return(NA_character_)
   } else {
-    split.mat[, 2] <- stringr::str_squish(split.mat[, 2])
+    # split.mat[, 2] <- stringr::str_squish(split.mat[, 2])
+    split.mat[, 2] <- gsub("\\s+", " ", split.mat[, 2], perl = TRUE)
+    split.mat[, 2] <- gsub("^ | $", "", split.mat[, 2], perl = TRUE)
+
     infra_authors <- stringr::str_count(split.mat[, 1], stringr::fixed(" ")) > 1
     split.mat[infra_authors, 1] <- gsub(" [A-Z].*| \\(.*", "",
                                       split.mat[infra_authors, 1], perl = TRUE)
@@ -106,6 +111,7 @@ rmHyb <- function(x)  {
   x_new <- stringr::str_replace(x, stringr::regex(hyb_string, ignore_case = TRUE), " ")
 
   x_new <- gsub("\\s+", " ", x_new, perl = TRUE)
+  x_new <- gsub("^ | $", "", x_new, perl = TRUE)
 
   return(x_new)
 }

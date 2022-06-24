@@ -113,7 +113,7 @@ prepFamily <- function(x,
   dt[, tmp.ordem := .I,]
 
   getGenus <- function(x) {
-    as.character(strsplit(x, " ")[[1]][1]) }
+    as.character(strsplit(x, " ", fixed = TRUE)[[1]][1]) }
 
   if (!gen.name %in% names(dt)) {
     dt[ , tmp.gen := lapply(.SD, getGenus),
@@ -179,24 +179,27 @@ prepFamily <- function(x,
     } else {
 
       miss.families <- families.data[is.na(name.correct), c("tmp.gen")]
-      families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
-      families.data.tmp <-
-        families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
-      if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
-        data.families <- merge(miss.families, families.data.tmp,
-                               by = "tmp.gen", all.x = TRUE, sort = FALSE)
-        data.families <-
-          data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
-      }
-      tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
-                                      corr = FALSE, drop.lower.level = TRUE)
-      replace_these <- tpl.families$Family %in% "" &
-                        !is.na(data.families$name.correct)
-      if (any(replace_these))
-        tpl.families$Family[replace_these] <-
+      miss.families <- miss.families[!tmp.gen %in% "Indet.",]
+      if (dim(miss.families)[1] > 0) {
+        families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
+        families.data.tmp <-
+          families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
+        if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
+          data.families <- merge(miss.families, families.data.tmp,
+                                 by = "tmp.gen", all.x = TRUE, sort = FALSE)
+          data.families <-
+            data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
+        }
+        tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
+                                        corr = FALSE, drop.lower.level = TRUE)
+        replace_these <- tpl.families$Family %in% "" &
+          !is.na(data.families$name.correct)
+        if (any(replace_these))
+          tpl.families$Family[replace_these] <-
           data.families$name.correct[replace_these]
-      families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
-                    name.correct := tpl.families$Family, ]
+        families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
+                      name.correct := tpl.families$Family, ]
+      }
     }
    }
 

@@ -259,13 +259,17 @@ validateTax <- function(x, col.names = c(family = "family.new",
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
-  combo <- stringr::str_squish(combo)
+  # combo <- stringr::str_squish(combo)
+  combo <- gsub("\\s+", " ", combo, perl = TRUE)
+  combo <- gsub("^ | $", "", combo, perl = TRUE)
 
   #Getting the unique family-specialist combinations for each occurrence
   #dt <- data.table::data.table(x) # not using data.table for now
   combo.occs <- paste(x[ ,cols["family"]],
                       x[ ,cols["det.name"]], sep = "_")
-  combo.occs <- stringr::str_squish(combo.occs)
+  # combo.occs <- stringr::str_squish(combo.occs)
+  combo.occs <- gsub("\\s+", " ", combo.occs, perl = TRUE)
+  combo.occs <- gsub("^ | $", "", combo.occs, perl = TRUE)
 
   #Crossing the occurrence and reference family-specialist combinations
   x$tax.check <- combo.occs %in% combo
@@ -292,7 +296,10 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
       combo2 <- paste(x[, cols["family"]],
                       x[, cols["col.name"]], sep = "_")
-      combo2 <- stringr::str_squish(combo2)
+      # combo2 <- stringr::str_squish(combo2)
+      combo2 <- gsub("\\s+", " ", combo2, perl = TRUE)
+      combo2 <- gsub("^ | $", "", combo2, perl = TRUE)
+
       #Crossing the occurrence and reference family-specialist combinations
       tax.check1 <- combo2 %in% combo
       x$tax.check[x$tax.check %in% c("unknown") &

@@ -48,7 +48,7 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @importFrom stringr str_trim str_replace_all
+#' @importFrom stringr str_to_title str_replace_all
 #' @importFrom countrycode countrycode
 #' @importFrom utils head
 #'
@@ -78,12 +78,13 @@ fixLoc <- function(x,
                    scrap = TRUE, to.lower = TRUE) {
 
   ## checking input:
-  if (!class(x) == "data.frame")
+  if (!class(x)[1] == "data.frame")
     stop("input object needs to be a data frame!")
 
+  na.strings <- c("", " ", "NA", NA)
   # Missing country that may be stored in the field 'countryCode'
   if ("countryCode" %in% names(x) & "country" %in% names(x)) {
-    ids <- !is.na(x$countryCode) & is.na(x$country)
+    ids <- !x$countryCode %in% na.strings  & x$country %in% na.strings
     x$country[ids] <- x$countryCode[ids]
   }
 
@@ -93,7 +94,7 @@ fixLoc <- function(x,
 
   # Missing municipality that may be stored in the field 'county'
   if ("municipality" %in% names(x) & "county" %in% names(x)) {
-    ids <- !is.na(x$county) & is.na(x$municipality)
+    ids <- !x$county %in% na.strings  & x$municipality %in% na.strings
     x$municipality[ids] <- x$county[ids]
   }
 
@@ -102,7 +103,7 @@ fixLoc <- function(x,
 
   # Missing locality that may be stored in the field 'verbatimLocality'
   if ("locality" %in% names(x) & "verbatimLocality" %in% names(x)) {
-    ids <- !is.na(x$verbatimLocality) & is.na(x$locality)
+    ids <- !x$verbatimLocality %in% na.strings  & x$locality %in% na.strings
     x$locality[ids] <- x$verbatimLocality[ids]
   }
 
@@ -260,14 +261,14 @@ fixLoc <- function(x,
     if (c("locality") %in% loc.levels & scrap) {
       # Spliting the locality vector to find missing information
       n4 <- strsplit(x1[ ,"locality"], ",|\\.|:|\\(|\\)|;", perl = TRUE)
-      n4 <- sapply(n4, stringr::str_trim)
+      n4 <- sapply(n4, function(x) gsub("^ | $", "", x, perl = TRUE))
 
       # trying to get missing counties from the locality description (e.g. "Pico das Almas, municipio de Rio de Contas")
       n4.2 <- as.character(sapply(n4, function(x)
-        paste(unique(stringr::str_trim(
-          x[grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)]
-        )), collapse = "|")))
-      n4.2 <- stringr::str_trim(n4.2)
+        paste(unique(gsub("^ | $", "",
+          x[grepl("municipio|municipality|county|provincia|village", x, perl = TRUE)], perl = TRUE
+          )), collapse = "|")))
+      n4.2 <- gsub("^ | $", "", n4.2, perl = TRUE)
       n4.2 <- gsub("municipio de |municipality of |municipio do |^county of |^provincia de|^provincia of|village of",
                   "",
                   n4.2, perl = TRUE)
@@ -278,16 +279,16 @@ fixLoc <- function(x,
 
       # getting missing counties that may be the first part of the locality description (e.g. "Rio de Contas, Pico das Almas")
       n4.2.1 <- as.character(sapply(n4, function(x) x[1]))
-      n4.2.1 <- stringr::str_trim(n4.2.1)
+      n4.2.1 <- gsub("^ | $", "", n4.2.1, perl = TRUE)
       n4.2.1[n4.2.1 %in% ""] <- NA
 
       # isolating localities possibily in the gazetter (e.g. parks, serras, farms)
       locais <- "parque|reserva|reserve|fazenda|nacional|estadual|parna|flona|rebio|rppn|e\\.e\\.|biologica|ecologica|extrativista|park|farm|estrada|rodovia|road|^sitio|^mata|^horto|^jardim|campus|^pico|^serra|^sierra|^morro|^chapada"
       n4.3 <- as.character(sapply(n4, function(x)
-          paste(unique(stringr::str_trim(
-            x[grepl(locais, x, perl = TRUE)]
+          paste(unique(gsub("^ | $", "",
+            x[grepl(locais, x, perl = TRUE)], perl = TRUE
           )), collapse = ", ")))
-      n4.3 <- stringr::str_trim(n4.3)
+      n4.3 <- gsub("^ | $", "", n4.3, perl = TRUE)
       n4.3[n4.3 %in% ""] <- NA
 
       #other localities, than the ones in 'locais' and counties (first sentence, prior to the first comma when n4.3 is empty)
@@ -300,10 +301,10 @@ fixLoc <- function(x,
       if (any(c("municipality", "county") %in% loc.levels)) {
         # priority 1: localities specifying a county name
         x1[, "municipality"][is.na(x1[, "municipality"]) & !is.na(n4.2)] <-
-          stringr::str_trim(n4.2[is.na(x1[, "municipality"]) & !is.na(n4.2)])
+          gsub("^ | $", "", n4.2[is.na(x1[, "municipality"]) & !is.na(n4.2)], perl = TRUE)
         # priority 2: first part of the locality description
         x1[, "municipality"][is.na(x1[, "municipality"]) & is.na(n4.2)] <-
-          stringr::str_trim(n4.2.1[is.na(x1[, "municipality"]) & is.na(n4.2)])
+          gsub("^ | $", "", n4.2.1[is.na(x1[, "municipality"]) & is.na(n4.2)], perl = TRUE)
       }
 
       # Replacing edited/missing localities
@@ -314,7 +315,8 @@ fixLoc <- function(x,
 
   ## Trimming and editing the edited columns
   for (i in 1:length(loc.levels))
-    x1[, i] <- as.character(stringr::str_trim(x1[, i]))
+    x1[, i] <- as.character(gsub("^ | $", "", x1[, i], perl = TRUE))
+
   for (i in 1:length(loc.levels))
     x1[, i] <- gsub("^-$", NA, x1[, i], perl = TRUE)
 

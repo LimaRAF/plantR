@@ -48,7 +48,6 @@
 #'
 #' @author Renato A. F. de Lima & Hans ter Steege
 #'
-#' @importFrom stringr str_squish
 #'
 #' @encoding UTF-8
 #'
@@ -240,7 +239,7 @@ fixName <- function(nomes,
 
   #Final formatting
   nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
-  nomes <- stringr::str_squish(nomes)
+  nomes <- gsub("^ | $", "", nomes, perl = TRUE)
   nomes <- gsub("^-+|-+$", "", nomes, perl = TRUE)
   nomes <- gsub("^\\.+|\\.\\.+$", "", nomes, perl = TRUE)
   nomes <- gsub("^,+|,+$", "", nomes, perl = TRUE)
@@ -253,13 +252,18 @@ fixName <- function(nomes,
                 nomes, perl = TRUE)
   nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
-  nomes <- stringr::str_squish(nomes)
+  nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
+  nomes <- gsub("^ | $", "", nomes, perl = TRUE)
   nomes[nomes %in% c("", NA)] <- NA_character_
 
   #Replacing the temporary separator by sep.out
   nomes <- gsub(" __ ", sep0, nomes, fixed = TRUE)
   nomes <- gsub("__ ", sep0, nomes, fixed = TRUE)
   nomes <- gsub(" __", sep0, nomes, fixed = TRUE)
+  nomes <- gsub(paste0(sep0,sep0, collapse = ""),
+                sep0, nomes, fixed = TRUE)
+  nomes <- gsub(paste0(sep0,"$", collapse = ""),
+                "", nomes, perl = TRUE)
   nomes <- gsub(sep0, sep.out, nomes, fixed = TRUE)
 
   #Remove special (latin-1) characters?

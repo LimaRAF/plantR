@@ -81,7 +81,7 @@ getYear <- function (x, noYear = "s.d.") {
 
   # Preliminary edits
   tmp <- gsub('Data:|Date:', "", x, perl = TRUE, ignore.case = TRUE)
-  tmp <- gsub('Transcribed d/m/y: ', "", x, perl = TRUE, ignore.case = TRUE)
+  tmp <- gsub('Transcribed d/m/y: ', "", tmp, perl = TRUE, ignore.case = TRUE)
   tmp <- gsub('([0-9])(T).*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('\\s[0-9]:.*', "\\1", tmp, perl = TRUE)
   tmp <- gsub('\\s[0-9][0-9]:.*', "\\1", tmp, perl = TRUE)
@@ -90,13 +90,20 @@ getYear <- function (x, noYear = "s.d.") {
   tmp <- gsub('; |;', ";;;", tmp, perl = TRUE)
 
   # Converting NA entries
-  tmp[tmp %in% c("", " ", NA,
-                 "T00:00:00Z", "0/0/0", "00/00/0000", "0000-00-00")] <- noYear
+  replace_these <- tmp %in% c("", " ", NA,
+                              "T00:00:00Z", "0/0/0", "00/00/0000", "0000-00-00")
+  if (any(replace_these))
+    tmp[replace_these] <- noYear
 
   # Converting dates with no numbers
   tmp1 <- tmp[!grepl('\\d', tmp, perl = TRUE)]
   if (length(tmp1) > 0)
     tmp[!grepl('\\d', tmp, perl = TRUE)] <- noYear
+
+  # Converting entries in the date format but without year
+  replace_these <- grepl("/00/0000", tmp)
+  if (any(replace_these))
+    tmp[replace_these] <- noYear
 
   # Removing names of months
   meses <- c(month.name,
@@ -230,10 +237,13 @@ getYear <- function (x, noYear = "s.d.") {
 
   #dates separeted by '-' (numbers and letters)
   check_these <- grepl("-", tmp, fixed = TRUE) &
-    grepl('[a-z]', tmp, ignore.case = TRUE)
+                  grepl('[a-z]', tmp, ignore.case = TRUE)
   if (any(check_these)) {
-    tmp1 <- as.character(sapply(strsplit(tmp[check_these], "-", fixed = TRUE),
-                                function(x) x[grepl('\\d', x, perl = TRUE, ignore.case = TRUE)]))
+    tmp1 <- lapply(strsplit(tmp[check_these], "-", fixed = TRUE),
+                                function(x) x[grepl('\\d', x, perl = TRUE, ignore.case = TRUE)])
+    tmp1 <- lapply(tmp1, function(x) gsub("\\D", "", x, perl = TRUE))
+    tmp1 <- as.character(sapply(tmp1, paste0, collapse = "-"))
+
     if (length(tmp1) > 0)
       tmp[check_these] <- tmp1
   }

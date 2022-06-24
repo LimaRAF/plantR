@@ -140,24 +140,27 @@ prepDup <- function(x, col.names = c(family = "family.new",
   x1 <- x[, match(cols, names(x))]
   names(x1) <- names(cols)[match(cols, names(x1))]
 
-  ## Replacing empty cell by NA
+  ## Replacing empty cells by NA
   replace_these <- x1 == "" & !is.na(x1)
   if (any(replace_these))
     x1[replace_these] <- NA
 
   ## Editing the filtered columns to avoid misleading duplicates
   if ("col.year" %in% names(x1)) { # collection year
-    ids <- nchar(x1$col.year) > 4
-    if (any(ids))
-      x1$col.year[ids] <- as.character(sapply(strsplit(x1$col.year[ids], " |-|\\/", perl = TRUE),
-                                              function(x) paste0(unique(x[nchar(x) >= 4]), collapse = "-")))
+    ids <- nchar(x1$col.year) > 4 & !is.na(x1$col.year)
+    if (any(ids)) {
+      dates.tmp <- x1$col.year[ids]
+      dates.tmp <- as.character(sapply(strsplit(dates.tmp, " |-|\\/", perl = TRUE),
+                                       function(x) paste0(unique(x[nchar(x) >= 4]), collapse = "-")))
+      dates.tmp[!grepl('\\d', dates.tmp, perl = TRUE)] <- noYear
+      x1$col.year[ids] <- dates.tmp
+    }
     x1$col.year <- suppressWarnings(as.double(x1$col.year))
     x1$col.year[is.na(x1$col.year)] <- noYear
   }
 
   if ("col.loc" %in% names(x1)) { # collection locality
-    x1$col.loc <-
-      tolower(rmLatin(x1$col.loc))
+    x1$col.loc <- tolower(rmLatin(x1$col.loc))
     x1$col.loc <- prepLoc(x1$col.loc)
   }
 

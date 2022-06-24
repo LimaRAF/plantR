@@ -71,7 +71,7 @@
 #'  Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
 #'
 #' @importFrom flora get.taxa remove.authors
-#' @importFrom stringr str_count str_trim str_squish fixed
+#' @importFrom stringr str_count str_detect fixed
 #' @importFrom Taxonstand TPL
 #' @importFrom dplyr left_join
 #'
@@ -113,7 +113,8 @@ prepSpecies <- function(x,
       stringsAsFactors = FALSE
     )
     df$full_sp <- paste(df$verbatimSpecies, df$author)
-    df$full_sp <- stringr::str_trim(gsub(" NA$", "", df$full_sp))
+    df$full_sp <- gsub(" NA$", "", df$full_sp)
+    df$full_sp <- gsub("^ | $", "", df$full_sp)
 
   } else {
     if (use.authors) {
@@ -131,7 +132,10 @@ prepSpecies <- function(x,
   # suggesting a valid name using flora pkg
   if (any(db %in% c("bfo", "fbo"))) {
     # cleaning spaces and removing duplicated names
-    trim_sp <- stringr::str_squish(unique(x[, tax.names[1]]))
+    trim_sp <- unique(x[, tax.names[1]])
+    trim_sp <- gsub("^ | $", "", trim_sp, perl = TRUE)
+    trim_sp <- gsub("\\s+", " ", trim_sp, perl = TRUE)
+
     # obtaining valid names from FBO-2020
     suggest_sp <- flora::get.taxa(trim_sp, drop = "",
                                   suggestion.distance = sug.dist)
@@ -227,7 +231,9 @@ prepSpecies <- function(x,
 
   if (any(db %in% c("tpl"))) {
 
-    assign("last.warning", NULL, envir = baseenv())
+    # baseenv()[["last.warning"]] <- NULL
+    # assign("last.warning", NULL, envir = baseenv())
+
     if (use.authors) {
       # removing duplicated names
       unique_sp <- unique(df$full_sp)

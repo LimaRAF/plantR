@@ -120,12 +120,12 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
     long0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", long0, perl = TRUE)
     lati0 <- gsub('[a-z]', " ", lati0, ignore.case = TRUE, perl = TRUE)
     long0 <- gsub('[a-z]', " ", long0, ignore.case = TRUE, perl = TRUE)
-    lati0 <- gsub('   ', ' ', lati0, fixed = TRUE)
-    long0 <- gsub('   ', ' ', long0, fixed = TRUE)
-    lati0 <- gsub('  ', ' ', lati0, fixed = TRUE)
-    long0 <- gsub('  ', ' ', long0, fixed = TRUE)
-    lati0 <- stringr::str_trim(lati0)
-    long0 <- stringr::str_trim(long0)
+    lati0 <- gsub("\\s+", " ", lati0, perl = TRUE)
+    long0 <- gsub("\\s+", " ", long0, perl = TRUE)
+    lati0 <- gsub("^ | $", "", lati0, perl = TRUE)
+    long0 <- gsub("^ | $", "", long0, perl = TRUE)
+
+
     lati0[!is.na(lati0) & lati0 %in% c("0 0 0", "0 0")] <- NA
     long0[!is.na(long0) & long0 %in% c("0 0 0", "0 0")] <- NA
     lati0[!is.na(lati0) & lati0 %in% ""] <- NA

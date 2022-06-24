@@ -41,7 +41,6 @@
 #' @author Renato A. F. de Lima
 #'
 #' @import data.table
-#' @importFrom stringr str_trim
 #'
 #' @export getCode
 #'
@@ -100,7 +99,7 @@ getCode <- function(x,
   # Getting the search string for the data
   dt[ , collection.string := do.call(paste, c(.SD, sep="_")),
       .SDcols = c("cod.coll.tmp","cod.inst.tmp")]
-  dt[ , collection.string := stringr::str_trim(collection.string)]
+  dt[ , collection.string := gsub("^ | $", "", collection.string, perl = TRUE)]
 
   # Getting the collection list
   ih.list <- collectionCodes

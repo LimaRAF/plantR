@@ -91,7 +91,6 @@
 #'   following DarwinCore standards
 #'
 #' @import data.table
-#' @importFrom stringr str_trim
 #' @importFrom flora remove.authors
 #' @importFrom dplyr bind_rows
 #' @importFrom stats na.omit
@@ -260,9 +259,14 @@ formatDwc <- function(splink_data = NULL,
     miss.cols <- must[!must %in% names(gbif_data)]
     # Creating field scientificNameAuthorship
     species <- as.character(unique(gbif_data$scientificName))
-    authors <- stringr::str_trim(sapply(species,
-                                        function(x) gsub(flora::remove.authors(x),
-                                                         "", x, perl = TRUE)))
+    # authors <- stringr::str_trim(sapply(species,
+    #                                     function(x) gsub(flora::remove.authors(x),
+    #                                                      "", x, perl = TRUE)))
+    authors <- sapply(species,
+                      function(x) gsub(flora::remove.authors(x), "", x, perl = TRUE))
+    authors <- gsub("\\s+", " ", authors, perl = TRUE)
+    authors <- gsub("^ | $", "", authors, perl = TRUE)
+
     df <- data.frame(scientificName = species,
                      scientificNameAuthorship = authors)
     gbif_data <- suppressMessages(dplyr::left_join(gbif_data, df,

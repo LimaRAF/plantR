@@ -75,7 +75,7 @@
 #' fixSpecies(df, rm.rank = TRUE)
 #' fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 #'
-#' @importFrom stringr str_detect str_replace str_count fixed str_split str_trim str_squish
+#' @importFrom stringr str_detect str_replace str_count fixed str_split
 #' @importFrom flora remove.authors
 #' @importFrom stringi stri_enc_mark
 #'
@@ -152,7 +152,10 @@ fixSpecies <- function(x = NULL,
   species <- gsub(" (sp)([0-9])$", " \\1.\\2", species, perl = TRUE)
   species <- gsub(" sp$", " sp.", species, perl = TRUE)
 
-  species <- stringr::str_squish(species)
+  # species <- stringr::str_squish(species)
+  species <- gsub("\\s+", " ", species, perl = TRUE)
+  species <- gsub("^ | $", "", species, perl = TRUE)
+
   species[species %in% c("", " ", NA)] <- rplc
 
   #implement status parasite "f. sp." not f. from forma
@@ -241,7 +244,12 @@ fixSpecies <- function(x = NULL,
   #   id_authors & sapply(strsplit(as.character(no_authors), " "), length) > 2 |
   #   sapply(strsplit(as.character(no_authors), " "), length) == 1 # genus + author
   # removing f. in the end of author name
-  no_authors <- stringr::str_squish(gsub("f\\.$", "", no_authors, perl = TRUE))
+
+  # no_authors <- stringr::str_squish(gsub("f\\.$", "", no_authors, perl = TRUE))
+  no_authors <- gsub("f\\.$", "", no_authors, perl = TRUE)
+  no_authors <- gsub("\\s+", " ", no_authors, perl = TRUE)
+  no_authors <- gsub("^ | $", "", no_authors, perl = TRUE)
+
   ### Sara, aqui tb estava substituindo os nomes com var./subsp.; deixei comentado por agora
   # no_authors <- ifelse(sapply(stringr::str_split(no_authors, " "), length) > 2,
   #                      sapply(stringr::str_split(no_authors, " "), function(x) paste(x[1], x[2])),
@@ -412,8 +420,14 @@ fixSpecies <- function(x = NULL,
   check1 <- suppressMessages(dplyr::left_join(x,
                              check[,c('scientificName.new', 'scientificNameStatus',
                                    tax.name)]))
+  # check1$scientificName.new <-
+  #   stringr::str_squish(as.character(check1$scientificName.new))
   check1$scientificName.new <-
-    stringr::str_squish(as.character(check1$scientificName.new))
+    as.character(check1$scientificName.new)
+  check1$scientificName.new <-
+    gsub("\\s+", " ", check1$scientificName.new, perl = TRUE)
+  check1$scientificName.new <-
+    gsub("^ | $", "", check1$scientificName.new, perl = TRUE)
 
   return(check1)
 }

@@ -25,7 +25,6 @@
 #'   Standardisation in data-entry across databases: Avoiding Babylonian
 #'   confusion. Taxon 57(2): 343-345.
 #'
-#' @importFrom stringr str_squish
 #' @importFrom utils tail
 #'
 #' @export colNumber
@@ -51,7 +50,9 @@ colNumber <- function(x,
                       noNumb = "s.n.") {
 
   # first edits
-  x <- stringr::str_squish(x)
+  # x <- stringr::str_squish(x)
+  x <- gsub("\\s+", " ", x, perl = TRUE)
+  x <- gsub("^ | $", "", x, perl = TRUE)
   numbs <- x
 
   # Missing numbers
@@ -156,7 +157,10 @@ colNumber <- function(x,
   # Final edits
   numbs <- gsub("--", "-", numbs, fixed = TRUE)
   numbs <- gsub("&nf;", "", numbs, fixed = TRUE)
-  numbs <- stringr::str_squish(numbs)
+  # numbs <- stringr::str_squish(numbs)
+  numbs <- gsub("\\s+", " ", numbs, perl = TRUE)
+  numbs <- gsub("^ | $", "", numbs, perl = TRUE)
+
   #numb <- gsub('[a-z]-[0-9]','',numb, ignore.case=TRUE) ##CHECK
 
   return(numbs)
