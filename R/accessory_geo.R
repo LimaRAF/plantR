@@ -364,7 +364,7 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 #'
 #' @title Automatic Detection of Spatial Outliers
 #'
-#' @description This is a local copy the function `mvoutlier::arw()`, that
+#' @description This is a local copy of the function `mvoutlier::arw()`, that
 #' implement adaptive reweighted estimator for location and scatter with
 #' hard-rejection weights. It is only used in one specific function of
 #' __plantR__: `distOutlier()`.

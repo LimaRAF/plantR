@@ -2,6 +2,17 @@
 
 <br/>
 
+## version 0.1.5
+
+* Fixing a small bug function `prepDup()` related to issues #86 and #87
+
+* Minor improvements in functions `fixLoc()`, `prepCoord()`, 
+`prepFamily()` and `getYear()`. 
+
+* Minor changes in several package functions related to the internal use of 
+functions from the package `stringr`. 
+
+
 ## version 0.1.4
 
 * Fixing an issue related to non-NA type specifications in `validateTax()` and
