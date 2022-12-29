@@ -12,7 +12,7 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @keywords internal
+#' @export rmLatin
 #'
 #' @examples
 #'   nomes <- c("Thom\u00e9", "Mu\u00f1oz", "\u0153uf")
