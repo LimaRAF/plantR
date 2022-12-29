@@ -43,7 +43,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' rmOpen(c("Lindsaea cf. lancea","Lindsaea aff. lancea"))
+#' rmOpen(c("Lindsaea cf. lancea", "Lindsaea aff. lancea"))
 #' }
 #'
 rmOpen <- function(x) {
@@ -160,3 +160,51 @@ addRank <- function(x, rank = NULL) {
 
   return(x_new)
 }
+#'
+#' @title Build Organism Name
+#'
+#' @description Combine diffent table columns with name information (i.e.
+#'   genus, epiteth, infra-epiteth) into a single name
+#'
+#' @param x the data frame with the name information
+#' @param col.names the name of the columns containing the information to be
+#'   combined (in the desired order)
+#'
+#' @return a vector with the combined name information
+#'
+#' @keywords internal
+#'
+#' @author Renato A. F. de Lima
+#'
+#'
+buildName <- function(x, col.names = c("genus", "specificEpithet"))
+{
+
+  # check input:
+  if (!class(x) == "data.frame")
+    stop("Input object needs to be a data frame!")
+
+  if (dim(x)[1] == 0)
+    stop("Input data frame is empty!")
+
+  if (any(!col.names %in% colnames(x)))
+    stop("One or more names in 'col.names' were not found in 'x'")
+
+  cols <- names(x)[match(col.names, names(x), nomatch = 0)]
+
+  if (length(cols) > 1) {
+
+    organismName <- do.call(paste, x[, cols])
+    organismName <-
+      gsub(" NA NA NA$| NA NA$| NA$", "", organismName, perl = TRUE)
+    organismName <- squish(organismName)
+
+    return(organismName)
+
+  } else {
+
+    warning("less than two columns found; skipping...")
+
+  }
+}
+
