@@ -176,7 +176,7 @@ readData <- function(file = NULL,
                                   quote = quote,
                                   sep = sep)
 
-    if (grepl("verbatim.txt", all.files)) {
+    if (any(grepl("verbatim.txt", all.files))) {
       verb.path <- all.files[grepl("verbatim.txt", all.files)]
       verb.data <- data.table::fread(verb.path,
                                    na.strings = na.strings,
