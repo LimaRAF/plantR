@@ -13,6 +13,7 @@ output:
 vignette: >
   %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{An Introduction to __plantR__}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEngine{rmarkdown::render}
     \usepackage[utf8]{inputenc}
 ---
