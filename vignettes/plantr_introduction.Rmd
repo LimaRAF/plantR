@@ -3,7 +3,7 @@ title: "An Introduction to __plantR__"
 
 date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
-  - Renato A. F. de Lima^[Naturalis Biodiversity Center and Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
+  - Renato A. F. de Lima^[Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
 output:
     rmarkdown::html_vignette:
         toc: true
@@ -124,11 +124,14 @@ appropriate for studies extending outside Latin America.
 Taxonomic validation is performed based on (i) the correction of plant family
 and species names (i.e. synonyms, typos) and (ii) the confidence level on the
 species identification, based on a dictionary of plant taxonomist names from all
-over the world. For (i), names are currently checked against the [Flora do Brasil
+over the world. For (i), names are currently checked against the [Flora do
+Brasil
 project](http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do)
-and [The Plant List](http://www.theplantlist.org/), using the R packages
-__flora__ and __Taxonstand__. Future versions may include comparisons against
-Tropicos and GBIF backbones.
+using the R packages __flora__. Previous version used also [The Plant
+List](http://www.theplantlist.org/),  via the package __Taxonstand__. But since
+The Plant List was superseeded, this option is no longer a default. Future
+versions may include comparisons against other backbones, e.g., the World Flora
+Online or Tropicos.
 
 During the assessment of the taxonomic confidence level of the identifications,
 we did not attempt to set priorities for different specialists within a given
@@ -344,10 +347,6 @@ If you use the function `prepSpecies()`, please also cite the following packages
 
 Carvalho, G. (2020) flora: Tools for Interacting with the Brazilian Flora 2020.
 R package version 0.3.4. https://CRAN.R-project.org/package=flora
-
-Cayuela, L., Macarro, I., Stein, A. and Oksanen, J. (2021) Taxonstand: Taxonomic
-Standardization of Plant Species Names. R package version 2.3.
-https://CRAN.R-project.org/package=Taxonstand
 
 If you use the function `rgbif2()`, please also cite the following package:
 
