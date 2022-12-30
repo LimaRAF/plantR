@@ -165,17 +165,21 @@ prepDup <- function(x, col.names = c(family = "family.new",
   }
 
   if ("loc.str" %in% names(x1) & "col.loc" %in% names(x1)) { # locality string
-    if (grepl("municipality", cols[names(cols) == "col.loc"]))
-      pos <- 3
-    if (grepl("locality", cols[names(cols) == "col.loc"]))
-      pos <- 4
-    tmp <- strsplit(x1$loc.str, "_", fixed = TRUE)
-    ids <- suppressWarnings(sapply(tmp, length) >= pos)
-    n2 <- rep(NA, dim(x1)[1])
-    if (any(ids))
-      n2[ids] <- sapply(tmp[ids], function(x) x[pos])
-    x1$col.loc[is.na(x1$col.loc) & !is.na(n2)] <-
-      as.character(n2[is.na(x1$col.loc) & !is.na(n2)])
+    if (!grepl("municipality|locality", cols[names(cols) == "col.loc"])) {
+      x1$col.loc <- as.character(x1$col.loc)
+    } else {
+      if (grepl("municipality", cols[names(cols) == "col.loc"]))
+        pos <- 3
+      if (grepl("locality", cols[names(cols) == "col.loc"]))
+        pos <- 4
+      tmp <- strsplit(x1$loc.str, "_", fixed = TRUE)
+      ids <- suppressWarnings(sapply(tmp, length) >= pos)
+      n2 <- rep(NA, dim(x1)[1])
+      if (any(ids))
+        n2[ids] <- sapply(tmp[ids], function(x) x[pos])
+      x1$col.loc[is.na(x1$col.loc) & !is.na(n2)] <-
+        as.character(n2[is.na(x1$col.loc) & !is.na(n2)])
+    }
   }
 
   if ("col.number" %in% names(x1)) { # Collector number

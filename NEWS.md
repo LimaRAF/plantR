@@ -2,6 +2,17 @@
 
 <br/>
 
+## version 0.1.6
+
+* Fixing the functions `prepSpecies()`,  `prepFamily()` and `formatTax()` related to issues #90 and #96 (Plant List website was discontinued)
+
+* Fixing the function `checkCoord()` related to an issue of a same coordinate overlaying more than one  polygon using GADM maps (related to issue #91)
+
+* Minor improvements in functions `prepDup()` and `readData()`, this last one related to issue #95. 
+
+* Minor fix in `prepCoord()` related to the new approach to handle non-ASCII characters in R>4.2 in Windows
+
+
 ## version 0.1.5
 
 * Fixing a small bug function `prepDup()` related to issues #86 and #87

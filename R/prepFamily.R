@@ -131,6 +131,14 @@ prepFamily <- function(x,
        by = tmp.spp]
   }
 
+  if (any(dt[,grepl("cf\\.$|aff\\.$", tmp.gen, perl = TRUE,
+                ignore.case = TRUE),])) {
+    dt[grepl("cf\\.$|aff\\.$", tmp.gen, perl = TRUE, ignore.case = TRUE),
+       tmp.gen := gsub("cf\\.$|aff\\.$", "", tmp.gen, ignore.case = TRUE,
+                       perl = TRUE),
+       by = tmp.spp]
+  }
+
   # Getting the dictionaries
   families.apg <- familiesSynonyms
 
@@ -142,7 +150,9 @@ prepFamily <- function(x,
                          by.x = "tmp.fam", by.y = "name", all.x = TRUE)
 
   # Getting missing family names from Brazilian Flora 2020
-  families.data[, flora.br := as.character(flora::get.taxa(tmp.gen, suggestion.distance = 0.9, drop = NULL)$family),
+  families.data[, flora.br := as.character(flora::get.taxa(tmp.gen,
+                                                           suggestion.distance = 0.9,
+                                                           drop = NULL)$family),
                 by = "tmp.gen"]
   families.data[(is.na(tmp.fam) | is.na(name.correct) & !is.na(flora.br)),
                 name.correct :=  flora.br, ]
@@ -164,44 +174,66 @@ prepFamily <- function(x,
 
   # Any missing family names?
   if (families.data[, any(is.na(name.correct))]) {
-    miss.families <- families.data[is.na(name.correct), tmp.fam, FALSE]
-    if (!any(is.na(miss.families$tmp.fam))) {
-      genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
-                       list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
-                       by = "tmp.fam"]
-      if (any(!is.na(genus.data$species)))
-        tpl.families <- Taxonstand::TPL(genus.data$species,
-                                        corr = FALSE, drop.lower.level = TRUE)$Family
-      tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
-      families.data[tmp.fam %in% miss.families$tmp.fam,
-                    name.correct := tpl.families, ]
-
-    } else {
-
-      miss.families <- families.data[is.na(name.correct), c("tmp.gen")]
-      miss.families <- miss.families[!tmp.gen %in% "Indet.",]
-      if (dim(miss.families)[1] > 0) {
-        families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
-        families.data.tmp <-
-          families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
-        if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
-          data.families <- merge(miss.families, families.data.tmp,
-                                 by = "tmp.gen", all.x = TRUE, sort = FALSE)
-          data.families <-
-            data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
-        }
-        tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
-                                        corr = FALSE, drop.lower.level = TRUE)
-        replace_these <- tpl.families$Family %in% "" &
-          !is.na(data.families$name.correct)
-        if (any(replace_these))
-          tpl.families$Family[replace_these] <-
-          data.families$name.correct[replace_these]
-        families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
-                      name.correct := tpl.families$Family, ]
-      }
+    miss.families <- families.data[is.na(name.correct),]
+    fbo.families <- flora::get.taxa(miss.families$tmp.fam,
+                                    replace.synonyms = FALSE)
+    check_these <- is.na(fbo.families$family) &
+                    !miss.families$tmp.gen %in% "Indet."
+    if (any(check_these)) {
+      fbo.families1 <- flora::get.taxa(miss.families$tmp.gen[check_these],
+                                      replace.synonyms = FALSE)
+      replace_these <- !is.na(fbo.families1$family)
+      if (any(replace_these))
+        fbo.families$family[check_these] <- fbo.families1$family
     }
-   }
+    families.data[is.na(name.correct),
+                  name.correct := fbo.families$family, ]
+  }
+
+  # if (families.data[, any(is.na(name.correct))]) {
+  #   miss.families <- families.data[is.na(name.correct), "tmp.fam", with = FALSE]
+  #   if (!any(is.na(miss.families$tmp.fam))) {
+  #     genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
+  #                      list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
+  #                      by = "tmp.fam"]
+  #     if (any(!is.na(genus.data$species)))
+  #       tpl.families <- Taxonstand::TPL(genus.data$species,
+  #                                       corr = FALSE, drop.lower.level = TRUE)$Family
+  #     tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
+  #     families.data[tmp.fam %in% miss.families$tmp.fam,
+  #                   name.correct := tpl.families, ]
+  #
+  #   } else {
+  #
+  #     miss.families <- families.data[is.na(name.correct), c("tmp.gen")]
+  #     miss.families <- miss.families[!tmp.gen %in% "Indet.",]
+  #     if (dim(miss.families)[1] > 0) {
+  #
+  #       if(any(!is.na(families.data$tmp.fam))) {
+  #         families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
+  #         families.data.tmp <-
+  #           families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
+  #
+  #         if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
+  #           data.families <- merge(miss.families, families.data.tmp,
+  #                                  by = "tmp.gen", all.x = TRUE, sort = FALSE)
+  #           data.families <-
+  #             data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
+  #         }
+  #         tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
+  #                                         corr = FALSE, drop.lower.level = TRUE)
+  #         replace_these <- tpl.families$Family %in% "" &
+  #                           !is.na(data.families$name.correct)
+  #         if (any(replace_these))
+  #           tpl.families$Family[replace_these] <-
+  #             data.families$name.correct[replace_these]
+  #         families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
+  #                       name.correct := tpl.families$Family, ]
+  #
+  #       }
+  #     }
+  #   }
+  # }
 
   # Double checking if all names are in the APG dictionaire
   families.data <- merge(families.data,
@@ -226,7 +258,7 @@ prepFamily <- function(x,
                          c(fam.name, gen.name, spp.name))
   data.table::setnames(dt, dim(dt)[2], 'family.new')
 
-  setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
+  data.table::setkeyv(dt, c("tmp.ordem")) #re-ordering the data.table
   dt[, tmp.ordem := NULL, ]
 
   return(data.frame(dt))

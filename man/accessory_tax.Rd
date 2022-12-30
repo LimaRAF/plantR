@@ -46,7 +46,7 @@ the function silently uses the first rank for all names.
 }
 \examples{
 \dontrun{
-rmOpen(c("Lindsaea cf. lancea","Lindsaea aff. lancea"))
+rmOpen(c("Lindsaea cf. lancea", "Lindsaea aff. lancea"))
 }
 
 \dontrun{

@@ -10,7 +10,7 @@ formatTax(
   tax.name = "scientificName",
   rm.rank = FALSE,
   tax.names = c("scientificName.new", "scientificNameAuthorship"),
-  db = c("bfo", "tpl"),
+  db = c("bfo"),
   sug.dist = 0.9,
   use.authors = FALSE,
   drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",

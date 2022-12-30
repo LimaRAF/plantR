@@ -31,4 +31,3 @@ please use the function \code{replace_non_ascii()} from package \strong{textclea
 \author{
 Renato A. F. de Lima
 }
-\keyword{internal}

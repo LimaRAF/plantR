@@ -7,7 +7,7 @@
 prepSpecies(
   x,
   tax.names = c("scientificName.new", "scientificNameAuthorship"),
-  db = c("bfo", "tpl"),
+  db = c("bfo"),
   sug.dist = 0.9,
   use.authors = TRUE,
   drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
@@ -74,7 +74,6 @@ df <- data.frame(scientificName.new = sp.list,
   scientificNameAuthorship = aut_list)
 
 prepSpecies(df)
-prepSpecies(df, db = "tpl", sug.dist = 0.85)
 
 }
 \references{

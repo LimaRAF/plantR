@@ -65,7 +65,6 @@
 #'   scientificNameAuthorship = aut_list)
 #'
 #' prepSpecies(df)
-#' prepSpecies(df, db = "tpl", sug.dist = 0.85)
 #'
 #' @seealso
 #'  Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
@@ -79,7 +78,7 @@
 #'
 prepSpecies <- function(x,
                         tax.names = c("scientificName.new","scientificNameAuthorship"),
-                        db = c("bfo", "tpl"),
+                        db = c("bfo"),
                         sug.dist = 0.9,
                         use.authors = TRUE,
                         drop.cols = c("tmp.ordem","family","verbatimSpecies",
