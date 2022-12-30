@@ -19,16 +19,12 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.config.os }}
-    # runs-on: macos-latest
+      runs-on: macos-latest
+      runs-on: windows-latest
+      runs-on: ubuntu-latest
     strategy:
       matrix:
         r-version: ['4.1.1']
-      matrix:
-        config:
-          - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
 
     steps:
       - uses: actions/checkout@v3
