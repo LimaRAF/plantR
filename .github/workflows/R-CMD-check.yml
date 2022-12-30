@@ -27,10 +27,11 @@ jobs:
       # matrix:
       #   r-version: ['4.1.1']
       matrix:
+        fail-fast: false
         config:
           - {os: macos-latest,   r: '4.1.1'}
           - {os: windows-latest, r: '4.1.1'}
-          - {os: ubuntu-latest,   r: '4.1.1'}
+          # - {os: ubuntu-latest,   r: '4.1.1'}
 
     steps:
       - uses: actions/checkout@v3
