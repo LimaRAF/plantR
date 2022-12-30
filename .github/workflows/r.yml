@@ -32,9 +32,9 @@ jobs:
           r-version: ${{ matrix.r-version }}
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck", "knitr"))
+          install.packages(c("remotes", "rcmdcheck", "rmarkdown", "knitr", "pandoc"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
       - name: Check
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--no-build-vignettes"), error_on = "error")
+        run: rcmdcheck::rcmdcheck(args = c("--no-tests", "--no-manual", "--no-build-vignettes"), error_on = "error")
         shell: Rscript {0}
