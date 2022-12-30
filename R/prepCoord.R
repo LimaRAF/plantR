@@ -53,17 +53,19 @@
 #'
 #' @export prepCoord
 #'
-prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag = TRUE) {
+prepCoord <- function(x,
+                      lat = "decimalLatitude",
+                      lon = "decimalLongitude",
+                      flag = TRUE) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   ## checking and filtering latitude and longitude columns
   if (all(c(lat, lon) %in% names(x))) {
     lati <- as.character(x[, lat])
     long <- as.character(x[, lon])
-    # names(x) <- c("lon", "lat")
   } else {
     stop("Coordinate names do not match those of the input object: please rename or specify the correct names")
   }
@@ -106,25 +108,24 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
   lati.na <- !is.na(lati)
   lati.na.num <- suppressWarnings(!is.na(as.double(lati)))
   tmp <- sum(lati.na) - sum(lati.na.num)
-  # tmp <- suppressWarnings(sum(table(lat)) - sum(table(as.double(lat))))
+
   if(tmp > 0) {
     ids <- lati.na & !lati.na.num
     lati0 <- lati[ids]
     long0 <- long[ids]
 
     lati.ref <- grepl("s|S", lati0, perl = TRUE) &
-      !grepl("n|N", lati0, perl = TRUE)
+                  !grepl("n|N", lati0, perl = TRUE)
     long.ref <- grepl("w|W|o|O", long0, perl = TRUE) &
-      !grepl("e|E|l|L", long0, perl = TRUE)
-    lati0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", lati0, perl = TRUE)
-    long0 <- gsub('\'|\"|\xB0|\xBA|\\*|\\|', " ", long0, perl = TRUE)
+                  !grepl("e|E|l|L", long0, perl = TRUE)
+    lati0 <- gsub('\'|\"|\\*|\\|', " ", lati0, perl = TRUE)
+    long0 <- gsub('\'|\"|\\*|\\|', " ", long0, perl = TRUE)
+    lati0 <- gsub('[^\x01-\x7F]+', " ", lati0, perl = TRUE)
+    long0 <- gsub('[^\x01-\x7F]+', " ", long0, perl = TRUE)
     lati0 <- gsub('[a-z]', " ", lati0, ignore.case = TRUE, perl = TRUE)
     long0 <- gsub('[a-z]', " ", long0, ignore.case = TRUE, perl = TRUE)
-    lati0 <- gsub("\\s+", " ", lati0, perl = TRUE)
-    long0 <- gsub("\\s+", " ", long0, perl = TRUE)
-    lati0 <- gsub("^ | $", "", lati0, perl = TRUE)
-    long0 <- gsub("^ | $", "", long0, perl = TRUE)
-
+    lati0 <- squish(lati0)
+    long0 <- squish(long0)
 
     lati0[!is.na(lati0) & lati0 %in% c("0 0 0", "0 0")] <- NA
     long0[!is.na(long0) & long0 %in% c("0 0 0", "0 0")] <- NA
@@ -166,7 +167,7 @@ prepCoord <- function(x, lat = "decimalLatitude", lon = "decimalLongitude", flag
   names(result)[dim(x)[2] + c(1:2)] <- new.cls
 
   #Flag the coordinates that were changed?
-  if (flag){
+  if (flag) {
     result$coord.check <- TRUE
     result$coord.check[!result[,lat] %in% as.character(lati) |
                          !result[,lon] %in% as.character(long)] <- FALSE
