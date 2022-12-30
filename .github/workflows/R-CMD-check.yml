@@ -26,8 +26,8 @@ jobs:
     strategy:
       # matrix:
       #   r-version: ['4.1.1']
+      fail-fast: false
       matrix:
-        fail-fast: false
         config:
           - {os: macos-latest,   r: '4.1.1'}
           - {os: windows-latest, r: '4.1.1'}
