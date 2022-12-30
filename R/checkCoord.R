@@ -115,11 +115,15 @@ checkCoord <- function(x,
 
   ##Creating the geo.check column and assigning the gazetteer and missing classes
   geo.check <- rep(NA_character_, dim(x)[1])
+
   ids.gazet <- x[, orig.coord] %in% "coord_gazet"
-  geo.check[ids.gazet] <-
-    paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
+  if (any(ids.gazet))
+    geo.check[ids.gazet] <-
+      paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
+
   ids.no.coord <- x[, orig.coord] %in% "no_coord"
-  geo.check[ids.no.coord] <- "no_cannot_check"
+  if (any(ids.no.coord))
+    geo.check[ids.no.coord] <- "no_cannot_check"
 
   ## Subsetting data for geographical checking
   tmp <- x[is.na(geo.check), ]
@@ -166,7 +170,7 @@ checkCoord <- function(x,
                                       join = sf::st_intersects))
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
-  ##Solving misterious problems with the country map (could not iolate the problem)
+  ##Solving misterious problems with the country map (could not isolate the problem)
   check_these <- grepl("\\.[0-9]", rownames(tmp))
   if (any(check_these)){
     tmp$keep_these <- rep(TRUE, dim(tmp)[1])
@@ -216,7 +220,23 @@ checkCoord <- function(x,
 
   ##Comparing the spatial data frame with the selected country shapefiles
   x2 <- suppressMessages(
-    sf::st_join(tmp, high_map, join = sf::st_intersects))
+          sf::st_join(tmp, high_map, join = sf::st_intersects))
+
+  ##Solving misterious problems with the map (could not isolate the problem)
+  check_these <- grepl("\\.[0-9]", rownames(x2))
+  if (any(check_these)){
+    x2$keep_these <- rep(TRUE, dim(x2)[1])
+    dup.orders <- x2$tmp.order[check_these]
+    for(i in seq_along(dup.orders)) {
+      dups.i <- x2[x2$tmp.order %in% dup.orders[i], ]
+      dups.i$keep_these[dups.i$country.new != dups.i$pais_wo] <- FALSE
+      if (all(dups.i$keep_these))
+        dups.i$keep_these[-1] <- FALSE
+      x2$keep_these[x2$tmp.order %in% dup.orders[i]] <- dups.i$keep_these
+    }
+    x2 <- x2[x2$keep_these, ]
+  }
+
   x2 <- dplyr::rename(x2,
                       pais_latam = NAME_0
                       #estado = NAME_1,
