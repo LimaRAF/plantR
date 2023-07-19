@@ -47,9 +47,9 @@ Steege & Marinez F. de Siqueira
 ### Citation
 
 Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
-Siqueira, M.F. (2021). *plantR*: An R package and workflow for managing
+Siqueira, M.F. (2023). *plantR*: An R package and workflow for managing
 species records from biological collections. Methods in Ecology and
-Evolution. <https://doi.org/10.1111/2041-210X.13779>
+Evolution 14(2): 332-339. <https://doi.org/10.1111/2041-210X.13779>
 
 ### Funding
 
