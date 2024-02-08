@@ -44,7 +44,7 @@
 #' @param Images If select only records with images. Default is NULL.
 #' It accepts: "Yes", "Live", "Polen", "Wood"
 #' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
-#' @param limit Numeric. Maximum number of records to be required. Default is 200
+#' @param limit Numeric. Maximum number of records to be required. Default is 200, maximum is 5000.
 #' @param file.format Character. The file extension to be used for saving ('csv'
 #'   or 'rds'). Default to 'csv'.
 #' @param compress Logical. Should the file be compressed? Default to FALSE.

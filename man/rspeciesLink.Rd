@@ -87,7 +87,7 @@ It accepts: "Yes", "Live", "Polen", "Wood"}
 
 \item{RedList}{Logic. If TRUE only species in the IUCN Red List are returned}
 
-\item{limit}{Numeric. Maximum number of records to be required. Default is 200}
+\item{limit}{Numeric. Maximum number of records to be required. Default is 200, maximum is 5000.}
 
 \item{file.format}{Character. The file extension to be used for saving ('csv'
 or 'rds'). Default to 'csv'.}
