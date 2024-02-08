@@ -5,6 +5,7 @@
 \title{Gets occurrence data from speciesLink}
 \usage{
 rspeciesLink(
+  key = NULL,
   dir = "results/",
   filename = "output",
   save = FALSE,
@@ -22,12 +23,15 @@ rspeciesLink(
   Typus = FALSE,
   Images = NULL,
   RedList = FALSE,
-  MaxRecords = NULL,
+  limit = NULL,
   file.format = "csv",
   compress = FALSE
 )
 }
 \arguments{
+\item{key}{Character. Your personal specieslink API key.
+Generate one at [specieslink.net/aut/profile/apikeys]{https://specieslink.net/aut/profile/apikeys}}
+
 \item{dir}{Path to directory where the file will be saved. Default is to
 create a "results/" directory}
 
@@ -68,7 +72,7 @@ or "no check"}
 type of coordinates}
 
 \item{Scope}{Group to be required. If NULL searches all groups. Any in
-"plants", "animals", "microrganisms" or "fossils"}
+"p", "a", "m", "f" or "b" (plants, animals, microorganisms, fossil and broad(?))}
 
 \item{Synonyms}{If species names should be checked for synonyms in a specific
 dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
@@ -83,7 +87,7 @@ It accepts: "Yes", "Live", "Polen", "Wood"}
 
 \item{RedList}{Logic. If TRUE only species in the IUCN Red List are returned}
 
-\item{MaxRecords}{Numeric. Maximum number of records to be required}
+\item{limit}{Numeric. Maximum number of records to be required. Default is 200}
 
 \item{file.format}{Character. The file extension to be used for saving ('csv'
 or 'rds'). Default to 'csv'.}
@@ -94,8 +98,8 @@ or 'rds'). Default to 'csv'.}
 A data.frame with the search result, which can also be saved on disk
 }
 \description{
-This function access version beta 0.1 of the
-[speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
+This function access version 1.0 of the
+[speciesLink API]{https://specieslink.net/ws/1.0/} and returns occurrence data of
 species.
 }
 \details{
@@ -113,11 +117,11 @@ need to make the queries in a loop (see Examples).
 ex01 <-
  rspeciesLink(filename = "ex01",
                     species =  c("Eugenia platyphylla"),
-                    Scope = "plants")
+                    Scope = "p")
 # Use lapply or similar for more than 50 species
 # Making a request for multiple species
 sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
-                                              Scope = "plants",
+                                              Scope = "p",
                                               basisOfRecord = "PreservedSpecimen",
                                               Synonyms = "flora2020"))
 # Adding species names to each element of the list
@@ -128,5 +132,5 @@ sp_df <- bind_rows(sp_list, .id = "original_search")
 
 }
 \author{
-Sara Mortara
+Sara Mortara and João Vieira
 }
