@@ -1,7 +1,7 @@
 #' Gets occurrence data from speciesLink
 #'
-#' This function access version beta 0.1 of the
-#' [speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
+#' This function access version 1.0 of the
+#' [speciesLink API]{https://specieslink.net/ws/1.0/} and returns occurrence data of
 #' species.
 #'
 #' @param dir Path to directory where the file will be saved. Default is to
@@ -32,7 +32,7 @@
 #' @param CoordinatesQuality Any character in "Good" or "Bad" to select specific
 #'  type of coordinates
 #' @param Scope Group to be required. If NULL searches all groups. Any in
-#' "plants", "animals", "microrganisms" or "fossils"
+#' "p", "a", "m", "f" or "b" (plants, animals, microorganisms, fossil and broad(?))
 #' @param Synonyms If species names should be checked for synonyms in a specific
 #'  dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
 #'   "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase"
@@ -57,7 +57,7 @@
 #' time. So to download records from larger lists of species, you will probably
 #' need to make the queries in a loop (see Examples).
 #'
-#' @author Sara Mortara
+#' @author Sara Mortara e João Vieira
 #'
 #' @examples
 #'\dontrun{
@@ -65,11 +65,11 @@
 #' ex01 <-
 #'  rspeciesLink(filename = "ex01",
 #'                     species =  c("Eugenia platyphylla"),
-#'                     Scope = "plants")
+#'                     Scope = "p")
 #' # Use lapply or similar for more than 50 species
 #' # Making a request for multiple species
 #'sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
-#'                                               Scope = "plants",
+#'                                               Scope = "p",
 #'                                               basisOfRecord = "PreservedSpecimen",
 #'                                               Synonyms = "flora2020"))
 #'# Adding species names to each element of the list
@@ -81,7 +81,8 @@
 #' @import data.table
 #' @importFrom jsonlite fromJSON
 #' @export
-rspeciesLink <- function(dir = "results/",
+rspeciesLink <- function(key = NULL,
+                         dir = "results/",
                          filename = "output",
                          save = FALSE,
                          basisOfRecord = NULL,
@@ -93,23 +94,27 @@ rspeciesLink <- function(dir = "results/",
                          county = NULL,
                          Coordinates = NULL, #		Yes | No | Original | Automatic | Blocked
                          CoordinatesQuality = NULL,	#Good | Bad
-                         Scope = NULL, #			plants, animals, microrganisms,fossils
+                         Scope = NULL, #	a (animais) p (plantas) b (abrangente) m (microorganismos)  f (fósseis)
                          Synonyms = "no synomyms", #species2000 | flora2020 | MycoBank | AlgaeBase | DSMZ | Moure no synonyms
                          Typus = FALSE,
                          Images = NULL,
                          RedList = FALSE,
-                         MaxRecords = NULL, #		n > 0	 all records
+                         limit = NULL,
                          file.format = "csv",
                          compress = FALSE
 ) { # Yes | No | Live | Polen | Wood
   # speciesLink url
-  my_url <- "https://api.splink.org.br/records/"
+  my_url <- "https://specieslink.net/ws/1.0/search?"
 
   # helper function
   url_query <-  function(vector, name) {
-    char <- paste(paste0(vector, "/"), collapse = "")
-    url <- paste0(name, "/", char)
+    char <- paste(paste0(vector, "&"), collapse = "")
+    url <- paste0(name, "=", char)
     return(url)
+  }
+  # api key
+  if (is.null(key)) {
+    stop("Please provide an API key! Get one at specieslink.net/aut/profile/apikeys")
   }
   # basis of record
   if (is.null(basisOfRecord)) {
@@ -134,7 +139,7 @@ rspeciesLink <- function(dir = "results/",
     if (is.character(species)) {
       if (length(species) > 50)
         stop("Please make request of no more than 50 species at a time!")
-      species <- gsub(" ", "%20", species)
+      species <- gsub(" ", "+", species)
       sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
     } else {
@@ -167,7 +172,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(country)) {
-      country <- gsub(" ", "%20", country)
+      country <- gsub(" ", "+", country)
       ct <- url_query(country, "country")
       my_url <- paste0(my_url, ct)
     }
@@ -177,7 +182,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(stateProvince)) {
-      stateProvince <- gsub(" ", "%20", stateProvince)
+      stateProvince <- gsub(" ", "+", stateProvince)
       st <- url_query(stateProvince, "stateProvince")
       my_url <- paste0(my_url, st)
     }
@@ -187,7 +192,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(county)) {
-      county <- gsub(" ", "%20", county)
+      county <- gsub(" ", "+", county)
       co <- url_query(county, "county")
       my_url <- paste0(my_url, co)
     }
@@ -214,7 +219,7 @@ rspeciesLink <- function(dir = "results/",
   if (is.null(Scope)) {
     my_url
   } else {
-    if (Scope %in% c("plants", "animals", "microrganisms", "fossils")) {
+    if (Scope %in% c("p", "a", "m", "f", "b")) {
       sc <- url_query(Scope, "Scope")
       my_url <- paste0(my_url, sc)
     }
@@ -255,22 +260,22 @@ rspeciesLink <- function(dir = "results/",
     my_url <- paste0(my_url, "RedList/Yes/")
   }
   # MaxRecords
-  if (is.null(MaxRecords)) {
+  if (is.null(limit)) {
     my_url
   } else {
-    if (is.numeric(MaxRecords)) {
-      mr <- url_query(MaxRecords, "MaxRecords")
+    if (is.numeric(limit)) {
+      mr <- url_query(limit, "limit")
       my_url <- paste0(my_url, mr)
     }
   }
   # making request
-  my_url <- paste0(my_url, "Format/JSON/") #Model/DwC is already default
+  my_url <- paste0(my_url,"apikey=", key) #Model/DwC is already default
   message("Making request to speciesLink...")
   #r <- httr::GET(my_url)
   #message("Extracting content ...")
   #rr <- httr::content(r, as="parse") # text content
   # requesting JSON format
-  df <- jsonlite::fromJSON(my_url)$result
+  df <- jsonlite::fromJSON(my_url)$features$properties
   #rrr <- readr::read_tsv(rr, locale = readr::locale(encoding = "UTF-8"))
 
   if (save) {
