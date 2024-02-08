@@ -30,7 +30,7 @@ rspeciesLink(
 }
 \arguments{
 \item{key}{Character. Your personal specieslink API key.
-Generate one at [specieslink.net/aut/profile/apikeys]{https://specieslink.net/aut/profile/apikeys}}
+Generate one at \url{specieslink.net/aut/profile/apikeys}}
 
 \item{dir}{Path to directory where the file will be saved. Default is to
 create a "results/" directory}
@@ -99,7 +99,7 @@ A data.frame with the search result, which can also be saved on disk
 }
 \description{
 This function access version 1.0 of the
-[speciesLink API]{https://specieslink.net/ws/1.0/} and returns occurrence data of
+\href{https://specieslink.net/ws/1.0/}{speciesLink API} and returns occurrence data of
 species.
 }
 \details{

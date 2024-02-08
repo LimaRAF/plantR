@@ -1,11 +1,11 @@
 #' Gets occurrence data from speciesLink
 #'
 #' This function access version 1.0 of the
-#' [speciesLink API]{https://specieslink.net/ws/1.0/} and returns occurrence data of
+#' [speciesLink API](https://specieslink.net/ws/1.0/) and returns occurrence data of
 #' species.
 #'
 #' @param key Character. Your personal specieslink API key. 
-#' Generate one at [specieslink.net/aut/profile/apikeys]{https://specieslink.net/aut/profile/apikeys}
+#' Generate one at \url{specieslink.net/aut/profile/apikeys}
 #' @param dir Path to directory where the file will be saved. Default is to
 #' create a "results/" directory
 #' @param filename Name of the output file
