@@ -4,6 +4,8 @@
 #' [speciesLink API]{https://specieslink.net/ws/1.0/} and returns occurrence data of
 #' species.
 #'
+#' @param key Character. Your personal specieslink API key. 
+#' Generate one at [specieslink.net/aut/profile/apikeys]{https://specieslink.net/aut/profile/apikeys}
 #' @param dir Path to directory where the file will be saved. Default is to
 #' create a "results/" directory
 #' @param filename Name of the output file
@@ -42,7 +44,7 @@
 #' @param Images If select only records with images. Default is NULL.
 #' It accepts: "Yes", "Live", "Polen", "Wood"
 #' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
-#' @param MaxRecords Numeric. Maximum number of records to be required
+#' @param limit Numeric. Maximum number of records to be required. Default is 200
 #' @param file.format Character. The file extension to be used for saving ('csv'
 #'   or 'rds'). Default to 'csv'.
 #' @param compress Logical. Should the file be compressed? Default to FALSE.
@@ -57,7 +59,7 @@
 #' time. So to download records from larger lists of species, you will probably
 #' need to make the queries in a loop (see Examples).
 #'
-#' @author Sara Mortara e João Vieira
+#' @author Sara Mortara and João Vieira
 #'
 #' @examples
 #'\dontrun{
