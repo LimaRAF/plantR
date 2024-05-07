@@ -79,6 +79,50 @@ formatOcc <- function(x,
       x$dateIdentified[ids] <- x$yearIdentified[ids]
   }
 
+  # Missing year of identification that may be stored in the field 'dateIdentified'
+  if ("dateIdentified" %in% names(x) & "yearIdentified" %in% names(x)) {
+    ids <- is.na(x$dateIdentified) & !is.na(x$yearIdentified)
+    if (any(ids))
+      x$dateIdentified[ids] <- x$yearIdentified[ids]
+  }
+
+  # Missing latitudes stored in fields 'latitude' or 'verbatimLatitude'
+  if ("decimalLatitude" %in% names(x) & "latitude" %in% names(x)) {
+    ids <- is.na(x$decimalLatitude) & !is.na(x$latitude)
+    if (any(ids))
+      x$decimalLatitude[ids] <- x$latitude[ids]
+  }
+  if ("decimalLatitude" %in% names(x) & "verbatimLatitude" %in% names(x)) {
+    ids <- is.na(x$decimalLatitude) & !is.na(x$verbatimLatitude)
+    if (any(ids))
+      x$decimalLatitude[ids] <- x$verbatimLatitude[ids]
+  }
+
+  # Missing longitudes stored in fields 'longitude' or 'verbatimLongitude'
+  if ("decimalLongitude" %in% names(x) & "longitude" %in% names(x)) {
+    ids <- is.na(x$decimalLongitude) & !is.na(x$longitude)
+    if (any(ids))
+      x$decimalLongitude[ids] <- x$longitude[ids]
+  }
+  if ("decimalLongitude" %in% names(x) & "verbatimLongitude" %in% names(x)) {
+    ids <- is.na(x$decimalLongitude) & !is.na(x$verbatimLongitude)
+    if (any(ids))
+      x$decimalLongitude[ids] <- x$verbatimLongitude[ids]
+  }
+
+  # Missing recordedBy and recordNumber stored in fields 'collector' or 'collectornumber'
+  if ("recordedBy" %in% names(x) & "collector" %in% names(x)) {
+    ids <- is.na(x$recordedBy) & !is.na(x$collector)
+    if (any(ids))
+      x$recordedBy[ids] <- x$collector[ids]
+  }
+  if ("recordNumber" %in% names(x) & "collectornumber" %in% names(x)) {
+    ids <- is.na(x$recordNumber) & !is.na(x$collectornumber)
+    if (any(ids))
+      x$recordNumber[ids] <- x$collectornumber[ids]
+  }
+
+
   ## Standardizing collection codes
   x <- getCode(x)
 

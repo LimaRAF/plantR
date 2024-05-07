@@ -1,18 +1,18 @@
 # Script to generate fieldNames table
 library(dplyr)
 
-# Downloading current versions of GBIF and speciesLink fiedls
+# Downloading current versions of GBIF, speciesLink, BIEN and JABOT fields
 spp <- c("Casearia sylvestris",
          "Euterpe edulis",
          "Trema micrantha")
-occs_splink <- rspeciesLink(species = spp)
-write.csv(occs_splink, "data-raw/results/speciesLink.csv")
-occs_gbif <- rgbif2(species = spp)
+chave <- readLines("data-raw/api_key.txt")
+occs_splink <- rspeciesLink(species = spp, key = chave)
+write.csv(occs_splink, "data-raw/results/speciesLink.csv", row.names = FALSE)
+occs_gbif <- rgbif2(species = spp, row.names = FALSE)
 write.csv(occs_gbif, "data-raw/results/gbif.csv")
 occs_bien <- BIEN::BIEN_occurrence_species(
   spp,
   cultivated = T,
-  only.new.world = F,
   all.taxonomy = T,
   native.status = T,
   natives.only = F,
@@ -20,30 +20,14 @@ occs_bien <- BIEN::BIEN_occurrence_species(
   political.boundaries = T,
   collection.info = T
 )
-write.csv(occs_bien, "data-raw/results/bien.csv")
+write.csv(occs_bien, "data-raw/results/bien.csv", row.names = FALSE)
 table(occs_bien$datasource)
 
-# Reading data base results ----------------------------------------------------
-## gbif
-df_gbif <- read.csv("data-raw/results/gbif.csv")
-
-#editing gbif names (INCLUIDO PELO RENATO)
-tmp <- names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)]
-tmp1 <- sapply(tmp,
-               function(x) tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])", perl = TRUE)),1))
-tmp[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)] <-
-  tmp1[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)]
-names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
+## The online query for JABOT (http://jabot.jbrj.gov.br/v3/consulta.php) is also in the folder
 
 
-## species link
-df_splink <- read.csv("data-raw/results/speciesLink.csv")
-
-## species link (WEB based version) - INCLUDE THIS ONE
-df_splinkw <- read.delim("data-raw/results/speciesLink-20211105124052-0021061.txt")
-#https://specieslink.net/search/download/20211105124052-0021061
- 
-### Necessary fields for plantR
+# Table with the necessary fields for plantR ------------------------------------
+### Required fields for plantR
 must_plantr <- c("institutionCode", "collectionCode", "catalogNumber",
                  "recordNumber", "recordedBy",
                  "year", "country", "stateProvince", "municipality", "locality",
@@ -57,6 +41,8 @@ opt_plantr <- c("genus", "acceptedScientificName",
                 "dayIdentified", "monthIdentified", "yearIdentified", "identificationRemarks",
                 "countryCode", "county", "verbatimLocality",
                 "verbatimLatitude", "verbatimLongitude", "coordinatePrecision", "verbatimElevation",
+                "collector", "collectornumber", "scientificnameauthor",
+                "latitude", "longitude",
                 "basisOfRecord", "type",
                 "fieldNotes", "occurrenceRemarks", "habitat", #"occurrenceDetails",
                 "collectionID", "datasetID", "datasetName",
@@ -69,7 +55,89 @@ plantr <- data.frame(plantr = c(must_plantr, opt_plantr),
                               rep("optional", length(opt_plantr))))
 
 
-# Bien Data dictionary ----------------------------------------------------
+# Reading data base results ----------------------------------------------------
+## gbif
+df_gbif <- read.csv("data-raw/results/gbif.csv")
+
+#editing gbif names
+tmp <- names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)]
+tmp1 <- gsub(".*\\.", "", tmp, perl = TRUE)
+tmp[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)] <-
+  tmp1[!duplicated(tmp1) & !tmp1 %in% names(df_gbif)]
+names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
+
+## speciesLink data data dictionary ---------------------------------------------
+df_splink <- read.csv("data-raw/results/speciesLink.csv")
+
+## species link (WEB based version) - INCLUDE THIS ONE
+df_splinkw <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240506233830-0032294.txt"))
+allnames <- unique(c(names(df_splink), names(df_splinkw), names(example), names(example_intro)))
+
+### Required fields for plantR
+must_splink <- c(institutionCode = "institutioncode",
+                 collectionCode = "collectioncode",
+                 catalogNumber = "catalognumber",
+                 recordNumber = "recordnumber",
+                 recordedBy = "recordedby",
+                 year = "yearcollected",
+                 country = "country",
+                 stateProvince = "stateprovince",
+                 # municipality = "",
+                 locality = "locality",
+                 decimalLatitude = "decimallatitude",
+                 decimalLongitude = "decimallongitude",
+                 identifiedBy = "identifiedby",
+                 # dateIdentified = "",
+                 typeStatus = "typestatus",
+                 family = "family",
+                 scientificName = "scientificname",
+                 scientificNameAuthorship = "scientificnameauthorship")
+### Optional but recommended fields for plantR
+opt_splink <- c(genus = "genus",
+                # acceptedScientificName = "",
+                # taxonRank = "",
+                # taxonomicStatus = "",
+                # taxonRemarks = "",
+                # eventDate = "",
+                month = "monthcollected",
+                day = "daycollected",
+                # verbatimEventDate = "",
+                collector = "collector",
+                collectornumber = "collectornumber",
+                scientificnameauthor = "scientificnameauthor",
+                dayIdentified = "dayidentified",
+                monthIdentified = "monthidentified",
+                yearIdentified = "yearidentified",
+                # identificationRemarks = "",
+                # countryCode = "",
+                county = "county",
+                # verbatimLocality = "",
+                verbatimLatitude = "verbatimlatitude",
+                verbatimLongitude = "verbatimlongitude",
+                coordinatePrecision = "coordinateprecision",
+                latitude = "latitude",
+                longitude = "longitude",
+                # verbatimElevation = "",
+                basisOfRecord = "basisofrecord",
+                # type = "",
+                fieldNotes = "notes",
+                occurrenceRemarks = "occurrenceremarks",
+                # habitat = "",
+                #"occurrenceDetails = "",
+                collectionID = "collectionid"
+                # datasetID = ""
+                # datasetName = "",
+                # bibliographicCitation = ""
+                )
+
+allnames[allnames %in% c(must_splink, opt_splink)]
+sort(allnames[!allnames %in% c(must_splink, opt_splink)])
+# Check these: "collector", "collectornumber", "latitude", "longitude", "notes", "scientificnameauthor"
+
+length(c(must_splink, opt_splink)) == length(c(must_splink, opt_splink)[c(must_splink, opt_splink) %in% allnames]) # ok!
+c(must_splink, opt_splink)[!c(must_splink, opt_splink) %in% allnames] # ok!
+
+## Bien data and data dictionary -----------------------------------------------
 df_bien <- read.csv("data-raw/results/bien.csv")
 
 # from: https://bien.nceas.ucsb.edu/bien/biendata/bien-4/private-data-dictionary/https://www.tdwg.org/community/osr/
@@ -82,7 +150,7 @@ df <- data.frame(table_name = as.character(sapply(url, head, 1)),
 df$description <- gsub('\"$|', "", df$description, fixed = TRUE)
 
 
-### Necessary fields for plantR
+### Necessary BIEN fields for plantR
 must_bien <- c(institutionCode = "custodial_institution_codes",
                collectionCode = "collection_code",
                catalogNumber = "catalog_number",
@@ -100,7 +168,7 @@ must_bien <- c(institutionCode = "custodial_institution_codes",
                # typeStatus = "typeStatus",
                family = "family_matched",
                scientificName = "name_matched",
-               scientificName = "scrubbed_species_binomial",
+               # scientificName = "scrubbed_species_binomial",
                scientificNameAuthorship = "name_matched_author")
 ### Optional but recommended fields for plantR
 opt_bien <- c(genus = "scrubbed_genus",
@@ -144,17 +212,23 @@ bien.dd <- data.frame(bien = c(must_bien, opt_bien),
 # from repository: https://github.com/tdwg/dwc
 dwc_dic <- read.csv("https://raw.githubusercontent.com/tdwg/dwc/master/vocabulary/term_versions.csv")
 
+# removing deprecated and superseeded duplicated names
+dup_names <- dwc_dic$term_localName[duplicated(tolower(dwc_dic$term_localName))]
+dup_ids <- which(dwc_dic$term_localName %in% dup_names &
+                   dwc_dic$status %in% c("deprecated", "superseded"))
+dwc_dic <- dwc_dic[-dup_ids,]
+# trying again (DwC has some duplicated term names IRI??)
+dwc_dic <- dwc_dic[!duplicated(dwc_dic$term_localName),]
+
+# Cleaning and preparing
 dwc <- dwc_dic %>%
   select(term_localName, definition, organized_in) %>%
-  filter(organized_in != "") %>%
+  # filter(organized_in != "") %>%
   mutate(low_dwc = tolower(term_localName), dwc = term_localName) %>%
   select(dwc, low_dwc, definition) %>%
   distinct()
-#%>%
-#   mutate(organized_in = sapply(strsplit(organized_in, "/"),
-#                                function(x) x[6]))
-#
-# dwc$organized_in[dwc$organized_in == ""] <- NA
+
+
 
 # Creating base for fieldNames data frame -------------------------------------
 ## Column low_dwc will be always used for merge
@@ -163,30 +237,32 @@ df <- dwc %>%
   left_join(plantr, by = 'low_dwc') %>%
   distinct()
 
-# Adding speciesLink equivalences ----------------------------------------------
-cols_splink <- names(df_splink)
-low_splink <- tolower(cols_splink)
+## Adding speciesLink equivalences to the main data frame
+# cols_splink <- names(df_splink)
+# low_splink <- tolower(cols_splink)
+cols_splink <- c(must_splink, opt_splink)
+low_splink <- tolower(names(c(must_splink, opt_splink)))
 
 #checking
-low_cols <- tolower(c(must_plantr, opt_plantr))
+low_cols <- tolower(c(must_splink, opt_splink))
 low_splink[!low_splink %in% low_cols]
 
 splink <- data.frame(low_dwc = low_splink, speciesLink = cols_splink) %>%
   left_join(df, ., by = "low_dwc")
 
-# Adding bien equivalences ----------------------------------------------
+## Adding bien equivalences to the main data frame
 cols_bien <- c(must_bien, opt_bien)
 low_bien <- tolower(names(c(must_bien, opt_bien)))
 
 bien <- data.frame(low_dwc = low_bien, bien = cols_bien) %>%
   left_join(df, ., by = "low_dwc")
 
-# Adding gbif equivalences -----------------------------------------------------
+## Adding gbif equivalences to the main data frame
 cols_gbif <- names(df_gbif)
 low_gbif <- tolower(cols_gbif)
 
 fieldNames <- data.frame(low_dwc = low_gbif, gbif = cols_gbif) %>%
-  left_join(splink, ., by = "low_dwc") %>%
+  left_join(splink, ., by = c("low_dwc")) %>%
   left_join(bien, ., by = c("dwc", "low_dwc","plantr","type")) %>%
   left_join(dwc, ., by = c("dwc", "low_dwc"))
 
@@ -196,15 +272,38 @@ setdiff(low_must, low_gbif) # "scientificnameauthorship"
 setdiff(low_must, low_splink)  # "municipality", "dateidentified"
 setdiff(low_must, low_bien)  # "year", "municipality", "typestatus"
 
-#### CODES ADDED BY RENATO ####
 # Adding optional fields in speciesLink missing from the standard names from Darwin Core ------------------------------
 tmp <- plantr[!plantr$plantr %in% fieldNames$plantr, ]
-names(fieldNames)[!names(fieldNames) %in% names(tmp)]
 tmp$dwc <- tmp$speciesLink <- tmp$plantr
 tmp$gbif <- NA
 tmp$bien <- NA
 tmp$definition <- "(extra fields from speciesLink database not in Darwin Core standards)"
 tmp <- tmp[, match(names(fieldNames), names(tmp))]
+to_lower_ids <- which(tolower(tmp$speciesLink) %in% names(df_splink))
+tmp$speciesLink[to_lower_ids] <- tolower(tmp$speciesLink[to_lower_ids])
+
+# Final adjustments
+rep_these <- tmp$speciesLink %in% "latitude"
+if (any(rep_these))
+  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Latitude"
+
+rep_these <- tmp$speciesLink %in% "longitude"
+if (any(rep_these))
+  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Longitude"
+
+rep_these <- tmp$speciesLink %in% "collector"
+if (any(rep_these))
+  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordedBy"
+
+rep_these <- tmp$speciesLink %in% "collectornumber"
+if (any(rep_these))
+  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordNumber"
+
+rep_these <- tmp$speciesLink %in% "scientificnameauthor"
+if (any(rep_these))
+  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "scientificNameAuthorship"
+
+# Binding to the data frame
 fieldNames <- rbind.data.frame(fieldNames, tmp)
 
 # Removing duplicated entries (all equal except the description)
