@@ -7,42 +7,49 @@
 fixSpecies(
   x = NULL,
   tax.name = "scientificName",
+  author.name = "scientificNameAuthorship",
   rm.rank = FALSE,
   rm.indet = FALSE
 )
 }
 \arguments{
-\item{x}{a vector or data.frame containing the species name}
+\item{x}{a vector or data.frame containing the taxon name
+information}
 
-\item{tax.name}{character. Name of the columns containing the species name.
-Default to "scientificName"}
+\item{tax.name}{character. The name of the column containing the
+taxon name. Defaults to "scientificName"}
 
-\item{rm.rank}{logical. Should the infra-specific rank abbreviation be
-removed from the name? Default to FALSE}
+\item{author.name}{character. The name of the column containing the
+author of scientific name. Defaults to "scientificNameAuthorship"}
 
-\item{rm.indet}{logical. Should the abbreviations for unspecific names (i.e.
-sp. or spp.) be removed? Default to FALSE}
+\item{rm.rank}{logical. Should the infra-specific rank abbreviation
+be removed from the name? Defaults to FALSE}
+
+\item{rm.indet}{logical. Should the abbreviations for unspecific
+names (i.e. sp. or spp.) be removed? Defaults to FALSE}
 }
 \value{
-The original data frame (or the input vector as a data frame) with the new
-columns \code{verbatimSpecies} with small edits before flagging,
-\code{scientificNameStatus} with the flags in original data and
-\code{scientificName.new} with a suggestion for a more correct name. See Details
-for a description of flags in the column \code{scientificNameStatus}.
+A data frame the input vector and the new columns \code{verbatimSpecies}
+with small edits before flagging, \code{scientificNameStatus} with the
+flags in original data and \code{scientificName.new} with a suggestion
+for a more correct name. See Details for a description of flags in
+the column \code{scientificNameStatus}.
 }
 \description{
-Identifies open nomenclature (aff., cf.) in scientific names,
-classification under species level (var. and subsp.). It creates a new
-column with the new suggested name and it also flags problematic names
-(character string with numbers, authors, wrong case, or other names besides
-genus and epithet etc). Names can be returned with or without
-infra-specific ranks (var. and subsp.) or abbreviations of unspecific
-names (sp. or spp.). In the case of names with authors, authorship is
-currently removed from scientific names.
+Identifies open nomenclature (aff., cf.) in scientific
+names, classification under species level (var. and subsp.) and
+stadardize the notation of incomplete taxon name identifications.
+It creates a new column with the new suggested name and it also
+flags problematic names (character string with numbers, authors,
+wrong case, or other names besides genus and epithet etc). Names
+can be returned with or without infra-specific ranks (var. and
+subsp.) or abbreviations of unspecific names (sp. or spp.). In
+the case of names with authors, authorship is currently removed
+from scientific names.
 }
 \details{
 Possible flags returned in \code{scientificNameStatus}: \describe{
-\item{\code{possibly_ok}}{scientific name following the expected pattern
+\item{\code{possibly_ok}}{scientific name following the classic pattern
 'Genus epithet'}
 \item{\code{not_Genus_epithet_format}}{scientific name not following
 the expected pattern Genus epithet}
@@ -88,8 +95,9 @@ fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 
 }
 \references{
-Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open Nomenclature in the
-biodiversity era. Methods in Ecology and Evolution 7(10): 1217-1225.
+Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open
+Nomenclature in the biodiversity era. Methods in Ecology and
+Evolution 7(10): 1217-1225.
 }
 \author{
 Sara Mortara & Renato A. Ferreira de Lima

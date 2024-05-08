@@ -1,23 +1,25 @@
 #' @title Edit Scientific Name Notation
 #'
-#' @description Identifies open nomenclature (aff., cf.) in scientific names,
-#'   classification under species level (var. and subsp.). It creates a new
-#'   column with the new suggested name and it also flags problematic names
-#'   (character string with numbers, authors, wrong case, or other names besides
-#'   genus and epithet etc). Names can be returned with or without
-#'   infra-specific ranks (var. and subsp.) or abbreviations of unspecific
-#'   names (sp. or spp.). In the case of names with authors, authorship is
-#'   currently removed from scientific names.
+#' @description Identifies open nomenclature (aff., cf.) in scientific
+#'   names, classification under species level (var. and subsp.) and
+#'   stadardize the notation of incomplete taxon name identifications.
+#'   It creates a new column with the new suggested name and it also
+#'   flags problematic names (character string with numbers, authors,
+#'   wrong case, or other names besides genus and epithet etc). Names
+#'   can be returned with or without infra-specific ranks (var. and
+#'   subsp.) or abbreviations of unspecific names (sp. or spp.). In
+#'   the case of names with authors, authorship is currently removed
+#'   from scientific names.
 #'
 #' @return
-#' The original data frame (or the input vector as a data frame) with the new
-#' columns `verbatimSpecies` with small edits before flagging,
-#' `scientificNameStatus` with the flags in original data and
-#' `scientificName.new` with a suggestion for a more correct name. See Details
-#' for a description of flags in the column `scientificNameStatus`.
+#' A data frame the input vector and the new columns `verbatimSpecies`
+#' with small edits before flagging, `scientificNameStatus` with the
+#' flags in original data and `scientificName.new` with a suggestion
+#' for a more correct name. See Details for a description of flags in
+#' the column `scientificNameStatus`.
 #'
 #' @details Possible flags returned in `scientificNameStatus`: \describe{
-#' \item{\code{possibly_ok}}{scientific name following the expected pattern
+#' \item{\code{possibly_ok}}{scientific name following the classic pattern
 #' 'Genus epithet'}
 #' \item{\code{not_Genus_epithet_format}}{scientific name not following
 #' the expected pattern Genus epithet}
@@ -44,19 +46,23 @@
 #' \item{\code{not_name_has_digits}}{scientific name has digits, not a valid
 #' name} }
 #'
-#' @param x a vector or data.frame containing the species name
-#' @param tax.name character. Name of the columns containing the species name.
-#'   Default to "scientificName"
-#' @param rm.rank logical. Should the infra-specific rank abbreviation be
-#'   removed from the name? Default to FALSE
-#' @param rm.indet logical. Should the abbreviations for unspecific names (i.e.
-#'   sp. or spp.) be removed? Default to FALSE
+#' @param x a vector or data.frame containing the taxon name
+#'   information
+#' @param tax.name character. The name of the column containing the
+#'   taxon name. Defaults to "scientificName"
+#' @param author.name character. The name of the column containing the
+#'   author of scientific name. Defaults to "scientificNameAuthorship"
+#' @param rm.rank logical. Should the infra-specific rank abbreviation
+#'   be removed from the name? Defaults to FALSE
+#' @param rm.indet logical. Should the abbreviations for unspecific
+#'   names (i.e. sp. or spp.) be removed? Defaults to FALSE
 #'
 #' @author Sara Mortara & Renato A. Ferreira de Lima
 #'
 #' @references
-#' Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open Nomenclature in the
-#' biodiversity era. Methods in Ecology and Evolution 7(10): 1217-1225.
+#' Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open
+#' Nomenclature in the biodiversity era. Methods in Ecology and
+#' Evolution 7(10): 1217-1225.
 #'
 #' @examples
 #' df <- data.frame(scientificName =
@@ -84,10 +90,10 @@
 #'
 fixSpecies <- function(x = NULL,
                        tax.name = "scientificName",
+                       author.name = "scientificNameAuthorship",
                        rm.rank = FALSE,
                        rm.indet = FALSE) {
 
-  ## check input
   if (class(x)[1] == "character") {
     x <- data.frame(x, check.names = FALSE, fix.empty.names = FALSE,
                     stringsAsFactors = FALSE)
@@ -100,63 +106,24 @@ fixSpecies <- function(x = NULL,
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
 
-  if (!tax.name %in% names(x))
+  if (!tax.name %in% names(x)) {
     stop("Input data frame must have a column named: ", tax.name)
+  } else {
+    species <- as.character(unique(x[, tax.name]))
+  }
+
+  if (!author.name %in% names(x)) {
+    warning("Input data frame do not have a column named: ", author.name)
+    author.name <- NULL
+  } else {
+    authors <- as.character(unique(x[, author.name]))
+  }
+
 
   #0. preliminary edits
-  species <- as.character(unique(x[, tax.name]))
-  species <- gsub("var\\.", "var. ", species, perl = TRUE)
-  species <- gsub("subsp\\.", "subsp. ", species, perl = TRUE)
-  species <- gsub("ssp\\.", "subsp. ", species, perl = TRUE)
-  species <- gsub("aff\\.", "aff. ", species, perl = TRUE)
-  species <- gsub("cf\\.", "cf. ", species, perl = TRUE)
-  species <- gsub(" f\\.", " f. ", species, perl = TRUE)
-  species <- gsub(" var ", " var. ", species, fixed = TRUE)
-  species <- gsub(" subsp ", " subsp. ", species, fixed = TRUE)
-  species <- gsub(" ssp ", " subsp. ", species, fixed = TRUE)
-  species <- gsub(" aff ", " aff. ", species, fixed = TRUE)
-  species <- gsub(" Aff. ", " aff. ", species, fixed = TRUE)
-  species <- gsub(" cf ", " cf. ", species, fixed = TRUE)
-  species <- gsub(" Cf. ", " cf. ", species, fixed = TRUE)
-  species <- gsub(" form ", " form. ", species, fixed = TRUE)
-  species <- gsub(" f ", " f. ", species, fixed = TRUE)
-  species <- gsub("( \u00d7)(?=[[:alpha:]])","\\1 \\2", species, perl = TRUE)
+  species <- fixAnnotation(species)
+  species <- fixIndet(species)
 
-  indets <- c("indet", "indeterminada", "unclassified", "undetermined")
-  rplc <- "Indet. sp."
-  species <- gsub(paste0(paste0("^", indets,"$"), collapse = "|"),
-                  rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^", indets," (?=[0-9])"), collapse = "|"),
-                  rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^", indets,"(?=[0-9])"), collapse = "|"),
-                  rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^", indets," sp(?=[0-9])"), collapse = "|"),
-                  rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^", indets," sp\\."), collapse = "|"),
-                  rplc, species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^(", indets[-1],")([A-Z])"), collapse = "|"),
-                  "Indet. sp.\\2", species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub(paste0(paste0("^(", indets[1],")([A-Z])"), collapse = "|"),
-                  "Indet. sp.\\2", species, perl = TRUE, ignore.case = TRUE)
-  species <- gsub("^sp\\.(?=[0-9])|^sp(?=[0-9])",
-                  "Indet. sp.", species, perl = TRUE, ignore.case = TRUE)
-
-  species <-
-    gsub("(eae)([0-9])|(ales)([0-9])", "\\1 sp.\\2", species, perl = TRUE)
-  species <-
-    gsub("(eae)([A-Z])|(ales)([A-Z])", "\\1 \\2", species, perl = TRUE)
-
-  species <- gsub(" (sp\\.) ([0-9])$", " \\1\\2", species, perl = TRUE)
-  species <- gsub(" (sp\\.) ([a-z])$", " \\1\\2", species, perl = TRUE)
-  species <- gsub(" (sp) ([0-9])$", " \\1.\\2", species, perl = TRUE)
-  species <- gsub(" (sp)([0-9])$", " \\1.\\2", species, perl = TRUE)
-  species <- gsub(" sp$", " sp.", species, perl = TRUE)
-
-  # species <- stringr::str_squish(species)
-  species <- gsub("\\s+", " ", species, perl = TRUE)
-  species <- gsub("^ | $", "", species, perl = TRUE)
-
-  species[species %in% c("", " ", NA)] <- rplc
 
   #implement status parasite "f. sp." not f. from forma
   #1. Open nomenclature and infraspecies class ####
@@ -166,7 +133,7 @@ fixSpecies <- function(x = NULL,
   cf_string <- "^cf\\.|^cf[[:space:]]|[[:space:]]cf\\.[[:space:]]"
   subsp_string <-  "[[:space:]]subsp\\.$|[[:space:]]subsp\\.[[:space:]]"
   var_string <- "[[:space:]]var\\.$|[[:space:]]var\\.[[:space:]]"
-  hyb_string <- "[[:space:]]x[[:space:]]|[[:space:]]\u00d7[[:space:]]"
+  hyb_string <- "\u00d7[[:space:]]|[[:space:]]x[[:space:]]|[[:space:]]\u00d7[[:space:]]"
   aff_cf <- paste(aff_string, cf_string, sep = "|")
   subsp_var <- paste(subsp_string, var_string, form_string, sep = "|")
 

@@ -3,8 +3,13 @@ test_that("fixSpecies works", {
                                       "Lindsaea lancea (L.) Bedd.",
                                       "Lindsaea lancea var. angulata",
                                       "Lindsaea Aff. lancea",
-                                      "Lindsaea", "Lindsaea sp.", "Lindsaeaceae sp.",
-                                      "Lindsaea aff. lancea (L.) Bedd."))
+                                      "Lindsaea",
+                                      "Lindsaea sp.",
+                                      "Lindsaeaceae sp.",
+                                      "Lindsaea aff. lancea (L.) Bedd."),
+                   scientificNameAuthorship = c("(L.) Bedd.", "", "",
+                                                "(L.) Bedd.", "", "",
+                                                "", ""))
 
   df_clean <- fixSpecies(df)
   expect_length(df_clean, length(df) + 2)
@@ -16,7 +21,8 @@ test_that("fixSpecies works", {
 test_that("fixSpecies parameters work", {
   df <- data.frame(scientificName = c("Lindsaea lancea var. angulata",
                                       "Lindsaea Aff. lancea",
-                                      "Lindsaea aff. lancea (L.) Bedd."))
+                                      "Lindsaea aff. lancea (L.) Bedd."),
+                   scientificNameAuthorship = c("", "(L.) Bedd.", ""))
 
   df_clean <- fixSpecies(df, rm.rank = TRUE)
   expect_length(df_clean, length(df) + 2)
