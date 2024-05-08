@@ -67,11 +67,10 @@
 #' prepSpecies(df)
 #'
 #' @seealso
-#'  Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
+#'  Functions \link[flora]{get.taxa}.
 #'
 #' @importFrom flora get.taxa remove.authors
 #' @importFrom stringr str_count str_detect fixed
-#' @importFrom Taxonstand TPL
 #' @importFrom dplyr left_join
 #'
 #' @export prepSpecies
@@ -98,6 +97,11 @@ prepSpecies <- function(x,
     warning("Column name with species authorities not provided; setting to 'scientificNameAuthorship'")
     tax.names[2] <- 'scientificNameAuthorship'
   }
+
+  if (any(db %in% c("tpl"))) {
+    stop("Name checking using 'tpl' is no longer supported")
+  }
+
 
   # storing the databases in the order of priority defined in 'db'
   results <- vector("list", length(db))
@@ -228,149 +232,149 @@ prepSpecies <- function(x,
     results[[which(db %in% c("bfo", "fbo"))]] <- suggest_flora
   }
 
-  if (any(db %in% c("tpl"))) {
-
-    # baseenv()[["last.warning"]] <- NULL
-    # assign("last.warning", NULL, envir = baseenv())
-
-    if (use.authors) {
-      # removing duplicated names
-      unique_sp <- unique(df$full_sp)
-      # adding missing epiteths to names not at species level (avoid TPL errors)
-      check_these <- !grepl(" ", unique_sp, fixed = TRUE)
-      if (any(check_these)) {
-        unique_sp[check_these] <-
-          paste0(unique_sp[check_these], " sp.")
-        unique_sp <- unique(unique_sp)
-      }
-      # Species names, exact match
-      my.TPL <- catchAll(Taxonstand::TPL)
-      temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
-      exact_sp <- temp.obj[[1]]
-      warns <- temp.obj[[2]]
-
-    } else {
-      # removing duplicated names
-      unique_sp <- unique(df$verbatimSpecies)
-      # adding missing epiteths to names not at species level (avoid TPL errors)
-      check_these <- !grepl(" ", unique_sp, fixed = TRUE)
-      if (any(check_these)) {
-        unique_sp[check_these] <-
-          paste0(unique_sp[check_these], " sp.")
-        unique_sp <- unique(unique_sp)
-      }
-      # Species names, exact match
-      my.TPL <- catchAll(Taxonstand::TPL)
-      temp.obj <- my.TPL(unique_sp, corr = FALSE)
-      exact_sp <- temp.obj[[1]]
-      warns <- temp.obj[[2]]
-    }
-
-    if (!is.null(warns)) {
-      warns <- warns[grepl("more than one valid", warns, fixed = TRUE)]
-      warns <- sapply(warns, function(x)
-        paste(strsplit(x, " ")[[1]][1:2], collapse = " "))
-    } else {
-      warns <- NULL
-    }
-
-    # Species names, fuzzy match
-    miss_sp <- exact_sp$Taxon[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
-                                exact_sp$Taxonomic.status %in% ""]
-    my.TPL <- catchAll(Taxonstand::TPL)
-    temp.obj <- my.TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)
-    fuzzy_sp <- temp.obj[[1]]
-    exact_sp[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
-               exact_sp$Taxonomic.status %in% "",] <- fuzzy_sp
-
-    # Species names + author, exact match
-    if (!use.authors) {
-      # removing duplicated names
-      unique_sp1 <- unique(df$full_sp[df$verbatimSpecies %in% warns])
-      # adding missing epiteths to names not at species level (avoid TPL errors)
-      check_these <- !grepl(" ", unique_sp1, fixed = TRUE)
-      if (any(check_these)) {
-        unique_sp1[check_these] <-
-          paste0(unique_sp1[check_these], " sp.")
-        unique_sp1 <- unique(unique_sp1)
-      }
-
-      my.TPL <- catchAll(Taxonstand::TPL)
-      temp.obj <- my.TPL(unique_sp1, corr = FALSE)
-      exact_sp1 <- temp.obj[[1]]
-      warns1 <- temp.obj[[1]]
-      warns1 <- warns1[grepl("The input author", warns1)]
-      warns1 <- sapply(warns1, function(x) paste(strsplit(x," ")[[1]][1:2], collapse = " "))
-    } else {
-      warns1 <- NULL
-    }
-
-    #Edits before merging
-    exact_sp$notes <- ""
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
-                     exact_sp$Plant.Name.Index] <- "replaced synonym"
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
-                     exact_sp$Higher.level &
-                     !exact_sp$Plant.Name.Index] <- "replaced synonym, but at a higher rank"
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "Accepted" &
-                     exact_sp$Higher.level &
-                     !exact_sp$Plant.Name.Index] <- "accepted, but at a higher rank"
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "Accepted" &
-                     !exact_sp$Higher.level &
-                     exact_sp$Typo] <- "was misspelled"
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
-                     !exact_sp$Higher.level &
-                     exact_sp$Typo] <- "was misspelled|replaced synonym"
-    if (!is.null(warns)) {
-      exact_sp$notes[exact_sp$Taxon %in% warns] <-
-        paste(exact_sp$notes[exact_sp$Taxon %in% warns], "check +1 accepted", sep = "|")
-      exact_sp$notes <- gsub("\\|check +1 accepted", "check +1 accepted", exact_sp$notes)
-    }
-
-    if (!is.null(warns1)) {
-      exact_sp$notes[exact_sp$Taxon %in% warns1] <-
-        paste(exact_sp$notes[exact_sp$Taxon %in% warns1], "wrong author: check possible homonym", sep = "|")
-      exact_sp$notes <- gsub("\\|wrong author: check possible homonym", "wrong author: check possible homonym", exact_sp$notes)
-    }
-
-    exact_sp$notes[exact_sp$Taxonomic.status %in% "" |
-                     (!exact_sp$Plant.Name.Index &
-                        !exact_sp$Higher.level & !exact_sp$Typo)] <- "not found"
-
-    #Getting the valid name at the right rank
-    exact_sp$suggestedName <- paste(exact_sp$New.Genus, exact_sp$New.Species, sep=" ")
-    exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "subsp."] <-
-      paste(exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "subsp."],
-            exact_sp$New.Infraspecific[exact_sp$New.Infraspecific.rank %in% "subsp."], sep=" subsp. ")
-    exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "var."] <-
-      paste(exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "var."],
-            exact_sp$New.Infraspecific[exact_sp$New.Infraspecific.rank %in% "var."], sep=" var. ")
-    exact_sp$suggestedName[is.na(exact_sp$New.Species)] <-
-      exact_sp$New.Genus[is.na(exact_sp$New.Species)]
-
-    #Getting the scientific name with authorities
-    exact_sp$scientific.name <- NA_character_
-    auth.ids <- exact_sp$New.Authority %in% ""
-    exact_sp$scientific.name[auth.ids] <-
-      exact_sp$suggestedName[auth.ids]
-    exact_sp$scientific.name[!auth.ids] <-
-      paste(exact_sp$suggestedName[!auth.ids], exact_sp$New.Authority[!auth.ids])
-
-    #Merge checks with the original data
-    if (use.authors) {
-      suggest_TPL <- merge(df, exact_sp[,c("Taxon","Family","suggestedName","New.Authority","scientific.name","notes","New.ID")],
-                           by.x = "full_sp", by.y = "Taxon", all.x = TRUE, sort = FALSE)
-    } else {
-      suggest_TPL <- merge(df, exact_sp[,c("Taxon","Family","suggestedName","New.Authority","scientific.name","notes","New.ID")],
-                           by.x = "verbatimSpecies", by.y = "Taxon", all.x = TRUE, sort = FALSE)
-    }
-    suggest_TPL <- suggest_TPL[order(suggest_TPL$tmp.ordem),]
-    suggest_TPL$tax.source <- "TPL"
-    names(suggest_TPL)[grepl("Family|Authority|ID", names(suggest_TPL))] <-
-      c("family", "authorship", "id")
-    results[[which(db %in% "tpl")]] <- suggest_TPL
-
-  }
+  # if (any(db %in% c("tpl"))) {
+  #
+  #   # baseenv()[["last.warning"]] <- NULL
+  #   # assign("last.warning", NULL, envir = baseenv())
+  #
+  #   if (use.authors) {
+  #     # removing duplicated names
+  #     unique_sp <- unique(df$full_sp)
+  #     # adding missing epiteths to names not at species level (avoid TPL errors)
+  #     check_these <- !grepl(" ", unique_sp, fixed = TRUE)
+  #     if (any(check_these)) {
+  #       unique_sp[check_these] <-
+  #         paste0(unique_sp[check_these], " sp.")
+  #       unique_sp <- unique(unique_sp)
+  #     }
+  #     # Species names, exact match
+  #     my.TPL <- catchAll(Taxonstand::TPL)
+  #     temp.obj <- my.TPL(unique_sp, corr = FALSE, author = TRUE)
+  #     exact_sp <- temp.obj[[1]]
+  #     warns <- temp.obj[[2]]
+  #
+  #   } else {
+  #     # removing duplicated names
+  #     unique_sp <- unique(df$verbatimSpecies)
+  #     # adding missing epiteths to names not at species level (avoid TPL errors)
+  #     check_these <- !grepl(" ", unique_sp, fixed = TRUE)
+  #     if (any(check_these)) {
+  #       unique_sp[check_these] <-
+  #         paste0(unique_sp[check_these], " sp.")
+  #       unique_sp <- unique(unique_sp)
+  #     }
+  #     # Species names, exact match
+  #     my.TPL <- catchAll(Taxonstand::TPL)
+  #     temp.obj <- my.TPL(unique_sp, corr = FALSE)
+  #     exact_sp <- temp.obj[[1]]
+  #     warns <- temp.obj[[2]]
+  #   }
+  #
+  #   if (!is.null(warns)) {
+  #     warns <- warns[grepl("more than one valid", warns, fixed = TRUE)]
+  #     warns <- sapply(warns, function(x)
+  #       paste(strsplit(x, " ")[[1]][1:2], collapse = " "))
+  #   } else {
+  #     warns <- NULL
+  #   }
+  #
+  #   # Species names, fuzzy match
+  #   miss_sp <- exact_sp$Taxon[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
+  #                               exact_sp$Taxonomic.status %in% ""]
+  #   my.TPL <- catchAll(Taxonstand::TPL)
+  #   temp.obj <- my.TPL(miss_sp, corr = TRUE, max.distance = 1 - sug.dist)
+  #   fuzzy_sp <- temp.obj[[1]]
+  #   exact_sp[(exact_sp$Higher.level & exact_sp$Taxonomic.status %in% "Accepted") |
+  #              exact_sp$Taxonomic.status %in% "",] <- fuzzy_sp
+  #
+  #   # Species names + author, exact match
+  #   if (!use.authors) {
+  #     # removing duplicated names
+  #     unique_sp1 <- unique(df$full_sp[df$verbatimSpecies %in% warns])
+  #     # adding missing epiteths to names not at species level (avoid TPL errors)
+  #     check_these <- !grepl(" ", unique_sp1, fixed = TRUE)
+  #     if (any(check_these)) {
+  #       unique_sp1[check_these] <-
+  #         paste0(unique_sp1[check_these], " sp.")
+  #       unique_sp1 <- unique(unique_sp1)
+  #     }
+  #
+  #     my.TPL <- catchAll(Taxonstand::TPL)
+  #     temp.obj <- my.TPL(unique_sp1, corr = FALSE)
+  #     exact_sp1 <- temp.obj[[1]]
+  #     warns1 <- temp.obj[[1]]
+  #     warns1 <- warns1[grepl("The input author", warns1)]
+  #     warns1 <- sapply(warns1, function(x) paste(strsplit(x," ")[[1]][1:2], collapse = " "))
+  #   } else {
+  #     warns1 <- NULL
+  #   }
+  #
+  #   #Edits before merging
+  #   exact_sp$notes <- ""
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
+  #                    exact_sp$Plant.Name.Index] <- "replaced synonym"
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
+  #                    exact_sp$Higher.level &
+  #                    !exact_sp$Plant.Name.Index] <- "replaced synonym, but at a higher rank"
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "Accepted" &
+  #                    exact_sp$Higher.level &
+  #                    !exact_sp$Plant.Name.Index] <- "accepted, but at a higher rank"
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "Accepted" &
+  #                    !exact_sp$Higher.level &
+  #                    exact_sp$Typo] <- "was misspelled"
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "Synonym" &
+  #                    !exact_sp$Higher.level &
+  #                    exact_sp$Typo] <- "was misspelled|replaced synonym"
+  #   if (!is.null(warns)) {
+  #     exact_sp$notes[exact_sp$Taxon %in% warns] <-
+  #       paste(exact_sp$notes[exact_sp$Taxon %in% warns], "check +1 accepted", sep = "|")
+  #     exact_sp$notes <- gsub("\\|check +1 accepted", "check +1 accepted", exact_sp$notes)
+  #   }
+  #
+  #   if (!is.null(warns1)) {
+  #     exact_sp$notes[exact_sp$Taxon %in% warns1] <-
+  #       paste(exact_sp$notes[exact_sp$Taxon %in% warns1], "wrong author: check possible homonym", sep = "|")
+  #     exact_sp$notes <- gsub("\\|wrong author: check possible homonym", "wrong author: check possible homonym", exact_sp$notes)
+  #   }
+  #
+  #   exact_sp$notes[exact_sp$Taxonomic.status %in% "" |
+  #                    (!exact_sp$Plant.Name.Index &
+  #                       !exact_sp$Higher.level & !exact_sp$Typo)] <- "not found"
+  #
+  #   #Getting the valid name at the right rank
+  #   exact_sp$suggestedName <- paste(exact_sp$New.Genus, exact_sp$New.Species, sep=" ")
+  #   exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "subsp."] <-
+  #     paste(exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "subsp."],
+  #           exact_sp$New.Infraspecific[exact_sp$New.Infraspecific.rank %in% "subsp."], sep=" subsp. ")
+  #   exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "var."] <-
+  #     paste(exact_sp$suggestedName[exact_sp$New.Infraspecific.rank %in% "var."],
+  #           exact_sp$New.Infraspecific[exact_sp$New.Infraspecific.rank %in% "var."], sep=" var. ")
+  #   exact_sp$suggestedName[is.na(exact_sp$New.Species)] <-
+  #     exact_sp$New.Genus[is.na(exact_sp$New.Species)]
+  #
+  #   #Getting the scientific name with authorities
+  #   exact_sp$scientific.name <- NA_character_
+  #   auth.ids <- exact_sp$New.Authority %in% ""
+  #   exact_sp$scientific.name[auth.ids] <-
+  #     exact_sp$suggestedName[auth.ids]
+  #   exact_sp$scientific.name[!auth.ids] <-
+  #     paste(exact_sp$suggestedName[!auth.ids], exact_sp$New.Authority[!auth.ids])
+  #
+  #   #Merge checks with the original data
+  #   if (use.authors) {
+  #     suggest_TPL <- merge(df, exact_sp[,c("Taxon","Family","suggestedName","New.Authority","scientific.name","notes","New.ID")],
+  #                          by.x = "full_sp", by.y = "Taxon", all.x = TRUE, sort = FALSE)
+  #   } else {
+  #     suggest_TPL <- merge(df, exact_sp[,c("Taxon","Family","suggestedName","New.Authority","scientific.name","notes","New.ID")],
+  #                          by.x = "verbatimSpecies", by.y = "Taxon", all.x = TRUE, sort = FALSE)
+  #   }
+  #   suggest_TPL <- suggest_TPL[order(suggest_TPL$tmp.ordem),]
+  #   suggest_TPL$tax.source <- "TPL"
+  #   names(suggest_TPL)[grepl("Family|Authority|ID", names(suggest_TPL))] <-
+  #     c("family", "authorship", "id")
+  #   results[[which(db %in% "tpl")]] <- suggest_TPL
+  #
+  # }
 
   ## Replacing missing suggestions from the order of priority defined by 'db'
   if (length(results) > 1) {

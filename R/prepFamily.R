@@ -33,10 +33,8 @@
 #' (2016).
 #'
 #' If the family name is not found in this list, a second search is carried in
-#' the Brazilian Flora 2020 (BF-2020), using package `flora` (Carvalho 2019). If
-#' the family name is still not found in BF-2020, then a final try is performed
-#' in The Plant List (TPL), using package `Taxonstand` (Cayuela et al. 2017).
-#' Family names retrieved from BF-2020 and TPL are finally converted to the
+#' the Brazilian Flora 2020 (BF-2020), using package `flora` (Carvalho 2019).
+#' Family names retrieved from BF-2020 are then converted to the
 #' names accepted by the APG IV or PPG I.
 #'
 #' In case there is a conflict in the original family name and the name found
@@ -63,7 +61,6 @@
 #'
 #' @import data.table
 #' @importFrom flora get.taxa
-#' @importFrom Taxonstand TPL
 #' @importFrom knitr kable
 #'
 #' @export prepFamily
@@ -189,51 +186,6 @@ prepFamily <- function(x,
     families.data[is.na(name.correct),
                   name.correct := fbo.families$family, ]
   }
-
-  # if (families.data[, any(is.na(name.correct))]) {
-  #   miss.families <- families.data[is.na(name.correct), "tmp.fam", with = FALSE]
-  #   if (!any(is.na(miss.families$tmp.fam))) {
-  #     genus.data <- dt[tmp.fam %in% miss.families$tmp.fam,
-  #                      list(tmp.gen = unique(tmp.gen), species = unique(tmp.spp)),
-  #                      by = "tmp.fam"]
-  #     if (any(!is.na(genus.data$species)))
-  #       tpl.families <- Taxonstand::TPL(genus.data$species,
-  #                                       corr = FALSE, drop.lower.level = TRUE)$Family
-  #     tpl.families <- sort(unique(tpl.families[!is.na(tpl.families) & !tpl.families %in% ""]))[1]
-  #     families.data[tmp.fam %in% miss.families$tmp.fam,
-  #                   name.correct := tpl.families, ]
-  #
-  #   } else {
-  #
-  #     miss.families <- families.data[is.na(name.correct), c("tmp.gen")]
-  #     miss.families <- miss.families[!tmp.gen %in% "Indet.",]
-  #     if (dim(miss.families)[1] > 0) {
-  #
-  #       if(any(!is.na(families.data$tmp.fam))) {
-  #         families.data.tmp <- families.data[!is.na(families.data$tmp.fam), ]
-  #         families.data.tmp <-
-  #           families.data.tmp[families.data.tmp$tmp.fam == families.data.tmp$name.correct, ]
-  #
-  #         if (any(miss.families$tmp.gen %in% families.data.tmp$tmp.gen)) {
-  #           data.families <- merge(miss.families, families.data.tmp,
-  #                                  by = "tmp.gen", all.x = TRUE, sort = FALSE)
-  #           data.families <-
-  #             data.families[match(miss.families$tmp.gen, data.families$tmp.gen), ]
-  #         }
-  #         tpl.families <- Taxonstand::TPL(miss.families$tmp.gen,
-  #                                         corr = FALSE, drop.lower.level = TRUE)
-  #         replace_these <- tpl.families$Family %in% "" &
-  #                           !is.na(data.families$name.correct)
-  #         if (any(replace_these))
-  #           tpl.families$Family[replace_these] <-
-  #             data.families$name.correct[replace_these]
-  #         families.data[is.na(name.correct) & tmp.gen %in% miss.families$tmp.gen,
-  #                       name.correct := tpl.families$Family, ]
-  #
-  #       }
-  #     }
-  #   }
-  # }
 
   # Double checking if all names are in the APG dictionaire
   families.data <- merge(families.data,

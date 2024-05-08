@@ -51,10 +51,8 @@ website}, which includes families cited in the APG IV (2016) and in the PPG I
 (2016).
 
 If the family name is not found in this list, a second search is carried in
-the Brazilian Flora 2020 (BF-2020), using package \code{flora} (Carvalho 2019). If
-the family name is still not found in BF-2020, then a final try is performed
-in The Plant List (TPL), using package \code{Taxonstand} (Cayuela et al. 2017).
-Family names retrieved from BF-2020 and TPL are finally converted to the
+the Brazilian Flora 2020 (BF-2020), using package \code{flora} (Carvalho 2019).
+Family names retrieved from BF-2020 are then converted to the
 names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the name found

@@ -85,7 +85,7 @@ Standardization of Plant Species Names. R package version 2.1.
 https://CRAN.R-project.org/package=Taxonstand
 }
 \seealso{
-Functions \link[flora]{get.taxa} and \link[Taxonstand]{TPL}.
+Functions \link[flora]{get.taxa}.
 }
 \author{
 Renato A. Ferreira de Lima
