@@ -26,11 +26,11 @@ formatTax(
 \item{use.suggestion}{logical. Should the edited species names be used
 instead of the input species names? Defaults to TRUE.}
 
-\item{tax.name}{character. Name of the columns containing the species name.
-Default to "scientificName"}
+\item{tax.name}{character. The name of the column containing the
+taxon name. Defaults to "scientificName"}
 
-\item{rm.rank}{logical. Should the infra-specific rank abbreviation be
-removed from the name? Default to FALSE}
+\item{rm.rank}{logical. Should the infra-specific rank abbreviation
+be removed from the name? Defaults to FALSE}
 
 \item{tax.names}{character. Names of the columns containing the species names
 and authors. Defaults to 'scientificName.new' and
