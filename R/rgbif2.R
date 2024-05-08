@@ -191,8 +191,7 @@ rgbif2 <- function(dir = "results/",
     }
   }
 
-  message("Please make sure that the restrictions and citation indicated by
-  each GBIF data provider are observed and respected.")
+  message("Important note: Please make sure that the restrictions and citation indicated by each GBIF data provider are observed and respected.")
 
   return(all_data)
 }

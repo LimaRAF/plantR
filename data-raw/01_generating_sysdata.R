@@ -137,6 +137,8 @@ unwantedEncoding <- c('ã¡' = 'a',
                       'ã´' = 'o',
                       'ã\u008d' = 'i',
                       'ãº' = 'u')
+Encoding(names(unwantedEncoding)) <- "UTF-8"
+names(unwantedEncoding) <- iconv(names(unwantedEncoding), "UTF-8", "UTF-8")
 
 cultivated <- c("cultivated", "cultivada", "cultivado", "cultivato", "cultivad",
                 "under cultivation",
@@ -209,6 +211,8 @@ names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "�
                         "Ù", "Ú", "Û", "Ü", "Þ", "ß", "á", "â", "ã", "ä", "å",
                         "æ", "ç", "è", "é", "ê", "ë", "ì", "î", "ï", "ð", "ñ", "ò",
                         "ó", "ô", "õ", "ö", "ø", "ù", "ú", "û", "ü", "ý", "þ", "ÿ", "í")
+Encoding(names(badEncoding)) <- "UTF-8"
+names(badEncoding) <- iconv(names(badEncoding), "UTF-8", "UTF-8")
 
 
 simpGeoCheck <- c(

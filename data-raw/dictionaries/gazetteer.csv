@@ -223,7 +223,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 192,ok,gdam,argentina_cordoba_capital,argentina_cordoba_capital,-31.42136115,-64.18851848,county,2
 193,ok,gdam,argentina_cordoba_colon,argentina_cordoba_colon,-31.14791072,-64.1580911,county,2
 194,ok,gdam,argentina_cordoba_cruz eje,argentina_cordoba_cruz eje,-30.66676138,-65.08971188,county,2
-195,ok,gdam,argentina_cordoba_general roca,argentina_cordoba_general roca,-34.61220014,-64.380192160000007,county,2
+195,ok,gdam,argentina_cordoba_general roca,argentina_cordoba_general roca,-34.61220014,-64.380192159999993,county,2
 196,ok,gdam,argentina_cordoba_general san martin,argentina_cordoba_general san martin,-32.51715471,-63.25982315,county,2
 197,ok,gdam,argentina_cordoba_ischilin,argentina_cordoba_ischilin,-30.40308894,-64.6144579,county,2
 198,ok,gdam,argentina_cordoba_juarez celman,argentina_cordoba_juarez celman,-33.32232942,-63.61012404,county,2
@@ -1313,7 +1313,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 1066,ok,ibge,brazil_bahia_laje,brazil_bahia_laje,-13.16498328,-39.34535284,county,2
 1067,ok,ibge,brazil_bahia_lajedao,brazil_bahia_lajedao,-17.55472238,-40.31192338,county,2
 1068,ok,ibge,brazil_bahia_lajedinho,brazil_bahia_lajedinho,-12.38320833,-40.97180337,county,2
-1069,ok,ibge,brazil_bahia_lajedo tabocal,brazil_bahia_lajedo tabocal,-13.46446163,-40.277974209999996,county,2
+1069,ok,ibge,brazil_bahia_lajedo tabocal,brazil_bahia_lajedo tabocal,-13.46446163,-40.277974210000004,county,2
 1070,ok,ibge,brazil_bahia_lamarao,brazil_bahia_lamarao,-11.78618223,-38.94075649,county,2
 1071,ok,ibge,brazil_bahia_lapao,brazil_bahia_lapao,-11.49918707,-41.792475,county,2
 1072,ok,ibge,brazil_bahia_lauro freitas,brazil_bahia_lauro freitas,-12.85855766,-38.33085835,county,2
@@ -2622,7 +2622,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 1822,ok,ibge,brazil_maranhao_barreirinhas,brazil_maranhao_barreirinhas,-2.84873236,-42.91842314,county,2
 1823,ok,ibge,brazil_maranhao_bela vista maranhao,brazil_maranhao_bela vista maranhao,-3.779654212,-45.30717005,county,2
 1824,ok,ibge,brazil_maranhao_belagua,brazil_maranhao_belagua,-3.087825333,-43.45673164,county,2
-1825,ok,ibge,brazil_maranhao_benedito leite,brazil_maranhao_benedito leite,-7.120114098,-44.567986930000004,county,2
+1825,ok,ibge,brazil_maranhao_benedito leite,brazil_maranhao_benedito leite,-7.120114098,-44.567986929999996,county,2
 1826,ok,ibge,brazil_maranhao_bequimao,brazil_maranhao_bequimao,-2.426584904,-44.78889217,county,2
 1827,ok,ibge,brazil_maranhao_bernardo mearim,brazil_maranhao_bernardo mearim,-4.675788418,-44.69032504,county,2
 1828,ok,ibge,brazil_maranhao_boa vista gurupi,brazil_maranhao_boa vista gurupi,-1.762342652,-46.17826235,county,2
@@ -4107,7 +4107,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 2886,ok,ibge,brazil_minas gerais_prados,brazil_minas gerais_prados,-21.09910881,-44.06403666,county,2
 2887,ok,gdam,brazil_minas gerais_prata,brazil_minas gerais_prata,-19.3301669,-48.95417936,county,2
 2888,ok,ibge,brazil_minas gerais_pratapolis,brazil_minas gerais_pratapolis,-20.78781453,-46.86275905,county,2
-2889,ok,ibge,brazil_minas gerais_pratinha,brazil_minas gerais_pratinha,-19.7616086,-46.402220990000004,county,2
+2889,ok,ibge,brazil_minas gerais_pratinha,brazil_minas gerais_pratinha,-19.7616086,-46.402220989999996,county,2
 2890,ok,ibge,brazil_minas gerais_presidente bernardes,brazil_minas gerais_presidente bernardes,-20.77103545,-43.1553295,county,2
 2891,ok,gdam,brazil_minas gerais_presidente juscelino,brazil_minas gerais_presidente juscelino,-18.72644878,-44.08377046,county,2
 2892,ok,ibge,brazil_minas gerais_presidente kubitschek,brazil_minas gerais_presidente kubitschek,-18.63393524,-43.5793096,county,2
@@ -4462,7 +4462,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 3145,ok,ibge,brazil_para_aurora para,brazil_para_aurora para,-2.231224505,-47.72640094,county,2
 3146,ok,ibge,brazil_para_aveiro,brazil_para_aveiro,-3.667183483,-56.01646326,county,2
 30163,ok,ibge,brazil_para_aveiro_pinhel,brazil_para_aveiro_pinhel,-3.326944444,-55.32138889,distrito|vila,2
-3147,ok,gdam,brazil_para_bage,brazil_para_bage,-2.372813707,-50.181841059999996,county,2
+3147,ok,gdam,brazil_para_bage,brazil_para_bage,-2.372813707,-50.181841060000004,county,2
 3148,ok,ibge,brazil_para_bagre,brazil_para_bagre,-2.373143109,-50.18176698,county,2
 30162,ok,ibge,brazil_para_bagre_pedreira,brazil_para_bagre_pedreira,-2.116666667,-50.39833333,distrito|vila,2
 30149,ok,ibge,brazil_para_baiao_joana peres,brazil_para_baiao_joana peres,-3.083611111,-49.80861111,distrito|vila,2
@@ -6870,7 +6870,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 4789,ok,ibge,brazil_rio grande sul_liberato salzano,brazil_rio grande sul_liberato salzano,-27.54942994,-53.06387714,county,2
 30886,ok,ibge,brazil_rio grande sul_liberato salzano_pinhalzinho,brazil_rio grande sul_liberato salzano_pinhalzinho,-27.50444444,-53.08694444,distrito|vila,2
 4790,ok,ibge,brazil_rio grande sul_lindolfo collor,brazil_rio grande sul_lindolfo collor,-29.58305025,-51.21952986,county,2
-4791,ok,ibge,brazil_rio grande sul_linha nova,brazil_rio grande sul_linha nova,-29.45999061,-51.215572710000004,county,2
+4791,ok,ibge,brazil_rio grande sul_linha nova,brazil_rio grande sul_linha nova,-29.45999061,-51.215572709999996,county,2
 4792,ok,ibge,brazil_rio grande sul_macambara,brazil_rio grande sul_macambara,-29.06624993,-55.77513544,county,2
 30679,ok,ibge,brazil_rio grande sul_machadinho_bela vista,brazil_rio grande sul_machadinho_bela vista,-27.65472222,-51.66416667,distrito|vila,2
 4793,ok,ibge,brazil_rio grande sul_machadinho,brazil_rio grande sul_machadinho,-27.58750827,-51.67385964,county,2
@@ -20243,7 +20243,7 @@ order,status,source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resol
 23386,ok,treeco,brazil_santa catarina_itapoa_porto canoas,brazil_santa catarina_itapoa_porto canoas,-26.174423,-48.628177,localidade|sublocalidade,3
 24144,ok,treeco,brazil_santa catarina_itapoa_quinze,brazil_santa catarina_itapoa_quinze,-26.010002,-48.689996,localidade,3
 23333,ok,treeco,brazil_santa catarina_itapoa_reserva volta velha,brazil_santa catarina_itapoa_reserva volta velha,-26.080486,-48.638951,localidade,3
-24143,ok,treeco,brazil_santa catarina_itapoa_sai mirim,brazil_santa catarina_itapoa_sai mirim,-26.099634000000002,-48.689597,localidade,3
+24143,ok,treeco,brazil_santa catarina_itapoa_sai mirim,brazil_santa catarina_itapoa_sai mirim,-26.099633999999998,-48.689597,localidade,3
 24274,ok,treeco,brazil_santa catarina_ituporanga_aguas frias,brazil_santa catarina_ituporanga_aguas frias,-27.360255,-49.409879,localidade,3
 24272,ok,treeco,brazil_santa catarina_ituporanga_alto rio bonito,brazil_santa catarina_ituporanga_alto rio bonito,-27.539965,-49.410023,localidade,3
 24273,ok,treeco,brazil_santa catarina_ituporanga_rio norte,brazil_santa catarina_ituporanga_rio norte,-27.360556,-49.502356,localidade,3
