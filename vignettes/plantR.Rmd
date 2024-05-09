@@ -1,30 +1,42 @@
 ---
 title: "An Introduction to __plantR__"
-
 date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
   - Renato A. F. de Lima^[Universidade de São Paulo, https://github.com/LimaRAF], Sara R. Mortara^[Jardim Botânico do Rio de Janeiro, https://github.com/saramortara] and Andrea Sánchez-Tapia^[Jardim Botânico do Rio de Janeiro,https://github.com/AndreaSanchezTapia]
-output:
+
+output: 
     rmarkdown::html_vignette:
         toc: true
         number_sections: true
     md_document:
       variant: gfm
+    pdf_document:
+      toc: true
+      highlight: null
+      number_sections: yes
+      template: null  
+      toc_depth: 3
+      df_print: null 
 vignette: >
-  %\VignetteEncoding{UTF-8}
   %\VignetteIndexEntry{An Introduction to __plantR__}
   %\VignetteEngine{knitr::rmarkdown}
-    \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE) # for development
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      comment  = "#>",
+                      echo = TRUE)
 ```
 
 ```{r load, echo = FALSE, eval = TRUE, include=FALSE}
 devtools::load_all() # for development
 ```
 
+
+<!-- ```{r setup} -->
+<!-- library(plantR) -->
+<!-- ``` -->
 
 <br/><br/>
 
@@ -200,15 +212,10 @@ function `rspeciesLink()`, which searches for occurrences in
 the [speciesLink network](https://specieslink.net/ws/1.0/).
 
 
-<!-- ```{r splink-download, eval = TRUE, collapse = TRUE} -->
-<!-- occs_splink <- rspeciesLink(species = "Euterpe edulis") -->
-<!-- ``` -->
-
 This function can be used to search from records based on localities,
-collections, and other options (see `?rspeciesLink` for details).
-
-But since the function requires an API key from users, we will load
-an example dataset previously downloaded from speciesLink.
+collections, and other options (see `?rspeciesLink` for details). But
+since the function requires an API key from users, we will load an
+example dataset previously downloaded from speciesLink.
 
 ```{r splink-download, eval = TRUE, collapse = TRUE}
 data(example_intro)
@@ -385,4 +392,3 @@ If you use the function `rgbif2()`, please also cite the following package:
 Chamberlain, S. et al. (2021) rgbif: Interface to the Global Biodiversity
 Information Facility API. R package version 3.5.2.
 https://CRAN.R-project.org/package=rgbif>.
-
