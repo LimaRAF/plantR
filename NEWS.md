@@ -2,6 +2,23 @@
 
 <br/>
 
+## version 0.1.7
+
+* Fixing the function `rspeciesLink()` related to the new speciesLink API address and data structure (related to issue #91)
+
+* Adapting functions `formatDwc()` and `formatOcc()` to the changes in speciesLink data structure
+
+* New version of sysdata (related to issue #100) and the example datasets from speciesLink: `data\example.rda` and  `data\example_intro.rda`
+
+* Adapting the package vignette `plantr_introduction.Rmd` to the new version of `rspeciesLink()` and the speciesLink data structure
+
+* Adding new internal functions `fixAnnotation()` and `fixIndet()` to clean up the code of higher-level functions, particularly `fixSpecies()`
+
+* Adding the function `nameMatching()` and related internal functions (`buildName()` and `cleanName()`) to perform name matching with global taxonomic backbones (WFO, WCVP, GBIF)
+
+* Removing all `Taxonstand` dependencies (issue #104)
+
+
 ## version 0.1.6
 
 * Fixing the functions `prepSpecies()`,  `prepFamily()` and `formatTax()` related to issues #90 and #96 (Plant List website was discontinued)

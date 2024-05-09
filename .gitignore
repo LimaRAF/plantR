@@ -36,8 +36,12 @@ data-raw/interactive_map.R
 data-raw/occs_for_geographic_validation.csv
 data-raw/dictionaries/gazetteer_raw.csv
 data-raw/dictionaries/preliminary_gazetteer_GADM.csv
+data-raw/raw_dictionaries
 vignettes/formatOcc details.Rmd
 vignettes/articles/geographic validation.Rmd
 vignettes/articles/plantr_tutorial_rename.Rmd
 vignettes/articles/using_rspeciesLink.Rmd
 vignettes/articles/formatOcc details.Rmd
+data-raw/api_key.txt
+/doc/
+/Meta/

@@ -32,3 +32,5 @@ results/
 ^cran-comments\.md$
 ^cran-comments\\.md$
 cran-comments.md
+^doc$
+^Meta$
