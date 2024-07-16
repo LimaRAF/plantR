@@ -52,7 +52,7 @@ validateCoord <- function(x,
                           tax.name = "scientificName.new",
                           output = "same.col") {
   ## Check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -68,7 +68,8 @@ validateCoord <- function(x,
                    low.map = low.map,
                    high.map = high.map,
                    dist.center = FALSE,
-                   keep.cols = c("geo.check", country.shape, country.gazetteer))
+                   keep.cols = c("geo.check",
+                                 country.shape, country.gazetteer))
 
   ## Checking bad coordinates close to countries frontiers
   x2 <- checkBorders(x1,
@@ -91,18 +92,22 @@ validateCoord <- function(x,
 
   ## Re-applying checkCoord() to the inverted/swapped coordinates
   #Selecting the right column(s)
-  good.col <- ifelse(output == "same.col", "geo.check", "geo.check.new")
+  good.col <- ifelse(output == "same.col",
+                     "geo.check", "geo.check.new")
   check_these <- grepl("invert_|trans", x4[, good.col], perl = TRUE)
 
   if (any(check_these)) {
     #Filtering the target coordinates
     x4.1 <- x4[check_these, ]
     x4.1 <- x4.1[, -which(names(x4.1) %in%
-                            c("geo.check", country.shape, country.gazetteer))]
+                            c("geo.check",
+                              country.shape, country.gazetteer))]
     #Checking the new coordinates
     x4.2 <- checkCoord(x4.1,
-                       lon = ifelse(output == "same.col", lon, paste0(lon, ".new")),
-                       lat = ifelse(output == "same.col", lat, paste0(lat, ".new")),
+                       lon = ifelse(output == "same.col",
+                                    lon, paste0(lon, ".new")),
+                       lat = ifelse(output == "same.col",
+                                    lat, paste0(lat, ".new")),
                        low.map = low.map,
                        high.map = high.map,
                        dist.center = FALSE,
@@ -138,10 +143,13 @@ validateCoord <- function(x,
 
   ## Checking for spatial outliers
   x6 <- checkOut(x5,
-                 lon = ifelse(output == "same.col", lon, paste0(lon, ".new")),
-                 lat = ifelse(output == "same.col", lat, paste0(lat, ".new")),
+                 lon = ifelse(output == "same.col",
+                              lon, paste0(lon, ".new")),
+                 lat = ifelse(output == "same.col",
+                              lat, paste0(lat, ".new")),
                  tax.name = tax.name,
-                 geo.name = ifelse(output == "same.col", "geo.check", "geo.check.new"),
+                 geo.name = ifelse(output == "same.col",
+                                   "geo.check", "geo.check.new"),
                  cult.name = "cult.check",
                  clas.cut = 3, rob.cut = 16)
   return(x6)

@@ -9,55 +9,61 @@ prepFamily(
   fam.name = "family",
   gen.name = "genus",
   spp.name = "scientificName",
+  kingdom = "Plantae",
   print = TRUE
 )
 }
 \arguments{
-\item{x}{a data frame containing the names of the vascular plant families and
-the corresponding species.}
+\item{x}{a data frame containing the names of the vascular plant
+families and the corresponding species.}
 
-\item{fam.name}{character. The name of the column containing the family
-names. Default to "family".}
+\item{fam.name}{character. The name of the column containing the
+family names. Defaults to "family".}
 
-\item{gen.name}{character. The name of the column containing the genus names.
-Default to "genus"}
+\item{gen.name}{character. The name of the column containing the
+genus names. Defaults to "genus"}
 
-\item{spp.name}{character. The name of the column containing the species
-names. Default to "scientificName"}
+\item{spp.name}{character. The name of the column containing the
+species names. Defaults to "scientificName"}
 
-\item{print}{logical. Should the automatically replaced family names be
-printed? Default to TRUE.}
+\item{kingdom}{character. The name of the kingdom that the taxa
+belong to names. Defaults to "Plantae"}
+
+\item{print}{logical. Should the automatically replaced family
+names be printed? Default to TRUE.}
 }
 \value{
 the data frame \code{x} with an additional column called
 'family.new'.
 }
 \description{
-Search for valid family names of vascular plants following the
-APG IV (2016) and in the PPG I (2016).
+Search for valid family names of vascular plants
+following the APG IV (2016) and in the PPG I (2016).
 }
 \details{
-The data frame \code{x} must contain at least two columns which stores the
-family and species names. By default, the names of these columns should be
-\code{family} and \code{speciesName}, following Darwin Core field names. Optionally,
-a column with the genus name can be provided (default column name: 'genus').
-If it is not provided, this columns is generated internally based on the
-species names provided.
+The data frame \code{x} must contain at least two columns which
+stores the family and species names. By default, the names of these
+columns should be \code{family} and \code{speciesName}, following Darwin Core
+field names. Optionally, a column with the genus name can be
+provided (default column name: 'genus'). If it is not provided,
+this columns is generated internally based on the species names
+provided.
 
-The first search of names is based on the list of families and accepted
-synonyms for vascular plants provided by \strong{plantR}, which was mainly
-compiled from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG
-website}, which includes families cited in the APG IV (2016) and in the PPG I
+The first search of names is based on the list of families and
+accepted synonyms for vascular plants provided by \strong{plantR}, which
+was mainly compiled from the
+\href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
+which includes families cited in the APG IV (2016) and in the PPG I
 (2016).
 
-If the family name is not found in this list, a second search is carried in
-the Brazilian Flora 2020 (BF-2020), using package \code{flora} (Carvalho 2019).
-Family names retrieved from BF-2020 are then converted to the
-names accepted by the APG IV or PPG I.
+If the family name is not found in this list, a second search is
+carried in the Brazilian Flora 2020 (BF-2020), using package
+\code{flora} (Carvalho 2019). Family names retrieved from BF-2020 are
+then converted to the names accepted by the APG IV or PPG I.
 
-In case there is a conflict in the original family name and the name found
-based on the genus name, the original name is replaced by the name from the
-APG IV or PPG I with a warning.
+In case there is a conflict in the original family name and the
+name found based on the genus name, the original name is replaced
+by the name from the APG IV or PPG I with a warning.
 }
 \examples{
 

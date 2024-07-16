@@ -117,7 +117,7 @@ checkOut <- function(x,
   robust.cut <- out.check <- NULL
 
   ## check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

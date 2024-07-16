@@ -302,10 +302,30 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
       if (center == "median")
         centro <- apply(df1[use_these, 1:2], 2, stats::median)
 
+      maha_res <- try(stats::mahalanobis(df1[, 1:2],
+                                     center = centro,
+                                     cov = covar), TRUE)
+      if (inherits(maha_res, "try-error")) {
+
+        df1$lon2 <- jitter(df1$lon, factor = 0.01)
+        df1$lat2 <- jitter(df1$lat, factor = 0.01)
+        maha_res1 <- try(stats::mahalanobis(df1[, c("lon2", "lat2")],
+                                           center = centro,
+                                           cov = covar), TRUE)
+
+        if (inherits(maha_res1, "try-error")) {
+          res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
+                                   res = NA_character_)
+        } else {
+          res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
+                                   res = sqrt(maha_res1))
+        }
+
+      } else {
+
       res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
-                               res = sqrt(stats::mahalanobis(df1[, 1:2],
-                                                             center = centro,
-                                                             cov = covar)))
+                               res = sqrt(maha_res))
+      }
 
       #Putting data back in the original order
       res1 <- dplyr::left_join(df, res0, by = "dup.coord.ID")

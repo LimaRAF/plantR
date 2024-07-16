@@ -55,7 +55,8 @@ formatTax <- function(tax,
                                     "accepted.name.status"),
                       fam.name = "family",
                       gen.name = "genus",
-                      spp.name = "scientificName") {
+                      spp.name = "scientificName",
+                      kingdom = "Plantae") {
 
   # check input:
   if (!inherits(tax, "data.frame"))
@@ -85,11 +86,15 @@ formatTax <- function(tax,
   if (use.suggestion) {
     tax1$scientificName.new[!is.na(tax1$suggestedName)] <-
       tax1$suggestedName[!is.na(tax1$suggestedName)]
-
+    tax1$scientificNameAuthorship.new[!is.na(tax1$authorship)] <-
+      tax1$authorship[!is.na(tax1$authorship)]
   }
 
   # prepFamily
-  tax1 <- prepFamily(x = tax1, fam.name, spp.name = "scientificName.new")
+  tax1 <- prepFamily(x = tax1,
+                     fam.name,
+                     spp.name = "scientificName.new",
+                     kingdom = kingdom)
 
   return(tax1)
 }

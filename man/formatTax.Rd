@@ -23,7 +23,8 @@ formatTax(
     "accepted.taxon.rank", "accepted.name.status"),
   fam.name = "family",
   gen.name = "genus",
-  spp.name = "scientificName"
+  spp.name = "scientificName",
+  kingdom = "Plantae"
 )
 }
 \arguments{
@@ -75,14 +76,17 @@ Two by default.}
 \item{drop.cols}{character. Name of columns from the reference
 backbone that should be dropped from the results.}
 
-\item{fam.name}{character. The name of the column containing the family
-names. Default to "family".}
+\item{fam.name}{character. The name of the column containing the
+family names. Defaults to "family".}
 
-\item{gen.name}{character. The name of the column containing the genus names.
-Default to "genus"}
+\item{gen.name}{character. The name of the column containing the
+genus names. Defaults to "genus"}
 
-\item{spp.name}{character. The name of the column containing the species
-names. Default to "scientificName"}
+\item{spp.name}{character. The name of the column containing the
+species names. Defaults to "scientificName"}
+
+\item{kingdom}{character. The name of the kingdom that the taxa
+belong to names. Defaults to "Plantae"}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with the
