@@ -26,53 +26,58 @@ devtools::load_all() # for development
 
 # Introduction
 
-This tutorial provides the details and explanations on the functions related to
-data download, standardization and validation using the __plantR__ workflow. For
-each of the steps of the workflow, we present in more detail the functionalities
-and their options. The aim is that users can better understand their goals and
-so adapt functions according to their needs or for their use outside the
-workflow proposed here.
+This tutorial provides the details and explanations on the functions
+related to data download, standardization and validation using the
+__plantR__ workflow. For each of the steps of the workflow, we present
+in more detail the functionalities and their options. The aim is that
+users can better understand their goals and so adapt functions
+according to their needs or for their use outside the workflow
+proposed here.
 
 <br/><br/>
 
 # Installing __plantR__
 
-__plantR__ is currently only available remotely on [GitHub](https://github.com).
+__plantR__ is currently available only remotely on [GitHub](https://github.com).
 This means that you cannot use R base functions to install it (i.e.,
-`install.packages()`). There are different ways to install packages in R from
-remote repositories and here we suggest using the package __remotes__. So, first
-of all, we need to be sure that this package is installed and loaded.
+`install.packages()`). There are different ways to install packages in
+R from remote repositories and here we suggest using the package
+__remotes__. So, first of all, we need to be sure that this package is
+installed and loaded.
 
 ```{r, eval = F}
 install.packages(remotes)
 library("remotes")
 ```
 
-Then we can use __remotes__ function `install_github()` to install __plantR__
-from GitHub. 
+Then we can use __remotes__ function `install_github()` to install
+__plantR__ from GitHub.
 
-Like many other R packages, __plantR__ depends on other packages to perform some
-tasks (i.e., dependencies), and these packages often depend on other packages
-(i.e.m recursive dependencies). Therefore, to install __plantR__ you also need
-to install these dependencies. R should automatically install the packages you
-don't have (this may be a long list depending on which packages you have already
-installed). It also will prompt at your screen a list of packages that have more
-recent versions available for update. It is good to have the most up-to-date
-versions of all packages, but this is not a necessity to install __plantR__
-(i.e., you can select to update none of the packages).
+Like many other R packages, __plantR__ depends on other packages to
+perform some tasks (i.e., dependencies), and these packages often
+depend on other packages (i.e.m recursive dependencies). Therefore, to
+install __plantR__ you also need to install these dependencies. R
+should automatically install the packages you don't have (this may be
+a long list depending on which packages you have already installed).
+It also will prompt at your screen a list of packages that have more
+recent versions available for update. It is good to have the most
+up-to-date versions of all packages, but this is not a necessity to
+install __plantR__ (i.e., you can select to update none of the
+packages).
 
 ```{r, eval = F}
 remotes::install_github("LimaRAF/plantR")
 library("plantR")
 ```
 
-For windows users, you may get a warning while trying to install __plantR__,
-related to the installation of Rtools. This software needs to be installed in 
-your machine, so that R can build and install packages from their source code 
-on Windows. It became necessary after R version 4.0. So make sure we
-have Rtools installed, restart your R session and try to install __plantR__
-again. Check [this link](https://cran.r-project.org/bin/windows/Rtools/) on how
-to install Rtools on Windows.
+For windows users, you may get a warning while trying to install
+__plantR__, related to the installation of Rtools. This software needs
+to be installed in your machine, so that R can build and install
+packages from their source code on Windows. It became necessary after
+R version 4.0. So make sure we have Rtools installed, restart your R
+session and try to install __plantR__ again. Check 
+[this link](https://cran.r-project.org/bin/windows/Rtools/) on how to
+install Rtools on Windows.
 
 Some users may still get the error below: 
 
@@ -80,40 +85,43 @@ Some users may still get the error below:
 Error: package '[name of the package]' was installed before R 4.0.0: please re-install it
 ```
 
-If this is your case, we suggest installing/updating each of these packages
-individually, until you finally manage to run __plantR__ installation without
-problems. You may need to restart your R session again to make sure that the all
-dependencies were installed correctly.
+If this is your case, we suggest installing/updating each of these
+packages individually, until you finally manage to run __plantR__
+installation without problems. You may need to restart your R session
+again to make sure that the all dependencies were installed correctly.
 
 
 <br/><br/>
 
 # Data entry
 
-You can download species records directly from R, using the functions provided
-by __plantR__ or by other R packages. For this tutorial, we are going to use the
-__plantR__ function `rspeciesLink()` and `rgbif2()`, which downloads data from
-the [speciesLink](https://specieslink.net/) network hosted in
-[CRIA](http://www.cria.org.br/) (Centro de Referência em Informação Ambiental)
-and for the [GBIF](https://www.gbif.org/) (Global Biodiversity Information
-Facility).
+You can download species records directly from R, using the functions
+provided by __plantR__ or by other R packages. For this tutorial, we
+are going to use the __plantR__ function `rspeciesLink()` and
+`rgbif2()`, which downloads data from the
+[speciesLink](https://specieslink.net/) network hosted in
+[CRIA](http://www.cria.org.br/) (Centro de Referência em Informação
+Ambiental) and for the [GBIF](https://www.gbif.org/) (Global
+Biodiversity Information Facility).
 
-In addition, you can download a DarwinCore Archive (DwC-A) file from the
-[GBIF](https://www.gbif.org/) API or to load a DwC-A from a local directory
-using the function `readData()`. DwC-A files obtained from GBIF are provided as
-'.zip' files and contain not only the species records, but also the
-information on the citations and rights of the database collections.
+In addition, you can download a DarwinCore Archive (DwC-A) file from
+the [GBIF](https://www.gbif.org/) API or to load a DwC-A from a local
+directory using the function `readData()`. DwC-A files obtained from
+GBIF are provided as '.zip' files and contain not only the species
+records, but also the information on the citations and rights of the
+database collections.
 
 You can also use your own data, as long as the column names follow the
-DarwinCore (DwC) standards. If they don't follow the DwC standards, users can
-still standardize the notation of column names using the function `formatDwc()`. 
-Besides the field name standardization, `formatDwc()` also binds together the
-records coming from different sources (e.g., CRIA, GBIF, user-provided data).
+DarwinCore (DwC) standards. If they don't follow the DwC standards,
+users can still standardize the notation of column names using the
+function `formatDwc()`. Besides the field name standardization,
+`formatDwc()` also binds together the records coming from different
+sources (e.g., CRIA, GBIF, user-provided data).
 
 ## Downloading species records with __plantR__
 
-In this tutorial, we will use species records for three Neotropical tree
-species:
+In this tutorial, we will use species records for three Neotropical
+tree species:
 
 ```{r, eval = TRUE}
 spp <- c("Casearia sylvestris",
@@ -121,29 +129,30 @@ spp <- c("Casearia sylvestris",
          "Trema micrantha")
 ```
 
-After defining the species names, we proceed to the download of species records.
-We will first download only herbarium specimens (i.e., vouchers) for the names
-listed above, including their synonyms accepted in the List of Species of the
-Brazilian Flora 2020 project. This may take a minute depending on your internet
-connection:
+After defining the species names, we proceed to the download of
+species records. We will first download only herbarium specimens
+(i.e., vouchers) for the names listed above, including their synonyms
+accepted in the List of Species of the Brazilian Flora 2020 project.
+This may take a minute depending on your internet connection:
 
 
 ```{r, eval = TRUE, collapse = TRUE}
 occs_splink <- rspeciesLink(species =  spp,
-                        Scope = "plants",
+                        Scope = "p",
                         basisOfRecord = "PreservedSpecimen",
                         Synonyms = "flora2020")
 ```
 
-The function `rspeciesLink()` allows a wide variety of ways on how to search for
-species records. Searches can also be done by locality and collections, using
-all the filters available in CRIA. Please check the help of the function for
-more details on the arguments that can be used for this search. 
+The function `rspeciesLink()` allows a wide variety of ways on how to
+search for species records. Searches can also be done by locality and
+collections, using all the filters available in CRIA. Please check the
+help of the function for more details on the arguments that can be
+used for this search.
 
-We will download records for the same species from GBIF, using the function
-`rgbif2()`. This function uses internally the function `occ_search()` from the 
-package __rgbif__, which should be consulted for details on how searches can
-be performed.
+We will download records for the same species from GBIF, using the
+function `rgbif2()`. This function uses internally the function
+`occ_search()` from the package __rgbif__, which should be consulted
+for details on how searches can be performed.
 
 
 ```{r, eval = TRUE, collapse = TRUE}

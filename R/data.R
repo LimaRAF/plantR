@@ -165,3 +165,25 @@
 #' @source \url{https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/}
 #'
 "world"
+
+#' @title Brazilian Flora Online Vascular Plant Taxonomy
+#'
+#' @description A dataset containing the essential taxonomic
+#'   information of vascular plants stored in the
+#'   [Brazilian Flora 2020](https://floradobrasil.jbrj.gov.br/consulta/)
+#'   taxonomic backbone, a.k.a. the Flora and Funga of Brazil. It
+#'   includes all taxonomic levels (i.e. infra-species, species,
+#'   genus, family and so on). See package `plantRdata` for more
+#'   details on how this table was obtained.
+#'
+#' @keywords datasets
+#' @name bfoNames
+#' @usage data(bfoNames)
+#' @source \url{https://ipt.jbrj.gov.br/jbrj/resource?r=lista_especies_flora_brasil}
+#' @evalRd readScript("data-raw/raw_dictionaries/last_update.txt",
+#'  "Last update/change of the downloaded backbone (day month year):")
+#' @format An object of class \code{data.frame} with 12 columns and
+#'   over 120 thousand rows.
+#'
+"bfoNames"
+

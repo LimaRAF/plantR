@@ -2,6 +2,21 @@
 
 <br/>
 
+## version 0.1.8
+
+* Adapting function `prepSpecies()` and related ones to perform taxon name matching using the new internal backbone or any user-provided backbone
+
+* Adding a new internal dataset with the Brazilian Flora and Funga vascular plant taxonomy (`data\bfoNames.rds`) and its documentation
+
+* Adding the new function `fixAuthors()` to separate and organize taxon names and taxon authors
+
+* Adding the new function `getTaxBackbone` to help getting the taxonomnic backbone ready to use by function `prepSpecies()`
+
+* Adding the new internal functions `getTaxUnique()` and `getTaxNotes()` to clean up the code and organize the output of the high-level function `prepSpecies()`
+
+* Improvements and bug fixes in function `fixSpecies()`
+
+
 ## version 0.1.7
 
 * Fixing the function `rspeciesLink()` related to the new speciesLink API address and data structure (related to issue #91)

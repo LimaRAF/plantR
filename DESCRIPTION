@@ -1,5 +1,5 @@
 Package: plantR
-Version: 0.1.7
+Version: 0.1.8
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
@@ -15,7 +15,7 @@ Author:
   Andrea Sánchez-Tapia [aut]
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
-Maintainer: Renato A. F. de Lima <raflima@usp.br>
+Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for 
     retrieving, processing, cleaning and validating 
@@ -47,12 +47,12 @@ Imports:
     stringdist,
     stringi,
     stringr,
-    tm,
     tidyr
 Suggests: 
     devtools,
     graphics,
     grDevices, 
+    plantRdata,
     remotes,
     rmarkdown,
     s2,
