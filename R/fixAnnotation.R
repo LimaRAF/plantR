@@ -34,6 +34,7 @@ fixAnnotation <- function(x) {
   x <- gsub("aff\\.", "aff. ", x, perl = TRUE, ignore.case = TRUE)
   x <- gsub("cf\\.", "cf. ", x, perl = TRUE, ignore.case = TRUE)
   x <- gsub(" f\\.", " f. ", x, perl = TRUE)
+  x <- gsub(" f\\. \\)", " f.)", x, perl = TRUE)
   x <- gsub(" var ", " var. ", x, fixed = TRUE)
   x <- gsub(" subsp ", " subsp. ", x, fixed = TRUE)
   x <- gsub(" ssp ", " subsp. ", x, fixed = TRUE)

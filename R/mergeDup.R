@@ -178,7 +178,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
                      tax.level = "high", overwrite = FALSE) {
 
   ## check input
-  if (!class(dups) == "data.frame")
+  if (!inherits(dups, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(dups)[1] == 0)

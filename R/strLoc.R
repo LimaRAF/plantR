@@ -75,7 +75,7 @@ strLoc <- function(x,
                    loc.names = c("locality.new","locality.scrap","resol.orig")) {
 
   ## check input:
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (!any(adm.names %in% colnames(x)))

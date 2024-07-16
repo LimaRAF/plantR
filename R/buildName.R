@@ -23,8 +23,10 @@
 #'
 buildName <- function(x, col.names = c("genus", "specificEpithet")) {
 
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
+
+  x <- as.data.frame(x)
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
@@ -43,14 +45,13 @@ buildName <- function(x, col.names = c("genus", "specificEpithet")) {
       }
     }
 
-    organismName <- do.call(paste, x[, cols])
-    organismName[organismName %in%
-                   c("NA NA", "NA NA NA")] <- NA_character_
-    organismName <- gsub(" NA NA$", "", organismName, perl = TRUE)
-    organismName <- gsub(" NA$", "", organismName, perl = TRUE)
-    organismName <- gsub(" NA ", " ", organismName, fixed = TRUE)
+    name <- do.call(paste, x[, cols])
+    rm.na <- paste0(rep(NA, length(cols)), collapse = " ")
+    name[name %in% rm.na] <- NA_character_
+    name <- gsub("NA\\s+", "", name, perl = TRUE)
+    name <- gsub("\\sNA+", "", name, perl = TRUE)
 
-    return(squish(organismName))
+    return(squish(name))
   } else {
 
     return(squish(x[[cols]]))

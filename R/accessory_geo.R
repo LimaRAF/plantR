@@ -318,13 +318,14 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 
       rob <- suppressWarnings(try(robustbase::covMcd(df1[use_these, 1:2],
                                                      alpha = 1 / 2), TRUE))
-      if (class(rob) == "try-error") {
+      if (inherits(rob, "try-error")) {
         df1$lon2 <- jitter(df1$lon, factor = 0.001)
         df1$lat2 <- jitter(df1$lat, factor = 0.001)
         rob <- suppressWarnings(try(
                   robustbase::covMcd(df1[use_these, c("lon2", "lat2")],
                                   alpha = 1 / 2, tol = 1e-20), TRUE))
-        if (class(rob) == "try-error") {
+
+        if (inherits(rob, "try-error")) {
           res0 <- cbind.data.frame(dup.coord.ID = df1$dup.coord.ID,
                                    res = NA_character_)
         } else {
@@ -513,8 +514,8 @@ distOutlier <- function(lon, lat, method = "robust",
 
     rob <- suppressWarnings(try(robustbase::covMcd(df1[, 1:2],
                                                    alpha = 1 / 2), TRUE))
-    if (class(rob) == "try-error") {
-      res <-
+    if (inherits(rob, "try-error")) {
+        res <-
         c(dim(df1)[1], 0, rep(NA_character_, length(probs) + 1))
     } else {
       if (length(rob$singularity) > 0) {

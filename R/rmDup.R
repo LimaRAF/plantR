@@ -77,7 +77,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
                   print.rm = TRUE) {
 
   ## check input
-  if (!class(df) == "data.frame")
+  if (!inherits(df, "data.frame"))
     stop ("Input object needs to be a data frame!")
 
   if (dim(df)[1] == 0)

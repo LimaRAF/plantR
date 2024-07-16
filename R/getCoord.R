@@ -88,7 +88,7 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
                      lon.new = "decimalLongitude.new", rm.gazet = FALSE) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   ## Filtering the target columns and putting them in the right order

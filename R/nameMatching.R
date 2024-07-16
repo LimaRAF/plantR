@@ -8,8 +8,7 @@
 #'
 #' @param names a vector of input names to be compared against a
 #'   reference
-#' @param ref.names a vector of the names of reference (e.g. taxonomic
-#'   backbone)
+#' @param ref.names a vector of the names of reference
 #' @param match.type type of match: exact, fuzzy or both. Defaults to
 #'   both.
 #' @param clean.names logical. Should spaces, ponctuation, symbols and
@@ -94,7 +93,6 @@ nameMatching <- function(names = NULL,
                           p = 0.1,
                           max.dist = 0.25,
                           split.letters = FALSE,
-                          # mult.matches = FALSE,
                           parallel = FALSE,
                           cores = 2,
                           show.progress = FALSE) {

@@ -21,12 +21,13 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom tm removePunctuation
+#' @importFrom stringr str_to_lower
 #'
 cleanName <- function(x) {
 
-  x1 <- tolower(gsub(" ", "", x, fixed =  TRUE))
-  x1 <- tm::removePunctuation(x1)
+  x1 <- gsub(" ", "", x, fixed =  TRUE)
+  x1 <- stringr::str_to_lower(x1)
+  x1 <- gsub("[[:punct:]]", "", x1, perl =  TRUE)
   x1 <- rmLatin(x1)
   x1 <- gsub("\u00d7", "", x1, fixed = TRUE)
   x1 <- gsub("[0-9]", "", x1, perl = TRUE)

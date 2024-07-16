@@ -430,30 +430,33 @@ formatDwc <- function(splink_data = NULL,
 
   if (bind_data) {
     # Forcing numeric/date columns to be characters to allow binding
+    cols_to_force <- c("numeric", "integer", "Date", "POSIXct", "POSIXt",
+                       "eventDate", "verbatimEventDate", "dateIdentified")
+
     if (!is.null(splink_data)) {
       ids <- which(sapply(splink_data, function(x) class(x)[1]) %in%
-                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
+                     cols_to_force)
       if (length(ids) > 0)
         for (i in ids) splink_data[, i] <- as.character(splink_data[, i])
     }
 
     if (!is.null(gbif_data)) {
       ids <- which(sapply(gbif_data, function(x) class(x)[1]) %in%
-                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
+                     cols_to_force)
       if (length(ids) > 0)
         for (i in ids) gbif_data[, i] <- as.character(gbif_data[, i])
     }
 
     if (!is.null(bien_data)) {
       ids <- which(sapply(bien_data, function(x) class(x)[1]) %in%
-                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
+                     cols_to_force)
       if (length(ids) > 0)
         for (i in ids) bien_data[, i] <- as.character(bien_data[, i])
     }
 
     if (!is.null(user_data)) {
       ids <- which(sapply(user_data, function(x) class(x)[1]) %in%
-                     c("numeric", "integer", "Date", "POSIXct", "POSIXt"))
+                     cols_to_force)
       if (length(ids) > 0)
         for (i in ids) user_data[, i] <- as.character(user_data[, i])
     }

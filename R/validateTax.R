@@ -181,7 +181,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
                         print = TRUE) {
 
   #Checking the input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -226,10 +226,12 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
   } else {
 
-    if(!class(taxonomist.list) == "data.frame")
+    if (!inherits(taxonomist.list, "data.frame"))
       stop("The list of taxonomists must be provided as a data frame")
-    if(!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
+
+    if (!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
       stop("The list of taxonomists must contain at least two columns: 'family' and 'tdwg.name'")
+
     autores <- taxonomist.list
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
@@ -259,17 +261,13 @@ validateTax <- function(x, col.names = c(family = "family.new",
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
-  # combo <- stringr::str_squish(combo)
-  combo <- gsub("\\s+", " ", combo, perl = TRUE)
-  combo <- gsub("^ | $", "", combo, perl = TRUE)
+  combo <- squish(combo)
 
   #Getting the unique family-specialist combinations for each occurrence
   #dt <- data.table::data.table(x) # not using data.table for now
   combo.occs <- paste(x[ ,cols["family"]],
                       x[ ,cols["det.name"]], sep = "_")
-  # combo.occs <- stringr::str_squish(combo.occs)
-  combo.occs <- gsub("\\s+", " ", combo.occs, perl = TRUE)
-  combo.occs <- gsub("^ | $", "", combo.occs, perl = TRUE)
+  combo.occs <- squish(combo.occs)
 
   #Crossing the occurrence and reference family-specialist combinations
   x$tax.check <- combo.occs %in% combo
@@ -296,9 +294,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
       combo2 <- paste(x[, cols["family"]],
                       x[, cols["col.name"]], sep = "_")
-      # combo2 <- stringr::str_squish(combo2)
-      combo2 <- gsub("\\s+", " ", combo2, perl = TRUE)
-      combo2 <- gsub("^ | $", "", combo2, perl = TRUE)
+      combo2 <- squish(combo2)
 
       #Crossing the occurrence and reference family-specialist combinations
       tax.check1 <- combo2 %in% combo

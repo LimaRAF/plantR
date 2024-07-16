@@ -83,7 +83,7 @@ checkList <- function(x, fam.order = TRUE, n.vouch = 30, type = "short",
                       rm.dup = TRUE, rank.type = 5, date.format = "%d %b %Y") {
 
   # check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

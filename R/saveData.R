@@ -51,7 +51,7 @@ saveData <- function(df, file.name = "output", dir.name = "", path = "",
                      compress = TRUE, rm.dup = FALSE) {
 
   # check input
-  if (!class(df) == "data.frame")
+  if (!inherits(df, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   # Defining the general path for saving

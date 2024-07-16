@@ -30,7 +30,7 @@
 summaryData <- function(x, print = TRUE, top = 5) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

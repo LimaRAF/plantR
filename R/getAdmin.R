@@ -74,7 +74,7 @@ getAdmin <- function(x, gazet = "plantR", str.name = "loc.correct",
                                     "NAME_2", "NAME_3", "source")) {
 
   ## check input:
-    if (class(x) == "data.frame") {
+    if (inherits(x, "data.frame")) {
       if (!str.name %in% names(x))
         stop("Input object must have a column containing the locality search string")
 
@@ -100,7 +100,7 @@ getAdmin <- function(x, gazet = "plantR", str.name = "loc.correct",
     }
   }
 
-  if(class.gazet == "data.frame") {
+  if (inherits(class.gazet, "data.frame")) {
     if (all(gazet.names %in% colnames(gazet))) {
       dic <- gazet[match(gazet.names, colnames(gazet))]
       for(i in 1:length(dic)) colnames(dic)[i] <- cols.gazet[i]

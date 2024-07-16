@@ -44,6 +44,7 @@ fixIndet <- function(x, rplc = "Indet. sp.") {
   for (i in seq_along(indets[-1]))
     x <- gsub(paste0("^(", indets[-1][i],")([A-Z])"),
               "Indet. sp.\\2", x, perl = TRUE)
+
   x <- gsub(paste0(paste0("^(", indets[1],")([A-Z])"), collapse = "|"),
             "Indet. sp.\\2", x, perl = TRUE)
   x <- gsub("^sp\\.(?=[0-9])|^sp(?=[0-9])",
@@ -57,12 +58,13 @@ fixIndet <- function(x, rplc = "Indet. sp.") {
               "\\1 sp.\\2", x, perl = TRUE)
   }
 
-  x <- gsub(" (sp\\.) ([0-9])$", " \\1\\2", x, perl = TRUE)
+  x <- gsub(" (sp\\.) ([0-9]+)$", " \\1\\2", x, perl = TRUE)
   x <- gsub(" (sp\\.) ([a-z])$", " \\1\\2", x, perl = TRUE)
-  x <- gsub(" (sp\\.)_([0-9])", "\\1\\2", x, perl = TRUE)
-  x <- gsub(" (sp) ([0-9])$", " \\1.\\2", x, perl = TRUE)
-  x <- gsub(" (sp)([0-9])$", " \\1.\\2", x, perl = TRUE)
-  x <- gsub(" (sp)_([0-9])$", "\\1.\\2", x, perl = TRUE)
+  x <- gsub(" (sp\\.) ([A-Z]+)$", " \\1\\2", x, perl = TRUE)
+  x <- gsub(" (sp\\.)_([0-9]+)", " \\1\\2", x, perl = TRUE)
+  x <- gsub(" (sp) ([0-9]+)$", " \\1.\\2", x, perl = TRUE)
+  x <- gsub(" (sp)([0-9]+)$", " \\1.\\2", x, perl = TRUE)
+  x <- gsub(" (sp)_([0-9]+)$", " \\1.\\2", x, perl = TRUE)
   x <- gsub(" sp$", " sp.", x, perl = TRUE)
   x <- gsub(" spp$", " spp.", x, perl = TRUE)
   x <- gsub(" spec$| indet$| sp $| sp \\.$| sp\\. $", " sp.", x,

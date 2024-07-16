@@ -22,8 +22,7 @@ nameMatching(
 \item{names}{a vector of input names to be compared against a
 reference}
 
-\item{ref.names}{a vector of the names of reference (e.g. taxonomic
-backbone)}
+\item{ref.names}{a vector of the names of reference}
 
 \item{match.type}{type of match: exact, fuzzy or both. Defaults to
 both.}

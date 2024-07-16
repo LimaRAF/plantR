@@ -64,7 +64,7 @@ getCode <- function(x,
   index.herbariorum.or.working.code <- col.OBS <- NULL
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (!inst.code %in% names(x))

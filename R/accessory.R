@@ -41,9 +41,9 @@ squish <- function (x) {
 #'
 fixSpaces <- function(x) {
 
-  space.codes <- c("\U0020", "\U00A0", "\U2000", "\U2001", "\U2002", "\U2003",
-                   "\U2004", "\U2005", "\U2006", "\U2007", "\U2008", "\U2009",
-                   "\U200A", "\U205F", "\U3000")
+  space.codes <- c("\U0020", "\U00A0", "\U2000", "\U2001", "\U2002",
+                   "\U2003", "\U2004", "\U2005", "\U2006", "\U2007",
+                   "\U2008", "\U2009", "\U200A", "\U205F", "\U3000")
 
   space.patt <- paste(space.codes, collapse = "|")
 
@@ -81,4 +81,41 @@ progressBar <- function(show.progress = TRUE, max.pb) {
   }
   return(list(opts = opts, pb = pb))
 }
+#' @title Collapse Non-Empty Strings
+#'
+#' @description
+#' A simple function, similar to the base function `paste0()` but
+#' avoiding problems related to empty strings.
+#'
+#' @param x one or more objects to be collapsed
+#' @param collapse character string to separate the result
+#'
+#' @noRd
+#'
+#'
+#' @keywords internal
+#'
+paste1 <- function(x, sep = "", collapse = NULL) {
 
+  x1 <- x[!x %in% c("", " ", NA)]
+  x1 <- paste(x1, sep = sep, collapse = collapse)
+
+  return(x1)
+}
+#'
+#' @title Read File in Help
+#'
+#' @param file a path to the file with the script to be read
+#' @param text a character or vector of additional text to be added to
+#'   the tag
+#' @param tag one of Roxygen's documentation tag. Defaults to 'note'.
+#'
+#' @keywords internal
+#'
+#' @noRd
+#'
+readScript <- function(file = NULL, text = "", tag = "note") {
+  lns <- readLines(file)
+  lns <- paste(sprintf("\\code{%s}", lns), collapse = "; ")
+  return(paste("\\", tag, "{", text, "\n", lns, ".}", sep = ""))
+}

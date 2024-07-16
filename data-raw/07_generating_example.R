@@ -9,7 +9,8 @@
 #                    basisOfRecord = "PreservedSpecimen",
 #                    Scope = "p", Synonyms = "flora2020")
 ## Loading the data downloaded from their web interface
-df <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240506233830-0032294.txt"))
+df <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240506233830-0032294.txt",
+                                      encoding = "UTF-8"))
 
 ## Filtering
 df <- df[df$basisofrecord %in% c("PreservedSpecimen"), ]
@@ -27,9 +28,14 @@ col_to_check <- c("country","stateprovince","county","locality",
                   "scientificnameauthor",
                   "verbatimlatitude", "verbatimlongitude")
 for(i in seq_along(col_to_check)) {
-  Encoding(example[[col_to_check[i]]]) <- "latin1"
-  example[[col_to_check[i]]] <- iconv(example[[col_to_check[i]]],
-    "latin1","UTF-8")
+  non_utf8 <- !Encoding(example[[col_to_check[i]]]) %in% "UTF-8"
+  Encoding(example[[col_to_check[i]]][non_utf8]) <- "latin1"
+  example[[col_to_check[i]]][non_utf8] <-
+    iconv(example[[col_to_check[i]]][non_utf8],
+          "latin1", "UTF-8")
+  # Encoding(example[[col_to_check[i]]]) <- "latin1"
+  # example[[col_to_check[i]]] <- iconv(example[[col_to_check[i]]],
+  #   "latin1","UTF-8")
 }
 
 ## Saving
@@ -38,14 +44,15 @@ usethis::use_data(example,
                   internal = FALSE,
                   compress = "xz")
 
-# dataset example.rda ------------------------------------------------
+# dataset example_intro.rda ------------------------------------------------
 ## Loading the data using plantR function
 # spp <- c("Euterpe edulis")
 # df <- rspeciesLink(species = spp, key = chave,
 #                    MaxRecords = 5000,
 #                    save = TRUE, dir = "data-raw/results/",
 #                    filename = "speciesLink-20240507090342-0004989")
-df <- read.csv("data-raw/results/speciesLink-20240507090342-0004989.csv")
+df <- read.csv("data-raw/results/speciesLink-20240507090342-0004989.csv",
+               encoding =  "UTF-8")
 ## Loading the data downloaded from their web interface
 # df <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240507090342-0004989.txt"))
 
@@ -65,9 +72,14 @@ col_to_check <- c("country","stateprovince","county","locality",
                   "verbatimlatitude", "verbatimlongitude",
                   "continentocean", "phylum", "preparationtype")
 for(i in seq_along(col_to_check)) {
-  Encoding(example_intro[[col_to_check[i]]]) <- "latin1"
-  example_intro[[col_to_check[i]]] <- iconv(example_intro[[col_to_check[i]]],
-                                      "latin1","UTF-8")
+  non_utf8 <- !Encoding(example_intro[[col_to_check[i]]]) %in% "UTF-8"
+  Encoding(example_intro[[col_to_check[i]]][non_utf8]) <- "latin1"
+  example_intro[[col_to_check[i]]][non_utf8] <-
+    iconv(example_intro[[col_to_check[i]]][non_utf8],
+                                            "latin1", "UTF-8")
+  # Encoding(example_intro[[col_to_check[i]]]) <- "latin1"
+  # example_intro[[col_to_check[i]]] <- iconv(example_intro[[col_to_check[i]]],
+  #                                     "latin1","UTF-8")
 }
 
 ## Saving

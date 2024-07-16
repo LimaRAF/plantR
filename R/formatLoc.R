@@ -45,7 +45,7 @@ formatLoc <- function(x,
                       orig.names = FALSE) {
 
   # check input:
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

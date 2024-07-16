@@ -45,7 +45,7 @@ formatCoord <- function(coords,
                         rm.gazet = FALSE) {
 
   # check input:
-  if (!class(coords) == "data.frame")
+  if (!inherits(coords, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (dim(coords)[1] == 0)
