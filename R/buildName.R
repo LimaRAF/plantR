@@ -2,7 +2,7 @@
 #' @title Build Taxon Name
 #'
 #' @description Combine different columns with species name
-#'   information (i.e. genus, epiteth, infra-epiteth, author) into a
+#'   information (i.e. genus, epithet, infra-epithet, author) into a
 #'   single taxon name
 #'
 #' @param x a data frame with the name information

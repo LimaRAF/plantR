@@ -27,7 +27,7 @@ reference}
 \item{match.type}{type of match: exact, fuzzy or both. Defaults to
 both.}
 
-\item{clean.names}{logical. Should spaces, ponctuation, symbols and
+\item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
 TRUE.}
 
@@ -68,7 +68,7 @@ matching by initial letters.
 }
 \details{
 By default, the argument 'clean.names' is TRUE. Both exact and
-fuzzy matchs are case, space and ponctuation sensitive, so cleaning
+fuzzy matches are case, space and punctuation sensitive, so cleaning
 names prior to matching can greatly increase the number of matches.
 See the internal function \code{cleanName()} on how this cleaning is
 performed.
@@ -87,7 +87,7 @@ FALSE, then the matching is done using all input and reference
 names together.
 
 The 'parallel' option is currently only implemented for fuzzy
-matchs. For the majority of cases, exact matching should be quite
+matches. For the majority of cases, exact matching should be quite
 fast.
 }
 \examples{

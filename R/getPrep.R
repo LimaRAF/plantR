@@ -44,7 +44,7 @@
 #'   last name are isolated and can be returned. Prepositions in middle names
 #'   are silently excluded. Furthermore, the function makes a distinction
 #'   between names that are all capitas ('DA SILVA') and names that have
-#'   only unnabreviated initials all capitals ('DA Silva'). Only in the first
+#'   only unabbreviated initials all capitals ('DA Silva'). Only in the first
 #'   case the search for the preposition is done; in the second case, capital
 #'   letters are assumed to be initials of names.
 #'

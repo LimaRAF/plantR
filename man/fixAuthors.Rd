@@ -30,8 +30,8 @@ commonly expected. The expectation are names following the
 notation:
 \itemize{
 \item Higher-taxa authorship: e.g. 'Araceae Juss.'
-\item Genus epiteth authorship: e.g. 'Anthurium amoenum Kunth & C.D.Bouche'
-\item Genus epiteth infraepiteth authorship: e.g. 'Anthurium amoenum var. humile (Schott) Engl.'
+\item Genus epithet authorship: e.g. 'Anthurium amoenum Kunth & C.D.Bouche'
+\item Genus epithet infraepithet authorship: e.g. 'Anthurium amoenum var. humile (Schott) Engl.'
 }
 
 Besides rare examples of author names starting with lower-case

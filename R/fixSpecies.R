@@ -2,7 +2,7 @@
 #'
 #' @description Identifies open nomenclature (aff., cf.) in scientific
 #'   names, classification under species level (var., subsp., f.) and
-#'   stadardize the notation of incomplete name identifications. It
+#'   standardize the notation of incomplete name identifications. It
 #'   creates a new column with the new suggested name and it also
 #'   flags names with authors and problematic names (character string
 #'   with numbers, wrong case, or other names besides genus and
@@ -25,7 +25,7 @@
 #' \item{\code{variety}}{scientific name with variety}
 #' \item{\code{subspecies}}{scientific name with subspecies}
 #' \item{\code{forma}}{scientific name with form}
-#' \item{\code{infra_specific}}{scientific name with genus, specific epiteth and
+#' \item{\code{infra_specific}}{scientific name with genus, specific epithet and
 #' infra-specific, but no infra-specific rank}
 #' \item{\code{hybrid}}{scientific name of a hybrid species}
 #' \item{\code{conferre}}{open nomenclature cf. in the scientific name}
@@ -240,7 +240,7 @@ fixSpecies <- function(x = NULL,
   check$species_new[subsp | var | form] <-
     rmInfra(check$species_new[subsp | var | form])
 
-  # names not matching genus + epiteth pattern
+  # names not matching genus + epithet pattern
   id_not_gensp <- sapply(stringr::str_split(check$species_new, " "),
                          length) > 2 & check$species_status %in% ""
   if (any(id_not_gensp))

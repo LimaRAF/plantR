@@ -53,7 +53,7 @@ which is passed to the argument \code{max.dist} of the function
 \code{nameMatching()}. Defaults to 0.9 (i.e. maximum of 10\%
 difference).}
 
-\item{clean.names}{logical. Should spaces, ponctuation, symbols and
+\item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
 TRUE.}
 

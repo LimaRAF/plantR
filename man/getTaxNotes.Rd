@@ -13,10 +13,10 @@ getTaxNotes(
 }
 \arguments{
 \item{x}{a data frame containing the results of the taxon name
-matching againt a reference backbone}
+matching against a reference backbone}
 
 \item{match.cols}{a vector of column names containing the
-information on the name matching proccess. Defaults to the
+information on the name matching process. Defaults to the
 typical names used internally within the \code{plantR} function
 \code{prepSpecies()}}
 

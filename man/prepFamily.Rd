@@ -78,10 +78,6 @@ plants: APG IV. Bot. J. Linnean Soc. 181: 1-20.
 Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
 Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
 
-Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
-Standardization of Plant Species Names. R package version 2.1.
-https://CRAN.R-project.org/package=Taxonstand
-
 PPG I (2016). A community-derived classification for extant lycophytes and
 ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
 }

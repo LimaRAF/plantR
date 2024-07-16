@@ -1,12 +1,12 @@
 #'
-#' @title Remove ponctuation, special characters, numbers and spaces
+#' @title Remove punctuation, special characters, numbers and spaces
 #'
 #' @description Simple function to prepare vectors of taxon names for
 #'   increasing the chances of exact and fuzzy name matching
 #'
 #' @param x a vector of characters (i.e. names)
 #'
-#' @return the vector \code{x} without ponctuation, special
+#' @return the vector \code{x} without punctuation, special
 #'   characters, numbers and spaces
 #'
 #' @author Renato A. F. de Lima

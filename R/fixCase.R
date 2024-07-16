@@ -1,12 +1,12 @@
 #' @title Standardize Species Name Casing
 #'
 #' @description Capitalize the genus first letter and lowercase the
-#'   (infra-)specific epiteth of species names.
+#'   (infra-)specific epithet of species names.
 #'
 #' @param x the character string or vector to be standardized.
 #'
 #' @return the character string equal to \code{x} with the first letter of the
-#'   genus capitalized and the first letter of the (infra-)specific epiteth in
+#'   genus capitalized and the first letter of the (infra-)specific epithet in
 #'   lowercase.
 #'
 #' @details The function try to fix some common upper/lowercase issues in
@@ -96,7 +96,7 @@ fixCase <- function (x) {
                                  sep = "")
     }
 
-    #Specific or infra-specific epiteth with firt letter capitalized
+    #Specific or infra-specific epithet with firt letter capitalized
     patt <- " (?=[A-Z])| (?=\\()"
     # split <- stringr::str_split(x, stringr::regex(patt))
     split <- strsplit(x, patt, perl = TRUE)

@@ -17,77 +17,83 @@ getCoord(
 )
 }
 \arguments{
-\item{x}{a data.frame containing the original coordinates and the coordinates
-obtained from a gazetteer.}
+\item{x}{a data.frame containing the original coordinates and the
+coordinates obtained from a gazetteer.}
 
-\item{lat.orig}{character. The name of the column containing the latitude.
-Default to "decimalLatitude".}
+\item{lat.orig}{character. The name of the column containing the
+latitude. Default to "decimalLatitude".}
 
-\item{lon.orig}{character. The name of the column containing the longitude.
-Default to "decimalLongitude".}
+\item{lon.orig}{character. The name of the column containing the
+longitude. Default to "decimalLongitude".}
 
-\item{lat.gazet}{character. The name of the column containing the latitude
-from the gazetteer. Default to "latitude.gazetteer".}
+\item{lat.gazet}{character. The name of the column containing the
+latitude from the gazetteer. Default to "latitude.gazetteer".}
 
-\item{lon.gazet}{character. The name of the column containing the longitude
-from the gazetteer. Default to "longitude.gazetteer".}
+\item{lon.gazet}{character. The name of the column containing the
+longitude from the gazetteer. Default to "longitude.gazetteer".}
 
-\item{res.gazet}{character. The name of the column containing the resolution
-of the locality information from which the gazetteer coordinates were
-obtained.}
+\item{res.gazet}{character. The name of the column containing the
+resolution of the locality information from which the gazetteer
+coordinates were obtained.}
 
-\item{lat.new}{character. The name of the column containing the edited
-latitude, combining the coordinates from the source data and the gazetteer.
-Default to "decimalLatitude.new".}
+\item{lat.new}{character. The name of the column containing the
+edited latitude, combining the coordinates from the source data
+and the gazetteer. Default to "decimalLatitude.new".}
 
-\item{lon.new}{character. The name of the column containing the working
-longitude combining the coordinates from the source data and the gazetteer.
-Default to "decimalLongitude.new".}
+\item{lon.new}{character. The name of the column containing the
+working longitude combining the coordinates from the source data
+and the gazetteer. Default to "decimalLongitude.new".}
 
-\item{rm.gazet}{logical. Should the coordinates form the gazetteer be removed
-from the data after the replacement of missing coordinates? Default to
-FALSE.}
+\item{rm.gazet}{logical. Should the coordinates form the gazetteer
+be removed from the data after the replacement of missing
+coordinates? Default to FALSE.}
 }
 \value{
-The data frame \code{x} with the columns 'decimalLatitude.new' and
-'decimalLongitude.new' containing the geographical coordinates at the best
-locality resolution (i.e. 'administrative level') available. The function
-also returns the precision of the coordinates.
+The data frame \code{x} with the columns
+'decimalLatitude.new' and 'decimalLongitude.new' containing the
+geographical coordinates at the best locality resolution (i.e.
+'administrative level') available. The function also returns the
+precision of the coordinates.
 }
 \description{
 This function assess the availability and precision of
-the original geographical coordinates of the occurrence and it replaces
-missing coordinates by the coordinates obtained from the gazetteer.
+the original geographical coordinates of the occurrence and it
+replaces missing coordinates by the coordinates obtained from the
+gazetteer.
 }
 \details{
-The function was initially designed as part of a routine to edit and
-validate geographical coordinates of plant occurrence data. It is possible
-to use it separately, but it may be easier to use it under the workflow
-presented in \strong{plantR} tutorial (see functions \code{getLoc} and \code{prepCoord}).
-If used separately, users should provide a data frame preferably with the
-following six columns (the defaults): 'decimalLatitude',
+The function was initially designed as part of a routine
+to edit and validate geographical coordinates of plant occurrence
+data. It is possible to use it separately, but it may be easier
+to use it under the workflow presented in \strong{plantR} tutorial
+(see functions \code{getLoc} and \code{prepCoord}). If used separately,
+users should provide a data frame preferably with the following
+six columns (the defaults): 'decimalLatitude',
 'decimalLongitude', 'latitude.gazetteer', 'longitude.gazetteer',
-'resolution.gazetteer', 'decimalLatitude.new' and 'decimalLongitude.new')
-or to specify the respective columns in the input data.
+'resolution.gazetteer', 'decimalLatitude.new' and
+'decimalLongitude.new') or to specify the respective columns in
+the input data.
 
-The columns \code{lat.new} and \code{lon.new} are the columns containing the working
-coordinates that may have been already edited by \code{prepCoord()}. It is also
-the columns were the function will store the coordinates from the gazetteer
-in the case of missing coordinates. If these columns are not provided in
-the input data, they are assumed to be equal to \code{lat.orig} and \code{lon.orig}
-and they are created internally.
+The columns \code{lat.new} and \code{lon.new} are the columns containing
+the working coordinates that may have been already edited by
+\code{prepCoord()}. It is also the columns were the function will
+store the coordinates from the gazetteer in the case of missing
+coordinates. If these columns are not provided in the input data,
+they are assumed to be equal to \code{lat.orig} and \code{lon.orig} and
+they are created internally.
 
-The precision of the geographical coordinates are classified as: "degrees",
-"minutes", "seconds" and "miliseconds". This classification is performed
-for the latitude and longitude of each record and the worst precision
-retrieved is assigned to both of them (i.e. if lat = "minutes" and lon=
-"seconds", the precision = "minutes"). For simplicity, all
-latitude/longitude not classified as "degrees", "minutes" or "seconds" are
+The precision of the geographical coordinates are classified as:
+"degrees", "minutes", "seconds" and "miliseconds". This
+classification is performed for the latitude and longitude of
+each record and the worst precision retrieved is assigned to both
+of them (i.e. if lat = "minutes" and lon= "seconds", the
+precision = "minutes"). For simplicity, all latitude/longitude
+not classified as "degrees", "minutes" or "seconds" are
 classified as "miliseconds".
 
-The function implicitly assumes that NA coordinates are missing and they
-are replaced by the coordinates coming from the gazetteer. See the examples
-below.
+The function implicitly assumes that NA coordinates are missing
+and they are replaced by the coordinates coming from the
+gazetteer. See the examples below.
 }
 \examples{
 

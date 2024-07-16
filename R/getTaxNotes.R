@@ -5,9 +5,9 @@
 #'   output of the taxon name checking process.
 #'
 #' @param x a data frame containing the results of the taxon name
-#'   matching againt a reference backbone
+#'   matching against a reference backbone
 #' @param match.cols a vector of column names containing the
-#'   information on the name matching proccess. Defaults to the
+#'   information on the name matching process. Defaults to the
 #'   typical names used internally within the `plantR` function
 #'   `prepSpecies()`
 #' @param no.match a character indicating the tag for taxon names

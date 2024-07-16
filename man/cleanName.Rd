@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleanName.R
 \name{cleanName}
 \alias{cleanName}
-\title{Remove ponctuation, special characters, numbers and spaces}
+\title{Remove punctuation, special characters, numbers and spaces}
 \usage{
 cleanName(x)
 }
@@ -10,7 +10,7 @@ cleanName(x)
 \item{x}{a vector of characters (i.e. names)}
 }
 \value{
-the vector \code{x} without ponctuation, special
+the vector \code{x} without punctuation, special
 characters, numbers and spaces
 }
 \description{

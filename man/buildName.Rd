@@ -17,7 +17,7 @@ a vector with the combined name information in \code{col.names}
 }
 \description{
 Combine different columns with species name
-information (i.e. genus, epiteth, infra-epiteth, author) into a
+information (i.e. genus, epithet, infra-epithet, author) into a
 single taxon name
 }
 \examples{

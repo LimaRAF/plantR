@@ -11,7 +11,7 @@
 #' @param ref.names a vector of the names of reference
 #' @param match.type type of match: exact, fuzzy or both. Defaults to
 #'   both.
-#' @param clean.names logical. Should spaces, ponctuation, symbols and
+#' @param clean.names logical. Should spaces, punctuation, symbols and
 #'   species characters be removed prior to name matching? Defaults to
 #'   TRUE.
 #' @param dist.method fuzzy matching algorithm to be passed on to
@@ -38,7 +38,7 @@
 #' @details
 #'
 #' By default, the argument 'clean.names' is TRUE. Both exact and
-#' fuzzy matchs are case, space and ponctuation sensitive, so cleaning
+#' fuzzy matches are case, space and punctuation sensitive, so cleaning
 #' names prior to matching can greatly increase the number of matches.
 #' See the internal function `cleanName()` on how this cleaning is
 #' performed.
@@ -57,7 +57,7 @@
 #' names together.
 #'
 #' The 'parallel' option is currently only implemented for fuzzy
-#' matchs. For the majority of cases, exact matching should be quite
+#' matches. For the majority of cases, exact matching should be quite
 #' fast.
 #'
 #' @author Renato A. Ferreira de Lima

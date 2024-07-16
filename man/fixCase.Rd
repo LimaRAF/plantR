@@ -11,12 +11,12 @@ fixCase(x)
 }
 \value{
 the character string equal to \code{x} with the first letter of the
-genus capitalized and the first letter of the (infra-)specific epiteth in
+genus capitalized and the first letter of the (infra-)specific epithet in
 lowercase.
 }
 \description{
 Capitalize the genus first letter and lowercase the
-(infra-)specific epiteth of species names.
+(infra-)specific epithet of species names.
 }
 \details{
 The function try to fix some common upper/lowercase issues in

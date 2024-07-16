@@ -76,7 +76,7 @@ gazetteer. We thank the Harvard University Herbarium, Brazilian Herbaria
 Network and the American Society of Plant Taxonomists, who were main
 sources to compile the current list of taxonomists. We also thank
 Vinícius C. Souza (ESALQ/USP), who helped to validate and improve the
-list of plant taxonomists used in the package, and André L. de Gasper
-and Leila Meyer, for their valuable suggestions on how to make this
-package more useful and flexible for collection managers and
-taxonomists.
+list of plant taxonomists used in the package, João Vieira for
+suggestions of code fixes and updates, and André L. de Gasper and Leila
+Meyer, for their valuable suggestions on how to make this package more
+useful and flexible for collection managers and taxonomists.

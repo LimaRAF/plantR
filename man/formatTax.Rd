@@ -58,7 +58,7 @@ difference).}
 \item{use.authors}{logical. Should authorships be used in the name
 matching process? Default to TRUE.}
 
-\item{clean.names}{logical. Should spaces, ponctuation, symbols and
+\item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
 TRUE.}
 

@@ -38,7 +38,7 @@ the column \code{scientificNameStatus}.
 \description{
 Identifies open nomenclature (aff., cf.) in scientific
 names, classification under species level (var., subsp., f.) and
-stadardize the notation of incomplete name identifications. It
+standardize the notation of incomplete name identifications. It
 creates a new column with the new suggested name and it also
 flags names with authors and problematic names (character string
 with numbers, wrong case, or other names besides genus and
@@ -55,7 +55,7 @@ the expected pattern Genus epithet}
 \item{\code{variety}}{scientific name with variety}
 \item{\code{subspecies}}{scientific name with subspecies}
 \item{\code{forma}}{scientific name with form}
-\item{\code{infra_specific}}{scientific name with genus, specific epiteth and
+\item{\code{infra_specific}}{scientific name with genus, specific epithet and
 infra-specific, but no infra-specific rank}
 \item{\code{hybrid}}{scientific name of a hybrid species}
 \item{\code{conferre}}{open nomenclature cf. in the scientific name}
