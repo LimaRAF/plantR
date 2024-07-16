@@ -37,15 +37,14 @@ the column \code{scientificNameStatus}.
 }
 \description{
 Identifies open nomenclature (aff., cf.) in scientific
-names, classification under species level (var. and subsp.) and
-stadardize the notation of incomplete taxon name identifications.
-It creates a new column with the new suggested name and it also
-flags problematic names (character string with numbers, authors,
-wrong case, or other names besides genus and epithet etc). Names
-can be returned with or without infra-specific ranks (var. and
-subsp.) or abbreviations of unspecific names (sp. or spp.). In
-the case of names with authors, authorship is currently removed
-from scientific names.
+names, classification under species level (var., subsp., f.) and
+stadardize the notation of incomplete name identifications. It
+creates a new column with the new suggested name and it also
+flags names with authors and problematic names (character string
+with numbers, wrong case, or other names besides genus and
+epithet etc). Names can be returned with or without
+infra-specific ranks (var. and subsp.) or abbreviations of
+unspecific names (sp. or spp.).
 }
 \details{
 Possible flags returned in \code{scientificNameStatus}: \describe{
@@ -55,10 +54,10 @@ Possible flags returned in \code{scientificNameStatus}: \describe{
 the expected pattern Genus epithet}
 \item{\code{variety}}{scientific name with variety}
 \item{\code{subspecies}}{scientific name with subspecies}
-\item{\code{form}}{scientific name with form}
+\item{\code{forma}}{scientific name with form}
 \item{\code{infra_specific}}{scientific name with genus, specific epiteth and
 infra-specific, but no infra-specific rank}
-\item{\code{hybrid_species}}{scientific name of a hybrid species}
+\item{\code{hybrid}}{scientific name of a hybrid species}
 \item{\code{conferre}}{open nomenclature cf. in the scientific name}
 \item{\code{affinis}}{open nomenclature aff. in the scientific name}
 \item{\code{indet}}{taxon identified only at genus level}
@@ -73,7 +72,7 @@ species, possibly not yet a valid name}
 \item{\code{name_w_non_ascii}}{species name has non ASCII characters, not a
 valid name}
 \item{\code{abbreviated_genus}}{genus is abbreviated}
-\item{\code{not_name_has_digits}}{scientific name has digits, not a valid
+\item{\code{name_w_digits}}{scientific name has digits, not a valid
 name} }
 }
 \examples{
@@ -98,6 +97,10 @@ fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 Sigovini, M., Keppel, E. and Tagliapietra, D. (2016) Open
 Nomenclature in the biodiversity era. Methods in Ecology and
 Evolution 7(10): 1217-1225.
+}
+\seealso{
+Functions \link[plantR]{fixAnnotation}, \link[plantR]{fixIndet},
+\link[plantR]{fixCase} and \link[plantR]{fixAuthors}
 }
 \author{
 Sara Mortara & Renato A. Ferreira de Lima

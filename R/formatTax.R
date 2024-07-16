@@ -34,33 +34,59 @@
 formatTax <- function(tax,
                       use.suggestion = TRUE,
                       tax.name = "scientificName",
+                      author.name = "scientificNameAuthorship",
                       rm.rank = FALSE,
-                      tax.names = c("scientificName.new","scientificNameAuthorship"),
-                      db = c("bfo"),
+                      tax.names = c("scientificName.new",
+                                    "scientificNameAuthorship.new"),
+                      db = "bfo",
                       sug.dist = 0.9,
-                      use.authors = FALSE,
-                      drop.cols = c("tmp.ordem","family","verbatimSpecies","author","full_sp","authorship","id"),
+                      use.authors = TRUE,
+                      clean.names = FALSE,
+                      split.letters = FALSE,
+                      parallel = FALSE,
+                      cores = 2,
+                      drop.cols = c("match_type", "multiple_match",
+                                    "fuzzy_dist_name",
+                                    "fuzzy_dist_author",
+                                    "name.status", "taxon.status",
+                                    "accepted.name",
+                                    "accepted.authorship",
+                                    "accepted.taxon.rank",
+                                    "accepted.name.status"),
                       fam.name = "family",
                       gen.name = "genus",
                       spp.name = "scientificName") {
 
   # check input:
-  if (!class(tax)[1] == "data.frame")
-    stop("input object needs to be a data frame!")
+  if (!inherits(tax, "data.frame"))
+    stop("Input object needs to be a data frame!")
 
   if (dim(tax)[1] == 0)
     stop("Input data frame is empty!")
 
   # prepSpecies
-  tax1 <- fixSpecies(x = tax, tax.name = tax.name, rm.rank = rm.rank)
+  tax1 <- fixSpecies(x = tax,
+                     tax.name = tax.name,
+                     author.name = author.name,
+                     rm.rank = rm.rank)
 
   # formatSpecies
-  tax1 <- prepSpecies(x = tax1, tax.names = tax.names, db = db,
-                      sug.dist = sug.dist, use.authors = use.authors,
+  tax1 <- prepSpecies(x = tax1,
+                      tax.names = tax.names,
+                      db = db,
+                      sug.dist = sug.dist,
+                      use.authors = use.authors,
+                      clean.names = clean.names,
+                      split.letters = split.letters,
+                      parallel = parallel,
+                      cores = cores,
                       drop.cols = drop.cols)
-  if (use.suggestion)
+
+  if (use.suggestion) {
     tax1$scientificName.new[!is.na(tax1$suggestedName)] <-
       tax1$suggestedName[!is.na(tax1$suggestedName)]
+
+  }
 
   # prepFamily
   tax1 <- prepFamily(x = tax1, fam.name, spp.name = "scientificName.new")

@@ -8,13 +8,19 @@ formatTax(
   tax,
   use.suggestion = TRUE,
   tax.name = "scientificName",
+  author.name = "scientificNameAuthorship",
   rm.rank = FALSE,
-  tax.names = c("scientificName.new", "scientificNameAuthorship"),
-  db = c("bfo"),
+  tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
+  db = "bfo",
   sug.dist = 0.9,
-  use.authors = FALSE,
-  drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
-    "authorship", "id"),
+  use.authors = TRUE,
+  clean.names = FALSE,
+  split.letters = FALSE,
+  parallel = FALSE,
+  cores = 2,
+  drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
+    "name.status", "taxon.status", "accepted.name", "accepted.authorship",
+    "accepted.taxon.rank", "accepted.name.status"),
   fam.name = "family",
   gen.name = "genus",
   spp.name = "scientificName"
@@ -29,27 +35,45 @@ instead of the input species names? Defaults to TRUE.}
 \item{tax.name}{character. The name of the column containing the
 taxon name. Defaults to "scientificName"}
 
+\item{author.name}{character. The name of the column containing the
+author of scientific name. Defaults to "scientificNameAuthorship"}
+
 \item{rm.rank}{logical. Should the infra-specific rank abbreviation
 be removed from the name? Defaults to FALSE}
 
-\item{tax.names}{character. Names of the columns containing the species names
-and authors. Defaults to 'scientificName.new' and
-'scientificNameAuthorship'.}
+\item{tax.names}{character. Names of the columns containing the
+taxon names and authorships. Defaults to 'scientificName.new' and
+'scientificNameAuthorship.new'.}
 
-\item{db}{the list of database to be consulted for valid names, in their
-preferred order of priority. Only the results from Brazilian Flora 2020
-('bfo'), The Plant List ('tpl') or both are currently implemented.}
+\item{db}{the taxonomic backbones to be consulted for valid names,
+in their preferred order of priority. By default, only the
+Brazilian Flora 2020 taxonomic backbone ('bfo') is used.}
 
-\item{sug.dist}{a fraction expressing the maximum distance allowed between
-the original species name and the suggested species name, which is passed
-to the arguments \code{suggestion.distance} of function \code{flora::get.taxa()} and
-\code{max.distance} of function \code{Taxonstand::TPL()}. Defaults to 0.9.}
+\item{sug.dist}{a fraction expressing the maximum distance allowed
+between the taxon name and the suggested names in the backbone,
+which is passed to the argument \code{max.dist} of the function
+\code{nameMatching()}. Defaults to 0.9 (i.e. maximum of 10\%
+difference).}
 
-\item{use.authors}{logical. Should all authors names be verified (takes
-longer)? Default to TRUE.}
+\item{use.authors}{logical. Should authorships be used in the name
+matching process? Default to TRUE.}
 
-\item{drop.cols}{character. Name of columns that should be dropped from the
-results.}
+\item{clean.names}{logical. Should spaces, ponctuation, symbols and
+species characters be removed prior to name matching? Defaults to
+TRUE.}
+
+\item{split.letters}{logical. Should fuzzy matching be performed
+separately by the input and reference name initials? Defaults to
+FALSE}
+
+\item{parallel}{logical. Should fuzzy matching be performed in
+parallel? Defaults to FALSE}
+
+\item{cores}{integer. The number of cores for parallel execution.
+Two by default.}
+
+\item{drop.cols}{character. Name of columns from the reference
+backbone that should be dropped from the results.}
 
 \item{fam.name}{character. The name of the column containing the family
 names. Default to "family".}

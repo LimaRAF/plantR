@@ -2,90 +2,194 @@
 % Please edit documentation in R/prepSpecies.R
 \name{prepSpecies}
 \alias{prepSpecies}
-\title{Get Valid Plant Names}
+\title{Get Valid Taxon Names}
 \usage{
 prepSpecies(
   x,
-  tax.names = c("scientificName.new", "scientificNameAuthorship"),
-  db = c("bfo"),
-  sug.dist = 0.9,
+  tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
+  db = "bfo",
   use.authors = TRUE,
-  drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
-    "authorship", "id")
+  replace.names = TRUE,
+  mult.matches = "all",
+  sug.dist = 0.9,
+  clean.names = FALSE,
+  dist.method = "jw",
+  split.letters = FALSE,
+  parallel = FALSE,
+  cores = 2,
+  show.progress = FALSE,
+  drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
+    "name.status", "taxon.status", "accepted.name", "accepted.authorship",
+    "accepted.taxon.rank", "accepted.name.status")
 )
 }
 \arguments{
-\item{x}{a data.frame containing the species scientific name without authors
-and their authorship, ideally already passed by the string check in
-\code{fixSpecies}. The authorship is only used for solving homonyms.}
+\item{x}{a data.frame containing the taxon name without authors and
+their authorship, ideally the output from function \code{fixSpecies()}.}
 
-\item{tax.names}{character. Names of the columns containing the species names
-and authors. Defaults to 'scientificName.new' and
-'scientificNameAuthorship'.}
+\item{tax.names}{character. Names of the columns containing the
+taxon names and authorships. Defaults to 'scientificName.new' and
+'scientificNameAuthorship.new'.}
 
-\item{db}{the list of database to be consulted for valid names, in their
-preferred order of priority. Only the results from Brazilian Flora 2020
-('bfo'), The Plant List ('tpl') or both are currently implemented.}
+\item{db}{the taxonomic backbones to be consulted for valid names,
+in their preferred order of priority. By default, only the
+Brazilian Flora 2020 taxonomic backbone ('bfo') is used.}
 
-\item{sug.dist}{a fraction expressing the maximum distance allowed between
-the original species name and the suggested species name, which is passed
-to the arguments \code{suggestion.distance} of function \code{flora::get.taxa()} and
-\code{max.distance} of function \code{Taxonstand::TPL()}. Defaults to 0.9.}
+\item{use.authors}{logical. Should authorships be used in the name
+matching process? Default to TRUE.}
 
-\item{use.authors}{logical. Should all authors names be verified (takes
-longer)? Default to TRUE.}
+\item{replace.names}{logical. If taxon names should be replaced
+based on the results of the name checking (e.g. if synonyms
+should be replaced by its accepted name. Default to TRUE.}
 
-\item{drop.cols}{character. Name of columns that should be dropped from the
-results.}
+\item{mult.matches}{a character declaring how to deal with multiple
+name matches. Options are 'all' (concatenate all matches in the
+same line) and 'best' (only one name match is returned per line).
+Defaults to 'all'.}
+
+\item{sug.dist}{a fraction expressing the maximum distance allowed
+between the taxon name and the suggested names in the backbone,
+which is passed to the argument \code{max.dist} of the function
+\code{nameMatching()}. Defaults to 0.9 (i.e. maximum of 10\%
+difference).}
+
+\item{clean.names}{logical. Should spaces, ponctuation, symbols and
+species characters be removed prior to name matching? Defaults to
+TRUE.}
+
+\item{dist.method}{fuzzy matching algorithm to be passed on to
+\code{stringdist::amatch()}. Defaults to "jw" (i.e. Jaro-Winkler)}
+
+\item{split.letters}{logical. Should fuzzy matching be performed
+separately by the input and reference name initials? Defaults to
+FALSE}
+
+\item{parallel}{logical. Should fuzzy matching be performed in
+parallel? Defaults to FALSE}
+
+\item{cores}{integer. The number of cores for parallel execution.
+Two by default.}
+
+\item{show.progress}{logical. Whether fuzzy matching progress
+should displayed. Defaults to FALSE}
+
+\item{drop.cols}{character. Name of columns from the reference
+backbone that should be dropped from the results.}
 }
 \value{
-A data frame with the same columns provided by the user and some additional
-columns containing the suggested binomial ('suggestedName'), the corresponding
-scientific name ('scientific.name'), the notes and the sources used to retrieve
-the suggested binomial (columns 'notes' and 'source').
+A data frame with the same columns provided by the user and some
+additional columns containing the suggested taxon name
+('suggestedName'), the corresponding scientific name
+('scientific.name'), the taxonomic notes and sources used to get the
+suggested name (columns 'notes' and 'source').
 }
 \description{
-Provides valid plant names or corrects typos and orthographic
-variants based on the
-\href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil/ConsultaPublicaUC/ConsultaPublicaUC.do}{Brazilian
-Flora 2020} project and on the \href{http://www.theplantlist.org/}{The
-Plant List}. It uses the functionalities of other R packages, namely \strong{flora}
-(Carvalho 2019) and \strong{Taxonstand} (Cayuela et al. 2017).
+Provides valid taxon names or corrects typos and
+orthographic variants based on taxonomic backbones provided by
+the user or by the \code{plantR} companion packages \code{plantRdata} (the
+default).
 }
 \details{
-The function currently uses packages \strong{flora} and \strong{Taxonstand} to
-provide suggested names. Not all information returned by those packages
-are returned here, but some of them can be controlled using the argument
-\code{drop.cols}.
+The function first checks taxon names with authorship (if
+available), using both exact and fuzzy matching. This is good
+practice to avoid multiple matches in the reference backbone
+related to homonyms. If a name below the threshold distance
+defined in argument \code{sug.dist} is not found, then the function
+does another round of exact and fuzzy matching using only the
+taxon names without authorship.
 
-The function does not provide the suggested names from the different
-databases/sources. It combines into the same column ('suggestedName') the
-suggestions from one or more databases. If more than one databases is used,
-the suggested names are combined following the same order of the database
-codes provided in the argument \code{db}. See examples for details.
+The name check compares all unique names in \code{x} with all names in
+the taxonomic backbones selected. So, the speed of the checking
+process depends on the number of name combinations in \code{x} and in
+the backbone, besides the computer's operational system and
+specifications. But if the backbone selected has many names (over
+hundreds of thousands of names), such as those containing all
+plant names for the entire world, the process may take up to a
+minute to check a dozen of names.
+
+But if you have many thousands of input names to check and a
+large backbone, the function offers the possibility of doing the
+name matching by initial letters and/or using parallelization.
+See the help of function \code{nameMatching} which is used internally.
+
+The result of the name check will vary depending on the
+completeness of the backbone. And do expect some false positive
+matches, e.g. input names returning as misspelled but that
+actually are not in the reference backbone (e.g. matching of
+exotic names against a local or regional reference backbone). If
+this is the case, one should use more restrictive values of
+\code{sug.dist} than the default of 0.9. See examples for an
+illustration of these differences.
+
+Currently, there are two options: (1) using the \code{plantR} internal
+backbone for the Brazilian Vascular Flora (the default) or (2)
+using user-provided taxonomic backbones. The choice between these
+options is declared via the argument \code{db}, which is passed on to
+the function \code{getTaxBackbone()}.
+
+The companion R package \code{plantRdata} provides different global
+and regional taxonomic backbones in the exact format expected by
+\code{prepSpecies()}. See the help of function \code{getTaxBackbone()} for
+more details on this expected format.
+
+Previous versions of this function used packages \strong{flora} and
+\strong{Taxonstand} to provide suggested names. These packages are no
+longer used, but the function default is to compare names against
+the Brazilian Flora Online, the same backbones used by the
+package \strong{flora}.
+
+The function does not provide the suggested names from the
+different backbones in separate columns. It combines into
+the same column ('suggestedName') the suggestions from one or
+more backbone. If more than one database is used, the suggested
+names are combined following the same order of the database codes
+provided in the argument \code{db}.
+
+If \code{replace.names} is TRUE, the function replaces synonyms with
+its accepted name and replaces bad matches by NA. In the rare
+cases where multiple name matches have the same accepted name,
+the accepted name for both names is also returned. But note that
+the 'id' found in the reference
+
+The function returns a new column named 'tax.notes' which
+contains a summary of the result of the name matching for each
+taxon name. See the details of the function \code{getTaxNotes} for
+more details on those categories.
+
+By default, the argument \code{mult.matches} returns all possible
+names matched in the taxonomic backbone (mult.matches = 'all'),
+which is especially important if the authorship is not provided.
+If \code{mult.matches} is 'best', only one name is returned. Ideally,
+this is the accepted name within the multiple matches in the
+backbone. Result is a lot cleaner but in many cases this does not
+means that the accepted name returned actually is the right
+accepted for the input name. So, users should be extra careful
+when setting \code{mult.matches} to 'best'.
 }
 \examples{
-sp.list <- c("Casearia sylvestris","Casearia sylvestirs",
-  "Casearia sylvestris angustifolia", "Casearia attenuata",
-  "Casearia celtidifolia", "Casearia celtidifolia","Casearia tropicana")
-aut_list <- c("Sw.", "Sw.", "Uittien", "Rusby", "Kunth", "de Vriese","L.")
+sp.list <- c("Casearia sylvestris","Casearia sylvestris",
+  "Casearia sylvestirs", "Casearia silvestris",
+  "Casearia sylvestris var. angustifolia", "Casearia attenuata",
+  "Casearia celtidifolia","Casearia celtidifolia","Casearia celtidifolia",
+  "Casearia serrulata", "Casearia serrulata", "Casearia serrulata",
+  "Xylosma ciliatifolium", "Casearia tropicana")
+aut_list <- c("Sw.", "", "Sw.", "", "Uittien", "Rusby",
+  "", "Kunth", "Poepp. Eichler", "", "J. Seber ex Griseb.", "Sw.",
+  "(Clos) Eichler", "L.")
 
 df <- data.frame(scientificName.new = sp.list,
-  scientificNameAuthorship = aut_list)
+  scientificNameAuthorship.new = aut_list)
 
 prepSpecies(df)
+prepSpecies(df, clean.names = TRUE)
+prepSpecies(df, sug.dist = 0.925)
+prepSpecies(df, mult.matches = "best")
 
-}
-\references{
-Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
-Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
 
-Luis Cayuela, Anke Stein and Jari Oksanen (2017). Taxonstand: Taxonomic
-Standardization of Plant Species Names. R package version 2.1.
-https://CRAN.R-project.org/package=Taxonstand
 }
 \seealso{
-Functions \link[flora]{get.taxa}.
+Functions \link[plantR]{getTaxBackbone},
+\link[plantR]{nameMatching} and \link[plantR]{getTaxNotes}.
 }
 \author{
 Renato A. Ferreira de Lima
