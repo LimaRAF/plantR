@@ -80,6 +80,8 @@ fixAuthors <- function(taxa = NULL,
   if (length(rep_ids1) > 0L) {
     res[[2]][rep_ids1] <-
       gsub(" \\(.*", "", res[[1]][rep_ids1], perl = TRUE)
+    res[[3]][rep_ids1] <-
+      gsub("(.* )(\\(.*)", "\\2", res[[1]][rep_ids1], perl = TRUE)
   }
 
   no_auth <- res[[2]] %in% NA
@@ -100,7 +102,8 @@ fixAuthors <- function(taxa = NULL,
     res[[2]][no_auth][rep_ids2] <- taxa2check
   }
 
-  caps_and_prep <- grep("\\s\\p{Lu}", res[[2]][no_auth][rep_ids2], perl = TRUE)
+  caps_and_prep <-
+    grep("\\s\\p{Lu}", res[[2]][no_auth][rep_ids2], perl = TRUE)
   if (length(caps_and_prep) > 0L)
     res[[2]][no_auth][rep_ids2][caps_and_prep] <-
       gsub("\\s\\p{Lu}.*", "",
@@ -140,7 +143,11 @@ fixAuthors <- function(taxa = NULL,
   rep_ids3 <- grep("\\s\\p{Lu}", taxa1[no_auth],perl = TRUE)
   if (length(rep_ids3) > 0L) {
     res[[2]][no_auth][rep_ids3] <-
-      gsub("\\s\\p{Lu}.*", "", res[[1]][no_auth][rep_ids3], perl = TRUE)
+      gsub("\\s\\p{Lu}.*", "",
+           res[[1]][no_auth][rep_ids3], perl = TRUE)
+    res[[3]][no_auth][rep_ids3] <-
+      sub(".*? (\\p{Lu})", "\\1",
+           res[[1]][no_auth][rep_ids3], perl = TRUE)
   }
 
   first_hyb <- res[[2]] %in% c("x", "\u00d7")
@@ -149,6 +156,8 @@ fixAuthors <- function(taxa = NULL,
       gsub("^x |^\u00d7 ", "", res[[1]][first_hyb], perl = TRUE)
     res[[2]][first_hyb] <-
       gsub("\\s\\p{Lu}.*", "", res[[1]][first_hyb], perl = TRUE)
+    res[[3]][first_hyb] <-
+      sub(".*? (\\p{Lu})", "\\1", res[[1]][first_hyb], perl = TRUE)
   }
 
   bad_preps <- c(" ex$", " in$", " &$", " apud$")
@@ -197,6 +206,7 @@ fixAuthors <- function(taxa = NULL,
       }
     }
     res[[2]][bad_names] <- taxa2check
+    res[[3]][bad_names] <- NA
   }
 
   no_auth <- res[[2]] %in% NA
@@ -206,8 +216,8 @@ fixAuthors <- function(taxa = NULL,
                                   stringr::regex(" [a-z]"))
   low_authors <- (low_names > 1 |
                     grepl("\\.$", taxa1[no_auth], perl = TRUE)) &
-    !grepl(ranks_patt, taxa1[no_auth], perl = TRUE)
-  if (length(low_authors) > 0L) {
+                      !grepl(ranks_patt, taxa1[no_auth], perl = TRUE)
+  if (any(low_authors)) {
     tax2check <- taxa1[no_auth][low_authors]
     too_many_names <- low_names[low_authors] > 3
 
@@ -263,23 +273,43 @@ fixAuthors <- function(taxa = NULL,
           "yes"
       }
     }
+
     res[[2]][no_auth][low_authors] <- tax2check
   }
 
-  no_auth <- res[[2]] %in% NA
+  ranks_patt <- paste0(" ", ranks, " ", collapse = "|")
+  ranks_patt <- gsub("\\.", "\\\\.", ranks_patt, perl = TRUE)
+  check_ids <- which(grepl(ranks_patt, res[[3]], perl = TRUE) &
+                       !grepl(" f\\. ex | f\\. & ", res[[3]], perl = TRUE))
+  if (length(check_ids) > 0L) {
+    subs_ids <- regexpr(ranks_patt, res[[3]][check_ids], perl = TRUE)
+    auth.final <- substring(res[[3]][check_ids], 0, subs_ids - 1)
+    sci.infra <- substring(res[[3]][check_ids], subs_ids + 1,
+                           nchar(res[[3]][check_ids]))
+    sci.final <- paste(res[[2]][check_ids],
+                       sci.infra, sep = " ")
+    res[[2]][check_ids] <- sci.final
+    res[[3]][check_ids] <- auth.final
+  }
+
+  no_auth <- res[[2]] %in% NA | !res[[3]] %in% NA
   auth_ids <- which(!no_auth)
   if (length(auth_ids) > 0L) {
     orig_split <- strsplit(res[[1]][auth_ids], " ", fixed = TRUE)
     name_split <- strsplit(res[[2]][auth_ids], " ", fixed = TRUE)
-    char_diff <- function(x, y) return(x[!(x %in% y & !duplicated(x))])
+    # char_diff <- function(x, y) return(x[!(x %in% y & !duplicated(x))]) ### CHECAR MELHOR ###
+    # char_diff <- function(x, y) return(x[!(x %in% y | duplicated(x))])
+    # char_diff <- function(x, y) return(x[!(x %in% y & !x %in% ranks)])
+    # char_diff <- function(x, y) return(x[!x %in% y & x != "f."])
+    char_diff <- function(x, y) return(x[!x %in% y & !x %in% ranks])
     name_diff <- mapply(char_diff, orig_split, name_split, SIMPLIFY = FALSE)
     auth.name <- sapply(name_diff, paste, collapse = " ")
 
     ranks_patt <- paste0(" ", ranks, " ", collapse = "|")
     ranks_patt <- gsub("\\.", "\\\\.", ranks_patt, perl = TRUE)
     check_ids <- which(grepl(ranks_patt, auth.name, perl = TRUE) &
-                  !grepl(" f\\. ex | f\\. & ", auth.name, perl = TRUE))
-    if (length(check_ids)) {
+                         !grepl(" f\\. ex | f\\. & ", auth.name, perl = TRUE))
+    if (length(check_ids) > 0L) {
       subs_ids <- regexpr(ranks_patt, auth.name[check_ids], perl = TRUE)
       auth.final <- substring(auth.name[check_ids], 0, subs_ids - 1)
       sci.infra <- substring(auth.name[check_ids], subs_ids + 1,
@@ -290,16 +320,16 @@ fixAuthors <- function(taxa = NULL,
       auth.name[check_ids] <- auth.final
     }
 
+    auth.name[auth.name %in% ""] <- NA
     res[[3]][auth_ids] <- auth.name
   }
 
-  fix_these <- res[[4]] %in% "yes"
-  if (any(fix_these)) {
+  fix_these <- res[[4]] %in% "yes" & !res[[3]] %in% ""
+  if (any(fix_these))
     res[[3]][fix_these] <-
       gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)
-    res[[3]][fix_these][res[[3]][fix_these] %in% ""] <- NA
-  }
 
+  no_auth <- res[[2]] %in% NA
   if (any(no_auth))
     res[[2]][no_auth] <- res[[1]][no_auth]
 

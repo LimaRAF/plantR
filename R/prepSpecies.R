@@ -214,7 +214,7 @@ prepSpecies <- function(x,
     ref.df <- dbs[[i]]
     if (use.authors) {
       df_unique <- unique(df[, tax.names])
-      df_unique <- na.omit(df_unique)
+      df_unique <- df_unique[!is.na(df_unique[[1]]), ]
       input_names <- buildName(df_unique, tax.names)
       no_author <- df_unique[[tax.names[2]]] %in% c("", " ", NA, "NA", "NULL")
       if (any(no_author))

@@ -80,7 +80,7 @@ fixLoc(df, scrap = FALSE, to.lower = FALSE)
 fixLoc(df, scrap = TRUE)
 
 # Formating the locality information only at country and state levels
-fixLoc(df, loc.levels = c("country", "stateProvince"))[,-c(1:4)]
+fixLoc(df, loc.levels = c("country", "stateProvince"))
 
 }
 \author{
