@@ -328,7 +328,7 @@ prepSpecies <- function(x,
       if (clean.names) {
         ref_names_clean1 <- cleanName(ref.df[["name"]])
       } else {
-        ref_names_clean1 <- ref_names_clean
+        ref_names_clean1 <- ref.df[["name"]]
       }
 
       # exact matches
@@ -337,7 +337,13 @@ prepSpecies <- function(x,
 
         df1 <- result[no_authors_no_match, ]
         tmp.match.col <- "tmp.tax.name"
-        df1[[tmp.match.col]] <- cleanName(df1[[tax.names[1]]])
+
+        if (clean.names) {
+          df1[[tmp.match.col]] <- cleanName(df1[[tax.names[1]]])
+        } else {
+          df1[[tmp.match.col]] <- df1[[tax.names[1]]]
+        }
+
         ref.df[[tmp.match.col]] <- ref_names_clean1
 
         bb_cols1 <- bb_cols[!bb_cols %in% "name"]

@@ -297,10 +297,8 @@ fixAuthors <- function(taxa = NULL,
   if (length(auth_ids) > 0L) {
     orig_split <- strsplit(res[[1]][auth_ids], " ", fixed = TRUE)
     name_split <- strsplit(res[[2]][auth_ids], " ", fixed = TRUE)
-    # char_diff <- function(x, y) return(x[!(x %in% y & !duplicated(x))]) ### CHECAR MELHOR ###
+    # char_diff <- function(x, y) return(x[!(x %in% y & !duplicated(x))])
     # char_diff <- function(x, y) return(x[!(x %in% y | duplicated(x))])
-    # char_diff <- function(x, y) return(x[!(x %in% y & !x %in% ranks)])
-    # char_diff <- function(x, y) return(x[!x %in% y & x != "f."])
     char_diff <- function(x, y) return(x[!x %in% y & !x %in% ranks])
     name_diff <- mapply(char_diff, orig_split, name_split, SIMPLIFY = FALSE)
     auth.name <- sapply(name_diff, paste, collapse = " ")
