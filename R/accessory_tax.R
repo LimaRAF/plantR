@@ -29,6 +29,8 @@
 #'
 #' @param x a vector with scientific names to be standardized.
 #' @param rank the expression or symbol to be added between names.
+#' @param pretty.hyb should the hybrid symbol be added close to the
+#'   epiteth? Defaults to FALSE
 #'
 #' @author Sara Mortara & Renato A. F. de Lima
 #'
@@ -48,17 +50,16 @@
 #'
 rmOpen <- function(x) {
 
-    aff_string <- "^aff\\.|^aff[[:space:]]|[[:space:]]aff\\.[[:space:]]|[[:space:]]aff[[:space:]]"
-    cf_string <- "^cf\\.|^cf[[:space:]]|[[:space:]]cf\\.[[:space:]]|[[:space:]]cf[[:space:]]"
-    aff_cf <- paste(aff_string, cf_string, sep = "|")
+  aff_string <- "^aff\\.|^aff | aff\\. | aff "
+  cf_string <- "^cf\\.|^cf | cf\\. | cf "
+  aff_cf <- paste(aff_string, cf_string, sep = "|")
 
-    x_new <- stringr::str_replace(x, stringr::regex(aff_cf, ignore_case = TRUE), " ")
+  x_new <- stringr::str_replace(x,
+                                stringr::regex(aff_cf,
+                                               ignore_case = TRUE), " ")
+  x_new <- squish(x_new)
 
-    # x_new <- stringr::str_squish(x_new)
-    x_new <- gsub("\\s+", " ", x_new, perl = TRUE)
-    x_new <- gsub("^ | $", "", x_new, perl = TRUE)
-
-    return(x_new)
+  return(x_new)
 }
 
 #'
@@ -72,25 +73,25 @@ rmOpen <- function(x) {
 #'
 rmInfra <- function(x) {
 
-  form_string <- "[[:space:]]f\\.[[:space:]]|[[:space:]]form\\.[[:space:]]"
-  subsp_string <-  "[[:space:]]ssp\\.|[[:space:]]subsp\\.|[[:space:]]subsp[[:space:]]|[[:space:]]ssp[[:space:]]"
-  var_string <- "[[:space:]]var\\.|[[:space:]]var[[:space:]]"
+  form_string <- " f\\. | form\\. | fo\\. | forma "
+  subsp_string <-  " ssp\\.| subsp\\.| subsp | ssp "
+  var_string <- " var\\.| var "
   subsp_var <- paste(subsp_string, var_string, form_string, sep = "|")
 
-  split <- stringr::str_split(x, stringr::regex(subsp_var, ignore_case = TRUE))
+  split <- stringr::str_split(x, stringr::regex(subsp_var,
+                                                ignore_case = TRUE))
 
   # split.mat <- stringi::stri_list2matrix(split, byrow = TRUE)
   split.mat <- t(sapply(split, "[", i = 1:2))
   if (dim(split.mat)[2] == 0) {
     return(NA_character_)
   } else {
-    # split.mat[, 2] <- stringr::str_squish(split.mat[, 2])
-    split.mat[, 2] <- gsub("\\s+", " ", split.mat[, 2], perl = TRUE)
-    split.mat[, 2] <- gsub("^ | $", "", split.mat[, 2], perl = TRUE)
-
-    infra_authors <- stringr::str_count(split.mat[, 1], stringr::fixed(" ")) > 1
+    split.mat[, 2] <- squish(split.mat[, 2])
+    infra_authors <- stringr::str_count(split.mat[, 1],
+                                        stringr::fixed(" ")) > 1
     split.mat[infra_authors, 1] <- gsub(" [A-Z].*| \\(.*", "",
-                                      split.mat[infra_authors, 1], perl = TRUE)
+                                      split.mat[infra_authors, 1],
+                                      perl = TRUE)
     x_new <- paste(split.mat[, 1], split.mat[, 2])
 
     return(x_new)
@@ -101,17 +102,18 @@ rmInfra <- function(x) {
 #' @examples
 #' \dontrun{
 #' rmHyb(c("Blechnum ×antillanum", "Blechnum × antillanum",
-#'        "Blechnum x antillanum", "Blechnum X antillanum"))
+#'        "Blechnum x antillanum", "Blechnum X antillanum",
+#'        "× Blechnum antillanum"))
 #' }
 #'
 rmHyb <- function(x)  {
 
-  hyb_string <- "[[:space:]]x[[:space:]]|[[:space:]]\u00d7[[:space:]]|[[:space:]]\u00d7(?=[[:alpha:]])"
+  hyb_string <- " x |\u00d7 | \u00d7 | \u00d7(?=[[:alpha:]])"
 
-  x_new <- stringr::str_replace(x, stringr::regex(hyb_string, ignore_case = TRUE), " ")
-
-  x_new <- gsub("\\s+", " ", x_new, perl = TRUE)
-  x_new <- gsub("^ | $", "", x_new, perl = TRUE)
+  x_new <- stringr::str_replace(x,
+                                stringr::regex(hyb_string,
+                                               ignore_case = TRUE), " ")
+  x_new <- squish(x_new)
 
   return(x_new)
 }
@@ -125,7 +127,7 @@ rmHyb <- function(x)  {
 #' }
 #'
 #'
-addRank <- function(x, rank = NULL) {
+addRank <- function(x, rank = NULL, pretty.hyb = FALSE) {
 
   if (is.null(rank))
     stop("please chose a rank, symbol or character to be added")
@@ -140,23 +142,30 @@ addRank <- function(x, rank = NULL) {
 
 
   if (n.max >= 3)
-    split.mat[, 3] <- do.call(paste, as.data.frame(split.mat[, 3:n.max]))
+    split.mat[, 3] <- do.call(paste,
+                              as.data.frame(split.mat[, 3:n.max]))
 
   x_new <- x
 
-  if (any(n.str == 2))
-    x_new[n.str == 2] <- paste(split.mat[n.str == 2, 1],
-                             rank[n.str == 2],
-                             split.mat[n.str == 2, 2])
-  if (any(n.str >= 3))
-    x_new[n.str >= 3] <- paste(split.mat[n.str >= 3, 1],
-                             split.mat[n.str >= 3, 2],
-                             rank[n.str >= 3],
-                             split.mat[n.str >= 3, 3], sep = " ")
-  x_new <- gsub(" NA NA NA$| NA NA$| NA$", "", x_new, perl = TRUE)
+  rep_these <- n.str == 2
+  if (any(rep_these))
+    x_new[rep_these] <- paste(split.mat[rep_these, 1],
+                             rank[rep_these],
+                             split.mat[rep_these, 2])
 
-  if (any(rank %in% c("\u00d7", "x")))
-    x_new <- gsub(paste0(" ", rank, " "), paste0(" ", rank), x_new, perl = TRUE)
+  rep_these <- n.str >= 3
+  if (any(rep_these))
+    x_new[rep_these] <- paste(split.mat[rep_these, 1],
+                             split.mat[rep_these, 2],
+                             rank[rep_these],
+                             split.mat[rep_these, 3], sep = " ")
+  x_new <- sub(" NA NA NA$| NA NA$| NA$", "", x_new, perl = TRUE)
+
+  if (pretty.hyb) {
+    check_these <- rank %in% "\u00d7"
+    if (any(check_these))
+      x_new <- gsub(" \u00d7 ", " \u00d7", x_new, perl = TRUE)
+  }
 
   return(x_new)
 }

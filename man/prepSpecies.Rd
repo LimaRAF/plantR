@@ -12,6 +12,7 @@ prepSpecies(
   replace.names = TRUE,
   mult.matches = "all",
   sug.dist = 0.9,
+  clean.indet = TRUE,
   clean.names = FALSE,
   dist.method = "jw",
   split.letters = FALSE,
@@ -52,6 +53,10 @@ between the taxon name and the suggested names in the backbone,
 which is passed to the argument \code{max.dist} of the function
 \code{nameMatching()}. Defaults to 0.9 (i.e. maximum of 10\%
 difference).}
+
+\item{clean.indet}{logical. Should the markers and identifiers of
+unidentified species (e.g. sp. or spp.) be removed prior to name
+matching? Defaults to TRUE.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to

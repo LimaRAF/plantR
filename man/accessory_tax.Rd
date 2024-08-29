@@ -14,12 +14,15 @@ rmInfra(x)
 
 rmHyb(x)
 
-addRank(x, rank = NULL)
+addRank(x, rank = NULL, pretty.hyb = FALSE)
 }
 \arguments{
 \item{x}{a vector with scientific names to be standardized.}
 
 \item{rank}{the expression or symbol to be added between names.}
+
+\item{pretty.hyb}{should the hybrid symbol be added close to the
+epiteth? Defaults to FALSE}
 }
 \description{
 These accessory functions work for editing the notation of
@@ -57,7 +60,8 @@ rmInfra(c("Lindsaea lancea var. angulata",
 
 \dontrun{
 rmHyb(c("Blechnum ×antillanum", "Blechnum × antillanum",
-       "Blechnum x antillanum", "Blechnum X antillanum"))
+       "Blechnum x antillanum", "Blechnum X antillanum",
+       "× Blechnum antillanum"))
 }
 
 \dontrun{

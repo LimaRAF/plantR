@@ -42,8 +42,7 @@ nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
           "LINDSAEA LANCEA ANGULATA Rosenst.",
           "Blechnum antillanum Proctor",
           "Blechnum occidentale leopoldense Dutra",
-          "Blechnum occidentale var. leopoldense Dutra",
-          "Cf. Australe")
+          "Blechnum occidentale var. leopoldense Dutra")
 
 fixCase(nomes)
 }

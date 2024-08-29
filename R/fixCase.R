@@ -39,8 +39,7 @@
 #'           "LINDSAEA LANCEA ANGULATA Rosenst.",
 #'           "Blechnum antillanum Proctor",
 #'           "Blechnum occidentale leopoldense Dutra",
-#'           "Blechnum occidentale var. leopoldense Dutra",
-#'           "Cf. Australe")
+#'           "Blechnum occidentale var. leopoldense Dutra")
 #'
 #' fixCase(nomes)
 #' }
@@ -63,9 +62,9 @@ fixCase <- function (x) {
   } else {
 
     #First letter no capitalized?
-    first <- grepl("^[a-z]", x, perl = TRUE)
-    if (any(first))
-      x[first] <- gsub("(^[a-z])", "\\U\\1", x[first], perl = TRUE)
+    first <- grep("^[a-z]", x, perl = TRUE)
+    if (length(first) > 0L)
+      x[first] <- sub("(^[a-z])", "\\U\\1", x[first], perl = TRUE)
 
     #Getting the position of the second space, if present
     spc.loc <- stringi::stri_locate_all(x, fixed = " ")
@@ -75,12 +74,14 @@ fixCase <- function (x) {
     spc.loc3 <- spc.loc[3, ]
 
     #All letters capitalized, only the species name
-    all.caps <- x == toupper(x) & is.na(spc.loc2)
-    if (any(all.caps))
+    all.caps <- which(x == toupper(x) & is.na(spc.loc2))
+    if (length(all.caps) > 0L)
       x[all.caps] <- paste0(substring(x[all.caps], 1, 1),
                             tolower(substring(x[all.caps], 2)))
 
-    sp.caps <- substr(x, 1, spc.loc1 -1) == toupper(substr(x, 1, spc.loc1 -1)) & !is.na(spc.loc1)
+    sp.caps <- substr(x, 1, spc.loc1 -1) == toupper(substr(x, 1, spc.loc1 -1)) &
+                    !is.na(spc.loc1) &
+                      !substr(x, 1, spc.loc1 -1) %in% "\u00d7"
     sp.caps[is.na(sp.caps)] <- FALSE
     if (any(sp.caps)) {
       split <- strsplit(gsub("[^[:alnum:] ]", "", x[sp.caps],
@@ -96,7 +97,7 @@ fixCase <- function (x) {
                                  sep = "")
     }
 
-    #Specific or infra-specific epithet with firt letter capitalized
+    #Specific or infra-specific epithet with first letter capitalized
     patt <- " (?=[A-Z])| (?=\\()"
     # split <- stringr::str_split(x, stringr::regex(patt))
     split <- strsplit(x, patt, perl = TRUE)
@@ -110,7 +111,8 @@ fixCase <- function (x) {
       upper_these <- n.str > 1 & !split[,1] %in% c("cf.","Cf.","aff.","Aff.") &
                         grepl("^[A-Z]", split[,2], perl = TRUE) &
                           !grepl("\\W+", split[,2], perl = TRUE) &
-                            !(!grepl("\\.$", split[,1], perl = TRUE) &
+                            !grepl("\\ssp+\\.$", split[,1], perl = TRUE) &
+                              !(!grepl("\\.$", split[,1], perl = TRUE) &
                                stringr::str_count(split[,1], stringr::fixed(" ")) >= 1) &
                                   not.name >= 3
 

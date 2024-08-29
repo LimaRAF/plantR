@@ -75,37 +75,37 @@ getTaxNotes <- function(x = NULL,
 
   notes <- rep("", dim(x)[1])
 
-  rep_these <- match %in% no.match | is.na(nomes)
-  if (any(rep_these)) {
+  rep_these <- which(match %in% no.match | is.na(nomes))
+  if (length(rep_these) > 0L) {
     notes[rep_these] <- "not found"
     multm[rep_these] <- FALSE
   }
 
-  rep_these <- grepl("^bad_", match, perl = TRUE)
-  if (any(rep_these))
+  rep_these <- grep("^bad_", match, perl = TRUE)
+  if (length(rep_these) > 0L)
     notes[rep_these] <- "bad match"
 
-  rep_these <- nstat %in% "orthographic variant"
-  if (any(rep_these))
+  rep_these <- which(nstat %in% "orthographic variant")
+  if (length(rep_these) > 0L)
     notes[rep_these] <- "orthographic variant"
 
-  rep_these <- multm | grepl("\\|", tstat, perl = TRUE)
-  if (any(rep_these))
+  rep_these <- which(multm | grepl("\\|", tstat, perl = TRUE))
+  if (length(rep_these) > 0L)
       notes[rep_these] <- "check +1 name"
 
   rep_these <- !dname == 0 & !dauth == 0 & !is.na(dauth)
   rep_these[is.na(rep_these)] <- FALSE
   if (any(rep_these)) {
-    empty <- rep_these & notes %in% ""
-    if (any(empty))
+    empty <- which(rep_these & notes %in% "")
+    if (length(empty) > 0L)
       notes[empty] <- "name and author misspelled"
   }
 
   rep_these <- dname == 0 & !dauth == 0 & !is.na(dauth)
   rep_these[is.na(rep_these)] <- FALSE
   if (any(rep_these)) {
-    empty <- rep_these & notes %in% ""
-    if (any(empty))
+    empty <- which(rep_these & notes %in% "")
+    if (length(empty) > 0L)
       notes[empty] <- "author misspelled"
   }
 
@@ -115,7 +115,7 @@ getTaxNotes <- function(x = NULL,
   if (any(rep_these)) {
     empty <- rep_these & notes %in% ""
     if (any(empty))
-      notes[rep_these] <- "name misspelled"
+      notes[rep_these & empty] <- "name misspelled"
   }
 
   rep_these <- tstat %in% "synonym"
@@ -147,19 +147,20 @@ getTaxNotes <- function(x = NULL,
       notes[rep_these & empty] <- "name accepted"
   }
 
-  rep_these <- grepl("check +1 name|", notes, fixed = TRUE)
-  if (any(rep_these))
-    notes[rep_these & empty] <- "check +1 name"
+  rep_these <- grep("check +1 name|", notes, fixed = TRUE)
+  if (length(rep_these) > 0L)
+    notes[rep_these] <- "check +1 name"
 
-  rep_these <- grepl("orthographic variant|", notes, fixed = TRUE)
-  if (any(rep_these))
-    notes[rep_these & empty] <- "orthographic variant"
+  rep_these <- grep("orthographic variant|", notes, fixed = TRUE)
+  if (length(rep_these) > 0L)
+    notes[rep_these] <- "orthographic variant"
+
+  rep_these <- grep("bad match|", notes, fixed = TRUE)
+  if (length(rep_these) > 0L)
+    notes[rep_these] <- "bad match"
 
 
   x$notes <- notes
-
-
-
 
   return(x)
 }

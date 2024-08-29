@@ -12,6 +12,7 @@ test_that("rmInfra works", {
 })
 
 test_that("rmHyb works", {
+  expect_equal(rmHyb("× Blechnum antillanum"), "Blechnum antillanum")
   expect_equal(rmHyb("Blechnum ×antillanum"), "Blechnum antillanum")
   expect_equal(rmHyb("Blechnum × antillanum"), "Blechnum antillanum")
   expect_equal(rmHyb("Blechnum x antillanum"), "Blechnum antillanum")
@@ -26,5 +27,7 @@ test_that("addRank works", {
   expect_equal(addRank("Lindsaea schomburgkii coriifolia", rank = "f."),
                "Lindsaea schomburgkii f. coriifolia")
   expect_equal(addRank("Blechnum antillanum", rank = "\u00d7"),
+               "Blechnum × antillanum")
+  expect_equal(addRank("Blechnum antillanum", rank = "\u00d7", TRUE),
                "Blechnum ×antillanum")
 })

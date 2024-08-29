@@ -144,7 +144,8 @@ fixSpecies <- function(x = NULL,
   hyb_string <- "\u00d7 | x | \u00d7 "
   inc_string <- "inc\\. sed\\.|Incertae sedis"
   spnov_string <- " sp\\. nov\\.| spec\\. nov\\.| sp\\. n\\.| nov\\. sp\\.| nov\\. spec\\.| n\\. sp\\."
-  indet_string <- " sp\\.$| sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
+  indet_string <- " sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
+  # indet_string <- " sp\\.$| sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
 
   # Add other possibilities of infraspecific codes
   # "cultivar.", "subvar."
@@ -212,7 +213,7 @@ fixSpecies <- function(x = NULL,
   check$species_new[case] <- fixed_cases[case]
 
   # recognizing and isolating authorship
-  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] ",
+  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$",
                        check$species_new, perl = TRUE) &
                   !grepl(" [A-Z+]$", check$species_new, perl = TRUE)
 
@@ -220,49 +221,67 @@ fixSpecies <- function(x = NULL,
     author_split <- fixAuthors(check$species_new[auth_string])
     tax_name <- author_split$tax.name
     tax_author <- author_split$tax.author
+    tax_status <- check$species_status[auth_string]
     id_authors <- check$species_new[auth_string] != tax_name
 
-    check$species_status[auth_string][id_authors] <-
-      paste(check$species_status[auth_string][id_authors],
-            "name_w_authors", sep = "|")
-    check$species_status <-
-      gsub("^\\|", "", check$species_status, perl = TRUE)
+    check_these <- tax_status %in% "indet"
+    if (any(check_these)) {
+      tax_author[check_these] <- NA
+      id_authors_indet <- id_authors
+      id_authors_indet[check_these] <- FALSE
+    } else {
+      id_authors_indet <- id_authors
+    }
+
+    check$species_status[auth_string][id_authors_indet] <-
+      paste(tax_status[id_authors_indet], "name_w_authors", sep = "|")
+    check$species_status[auth_string] <-
+      sub("^\\|", "", check$species_status[auth_string], perl = TRUE)
     check$species_new[auth_string][id_authors] <-
       squish(tax_name[id_authors])
     check$authors_new[auth_string][id_authors] <-
       squish(tax_author[id_authors])
   }
 
-
   # removing open taxonomy, ranks and hybrid notation
-  check$species_new[aff | cf] <- rmOpen(check$species_new[aff | cf])
-  check$species_new[hyb] <- rmHyb(check$species_new[hyb])
-  check$species_new[subsp | var | form] <-
-    rmInfra(check$species_new[subsp | var | form])
+  if (any(aff | cf))
+    check$species_new[aff | cf] <- rmOpen(check$species_new[aff | cf])
+
+  if (any(hyb))
+    check$species_new[hyb] <- rmHyb(check$species_new[hyb])
+
+  if (any(subsp | var | form))
+    check$species_new[subsp | var | form] <-
+      rmInfra(check$species_new[subsp | var | form])
 
   # names not matching genus + epithet pattern
-  id_not_gensp <- sapply(stringr::str_split(check$species_new, " "),
-                         length) > 2 & check$species_status %in% ""
-  if (any(id_not_gensp))
+  id_not_gensp <- which(
+    lengths(stringr::str_split(check$species_new, " ")) > 2 &
+      check$species_status %in% "")
+  if (length(id_not_gensp) > 0L)
     check$species_status[id_not_gensp] <- "not_Genus_epithet_format"
 
   # aceae in first string
-  gen <- gsub(" .*", "", check$species_new, perl = TRUE)
+  gen <- sub(" .*", "", check$species_new, perl = TRUE)
   id_gen <- endsWith(gen, "aceae")
-  check$species_status[id_gen] <- "family_as_genus"
+  if (any(id_gen))
+    check$species_status[id_gen] <- "family_as_genus"
 
   # order as genus
   id_ord <- endsWith(gen, "ales")
-  check$species_status[id_ord] <- "order_as_genus"
+  if (any(id_ord))
+    check$species_status[id_ord] <- "order_as_genus"
 
   # subfamily as genus
   id_sub <- endsWith(gen, "deae")
-  check$species_status[id_sub] <- "subfamily_as_genus"
+  if (any(id_sub))
+    check$species_status[id_sub] <- "subfamily_as_genus"
 
   # abreviated genus
-  abbrev_gen <- gsub("\\.", "", gen, perl = TRUE)
+  abbrev_gen <- sub("\\.", "", gen, perl = TRUE)
   abbrev_gen <- nchar(abbrev_gen) == 1
-  check$species_status[abbrev_gen] <- "abbreviated_genus"
+  if (any(abbrev_gen))
+    check$species_status[abbrev_gen] <- "abbreviated_genus"
 
   # possibly ok (none of the categories above)
   check$species_status[check$species_status %in% c("", NA)] <-
@@ -296,12 +315,21 @@ fixSpecies <- function(x = NULL,
         addRank(check$species_new[rep_these], "f.")
 
     rep_these <- status$hybrid %in% "hybrid"
-    if (any(rep_these))
-      check$species_new[rep_these] <-
-        addRank(check$species_new[rep_these], "\u00d7")
+    if (any(rep_these)) {
+      pos_hyb <- grep("^\u00d7", check$species[rep_these])
+      if (length(pos_hyb) > 0L) {
+        check$species_new[rep_these][pos_hyb] <-
+          paste("\u00d7", check$species_new[rep_these][pos_hyb])
+        rep_these[rep_these][pos_hyb] <- FALSE
+      }
+
+      if (any(rep_these))
+        check$species_new[rep_these] <-
+          addRank(check$species_new[rep_these], "\u00d7")
+    }
 
     check$species_new <-
-      gsub(" NA$", "", check$species_new, perl = TRUE)
+      sub(" NA$", "", check$species_new, perl = TRUE)
   }
 
   # option to return names with or without unidentified abbreviations
@@ -309,12 +337,12 @@ fixSpecies <- function(x = NULL,
     indet.ids <- check$species_status %in%
       c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
     check$species_new[indet.ids] <-
-      gsub(" sp\\..*", "", check$species_new, perl = TRUE)[indet.ids]
+      sub(" sp+\\..*", "", check$species_new, perl = TRUE)[indet.ids]
 
   } else {
     indet.ids <- check$species_status %in%
       c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
-    sp.ids <- grepl(" sp\\.|spp\\.", check$species_new, perl = TRUE)
+    sp.ids <- grepl(" sp+\\.", check$species_new, perl = TRUE)
     if (any(indet.ids & !sp.ids)) {
       check$species_new[indet.ids & !sp.ids] <-
         paste0(check$species_new[indet.ids & !sp.ids], " sp.")
