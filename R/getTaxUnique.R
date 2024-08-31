@@ -11,6 +11,8 @@
 #'   original name in the input data frame 'df'. Defaults to
 #'   "scientificName.new" which is the output of the `plantR` function
 #'   `fixSpecies()`
+#' @param name.col a vector with the name of the column with the taxon
+#'   name in the data frame 'df.ref'. Defaults to 'name'.
 #' @param status.col a vector with the name of the column with the
 #'   taxonomic status in the reference data frame 'df.ref'. Defaults to
 #'   'taxon.status'.
@@ -43,6 +45,7 @@
 getTaxUnique <- function(df = NULL, df.ref = NULL,
                          match.col = NULL,
                          orig.col = "scientificName.new",
+                         name.col = "name",
                          status.col  = "taxon.status",
                          type.match.col = "match_type",
                          mult.match.col = "multiple_match",
@@ -52,6 +55,7 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
                                       "taxon.status", "accepted.name",
                                       "accepted.authorship",
                                       "accepted.taxon.rank",
+                                      "accepted.taxon.status",
                                       "accepted.name.status")) {
 
   if (!inherits(df, "data.frame"))
@@ -77,6 +81,9 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
   if (!(match.col %in% names(df) & match.col %in% names(df.ref)))
     stop("Both input and reference data frame must have a column named: ",
          match.col, call. = FALSE)
+
+  df.orig <- df
+  df <- df[!duplicated(df[[match.col]]), ]
 
   rep_these <- df.ref[[status.col]] %in% ""
   if (any(rep_these))
@@ -190,5 +197,11 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
     res.final <- res2[, !grepl(".x", names(res2), fixed = TRUE)]
   }
 
-  return(res.final)
+  res.temp <- dplyr::left_join(df.orig, res.final, by = match.col,
+                               suffix = c(".x", ""))
+  cols_rep <- unique(c(mult.match.col, agg.cols))
+  df.orig[, cols_rep] <- res.temp[, cols_rep]
+  df.orig[[name.col]] <- res.temp[[match.col]]
+
+  return(df.orig)
 }

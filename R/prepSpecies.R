@@ -201,10 +201,12 @@ prepSpecies <- function(x,
       df <- cbind.data.frame(
         tmp..ordem = seq_along(x[[tax.names[1]]]),
         x[, tax.names])
+      df[[3]][df[[3]] %in% c("", "NA", NULL, " ")] <- NA
     } else {
       df <- cbind.data.frame(
         tmp..ordem = seq_along(x[[tax.names[1]]]),
         x[, tax.names])
+      df[[3]][df[[3]] %in% c("", "NA", NULL, " ")] <- NA
     }
 
   } else {
@@ -216,7 +218,7 @@ prepSpecies <- function(x,
     df <- cbind.data.frame(
       tmp..ordem = seq_along(x[[tax.names[1]]]), x[, tax.names[1],
                                                    drop = FALSE])
-    df[[tax.names[2]]] <- NA_character_
+    df[[tax.names[2]]] <- NA
   }
 
   # creating the reference dataframe: internal or user provided
@@ -237,7 +239,8 @@ prepSpecies <- function(x,
       df_unique <- unique(df[, tax.names])
       df_unique <- df_unique[!is.na(df_unique[[1]]), ]
       input_names <- buildName(df_unique, tax.names)
-      no_author <- df_unique[[tax.names[2]]] %in% c("", " ", NA, "NA", "NULL")
+
+      no_author <- is.na(df_unique[[tax.names[2]]])
       if (any(no_author))
         input_names[no_author] <- df_unique[[tax.names[1]]][no_author]
 
@@ -251,15 +254,24 @@ prepSpecies <- function(x,
     }
 
     if (clean.indet) {
+      search_names <- input_names
       w_indet <- grepl("\\ssp+\\.", input_names, perl = TRUE)
-      if (any(w_indet))
+      if (any(w_indet)) {
+        tmp_df_unique <- df_unique[w_indet, ]
+        tmp_df_unique[[tax.names[1]]] <-
+          sub("\\ssp+\\..*", "", tmp_df_unique[[tax.names[1]]],
+              perl = TRUE)
+        search_names[w_indet] <-
+          tmp_df_unique[[tax.names[1]]]
         input_names[w_indet] <-
-          sub("\\ssp+\\..*", "", input_names[w_indet], perl = TRUE)
+          buildName(tmp_df_unique, tax.names)
+      }
 
       if (any(is.na(w_indet)))
         w_indet[is.na(w_indet)] <- FALSE
 
     } else {
+      search_names <- input_names
       w_indet <- rep(FALSE, length(input_names))
     }
 
@@ -271,100 +283,134 @@ prepSpecies <- function(x,
       ref_names_clean <- ref_names
     }
 
-    match_type <- rep(NA, length(input_names))
+    match_type <- rep(NA, length(input_names_clean))
 
-    # perfect match
-    perfect_match <- match(input_names, ref_names)
-    check_these <- is.na(perfect_match)
-    if (any(!check_these)) {
-      match_type[!check_these] <-
-        "exact_w_author"
-
-      exact_no_authors <- no_author & !check_these
-      if (any(exact_no_authors))
-        match_type[no_author & !check_these] <-
-          "exact_wout_author_in_backbone"
-
-      exact_wout_indet <- w_indet & !check_these
-      if (any(exact_wout_indet))
-        match_type[w_indet & !check_these] <-
-          "exact_wout_indet"
-    }
-
-    # perfect match with cleaned names
-    if (clean.names) {
-      if (any(check_these)) {
-        perfect_match_clean <- match(input_names_clean, ref_names_clean)
-        rep_these <- !is.na(perfect_match_clean) & is.na(perfect_match)
-
-        if (any(rep_these)) {
-          perfect_match[rep_these] <- perfect_match_clean[rep_these]
-          match_type[rep_these] <- "exact_w_author_clean"
-          match_type[no_author & rep_these] <-
-            "exact_wout_author_in_backbone_clean"
-        }
-      }
-    }
-
-    # fuzzy matching
-    max_dist = 1 - sug.dist
-    check_these <- is.na(perfect_match) & !no_author
-    if (any(check_these)) {
-      fuzzy_match <- nameMatching(input_names_clean[check_these],
-                                  ref_names_clean,
-                                  match.type = "fuzzy",
-                                  clean.names = FALSE,
-                                  dist.method = dist.method,
-                                  max.dist = max_dist,
-                                  split.letters = split.letters,
-                                  parallel = parallel,
-                                  cores = cores,
-                                  show.progress = TRUE)
-
-      perfect_match[check_these] <- fuzzy_match
-      match_type[check_these] <- "fuzzy_w_author"
-    }
-
+    # name matching with authorships
     bb_cols <- c("id", "family", "name", "authorship",
                  "taxon.rank", "name.status","taxon.status",
                  "accepted.name", "accepted.authorship",
-                 "accepted.taxon.rank", "accepted.name.status")
+                 "accepted.taxon.rank", "accepted.taxon.status",
+                 "accepted.name.status")
     bb_cols <- bb_cols[bb_cols %in% names(ref.df)]
-    result <- cbind.data.frame(df_unique, ref.df[perfect_match, bb_cols])
 
-    # multiple match column
-    result$match_type <- match_type
-    result$multiple_match <- NA
-    rep_these <- result$match_type %in%  c("exact_w_author",
-                                           "exact_wout_author_in_backbone",
-                                           "exact_w_author_clean",
-                                           "exact_wout_author_in_backbone_clean",
-                                           "exact_wout_indet",
-                                           "fuzzy_w_author")
-    if (any(rep_these))
-      result$multiple_match[rep_these] <- FALSE
+    if (use.authors) {
+      # perfect match
+      perfect_match <- match(input_names, ref_names)
+      check_these <- is.na(perfect_match)
+      if (any(!check_these)) {
+        match_type[!check_these] <-
+          "exact_w_author"
 
-    # fuzzy distance columns (taxon name and author)
-    result$fuzzy_dist_name <- NA
-    result$fuzzy_dist_author <- NA
-    rep_these <- result$match_type %in% c("exact_w_author",
-                                          "exact_w_author_clean",
-                                          "exact_wout_indet")
-    result$fuzzy_dist_name[rep_these] <- 0L
-    rep_these <- result$match_type %in% c("exact_w_author",
-                                          "exact_w_author_clean")
-    result$fuzzy_dist_author[rep_these] <- 0L
+        exact_no_authors <- no_author & !check_these
+        if (any(exact_no_authors))
+          match_type[no_author & !check_these] <-
+          "exact_wout_author_in_backbone"
 
-    check_these <- result$match_type %in% c("fuzzy_w_author")
-    if (any(check_these)) {
-      name_dist <- stringdist::stringdist(input_names[check_these],
-                                          result[["name"]][check_these])
-      result$fuzzy_dist_name[check_these] <-
-        round(name_dist/nchar(input_names[check_these]), 4)
-      aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
-                                         result[["authorship"]][check_these])
-      result$fuzzy_dist_author[check_these] <-
-        round(aut_dist/nchar(result[[tax.names[2]]][check_these]), 4)
+        exact_wout_indet <- w_indet & !check_these
+        if (any(exact_wout_indet))
+          match_type[w_indet & !check_these] <-
+          "exact_w_author_wout_indet"
+      }
+
+      # perfect match with cleaned names
+      if (clean.names) {
+        if (any(check_these)) {
+          perfect_match_clean <- match(input_names_clean, ref_names_clean)
+          rep_these <- !is.na(perfect_match_clean) & is.na(perfect_match)
+
+          if (any(rep_these)) {
+            perfect_match[rep_these] <- perfect_match_clean[rep_these]
+            match_type[rep_these] <- "exact_w_author_clean"
+            match_type[no_author & rep_these] <-
+              "exact_wout_author_in_backbone_clean"
+          }
+        }
+      }
+
+      # fuzzy matching
+      max_dist = 1 - sug.dist
+      check_these <- is.na(perfect_match) & !no_author
+      if (any(check_these)) {
+        fuzzy_match <- nameMatching(input_names_clean[check_these],
+                                    ref_names_clean,
+                                    match.type = "fuzzy",
+                                    clean.names = FALSE,
+                                    dist.method = dist.method,
+                                    max.dist = max_dist,
+                                    split.letters = split.letters,
+                                    parallel = parallel,
+                                    cores = cores,
+                                    show.progress = TRUE)
+
+        rep_these <- !is.na(fuzzy_match)
+        if (any(rep_these)) {
+          perfect_match[check_these] <- fuzzy_match
+          match_type[check_these][rep_these] <-
+            "fuzzy_w_author"
+
+          fuzzy_wout_indet <- w_indet & check_these
+          if (any(fuzzy_wout_indet)) {
+            match_type[w_indet & check_these] <-
+              "fuzzy_w_autor_wout_indet"
+          }
+        }
+      }
+
+      result <-
+        cbind.data.frame(df_unique, ref.df[perfect_match, bb_cols])
+
+      # multiple match column
+      result$match_type <- match_type
+      result$multiple_match <- NA
+      rep_these <- result$match_type %in%  c("exact_w_author",
+                                             "exact_wout_author_in_backbone",
+                                             "exact_w_author_clean",
+                                             "exact_wout_author_in_backbone_clean",
+                                             "exact_w_author_wout_indet",
+                                             "fuzzy_w_author",
+                                             "fuzzy_w_autor_wout_indet")
+      if (any(rep_these))
+        result$multiple_match[rep_these] <- FALSE
+
+      # fuzzy distance columns (taxon name and author)
+      result$fuzzy_dist_name <- NA
+      result$fuzzy_dist_author <- NA
+      exatos <- c("exact_w_author",
+                  "exact_w_author_clean",
+                  "exact_w_author_wout_indet")
+      rep_these <- result$match_type %in% exatos
+      result$fuzzy_dist_name[rep_these] <-
+        result$fuzzy_dist_author[rep_these] <- 0L
+
+      check_these <- result$match_type %in% c("fuzzy_w_author",
+                                              "fuzzy_w_autor_wout_indet")
+      if (any(check_these)) {
+        input_names_temp <- result[[tax.names[1]]][check_these]
+        fuzzy_w_indet <- check_these & w_indet
+        if (any(fuzzy_w_indet))
+          input_names_temp[w_indet[check_these]] <-
+          search_names[fuzzy_w_indet]
+
+        name_dist <- stringdist::stringdist(input_names_temp,
+                                            result[["name"]][check_these])
+        result$fuzzy_dist_name[check_these] <-
+          round(name_dist/nchar(input_names_temp), 4)
+        aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
+                                           result[["authorship"]][check_these])
+        result$fuzzy_dist_author[check_these] <-
+          round(aut_dist/nchar(result[[tax.names[2]]][check_these]), 4)
+      }
+    } else {
+      empty_df <- as.data.frame(matrix(NA,
+                                nrow = dim(df_unique)[1],
+                                ncol = length(bb_cols)))
+      colnames(empty_df) <- bb_cols
+      empty_df$match_type <- NA
+      empty_df$multiple_match <- NA
+      empty_df$fuzzy_dist_name <- NA
+      empty_df$fuzzy_dist_author <- NA
+
+      result <- cbind.data.frame(df_unique, empty_df)
     }
 
     # name matching without authorships
@@ -386,7 +432,7 @@ prepSpecies <- function(x,
         if (clean.indet) {
           w_indet_fuzz <- no_authors_no_match & w_indet
           if (any(w_indet_fuzz)) {
-            input_names_clean_indet <- input_names_clean[w_indet_fuzz]
+            input_names_clean_indet <- search_names[w_indet_fuzz]
             df1[[tax.names[1]]][w_indet[no_authors_no_match]] <-
               input_names_clean_indet
           }
@@ -405,24 +451,26 @@ prepSpecies <- function(x,
         unique_tax <- getTaxUnique(df1, ref.df,
                                 match.col = tmp.match.col,
                                 orig.col = tax.names[1],
+                                name.col = "name",
                                 status.col = "taxon.status",
                                 type.match.col = "match_type",
                                 mult.match.col = "multiple_match",
                                 mult.matches = mult.matches,
                                 agg.cols = bb_cols1)
 
-        if (any(!is.na(unique_tax$id))) {
+        check_these <- !is.na(unique_tax$id)
+        if (any(check_these)) {
           result[no_authors_no_match, c(bb_cols, "multiple_match")] <-
             unique_tax[, c(bb_cols, "multiple_match")]
           result$match_type[no_authors_no_match] <- "exact_wout_author"
           result$fuzzy_dist_name[no_authors_no_match] <- 0L
+        }
 
-          double_check <- is.na(result$id)
-          if (any(double_check)) {
-            result$match_type[double_check] <-
-              result$multiple_match[double_check] <-
-                result$fuzzy_dist_name[double_check] <- NA
-          }
+        double_check <- is.na(result$id)
+        if (any(double_check)) {
+          result$match_type[double_check] <-
+            result$multiple_match[double_check] <-
+            result$fuzzy_dist_name[double_check] <- NA
         }
       }
 
@@ -431,7 +479,7 @@ prepSpecies <- function(x,
       no_authors_no_match1 <- no_author & is.na(result$id)
       if (any(no_authors_no_match1)) {
 
-        input_names_clean1 <- input_names_clean[no_authors_no_match1]
+        input_names_clean1 <- search_names[no_authors_no_match1]
         fuzzy_match <- nameMatching(input_names_clean1,
                                     ref_names_clean1,
                                     match.type = "fuzzy",
@@ -452,7 +500,7 @@ prepSpecies <- function(x,
           result$multiple_match[no_authors_no_match1] <- FALSE
 
           result$match_type[no_authors_no_match1 & w_indet] <-
-            "fuzzy_wout_indet"
+            "fuzzy_wout_author_wout_indet"
 
           # Calculating the distance between names
           name_dist1 <-
@@ -461,7 +509,7 @@ prepSpecies <- function(x,
               result[["name"]][no_authors_no_match1])
           result$fuzzy_dist_name[no_authors_no_match1] <-
             round(name_dist1/
-                    nchar(result[[tax.names[1]]][no_authors_no_match1]), 4)
+                    nchar(input_names_clean1), 4)
 
           # Fixing some bad indexing replacements
           double_check <- is.na(result$id)
@@ -476,8 +524,12 @@ prepSpecies <- function(x,
 
     # no matches
     rep_these <- is.na(result$id)
-    if (any(rep_these))
-      result$match_type[rep_these] <- "no_match"
+    if (any(rep_these)) {
+      result$match_type[rep_these] <-
+        "no_match"
+      result[rep_these, bb_cols[3:4]] <-
+        result[rep_these, tax.names]
+    }
 
     rownames(result) <- NULL
 
@@ -489,7 +541,8 @@ prepSpecies <- function(x,
     names(output)[which(names(output) == "name")] <- "suggestedName"
 
     # flagging fuzzy matches above the threshold
-    max_dist_auth <- max_dist + 0.5*max_dist
+    auth_factor <- 0.5
+    max_dist_auth <- max_dist + auth_factor * max_dist
     rep_these <- (output[["fuzzy_dist_name"]] > max_dist &
                     (is.na(output[["fuzzy_dist_author"]]) | output[["fuzzy_dist_author"]] > 0)) |
                   (output[["fuzzy_dist_author"]] > max_dist_auth &
@@ -516,6 +569,19 @@ prepSpecies <- function(x,
                perl = TRUE)
       }
 
+      rep_these <- grepl("orthographic", output$notes, perl = TRUE)
+      if (any(rep_these)) {
+        has_accept <- !is.na(output$accepted.name)
+        if (any(has_accept)) {
+          output[rep_these & has_accept, old.cols] <-
+            output[rep_these & has_accept, new.cols]
+          output$notes[rep_these & has_accept] <-
+            sub("orthographic variant", "replaced variant",
+                 output$notes[rep_these & has_accept],
+                 perl = TRUE)
+        }
+      }
+
       rep_these <- output$notes %in% "check +1 name"
       if (any(rep_these)) {
         rep_these1 <-
@@ -531,9 +597,11 @@ prepSpecies <- function(x,
 
       rep_these <- output$notes %in% "bad match"
       if (any(rep_these)) {
-        output[rep_these, old.cols[1:2]] <- output[rep_these, 1:2]
-        output[rep_these, c(old.cols[3:4], "taxon.status") ] <- NA
+        output[rep_these, old.cols[1:2]] <- output[rep_these, tax.names]
+        output[rep_these, c("id", old.cols[3:4], "taxon.status") ] <- NA
         output[rep_these, new.cols] <- NA
+        if ("family" %in% names(output))
+          output$family[rep_these] <- NA
         output$notes[rep_these] <- "not found"
       }
     }
@@ -581,19 +649,14 @@ prepSpecies <- function(x,
   final.results <- final.results[order(final.results$tmp..ordem), ]
   final.results$tmp..ordem <- NULL
 
-  # drop.cols1 <- drop.cols[drop.cols %in% names(final.results)]
-  # if (length(drop.cols1) > 0L) {
-  #   final.results <-
-  #     final.results[, -which(names(final.results) %in% drop.cols1)]
-  #   if (dim(final.results1)[2] == 0)
-  #     final.results1 <- final.results
-  # } else {
-  #   final.results1 <- final.results
-  # }
-
   final.results[["scientificNameFull"]] <-
     buildName(final.results,
               col.names = c("suggestedName", "authorship"))
+
+  if (any(w_indet)) {
+    final.results[["scientificNameFull"]][w_indet]
+
+  }
 
   check_these <-
     grep("|", final.results[["scientificNameFull"]], fixed = TRUE)
@@ -613,7 +676,8 @@ prepSpecies <- function(x,
     "tax.notes"
   extra.cols <-
     names(final.results)[!names(final.results) %in% names(x)]
-  final.results1 <- cbind.data.frame(x, final.results[, extra.cols])
+  final.results1 <-
+    cbind.data.frame(x, final.results[, extra.cols])
 
   return(final.results1)
 }

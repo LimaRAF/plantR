@@ -9,13 +9,14 @@ getTaxUnique(
   df.ref = NULL,
   match.col = NULL,
   orig.col = "scientificName.new",
+  name.col = "name",
   status.col = "taxon.status",
   type.match.col = "match_type",
   mult.match.col = "multiple_match",
   mult.matches = "all",
   agg.cols = c("id", "family", "authorship", "taxon.rank", "name.status", "taxon.status",
     "accepted.name", "accepted.authorship", "accepted.taxon.rank",
-    "accepted.name.status")
+    "accepted.taxon.status", "accepted.name.status")
 )
 }
 \arguments{
@@ -30,6 +31,9 @@ datasets to be used for matching}
 original name in the input data frame 'df'. Defaults to
 "scientificName.new" which is the output of the \code{plantR} function
 \code{fixSpecies()}}
+
+\item{name.col}{a vector with the name of the column with the taxon
+name in the data frame 'df.ref'. Defaults to 'name'.}
 
 \item{status.col}{a vector with the name of the column with the
 taxonomic status in the reference data frame 'df.ref'. Defaults to

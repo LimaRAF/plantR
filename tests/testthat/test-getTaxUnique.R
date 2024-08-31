@@ -12,20 +12,22 @@ test_that("getTaxUnique works", {
   mult.match.col = "multiple_match"
   agg.cols = c("id", "family", "authorship", "taxon.rank", "name.status",
                "taxon.status", "accepted.name", "accepted.authorship",
-               "accepted.taxon.rank", "accepted.name.status",
+               "accepted.taxon.rank", "accepted.taxon.status",
+               "accepted.name.status",
                status.col, type.match.col, mult.match.col)
   for (i in 1:length(agg.cols))
     df_input[[agg.cols[i]]] <- NA
 
   tmp.match.col <- "tmp.tax.name"
-  df_input[[tmp.match.col]] <- cleanName(df_input[[orig.col]])
+  df_input[[tmp.match.col]] <- df_input[[orig.col]]
 
   df_ref <- bfoNames
-  df_ref[[tmp.match.col]] <- cleanName(df_ref[["name"]])
+  df_ref[[tmp.match.col]] <- df_ref[["name"]]
 
   res_func <- getTaxUnique(df_input, df_ref,
                       match.col = tmp.match.col,
                       orig.col = orig.col,
+                      name.col = "name",
                       status.col = status.col,
                       type.match.col = type.match.col,
                       mult.match.col = mult.match.col,
