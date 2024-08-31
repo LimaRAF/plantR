@@ -25,4 +25,4 @@ details on how this table was obtained.
 }
 \keyword{datasets}
 \note{Last update/change of the downloaded backbone (day month year):
-\code{01 Jul 2024}.}
+\code{01 Aug 2024}.}
