@@ -3,21 +3,32 @@
 #' @description Identifies open nomenclature (aff., cf.) in scientific
 #'   names, classification under species level (var., subsp., f.) and
 #'   standardize the notation of incomplete name identifications. It
-#'   creates a new column with the new suggested name and it also
-#'   flags names with authors and problematic names (character string
-#'   with numbers, wrong case, or other names besides genus and
-#'   epithet etc). Names can be returned with or without
-#'   infra-specific ranks (var. and subsp.) or abbreviations of
-#'   unspecific names (sp. or spp.).
+#'   creates a new column with the new suggested name and divides
+#'   taxon names from their authors. It also flags and solve some
+#'   problematic names (character string with numbers, wrong case, or
+#'   other names besides genus and epithet etc). Names can be returned
+#'   with or without infra-specific ranks (var., subsp. and f.) or
+#'   abbreviations of unspecific names (sp. or spp.).
 #'
 #' @return
-#' A data frame the input vector and the new columns `verbatimSpecies`
-#' with small edits before flagging, `scientificNameStatus` with the
-#' flags in original data and `scientificName.new` with a suggestion
-#' for a more correct name. See Details for a description of flags in
-#' the column `scientificNameStatus`.
+#' A data frame with the input vector or data frame plus new columns
+#' `scientificName.new` (suggestion for a more correct taxon name),
+#' `scientificNameAuthorship.new` (suggestion for the authorship of
+#' the taxon name, if present) and `scientificNameStatus` (all the
+#' flags detected in the original taxon name. See Details for a
+#' description of all possible flags in the column
+#' `scientificNameStatus`.
 #'
-#' @details Possible flags returned in `scientificNameStatus`: \describe{
+#' @details
+#'
+#' These function deals with most format and particular cases of taxon
+#' names but of course it does not solve all of them. There are some
+#' problems related to how the function deals with some hybrid species
+#' notation and for some cases of genus or higher level taxonomy with
+#' authors. See examples for those cases when the function does not
+#' work as expected.
+#'
+#' Possible flags returned in `scientificNameStatus`: \describe{
 #' \item{\code{possibly_ok}}{scientific name following the classic pattern
 #' 'Genus epithet'}
 #' \item{\code{not_Genus_epithet_format}}{scientific name not following
@@ -42,8 +53,7 @@
 #' \item{\code{name_w_non_ascii}}{species name has non ASCII characters, not a
 #' valid name}
 #' \item{\code{abbreviated_genus}}{genus is abbreviated}
-#' \item{\code{name_w_digits}}{scientific name has digits, not a valid
-#' name} }
+#' \item{\code{name_w_digits}}{scientific name has digits} }
 #'
 #' @param x a vector or data.frame containing the taxon name
 #'   information
@@ -64,6 +74,9 @@
 #' Evolution 7(10): 1217-1225.
 #'
 #' @examples
+#'
+#' # Two last names are examples for which the function cannot handle yet.
+#'
 #' df <- data.frame(scientificName =
 #' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 #' "Lindsaea lancea var. Angulata",
@@ -74,7 +87,9 @@
 #' "Parablechnum C.Presl",
 #' "Blechnum spannagelii Rosenst.",
 #' "Blechnum occidentale leopoldense Dutra",
-#' "Blechnum austrobrasilianum de la Sota"))
+#' "Blechnum austrobrasilianum de la Sota",
+#' "Urbanodendron Mez",
+#' "Arabidopsis thaliana × Arabidopsis arenosa"))
 #'
 #' fixSpecies(df)
 #' fixSpecies(df, rm.rank = TRUE)
@@ -378,12 +393,6 @@ fixSpecies <- function(x = NULL,
                                       'scientificNameStatus',
                                       tax.name, author.name)],
                              by = c(tax.name, author.name)))
-
-  # Should we use the original authos instead? Make it an argument?
-  # rep_these <- !check1[[author.name]] %in% c("", " ", NA, "NA")
-  # if (any(rep_these))
-  #   check1$scientificNameAuthorship.new[rep_these] <-
-  #     check1[[author.name]][rep_these]
 
   return(check1)
 }

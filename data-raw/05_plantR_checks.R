@@ -13,17 +13,22 @@ devtools::test()
 # spelling::update_wordlist(pkg = ".", vignettes = FALSE, confirm = TRUE)
 # spelling::get_wordlist(pkg = ".")
 toto <- spelling::spell_check_package(vignettes = FALSE)
-toto1 <- spelling::spell_check_package(vignettes = TRUE, lang = "pt_BR")
+toto1 <- spelling::spell_check_package(vignettes = TRUE)
 
 #Checking by word
 toto1 <- lengths(toto$found)
 names(toto1) <- toto$word
 head(tail(sort(toto1), 40))
 
-palavras <- c("microrganisms", "miliseconds", "preposion", "servico")
-toto2 <- toto$found[match(palavras, toto$word)]
-names(toto2) <- palavras
-toto2
+palavras <- c("microrganisms", "miliseconds",
+              "servico", "servicos", "gustavobio", "irrespectively",
+              "misidentifications", "modificators", "nomenclatural",
+              "parallelization", "parallelize",
+              "reproducibility", "unabbreviated", "uppercasing")
+
+toto1 <- toto$found[match(palavras, toto$word)]
+names(toto1) <- palavras
+toto1
 
 #Checking by file
 # tail(sort(table(unlist(toto$found))), 10)

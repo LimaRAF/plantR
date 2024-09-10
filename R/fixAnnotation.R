@@ -45,8 +45,10 @@ fixAnnotation <- function(x) {
   x <- gsub(" form ", " form. ", x, fixed = TRUE)
   x <- gsub(" f ", " f. ", x, fixed = TRUE)
   x <- gsub("( \u00d7)(?=[[:alpha:]])","\\1 \\2", x, perl = TRUE)
+  x <- gsub("([a-z])( x )([[:alpha:]])","\\1 \u00d7 \\3", x,
+            perl = TRUE, ignore.case = TRUE)
 
-  # Codes from SynTreeSys (check overlap)
+  # Codes from STS (check overlap)
   # x1 <- gsub("^cf ", "cf. ", x, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("^cf, ", "cf., ", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub(" cf ", " cf. ", x1, perl = TRUE, ignore.case = TRUE)

@@ -13,7 +13,8 @@ sp.list <- c("Casearia sylvestris","Casearia silvestris",
              "Trichilia clausenii",
              "Tabebuia heterophylla",
              "Cola acuminata",
-             "Xylosma ciliatifolium")
+             "Xylosma ciliatifolium",
+             "Cinnamomum camphora")
 aut_list <- c("Sw.", "Sw.", "",
               "Uittien", "Rusby",
               "Kunth", "Poepp. Eichler","", "L.",
@@ -23,7 +24,8 @@ aut_list <- c("Sw.", "Sw.", "",
               "", "",
               "Aubl.", "L.",
               "", "", "", "",
-              "(Clos) Eichler")
+              "(Clos) Eichler",
+              "")
 
 df <- data.frame(scientificName.new = sp.list,
   scientificNameAuthorship.new = aut_list)
@@ -53,7 +55,8 @@ res1 <- c("Casearia sylvestris Sw.",
           "Trichilia clausenii",
           "Tabebuia heterophylla",
           "Cola acuminata",
-          "Xylosma ciliatifolia (Clos) Eichler")
+          "Xylosma ciliatifolia (Clos) Eichler",
+          "Cinnamomum camphora (L.) J.Presl")
 notes <- c("name accepted", "name misspelled", "name accepted",
            "replaced synonym", "replaced synonym", "replaced synonym",
            "replaced synonym", "+1 name, but 1 accepted", "not found",
@@ -62,7 +65,8 @@ notes <- c("name accepted", "name misspelled", "name accepted",
            "name accepted", "name accepted", "name misspelled",
            "name accepted", "name misspelled",
            "not found", "not found", "not found",
-           "not found", "replaced variant")
+           "not found", "replaced variant",
+           "+1 name, but 1 accepted")
 match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author", "exact_w_author", "exact_w_author",
                 "exact_w_author", "exact_wout_author", "no_match",
@@ -73,9 +77,7 @@ match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author_wout_indet",
                 "fuzzy_w_autor_wout_indet",
                 "bad_fuzzy_wout_author", "bad_fuzzy_wout_author", "bad_fuzzy_wout_author",
-                "no_match", "exact_w_author")
-
-
+                "no_match", "exact_w_author", "exact_wout_author")
 
 res2 <- res1
 res2[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana"

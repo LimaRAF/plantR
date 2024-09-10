@@ -29,24 +29,33 @@ be removed from the name? Defaults to FALSE}
 names (i.e. sp. or spp.) be removed? Defaults to FALSE}
 }
 \value{
-A data frame the input vector and the new columns \code{verbatimSpecies}
-with small edits before flagging, \code{scientificNameStatus} with the
-flags in original data and \code{scientificName.new} with a suggestion
-for a more correct name. See Details for a description of flags in
-the column \code{scientificNameStatus}.
+A data frame with the input vector or data frame plus new columns
+\code{scientificName.new} (suggestion for a more correct taxon name),
+\code{scientificNameAuthorship.new} (suggestion for the authorship of
+the taxon name, if present) and \code{scientificNameStatus} (all the
+flags detected in the original taxon name. See Details for a
+description of all possible flags in the column
+\code{scientificNameStatus}.
 }
 \description{
 Identifies open nomenclature (aff., cf.) in scientific
 names, classification under species level (var., subsp., f.) and
 standardize the notation of incomplete name identifications. It
-creates a new column with the new suggested name and it also
-flags names with authors and problematic names (character string
-with numbers, wrong case, or other names besides genus and
-epithet etc). Names can be returned with or without
-infra-specific ranks (var. and subsp.) or abbreviations of
-unspecific names (sp. or spp.).
+creates a new column with the new suggested name and divides
+taxon names from their authors. It also flags and solve some
+problematic names (character string with numbers, wrong case, or
+other names besides genus and epithet etc). Names can be returned
+with or without infra-specific ranks (var., subsp. and f.) or
+abbreviations of unspecific names (sp. or spp.).
 }
 \details{
+These function deals with most format and particular cases of taxon
+names but of course it does not solve all of them. There are some
+problems related to how the function deals with some hybrid species
+notation and for some cases of genus or higher level taxonomy with
+authors. See examples for those cases when the function does not
+work as expected.
+
 Possible flags returned in \code{scientificNameStatus}: \describe{
 \item{\code{possibly_ok}}{scientific name following the classic pattern
 'Genus epithet'}
@@ -72,10 +81,12 @@ species, possibly not yet a valid name}
 \item{\code{name_w_non_ascii}}{species name has non ASCII characters, not a
 valid name}
 \item{\code{abbreviated_genus}}{genus is abbreviated}
-\item{\code{name_w_digits}}{scientific name has digits, not a valid
-name} }
+\item{\code{name_w_digits}}{scientific name has digits} }
 }
 \examples{
+
+# Two last names are examples for which the function cannot handle yet.
+
 df <- data.frame(scientificName =
 c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 "Lindsaea lancea var. Angulata",
@@ -86,7 +97,9 @@ c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 "Parablechnum C.Presl",
 "Blechnum spannagelii Rosenst.",
 "Blechnum occidentale leopoldense Dutra",
-"Blechnum austrobrasilianum de la Sota"))
+"Blechnum austrobrasilianum de la Sota",
+"Urbanodendron Mez",
+"Arabidopsis thaliana × Arabidopsis arenosa"))
 
 fixSpecies(df)
 fixSpecies(df, rm.rank = TRUE)
