@@ -182,8 +182,8 @@
 #' @source \url{https://ipt.jbrj.gov.br/jbrj/resource?r=lista_especies_flora_brasil}
 #' @evalRd readScript("data-raw/raw_dictionaries/last_update.txt",
 #'  "Last update/change of the downloaded backbone (day month year):")
-#' @format An object of class \code{data.frame} with 12 columns and
-#'   over 120 thousand rows.
+#' @format An object of class \code{data.frame} with 14 columns and
+#'   over 125 thousand rows.
 #'
 "bfoNames"
 
