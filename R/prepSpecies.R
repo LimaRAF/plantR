@@ -37,9 +37,10 @@
 #' @return
 #' A data frame with the same columns provided by the user and some
 #' additional columns containing the suggested taxon name
-#' ('suggestedName'), the corresponding scientific name
-#' ('scientific.name'), the taxonomic notes and sources used to get the
-#' suggested name (columns 'notes' and 'source').
+#' ('suggestedName'), taxon authorship ('suggestedAuthorship'), the
+#' corresponding scientific name ('scientificNameFull'), the taxonomic
+#' information related to the suggested name (columns 'taxon.rank',
+#' tax.notes' and its 'id' in the reference taxonomic backbone).
 #'
 #' @details
 #'   The function first checks taxon names with authorship (if
@@ -165,10 +166,15 @@ prepSpecies <- function(x,
                         cores = 2,
                         show.progress = FALSE,
                         drop.cols = c("match_type", "multiple_match",
-                                      "fuzzy_dist_name", "fuzzy_dist_author",
+                                      "fuzzy_dist_name",
+                                      "fuzzy_dist_author",
                                       "name.status", "taxon.status",
-                                      "accepted.name", "accepted.authorship",
-                                      "accepted.taxon.rank", "accepted.name.status")) {
+                                      "accepted.id", "accepted.name",
+                                      "accepted.authorship",
+                                      "accepted.taxon.rank",
+                                      "accepted.taxon.status",
+                                      "accepted.name.status",
+                                      "taxon.distribution")) {
 
   if (!inherits(x, "data.frame"))
     stop("Input object 'x' needs to be a data frame!", call. = FALSE)
@@ -288,7 +294,7 @@ prepSpecies <- function(x,
     # name matching with authorships
     bb_cols <- c("id", "family", "name", "authorship",
                  "taxon.rank", "name.status","taxon.status",
-                 "accepted.name", "accepted.authorship",
+                 "accepted.id", "accepted.name", "accepted.authorship",
                  "accepted.taxon.rank", "accepted.taxon.status",
                  "accepted.name.status")
     bb_cols <- bb_cols[bb_cols %in% names(ref.df)]
@@ -538,7 +544,10 @@ prepSpecies <- function(x,
                      "fuzzy_dist_name", "fuzzy_dist_author",
                      bb_cols)
     output <- result[, select_cols]
-    names(output)[which(names(output) == "name")] <- "suggestedName"
+    names(output)[which(names(output) == "name")] <-
+      "suggestedName"
+    names(output)[which(names(output) == "authorship")] <-
+      "suggestedAuthorship"
 
     # flagging fuzzy matches above the threshold
     auth_factor <- 0.5
@@ -556,9 +565,9 @@ prepSpecies <- function(x,
 
     if (replace.names) {
 
-      old.cols <- c("suggestedName", "authorship",
+      old.cols <- c("id", "suggestedName", "suggestedAuthorship",
                     "taxon.rank", "name.status")
-      new.cols <- c("accepted.name", "accepted.authorship",
+      new.cols <- c("accepted.id", "accepted.name", "accepted.authorship",
                     "accepted.taxon.rank", "accepted.name.status")
 
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
@@ -576,7 +585,7 @@ prepSpecies <- function(x,
           output[rep_these & has_accept, old.cols] <-
             output[rep_these & has_accept, new.cols]
           output$notes[rep_these & has_accept] <-
-            sub("orthographic variant", "replaced variant",
+            sub("orthographic variant", "replaced orth. variant",
                  output$notes[rep_these & has_accept],
                  perl = TRUE)
         }
@@ -597,8 +606,8 @@ prepSpecies <- function(x,
 
       rep_these <- output$notes %in% "bad match"
       if (any(rep_these)) {
-        output[rep_these, old.cols[1:2]] <- output[rep_these, tax.names]
-        output[rep_these, c("id", old.cols[3:4], "taxon.status") ] <- NA
+        output[rep_these, old.cols[2:3]] <- output[rep_these, tax.names]
+        output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <- NA
         output[rep_these, new.cols] <- NA
         if ("family" %in% names(output))
           output$family[rep_these] <- NA
@@ -618,7 +627,7 @@ prepSpecies <- function(x,
     }
 
     keep.cols <- unique(c(tax.names,
-                   "family", "suggestedName", "authorship",
+                   "family", "suggestedName", "suggestedAuthorship",
                    "taxon.rank", "notes", "id",
                    names(output1)))
     keep.cols <- keep.cols[keep.cols %in% names(output1)]
@@ -651,23 +660,29 @@ prepSpecies <- function(x,
 
   final.results[["scientificNameFull"]] <-
     buildName(final.results,
-              col.names = c("suggestedName", "authorship"))
+              col.names = c("suggestedName", "suggestedAuthorship"))
 
-  if (any(w_indet)) {
-    final.results[["scientificNameFull"]][w_indet]
-
-  }
+  # if (any(w_indet)) {
+  #   final.results[["scientificNameFull"]][w_indet]
+  #
+  # }
 
   check_these <-
     grep("|", final.results[["scientificNameFull"]], fixed = TRUE)
   if (length(check_these) > 0L) {
     tmp <-
-      final.results[check_these, c("suggestedName", "authorship")]
+      final.results[check_these, c("suggestedName", "suggestedAuthorship")]
     taxa.split <- strsplit(tmp[[1]], "|", fixed = TRUE)
     auth.split <- strsplit(tmp[[2]], "|", fixed = TRUE)
     names.new <- mapply(paste, taxa.split, auth.split)
-    tmp.names.new <-
-      apply(names.new, 2, function(x) paste(x, collapse = "|"))
+
+    if (inherits(names.new, "matrix")) {
+      tmp.names.new <-
+        apply(names.new, 2, function(x) paste(x, collapse = "|"))
+    } else {
+      tmp.names.new <-
+        unlist(lapply(names.new, function(x) paste(x, collapse = "|")))
+    }
     final.results[["scientificNameFull"]][check_these] <-
       tmp.names.new
   }

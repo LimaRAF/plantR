@@ -65,7 +65,7 @@ notes <- c("name accepted", "name misspelled", "name accepted",
            "name accepted", "name accepted", "name misspelled",
            "name accepted", "name misspelled",
            "not found", "not found", "not found",
-           "not found", "replaced variant",
+           "not found", "replaced orth. variant",
            "+1 name, but 1 accepted")
 match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author", "exact_w_author", "exact_w_author",
@@ -89,8 +89,6 @@ res2[which(sp.list %in% "Casearia serrulata" &
              aut_list %in% "J. Seber ex Griseb.")] <- "Casearia serrulata J. Seber ex Griseb.|Casearia serrulata Sw."
 res3 <- res2
 res3[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana L."
-
-
 
 # Tests
 test_that("prepSpecies works", {

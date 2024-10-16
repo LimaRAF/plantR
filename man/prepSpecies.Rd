@@ -20,8 +20,9 @@ prepSpecies(
   cores = 2,
   show.progress = FALSE,
   drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
-    "name.status", "taxon.status", "accepted.name", "accepted.authorship",
-    "accepted.taxon.rank", "accepted.name.status")
+    "name.status", "taxon.status", "accepted.id", "accepted.name", "accepted.authorship",
+    "accepted.taxon.rank", "accepted.taxon.status", "accepted.name.status",
+    "taxon.distribution")
 )
 }
 \arguments{
@@ -84,9 +85,10 @@ backbone that should be dropped from the results.}
 \value{
 A data frame with the same columns provided by the user and some
 additional columns containing the suggested taxon name
-('suggestedName'), the corresponding scientific name
-('scientific.name'), the taxonomic notes and sources used to get the
-suggested name (columns 'notes' and 'source').
+('suggestedName'), taxon authorship ('suggestedAuthorship'), the
+corresponding scientific name ('scientificNameFull'), the taxonomic
+information related to the suggested name (columns 'taxon.rank',
+tax.notes' and its 'id' in the reference taxonomic backbone).
 }
 \description{
 Provides valid taxon names or corrects typos and

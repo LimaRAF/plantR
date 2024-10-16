@@ -51,9 +51,10 @@ formatTax <- function(tax,
                                     "fuzzy_dist_name",
                                     "fuzzy_dist_author",
                                     "name.status", "taxon.status",
-                                    "accepted.name",
+                                    "accepted.id", "accepted.name",
                                     "accepted.authorship",
                                     "accepted.taxon.rank",
+                                    "accepted.taxon.status",
                                     "accepted.name.status"),
                       fam.name = "family",
                       gen.name = "genus",
@@ -90,8 +91,8 @@ formatTax <- function(tax,
   if (use.suggestion) {
     tax1$scientificName.new[!is.na(tax1$suggestedName)] <-
       tax1$suggestedName[!is.na(tax1$suggestedName)]
-    tax1$scientificNameAuthorship.new[!is.na(tax1$authorship)] <-
-      tax1$authorship[!is.na(tax1$authorship)]
+    tax1$scientificNameAuthorship.new[!is.na(tax1$suggestedAuthorship)] <-
+      tax1$suggestedAuthorship[!is.na(tax1$suggestedAuthorship)]
   }
 
   # prepFamily
