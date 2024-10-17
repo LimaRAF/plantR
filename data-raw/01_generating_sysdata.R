@@ -162,7 +162,7 @@ notCultivated <- c("nativa",
                    "pastagem cultivada",
                    "área do arboreto",
                    "presença de exóticas",
-                   " área cultivada",  " área cultivada", " cultivated area")
+                   " área cultivada", " cultivated area")
 
 missColls <- c("s/col.", "s/col", "s/c",
                "s/coletor", "s/colector", "s.coletor",
@@ -199,6 +199,9 @@ namePreps <- c("De", "Dos", "Do", "Da", "Das",
                "Di", "Dalla", "Della", "Ter", "Von",
                "Van", "De La", "De Las", "De Lo", "De Los",
                "Van Der", "Van Den")
+
+#### ver se todas as oções estão aqui: https://pt.stackoverflow.com/questions/242948/validar-nome-e-sobrenome-com-express%C3%A3o-regular ####
+#Opções de preposições que não estão acima (incluir?): "e", "y", "bin", "le"
 
 badEncoding <- c("Ã€", "Ã‚", "Ãƒ", "Ã„", "Ã…", "Ã†", "Ã‡", "Ãˆ", "Ã‰",
                  "ÃŠ", "Ã‹", "ÃŒ", "ÃŽ", "Ã‘", "Ã’", "Ã“", "Ã”",
@@ -247,6 +250,68 @@ simpGeoCheck <- c(
   "no_country/bad_state/no_county" = "bad_country") # or bad_state or no_cannot_check?
 
 
+## Conversion table for the TDWG Botanical Countries
+# Download botanical countries (level3)
+url1 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
+zip <- paste0("wcvp", ".zip")
+path <- file.path(here::here(), "data-raw", zip)
+path1 <- gsub("\\.zip", "_dist.txt", path)
+utils::download.file(url = url1, destfile = path1, mode = "wb")
+level3 <- read.table(path1, sep = "*", fileEncoding = "Latin1",
+                     header = TRUE, stringsAsFactors = FALSE,
+                     quote = "", fill = TRUE)
+unlink(path1)
+# Download subdivision of botanical countries (level4)
+url2 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
+path2 <- gsub("\\.zip", "_dist1.txt", path)
+utils::download.file(url = url2, destfile = path2, mode = "wb")
+level4 <- read.table(path2, sep = "*", fileEncoding = "Latin1",
+                     header = TRUE, stringsAsFactors = FALSE,
+                     quote = "", fill = TRUE)
+unlink(path2)
+
+# Merge both informations
+level_all <- dplyr::left_join(level4, level3[, c("L3.code", "L3.area")],
+                              by = c("L3.code"))
+level_all1 <- aggregate(L4.code ~ L3.area + L4.country,
+                        FUN = function(x) paste(unique(x), collapse = "|"),
+                        data = level_all)
+names(level_all1) <- c("taxon.distribution.bc",
+                       "taxon.distribution.bru",
+                       "taxon.distribution.bru.code")
+
+# General edits
+## Kirgizstan case
+level_all1$taxon.distribution.bc <- gsub("Kirgizistan", "Kyrgyzstan",
+                                         level_all1$taxon.distribution.bc)
+level_all1$taxon.distribution.bru <- gsub("Kirgizistan", "Kyrgyzstan",
+                                          level_all1$taxon.distribution.bru)
+## Gambia case
+level_all1$taxon.distribution.bc <- gsub("Gambia, The", "Gambia",
+                                         level_all1$taxon.distribution.bc)
+level_all1$taxon.distribution.bru <- gsub("Gambia, The", "Gambia",
+                                          level_all1$taxon.distribution.bru)
+## Brasília case
+level_all1$taxon.distribution.bc <- gsub("^brazilia distrito federal$",
+                                         "distrito federal",
+                                         level_all1$taxon.distribution.bc)
+level_all1$taxon.distribution.bru <- gsub("^brazilia distrito federal$",
+                                          "distrito federal",
+                                          level_all1$taxon.distribution.bru)
+## Substitute 'i' by 'island' and 'is' by 'islands' to match plantR
+level_all1$taxon.distribution.bc <-
+  plantR::prepCountry(level_all1$taxon.distribution.bc)
+level_all1$taxon.distribution.bru <-
+  plantR::prepCountry(level_all1$taxon.distribution.bru)
+level_all1$taxon.distribution.bc <-
+  plantR::prepLoc(level_all1$taxon.distribution.bc)
+level_all1$taxon.distribution.bru <-
+  plantR::prepLoc(level_all1$taxon.distribution.bru)
+# ## Edit the column to match wvcvp names exactly, that is, nchar max = 20
+# level_all1$taxon.distribution.bc <-
+#   substr(level_all1$taxon.distribution.bc, 1, 20)
+botanicalCountries <- level_all1
+
 # Saving data
 usethis::use_data(admin,
                   collectionCodes,
@@ -267,6 +332,7 @@ usethis::use_data(admin,
                   namePreps,
                   badEncoding,
                   simpGeoCheck,
+                  botanicalCountries,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")
@@ -274,4 +340,4 @@ usethis::use_data(admin,
 rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
    replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
    unwantedEncoding, cultivated, notCultivated, missColls, missDets,
-   treatPreps, namePreps, badEncoding, simpGeoCheck)
+   treatPreps, namePreps, badEncoding, simpGeoCheck, botanicalCountries)
