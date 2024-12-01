@@ -31,7 +31,7 @@
 #'
 prepLoc <- function(x) {
 
-  # Removing unwanted characters
+  # Removing unwanted characters, lowercasing
   x <- tolower(rmLatin(x))
 
   # Correcting NAs converted to lower caracters
@@ -39,7 +39,7 @@ prepLoc <- function(x) {
   x <- gsub("_na_", "_NA_", x, fixed = TRUE)
   x <- gsub("_na$", "_NA", x, perl = TRUE)
 
-  # Removing prepositions and other unwanted characters
+  # Removing prepositions and other unwanted articles
   x <- gsub("-", " ", x, fixed = TRUE)
   # x <- gsub(" - ", " / ", x, fixed = TRUE)
   x <- gsub(" de la | del | du | de los ", " ", x, perl = TRUE)
@@ -49,10 +49,8 @@ prepLoc <- function(x) {
   x <- gsub('\\.$', "", x, perl = TRUE)
   x <- gsub(" dx ", " ", x, fixed = TRUE)
 
-  # Removing possible problems
-  x <- gsub("\\s+", " ", x, perl = TRUE)
-  x <- gsub("^ | $", "", x, perl = TRUE)
-  # x <- stringr::str_squish(x)
+  # Removing possible spacing problems
+  x <- squish(x)
 
   return(x)
 }
