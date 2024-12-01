@@ -178,7 +178,8 @@ prepSpecies <- function(x,
 
   if (!inherits(x, "data.frame")) {
     if (inherits(x, "character")) {
-      x <- data.frame(name = x, author = NA)
+      x <- data.frame(x, NA,
+                      check.names = FALSE, fix.empty.names = FALSE)
       colnames(x) <- tax.names
     } else {
       stop("Input object 'x' needs to be a data frame or a vector!",
@@ -582,7 +583,7 @@ prepSpecies <- function(x,
 
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
       if (any(rep_these)) {
-        w_accept_id <- !is.na(output[rep_these, new.cols[1]])
+        w_accept_id <- !is.na(output[, new.cols[1]])
         if (any(w_accept_id)){
           output[rep_these & w_accept_id, old.cols] <-
             output[rep_these & w_accept_id, new.cols]

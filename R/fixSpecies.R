@@ -225,7 +225,8 @@ fixSpecies <- function(x = NULL,
   check$species_status <- apply(status, 1, paste1, collapse = "|")
 
   # fixing cases
-  check$species_new[case] <- fixed_cases[case]
+  if (any(case))
+    check$species_new[case] <- fixed_cases[case]
 
   # recognizing and isolating authorship
   auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$",

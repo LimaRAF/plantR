@@ -74,8 +74,8 @@ fixCase <- function (x) {
     spc.loc3 <- spc.loc[3, ]
 
     #All letters capitalized, only the species name
-    all.caps <- which(x == toupper(x) & is.na(spc.loc2))
-    if (length(all.caps) > 0L)
+    all.caps <- x == toupper(x) & is.na(spc.loc2) & nchar(x) > 2
+    if (any(all.caps))
       x[all.caps] <- paste0(substring(x[all.caps], 1, 1),
                             tolower(substring(x[all.caps], 2)))
 
