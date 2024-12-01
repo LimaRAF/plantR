@@ -26,8 +26,8 @@ prepSpecies(
 )
 }
 \arguments{
-\item{x}{a data.frame containing the taxon name without authors and
-their authorship, ideally the output from function \code{fixSpecies()}.}
+\item{x}{a vector or data.frame of taxon names and their
+authorships, ideally the output from function \code{fixSpecies()}.}
 
 \item{tax.names}{character. Names of the columns containing the
 taxon names and authorships. Defaults to 'scientificName.new' and

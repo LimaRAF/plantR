@@ -5,8 +5,8 @@
 #'   the user or by the `plantR` companion packages `plantRdata` (the
 #'   default).
 #'
-#' @param x a data.frame containing the taxon name without authors and
-#'   their authorship, ideally the output from function `fixSpecies()`.
+#' @param x a vector or data.frame of taxon names and their
+#'   authorships, ideally the output from function `fixSpecies()`.
 #' @param tax.names character. Names of the columns containing the
 #'   taxon names and authorships. Defaults to 'scientificName.new' and
 #'   'scientificNameAuthorship.new'.
@@ -176,8 +176,15 @@ prepSpecies <- function(x,
                                       "accepted.name.status",
                                       "taxon.distribution")) {
 
-  if (!inherits(x, "data.frame"))
-    stop("Input object 'x' needs to be a data frame!", call. = FALSE)
+  if (!inherits(x, "data.frame")) {
+    if (inherits(x, "character")) {
+      x <- data.frame(name = x, author = NA)
+      colnames(x) <- tax.names
+    } else {
+      stop("Input object 'x' needs to be a data frame or a vector!",
+           call. = FALSE)
+    }
+  }
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!", call. = FALSE)
@@ -201,9 +208,11 @@ prepSpecies <- function(x,
   if (tax.names[2] %in% names(x)) {
 
     if (all(is.na(x[[tax.names[2]]]))) {
-      use.authors <- FALSE
-      warning("Argument 'use.authors' set as TRUE, but column with author names is empty",
-              call. = FALSE)
+      if (use.authors) {
+        use.authors <- FALSE
+        warning("Argument 'use.authors' set as TRUE, but column with author names is empty",
+                call. = FALSE)
+      }
       df <- cbind.data.frame(
         tmp..ordem = seq_along(x[[tax.names[1]]]),
         x[, tax.names])
@@ -248,7 +257,8 @@ prepSpecies <- function(x,
 
       no_author <- is.na(df_unique[[tax.names[2]]])
       if (any(no_author))
-        input_names[no_author] <- df_unique[[tax.names[1]]][no_author]
+        input_names[no_author] <-
+          df_unique[[tax.names[1]]][no_author]
 
       ref_names <- buildName(ref.df, c("name", "authorship"))
 
@@ -572,10 +582,27 @@ prepSpecies <- function(x,
 
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
       if (any(rep_these)) {
-        output[rep_these, old.cols] <- output[rep_these, new.cols]
-        output$notes[rep_these] <-
-          gsub("synonym", "replaced synonym", output$notes[rep_these],
-               perl = TRUE)
+        w_accept_id <- !is.na(output[rep_these, new.cols[1]])
+        if (any(w_accept_id)){
+          output[rep_these & w_accept_id, old.cols] <-
+            output[rep_these & w_accept_id, new.cols]
+          output$notes[rep_these & w_accept_id] <-
+            gsub("synonym", "replaced synonym",
+                 output$notes[rep_these & w_accept_id],
+                 perl = TRUE)
+        }
+
+        if (any(!w_accept_id)){
+          output$notes[rep_these & !w_accept_id] <-
+            gsub("synonym", "synonym not replaced",
+                 output$notes[rep_these & !w_accept_id],
+                 perl = TRUE)
+        }
+
+        # output[rep_these, old.cols] <- output[rep_these, new.cols]
+        # output$notes[rep_these] <-
+        #   gsub("synonym", "replaced synonym", output$notes[rep_these],
+        #        perl = TRUE)
       }
 
       rep_these <- grepl("orthographic", output$notes, perl = TRUE)

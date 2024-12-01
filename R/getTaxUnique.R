@@ -199,9 +199,16 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
 
   res.temp <- dplyr::left_join(df.orig, res.final, by = match.col,
                                suffix = c(".x", ""))
-  cols_rep <- unique(c(mult.match.col, agg.cols))
+  # cols_rep <- unique(c(mult.match.col, agg.cols))
+  cols_rep <- unique(c(mult.match.col, name.col, agg.cols))
   df.orig[, cols_rep] <- res.temp[, cols_rep]
-  df.orig[[name.col]] <- res.temp[[match.col]]
+
+  # check_these <- res.temp[[match.col]] != res.temp[[name.col]]
+  # if (any(check_these)) {
+  #   df.orig[[name.col]] <- res.temp[[name.col]]
+  # } else {
+  #   df.orig[[name.col]] <- res.temp[[match.col]]
+  # }
 
   return(df.orig)
 }
