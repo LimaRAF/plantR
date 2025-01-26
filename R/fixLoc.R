@@ -103,7 +103,8 @@ fixLoc <- function(x,
 
   # Missing locality that may be stored in the field 'verbatimLocality'
   if ("locality" %in% names(x) & "verbatimLocality" %in% names(x)) {
-    ids <- !x$verbatimLocality %in% na.strings & x$locality %in% na.strings
+    ids <- !x$verbatimLocality %in% na.strings &
+              x$locality %in% na.strings
     x$locality[ids] <- x$verbatimLocality[ids]
   }
 
@@ -115,7 +116,8 @@ fixLoc <- function(x,
     stop("input object needs to have at least one of the following fields: country/countryCode, stateProvince, municipality/county and locality/verbatimLocality")
 
   ## Obtaining the intermediary data frame for editing
-  x1 <- x[, match(loc.levels, colnames(x)), drop = FALSE]
+  loc.levels <- loc.levels[loc.levels %in% names(x)]
+  x1 <- x[, match(loc.levels, colnames(x), nomatch = 0), drop = FALSE]
 
   ## Loading the dictionary of names, terms, abbreviations and encodign problems to be replaced
   enc <- unwantedEncoding

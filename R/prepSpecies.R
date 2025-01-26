@@ -99,10 +99,14 @@
 #'   provided in the argument `db`.
 #'
 #'   If `replace.names` is TRUE, the function replaces synonyms with
-#'   its accepted name and replaces bad matches by NA. In the rare
+#'   its accepted name and it changes the category 'synonym' in the
+#'   new column 'tax.notes' to 'replaced synonym'. When there is a bad
+#'   match, the dubious accepted name found is replaced by NA. In the
 #'   cases where multiple name matches have the same accepted name,
-#'   the accepted name for both names is also returned. But note that
-#'   the 'id' found in the reference
+#'   the accepted name for both names is also returned. In naddition,
+#'   when the backbone states that a name is a synonym but it does not
+#'   provide an accepted name, the name of the synonym is return and
+#'   the category on 'tax.notes' is changed to 'synonym not replaced'.
 #'
 #'   The function returns a new column named 'tax.notes' which
 #'   contains a summary of the result of the name matching for each

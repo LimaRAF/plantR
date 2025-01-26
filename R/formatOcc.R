@@ -129,49 +129,79 @@ formatOcc <- function(x,
   x <- getCode(x)
 
   ## First edits to names, numbers and dates
-  x$recordedBy.new <- fixName(x$recordedBy)
+  if ("recordedBy" %in% names(x)) {
+    x$recordedBy.new <- fixName(x$recordedBy)
+  } else {
+    x$recordedBy.new <- noName
+  }
 
   # Collector number
-  x$recordNumber.new <- colNumber(x$recordNumber, noNumb = noNumb)
+  if ("recordNumber" %in% names(x)) {
+    x$recordNumber.new <- colNumber(x$recordNumber, noNumb = noNumb)
+  } else {
+    x$recordNumber.new <- noNumb
+  }
 
   # Collection year
-  x$year.new <- getYear(x$year, noYear = noYear)
+  if ("year" %in% names(x)) {
+    x$year.new <- getYear(x$year, noYear = noYear)
+  } else {
+    x$year.new <- noYear
+  }
 
   # Identifier name
-  x$identifiedBy.new <- fixName(x$identifiedBy)
+  if ("identifiedBy" %in% names(x)) {
+    x$identifiedBy.new <- fixName(x$identifiedBy)
+  } else {
+    x$identifiedBy.new <- noName
+  }
 
   # Identification year
-  x$yearIdentified.new <- getYear(x$dateIdentified, noYear = noYear)
+  if ("dateIdentified" %in% names(x)) {
+    x$yearIdentified.new <- getYear(x$dateIdentified, noYear = noYear)
+  } else {
+    x$year.new <- noYear
+  }
 
-  ## Putting people's names into the default name notation and
-  #separating main and auxiliary names
-  x$recordedBy.aux <- prepName(x$recordedBy.new,
-                               fix.names = FALSE,
-                               sep.out = "; ",
-                               output = "aux")
-  x$recordedBy.new <- prepName(x$recordedBy.new,
-                               fix.names = FALSE,
-                               output = "first")
-
-  x$identifiedBy.aux <- prepName(x$identifiedBy.new,
+  ## Putting collector's name into the default name notation and
+  # separating main and auxiliary names
+  if (any(!x$recordedBy.new %in% c("", " ", NA, "NA", noName))) {
+    # separating and preping names
+    x$recordedBy.aux <- prepName(x$recordedBy.new,
                                  fix.names = FALSE,
                                  sep.out = "; ",
                                  output = "aux")
-  x$identifiedBy.new <- prepName(x$identifiedBy.new,
+    x$recordedBy.new <- prepName(x$recordedBy.new,
                                  fix.names = FALSE,
                                  output = "first")
-
-  ## Standardize the notation for missing names
-  x$recordedBy.new <- missName(x$recordedBy.new,
-                               type = "collector",
-                               noName = noName)
-  x$identifiedBy.new <- missName(x$identifiedBy.new,
-                                 type = "identificator",
+    # standardizing the notation for missing names
+    x$recordedBy.new <- missName(x$recordedBy.new,
+                                 type = "collector",
                                  noName = noName)
+    # extract the last name of the collector
+    x$last.name <- lastName(x$recordedBy.new,
+                            noName = noName)
+  } else {
+    x$recordedBy.aux <- NA
+    x$last.name <- NA
+  }
 
-  ## Extract the last name of the collector
-  x$last.name <- lastName(x$recordedBy.new,
-                          noName = noName)
-
+  ## Putting collector's name into the default name notation and
+  # separating main and auxiliary names
+  if (any(!x$identifiedBy.new %in% c("", " ", NA, "NA", noName))) {
+    x$identifiedBy.aux <- prepName(x$identifiedBy.new,
+                                   fix.names = FALSE,
+                                   sep.out = "; ",
+                                   output = "aux")
+    x$identifiedBy.new <- prepName(x$identifiedBy.new,
+                                   fix.names = FALSE,
+                                   output = "first")
+    # standardizing the notation for missing names
+    x$identifiedBy.new <- missName(x$identifiedBy.new,
+                                   type = "identificator",
+                                   noName = noName)
+  } else {
+    x$identifiedBy.aux <- NA
+  }
   return(x)
 }

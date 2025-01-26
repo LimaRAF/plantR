@@ -50,17 +50,14 @@ colNumber <- function(x,
                       noNumb = "s.n.") {
 
   # first edits
-  # x <- stringr::str_squish(x)
-  x <- gsub("\\s+", " ", x, perl = TRUE)
-  x <- gsub("^ | $", "", x, perl = TRUE)
-  numbs <- x
+  numbs <- squish(x)
 
   # Missing numbers
   numbs[numbs %in% c(0, "0", "", " ", NA)] <-
     "SemNumero"
   numbs[!grepl("\\d", numbs, perl = TRUE)] <-
     "SemNumero"
-  numbs[!is.na(numbs) & grepl(" s.n. ", numbs)] <-
+  numbs[!is.na(numbs) & grepl(" s.n. ", numbs, fixed = TRUE)] <-
     "SemNumero"
 
   # Removing the collection code from the beggining of the collection number
@@ -95,33 +92,36 @@ colNumber <- function(x,
   numbs <- gsub('\\) ', "\\)", numbs, perl = TRUE)
   replace_these <- grepl('^\\(', numbs, perl = TRUE) &
                     !grepl('\\)$', numbs, perl = TRUE)
-  numbs[replace_these] <-
-    gsub('^\\(', '', numbs[replace_these], perl = TRUE)
+  if (any(replace_these))
+    numbs[replace_these] <-
+      gsub('^\\(', '', numbs[replace_these], perl = TRUE)
 
   replace_these <- !grepl('^\\(', numbs, perl = TRUE) &
                       grepl('\\)$', numbs, perl = TRUE)
-  numbs[replace_these] <-
-    gsub('\\)$', '', numbs[replace_these], perl = TRUE)
+  if (any(replace_these))
+    numbs[replace_these] <-
+      gsub('\\)$', '', numbs[replace_these], perl = TRUE)
 
   #Replacing orphan spaces by separators
   numbs <- gsub('([0-9])( )(\\p{L})', "\\1-\\3", numbs, perl = TRUE)
   numbs <- gsub('(\\p{L})( )([0-9])', "\\1-\\3", numbs, perl = TRUE)
 
   #Including separators between number qualificators
-  numbs[grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)] <-
-    gsub(' ', "-", numbs[grepl('[0-9] [A-Z]',
-                               numbs, ignore.case = TRUE, perl = TRUE)], perl = TRUE)
+  replace_these <- grepl('[0-9] [A-Z]', numbs, ignore.case = TRUE, perl = TRUE)
+  if (any(replace_these))
+    numbs[replace_these] <-
+      gsub(' ', "-", numbs[replace_these], perl = TRUE)
 
   #PUT THIS FUNCTION IN PACKAGE DOCUMENTATION?
   #NEED TO BE FIXED: CONVERTING 116F4 TO 1164-F!
   f1 <- function(x) {
     x1 <- strsplit(x, "")[[1]]
     names(x1) <- 1:length(x1)
-    x2 <- as.character(paste(x1[grepl('[0-9]', x1)], sep = "", collapse = ""))
-    m.x2 <- min(as.double(names(x1[grepl('[0-9]', x1)])))
-    x3 <- as.character(paste(x1[grepl('[a-z]', x1, ignore.case = TRUE)], sep =
+    x2 <- as.character(paste(x1[grepl('[0-9]', x1, perl = TRUE)], sep = "", collapse = ""))
+    m.x2 <- min(as.double(names(x1[grepl('[0-9]', x1, perl = TRUE)])))
+    x3 <- as.character(paste(x1[grepl('[a-z]', x1, ignore.case = TRUE, perl = TRUE)], sep =
                                "", collapse = ""))
-    m.x3 <- min(as.double(names(x1[grepl('[a-z]', x1, ignore.case = TRUE)])))
+    m.x3 <- min(as.double(names(x1[grepl('[a-z]', x1, ignore.case = TRUE, perl = TRUE)])))
     if (m.x2 < m.x3) {
 
       x4 <- paste(x2, toupper(x3), sep = "-")
@@ -134,7 +134,8 @@ colNumber <- function(x,
     return(x4)
   }
 
-  check_these <- grepl('[0-9][A-Z]', numbs, ignore.case = TRUE)
+  check_these <- grepl('[0-9][A-Z]', numbs, ignore.case = TRUE,
+                       perl = TRUE)
   if (any(check_these))
     numbs[check_these] <- sapply(numbs[check_these], FUN = f1,
                                  simplify = TRUE, USE.NAMES = FALSE)
@@ -157,10 +158,7 @@ colNumber <- function(x,
   # Final edits
   numbs <- gsub("--", "-", numbs, fixed = TRUE)
   numbs <- gsub("&nf;", "", numbs, fixed = TRUE)
-  # numbs <- stringr::str_squish(numbs)
-  numbs <- gsub("\\s+", " ", numbs, perl = TRUE)
-  numbs <- gsub("^ | $", "", numbs, perl = TRUE)
-
+  numbs <- squish(numbs)
   #numb <- gsub('[a-z]-[0-9]','',numb, ignore.case=TRUE) ##CHECK
 
   return(numbs)
