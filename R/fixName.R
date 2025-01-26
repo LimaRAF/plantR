@@ -2,8 +2,7 @@
 #'
 #' @description Standardize name notation
 #'
-#' @param nomes a character string or a vector with names.
-#'   to FALSE.
+#' @param nomes a character string or a vector with names with no default.
 #' @param sep.in a vector of the symbols separating multiple names. Default to:
 #'   ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".
 #' @param sep.out a character string with the symbol separating multiple names
@@ -66,13 +65,16 @@
 #'
 #' @export fixName
 #'
-fixName <- function(nomes,
+fixName <- function(nomes = NULL,
                     sep.in = c(";","&","|"," e "," y "," and "," und "," et "),
                     sep.out = "|",
                     bad.comma = TRUE,
                     special.char = FALSE) {
 
   ## Check input
+  if (is.null(nomes))
+    stop("Please provide an input object")
+
   if (!class(nomes)[1] %in% c("character", "factor"))
     stop("Input object needs to be a character")
 
@@ -120,6 +122,7 @@ fixName <- function(nomes,
 
   #Separation between multiple authors
   nomes <- gsub(",;|;,", sep.in3[1], nomes, perl = TRUE)
+  nomes <- gsub(",\\s*;|;\\s*,", sep.in3[1], nomes, perl = TRUE)
   nomes <- gsub("(; )(,)(\\p{Lu})", "\\1\\3", nomes, perl = TRUE)
 
   #Trying to solve cases when both initials and multiple people's names are separate by commas
