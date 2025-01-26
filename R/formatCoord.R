@@ -51,6 +51,9 @@ formatCoord <- function(coords,
   if (dim(coords)[1] == 0)
     stop("Input data frame is empty!")
 
+  # Checking the presence of reserved columns in the input dataset
+  coords <- checkColNames(coords, group = "format.coords")
+
   # prepCoord
   coords1 <- prepCoord(x = coords, lat, lon, flag)
 

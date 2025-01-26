@@ -119,3 +119,35 @@ readScript <- function(file = NULL, text = "", tag = "note") {
   lns <- paste(sprintf("\\code{%s}", lns), collapse = "; ")
   return(paste("\\", tag, "{", text, "\n", lns, ".}", sep = ""))
 }
+
+#'
+#' @title Check plantR Reserved Column Names
+#'
+#' @param x a data frame
+#' @param group the group of column names (i.e. "format.occs",
+#'   "format.locs", etc)
+#'
+#' @keywords internal
+#'
+#' @noRd
+#'
+checkColNames <- function(x = NULL, group = NULL) {
+  reserved <- reservedColNames
+
+  if (!is.null(group))
+    reserved <- reserved[names(reserved) %in% group]
+
+  check_names <- names(x) %in% reserved
+
+  if (any(check_names)) {
+    any.reserved <- names(x)[check_names]
+    warning(paste("The following column names are reserved to plantR and will be overwritten: ",
+                    paste(any.reserved, collapse = ", ")), call. = FALSE)
+    x1 <- x
+    for (i in seq_along(any.reserved))
+      x1[[any.reserved[i]]] <- NULL
+    return(x1)
+  } else {
+    return(x)
+  }
+}

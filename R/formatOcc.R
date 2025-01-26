@@ -122,6 +122,8 @@ formatOcc <- function(x,
       x$recordNumber[ids] <- x$collectornumber[ids]
   }
 
+  ## Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "format.occs")
 
   ## Standardizing collection codes
   x <- getCode(x)

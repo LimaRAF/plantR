@@ -68,6 +68,9 @@ formatTax <- function(tax,
   if (dim(tax)[1] == 0)
     stop("Input data frame is empty!")
 
+  # Checking the presence of reserved columns in the input dataset
+  tax <- checkColNames(tax, group = "format.tax")
+
   # prepSpecies
   tax1 <- fixSpecies(x = tax,
                      tax.name = tax.name,

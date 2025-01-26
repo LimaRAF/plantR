@@ -217,7 +217,46 @@ names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "�
 Encoding(names(badEncoding)) <- "UTF-8"
 names(badEncoding) <- iconv(names(badEncoding), "UTF-8", "UTF-8")
 
+## Named vector with plantR reserved column names
+reservedColNames <- c(
+  # "format.occcs" - 10 columns
+  "collectionCode.new", "collectionObs", "recordedBy.new",
+  "recordNumber.new", "year.new", "identifiedBy.new",
+  "yearIdentified.new", "recordedBy.aux", "identifiedBy.aux",
+  "last.name",
+  # "format.locs" - 11 columns
+  "country.new", "stateProvince.new", "municipality.new",
+  "locality.new", "locality.scrap", "resol.orig",
+  "loc", "loc.correct", "latitude.gazetteer",
+  "longitude.gazetteer","resolution.gazetteer",
+  # "format.coords" - 5 columns
+  "coord.check", "decimalLatitude.new", "decimalLongitude.new",
+  "origin.coord", "precision.coord",
+  # "format.tax" - 10 columns
+  "scientificName.new", "scientificNameAuthorship.new",
+  "scientificNameStatus", "suggestedName", "suggestedAuthorship",
+  "taxon.rank", "tax.notes", "id", "scientificNameFull", "family.new",
+  # "validate.locs" - 1 column
+  "loc.check",
+  # "validate.coords" - 3 columns
+  "geo.check", "cult.check", "out.check",
+  # "validate.tax" - 1 columns
+  "tax.check",
+  # "validate.dups" - 21 columns
+  "numTombo", "dup.ID", "dup.numb", "dup.prop",
+  "family.new1", "scientificName.new1", "identifiedBy.new1",
+  "yearIdentified.new1", "tax.check1", "scientificNameStatus1",
+  "ref.spec.tax", "decimalLatitude.new1", "decimalLongitude.new1",
+  "origin.coord1", "precision.coord1", "geo.check1", "ref.spec.geo",
+  "loc.correct1", "resolution.gazetteer1", "loc.check1", "ref.spec.loc"
+)
+groupNames <- rep(c("format.occs", "format.locs", "format.coords",
+                    "format.tax", "validate.locs", "validate.coords",
+                    "validate.tax", "validate.dups"),
+                  times = c(10, 11, 5, 10, 1, 3, 1, 21))
+reservedColNames <- setNames(reservedColNames, groupNames)
 
+## Conversion of coordinate validation categories
 simpGeoCheck <- c(
   #common cases
   "ok_country/ok_state/ok_county" = "ok_county", # ok!
@@ -331,6 +370,7 @@ usethis::use_data(admin,
                   treatPreps,
                   namePreps,
                   badEncoding,
+                  reservedColNames,
                   simpGeoCheck,
                   botanicalCountries,
                   overwrite = TRUE,
@@ -340,4 +380,5 @@ usethis::use_data(admin,
 rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
    replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
    unwantedEncoding, cultivated, notCultivated, missColls, missDets,
-   treatPreps, namePreps, badEncoding, simpGeoCheck, botanicalCountries)
+   treatPreps, namePreps, badEncoding, reservedColNames, simpGeoCheck,
+   botanicalCountries)

@@ -187,6 +187,9 @@ validateTax <- function(x, col.names = c(family = "family.new",
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
 
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "validate.tax")
+
   #list of column names in the data
   id.cols <- col.names %in% names(x)
 

@@ -61,6 +61,9 @@ validateCoord <- function(x,
   if (!output %in% c("same.col", "new.col"))
     stop("Please choose an output between 'same.col' and 'new.col'")
 
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "validate.coords")
+
   ## First coordinate check
   x1 <- checkCoord(x,
                    lon = lon,
