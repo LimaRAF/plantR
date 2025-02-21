@@ -336,14 +336,18 @@ fixAuthors <- function(taxa = NULL,
     res[[2]][first_hyb] <- paste0(substr(taxa1[first_hyb], 0, 2),
                                   res[[2]][first_hyb])
   }
-
+  res <- res[!duplicated(res$orig.name), ]
   res0 <- data.frame(orig.name = taxa,
                     tax.name = NA,
                     tax.author = NA,
                     ids = 1:length(taxa))
   res <- res[, -which(names(res) %in% "fix.author")]
-  res1 <- merge(res0, res, by = "orig.name", all = TRUE,
-                suffixes = c(".x", ""))
+  res1 <- dplyr::left_join(res0, res, by = "orig.name", 
+                           suffix = c(".x", ""))
+  # res1 <- merge(res0, res, by = "orig.name", all = TRUE,
+  #               suffixes = c(".x", ""))
+  
+  # Maybe duplicated and order can be removed now? Check
   res1 <- res1[!duplicated(res1$ids), ]
   res1 <- res1[order(res1$ids), ]
   res1$tax.name[!rep_ids0] <- taxa[!rep_ids0]
