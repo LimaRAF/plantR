@@ -10,6 +10,7 @@ res0 <- c("municipality", "locality", "municipality", "locality", "locality", "m
 res1 <- c("municipality", "locality", "municipality", "locality", "stateProvince", "municipality")
 res2 <- c("stateProvince", "stateProvince", "stateProvince", "stateProvince", "stateProvince", "no_info")
 res3 <- c("parati", "paraty", "lavras", "lavras", "lavras", "lavras")
+res4 <- rep("brazil", 6)
 
 # Tests
 test_that("fixLoc works", {
@@ -18,5 +19,5 @@ test_that("fixLoc works", {
   expect_equal(fixLoc(df, scrap = FALSE)$resol.orig, res1)
   expect_equal(fixLoc(df, loc.levels = c("country", "stateProvince"))$resol.orig, res2)
   expect_equal(run_test$municipality.new, res3)
+  expect_equal(run_test$country.new, res4)
 })
-
