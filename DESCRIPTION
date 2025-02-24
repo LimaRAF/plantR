@@ -3,13 +3,13 @@ Version: 0.1.8
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
-                     email = "raflima@usp.br", 
+                     email = "raflima@usp.br",
 	                   comment = c(ORCID = "0000-0002-1048-0138")),
-              person("Sara", "R. Mortara", role = "aut", 
+              person("Sara", "R. Mortara", role = "aut",
                      email = "saramortara@gmail.com"),
               person("Andrea", "Sánchez-Tapia", role = "aut",
                      email = "andreasancheztapia@gmail.com"))
-Author: 
+Author:
   Renato A. F. de Lima [aut, cre]
   Sara R. Mortara [aut]
   Andrea Sánchez-Tapia [aut]
@@ -17,8 +17,8 @@ Author:
   Marinez Ferreira de Siqueira [ctb]
 Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
-Description: The package plantR provides tools for 
-    retrieving, processing, cleaning and validating 
+Description: The package plantR provides tools for
+    retrieving, processing, cleaning and validating
     (plant) species records from biological collections.
 License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
@@ -27,9 +27,9 @@ BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-Imports: 
+Imports:
     countrycode,
     data.table,
     doSNOW,
@@ -48,10 +48,10 @@ Imports:
     stringi,
     stringr,
     tidyr
-Suggests: 
+Suggests:
     devtools,
     graphics,
-    grDevices, 
+    grDevices,
     plantRdata,
     remotes,
     rmarkdown,
@@ -59,4 +59,6 @@ Suggests:
     stats,
     testthat (>= 3.0.0),
     utils
+Remotes:
+    LimaRAF/plantRdata
 Config/testthat/edition: 3
