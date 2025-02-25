@@ -2,6 +2,10 @@
 output: github_document
 ---
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/Lobz/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lobz/plantR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -29,7 +33,7 @@ species occurrences from biological collections.
 
 Please read the package [Introduction](https://github.com/LimaRAF/plantR/blob/dev/vignettes/plantR.pdf)
 and detailed [Tutorial](https://github.com/LimaRAF/plantR/blob/dev/vignettes/articles/plantR_tutorial.pdf) for more details.
- 
+
 #### Installation
 
 The package can be installed in R from [github](https://github.com/) with:
