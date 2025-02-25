@@ -83,13 +83,13 @@ they are assumed to be equal to \code{lat.orig} and \code{lon.orig} and
 they are created internally.
 
 The precision of the geographical coordinates are classified as:
-"degrees", "minutes", "seconds" and "miliseconds". This
+"degrees", "minutes", "seconds" and "milliseconds". This
 classification is performed for the latitude and longitude of
 each record and the worst precision retrieved is assigned to both
 of them (i.e. if lat = "minutes" and lon= "seconds", the
 precision = "minutes"). For simplicity, all latitude/longitude
 not classified as "degrees", "minutes" or "seconds" are
-classified as "miliseconds".
+classified as "milliseconds".
 
 The function implicitly assumes that NA coordinates are missing
 and they are replaced by the coordinates coming from the

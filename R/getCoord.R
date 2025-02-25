@@ -55,13 +55,13 @@
 #'   they are created internally.
 #'
 #'   The precision of the geographical coordinates are classified as:
-#'   "degrees", "minutes", "seconds" and "miliseconds". This
+#'   "degrees", "minutes", "seconds" and "milliseconds". This
 #'   classification is performed for the latitude and longitude of
 #'   each record and the worst precision retrieved is assigned to both
 #'   of them (i.e. if lat = "minutes" and lon= "seconds", the
 #'   precision = "minutes"). For simplicity, all latitude/longitude
 #'   not classified as "degrees", "minutes" or "seconds" are
-#'   classified as "miliseconds".
+#'   classified as "milliseconds".
 #'
 #'   The function implicitly assumes that NA coordinates are missing
 #'   and they are replaced by the coordinates coming from the
@@ -172,11 +172,11 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
       long3[!long3 %in% c("degrees_only", "minutes_only") &
               tmp2 %in% secs] <- "seconds"
 
-      # miliseconds
+      # milliseconds
       lati3[!lati3 %in% c("degrees_only", "minutes_only", "seconds")] <-
-        "miliseconds"
+        "milliseconds"
       long3[!long3 %in% c("degrees_only", "minutes_only", "seconds")] <-
-        "miliseconds"
+        "milliseconds"
 
       # Saving/combining the best precision for both lat and lon
       x1$precision.coord <- NA
@@ -190,8 +190,8 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
                            x1$p.lon %in% "minutes_only"] <- "minutes"
       x1$precision.coord[x1$p.lat %in% "seconds" &
                            x1$p.lon %in% "seconds"] <- "seconds"
-      x1$precision.coord[x1$p.lat %in% "miliseconds" &
-                           x1$p.lon %in% "miliseconds"] <- "miliseconds"
+      x1$precision.coord[x1$p.lat %in% "milliseconds" &
+                           x1$p.lon %in% "milliseconds"] <- "milliseconds"
       x1$precision.coord[is.na(x1$precision.coord) & !is.na(x1$p.lat) & !is.na(x1$p.lon) &
                            (x1$p.lat %in% "degrees_only" | x1$p.lon %in% "degrees_only")] <- "degrees"
       x1$precision.coord[is.na(x1$precision.coord) & !is.na(x1$p.lat) & !is.na(x1$p.lon) &
@@ -199,7 +199,7 @@ getCoord <- function(x, lat.orig = "decimalLatitude", lon.orig = "decimalLongitu
       x1$precision.coord[is.na(x1$precision.coord) & !is.na(x1$p.lat) & !is.na(x1$p.lon) &
                            (x1$p.lat %in% "seconds" | x1$p.lon %in% "seconds")] <- "seconds"
       x1$precision.coord[is.na(x1$precision.coord) & !is.na(x1$p.lat) & !is.na(x1$p.lon) &
-                           (x1$p.lat %in% "miliseconds" | x1$p.lon %in% "miliseconds")] <- "miliseconds"
+                           (x1$p.lat %in% "milliseconds" | x1$p.lon %in% "milliseconds")] <- "milliseconds"
     }
 
   ##Replacing missing coordinates by the county coordinates from the gazetteer

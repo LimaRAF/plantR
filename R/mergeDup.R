@@ -382,7 +382,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
                        "no_cannot_check", "check_gazetteer", "bad_country", "open_sea"),
       valor = c(1,3,4,5,6,8,9,10,11,12,20,20,25,25))
     coord.prec.lvs <- data.table::data.table(
-      prec.coord.wk = c("miliseconds", "seconds","seconds_centroid",
+      prec.coord.wk = c("milliseconds", "seconds","seconds_centroid",
                         "minutes", "degrees", "no_coord"),
       valor = c(0,0,0,1,6,20))
 

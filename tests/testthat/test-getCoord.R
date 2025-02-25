@@ -11,7 +11,7 @@ df <- data.frame(decimalLatitude = c(-23.5, -23.475389, NA),
 res0 <- df
 res0[3, c(6:7)] <- res0[3, c(3:4)]
 res0$origin.coord <- c(rep("coord_original", 2), "coord_gazet")
-res0$precision.coord <- c("minutes", "miliseconds", "seconds_centroid")
+res0$precision.coord <- c("minutes", "milliseconds", "seconds_centroid")
 res1 <- res0[, -c(3,4)]
 
 # Tests

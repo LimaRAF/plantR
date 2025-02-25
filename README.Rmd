@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 # plantR
 <img src="https://raw.githubusercontent.com/liibre/plantR_logo/master/figs/plantR_logo.png?token=AA4OYDE3TMIXBWRYVMNCINC72PIUY" align="right" alt="" width="120" />
 
+<!-- badges: start -->
+[![R-CMD-check: master](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check: dev](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml?branch=dev)
+[![Codecov test coverage](https://codecov.io/gh/LimaRAF/plantR/graph/badge.svg)](https://app.codecov.io/gh/LimaRAF/plantR)
+<!-- badges: end -->
 
 An R Package for Managing Species Records from Biological Collections
 
@@ -29,7 +34,7 @@ species occurrences from biological collections.
 
 Please read the package [Introduction](https://github.com/LimaRAF/plantR/blob/dev/vignettes/plantR.pdf)
 and detailed [Tutorial](https://github.com/LimaRAF/plantR/blob/dev/vignettes/articles/plantR_tutorial.pdf) for more details.
- 
+
 #### Installation
 
 The package can be installed in R from [github](https://github.com/) with:
