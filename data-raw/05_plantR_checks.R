@@ -20,7 +20,7 @@ toto1 <- lengths(toto$found)
 names(toto1) <- toto$word
 head(tail(sort(toto1), 40))
 
-palavras <- c("microrganisms", "miliseconds",
+palavras <- c("microrganisms", "milliseconds",
               "servico", "servicos", "gustavobio", "irrespectively",
               "misidentifications", "modificators", "nomenclatural",
               "parallelization", "parallelize",
@@ -55,5 +55,3 @@ for (i in seq_along(arquivos)) {
   cat(arquivos[i], "\n")
   non.ascii <- tools::showNonASCIIfile(arquivos[i])
 }
-
-
