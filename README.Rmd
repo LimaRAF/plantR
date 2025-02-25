@@ -2,10 +2,6 @@
 output: github_document
 ---
 
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/Lobz/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Lobz/plantR/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -21,6 +17,10 @@ knitr::opts_chunk$set(
 # plantR
 <img src="https://raw.githubusercontent.com/liibre/plantR_logo/master/figs/plantR_logo.png?token=AA4OYDE3TMIXBWRYVMNCINC72PIUY" align="right" alt="" width="120" />
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/LimaRAF/plantR/graph/badge.svg)](https://app.codecov.io/gh/LimaRAF/plantR)
+<!-- badges: end -->
 
 An R Package for Managing Species Records from Biological Collections
 
