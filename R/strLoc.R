@@ -86,6 +86,10 @@ strLoc <- function(x,
   sel.cols <- all.cols[all.cols %in% colnames(x)]
   x1 <- x[match(sel.cols, colnames(x))]
 
+  sel.cols1 <- sel.cols[sel.cols %in% c(adm.names, "locality.new")]
+  for (i in seq_along(sel.cols1))
+    x1[[sel.cols1[i]]][x1[[sel.cols1[i]]] %in% c("", " ", "NA")] <- NA
+
   ## Defining a unique code for each county, state/province or county/commune ##
   loc <- rep(NA, dim(x1)[1])
   # county-level
