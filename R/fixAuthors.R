@@ -337,16 +337,17 @@ fixAuthors <- function(taxa = NULL,
                                   res[[2]][first_hyb])
   }
 
+  res <- res[!duplicated(res$orig.name), ]
   res0 <- data.frame(orig.name = taxa,
                     tax.name = NA,
-                    tax.author = NA,
-                    ids = 1:length(taxa))
+                    tax.author = NA)
+
   res <- res[, -which(names(res) %in% "fix.author")]
-  res1 <- merge(res0, res, by = "orig.name", all = TRUE,
-                suffixes = c(".x", ""))
-  res1 <- res1[!duplicated(res1$ids), ]
-  res1 <- res1[order(res1$ids), ]
+  res1 <- dplyr::left_join(res0, res, by = "orig.name",
+                           suffix = c(".x", ""))
+
   res1$tax.name[!rep_ids0] <- taxa[!rep_ids0]
+
   res2 <- res1[, c("orig.name", "tax.name", "tax.author")]
 
   return(res2)
