@@ -106,6 +106,7 @@ rgbif2 <- function(dir = "results/",
             "\nReturning data only for: ",
             paste(species[key_pointer], collapse = ", "), "\n")
   }
+
   # Loop for each valid species
   gbif_data <- list()
   for (i in 1:length(key_pointer)) {

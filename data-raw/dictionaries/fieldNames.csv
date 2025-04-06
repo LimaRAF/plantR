@@ -27,15 +27,15 @@
 "individualCount","individualcount","The number of individuals present at the time of the dwc:Occurrence.",NA,NA,NA,NA,"individualCount"
 "organismQuantity","organismquantity","A number or enumeration value for the quantity of dwc:Organisms.",NA,NA,NA,NA,"organismQuantity"
 "organismQuantityType","organismquantitytype","The type of quantification system used for the quantity of dwc:Organisms.",NA,NA,NA,NA,"organismQuantityType"
-"sex","sex","The sex of the biological individual(s) represented in the dwc:Occurrence.",NA,NA,NA,NA,NA
+"sex","sex","The sex of the biological individual(s) represented in the dwc:Occurrence.",NA,NA,NA,NA,"sex"
 "lifeStage","lifestage","The age class or life stage of the dwc:Organism(s) at the time the dwc:Occurrence was recorded.",NA,NA,NA,NA,"lifeStage"
 "reproductiveCondition","reproductivecondition","The reproductive condition of the biological individual(s) represented in the dwc:Occurrence.",NA,NA,NA,NA,"reproductiveCondition"
 "caste","caste","Categorisation of individuals for eusocial species (including some mammals and arthropods).",NA,NA,NA,NA,NA
 "behavior","behavior","The behavior shown by the subject at the time the dwc:Occurrence was recorded.",NA,NA,NA,NA,"behavior"
-"vitality","vitality","An indication of whether a dwc:Organism was alive or dead at the time of collection or observation.",NA,NA,NA,NA,NA
+"vitality","vitality","An indication of whether a dwc:Organism was alive or dead at the time of collection or observation.",NA,NA,NA,NA,"vitality"
 "establishmentMeans","establishmentmeans","Statement about whether a dwc:Organism has been introduced to a given place and time through the direct or indirect activity of modern humans.",NA,NA,NA,NA,"establishmentMeans"
-"degreeOfEstablishment","degreeofestablishment","The degree to which a dwc:Organism survives, reproduces, and expands its range at the given place and time.",NA,NA,NA,NA,NA
-"pathway","pathway","The process by which a dwc:Organism came to be in a given place at a given time.",NA,NA,NA,NA,NA
+"degreeOfEstablishment","degreeofestablishment","The degree to which a dwc:Organism survives, reproduces, and expands its range at the given place and time.",NA,NA,NA,NA,"degreeOfEstablishment"
+"pathway","pathway","The process by which a dwc:Organism came to be in a given place at a given time.",NA,NA,NA,NA,"pathway"
 "georeferenceVerificationStatus","georeferenceverificationstatus","A categorical description of the extent to which the georeference has been verified to represent the best possible spatial description for the dcterms:Location of the dwc:Occurrence.",NA,NA,NA,NA,"georeferenceVerificationStatus"
 "occurrenceStatus","occurrencestatus","A statement about the presence or absence of a dwc:Taxon at a dcterms:Location.",NA,NA,NA,NA,"occurrenceStatus"
 "associatedMedia","associatedmedia","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the dwc:Occurrence.",NA,NA,NA,NA,NA
@@ -47,7 +47,7 @@
 "Organism","organism","A particular organism or defined group of organisms considered to be taxonomically homogeneous.",NA,NA,NA,NA,NA
 "organismID","organismid","An identifier for the dwc:Organism instance (as opposed to a particular digital record of the dwc:Organism). May be a globally unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"organismID"
 "organismName","organismname","A textual name or label assigned to a dwc:Organism instance.",NA,NA,NA,NA,"organismName"
-"organismScope","organismscope","A description of the kind of dwc:Organism instance. Can be used to indicate whether the dwc:Organism instance represents a discrete organism or if it represents a particular type of aggregation.",NA,NA,NA,NA,NA
+"organismScope","organismscope","A description of the kind of dwc:Organism instance. Can be used to indicate whether the dwc:Organism instance represents a discrete organism or if it represents a particular type of aggregation.",NA,NA,NA,NA,"organismScope"
 "associatedOrganisms","associatedorganisms","A list (concatenated and separated) of identifiers of other dwc:Organisms and the associations of this dwc:Organism to each of them.",NA,NA,NA,NA,NA
 "previousIdentifications","previousidentifications","A list (concatenated and separated) of previous assignments of names to the dwc:Organism.",NA,NA,NA,NA,"previousIdentifications"
 "organismRemarks","organismremarks","Comments or notes about the dwc:Organism instance.",NA,NA,NA,NA,"organismRemarks"
@@ -55,7 +55,7 @@
 "materialEntityID","materialentityid","An identifier for a particular instance of a dwc:MaterialEntity.",NA,NA,NA,NA,NA
 "preparations","preparations","A list (concatenated and separated) of preparations and preservation methods for a dwc:MaterialEntity.",NA,NA,NA,NA,"preparations"
 "disposition","disposition","The current state of a dwc:MaterialEntity with respect to a collection.",NA,NA,NA,NA,"disposition"
-"verbatimLabel","verbatimlabel","The content of this term should include no embellishments, prefixes, headers or other additions made to the text. Abbreviations must not be expanded and supposed misspellings must not be corrected. Lines or breakpoints between blocks of text that could be verified by seeing the original labels or images of them may be used. Examples of material entities include preserved specimens, fossil specimens, and material samples. Best practice is to use UTF-8 for all characters. Best practice is to add comment “verbatimLabel derived from human transcription” in dwc:occurrenceRemarks.",NA,NA,NA,NA,NA
+"verbatimLabel","verbatimlabel","The content of this term should include no embellishments, prefixes, headers or other additions made to the text. Abbreviations must not be expanded and supposed misspellings must not be corrected. Lines or breakpoints between blocks of text that could be verified by seeing the original labels or images of them may be used. Examples of material entities include preserved specimens, fossil specimens, and material samples. Best practice is to use UTF-8 for all characters. Best practice is to add comment “verbatimLabel derived from human transcription” in dwc:occurrenceRemarks.",NA,NA,NA,NA,"verbatimLabel"
 "associatedSequences","associatedsequences","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of genetic sequence information associated with the dwc:MaterialEntity.",NA,NA,NA,NA,"associatedSequences"
 "materialEntityRemarks","materialentityremarks","Comments or notes about the dwc:MaterialEntity instance.",NA,NA,NA,NA,NA
 "MaterialSample","materialsample","A material entity that represents an entity of interest in whole or in part.",NA,NA,NA,NA,NA
@@ -63,7 +63,7 @@
 "Event","event","An action that occurs at some location during some time.",NA,NA,NA,NA,NA
 "eventID","eventid","An identifier for the set of information associated with a dwc:Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"eventID"
 "parentEventID","parenteventid","An identifier for the broader dwc:Event that groups this and potentially other dwc:Events.",NA,NA,NA,NA,"parentEventID"
-"eventType","eventtype","The nature of the dwc:Event.",NA,NA,NA,NA,NA
+"eventType","eventtype","The nature of the dwc:Event.",NA,NA,NA,NA,"eventType"
 "fieldNumber","fieldnumber","An identifier given to the dwc:Event in the field. Often serves as a link between field notes and the dwc:Event.",NA,NA,NA,NA,"fieldNumber"
 "eventDate","eventdate","The date-time or interval during which a dwc:Event occurred. For occurrences, this is the date-time when the dwc:Event was recorded. Not suitable for a time in a geological context.","eventDate","optional","date_collected",NA,"eventDate"
 "eventTime","eventtime","The time or interval during which a dwc:Event occurred.",NA,NA,NA,NA,"eventTime"
@@ -135,7 +135,7 @@
 "latestPeriodOrHighestSystem","latestperiodorhighestsystem","The full name of the latest possible geochronologic period or highest chronostratigraphic system attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "earliestEpochOrLowestSeries","earliestepochorlowestseries","The full name of the earliest possible geochronologic epoch or lowest chronostratigraphic series attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "latestEpochOrHighestSeries","latestepochorhighestseries","The full name of the latest possible geochronologic epoch or highest chronostratigraphic series attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
-"earliestAgeOrLowestStage","earliestageorloweststage","The full name of the earliest possible geochronologic age or lowest chronostratigraphic stage attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,"earliestAgeOrLowestStage"
+"earliestAgeOrLowestStage","earliestageorloweststage","The full name of the earliest possible geochronologic age or lowest chronostratigraphic stage attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "latestAgeOrHighestStage","latestageorhigheststage","The full name of the latest possible geochronologic age or highest chronostratigraphic stage attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "lowestBiostratigraphicZone","lowestbiostratigraphiczone","The full name of the lowest possible geological biostratigraphic zone of the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "highestBiostratigraphicZone","highestbiostratigraphiczone","The full name of the highest possible geological biostratigraphic zone of the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
@@ -347,6 +347,3 @@
 "dayIdentified","dayidentified","(extra fields from speciesLink database not in Darwin Core standards)","dayIdentified","optional",NA,"dayidentified",NA
 "monthIdentified","monthidentified","(extra fields from speciesLink database not in Darwin Core standards)","monthIdentified","optional",NA,"monthidentified",NA
 "yearIdentified","yearidentified","(extra fields from speciesLink database not in Darwin Core standards)","yearIdentified","optional",NA,"yearidentified",NA
-"recordedBy","collector","(extra fields from speciesLink database not in Darwin Core standards)","recordedBy","optional",NA,"collector",NA
-"recordNumber","collectornumber","(extra fields from speciesLink database not in Darwin Core standards)","recordNumber","optional",NA,"collectornumber",NA
-"scientificNameAuthorship","scientificnameauthor","(extra fields from speciesLink database not in Darwin Core standards)","scientificNameAuthorship","optional",NA,"scientificnameauthor",NA

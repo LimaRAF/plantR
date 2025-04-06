@@ -286,7 +286,7 @@ fixLoc <- function(x,
       n4.2.1[n4.2.1 %in% ""] <- NA
 
       # isolating localities possibily in the gazetter (e.g. parks, serras, farms)
-      locais <- "parque|reserva|reserve|fazenda|nacional|estadual|parna|flona|rebio|rppn|e\\.e\\.|biologica|ecologica|extrativista|park|farm|estrada|rodovia|road|^sitio|^mata|^horto|^jardim|campus|^pico|^serra|^sierra|^morro|^chapada"
+      locais <- "parque|reserva|reserve|fazenda|nacional|estadual|parna|flona|rebio|rppn|e\\.e\\.|biologica|ecologica|extrativista|park|farm|hacienda|estrada|rodovia|carretera|road|camino|^sitio|^mata|^horto|^jardim|campus|^pico|^serra|^sierra|^morro|^chapada|^colina|^monumento"
       n4.3 <- as.character(sapply(n4, function(x)
           paste(unique(gsub("^ | $", "",
             x[grepl(locais, x, perl = TRUE)], perl = TRUE

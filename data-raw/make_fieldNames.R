@@ -6,22 +6,22 @@ spp <- c("Casearia sylvestris",
          "Euterpe edulis",
          "Trema micrantha")
 chave <- readLines("data-raw/api_key.txt")
-occs_splink <- rspeciesLink(species = spp, key = chave)
+occs_splink <- rspeciesLink(species = spp, key = chave, MaxRecords = 10000)
 write.csv(occs_splink, "data-raw/results/speciesLink.csv", row.names = FALSE)
-occs_gbif <- rgbif2(species = spp, row.names = FALSE)
+occs_gbif <- rgbif2(species = spp)
 write.csv(occs_gbif, "data-raw/results/gbif.csv")
-occs_bien <- BIEN::BIEN_occurrence_species(
-  spp,
-  cultivated = T,
-  all.taxonomy = T,
-  native.status = T,
-  natives.only = F,
-  observation.type = T,
-  political.boundaries = T,
-  collection.info = T
-)
-write.csv(occs_bien, "data-raw/results/bien.csv", row.names = FALSE)
-table(occs_bien$datasource)
+# occs_bien <- BIEN::BIEN_occurrence_species(
+#   spp,
+#   cultivated = T,
+#   all.taxonomy = T,
+#   native.status = T,
+#   natives.only = F,
+#   observation.type = T,
+#   political.boundaries = T,
+#   collection.info = T
+# )
+# write.csv(occs_bien, "data-raw/results/bien.csv", row.names = FALSE)
+# table(occs_bien$datasource)
 
 ## The online query for JABOT (http://jabot.jbrj.gov.br/v3/consulta.php) is also in the folder
 
@@ -41,7 +41,7 @@ opt_plantr <- c("genus", "acceptedScientificName",
                 "dayIdentified", "monthIdentified", "yearIdentified", "identificationRemarks",
                 "countryCode", "county", "verbatimLocality",
                 "verbatimLatitude", "verbatimLongitude", "coordinatePrecision", "verbatimElevation",
-                "collector", "collectornumber", "scientificnameauthor",
+                #"collector", "collectornumber", "scientificnameauthor",
                 "latitude", "longitude",
                 "basisOfRecord", "type",
                 "fieldNotes", "occurrenceRemarks", "habitat", #"occurrenceDetails",
@@ -102,9 +102,9 @@ opt_splink <- c(genus = "genus",
                 month = "monthcollected",
                 day = "daycollected",
                 # verbatimEventDate = "",
-                collector = "collector",
-                collectornumber = "collectornumber",
-                scientificnameauthor = "scientificnameauthor",
+                # collector = "collector",
+                # collectornumber = "collectornumber",
+                # scientificnameauthor = "scientificnameauthor",
                 dayIdentified = "dayidentified",
                 monthIdentified = "monthidentified",
                 yearIdentified = "yearidentified",
@@ -282,32 +282,33 @@ tmp <- tmp[, match(names(fieldNames), names(tmp))]
 to_lower_ids <- which(tolower(tmp$speciesLink) %in% names(df_splink))
 tmp$speciesLink[to_lower_ids] <- tolower(tmp$speciesLink[to_lower_ids])
 
-# Final adjustments
-rep_these <- tmp$speciesLink %in% "latitude"
-if (any(rep_these))
-  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Latitude"
-
-rep_these <- tmp$speciesLink %in% "longitude"
-if (any(rep_these))
-  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Longitude"
-
-rep_these <- tmp$speciesLink %in% "collector"
-if (any(rep_these))
-  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordedBy"
-
-rep_these <- tmp$speciesLink %in% "collectornumber"
-if (any(rep_these))
-  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordNumber"
-
-rep_these <- tmp$speciesLink %in% "scientificnameauthor"
-if (any(rep_these))
-  tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "scientificNameAuthorship"
+# # Final adjustments
+# rep_these <- tmp$speciesLink %in% "latitude"
+# if (any(rep_these))
+#   tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Latitude"
+#
+# rep_these <- tmp$speciesLink %in% "longitude"
+# if (any(rep_these))
+#   tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "Longitude"
+#
+# rep_these <- tmp$speciesLink %in% "collector"
+# if (any(rep_these))
+#   tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordedBy"
+#
+# rep_these <- tmp$speciesLink %in% "collectornumber"
+# if (any(rep_these))
+#   tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "recordNumber"
+#
+# rep_these <- tmp$speciesLink %in% "scientificnameauthor"
+# if (any(rep_these))
+#   tmp$plantr[rep_these] <- tmp$dwc[rep_these] <- "scientificNameAuthorship"
 
 # Binding to the data frame
 fieldNames <- rbind.data.frame(fieldNames, tmp)
 
 # Removing duplicated entries (all equal except the description)
-dup.fields <- apply(fieldNames[, !names(fieldNames) %in% "definition"], 2, duplicated)
+dup.fields <- apply(fieldNames[, !names(fieldNames) %in% "definition"],
+                    2, duplicated)
 fieldNames <- fieldNames[!apply(dup.fields, 1, all),]
 
 # Saving
