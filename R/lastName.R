@@ -99,9 +99,7 @@ lastName <- function(name,
 
   # preliminary edits:
   name <- gsub("[.]", ". ", name, perl = TRUE) # adding a space between points
-  name <- gsub("\\s+", " ", name, perl = TRUE)
-  name <- gsub("^ | $", "", name, perl = TRUE)
-  # name <- stringr::str_squish(name) # removing double and end spaces
+  name <- squish(name)
 
   # Defining the general name formats (single, mult. w/ comma, mult. w/out comma)
   comma <- grepl("\\p{L},", name[!miss.name], perl = TRUE)

@@ -134,10 +134,10 @@ prepName <- function(x,
   # name inside brackets or parentheses? removing here and adding after editions
   bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
   if (any(bracks))
-    x[bracks] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[bracks], perl = TRUE) #
+    x[bracks] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[bracks], perl = TRUE)
   parent <- grepl('^\\(', x, perl = TRUE) & grepl('\\)$', x, perl = TRUE)
   if (any(parent))
-    x[parent] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[parent], perl = TRUE) #
+    x[parent] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[parent], perl = TRUE)
 
   # Editing the general name notation
   if (fix.names)

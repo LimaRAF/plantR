@@ -241,8 +241,7 @@ fixName <- function(nomes = NULL,
                 perl = TRUE, ignore.case = TRUE)
 
   #Final formatting
-  nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
-  nomes <- gsub("^ | $", "", nomes, perl = TRUE)
+  nomes <- squish(nomes)
   nomes <- gsub("^-+|-+$", "", nomes, perl = TRUE)
   nomes <- gsub("^\\.+|\\.\\.+$", "", nomes, perl = TRUE)
   nomes <- gsub("^,+|,+$", "", nomes, perl = TRUE)
@@ -255,8 +254,11 @@ fixName <- function(nomes = NULL,
                 nomes, perl = TRUE)
   nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
-  nomes <- gsub("\\s+", " ", nomes, perl = TRUE)
-  nomes <- gsub("^ | $", "", nomes, perl = TRUE)
+  nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
+  nomes <- gsub("__ ,", "__ ", nomes, fixed = TRUE)
+  nomes <- gsub("__,", "__", nomes, fixed = TRUE)
+
+  nomes <- squish(nomes)
   nomes[nomes %in% c("", NA)] <- NA_character_
 
   #Replacing the temporary separator by sep.out
