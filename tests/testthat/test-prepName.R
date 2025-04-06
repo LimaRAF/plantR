@@ -34,4 +34,7 @@ test_that("prepName works", {
   expect_equal(prepName("HF Leitão Filho; GJ Shepherd; RR Rodrigues", output =  "aux"),
                "Shepherd, G.J.|Rodrigues, R.R.")
 
+  expect_equal(prepName("(HF Leitão Filho)"),"(Leitao Filho, H.F.)")
+  expect_equal(prepName("HF Leitão Filho (no. 100)"),"Leitao Filho, H.F.")
+
 })
