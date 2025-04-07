@@ -1,39 +1,44 @@
 #' @title Construct Locality String
 #'
-#' @description The function combines the locality fields available to create
-#'   the standard __plantR__ locality string, which is used for the validate
-#'   localities and geographical coordinates.
+#' @description The function combines the locality fields available to
+#'   create the standard __plantR__ locality string, which is used for
+#'   the validate localities and geographical coordinates.
 #'
 #' @param x a data frame.
 #' @param adm.names a vector of columns names containing the country,
-#' state/province and municipality information, in this order. Defaults to
-#' 'country.new', 'stateProvince.new' and 'municipality.new'.
+#'   state/province and municipality information, in this order.
+#'   Defaults to 'country.new', 'stateProvince.new' and
+#'   'municipality.new'.
 #' @param loc.names an vector of columns names containing the locality
-#'   (original and alternative) and the resolution of the locality information.
-#'   Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.
+#'   (original and alternative) and the resolution of the locality
+#'   information. Defaults to 'locality.new', 'locality.scrap' and
+#'   'resol.orig'.
 #'
-#' @return The data frame \code{x} plus the locality strings constructed from
-#'   the locality information ('loc.string', 'loc.string1' and 'loc.string2').
+#' @return The data frame \code{x} plus the locality strings
+#'   constructed from the locality information ('loc.string',
+#'   'loc.string1' and 'loc.string2').
 #'
-#' @details The function combines the locality information provided to create
-#'   the standard string that __plantR__ uses to retrieve information from
-#'   its gazetteer. This string is built by concatenating the country, state,
-#'   municipality and locality fields at the best resolution available. This
-#'   nested format decreases the chances of retrieving information from
-#'   localities with the same names in different regions. The standard gazetteer
-#'   provided with __plantR__ uses this standard locality string to make queries
-#'   (see function `getLoc()` for details).
+#' @details The function combines the locality information provided to
+#'   create the standard string that __plantR__ uses to retrieve
+#'   information from its gazetteer. This string is built by
+#'   concatenating the country, state, municipality and locality
+#'   fields at the best resolution available. This nested format
+#'   decreases the chances of retrieving information from localities
+#'   with the same names in different regions. The standard gazetteer
+#'   provided with __plantR__ uses this standard locality string to
+#'   make queries (see function `getLoc()` for details).
 #'
-#' The input data frame should preferably be the output of the __plantR__
-#' function `fixLoc()`, as part of the validation workflow used by __plantR__.
-#' This function returns the edited locality fields (the function defaults) and,
-#' if chosen, an extra locality field. In this case, `strLoc()` also returns an
-#' alternative string ('loc.string2').
+#' The input data frame should preferably be the output of the
+#' __plantR__ function `fixLoc()`, as part of the validation workflow
+#' used by __plantR__. This function returns the edited locality
+#' fields (the function defaults) and, if chosen, an extra locality
+#' field. In this case, `strLoc()` also returns an alternative string
+#' ('loc.string2').
 #'
-#' If used separately, users should provide a data frame with an specific set of
-#' column names (i.e. country.new, stateProvince.new, municipality.new,
-#' locality.new, and, if chosen, locality.scrap) or change the defaults. See
-#' examples below.
+#' If used separately, users should provide a data frame with an
+#' specific set of column names (i.e. country.new, stateProvince.new,
+#' municipality.new, locality.new, and, if chosen, locality.scrap) or
+#' change the defaults. See examples below.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -79,7 +84,8 @@ strLoc <- function(x,
     stop("input object needs to be a data frame!")
 
   if (!any(adm.names %in% colnames(x)))
-    stop("input object needs to have at least the fields:\n", paste(adm.names, collapse="\n"))
+    stop("input object needs to have at least the fields:\n",
+         paste(adm.names, collapse="\n"))
 
   ## putting the input data in the right order
   all.cols <- c(adm.names, loc.names)
@@ -90,7 +96,7 @@ strLoc <- function(x,
   for (i in seq_along(sel.cols1))
     x1[[sel.cols1[i]]][x1[[sel.cols1[i]]] %in% c("", " ", "NA")] <- NA
 
-  ## Defining a unique code for each county, state/province or county/commune ##
+  ## Defining a unique code for each county, state/province or county
   loc <- rep(NA, dim(x1)[1])
   # county-level
   loc[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])] <-
