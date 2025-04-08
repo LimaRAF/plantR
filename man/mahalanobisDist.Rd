@@ -22,85 +22,92 @@ mahalanobisDist(
 
 \item{lat}{numerical. Latitude in decimal degrees}
 
-\item{method}{character. Type of method desired: 'classic' and/or 'robust'
-(see Details)}
+\item{method}{character. Type of method desired: 'classic' and/or
+'robust' (see Details)}
 
-\item{n.min}{numerical. Minimum number of unique coordinates to be used in
-the calculations.}
+\item{n.min}{numerical. Minimum number of unique coordinates to be
+used in the calculations.}
 
-\item{digs}{numerical. Number of digits to be returned after the decimal
-point. Default to 4}
+\item{digs}{numerical. Number of digits to be returned after the
+decimal point. Default to 4}
 
-\item{center}{character. Which metric should be used to obtain he center of
-the distribution of coordinates: 'mean' or 'median'?}
+\item{center}{character. Which metric should be used to obtain he
+center of the distribution of coordinates: 'mean' or 'median'?}
 
-\item{geo}{character. A vector of the same length of lon/lat containing the
-result from the validation of the geographical coordinates. Default to NULL.}
+\item{geo}{character. A vector of the same length of lon/lat
+containing the result from the validation of the geographical
+coordinates. Default to NULL.}
 
-\item{cult}{character. A vector of the same length of lon/lat containing the
-result from the validation of cultivated specimens. Default to NULL.}
+\item{cult}{character. A vector of the same length of lon/lat
+containing the result from the validation of cultivated
+specimens. Default to NULL.}
 
-\item{geo.patt}{character. The pattern to be used to search for classes of
-geographical validation to be included in the analyses. Default to "ok_".}
+\item{geo.patt}{character. The pattern to be used to search for
+classes of geographical validation to be included in the
+analyses. Default to "ok_".}
 
-\item{cult.patt}{character. The pattern to be used to search for classes of
-validation of cultivated specimens to be included in the analyses. Default
-to NA.}
+\item{cult.patt}{character. The pattern to be used to search for
+classes of validation of cultivated specimens to be included in
+the analyses. Default to NA.}
 }
 \value{
-the input data frame and a new column(s) with the distances obtained
-using the selected method(s)
+the input data frame and a new column(s) with the distances
+obtained using the selected method(s)
 }
 \description{
 Calculate Squared Mahalanobis Distances
 }
 \details{
-Two possible methods to calculate the Mahalanobis distances are
-available: the classic (\code{method}= 'classic') and the robust methods
-(\code{method}= 'robust'). The two methods take into account the geographical
-center of the coordinates distribution and the spatial covariance between
-them. But they vary in the way the covariance matrix of the distribution is
-defined: the classic method uses an approach based on Pearson's method,
-while the robust method uses a Minimum Covariance Determinant (MCD)
-estimator.
+Two possible methods to calculate the Mahalanobis
+distances are available: the classic (\code{method}= 'classic') and
+the robust methods (\code{method}= 'robust'). The two methods take
+into account the geographical center of the coordinates
+distribution and the spatial covariance between them. But they
+vary in the way the covariance matrix of the distribution is
+defined: the classic method uses an approach based on Pearson's
+method, while the robust method uses a Minimum Covariance
+Determinant (MCD) estimator.
 
-The argument \code{n.min} controls the minimum number of unique coordinates
-necessary to calculate the distances. The classic and robust methods needs
-at least 3 and 4 spatially unique coordinates to obtain the distances. But
-the MCD algorithm of the robust method can run into singularity issues
-depending on how close the coordinates are. This issue can result in
-the overestimation of the distances and thus in bad outlier flagging. A
-minimum of five and ideally 10 unique coordinates should avoid those
-problems.
+The argument \code{n.min} controls the minimum number of unique
+coordinates necessary to calculate the distances. The classic and
+robust methods needs at least 3 and 4 spatially unique
+coordinates to obtain the distances. But the MCD algorithm of the
+robust method can run into singularity issues depending on how
+close the coordinates are. This issue can result in the
+overestimation of the distances and thus in bad outlier flagging.
+A minimum of five and ideally 10 unique coordinates should avoid
+those problems.
 
-If the MCD algorithm runs into singularity issues, the function silently
-add some random noise to both coordinates and re-run the MCD algorithm.
-This aims to deals with cases of few coordinates close to each other and in
-practice should not change the overall result of the detection of spatial
-outliers.
+If the MCD algorithm runs into singularity issues, the function
+silently add some random noise to both coordinates and re-run the
+MCD algorithm. This aims to deals with cases of few coordinates
+close to each other and in practice should not change the overall
+result of the detection of spatial outliers.
 
-The presence of problematic coordinates and cultivated specimens can
-greatly influence the estimation of the geographical center of the
-coordinates distribution and the spatial covariance between them. Thus,
-arguments \code{geo} and \code{cult} can be used to flag and remove those cases from
-the computation of the center and covariance matrix. In both cases, the
-user can provide the output from \strong{plantR} functions \code{checkCoord()} and
-\code{getCult()} or a logical TRUE/FALSE vector. By default, if the input are
-the outputs from functions \code{checkCoord()} and \code{getCult()}, only the
-coordinates flagged as 'ok_...' in \code{geo} and those not flagged in \code{cult}
-(i.e. NAs) will be used. But users can select different search patterns
-using the arguments \code{geo.patt} and \code{cult.patt}. For both input options, the
-vector must have the same length of the coordinates provided in the
-arguments \code{lat} and \code{lon}. By default, arguments \code{geo} and \code{cult} are set
-to NULL, meaning that all coordinates will be used.
+The presence of problematic coordinates and cultivated specimens
+can greatly influence the estimation of the geographical center
+of the coordinates distribution and the spatial covariance
+between them. Thus, arguments \code{geo} and \code{cult} can be used to
+flag and remove those cases from the computation of the center
+and covariance matrix. In both cases, the user can provide the
+output from \strong{plantR} functions \code{checkCoord()} and \code{getCult()}
+or a logical TRUE/FALSE vector. By default, if the input are the
+outputs from functions \code{checkCoord()} and \code{getCult()}, only the
+coordinates flagged as 'ok_...' in \code{geo} and those not flagged in
+\code{cult} (i.e. NAs) will be used. But users can select different
+search patterns using the arguments \code{geo.patt} and \code{cult.patt}.
+For both input options, the vector must have the same length of
+the coordinates provided in the arguments \code{lat} and \code{lon}. By
+default, arguments \code{geo} and \code{cult} are set to NULL, meaning that
+all coordinates will be used.
 
-The function internally removes spatially duplicated coordinates previous
-to the calculation of the Mahalanobis distances. So, the value in \code{n.min}
-correspond to the number of coordinates after the removal of spatially
-duplicated coordinates.
+The function internally removes spatially duplicated coordinates
+previous to the calculation of the Mahalanobis distances. So, the
+value in \code{n.min} correspond to the number of coordinates after
+the removal of spatially duplicated coordinates.
 
-The function also internally removes any empty or NA values in \code{lon} or
-\code{lat}.
+The function also internally removes any empty or NA values in
+\code{lon} or \code{lat}.
 }
 \examples{
 lon <- c(-42.2,-42.6,-45.3,-42.5,-42.3,-39.0,-12.2)

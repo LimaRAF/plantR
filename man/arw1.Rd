@@ -7,7 +7,8 @@
 arw1(x, m0, c0, alpha = 0.025, pcrit)
 }
 \arguments{
-\item{x}{a data frame with longitude and latitude in decimal degrees}
+\item{x}{a data frame with longitude and latitude in decimal
+degrees}
 
 \item{m0}{center of the distribution}
 
@@ -18,9 +19,9 @@ arw1(x, m0, c0, alpha = 0.025, pcrit)
 \item{pcrit}{Critical value obtained by simulations}
 }
 \description{
-This is a local copy of the function \code{mvoutlier::arw()}, that
-implement adaptive reweighted estimator for location and scatter with
-hard-rejection weights. It is only used in one specific function of
-\strong{plantR}: \code{distOutlier()}.
+This is a local copy of the function
+\code{mvoutlier::arw()}, that implement adaptive reweighted estimator
+for location and scatter with hard-rejection weights. It is only
+used in one specific function of \strong{plantR}: \code{distOutlier()}.
 }
 \keyword{internal}

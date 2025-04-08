@@ -1,14 +1,16 @@
 #' @title Distance between Coordinates
 #'
-#' @description Calculate the distances between geographical coordinates, taking
-#'   into account that Earth is an oblate spheroid. By default, distances are
-#'   returned in kilometers. This function is adapted from the function
-#'   `rdist.earth()` from package __fields__.
+#' @description Calculate the distances between geographical
+#'   coordinates, taking into account that Earth is an oblate
+#'   spheroid. By default, distances are returned in kilometers. This
+#'   function is adapted from the function `rdist.earth()` from
+#'   package __fields__.
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param radius numerical. Radius in kilometers to find spherical distances.
-#'   Default to 6371 km. (If 1 distances are returned in radians)
+#' @param radius numerical. Radius in kilometers to find spherical
+#'   distances. Default to 6371 km. (If 1 distances are returned in
+#'   radians)
 #'
 #' @return A distance matrix
 #'
@@ -16,8 +18,8 @@
 #'
 #' @references
 #'
-#' Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools for spatial
-#' data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
+#' Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools
+#' for spatial data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
 #'
 #' @examples
 #'
@@ -51,18 +53,20 @@ geoDist <- function(lon, lat, radius = 6371) {
 
 #' @title Minimum Distance between Coordinates
 #'
-#' @description The function calculates the minimum distance between coordinates
-#'   or the coordinates which are below a minimum threshold distance.
+#' @description The function calculates the minimum distance between
+#'   coordinates or the coordinates which are below a minimum
+#'   threshold distance.
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param min.dist numerical. Minimum threshold distance (in kilometers) to be
-#'   used to detect duplicated coordinates. Default to 1 meter.
-#' @param output character. The type of information that should be returned (see
-#'   Details)
+#' @param min.dist numerical. Minimum threshold distance (in
+#'   kilometers) to be used to detect duplicated coordinates. Default
+#'   to 1 meter.
+#' @param output character. The type of information that should be
+#'   returned (see Details)
 #'
-#' @details The argument `output` controls the type of output that should be
-#'   returned:
+#' @details The argument `output` controls the type of output that
+#'   should be returned:
 #'   - 'flag': a TRUE/FALSE vector indicating the coordinates which are below
 #'   `min.dist` from other coordinates.
 #'   - 'group': the position of the first coordinate representing a group of
@@ -70,7 +74,8 @@ geoDist <- function(lon, lat, radius = 6371) {
 #'   - 'dist': the distance of each coordinate to the closest coordinated.
 #'
 #'
-#' @return A vector of TRUE/FALSE or of minimum distances in kilometers.
+#' @return A vector of TRUE/FALSE or of minimum distances in
+#'   kilometers.
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -96,7 +101,8 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
     stop("Longitude and latitude must have the same length")
 
   if (is.null(output))
-    stop("Please chose between one of the three types of output", call. = FALSE)
+    stop("Please chose between one of the three types of output",
+         call. = FALSE)
 
   dists <- geoDist(lon, lat)
 
@@ -128,73 +134,80 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param method character. Type of method desired: 'classic' and/or 'robust'
-#'   (see Details)
-#' @param center character. Which metric should be used to obtain he center of
-#'   the distribution of coordinates: 'mean' or 'median'?
-#' @param n.min numerical. Minimum number of unique coordinates to be used in
-#'   the calculations.
-#' @param geo character. A vector of the same length of lon/lat containing the
-#' result from the validation of the geographical coordinates. Default to NULL.
-#' @param cult character. A vector of the same length of lon/lat containing the
-#' result from the validation of cultivated specimens. Default to NULL.
-#' @param geo.patt character. The pattern to be used to search for classes of
-#' geographical validation to be included in the analyses. Default to "ok_".
-#' @param cult.patt character. The pattern to be used to search for classes of
-#'   validation of cultivated specimens to be included in the analyses. Default
-#'   to NA.
-#' @param digs numerical. Number of digits to be returned after the decimal
-#'   point. Default to 4
+#' @param method character. Type of method desired: 'classic' and/or
+#'   'robust' (see Details)
+#' @param center character. Which metric should be used to obtain he
+#'   center of the distribution of coordinates: 'mean' or 'median'?
+#' @param n.min numerical. Minimum number of unique coordinates to be
+#'   used in the calculations.
+#' @param geo character. A vector of the same length of lon/lat
+#'   containing the result from the validation of the geographical
+#'   coordinates. Default to NULL.
+#' @param cult character. A vector of the same length of lon/lat
+#'   containing the result from the validation of cultivated
+#'   specimens. Default to NULL.
+#' @param geo.patt character. The pattern to be used to search for
+#'   classes of geographical validation to be included in the
+#'   analyses. Default to "ok_".
+#' @param cult.patt character. The pattern to be used to search for
+#'   classes of validation of cultivated specimens to be included in
+#'   the analyses. Default to NA.
+#' @param digs numerical. Number of digits to be returned after the
+#'   decimal point. Default to 4
 #'
-#' @return the input data frame and a new column(s) with the distances obtained
-#'   using the selected method(s)
+#' @return the input data frame and a new column(s) with the distances
+#'   obtained using the selected method(s)
 #'
-#' @details Two possible methods to calculate the Mahalanobis distances are
-#'   available: the classic (`method`= 'classic') and the robust methods
-#'   (`method`= 'robust'). The two methods take into account the geographical
-#'   center of the coordinates distribution and the spatial covariance between
-#'   them. But they vary in the way the covariance matrix of the distribution is
-#'   defined: the classic method uses an approach based on Pearson's method,
-#'   while the robust method uses a Minimum Covariance Determinant (MCD)
-#'   estimator.
+#' @details Two possible methods to calculate the Mahalanobis
+#'   distances are available: the classic (`method`= 'classic') and
+#'   the robust methods (`method`= 'robust'). The two methods take
+#'   into account the geographical center of the coordinates
+#'   distribution and the spatial covariance between them. But they
+#'   vary in the way the covariance matrix of the distribution is
+#'   defined: the classic method uses an approach based on Pearson's
+#'   method, while the robust method uses a Minimum Covariance
+#'   Determinant (MCD) estimator.
 #'
-#'   The argument `n.min` controls the minimum number of unique coordinates
-#'   necessary to calculate the distances. The classic and robust methods needs
-#'   at least 3 and 4 spatially unique coordinates to obtain the distances. But
-#'   the MCD algorithm of the robust method can run into singularity issues
-#'   depending on how close the coordinates are. This issue can result in
-#'   the overestimation of the distances and thus in bad outlier flagging. A
-#'   minimum of five and ideally 10 unique coordinates should avoid those
-#'   problems.
+#'   The argument `n.min` controls the minimum number of unique
+#'   coordinates necessary to calculate the distances. The classic and
+#'   robust methods needs at least 3 and 4 spatially unique
+#'   coordinates to obtain the distances. But the MCD algorithm of the
+#'   robust method can run into singularity issues depending on how
+#'   close the coordinates are. This issue can result in the
+#'   overestimation of the distances and thus in bad outlier flagging.
+#'   A minimum of five and ideally 10 unique coordinates should avoid
+#'   those problems.
 #'
-#'   If the MCD algorithm runs into singularity issues, the function silently
-#'   add some random noise to both coordinates and re-run the MCD algorithm.
-#'   This aims to deals with cases of few coordinates close to each other and in
-#'   practice should not change the overall result of the detection of spatial
-#'   outliers.
+#'   If the MCD algorithm runs into singularity issues, the function
+#'   silently add some random noise to both coordinates and re-run the
+#'   MCD algorithm. This aims to deals with cases of few coordinates
+#'   close to each other and in practice should not change the overall
+#'   result of the detection of spatial outliers.
 #'
-#'   The presence of problematic coordinates and cultivated specimens can
-#'   greatly influence the estimation of the geographical center of the
-#'   coordinates distribution and the spatial covariance between them. Thus,
-#'   arguments `geo` and `cult` can be used to flag and remove those cases from
-#'   the computation of the center and covariance matrix. In both cases, the
-#'   user can provide the output from __plantR__ functions `checkCoord()` and
-#'   `getCult()` or a logical TRUE/FALSE vector. By default, if the input are
-#'   the outputs from functions `checkCoord()` and `getCult()`, only the
-#'   coordinates flagged as 'ok_...' in `geo` and those not flagged in `cult`
-#'   (i.e. NAs) will be used. But users can select different search patterns
-#'   using the arguments `geo.patt` and `cult.patt`. For both input options, the
-#'   vector must have the same length of the coordinates provided in the
-#'   arguments `lat` and `lon`. By default, arguments `geo` and `cult` are set
-#'   to NULL, meaning that all coordinates will be used.
+#'   The presence of problematic coordinates and cultivated specimens
+#'   can greatly influence the estimation of the geographical center
+#'   of the coordinates distribution and the spatial covariance
+#'   between them. Thus, arguments `geo` and `cult` can be used to
+#'   flag and remove those cases from the computation of the center
+#'   and covariance matrix. In both cases, the user can provide the
+#'   output from __plantR__ functions `checkCoord()` and `getCult()`
+#'   or a logical TRUE/FALSE vector. By default, if the input are the
+#'   outputs from functions `checkCoord()` and `getCult()`, only the
+#'   coordinates flagged as 'ok_...' in `geo` and those not flagged in
+#'   `cult` (i.e. NAs) will be used. But users can select different
+#'   search patterns using the arguments `geo.patt` and `cult.patt`.
+#'   For both input options, the vector must have the same length of
+#'   the coordinates provided in the arguments `lat` and `lon`. By
+#'   default, arguments `geo` and `cult` are set to NULL, meaning that
+#'   all coordinates will be used.
 #'
-#'   The function internally removes spatially duplicated coordinates previous
-#'   to the calculation of the Mahalanobis distances. So, the value in `n.min`
-#'   correspond to the number of coordinates after the removal of spatially
-#'   duplicated coordinates.
+#'   The function internally removes spatially duplicated coordinates
+#'   previous to the calculation of the Mahalanobis distances. So, the
+#'   value in `n.min` correspond to the number of coordinates after
+#'   the removal of spatially duplicated coordinates.
 #'
-#'   The function also internally removes any empty or NA values in `lon` or
-#'   `lat`.
+#'   The function also internally removes any empty or NA values in
+#'   `lon` or `lat`.
 #'
 #' @importFrom dplyr left_join
 #' @importFrom stats mahalanobis
@@ -224,9 +237,16 @@ minDist <- function(lon, lat, min.dist = 0.001, output = NULL) {
 #'
 #' @keywords internal
 #'
-mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
-                            center = "mean", geo = NULL, cult = NULL,
-                            geo.patt = "ok_", cult.patt = NA) {
+mahalanobisDist <- function(lon,
+                            lat,
+                            method = NULL,
+                            n.min = 5,
+                            digs = 4,
+                            center = "mean",
+                            geo = NULL,
+                            cult = NULL,
+                            geo.patt = "ok_",
+                            cult.patt = NA) {
 
   ## Checking the input
   if(length(lon) != length(lat))
@@ -279,6 +299,9 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
                                       lon = "lon", lat = "lat",
                                       type = c("exact"),
                                       output = c("group", "flag")))
+  if (any(is.na(tmp$exact)))
+    tmp$exact[is.na(tmp$exact)] <- FALSE
+
   df$dup.coord.ID <- tmp$exact.ID
   df1 <- df[!tmp$exact, ]
 
@@ -385,12 +408,13 @@ mahalanobisDist <- function(lon, lat, method = NULL, n.min = 5, digs = 4,
 #'
 #' @title Automatic Detection of Spatial Outliers
 #'
-#' @description This is a local copy of the function `mvoutlier::arw()`, that
-#' implement adaptive reweighted estimator for location and scatter with
-#' hard-rejection weights. It is only used in one specific function of
-#' __plantR__: `distOutlier()`.
+#' @description This is a local copy of the function
+#'   `mvoutlier::arw()`, that implement adaptive reweighted estimator
+#'   for location and scatter with hard-rejection weights. It is only
+#'   used in one specific function of __plantR__: `distOutlier()`.
 #'
-#' @param x a data frame with longitude and latitude in decimal degrees
+#' @param x a data frame with longitude and latitude in decimal
+#'   degrees
 #' @param m0 center of the distribution
 #' @param c0 covariance matrix (p x p) of the distribution
 #' @param alpha Maximum thresholding proportion. Default to 0.025.
@@ -448,31 +472,33 @@ arw1 <- function (x, m0, c0, alpha = 0.025, pcrit) {
 #'
 #' @param lon numerical. Longitude in decimal degrees
 #' @param lat numerical. Latitude in decimal degrees
-#' @param method character. Type of method desired: 'classic' or 'robust'
-#' @param n.min numerical. Minimum number of unique coordinates to be used in
-#'   the calculations. Default to 10
-#' @param digs numerical. Number of digits to be returned after the decimal
-#'   point. Default to 4
-#' @param probs numerical. Vector of probabilities between 0 and 1 to calculate
-#'   the sample quantiles. Default to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)
+#' @param method character. Type of method desired: 'classic' or
+#'   'robust'
+#' @param n.min numerical. Minimum number of unique coordinates to be
+#'   used in the calculations. Default to 10
+#' @param digs numerical. Number of digits to be returned after the
+#'   decimal point. Default to 4
+#' @param probs numerical. Vector of probabilities between 0 and 1 to
+#'   calculate the sample quantiles. Default to c(0.5, 0.75, 0.9,
+#'   0.95, 0.975, 0.99, 100)
 #'
-#' @return the number of unique coordinates ('n'), the number of outliers
-#'   detected ('n.out') and the sample quantiles ('qt') of the Mahalanobis
-#'   distances.
+#' @return the number of unique coordinates ('n'), the number of
+#'   outliers detected ('n.out') and the sample quantiles ('qt') of
+#'   the Mahalanobis distances.
 #'
-#' @details The function returns the quantiles of the Mahalanobis distances for
-#'   the spatial outliers detected automatically, which can be used in the
-#'   decision making of the more appropriated distance cutoffs to flag spatial
-#'   outliers.
+#' @details The function returns the quantiles of the Mahalanobis
+#'   distances for the spatial outliers detected automatically, which
+#'   can be used in the decision making of the more appropriated
+#'   distance cutoffs to flag spatial outliers.
 #'
-#'   The automatic detection of spatial outliers is based on an adjusted
-#'   threshold of the Mahalanobis distances based on function `arw()` from
-#'   package __mvoutlier__.
+#'   The automatic detection of spatial outliers is based on an
+#'   adjusted threshold of the Mahalanobis distances based on function
+#'   `arw()` from package __mvoutlier__.
 #'
-#'   If the number of unique coordinates is below `n.min` or if the Minimum
-#'   Covariance Determinant (MCD) estimator has issues, the function returns
-#'   NAs. See the help of function `mahalanobisDist()` for details on the other
-#'   parameters.
+#'   If the number of unique coordinates is below `n.min` or if the
+#'   Minimum Covariance Determinant (MCD) estimator has issues, the
+#'   function returns NAs. See the help of function
+#'   `mahalanobisDist()` for details on the other parameters.
 #'
 #' @importFrom stats mahalanobis
 #' @importFrom robustbase covMcd

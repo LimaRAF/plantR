@@ -37,18 +37,19 @@ the geographical coordinates. Default to "geo.check"}
 \item{cult.name}{character. Name of the column containing the validation of
 records from cultivated individuals. Default to "cult.check"}
 
-\item{n.min}{numerical. Minimum number of unique coordinates to be used in
-the calculations.}
+\item{n.min}{numerical. Minimum number of unique coordinates to be
+used in the calculations.}
 
-\item{center}{character. Which metric should be used to obtain he center of
-the distribution of coordinates: 'mean' or 'median'?}
+\item{center}{character. Which metric should be used to obtain he
+center of the distribution of coordinates: 'mean' or 'median'?}
 
-\item{geo.patt}{character. The pattern to be used to search for classes of
-geographical validation to be included in the analyses. Default to "ok_".}
+\item{geo.patt}{character. The pattern to be used to search for
+classes of geographical validation to be included in the
+analyses. Default to "ok_".}
 
-\item{cult.patt}{character. The pattern to be used to search for classes of
-validation of cultivated specimens to be included in the analyses. Default
-to NA.}
+\item{cult.patt}{character. The pattern to be used to search for
+classes of validation of cultivated specimens to be included in
+the analyses. Default to NA.}
 
 \item{clas.cut}{numerical. The threshold distance for outlier detection,
 using classic Mahalanobis distances. Default to 3}

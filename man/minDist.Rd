@@ -11,22 +11,25 @@ minDist(lon, lat, min.dist = 0.001, output = NULL)
 
 \item{lat}{numerical. Latitude in decimal degrees}
 
-\item{min.dist}{numerical. Minimum threshold distance (in kilometers) to be
-used to detect duplicated coordinates. Default to 1 meter.}
+\item{min.dist}{numerical. Minimum threshold distance (in
+kilometers) to be used to detect duplicated coordinates. Default
+to 1 meter.}
 
-\item{output}{character. The type of information that should be returned (see
-Details)}
+\item{output}{character. The type of information that should be
+returned (see Details)}
 }
 \value{
-A vector of TRUE/FALSE or of minimum distances in kilometers.
+A vector of TRUE/FALSE or of minimum distances in
+kilometers.
 }
 \description{
-The function calculates the minimum distance between coordinates
-or the coordinates which are below a minimum threshold distance.
+The function calculates the minimum distance between
+coordinates or the coordinates which are below a minimum
+threshold distance.
 }
 \details{
-The argument \code{output} controls the type of output that should be
-returned:
+The argument \code{output} controls the type of output that
+should be returned:
 \itemize{
 \item 'flag': a TRUE/FALSE vector indicating the coordinates which are below
 \code{min.dist} from other coordinates.
