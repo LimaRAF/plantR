@@ -158,7 +158,7 @@ checkInverted <- function(x,
 
     if (dim(check1)[1] > 0) {
 
-      check_these <- check1$tmp.country.gazet == check1$NAME_0
+      check_these <- check1$tmp.country.gazet %in% check1$NAME_0
 
       if (any(check_these)) {
 

@@ -14,39 +14,43 @@ checkBorders(
 )
 }
 \arguments{
-\item{x}{a data.frame with the results from the coordinate validation}
+\item{x}{a data.frame with the results from the coordinate
+validation}
 
-\item{geo.check}{Name of the column with the validation of the coordinates
-against country maps. Default to 'geo.check'}
+\item{geo.check}{Name of the column with the validation of the
+coordinates against country maps. Default to 'geo.check'}
 
-\item{country.shape}{Name of the column with the country name obtained from
-the world map based on the original record coordinates. Default to 'NAME_0'}
+\item{country.shape}{Name of the column with the country name
+obtained from the world map based on the original record
+coordinates. Default to 'NAME_0'}
 
-\item{country.gazetteer}{Name of the column with the country name obtained
-from the gazetteer, based on the description of the record locality.
-Default to 'loc.correct'}
+\item{country.gazetteer}{Name of the column with the country name
+obtained from the gazetteer, based on the description of the
+record locality. Default to 'loc.correct'}
 
-\item{output}{a character string with the type of output desired: 'new.col'
-(new column with the result is added to the input data) or 'same.col'
-(results overwritten into column \code{geo.check}).}
+\item{output}{a character string with the type of output desired:
+'new.col' (new column with the result is added to the input data)
+or 'same.col' (results overwritten into column \code{geo.check}).}
 }
 \value{
-if \code{output} is 'new.col', a new column named 'border.check' is added
-to the data, containing a TRUE/FALSE vector in which TRUE means countries
-which share border and FALSE means countries that do not share borders
-(country mismatch is not due to coordinates close to country borders). If
-\code{output} is 'same.col', the column defined by \code{geo.check} is updated with a
-suffix 'borders' or 'inverted' added to the validation class inside
+if \code{output} is 'new.col', a new column named 'border.check'
+is added to the data, containing a TRUE/FALSE vector in which
+TRUE means countries which share border and FALSE means countries
+that do not share borders (country mismatch is not due to
+coordinates close to country borders). If \code{output} is 'same.col',
+the column defined by \code{geo.check} is updated with a suffix
+'borders' or 'inverted' added to the validation class inside
 brackets.
 }
 \description{
-For those records without a match between the country described
-in the record and the country obtained from the geographical coordinates,
-the function flags if the two countries share borders. These may be useful
-to identify coordinates that are not problematic but that fall in another
-country due to rounding or precision of coordinates or to cases when the
-collector was not aware that a country border was crossed before obtaining
-the coordinate.
+For those records without a match between the country
+described in the record and the country obtained from the
+geographical coordinates, the function flags if the two countries
+share borders. These may be useful to identify coordinates that
+are not problematic but that fall in another country due to
+rounding or precision of coordinates or to cases when the
+collector was not aware that a country border was crossed before
+obtaining the coordinate.
 }
 \author{
 Andrea Sánchez-Tapia & Sara Mortara
