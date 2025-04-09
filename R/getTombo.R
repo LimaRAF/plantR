@@ -1,35 +1,39 @@
 #' @title Create Record Identifiers
 #'
-#' @description This function creates a unique identifier for species records by
-#'   concatenating the collection code and accession number of each record
+#' @description This function creates a unique identifier for species
+#'   records by concatenating the collection code and accession number
+#'   of each record
 #'
 #' @param collection a vector with the collection codes.
 #' @param accession a vector with the accession numbers.
-#' @param by.coll logical. Should the removal of collection codes at the
-#'   beginning of the accession numbers be removed based on the corresponding
-#'   collection code provided in `collection`? Defaults to TRUE.
-#' @param to.lower logical. Should the final unique identifier be converted to
-#'   lower cases? Default to FALSE.
+#' @param by.coll logical. Should the removal of collection codes at
+#'   the beginning of the accession numbers be removed based on the
+#'   corresponding collection code provided in `collection`? Defaults
+#'   to TRUE.
+#' @param to.lower logical. Should the final unique identifier be
+#'   converted to lower cases? Default to FALSE.
 #'
-#' @return the collection codes and the edited accession numbers concatenated
-#'   using an underline mark (i.e '_').
+#' @return the collection codes and the edited accession numbers
+#'   concatenated using an underline mark (i.e '_').
 #'
-#' @details The function performs small edits in the accession number (the
-#'   Darwin Core field 'catalogNumber'), such as the removal of spaces, hyphens,
-#'   points and non-ascii characters. The function also remove all zeros at the
-#'   beginning of the number, to simplify the notation.
+#' @details The function performs small edits in the accession number
+#'   (the Darwin Core field 'catalogNumber'), such as the removal of
+#'   spaces, hyphens, points and non-ascii characters. The function
+#'   also remove all zeros at the beginning of the number, to simplify
+#'   the notation.
 #'
-#'  Accession numbers may contain the collection code at their beginning. The
-#'   function can remove this codes in two ways. The default way (`by.coll` = TRUE)
-#'   removes only the codes matching the corresponding code provided in
-#'   `collection`. The second way removes all letters in the beginning of the number
-#'   irrespectively of the collection code (`by.coll` = FALSE).
+#'  Accession numbers may contain the collection code at their
+#'  beginning. The function can remove this codes in two ways. The
+#'  default way (`by.coll` = TRUE) removes only the codes matching the
+#'  corresponding code provided in `collection`. The second way
+#'  removes all letters in the beginning of the number irrespectively
+#'  of the collection code (`by.coll` = FALSE).
 #'
-#'  It only edits the accession number, assuming that the collection code (the
-#'  Darwin Core field 'collectionCode') has already been standardized using
-#'  another __plantR__ function, `getCode()`. The final identifier can be
-#'  returned as is (the default) or in lower cases by setting the argument
-#'  `to.lower` to TRUE.
+#'  It only edits the accession number, assuming that the collection
+#'  code (the Darwin Core field 'collectionCode') has already been
+#'  standardized using another __plantR__ function, `getCode()`. The
+#'  final identifier can be returned as is (the default) or in lower
+#'  cases by setting the argument `to.lower` to TRUE.
 #'
 #' @seealso
 #'  \link[plantR]{getCode}
@@ -42,13 +46,17 @@
 #' colls <- c("P", "P", "NY", "G", "P", "P", "NY", "G",
 #' "P", "P", "NY", "G", NA, NA)
 #' access <- c("1427", "P001427", "NY1427", "G-G-1427/1",
-#' "1427A", "1427 a", "1427-A", "U.1427", "P1427a", ""," ", NA, "1427", NA)
+#' "1427A", "1427 a", "1427-A", "U.1427", "P1427a", "",
+#' " ", NA, "1427", NA)
 #'
 #' getTombo(colls, access)
 #'
 #' @export getTombo
 #'
-getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = FALSE) {
+getTombo <- function(collection = NULL,
+                     accession = NULL,
+                     by.coll = TRUE,
+                     to.lower = FALSE) {
 
   ## check input
   if (is.null(collection) | is.null(accession))
@@ -64,8 +72,8 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
   nas.acc <- is.na(accession)
 
   ## Cleanning non-ascii, no NAs
-  col <- rmLatin(collection[!nas.acc])
-  tmb <- rmLatin(accession[!nas.acc])
+  col <- squish(rmLatin(collection[!nas.acc]))
+  tmb <- squish(rmLatin(accession[!nas.acc]))
 
   #Editing accessions number with characters other than numbers
   ids <- grepl('\\D', tmb, perl = TRUE)
@@ -112,8 +120,11 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
       pos <- as.double(regexpr('\\d', tmb1, perl = TRUE))
       pos[is.na(pos)] <- 0
       tmb2 <- tmb1[pos > 1]
+
       #List of collections within the data
-      col2 <- paste0("^", col1[pos > 1],"+")
+      col1_esc <- gsub("([][{}()*+?.\\^$|])", "\\\\\\1",
+                       col1[pos > 1], perl = TRUE)
+      col2 <- paste0("^", col1_esc, "+")
 
       #Removing the collections codes
       tmb2 <- mapply(function(x, y) { gsub(y, "", x, perl = TRUE) },
@@ -121,8 +132,11 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
 
       #Converting the all-number strings to numeric
       tmb2[grepl(pattern = '\\d', tmb2, perl = TRUE) &
-             !grepl(pattern = '\\D', tmb2, perl = TRUE)] <- as.numeric(tmb2[grepl(pattern = '\\d', tmb2, perl = TRUE) &
-                                                                              !grepl(pattern = '\\D', tmb2, perl = TRUE)])
+             !grepl(pattern = '\\D', tmb2, perl = TRUE)] <-
+                as.numeric(tmb2[grepl(pattern = '\\d', tmb2,
+                                      perl = TRUE) &
+                                  !grepl(pattern = '\\D', tmb2,
+                                         perl = TRUE)])
       tmb1[pos > 1] <- tmb2
 
       ## Removing zeros from the begining of the numerical string
@@ -130,13 +144,16 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
       pos <- as.double(regexpr('\\d', tmb1, perl = TRUE))
       pos[is.na(pos)] <- 0
       if (any(pos > 1))
-        tmb1[pos > 1] <- gsub('([a-z])0+([1-9])', '\\1\\2', tmb1[pos > 1], perl = TRUE)
+        tmb1[pos > 1] <-
+          gsub('([a-z])0+([1-9])', '\\1\\2', tmb1[pos > 1],
+               perl = TRUE)
 
       #Case 2: with letter somewhere else and a zero in the beggining
       pos <- as.double(regexpr('^0', tmb1, perl = TRUE))
       pos[is.na(pos)] <- 0
       if (any(pos == 1))
-        tmb1[pos == 1] <- gsub('^(0+)([1-9])', '\\2', tmb1[pos == 1], perl = TRUE)
+        tmb1[pos == 1] <- gsub('^(0+)([1-9])', '\\2', tmb1[pos == 1],
+                               perl = TRUE)
 
       #Writing the result
       tmb[ids] <- tmb1
@@ -159,7 +176,8 @@ getTombo <- function(collection = NULL, accession = NULL, by.coll = TRUE, to.low
     ids <- grepl("^NA_", numTombo, perl = TRUE)
     numTombo[!ids] <- tolower(numTombo[!ids])
     numTombo[ids] <-
-      paste0("NA_", tolower(gsub("NA_", "", numTombo[ids], fixed = TRUE)))
+      paste0("NA_", tolower(gsub("NA_", "", numTombo[ids],
+                                 fixed = TRUE)))
     numTombo1 <-
       paste0(tolower(gsub("_NA", "", numTombo1, fixed = TRUE)), "_NA")
   }

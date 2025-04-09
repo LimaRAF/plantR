@@ -11,44 +11,49 @@ getTombo(collection = NULL, accession = NULL, by.coll = TRUE, to.lower = FALSE)
 
 \item{accession}{a vector with the accession numbers.}
 
-\item{by.coll}{logical. Should the removal of collection codes at the
-beginning of the accession numbers be removed based on the corresponding
-collection code provided in \code{collection}? Defaults to TRUE.}
+\item{by.coll}{logical. Should the removal of collection codes at
+the beginning of the accession numbers be removed based on the
+corresponding collection code provided in \code{collection}? Defaults
+to TRUE.}
 
-\item{to.lower}{logical. Should the final unique identifier be converted to
-lower cases? Default to FALSE.}
+\item{to.lower}{logical. Should the final unique identifier be
+converted to lower cases? Default to FALSE.}
 }
 \value{
-the collection codes and the edited accession numbers concatenated
-using an underline mark (i.e '_').
+the collection codes and the edited accession numbers
+concatenated using an underline mark (i.e '_').
 }
 \description{
-This function creates a unique identifier for species records by
-concatenating the collection code and accession number of each record
+This function creates a unique identifier for species
+records by concatenating the collection code and accession number
+of each record
 }
 \details{
-The function performs small edits in the accession number (the
-Darwin Core field 'catalogNumber'), such as the removal of spaces, hyphens,
-points and non-ascii characters. The function also remove all zeros at the
-beginning of the number, to simplify the notation.
+The function performs small edits in the accession number
+(the Darwin Core field 'catalogNumber'), such as the removal of
+spaces, hyphens, points and non-ascii characters. The function
+also remove all zeros at the beginning of the number, to simplify
+the notation.
 
-Accession numbers may contain the collection code at their beginning. The
-function can remove this codes in two ways. The default way (\code{by.coll} = TRUE)
-removes only the codes matching the corresponding code provided in
-\code{collection}. The second way removes all letters in the beginning of the number
-irrespectively of the collection code (\code{by.coll} = FALSE).
+Accession numbers may contain the collection code at their
+beginning. The function can remove this codes in two ways. The
+default way (\code{by.coll} = TRUE) removes only the codes matching the
+corresponding code provided in \code{collection}. The second way
+removes all letters in the beginning of the number irrespectively
+of the collection code (\code{by.coll} = FALSE).
 
-It only edits the accession number, assuming that the collection code (the
-Darwin Core field 'collectionCode') has already been standardized using
-another \strong{plantR} function, \code{getCode()}. The final identifier can be
-returned as is (the default) or in lower cases by setting the argument
-\code{to.lower} to TRUE.
+It only edits the accession number, assuming that the collection
+code (the Darwin Core field 'collectionCode') has already been
+standardized using another \strong{plantR} function, \code{getCode()}. The
+final identifier can be returned as is (the default) or in lower
+cases by setting the argument \code{to.lower} to TRUE.
 }
 \examples{
 colls <- c("P", "P", "NY", "G", "P", "P", "NY", "G",
 "P", "P", "NY", "G", NA, NA)
 access <- c("1427", "P001427", "NY1427", "G-G-1427/1",
-"1427A", "1427 a", "1427-A", "U.1427", "P1427a", ""," ", NA, "1427", NA)
+"1427A", "1427 a", "1427-A", "U.1427", "P1427a", "",
+" ", NA, "1427", NA)
 
 getTombo(colls, access)
 
