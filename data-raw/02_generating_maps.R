@@ -526,73 +526,98 @@ save(latamMap, file = "./data/latamMap.rda", compress = "xz")
 
 
 #### WORLD ####
-# map for function share_borders()
-#world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
-world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units',
-                                     category = 'cultural')
-world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
-world1 <- cleangeo::clgeo_Clean(world1)
-world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
-world2 <- rgeos::gBuffer(world2, byid = TRUE, width = 0)
-world2 <- cleangeo::clgeo_Clean(world2)
-cols <- c("ISO_A2","NAME_LONG")
-world3 <- sp::SpatialPolygonsDataFrame(world2, world0@data[,cols])
-names(world3@data) <- c("iso_a2","name")
+## NOTE: Cannot reproduce the creation of map anymore. Natural Earth
+## no longer provides the 258 countries at scale 110m, but only 177.
+## Most of small islands where removed, creating a mismatch between
+## objects worldMap and world. I tried getting the tuny countruies as
+## well but there were too many mismacthes to deal with. So, the quick
+## fix was to save a cipy of the old world object within the raw data
+## and just add the new corrections and polygons. Move down to the
+## point when the old map is loaded!
 
-#Editing country name as in the gazetteer
-world3@data$name <- prepCountry(world3@data$name)
-#Replacing country names as in the gazetteer
-tmp1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
-tmp2 <- as.character(tmp1$replace)
-names(tmp2) = as.character(tmp1$pattern)
-#names(tmp2) <- gsub("\\\\", "", names(tmp2))
-world3@data$name <- sapply(strsplit(world3@data$name,' \\('), function(x) x[[1]][1])
-world3@data$name <- stringr::str_replace_all(world3@data$name, tmp2)
+# ## Downloading maps for function share_borders()
+# # world0 <- rnaturalearth::ne_download(scale = 110, type = 'countries', category = 'cultural')
+# world0 <- rnaturalearth::ne_download(scale = 110, type = 'map_units',
+#                                      category = 'cultural')
+# # world1 <- rgeos::gBuffer(world0, byid = TRUE, width = 0)
+# world1 <- sf::st_buffer(world0, dist = 0, )
+# world1 <- cleangeo::clgeo_Clean(world1)
+# world2 <- rgeos::gSimplify(world1, tol = 0.001, topologyPreserve = TRUE)
+# world2 <- rgeos::gBuffer(world2, byid = TRUE, width = 0)
+# world2 <- cleangeo::clgeo_Clean(world2)
+# cols <- c("ISO_A2","NAME_LONG")
+# # world3 <- sp::SpatialPolygonsDataFrame(world2, world0@data[,cols])
+# world3 <- sp::SpatialPolygonsDataFrame(world2, sf::st_drop_geometry(world0)[,cols])
+# names(world3@data) <- c("iso_a2","name")
+#
+# ## Editing country name as in the gazetteer
+# world3@data$name <- prepCountry(world3@data$name)
+# #Replacing country names as in the gazetteer
+# tmp1 <- replaceNames[replaceNames$class %in% "country" &
+#                        apply(is.na(replaceNames[, 2:4]), 1, all), ]
+# tmp2 <- as.character(tmp1$replace)
+# names(tmp2) = as.character(tmp1$pattern)
+# #names(tmp2) <- gsub("\\\\", "", names(tmp2))
+# world3@data$name <- sapply(strsplit(world3@data$name,' \\('), function(x) x[[1]][1])
+# world3@data$name <- stringr::str_replace_all(world3@data$name, tmp2)
+#
+# #Converting to sf and projecting to WSG84
+# world3 <- sf::st_as_sf(world3)
+# prj <- sf::st_crs(4326)
+# world3 <- sf::st_set_crs(world3, prj)
+#
+# ## Checking if all names in worldMap are in world
+# world3$name[!world3$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"]]
+# world3$name[grepl("falkland", world3$name)] <-
+#   worldMap$NAME_0[grepl("falkland", worldMap$NAME_0)]
+# world3$name[grepl("eswatini", world3$name)] <-
+#   worldMap$NAME_0[grepl("swaziland", worldMap$NAME_0)]
+#
+# ## Adding smaller countries and islands from the backup version of the map
+# world3.1 <- readRDS("data-raw/raw_dictionaries/world.rds")
+# world3.1 <- world3.1[!world0.1$name %in% unique(world3$name),]
+# world4 <- dplyr::bind_rows(world3, world3.1)
+load("data-raw/raw_dictionaries/world.rda")
+world4 <- world
+setdiff(worldMap$NAME_0, world4$name)
 
-#missing countries
-other0 <- wo[!worldMap$NAME_0 %in% world3$name,]
-names(other0@data) <- c("iso_a2","name")
-other1 <- rgeos::gSimplify(other0, tol = 0.1, topologyPreserve = TRUE)
-other1 <- rgeos::gBuffer(other1, byid = TRUE, width = 0)
-other1 <- cleangeo::clgeo_Clean(other1)
-other1 <- sp::SpatialPolygonsDataFrame(other1, other0@data)
-other2 <- disaggregate(other1)
-other2$area <- rgeos::gArea(other2, byid = TRUE)
-other2$max.area <- NA
-for (i in 1:length(unique(other2@data$name))) {
-  pais.i <- unique(other2$name)[i]
-  other2$max.area[other2$name %in% pais.i] <-
-    other2$area[other2$name %in% pais.i] == max(other2$area[other2$name %in% pais.i])
+## Adding missing countries - caspian sea
+toto <- rnaturalearth::ne_download(scale = 110, type = 'ocean',
+                                   category = 'physical')
+caspian <- toto[1,1]
+caspian <- cleangeo::clgeo_Clean(caspian)
+caspian@data$iso_a2 <- "-99"
+caspian@data$name <- "caspian sea"
+caspian@data$scalerank <- NULL
+caspian <- sf::st_as_sf(caspian)
+prj <- sf::st_crs(4326)
+world <- sf::st_set_crs(caspian, prj)
+world4 <- rbind(world4, caspian)
+setdiff(worldMap$NAME_0, world4$name)
+
+# Adding some missing ISO A2 codes
+adds <- c("papua new guinea","palestinian territories", "norway",
+          "united kingdom", "somalia", "serbia", "kosovo")
+names(adds) <- c("PG", "PS", "NO", "GB", "SO", "RS", "XK")
+rep_these <- world4$iso_a2 %in% c("","-99",NA)
+if(any(rep_these)) {
+  miss.iso <- unique(world4$name[rep_these])
+  for (i in seq_along(miss.iso)) {
+    miss.country.i <- miss.iso[i]
+    if (miss.country.i %in% adds)
+      world4$iso_a2[world4$name %in% miss.country.i] <-
+        names(adds)[adds %in% miss.country.i]
+  }
 }
-other3 <- other2[other2@data$max.area, c("iso_a2","name")]
-other3 <- other3[!other3$name %in% "caspian sea",]
-world4 <- rbind(world3, other3)
-
-#Checking if all names in worldMap are in world
-world4@data$name[!world4@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"]]
-# tmp <- world3[!world3@data$name %in% gazetteer$loc[gazetteer$resolution.gazetteer %in% "country"],]
-# tmp1 <- raster::coordinates(tmp)
-# colnames(tmp1) <- c("x", "y")
-# tmp1 <- as.data.frame(tmp1)
-# sp::coordinates(tmp1) <- ~x+y
-# raster::crs(tmp1) <- raster::crs(world3)
-# tmp2 <- sp::SpatialPointsDataFrame(tmp1, tmp@data)
-# tmp2.sf <- sf::st_as_sf(tmp2)
-# tmp3 <- sf::st_intersection(tmp2.sf, worldMap)
-# sf::st_geometry(tmp3) <- NULL
 
 #Converting to sf and projecting to WSG84
 world <- sf::st_as_sf(world4)
 prj <- sf::st_crs(4326)
 world <- sf::st_set_crs(world, prj)
 
-#Comparing with the original wolrd map
-object.size(world3)
-object.size(world4)
-
 #Repairing possible issues related to spherical geometries
 isv <- sf::st_is_valid(world) # Sudan and South Georgia South Sandwich islands
-if (any(isv)) {
+if (any(!isv)) {
   for (i in which(!isv)) {
     tmp.i <- world[i, ]$geometry
     tmp.i.1 <- s2::as_s2_geography(tmp.i, check = FALSE)
@@ -602,7 +627,10 @@ if (any(isv)) {
     world[i, ]$geometry <- tmp.i.3
   }
 }
-# world <- sf::st_make_valid(world)
+
+#Comparing with the original world map
+object.size(world4)
+object.size(world)
 
 ## Saving
 save(world, file = "./data/world.rda", compress = "xz")

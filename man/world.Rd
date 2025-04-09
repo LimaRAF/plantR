@@ -5,8 +5,8 @@
 \alias{world}
 \title{Simplified World Map}
 \format{
-a MULTIPOLYGON 'sf' object with 183 features and 2 fields: iso_a2
-(country code) and 'name' (edited country name).
+a MULTIPOLYGON 'sf' object with 261 features and 2 fields:
+iso_a2 (country code) and 'name' (edited country name).
 }
 \source{
 \url{https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/}
@@ -15,20 +15,22 @@ a MULTIPOLYGON 'sf' object with 183 features and 2 fields: iso_a2
 data(world)
 }
 \description{
-Map used to support the validation of the original geographical coordinates,
-mainly regarding the detection of problematic coordinates falling outside its
-country borders. It was generated from the smallest scale available in
-'Natural Earth' (i.e. 1:110 m), which consists in 183 polygons for 178
-countries in the world. This map was complemented with 77 polygons for
-missing countries and dependent territories (mainly islands), not included in
-'Natural Earth', so that this map can match the other maps used in
-\strong{plantR}.
+Map used to support the validation of the original geographical
+coordinates, mainly regarding the detection of problematic
+coordinates falling outside its country borders. It was generated
+from the smallest scale available in 'Natural Earth' (i.e. 1:110
+m), which consists in 183 polygons for 178 countries in the world,
+plus the Caspian Sea. This map was complemented with 77 polygons
+for missing countries and dependent territories (mainly islands),
+not included in 'Natural Earth', so that this map can match the
+other maps used in \strong{plantR}.
 }
 \details{
-Country long names were edited to match the format of the \strong{plantR} default
-gazetteer and original polygons were simplified (tolerance: 0.001 decimal
-degrees). Only the ISO 3166-1 alpha-2 codes and the long names of each
-country are stored with the polygons.
+Country long names were edited to match the format of the
+\strong{plantR} default gazetteer and original polygons were simplified
+(tolerance: 0.001 decimal degrees). Only the ISO 3166-1 alpha-2
+codes and the long names of each country are stored with the
+polygons.
 
 Reference system: WSG84
 }
