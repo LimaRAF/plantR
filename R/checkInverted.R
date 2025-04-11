@@ -158,9 +158,9 @@ checkInverted <- function(x,
 
     if (dim(check1)[1] > 0) {
 
-      check_these <- check1$tmp.country.gazet %in% check1$NAME_0
+      check_these <- check1$tmp.country.gazet == check1$NAME_0
 
-      if (any(check_these)) {
+      if (any(check_these, na.rm = TRUE)) {
 
         #getting the new coordinates
         new.coords <- sf::st_coordinates(check1)

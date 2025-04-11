@@ -152,7 +152,7 @@ checkOut <- function(x,
   #Getting the classic and robust mahalanobis distances
   dt[, c("lon.wrk", "lat.wrk", "tax.wrk", "geo.wrk", "cult.wrk") := .SD,
      .SDcols =  c(lon, lat, tax.name, geo.name, cult.name)]
-  if (any(!is.na(lon.wrk) & !is.na(lat.wrk))) {
+  if (any(!is.na(dt$lon.wrk) & !is.na(dt$lat.wrk))) {
     dt[!is.na(lon.wrk) & !is.na(lat.wrk),
        maha.classic := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
                                        method = "classic", center = center,
