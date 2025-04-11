@@ -5,14 +5,53 @@ library(stringr)
 library(readr)
 library(dplyr)
 
+## 0. Downloading new information from Google Drive -----------------
 
-#1. from raw files to processed csv in dictionaries----
+### Taxonomists
+link <- "https://docs.google.com/spreadsheets/d/1N3DV-e_2bRKgHTl1VmKwkjEPt4yrMQ2Bb2-X4ZtkXHQ/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/taxonomists.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8")
+file.remove(path)
+
+### Gazeteer
+link <- "https://docs.google.com/spreadsheets/d/1qOyD7qDzgqEz6Xdbf5GcrjDChjJbJApfWk_P4pgCOAg/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/gazetteer.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8")
+file.remove(path)
+
+### Collection Codes
+
+### Family Synonyms
+
+
+
+## 1. from raw files to processed csv in dictionaries -------------
 dic_files <- list.files(path = "data-raw/raw_dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
 #filtering out unwanted files
-dic_files <- dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants|gadmCheck", dic_files)]
+dic_files <-
+  dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants|gadmCheck",
+                   dic_files)]
 
 #nome das tabelas
 data_names <- basename(dic_files) %>%
@@ -39,13 +78,19 @@ names(dic) <- data_names
 
 # taxonomists:
 taxonomists <- dic$taxonomists[ ,
-                                c("order", "source",
+                                c("order", "source", "status",
                                   "family", "family.obs",
                                   "full.name1", "tdwg.name")]
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
+taxonomists <- taxonomists[taxonomists$status %in% "ok", ]
+
+taxonomists$status <- NULL
+taxonomists <- taxonomists[order(taxonomists$order),]
+taxonomists$order <- NULL
+taxonomists$family.obs <- NULL
 
 # collection codes:
 collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
@@ -103,6 +148,9 @@ dplyr::count(gazetteer, source, priority) %>% arrange(priority)
 gazetteer <-
   gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
+gazetteer$order <- NULL
+gazetteer$status <- NULL
+
 # administrative descriptors
 admin <- dic$gazetteer[ ,c("order",
                            "status",
@@ -124,15 +172,18 @@ admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
 
-admin <- admin[, c("order",
+admin <- admin[, c(
+                   #"order",
                    "loc.correct",
                    "country_code",
-                   "state_code",
+                   #"state_code",
                    "NAME_0",
                    "NAME_1",
                    "NAME_2",
                    "NAME_3",
                    "source")]
+
+
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
