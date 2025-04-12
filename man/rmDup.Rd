@@ -17,67 +17,74 @@ rmDup(
 \arguments{
 \item{df}{the input data frame.}
 
-\item{dup.name}{character. The name of column in the input data frame with
-the duplicate group ID. Default to the \strong{plantR} output 'dup.ID'.}
+\item{dup.name}{character. The name of column in the input data
+frame with the duplicate group ID. Default to the \strong{plantR}
+output 'dup.ID'.}
 
-\item{prop.name}{character. The name of column in the input data frame with
-the proportion of duplicates found within the group ID. Default to the
-\strong{plantR} output 'dup.prop'.}
+\item{prop.name}{character. The name of column in the input data
+frame with the proportion of duplicates found within the group
+ID. Default to the \strong{plantR} output 'dup.prop'.}
 
-\item{rec.ID}{character. The name of the columns containing the unique record
-identifier (see function \code{getTombo()}). Default to 'numTombo'.}
+\item{rec.ID}{character. The name of the columns containing the
+unique record identifier (see function \code{getTombo()}). Default to
+'numTombo'.}
 
-\item{order.by}{character. Column name(s) used to order records within
-groups of duplicates.}
+\item{order.by}{character. Column name(s) used to order records
+within groups of duplicates.}
 
 \item{rm.all}{logical. Should all duplicates be removed or only the
-duplicated entries from the same collection but different sources?
-Default to FALSE.}
+duplicated entries from the same collection but different
+sources? Default to FALSE.}
 
-\item{print.rm}{logical. Should the number of records removed be printed?
-Default to TRUE.}
+\item{print.rm}{logical. Should the number of records removed be
+printed? Default to TRUE.}
 }
 \description{
-This function keeps one and removes all other specimens within
-groups of duplicate specimens.
+This function keeps one and removes all other
+specimens within groups of duplicate specimens.
 }
 \details{
-The input data frame \code{df} must contain the typical columns
-resulting from \strong{plantR} workflow and functions. Otherwise, the names
-of these columns should be provided using arguments \code{dup.name} (i.e.
-characters used to aggregate records into groups of duplicates) and
-\code{prop.name} (i.e. proportion of duplicated records).
+The input data frame \code{df} must contain the typical
+columns resulting from \strong{plantR} workflow and functions.
+Otherwise, the names of these columns should be provided using
+arguments \code{dup.name} (i.e. characters used to aggregate records
+into groups of duplicates) and \code{prop.name} (i.e. proportion of
+duplicated records).
 
-Since only one record is kept per group of duplicates, this procedure
-should preferably be carried after the homogenization of the specimens
-informations (see function \code{mergeDup()}). Otherwise, important information
-on the removed records may be lost.
+Since only one record is kept per group of duplicates, this
+procedure should preferably be carried after the homogenization
+of the specimens informations (see function \code{mergeDup()}).
+Otherwise, important information on the removed records may be
+lost.
 
-In addition, since not all columns are merged within duplicates (only the
-columns related to the taxonomic, geographical and location validation
-procedures), all other information contained in the removed records are
-lost. Therefore, make sure that this information in unnecessary for your
-specific purposes before using this function.
+In addition, since not all columns are merged within duplicates
+(only the columns related to the taxonomic, geographical and
+location validation procedures), all other information contained
+in the removed records are lost. Therefore, make sure that this
+information in unnecessary for your specific purposes before
+using this function.
 
-By default, the record retained for each group of duplicates is determined
-by the proportion of duplicates the record has within the group (argument
-\code{prop.name}) and by the original order of the input data frame \code{df}.
-So, the first record with the highest proportion of duplicates will be the
-record retained. But the user can use the argument \code{order.by} if the data
-should be order by any of the columns in the input data. This column will
-be used to create the 'key' within the \code{data.table} parlance and order the
-data accordingly.
+By default, the record retained for each group of duplicates is
+determined by the proportion of duplicates the record has within
+the group (argument \code{prop.name}) and by the original order of the
+input data frame \code{df}. So, the first record with the highest
+proportion of duplicates will be the record retained. But the
+user can use the argument \code{order.by} if the data should be order
+by any of the columns in the input data. This column will be used
+to create the 'key' within the \code{data.table} parlance and order
+the data accordingly.
 
-Finally, users can choose between removing all but one records within each
-group of duplicate, or to remove only those records with duplicated entries
-from the same collection in different sources (i.e. virtual duplicates),
-using the argument \code{rm.all}. This option can be useful if the same
-collection has its database in two or more repositories (e.g. speciesLink
-and GBIF). It is important to note that this removal is dependent on the
-duplicate group ID found for each record. So, if the information was
-entered differently in the different sources, it is not guaranteed that
-they will be grouped under the same duplicate group ID, and thus be
-excluded from the data.
+Finally, users can choose between removing all but one record
+within each group of duplicated records, or to remove only those
+records with duplicated entries from the same collection in
+different sources (i.e. virtual duplicates), using the argument
+\code{rm.all}. This option can be useful if the same collection has
+its database in two or more repositories (e.g. speciesLink and
+GBIF). It is important to note that this removal is dependent on
+the duplicate group ID found for each record. So, if the
+information was entered differently in the different sources, it
+is not guaranteed that they will be grouped under the same
+duplicate group ID, and thus be excluded from the data.
 }
 \examples{
 (df <- data.frame(numTombo = c("a1", "b2", "c3", "c3", "d5", "d5", "e7", "f4", "g9"),

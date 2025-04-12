@@ -17,6 +17,7 @@ res <- data.frame(loc.string = c("brazil_rio de janeiro_parati",
 
 # Tests
 test_that("strLoc works", {
+  expect_error(strLoc(df$country.new))
   expect_equal(strLoc(df)[,7:9], res)
 })
 
