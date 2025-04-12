@@ -47,8 +47,10 @@ dic <- lapply(dic_files,
               locale = locale(encoding = encoding))
 
 names(dic) <- data_names
-lapply(dic, nrow) #new dims! especially gazetteer from 34807 to 23436
-#taxonomists from 9297 to 8518 (01/07/2020)
+lapply(dic, nrow)
+#new dims!
+# gazetteer from 34807 to 23436 (July 2020); 23789 (Apr 2025)
+#taxonomists from 9297 to 8518 (July 2020); 8715 (Apr 2025)
 
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
@@ -90,11 +92,24 @@ wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",
                     "^depto\\. ",
                     "^prov\\.",
-                    "^mun\\. ",
                     "^dept\\.",
                     "^dpto\\.",
                     "^depto\\.",
-                    "^dept.",
+                    "^dept\\.",
+                    "^dist\\. de ",
+                    "^dist\\. ",
+                    " dist\\.$",
+                    "^municipio de ",
+                    "^municipio del ",
+                    "^municipality of ",
+                    "^municipio ",
+                    "^municipio ",
+                    "^municipality ",
+                    "^mun\\. ",
+                    # "^mun ",
+                    " mun\\.$",
+                    " municipio$",
+                    " municipality$",
                     "^departamento de ",
                     "^departamento del ",
                     "^departament of ",
@@ -107,6 +122,7 @@ wordsForSearch <- c("^prov\\. ",
                     "^província: ",
                     "^província ",
                     "^province of ",
+                    " province$",
                     "^estado do ",
                     "^estado de ",
                     "^estado: ",

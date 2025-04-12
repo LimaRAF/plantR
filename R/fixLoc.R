@@ -183,6 +183,7 @@ fixLoc <- function(x,
     pattern <- paste(missLocs, collapse = "|")
     x1[ ,"stateProvince"] <- gsub(pattern, NA, x1[ ,"stateProvince"], perl = TRUE)
     x1[ ,"stateProvince"][grepl("desconhecid|unknown", x1[, "stateProvince"], perl = TRUE)] <- NA
+    x1[ ,"stateProvince"][x1[ ,"stateProvince"] %in% c("", " ")] <- NA
 
     # Removing unwanted prefixes and abbreviations
     pattern <- paste(wordsForSearch, collapse = "|")
@@ -215,6 +216,12 @@ fixLoc <- function(x,
       pattern <- paste(missLocs, collapse = "|")
       x1[ ,"municipality"] <- gsub(pattern, NA, x1[ ,"municipality"], perl = TRUE)
       x1[ ,"municipality"][grepl("desconhecid|unknown", x1[, "municipality"], perl = TRUE)] <- NA
+      x1[ ,"municipality"][x1[ ,"municipality"] %in% c("", " ")] <- NA
+
+      # Removing unwanted prefixes and abbreviations
+      pattern <- paste(wordsForSearch, collapse = "|")
+      x1[ ,"municipality"] <- gsub(pattern, "", x1[ ,"municipality"],
+                                   perl = TRUE)
 
       # Removing unwanted prefixes and abbreviations
       tmp1 <- dic[dic$class %in% "county" & apply(is.na(dic[,2:4]), 1, all),]

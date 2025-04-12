@@ -99,61 +99,54 @@ strLoc <- function(x,
   ## Defining a unique code for each county, state/province or county
   loc <- rep(NA, dim(x1)[1])
   # county-level
-  loc[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])] <-
-    paste(
-      x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-      x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-      x1[3][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])],
-      sep="_")
+  rep_these <- !is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])
+  if(any(rep_these))
+    loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
+                          x1[3][rep_these], sep = "_")
   # state-level
-  loc[is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])] <-
-    paste(
-      x1[1][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],
-      x1[2][is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])],
-      sep="_")
+  rep_these <- is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])
+  if(any(rep_these))
+    loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
+                            sep = "_")
   # country-level
-  loc[is.na(loc) & !is.na(x1[1])] <-
-    x1[1][is.na(loc) & !is.na(x1[1])]
+  rep_these <- is.na(loc) & !is.na(x1[1])
+  if(any(rep_these))
+    loc[rep_these] <- x1[1][rep_these]
 
   ## Definig a unique code for each locality (if provided)
   if (loc.names[1] %in% names(x1)) {
     loc1 <- rep(NA, dim(x1)[1])
     #locality-level
-    loc1[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[3]) & !is.na(x1[4])] <-
-      paste(x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-            x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-            x1[3][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-            x1[4][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])],
-            sep="_")
+    rep_these <- !is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[4])
+    if(any(rep_these))
+      loc1[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
+                              x1[3][rep_these], x1[4][rep_these],
+                              sep = "_")
 
     # county-level, but missing stateProvince
-    loc1[is.na(loc1) & !is.na(x1[1]) & is.na(x1[2]) & !is.na(x1[3])] <-
-      paste(
-        x1[1][is.na(loc1) & !is.na(x1[1]) & is.na(x1[2]) & !is.na(x1[3])],
-        x1[2][is.na(loc1) & !is.na(x1[1]) & is.na(x1[2]) & !is.na(x1[3])],
-        x1[3][is.na(loc1) & !is.na(x1[1]) & is.na(x1[2]) & !is.na(x1[3])],
-        sep="_")
+    rep_these1 <- is.na(loc1) & !is.na(x1[1]) & is.na(x1[2]) & !is.na(x1[3])
+    if(any(rep_these1))
+      loc1[rep_these1] <- paste( x1[1][rep_these1], x1[2][rep_these1],
+                               x1[3][rep_these1], sep="_")
   }
 
   ## Definig a unique code for an alternative way of getting missing info from the locality field (if provided)
   if (loc.names[2] %in% names(x1)) {
     loc2 <- rep(NA, dim(x1)[1])
     #county-level when county is not given
-    loc2[!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])] <-
-      paste(
-        x1[1][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-        x1[2][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-        x1[5][!is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])],
-        sep="_")
+    rep_these2 <- !is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3]) & !is.na(x1[5])
+    if(any(rep_these2))
+      loc2[rep_these2] <- paste(x1[1][rep_these2],
+                                x1[2][rep_these2],
+                                x1[5][rep_these2], sep="_")
     #locality-level, but missing stateProvince and county
     if (loc.names[3] %in% names(x1)) {
-      loc2[is.na(loc2) & !is.na(x1[4]) & x1[,loc.names[3]] %in% "country"] <-
-        paste(
-          x1[1][is.na(loc2) & !is.na(x1[4]) & x1[,loc.names[3]] %in% "country"],
-          NA,
-          NA,
-          x1[4][is.na(loc2) & !is.na(x1[4]) & x1[,loc.names[3]] %in% "country"],
-          sep="_")
+      rep_these3 <- is.na(loc2) & !is.na(x1[4]) &
+                      x1[,loc.names[3]] %in% "country"
+      if(any(rep_these3))
+        loc2[rep_these3] <- paste(x1[1][rep_these3],
+                                  NA, NA,
+                                  x1[4][rep_these3], sep="_")
     }
   }
 
