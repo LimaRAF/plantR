@@ -664,6 +664,8 @@ prepSpecies <- function(x,
                    names(output1)))
     keep.cols <- keep.cols[keep.cols %in% names(output1)]
     output.final <- output1[, keep.cols]
+    names(output.final)[names(output.final) == "family"] <-
+      "suggestedFamily"
     output.final1 <- dplyr::left_join(df, output.final,
                            by = tax.names)
     output.final1 <- output.final1[order(output.final1$tmp..ordem),]
@@ -693,11 +695,6 @@ prepSpecies <- function(x,
   final.results[["scientificNameFull"]] <-
     buildName(final.results,
               col.names = c("suggestedName", "suggestedAuthorship"))
-
-  # if (any(w_indet)) {
-  #   final.results[["scientificNameFull"]][w_indet]
-  #
-  # }
 
   check_these <-
     grep("|", final.results[["scientificNameFull"]], fixed = TRUE)

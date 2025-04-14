@@ -1,28 +1,40 @@
 #' @title Format Taxonomic Information
 #'
-#' @description This function edits and standardizes the names of plant
-#'   species and families
+#' @description This function edits and standardizes taxon names and
+#'   families, following a given taxonomic backbones
 #'
-#' @return The input data frame \code{tax}, plus the new columns with the
-#'   formatted information. The new columns have the same name of the
-#'   Darwin Core standards, but followed by the suffix '.new'.
+#' @return The input data frame \code{tax}, plus the new columns with
+#'   the formatted information. The new columns have the same name of
+#'   the Darwin Core standards, but followed by the suffix '.new'.
 #'
-#' @param tax a data.frame containing the taxonomic information to be edited.
-#' @param use.suggestion logical. Should the edited species names be used
-#'   instead of the input species names? Defaults to TRUE.
+#' @param tax a data.frame containing the input taxonomic information
+#'   to be edited.
+#' @param use.suggestion logical. Should the edited taxon names and
+#'   authorships be used instead of the input species names? Defaults
+#'   to TRUE.
 #'
 #' @inheritParams fixSpecies
 #' @inheritParams prepSpecies
 #' @inheritParams prepFamily
 #'
-#' @details The function works as a wrapper, where the individuals steps of the
-#'   proposed __plantR__ workflow for editing taxonomic information are
-#'   performed altogether (see the __plantR__ tutorial and the help of each
-#'   function for details).
+#' @details The function works as a wrapper, where the individuals
+#'   steps of the proposed __plantR__ workflow for editing taxonomic
+#'   information are performed altogether (see the __plantR__ tutorial
+#'   and the help of each function for details).
 #'
-#'   The input data frame usually contains the following taxonomic fields:
-#'   "family", "genus", "scientificName" and "scientificNameAuthorship". But
-#'   users can define the names for their own data.
+#'   The input data frame usually contains the following taxonomic
+#'   fields: "family", "genus", "scientificName" and
+#'   "scientificNameAuthorship". But users can define the names for
+#'   their own data.
+#'
+#'   By default, the taxonomic backbone used for name validation comes
+#'   from the [Flora e Funga do Brasil](https://floradobrasil.jbrj.gov.br/consulta).
+#'   However, any taxonomic backbone can be used, as long as it has a
+#'   specific content and format. Check the companion R package
+#'   __plantRdata__ that provides other backbones already in this specific
+#'   format from the [World Flora Online](https://www.worldfloraonline.org/),
+#'   the [World Checklist of Vascular Plants](https://powo.science.kew.org/)
+#'   and [GBIF](https://www.gbif.org/).
 #'
 #'
 #' @seealso
@@ -56,10 +68,10 @@ formatTax <- function(tax,
                                     "accepted.taxon.rank",
                                     "accepted.taxon.status",
                                     "accepted.name.status"),
-                      fam.name = "family",
+                      fam.name = "suggestedFamily",
                       gen.name = "genus",
-                      spp.name = "scientificName",
-                      kingdom = "Plantae") {
+                      spp.name = "scientificName.new",
+                      kingdom = "plantae") {
 
   # check input:
   if (!inherits(tax, "data.frame"))
@@ -100,9 +112,15 @@ formatTax <- function(tax,
 
   # prepFamily
   tax1 <- prepFamily(x = tax1,
-                     fam.name,
-                     spp.name = "scientificName.new",
+                     fam.name = fam.name,
+                     gen.name = gen.name,
+                     spp.name = spp.name,
                      kingdom = kingdom)
+
+  if (use.suggestion) {
+    tax1$family.new[!is.na(tax1$suggestedFamily)] <-
+      tax1$suggestedFamily[!is.na(tax1$suggestedFamily)]
+  }
 
   return(tax1)
 }

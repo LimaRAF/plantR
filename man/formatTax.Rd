@@ -23,17 +23,19 @@ formatTax(
   drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
     "name.status", "taxon.status", "accepted.id", "accepted.name", "accepted.authorship",
     "accepted.taxon.rank", "accepted.taxon.status", "accepted.name.status"),
-  fam.name = "family",
+  fam.name = "suggestedFamily",
   gen.name = "genus",
-  spp.name = "scientificName",
-  kingdom = "Plantae"
+  spp.name = "scientificName.new",
+  kingdom = "plantae"
 )
 }
 \arguments{
-\item{tax}{a data.frame containing the taxonomic information to be edited.}
+\item{tax}{a data.frame containing the input taxonomic information
+to be edited.}
 
-\item{use.suggestion}{logical. Should the edited species names be used
-instead of the input species names? Defaults to TRUE.}
+\item{use.suggestion}{logical. Should the edited taxon names and
+authorships be used instead of the input species names? Defaults
+to TRUE.}
 
 \item{tax.name}{character. The name of the column containing the
 taxon name. Defaults to "scientificName"}
@@ -96,26 +98,36 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "Plantae"}
+belong to names. Defaults to "plantae"}
 }
 \value{
-The input data frame \code{tax}, plus the new columns with the
-formatted information. The new columns have the same name of the
-Darwin Core standards, but followed by the suffix '.new'.
+The input data frame \code{tax}, plus the new columns with
+the formatted information. The new columns have the same name of
+the Darwin Core standards, but followed by the suffix '.new'.
 }
 \description{
-This function edits and standardizes the names of plant
-species and families
+This function edits and standardizes taxon names and
+families, following a given taxonomic backbones
 }
 \details{
-The function works as a wrapper, where the individuals steps of the
-proposed \strong{plantR} workflow for editing taxonomic information are
-performed altogether (see the \strong{plantR} tutorial and the help of each
-function for details).
+The function works as a wrapper, where the individuals
+steps of the proposed \strong{plantR} workflow for editing taxonomic
+information are performed altogether (see the \strong{plantR} tutorial
+and the help of each function for details).
 
-The input data frame usually contains the following taxonomic fields:
-"family", "genus", "scientificName" and "scientificNameAuthorship". But
-users can define the names for their own data.
+The input data frame usually contains the following taxonomic
+fields: "family", "genus", "scientificName" and
+"scientificNameAuthorship". But users can define the names for
+their own data.
+
+By default, the taxonomic backbone used for name validation comes
+from the \href{https://floradobrasil.jbrj.gov.br/consulta}{Flora e Funga do Brasil}.
+However, any taxonomic backbone can be used, as long as it has a
+specific content and format. Check the companion R package
+\strong{plantRdata} that provides other backbones already in this specific
+format from the \href{https://www.worldfloraonline.org/}{World Flora Online},
+the \href{https://powo.science.kew.org/}{World Checklist of Vascular Plants}
+and \href{https://www.gbif.org/}{GBIF}.
 }
 \seealso{
 \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and

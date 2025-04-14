@@ -9,7 +9,7 @@ prepFamily(
   fam.name = "family",
   gen.name = "genus",
   spp.name = "scientificName",
-  kingdom = "Plantae",
+  kingdom = "plantae",
   print = TRUE
 )
 }
@@ -27,7 +27,7 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "Plantae"}
+belong to names. Defaults to "plantae"}
 
 \item{print}{logical. Should the automatically replaced family
 names be printed? Default to TRUE.}
@@ -45,21 +45,20 @@ The data frame \code{x} must contain at least two columns which
 stores the family and species names. By default, the names of these
 columns should be \code{family} and \code{speciesName}, following Darwin Core
 field names. Optionally, a column with the genus name can be
-provided (default column name: 'genus'). If it is not provided,
+provided (default column name: \code{genus}). If it is not provided,
 this columns is generated internally based on the species names
 provided.
 
-The first search of names is based on the list of families and
-accepted synonyms for vascular plants provided by \strong{plantR}, which
-was mainly compiled from the
-\href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
+The first search of names is based on the list of accepted family
+names of vascular plants provided by \strong{plantR}, which was mainly
+compiled from the \href{http://www.mobot.org/MOBOT/research/APweb/}{APG website},
 which includes families cited in the APG IV (2016) and in the PPG I
 (2016).
 
 If the family name is not found in this list, a second search is
-carried in the Brazilian Flora 2020 (BF-2020), using package
-\code{flora} (Carvalho 2019). Family names retrieved from BF-2020 are
-then converted to the names accepted by the APG IV or PPG I.
+carried based on the genus name in the Brazilian Flora 2020
+(BF-2020) taxonomic backbone. Family names retrieved from BF-2020
+are then converted to the names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the
 name found based on the genus name, the original name is replaced
@@ -80,9 +79,6 @@ prepFamily(df, spp.name = "speciesName")
 Angiosperm Phylogeny Group (2016). An update of the Angiosperm
 Phylogeny Group classification for the orders and families of flowering
 plants: APG IV. Bot. J. Linnean Soc. 181: 1-20.
-
-Gustavo Carvalho (2019). flora: Tools for Interacting with the Brazilian
-Flora 2020. R package version 0.3.1. http://www.github.com/gustavobio/flora
 
 PPG I (2016). A community-derived classification for extant lycophytes and
 ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
