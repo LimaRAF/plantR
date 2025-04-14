@@ -6,26 +6,28 @@
 #'
 #' @title Accessory, internal functions for taxonomic manipulation
 #'
-#' @description These accessory functions work for editing the notation of
-#'   scientific names and are mainly used within __plantR__ function
-#'   `fixSpecies()`.
+#' @description These accessory functions work for editing the
+#'   notation of scientific names and are mainly used within
+#'   __plantR__ function `fixSpecies()`.
 #'
-#' @details The functions `rmOpen()`, `rmInfra()`, and `rmHyb()` require only a
-#'   vector of scientific names, while the function `addRank()` also requires a
-#'   `rank` to be provided.
+#' @details The functions `rmOpen()`, `rmInfra()`, and `rmHyb()`
+#'   require only a vector of scientific names, while the function
+#'   `addRank()` also requires a `rank` to be provided.
 #'
-#'   The function `rmOpen()` removes the open nomenclature 'cf.' and 'aff.'.
+#'   The function `rmOpen()` removes the open nomenclature 'cf.' and
+#'   'aff.'.
 #'
 #'   The function `rmInfra()` removes the infra-specific ranks from
 #'   varieties, sub-species and forms (e.g. 'var.', 'subsp.', 'f.')
 #'
 #'   The function `rmHyb()` removes the hybrid symbol 'x'.
 #'
-#'   The function `addRank()` does the opposite operation: it adds ranks, open
-#'   nomenclature or hybrid symbols into scientific names. For this function if
-#'   the number of ranks is equal to the number of names provided each rank is
-#'   assigned to the corresponding name. If the number of ranks is different,
-#'   the function silently uses the first rank for all names.
+#'   The function `addRank()` does the opposite operation: it adds
+#'   ranks, open nomenclature or hybrid symbols into scientific names.
+#'   For this function if the number of ranks is equal to the number
+#'   of names provided each rank is assigned to the corresponding
+#'   name. If the number of ranks is different, the function silently
+#'   uses the first rank for all names.
 #'
 #' @param x a vector with scientific names to be standardized.
 #' @param rank the expression or symbol to be added between names.
@@ -93,6 +95,7 @@ rmInfra <- function(x) {
                                       split.mat[infra_authors, 1],
                                       perl = TRUE)
     x_new <- paste(split.mat[, 1], split.mat[, 2])
+    x_new <- squish(x_new)
 
     return(x_new)
   }
@@ -166,6 +169,8 @@ addRank <- function(x, rank = NULL, pretty.hyb = FALSE) {
     if (any(check_these))
       x_new <- gsub(" \u00d7 ", " \u00d7", x_new, perl = TRUE)
   }
+
+  x_new <- squish(x_new)
 
   return(x_new)
 }
