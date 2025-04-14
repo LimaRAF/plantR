@@ -4,7 +4,7 @@
 \alias{getFamily}
 \title{Get Family Name}
 \usage{
-getFamily(x = NULL, db = "bfo", fuzzy.match = FALSE)
+getFamily(x = NULL, db = "bfo", fuzzy.match = FALSE, ...)
 }
 \arguments{
 \item{x}{a vector of genus names with no default.}
@@ -15,6 +15,9 @@ By default, the Brazilian Flora 2020 taxonomic backbone
 
 \item{fuzzy.match}{logical. Whether if fuzzy matching on genus names
 should be conducted. Defaults to FALSE (no fuzzy matching)}
+
+\item{...}{Any argument to be passed on to nameMatching when
+'fuzzy.match = TRUE'}
 }
 \value{
 a vector of the same length as \code{x} with the family

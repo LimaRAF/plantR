@@ -9,6 +9,8 @@
 #'   ('bfo') is used.
 #' @param fuzzy.match logical. Whether if fuzzy matching on genus names
 #'   should be conducted. Defaults to FALSE (no fuzzy matching)
+#' @param ... Any argument to be passed on to nameMatching when
+#'   'fuzzy.match = TRUE'
 #'
 #' @return a vector of the same length as \code{x} with the family
 #'   names matched in the taxonomic backbone
@@ -38,7 +40,8 @@
 #'
 getFamily <- function(x = NULL,
                       db = "bfo",
-                      fuzzy.match = FALSE) {
+                      fuzzy.match = FALSE,
+                      ...) {
 
   if (is.null(x))
     stop("Input vector of genus names is empty!")
@@ -66,7 +69,7 @@ getFamily <- function(x = NULL,
       if (any(check_these)) {
         tmp.genera.match <-
           nameMatching(genera[["gen.name"]][check_these],
-                       dbs[["gen.name"]])
+                       dbs[["gen.name"]], ...)
 
         not.na <- !is.na(tmp.genera.match)
         if (any(not.na))
