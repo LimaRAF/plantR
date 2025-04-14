@@ -161,6 +161,8 @@ stateProvince,guyana,NA,NA,^e. berbice-corentyne$,east berbice corentyne
 stateProvince,guyana,NA,NA,^u. demerara-berbice$,upper demerara berbice
 stateProvince,ecuador,NA,NA,^colon$,galapagos
 stateProvince,mexico,NA,NA,^veracruz de ignacio de la llave$|^veracruz ignacio llave$,veracruz
+stateProvince,mexico,NA,NA,^michoacan ocampo$,michoacan
+stateProvince,mexico,NA,NA,^coahuila zaragoza$,coahuila
 stateProvince,venezuela,NA,NA,^distrito federal$,distrito capital
 county,NA,NA,NA,^gral.,general
 county,NA,NA,NA,^rod.,rodovia

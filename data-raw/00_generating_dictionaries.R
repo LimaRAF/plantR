@@ -23,7 +23,7 @@ write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
           row.names = FALSE)
 file.remove(path)
 
-### Gazeteer
+### Gazetteer
 link <- "https://docs.google.com/spreadsheets/d/1qOyD7qDzgqEz6Xdbf5GcrjDChjJbJApfWk_P4pgCOAg/edit?usp=sharing"
 path <- 'data-raw/raw_dictionaries/gazetteer.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
@@ -59,10 +59,25 @@ write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
           row.names = FALSE)
 file.remove(path)
 
+### Family Synonyms
+link <- "https://docs.google.com/spreadsheets/d/1FHbkNlR_-BXACPMs5CQy0zC4ydwLZrgqabYpHDBJaXc/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/familiesSynonyms.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
 
 ### Collection Codes
 
-### Family Synonyms
 
 
 
@@ -193,7 +208,7 @@ admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
 
-admin <- admin[, c(
+admin <- admin[, c("source",
                    #"order",
                    "loc.correct",
                    "country_code",
@@ -201,8 +216,7 @@ admin <- admin[, c(
                    "NAME_0",
                    "NAME_1",
                    "NAME_2",
-                   "NAME_3",
-                   "source")]
+                   "NAME_3")]
 
 gazetteer$order <- NULL
 gazetteer$status <- NULL
