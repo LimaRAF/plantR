@@ -19,12 +19,12 @@ bfoNames$phylum <- NULL
 save(bfoNames, file = "./data/bfoNames.rda", compress = "xz")
 
 last_update <- readLines(file.path(orig.path.dim, "last_update.txt"))
-path_to_save <- file.path(here::here(), "data-raw", "raw_dictionaries",
-                          "last_update.txt")
+path_to_save <- file.path(here::here(), "data-raw", #"raw_dictionaries",
+                          "last_update_bfo.txt")
 write(last_update, path_to_save)
 
 dimensions <-
   paste0(dim(bfoNames)[1], " rows and ", dim(bfoNames)[2], " columns")
-path_to_save <- file.path(here::here(), "data-raw", "raw_dictionaries",
-                          "df_dim.txt")
+path_to_save <- file.path(here::here(), "data-raw", #"raw_dictionaries",
+                          "df_dim_bfo.txt")
 write(dimensions, path_to_save)
