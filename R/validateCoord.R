@@ -1,14 +1,14 @@
 #' @title Spatial Validation of Species Records
 #'
 #' @description This function performs the crossing of the geographical
-#' coordinates with the world and Latin-american maps, and it checks for
-#' coordinates falling near the sea shore, open sea and country boundaries. It
-#' also test if problematic coordinates are not inverted or swapped. Finally,
-#' the function searches for records taken from cultivated individuals and
-#' for the presence of spatial outliers for each species.
+#'   coordinates with the world and Latin American maps, and it checks for
+#'   coordinates falling near the sea shore, open sea and country boundaries. It
+#'   also test if problematic coordinates are not inverted or swapped. Finally,
+#'   the function searches for records taken from cultivated individuals, for
+#'   the presence of spatial outliers and also doubtful distribution.
 #'
-#' @param x a data frame with the species records and their coordinates in decimal
-#'   degrees.
+#' @param x a data frame with the species records and their coordinates in
+#'   decimal degrees.
 #' @param country.shape Name of the column with the country name obtained from
 #'   the world map based on the original record coordinates. Default to 'NAME_0'
 #' @param country.gazetteer Name of the column with the country name obtained
@@ -22,21 +22,23 @@
 #'   column `geo.check`). Default to 'same.col'.
 #'
 #' @return The input data frame, plus the new columns with the results of the
-#' geographical coordinates (e.g. 'geo.check').
+#'   geographical coordinates (e.g. 'geo.check').
 #'
 #' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for the validation
-#'   of the spatial information associated to each record (e.g. geographical
+#'   individuals steps of the proposed __plantR__ workflow for the validation of
+#'   the spatial information associated to each record (e.g. geographical
 #'   coordinates) are performed altogether (see the __plantR__ tutorial for
 #'   details).
 #'
 #' @inheritParams checkCoord
+#' @inheritParams checkDist
 #'
-#' @seealso
-#'  \link[plantR]{checkCoord}, \link[plantR]{checkBorders}, \link[plantR]{checkShore},
-#'  \link[plantR]{checkInverted}, \link[plantR]{checkOut}, \link[plantR]{getCult}
+#' @seealso \link[plantR]{checkCoord}, \link[plantR]{checkBorders},
+#' \link[plantR]{checkShore}, \link[plantR]{checkInverted},
+#' \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantr]{checkDist}
 #'
-#' @author Andrea Sánchez-Tapia, Sara R. Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato
+#'   A. F. de Lima
 #'
 #' @encoding UTF-8
 #'
@@ -49,7 +51,11 @@ validateCoord <- function(x,
                           high.map = "plantR",
                           country.shape = "NAME_0",
                           country.gazetteer = "country.gazet",
-                          tax.name = "scientificName.new",
+                          tax.name = "suggestedName",
+                          tax.author = "suggestedAuthorship",
+                          sep = "_",
+                          loc = "loc.correct",
+                          source = "bfo",
                           output = "same.col") {
   ## Check input
   if (!inherits(x, "data.frame"))
@@ -155,6 +161,15 @@ validateCoord <- function(x,
                                    "geo.check", "geo.check.new"),
                  cult.name = "cult.check",
                  clas.cut = 3, rob.cut = 16)
-  return(x6)
+  
+  ## Checking for doubtful distribution
+  x7 <- checkDist(x6,
+                  tax.name = tax.name,
+                  tax.author = tax.author,
+                  sep = sep,
+                  loc = loc,
+                  source = source)
+  
+  return(x7)
 }
 
