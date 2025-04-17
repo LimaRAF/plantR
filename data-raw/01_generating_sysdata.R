@@ -250,12 +250,14 @@ reservedColNames <- c(
   "origin.coord", "precision.coord",
   # "format.tax" - 10 columns
   "scientificName.new", "scientificNameAuthorship.new",
-  "scientificNameStatus", "suggestedName", "suggestedAuthorship",
-  "taxon.rank", "tax.notes", "id", "scientificNameFull", "family.new",
+  "scientificNameStatus", "suggestedFamily",
+  "suggestedName", "suggestedAuthorship",
+  "tax.name", "tax.authorship", "taxon.rank", "tax.notes",
+  "id", "scientificNameFull", "family.new",
   # "validate.locs" - 1 column
   "loc.check",
   # "validate.coords" - 3 columns
-  "geo.check", "cult.check", "out.check",
+  "geo.check", "cult.check", "out.check", "dist.check", "dist.check.obs",
   # "validate.tax" - 1 columns
   "tax.check",
   # "validate.dups" - 21 columns
@@ -367,6 +369,19 @@ level_all1$taxon.distribution.bru <-
 #   substr(level_all1$taxon.distribution.bc, 1, 20)
 botanicalCountries <- level_all1
 
+# Brazilian states
+statesBR <- c(
+  "BR-AC", "BR-AL", "BR-AP", "BR-AM", "BR-BA", "BR-CE", "BR-DF",
+  "BR-ES", "BR-GO", "BR-MA", "BR-MS", "BR-MT", "BR-MG",
+  "BR-PB", "BR-PR", "BR-PA", "BR-PE", "BR-PI", "BR-RJ", "BR-RN", "BR-RS",
+  "BR-RO", "BR-RR", "BR-SC", "BR-SP", "BR-SE", "BR-TO")
+names(statesBR) <- c("acre", "alagoas", "amapa", "amazonas", "bahia", "ceara",
+                      "distrito federal", "espirito santo", "goias", "maranhao",
+                      "mato grosso sul", "mato grosso", "minas gerais",
+                      "paraiba", "parana", "para", "pernambuco", "piaui", "rio janeiro",
+                      "rio grande norte", "rio grande sul", "rondonia", "roraima",
+                      "santa catarina", "sao paulo", "sergipe", "tocantins")
+
 # Saving data
 usethis::use_data(admin,
                   collectionCodes,
@@ -389,6 +404,7 @@ usethis::use_data(admin,
                   reservedColNames,
                   simpGeoCheck,
                   botanicalCountries,
+                  statesBR,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")
@@ -397,4 +413,4 @@ rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
    replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
    unwantedEncoding, cultivated, notCultivated, missColls, missDets,
    treatPreps, namePreps, badEncoding, reservedColNames, simpGeoCheck,
-   botanicalCountries)
+   botanicalCountries, statesBR)

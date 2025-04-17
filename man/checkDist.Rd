@@ -6,68 +6,81 @@
 \usage{
 checkDist(
   x,
-  tax.name = "suggestedName",
-  tax.author = "suggestedAuthorship",
+  tax.name = "scientificName",
+  tax.author = "scientificNameAuthorship",
   loc = "loc.correct",
   sep = "_",
   source = "bfo"
 )
 }
 \arguments{
-\item{x}{a data.frame containing the taxon name, taxon authorship name
-authorship, and the record location.}
+\item{x}{a data.frame containing the taxon name, taxon authorship
+name authorship, and the record location.}
 
-\item{tax.name}{character. The name of the column containing the taxon name.
-Default to "suggestedName".}
+\item{tax.name}{character. The name of the column containing the
+taxon name. Default to "scientificName".}
 
-\item{tax.author}{character. The name of the column containing the taxon name
-authorship. Default to "suggestedAuthorship".}
+\item{tax.author}{character. The name of the column containing the
+taxon name authorship. Default to "scientificNameAuthorship".}
 
-\item{loc}{character. The name of the column containing the record locality
-information. Default to "loc.correct".}
+\item{loc}{character. The name of the column containing the record
+locality information. Default to "loc.correct".}
 
-\item{sep}{character. The separator within the locality information column
-and within the source of valid distribution Each separator separates
-diffrent distribution levels (e.g., country_state_municipality_locality).
-\code{sep} can be one of "\emph{", "/", or "|". Default to "}".}
+\item{sep}{character. The separator within the locality information
+column and within the source of valid distribution Each separator
+separates diffrent distribution levels (e.g.,
+country_state_municipality_locality). \code{sep} can be one of "\emph{",
+"/", or "|". Default to "}".}
 
-\item{source}{character. Source to be consulted for valid distribution
-information. One of "bfo", "wcvp", or a user-defined data.frame. Default to
-"bfo".}
+\item{source}{character. Source to be consulted for valid
+distribution information. One of "bfo", "wcvp", or a user-defined
+data.frame. Default to "bfo".}
 }
 \value{
-The input data.frame \code{x} with two additional columns containing the
-validated locality ("dist.check") and auxilliary information
-("dist.check.obs").
+The input data.frame \code{x} with two additional columns
+containing the info if there was a match in the locality string
+("dist.check") and some auxilliary information ("dist.check.obs").
 }
 \description{
-The function checks the location information obtained for each
-species record with the Flora do Brasil Online, the World Checklist of
-Vascular Plants (WCVP), or a user-defined data set.
+The function checks the location information obtained
+for each species record with the Flora do Brasil Online, the
+World Checklist of Vascular Plants (WCVP), or a user-defined data
+set.
 }
 \details{
-The function provides a way to check if the species distribution
-obtained from the locality (e.g, loc.correct = "brazil_sao paulo_campinas")
-matches against the known distribution of the species. The known
-distribution can be obtained from the Flora do Brasil Online ("bfo", the
-default), The World Checklist of Vascular Plants (WCVP) or a "user-defined"
-data frame. "bfo" provides the known distribution of the species at state
-level (e.g, BR-PR), while the argument "wcvp" uses the World Scheme for
-Recording Plant Distribution (WGSRPD, Brummitt et al., 2006) and provides
-the known distribution at the
-\emph{Botanical Country} (Level 3) and
-\emph{Basic} \emph{Recording Units} (Level 4) levels. Due to taxonomic differences
-between backbones, we first recommend to prepare the names (ideally using
-\strong{plantR}) accordingly to the source of distribution information to be
-used, that is, using BFO backbone and \code{source} = "bfo" or WCVP backbone and
-\code{source} = "wcvp". As an example, in BFO, Araucaria angustifolia (Bertol.)
-Kuntze is the accepted name, while in WCVP the accepted name is Araucaria
-angustifolia (Bertol.) Steud. If we were to use the first name to check
-botanical countries ("wcvp") we would incur in a warning in the output
-column "dist.check.obs", indicating that only the canonical name (species
-name without authorship) could be found. For most names this should not be
-a problem since accepted names tend to be unique, but bear in mind that
-this could occur.
+The function provides a way to check if the species
+distribution obtained from the \strong{plantR} locality string (e.g,
+loc.correct = "brazil_sao paulo_campinas") matches the
+known distribution of the species. This information is returned
+in the column 'dist.check'. If 'dist.check' is 'TRUE' it means
+that the locality string of the record is within the known
+species distribution. If 'dist.check' is 'FALSE', it means
+that the record is outside the known species distribution.
+
+The known distribution can be
+obtained from the Flora do Brasil Online ("bfo", the default),
+The World Checklist of Vascular Plants (WCVP) or a "user-defined"
+data frame. "bfo" provides the known distribution of the species
+at state level (e.g, BR-PR), while the argument "wcvp" uses the
+World Scheme for Recording Plant Distribution (WGSRPD, Brummitt
+et al., 2006) and provides the known distribution at the
+\emph{Botanical Country} (Level 3) and \emph{Basic} \emph{Recording Units} (Level 4) levels.
+
+Due to taxonomic differences between the BFO and WCVP backbones,
+we first recommend to prepare the names (ideally using \strong{plantR}
+\code{formatTax()} function) according to the source of distribution
+information to be used. That is, if you are using BFO backbone
+to check the taxonomy, use \code{source} = "bfo" and use \code{source} =
+"wcvp" if your are checking the taxonomy using 'WCVP'.
+
+As an example, in BFO, Araucaria angustifolia (Bertol.) Kuntze is
+the accepted name, while in WCVP the accepted name is Araucaria
+angustifolia (Bertol.) Steud. If we were to use the first name to
+check botanical countries ("wcvp") we would incur in a warning in
+the output column "dist.check.obs", indicating that only the
+canonical name (species name without authorship) could be found.
+For most names this should not be a problem since accepted names
+tend to be unique, but bear in mind that this could occur.
 }
 \examples{
 spp_names <- c(rep("Ocotea porosa", 8),
@@ -88,8 +101,8 @@ NA,
 "brazil_santa catarina_blumenau",
 "chile_santiago", "brazil_parana_curitiba")
 
-df <- data.frame(suggestedName = spp_names,
-                 suggestedAuthorship = spp_authors,
+df <- data.frame(scientificName = spp_names,
+                 scientificNameAuthorship = spp_authors,
                  loc.correct = loc)
 checkDist(df)
 checkDist(df, source = "wcvp")
@@ -97,9 +110,9 @@ checkDist(df, source = "wcvp")
 }
 \references{
 Brummitt, R. K., Pando, F., Hollis, S., & Brummitt, N. A. (2001).
-World geographical scheme for recording plant distributions (Vol. 951, p.
-952). Pittsburg: International working group on taxonomic databases for plant
-sciences (TDWG).
+World geographical scheme for recording plant distributions (Vol.
+951, p. 952). Pittsburg: International working group on taxonomic
+databases for plant sciences (TDWG).
 }
 \seealso{
 Functions \link[plantR]{fixLoc}, \link[plantR]{prepLoc},

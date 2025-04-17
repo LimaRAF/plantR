@@ -8,11 +8,11 @@ loc = c("brazil", "brazil_parana",
         "brazil_santa catarina_blumenau_parque são francisco",
         "paraguay", "japan_hokkaido", "paraguay_asuncion",
         "brazil_amazonas_manaus", NA, "brazil_espirito santo",
-        "brazil_santa catarina_blumenau", "brazil_sao paulo", 
+        "brazil_santa catarina_blumenau", "brazil_sao paulo",
         "chile_santiago", "brazil_parana_curitiba")
-  
-df <- data.frame(suggestedName = sp.list,
-                 suggestedAuthorship = aut.list,
+
+df <- data.frame(scientificName = sp.list,
+                 scientificNameAuthorship = aut.list,
                  loc.correct = loc)
 
 # Objects with the expected resolution
@@ -79,13 +79,13 @@ test_that("checkDist works", {
   expect_equal(setdiff(names(df), names(run_test)), character(0))
   expect_equal(run_test$dist.check, res.bfo1)
   expect_equal(run_test$dist.check.obs, res.bfo2)
-  
+
   run_test <- checkDist(df, source = "wcvp")
   expect_length(run_test, length(df) + 2)
   expect_equal(setdiff(names(df), names(run_test)), character(0))
   expect_equal(run_test$dist.check, res.wcvp1)
   expect_equal(run_test$dist.check.obs, res.wcvp2)
-  
-    
-    
+
+
+
 })

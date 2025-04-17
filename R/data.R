@@ -175,7 +175,7 @@
 #'   [Brazilian Flora 2020](https://floradobrasil.jbrj.gov.br/consulta/)
 #'   taxonomic backbone, a.k.a. the Flora and Funga of Brazil. It
 #'   includes all taxonomic levels (i.e. infra-species, species,
-#'   genus, family and so on). See package `plantRdata` for more
+#'   genus, family and so on). See package __plantRdata__ for more
 #'   details on how this table was obtained.
 #'
 #' @keywords datasets
