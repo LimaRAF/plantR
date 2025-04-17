@@ -35,7 +35,7 @@
 #'
 #' @seealso \link[plantR]{checkCoord}, \link[plantR]{checkBorders},
 #' \link[plantR]{checkShore}, \link[plantR]{checkInverted},
-#' \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantr]{checkDist}
+#' \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantR]{checkDist}
 #'
 #' @author Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato
 #'   A. F. de Lima
@@ -161,7 +161,7 @@ validateCoord <- function(x,
                                    "geo.check", "geo.check.new"),
                  cult.name = "cult.check",
                  clas.cut = 3, rob.cut = 16)
-  
+
   ## Checking for doubtful distribution
   x7 <- checkDist(x6,
                   tax.name = tax.name,
@@ -169,7 +169,7 @@ validateCoord <- function(x,
                   sep = sep,
                   loc = loc,
                   source = source)
-  
+
   return(x7)
 }
 

@@ -78,7 +78,7 @@ fixLoc <- function(x,
                    scrap = TRUE, to.lower = TRUE) {
 
   ## checking input:
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   na.strings <- c("", " ", "NA", NA)

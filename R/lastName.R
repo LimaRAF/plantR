@@ -174,7 +174,8 @@ lastName <- function(name,
     check_these <- other.names == name[!miss.name] &
                       grepl(" ", last.name, fixed = TRUE)
     if (any(check_these)) {
-      last.name1 <- sapply(strsplit(last.name[check_these], " ", fixed),
+      last.name1 <- sapply(strsplit(last.name[check_these], " ",
+                                    fixed = TRUE),
                            stringr::str_c, collapse = "|")
       last.name1 <- gsub("(^\\p{Lu})(\\|)", " \\1$\\2", last.name1,
                          perl = TRUE)

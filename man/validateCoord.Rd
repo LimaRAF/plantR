@@ -25,20 +25,22 @@ validateCoord(
 \item{x}{a data frame with the species records and their coordinates in
 decimal degrees.}
 
-\item{lon}{Name of the column with the longitude to be validated. Default to
-'decimalLongitude.new'}
+\item{lon}{Name of the column with the longitude to be validated.
+Default to 'decimalLongitude.new'}
 
-\item{lat}{Name of the column with the latitude to be validated. Default to
-'decimalLatitude.new'}
+\item{lat}{Name of the column with the latitude to be validated.
+Default to 'decimalLatitude.new'}
 
-\item{low.map}{a sf multipolygon object containing the global administrative
-map at the lowest level (e.g. country). The default is "plantR", the
-default map obtained from [GADM]{https://gadm.org} (see \code{worldMap}).}
+\item{low.map}{a sf multipolygon object containing the global
+administrative map at the lowest level (e.g. country). The
+default is "plantR", the default map obtained from
+[GADM]{https://gadm.org} (see \code{worldMap}).}
 
-\item{high.map}{a sf multipolygon object or a list of sf objects containing
-the regional map at the highest administrative level (e.g. municipality).
-The default is "plantR", the map for all Latin American countries and
-dependent territories  obtained [GADM]{https://gadm.org} (see \code{latamMap}).}
+\item{high.map}{a sf multipolygon object or a list of sf objects
+containing the regional map at the highest administrative level
+(e.g. municipality). The default is "plantR", the map for all
+Latin American countries and dependent territories  obtained
+[GADM]{https://gadm.org} (see \code{latamMap}).}
 
 \item{country.shape}{Name of the column with the country name obtained from
 the world map based on the original record coordinates. Default to 'NAME_0'}
@@ -50,20 +52,21 @@ Default to 'loc.correct'}
 \item{tax.name}{character. Name of the columns containing the species name.
 Default to "scientificName.new"}
 
-\item{tax.author}{character. The name of the column containing the taxon name
-authorship. Default to "suggestedAuthorship".}
+\item{tax.author}{character. The name of the column containing the
+taxon name authorship. Default to "scientificNameAuthorship".}
 
-\item{sep}{character. The separator within the locality information column
-and within the source of valid distribution Each separator separates
-diffrent distribution levels (e.g., country_state_municipality_locality).
-\code{sep} can be one of "\emph{", "/", or "|". Default to "}".}
+\item{sep}{character. The separator within the locality information
+column and within the source of valid distribution Each separator
+separates diffrent distribution levels (e.g.,
+country_state_municipality_locality). \code{sep} can be one of "\emph{",
+"/", or "|". Default to "}".}
 
-\item{loc}{character. The name of the column containing the record locality
-information. Default to "loc.correct".}
+\item{loc}{character. The name of the column containing the record
+locality information. Default to "loc.correct".}
 
-\item{source}{character. Source to be consulted for valid distribution
-information. One of "bfo", "wcvp", or a user-defined data.frame. Default to
-"bfo".}
+\item{source}{character. Source to be consulted for valid
+distribution information. One of "bfo", "wcvp", or a user-defined
+data.frame. Default to "bfo".}
 
 \item{output}{a character string with the type of output desired: 'new.col'
 (columns with the new results for each type of validation added to the
@@ -92,7 +95,7 @@ details).
 \seealso{
 \link[plantR]{checkCoord}, \link[plantR]{checkBorders},
 \link[plantR]{checkShore}, \link[plantR]{checkInverted},
-\link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantr]{checkDist}
+\link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantR]{checkDist}
 }
 \author{
 Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato

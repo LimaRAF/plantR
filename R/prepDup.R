@@ -92,7 +92,7 @@ prepDup <- function(x, col.names = c(family = "family.new",
                     rec.ID = "numTombo", noYear = "s.d.", noName = "s.n.", noNumb = "s.n.", ignore.miss = TRUE) {
 
   ## check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)

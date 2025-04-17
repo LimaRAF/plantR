@@ -96,7 +96,7 @@ checkBorders <- function(x,
                          output = "new.col") {
 
   ## Check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (!all(c(geo.check, country.shape, country.gazetteer) %in% colnames(x)))

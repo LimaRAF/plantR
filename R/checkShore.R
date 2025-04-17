@@ -61,7 +61,7 @@ checkShore <- function(x,
   shoreLines <- shoreLines
 
   ## check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   ## Selecting the coordinates falling into the sea
