@@ -20,3 +20,23 @@ test_that("fixName separator work", {
 test_that("fixName special character work", {
   expect_equal(fixName("F. da S.N. Thomé", special.char = TRUE), "F. da S.N. Thomé")
 })
+
+input <- c(NA, "", " ", "Alvares , Roberto",
+           "A.Silva", "AlexS.", "Alex,Silva",
+           "M. A. Costa, J. Ribeiro & E. C. Pereira",
+           "M. A. Costa, et al.",
+           "Det. by Alex Silva")
+res <- c(NA, NA, NA, "Alvares, Roberto",
+         "A. Silva", "Alex S.", "Alex, Silva",
+         "M. A. Costa|J. Ribeiro|E. C. Pereira",
+         "M. A. Costa",
+         "Alex Silva")
+
+test_that("fixName works", {
+
+  expect_error(fixName())
+  expect_error(fixName(1))
+  expect_warning(fixName("A.  F.", sep.out = c(";", "|")))
+
+  expect_equal(fixName(input), res)
+})

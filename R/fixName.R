@@ -105,7 +105,7 @@ fixName <- function(nomes = NULL,
   sep0 <- "__"
 
   # detecting missing names
-  miss.name <- nomes %in% c( NA, "", " ")
+  miss.name <- nomes %in% c(NA, "", " ")
   orig.nomes <- nomes
   nomes <- nomes[!miss.name]
 
@@ -255,6 +255,7 @@ fixName <- function(nomes = NULL,
   nomes <- gsub("^/+|/+$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
+  nomes <- gsub(" , ", ", ", nomes, fixed = TRUE)
   nomes <- gsub("__ ,", "__ ", nomes, fixed = TRUE)
   nomes <- gsub("__,", "__", nomes, fixed = TRUE)
 
