@@ -1,12 +1,13 @@
 #' @title Get Species Information from the Brazilian Flora Online
 #'
-#' @description For a list of species names occurring in Brazil, this function
-#'   obtain different informations stored in the
+#' @description For a list of species names occurring in Brazil, this
+#'   function obtain different informations stored in the
 #'   [Brazilian Flora Online](http://floradobrasil.jbrj.gov.br/reflora/listaBrasil),
-#'   such as species occurrences by state, vouchers, life form, vegetation
-#'   types, etc.
+#'   such as species occurrences by state, vouchers, life form,
+#'   vegetation types, etc.
 #'
-#' @param taxa Vector. A list of taxa names occurring in the Brazilian Flora Online.
+#' @param taxa Vector. A list of taxon names occurring in the Brazilian
+#'   Flora Online.
 #' @param fields Vector. A list of fields to be returned.
 #'
 #'
@@ -16,11 +17,12 @@
 #'
 #' @details This function
 #'
-#' The time to run this function will depend on the umber of taxa to be
-#' consulted in the Brazilian Flora database and your internet connection.
+#' The time to run this function will depend on the number of taxa to
+#' be consulted in the Brazilian Flora database and your internet
+#' connection.
 #'
-#' If the Brazilian Flora server is down, the function will probably return a
-#' timeout error.
+#' If the Brazilian Flora server is down, the function will probably
+#' return a timeout error.
 #'
 
 #### NEED TO FIX SOME ERROS IN:
@@ -30,7 +32,9 @@
 getFBO <- function(taxa, fields = "vouchers") {
 
   #Getting the list of IDs from the BFO
-  ids <- flora::get.taxa(taxa)$id
+  matched.names <- nameMatching(taxa, plantR::bfoNames[["tax.name"]])
+  ids <- plantR::bfoNames$id[matched.names]
+  ids <- gsub("fbo-", "", ids, fixed = TRUE)
 
   #Downloading the informations for the list of IDs
   all_ids <- lapply(ids, downFBO)
@@ -48,7 +52,7 @@ getFBO <- function(taxa, fields = "vouchers") {
 
   #Editing collector names and numbers
   cols <- sapply(tmp1, function(x) sapply(x, function(i) i[1]))
-  cols <- sapply(cols, stringr::str_trim)
+  cols <- sapply(cols, squish)
   cols <- lapply(cols, paste, collapse = "|")
   if (any(sapply(cols, is.null)))
     cols[sapply(cols, is.null)] <- lapply(cols[sapply(cols, is.null)],
@@ -56,10 +60,15 @@ getFBO <- function(taxa, fields = "vouchers") {
   all_ids_df$collectors <- as.character(unlist(cols))
 
   #Editing vouchers
-  tombos <- sapply(tmp1, function(x) sapply(x, function(i) i[2]))
-  tombos <- sapply(tombos, function(x) sapply(strsplit(x, "<a href=", perl = TRUE), function(i) i[1]))
-  tombos <- sapply(tombos, function(x) sapply(strsplit(x, "blank\">", perl = TRUE), function(i) i[2]))
-  tombos <- sapply(tombos, stringr::str_trim)
+  tombos <- sapply(tmp1,
+                   function(x) sapply(x, function(i) i[2]))
+  tombos <- sapply(tombos,
+                   function(x) sapply(strsplit(x, "<a href=", perl = TRUE),
+                                      function(i) i[1]))
+  tombos <- sapply(tombos,
+                   function(x) sapply(strsplit(x, "blank\">", perl = TRUE),
+                                      function(i) i[2]))
+  tombos <- sapply(tombos, squish)
   tombos <- lapply(tombos, paste, collapse = "|")
   if (any(sapply(tombos, is.null)))
     cols[sapply(tombos, is.null)] <- lapply(tombos[sapply(tombos, is.null)],
@@ -70,10 +79,14 @@ getFBO <- function(taxa, fields = "vouchers") {
   all_ids_df$descricaoCamposControlados <-
     as.character(gsub("<strong>|</strong>", "", all_ids_df$descricaoCamposControlados))
   tmp <- strsplit(all_ids_df$descricaoCamposControlados, "\\. ")
-  all_ids_df$folha <- as.character(sapply(tmp, function(x) x[grepl("Folha: ", x, perl = TRUE)]))
-  all_ids_df$inflor <- as.character(sapply(tmp, function(x) x[grepl("Infloresc", x, perl = TRUE)]))
-  all_ids_df$flor <- as.character(sapply(tmp, function(x) x[grepl("Flor: ", x, perl = TRUE)]))
-  all_ids_df$fruto <- as.character(sapply(tmp, function(x) x[grepl("Fruto: ", x, perl = TRUE)]))
+  all_ids_df$folha <- as.character(sapply(tmp,
+                                          function(x) x[grepl("Folha: ", x, perl = TRUE)]))
+  all_ids_df$inflor <- as.character(sapply(tmp,
+                                           function(x) x[grepl("Infloresc", x, perl = TRUE)]))
+  all_ids_df$flor <- as.character(sapply(tmp,
+                                         function(x) x[grepl("Flor: ", x, perl = TRUE)]))
+  all_ids_df$fruto <- as.character(sapply(tmp,
+                                          function(x) x[grepl("Fruto: ", x, perl = TRUE)]))
 
   all_ids_df1 <- all_ids_df[,-which(names(all_ids_df) %in% c("vouchers","descricaoCamposControlados"))]
 

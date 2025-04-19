@@ -7,7 +7,8 @@
 getFBO(taxa, fields = "vouchers")
 }
 \arguments{
-\item{taxa}{Vector. A list of taxa names occurring in the Brazilian Flora Online.}
+\item{taxa}{Vector. A list of taxon names occurring in the Brazilian
+Flora Online.}
 
 \item{fields}{Vector. A list of fields to be returned.}
 }
@@ -15,19 +16,20 @@ getFBO(taxa, fields = "vouchers")
 the functions returns
 }
 \description{
-For a list of species names occurring in Brazil, this function
-obtain different informations stored in the
+For a list of species names occurring in Brazil, this
+function obtain different informations stored in the
 \href{http://floradobrasil.jbrj.gov.br/reflora/listaBrasil}{Brazilian Flora Online},
-such as species occurrences by state, vouchers, life form, vegetation
-types, etc.
+such as species occurrences by state, vouchers, life form,
+vegetation types, etc.
 }
 \details{
 This function
 
-The time to run this function will depend on the umber of taxa to be
-consulted in the Brazilian Flora database and your internet connection.
+The time to run this function will depend on the number of taxa to
+be consulted in the Brazilian Flora database and your internet
+connection.
 
-If the Brazilian Flora server is down, the function will probably return a
-timeout error.
+If the Brazilian Flora server is down, the function will probably
+return a timeout error.
 }
 \keyword{internal}
