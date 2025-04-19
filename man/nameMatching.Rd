@@ -100,8 +100,6 @@ refs[nameMatching(names, refs, match.type = c("exact"))]
 refs[nameMatching(names, refs, match.type = c("exact"), clean.names = FALSE)]
 refs[nameMatching(names, refs, max.dist = 0.15)]
 refs[nameMatching(names, refs, split = TRUE)]
-refs[nameMatching(names, refs, parallel = TRUE)]
-refs[nameMatching(names, refs, split = TRUE, parallel = FALSE)]
 
 
 }

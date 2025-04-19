@@ -271,7 +271,7 @@ reservedColNames <- c(
 groupNames <- rep(c("format.occs", "format.locs", "format.coords",
                     "format.tax", "validate.locs", "validate.coords",
                     "validate.tax", "validate.dups"),
-                  times = c(10, 11, 5, 10, 1, 3, 1, 21))
+                  times = c(10, 11, 5, 13, 1, 5, 1, 21))
 reservedColNames <- setNames(reservedColNames, groupNames)
 
 ## Conversion of coordinate validation categories
