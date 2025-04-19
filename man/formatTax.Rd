@@ -47,8 +47,8 @@ author of scientific name. Defaults to "scientificNameAuthorship"}
 be removed from the name? Defaults to FALSE}
 
 \item{tax.names}{character. Names of the columns containing the
-taxon names and authorships. Defaults to 'scientificName.new' and
-'scientificNameAuthorship.new'.}
+taxon names and authorships. Defaults to 'scientificName' and
+'scientificNameAuthorship'.}
 
 \item{db}{the taxonomic backbones to be consulted for valid names,
 in their preferred order of priority. By default, only the

@@ -27,9 +27,10 @@ test_that("getInit works", {
   expect_equal(getInit("John MacDonald"), "J.MacD.")
   expect_equal(getInit("John McDonald"), "J.McD.")
   expect_equal(getInit("John O'Brien"), "J.O'B.")
-  # Some problematic (unresolved) examples
-  expect_equal(getInit("AG"), "A.G.")
-  expect_equal(getInit("AG", max.initials = 2), "A.")
-  expect_equal(getInit("Carl F. P. von Martius"), "C.F.P.V.M.")
-  expect_equal(getInit("AH gentry"), "A.G.")
 })
+
+# Some problematic (unresolved) examples
+expect_equal(getInit("AG"), "A.G.")
+expect_equal(getInit("AG", max.initials = 2), "A.")
+expect_equal(getInit("Carl F. P. von Martius"), "C.F.P.V.M.")
+expect_equal(getInit("AH gentry"), "A.G.")

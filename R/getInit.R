@@ -1,33 +1,37 @@
 #' @title Create Name Initials
 #'
-#' @description Convert or standardize a vector of containing people's names
-#' or their initials.
+#' @description Convert or standardize a vector of containing people's
+#'   names or their initials.
 #'
 #' @param x the character string or vector to be standardized
-#' @param upper logical. Should initials be capitalized? Default to TRUE.
-#' @param rm.spaces logical. Should spaces between initials be removed?
-#'   Default to TRUE.
-#' @param max.initials numerical. Upper limit of number of letter for a single
-#' word to be considered as initials and not as a name. Default to 5.
+#' @param upper logical. Should initials be capitalized? Default to
+#'   TRUE.
+#' @param rm.spaces logical. Should spaces between initials be
+#'   removed? Default to TRUE.
+#' @param max.initials numerical. Upper limit of number of letter for
+#'   a single word to be considered as initials and not as a name.
+#'   Default to 5.
 #'
-#' @return the character string with the initials of each name separated by
-#'   points, without spaces. By default, initials are returned capitalized.
+#' @return the character string with the initials of each name
+#'   separated by points, without spaces. By default, initials are
+#'   returned capitalized.
 #'
-#' @details The function has some basic assumptions in order to get initials for
-#'   the most type of cases.
+#' @details The function has some basic assumptions in order to get
+#'   initials for the most type of cases.
 #'
 #'   For multiple names/abbreviations separated by a space and/or an
 #'   abbreviation point, the function takes the first letter of each
 #'   name/abbreviation as the initials.
 #'
-#'   For single names or one-string initials the output depends on the presence
-#'   of abbreviation points, if names are provided in all caps and in the number
-#'   of letters. If the number of capital letters exceeds the value in the
-#'   argument `max.initials`, then it is taken as a name and not initials (see
-#'   Examples).
+#'   For single names or one-string initials the output depends on the
+#'   presence of abbreviation points, if names are provided in all
+#'   caps and in the number of letters. If the number of capital
+#'   letters exceeds the value in the argument `max.initials`, then it
+#'   is taken as a name and not initials (see Examples).
 #'
-#'   The output is relatively stable regarding different name formats and
-#'   notation standards, but it doe not work for all of them (see Examples).
+#'   The output is relatively stable regarding different name formats
+#'   and notation standards, but it doe not work for all of them (see
+#'   Examples).
 #'
 #' @author Renato A. F. de Lima
 #'
@@ -79,9 +83,7 @@ getInit <- function(x,
   #Preparing the vector of names
   pts <- grepl("\\.", x, perl = TRUE)
   x[pts] <- gsub("[.]", ". ", x[pts], perl = TRUE)
-  x[pts] <- gsub("\\s+", " ", x[pts], perl = TRUE)
-  x[pts] <- gsub("^ | $", "", x[pts], perl = TRUE)
-  # x[pts] <- stringr::str_squish(x[pts])
+  x[pts] <- squish(x[pts])
 
   #Detecting the some general types of name formats: full, abbreviated or both
   words <- grepl(" ", x, fixed = TRUE)
@@ -114,40 +116,54 @@ getInit <- function(x,
   initials <- x
 
   #types 1: first letter of each word
-  if (any(types %in% "1"))
-    initials[types %in% "1"] <-
-         gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
-         # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
-           "", initials[types %in% "1"], perl=TRUE)
+  type1 <- types %in% "1"
+  if (any(type1)) {
+
+    check_these <- grepl("\\p{Lu}\\p{Lu}", initials[type1], perl = TRUE) &
+      grepl("\\p{Lu}\\p{Ll}", initials[type1], perl = TRUE)
+    if (any(check_these))
+      initials[type1][check_these] <-
+        squish(gsub("(\\p{Lu})", " \\1",
+             initials[type1][check_these], perl = TRUE))
+
+
+    initials[type1] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
+           # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+           "", initials[type1], perl=TRUE)
+  }
 
   #type 2: single words, with abbreviations
-  if (any(types %in% "2"))
-    initials[types %in% "2"] <-
-         gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
-         # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
-         "", initials[types %in% "2"], perl=TRUE)
+  type2 <- types %in% "2"
+  if (any(type2)) {
+    initials[type2] <-
+      gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})",
+           # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})",
+           "", initials[type2], perl=TRUE)
+  }
 
   #type 3: single words, no abbreviations
-  if (any(types %in% "3")) {
-    any.caps <- grepl('\\p{Lu}', x[types %in% "3"], perl = TRUE)
-    all.caps <- x[types %in% "3"] == toupper(x[types %in% "3"])
+  type3 <- types %in% "3"
+  if (any(type3)) {
+    any.caps <- grepl('\\p{Lu}', x[type3], perl = TRUE)
+    all.caps <- x[type3] == toupper(x[type3])
     all.low <- !all.caps & !any.caps
 
-    initials[types %in% "3"][!all.low] <-
+    initials[type3][!all.low] <-
           gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<![A-Z])", "",
            # gsub("(*UCP)[^;\\&\\-\\\\'](?<![A-Z])", "",
-           initials[types %in% "3"][!all.low], perl=TRUE)
-    initials[types %in% "3"][all.low] <-
+           initials[type3][!all.low], perl=TRUE)
+    initials[type3][all.low] <-
           gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
            # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
-           initials[types %in% "3"][all.low], perl = TRUE)
+           initials[type3][all.low], perl = TRUE)
 
-    not.inits <- nchar(initials[types %in% "3"]) >= max.initials
+    not.inits <- nchar(initials[type3]) >= max.initials
     if (any(not.inits))
-      initials[types %in% "3"][not.inits] <-
+      initials[type3][not.inits] <-
           gsub("(*UCP)[^;\\&\\-\\\\'\\s](?<!\\b\\p{L})", "",
            # gsub("(*UCP)[^;\\&\\-\\\\'](?<!\\b\\p{L})", "",
-           initials[types %in% "3"][not.inits], perl = TRUE)
+           initials[type3][not.inits], perl = TRUE)
 
   }
 
@@ -168,9 +184,7 @@ getInit <- function(x,
   if (rm.spaces) {
     x <- gsub(" ", "", x, fixed = TRUE)
   } else {
-    x <- gsub("\\s+", " ", x, perl = TRUE)
-    x <- gsub("^ | $", "", x, perl = TRUE)
-    # x <- stringr::str_squish(x)
+    x <- squish(x)
     check_these <- grepl("\\p{L}\\.\\s-\\s\\p{L}\\.", x, perl = TRUE)
     x[check_these] <-
       gsub("\\.\\s-\\s", ".-", x[check_these], perl = TRUE)

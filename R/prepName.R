@@ -198,7 +198,6 @@ prepName <- function(x,
   if (fix.names) {
     patt.split <- paste(sep.out1,
                         paste0(gsub("^ | $", "", sep.out1, perl = TRUE), "(?=\\p{Lu})"),
-                        # paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {
     patt.split <- paste0(sep.in1, collapse = "|")
@@ -213,8 +212,9 @@ prepName <- function(x,
 
   if (output %in% c("all", "first")) {
     dt$V1 <- prepTDWG(dt$V1,
-                      format = format, pretty = pretty, get.prep = get.prep,
-                      get.initials = get.initials,)
+                      format = format, pretty = pretty,
+                      get.prep = get.prep,
+                      get.initials = get.initials)
   }
 
   if (output %in% c("all", "aux") & length(cols) > 1) {

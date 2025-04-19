@@ -101,6 +101,9 @@ lastName <- function(name,
   name <- gsub("[.]", ". ", name, perl = TRUE) # adding a space between points
   name <- squish(name)
 
+  # Small, preliminary edits
+  name <- gsub("^, | ,$", "", name, perl = TRUE)
+
   # Defining the general name formats (single, mult. w/ comma, mult. w/out comma)
   comma <- grepl("\\p{L},", name[!miss.name], perl = TRUE)
   no.first <- !grepl(" ", name[!miss.name], perl = TRUE)
@@ -112,7 +115,8 @@ lastName <- function(name,
     last.name[comma] <- gsub(",.*", "", last.name[comma], perl = TRUE)
 
   if (any(outros))
-    last.name[outros] <- gsub(".*\\s", "", last.name[outros], perl = TRUE)
+    last.name[outros] <- gsub(".*\\s", "", last.name[outros],
+                              perl = TRUE)
 
   # Detecting possible problems with abbreviated initials at the end of the name
   probs <- grepl("^\\p{L}\\.$", last.name, perl = TRUE)
@@ -133,12 +137,12 @@ lastName <- function(name,
   }
 
   # identifying names with generational suffixes
-  cp.nome <- rep("", length(last.name))
-  cp <- c("Filho", "Neto", "Jr.", "Junior", "Sobrinho") #compound names
+  cp <- c("Filho", "Neto", "Jr.", "Junior", "Sobrinho")
   cp <- c(cp, tolower(cp))
   gen.suf <- last.name %in% cp
 
   if (any(gen.suf)) {
+    cp.nome <- rep("", length(last.name))
 
     cp.nome[gen.suf] <- last.name[gen.suf]
     last.name[gen.suf] <- name[!miss.name][gen.suf]
@@ -162,7 +166,30 @@ lastName <- function(name,
       paste(last.name[gen.suf][!double.cp],
             cp.nome[gen.suf][!double.cp], sep = " ")
     last.name[gen.suf][double.cp] <- cp.nome[gen.suf][double.cp]
+  }
 
+  # identifying compound last names
+  cp <- c("Filho", "Neto", "Jr\\.", "Junior", "Sobrinho")
+  compound <- grepl(" ", last.name, fixed = TRUE) &
+                !grepl(paste(cp, collapse = "|"), last.name,
+                       perl = TRUE, ignore.case = TRUE)
+  if (any(compound)) {
+    extra.name <- comp.nome <- rep("", length(last.name))
+    comp.nome[compound] <- last.name[compound]
+
+    extra.name[compound] <- gsub("\\s.*", "", comp.nome[compound], perl = TRUE)
+    last.name[compound] <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                                 extra.name[compound], last.name[compound])
+    last.name[compound] <- squish(last.name[compound])
+
+    name[!miss.name][compound] <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                          extra.name[compound], name[!miss.name][compound])
+    name[!miss.name][compound] <-
+      gsub("^, | ,$", "", name[!miss.name][compound], perl = TRUE)
+    name[!miss.name][compound] <-
+      squish(name[!miss.name][compound])
+    name[!miss.name][compound] <-
+      paste(name[!miss.name][compound], extra.name[compound])
   }
 
   if (invert) {

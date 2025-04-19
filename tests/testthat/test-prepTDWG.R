@@ -1,3 +1,34 @@
+### Sugestão de lista de nomes teste para inclusão, vindos de https://pt.stackoverflow.com/questions/242948/validar-nome-e-sobrenome-com-express%C3%A3o-regular
+nomes_bons <- c(
+  "Marina Silva",
+  "Luiz Antônio",
+  "João Doria",
+  "Luís Inácio Lula da Silva",
+  "Juscelino Kubitschek de Oliveira",
+  "Friedrich von Hayek",
+  "Ludwig van Beethoven",
+  "María Antonieta de las Nieves",
+  "Jeanne d'Arc",
+  "Saddam Hussein al-Tikriti",
+  "Osama bin Mohammed bin Laden",
+  "Jean-Baptiste le Rond d'Alembert",
+  "Pierre-Simon Laplace",
+  "Hans Christian Ørsted",
+  "Joseph Louis Gay-Lussac",
+  "Scarlett O'Hara",
+  "Gregor O'Sulivan",
+  "Ronald McDonald",
+  "John William D'Arcy",
+  "John D'Largy",
+  "Luís Augusto Maria Eudes de Saxe-Coburgo-Gota",
+  "Martin Luther King Jr.",
+  "William Henry Gates III",
+  "Samuel Eto'o",
+  "Åsa Ekström",
+  "Ítalo Gonçalves")
+
+prepTDWG(nomes_bons) ## implementar soluções para os problemas independente deles terem ou não passado pelo fixNames!
+
 test_that("prepTDWG works", {
 # Single names
   expect_equal(prepTDWG("gentry"), "Gentry")
