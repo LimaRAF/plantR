@@ -64,9 +64,9 @@ country_state_municipality_locality). \code{sep} can be one of "\emph{",
 \item{loc}{character. The name of the column containing the record
 locality information. Default to "loc.correct".}
 
-\item{source}{character. Source to be consulted for valid
-distribution information. One of "bfo", "wcvp", or a user-defined
-data.frame. Default to "bfo".}
+\item{source}{character or data frame. Source to be consulted for
+valid distribution information. One of "bfo", "wcvp", or a
+user-defined data.frame. Default to "bfo".}
 
 \item{output}{a character string with the type of output desired: 'new.col'
 (columns with the new results for each type of validation added to the

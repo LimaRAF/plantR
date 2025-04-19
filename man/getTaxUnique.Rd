@@ -9,14 +9,14 @@ getTaxUnique(
   df.ref = NULL,
   match.col = NULL,
   orig.col = "scientificName.new",
-  name.col = "name",
+  name.col = "tax.name",
   status.col = "taxon.status",
   type.match.col = "match_type",
   mult.match.col = "multiple_match",
   mult.matches = "all",
-  agg.cols = c("id", "family", "authorship", "taxon.rank", "name.status", "taxon.status",
-    "accepted.name", "accepted.authorship", "accepted.taxon.rank",
-    "accepted.taxon.status", "accepted.name.status")
+  agg.cols = c("id", "family", "tax.authorship", "taxon.rank", "name.status",
+    "taxon.status", "accepted.tax.name", "accepted.tax.authorship",
+    "accepted.taxon.rank", "accepted.taxon.status", "accepted.name.status")
 )
 }
 \arguments{

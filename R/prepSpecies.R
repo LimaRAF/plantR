@@ -8,8 +8,8 @@
 #' @param x a vector or data.frame of taxon names and their
 #'   authorships, ideally the output from function `fixSpecies()`.
 #' @param tax.names character. Names of the columns containing the
-#'   taxon names and authorships. Defaults to 'scientificName.new' and
-#'   'scientificNameAuthorship.new'.
+#'   taxon names and authorships. Defaults to 'scientificName' and
+#'   'scientificNameAuthorship'.
 #' @param db the taxonomic backbones to be consulted for valid names,
 #'   in their preferred order of priority. By default, only the
 #'   Brazilian Flora 2020 taxonomic backbone ('bfo') is used.
@@ -137,11 +137,10 @@
 #'   "", "Kunth", "Poepp. Eichler", "", "J. Seber ex Griseb.", "Sw.",
 #'   "(Clos) Eichler", "L.")
 #'
-#' df <- data.frame(scientificName.new = sp.list,
-#'   scientificNameAuthorship.new = aut_list)
+#' df <- data.frame(scientificName = sp.list,
+#'   scientificNameAuthorship = aut_list)
 #'
 #' prepSpecies(df)
-#' prepSpecies(df, clean.names = TRUE)
 #' prepSpecies(df, sug.dist = 0.925)
 #' prepSpecies(df, mult.matches = "best")
 #'
@@ -155,8 +154,8 @@
 #' @export prepSpecies
 #'
 prepSpecies <- function(x,
-                        tax.names = c("scientificName.new",
-                                      "scientificNameAuthorship.new"),
+                        tax.names = c("scientificName",
+                                      "scientificNameAuthorship"),
                         db = "bfo",
                         use.authors = TRUE,
                         replace.names = TRUE,
@@ -173,8 +172,8 @@ prepSpecies <- function(x,
                                       "fuzzy_dist_name",
                                       "fuzzy_dist_author",
                                       "name.status", "taxon.status",
-                                      "accepted.id", "accepted.name",
-                                      "accepted.authorship",
+                                      "accepted.id", "accepted.tax.name",
+                                      "accepted.tax.authorship",
                                       "accepted.taxon.rank",
                                       "accepted.taxon.status",
                                       "accepted.name.status",
@@ -200,7 +199,7 @@ prepSpecies <- function(x,
 
   if (is.na(tax.names[2])) {
     warning("Column name with species authorities not provided; setting to 'scientificNameAuthorship'")
-    tax.names[2] <- 'scientificNameAuthorship.new'
+    tax.names[2] <- 'scientificNameAuthorship'
   }
 
   if (sug.dist < 0 | sug.dist >=1) {
@@ -265,13 +264,13 @@ prepSpecies <- function(x,
         input_names[no_author] <-
           df_unique[[tax.names[1]]][no_author]
 
-      ref_names <- buildName(ref.df, c("name", "authorship"))
+      ref_names <- buildName(ref.df, c("tax.name", "tax.authorship"))
 
     } else {
       df_unique <- unique(df[, tax.names])
       input_names <- df_unique[[tax.names[1]]]
       no_author <- rep(TRUE, dim(df_unique)[1])
-      ref_names <- ref.df[["name"]]
+      ref_names <- ref.df[["tax.name"]]
     }
 
     if (clean.indet) {
@@ -307,9 +306,9 @@ prepSpecies <- function(x,
     match_type <- rep(NA, length(input_names_clean))
 
     # name matching with authorships
-    bb_cols <- c("id", "family", "name", "authorship",
-                 "taxon.rank", "name.status","taxon.status",
-                 "accepted.id", "accepted.name", "accepted.authorship",
+    bb_cols <- c("id", "family", "tax.name", "tax.authorship",
+                 "taxon.rank", "name.status", "taxon.status",
+                 "accepted.id", "accepted.tax.name", "accepted.tax.authorship",
                  "accepted.taxon.rank", "accepted.taxon.status",
                  "accepted.name.status")
     bb_cols <- bb_cols[bb_cols %in% names(ref.df)]
@@ -413,11 +412,11 @@ prepSpecies <- function(x,
           search_names[fuzzy_w_indet]
 
         name_dist <- stringdist::stringdist(input_names_temp,
-                                            result[["name"]][check_these])
+                                            result[["tax.name"]][check_these])
         result$fuzzy_dist_name[check_these] <-
           round(name_dist/nchar(input_names_temp), 4)
         aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
-                                           result[["authorship"]][check_these])
+                                           result[["tax.authorship"]][check_these])
         result$fuzzy_dist_author[check_these] <-
           round(aut_dist/nchar(result[[tax.names[2]]][check_these]), 4)
       }
@@ -438,9 +437,9 @@ prepSpecies <- function(x,
     if (any(no_author)) {
 
       if (clean.names) {
-        ref_names_clean1 <- cleanName(ref.df[["name"]])
+        ref_names_clean1 <- cleanName(ref.df[["tax.name"]])
       } else {
-        ref_names_clean1 <- ref.df[["name"]]
+        ref_names_clean1 <- ref.df[["tax.name"]]
       }
 
       # exact matches
@@ -467,12 +466,12 @@ prepSpecies <- function(x,
 
         ref.df[[tmp.match.col]] <- ref_names_clean1
 
-        bb_cols1 <- bb_cols[!bb_cols %in% "name"]
+        bb_cols1 <- bb_cols[!bb_cols %in% "tax.name"]
 
         unique_tax <- getTaxUnique(df1, ref.df,
                                 match.col = tmp.match.col,
                                 orig.col = tax.names[1],
-                                name.col = "name",
+                                name.col = "tax.name",
                                 status.col = "taxon.status",
                                 type.match.col = "match_type",
                                 mult.match.col = "multiple_match",
@@ -527,7 +526,7 @@ prepSpecies <- function(x,
           name_dist1 <-
             stringdist::stringdist(
               input_names_clean1,
-              result[["name"]][no_authors_no_match1])
+              result[["tax.name"]][no_authors_no_match1])
           result$fuzzy_dist_name[no_authors_no_match1] <-
             round(name_dist1/
                     nchar(input_names_clean1), 4)
@@ -559,9 +558,9 @@ prepSpecies <- function(x,
                      "fuzzy_dist_name", "fuzzy_dist_author",
                      bb_cols)
     output <- result[, select_cols]
-    names(output)[which(names(output) == "name")] <-
+    names(output)[which(names(output) == "tax.name")] <-
       "suggestedName"
-    names(output)[which(names(output) == "authorship")] <-
+    names(output)[which(names(output) == "tax.authorship")] <-
       "suggestedAuthorship"
 
     # flagging fuzzy matches above the threshold
@@ -582,7 +581,7 @@ prepSpecies <- function(x,
 
       old.cols <- c("id", "suggestedName", "suggestedAuthorship",
                     "taxon.rank", "name.status")
-      new.cols <- c("accepted.id", "accepted.name", "accepted.authorship",
+      new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
                     "accepted.taxon.rank", "accepted.name.status")
 
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
@@ -626,7 +625,7 @@ prepSpecies <- function(x,
       rep_these <- output$notes %in% "check +1 name"
       if (any(rep_these)) {
         rep_these1 <-
-          !grepl("|", output[["accepted.authorship"]][rep_these],
+          !grepl("|", output[["accepted.tax.authorship"]][rep_these],
                  fixed = TRUE)
         if (any(rep_these1)) {
           output[rep_these, old.cols][rep_these1, ] <-

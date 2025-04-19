@@ -6,7 +6,7 @@
 \usage{
 prepSpecies(
   x,
-  tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
+  tax.names = c("scientificName", "scientificNameAuthorship"),
   db = "bfo",
   use.authors = TRUE,
   replace.names = TRUE,
@@ -20,9 +20,9 @@ prepSpecies(
   cores = 2,
   show.progress = FALSE,
   drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
-    "name.status", "taxon.status", "accepted.id", "accepted.name", "accepted.authorship",
-    "accepted.taxon.rank", "accepted.taxon.status", "accepted.name.status",
-    "taxon.distribution")
+    "name.status", "taxon.status", "accepted.id", "accepted.tax.name",
+    "accepted.tax.authorship", "accepted.taxon.rank", "accepted.taxon.status",
+    "accepted.name.status", "taxon.distribution")
 )
 }
 \arguments{
@@ -30,8 +30,8 @@ prepSpecies(
 authorships, ideally the output from function \code{fixSpecies()}.}
 
 \item{tax.names}{character. Names of the columns containing the
-taxon names and authorships. Defaults to 'scientificName.new' and
-'scientificNameAuthorship.new'.}
+taxon names and authorships. Defaults to 'scientificName' and
+'scientificNameAuthorship'.}
 
 \item{db}{the taxonomic backbones to be consulted for valid names,
 in their preferred order of priority. By default, only the
@@ -188,11 +188,10 @@ aut_list <- c("Sw.", "", "Sw.", "", "Uittien", "Rusby",
   "", "Kunth", "Poepp. Eichler", "", "J. Seber ex Griseb.", "Sw.",
   "(Clos) Eichler", "L.")
 
-df <- data.frame(scientificName.new = sp.list,
-  scientificNameAuthorship.new = aut_list)
+df <- data.frame(scientificName = sp.list,
+  scientificNameAuthorship = aut_list)
 
 prepSpecies(df)
-prepSpecies(df, clean.names = TRUE)
 prepSpecies(df, sug.dist = 0.925)
 prepSpecies(df, mult.matches = "best")
 

@@ -59,7 +59,7 @@ getFamily <- function(x = NULL,
     dbs <- getTaxBackbone(db)[[1]]
     dbs <- unique(dbs[dbs$taxon.rank %in% "genus" &
                         dbs$taxon.status %in% "accepted",
-                      c("family", "name")])
+                      c("family", "tax.name")])
     names(dbs)[2] <- "gen.name"
 
     genera <- dplyr::left_join(genera, dbs, by = "gen.name")

@@ -27,8 +27,8 @@ aut_list <- c("Sw.", "Sw.", "",
               "(Clos) Eichler",
               "")
 
-df <- data.frame(scientificName.new = sp.list,
-  scientificNameAuthorship.new = aut_list)
+df <- data.frame(scientificName = sp.list,
+                 scientificNameAuthorship = aut_list)
 
 # Objects with the expected resolutions
 res1 <- c("Casearia sylvestris Sw.",
