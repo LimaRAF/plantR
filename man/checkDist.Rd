@@ -32,9 +32,9 @@ separates diffrent distribution levels (e.g.,
 country_state_municipality_locality). \code{sep} can be one of "\emph{",
 "/", or "|". Default to "}".}
 
-\item{source}{character. Source to be consulted for valid
-distribution information. One of "bfo", "wcvp", or a user-defined
-data.frame. Default to "bfo".}
+\item{source}{character or data frame. Source to be consulted for
+valid distribution information. One of "bfo", "wcvp", or a
+user-defined data.frame. Default to "bfo".}
 }
 \value{
 The input data.frame \code{x} with two additional columns
@@ -52,19 +52,19 @@ The function provides a way to check if the species
 distribution obtained from the \strong{plantR} locality string (e.g,
 loc.correct = "brazil_sao paulo_campinas") matches the
 known distribution of the species. This information is returned
-in the column 'dist.check'. If 'dist.check' is 'TRUE' it means
+in the column 'dist.check'. If 'dist.check' is 'ok.dist' it means
 that the locality string of the record is within the known
-species distribution. If 'dist.check' is 'FALSE', it means
+species distribution. If 'dist.check' is 'invalid.dist', it means
 that the record is outside the known species distribution.
 
-The known distribution can be
-obtained from the Flora do Brasil Online ("bfo", the default),
-The World Checklist of Vascular Plants (WCVP) or a "user-defined"
-data frame. "bfo" provides the known distribution of the species
-at state level (e.g, BR-PR), while the argument "wcvp" uses the
-World Scheme for Recording Plant Distribution (WGSRPD, Brummitt
-et al., 2006) and provides the known distribution at the
-\emph{Botanical Country} (Level 3) and \emph{Basic} \emph{Recording Units} (Level 4) levels.
+The known distribution can be obtained from the Flora do Brasil
+Online ("bfo", the default), The World Checklist of Vascular
+Plants (WCVP) or a "user-defined" data frame. "bfo" provides the
+known distribution of the species at state level (e.g, BR-PR),
+while the argument "wcvp" uses the World Scheme for Recording
+Plant Distribution (WGSRPD, Brummitt et al., 2006) and provides
+the known distribution at the \emph{Botanical Country} (Level 3) and
+\emph{Basic Recording Units} (Level 4) levels.
 
 Due to taxonomic differences between the BFO and WCVP backbones,
 we first recommend to prepare the names (ideally using \strong{plantR}
@@ -105,7 +105,6 @@ df <- data.frame(scientificName = spp_names,
                  scientificNameAuthorship = spp_authors,
                  loc.correct = loc)
 checkDist(df)
-checkDist(df, source = "wcvp")
 
 }
 \references{

@@ -85,7 +85,4 @@ test_that("checkDist works", {
   expect_equal(setdiff(names(df), names(run_test)), character(0))
   expect_equal(run_test$dist.check, res.wcvp1)
   expect_equal(run_test$dist.check.obs, res.wcvp2)
-
-
-
 })
