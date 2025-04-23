@@ -15,11 +15,11 @@
 #' @details
 #'   The expected format of the user-provided backbone is a data frame
 #'   or a list of data frame that must contain at least the following
-#'   columns: 'name' and 'authorship'. But ideally, it should have
+#'   columns: 'tax.name' and 'tax.authorship'. But ideally, it should have
 #'   more columns such as the backbone taxon ID (column 'id'), other
 #'   information on the taxa (i.e. columns 'phylum', 'family',
 #'   'taxon.rank', 'taxon.status', 'name.status') and on the possibly
-#'   accepted taxa (i.e. columns 'accepted.name', 'accepted.authorship',
+#'   accepted taxa (i.e. columns 'accepted.tax.name', 'accepted.tax.authorship',
 #'   'accepted.taxon.rank', 'accepted.taxon.status',
 #'   'accepted.name.status'). See the object 'bfoNames' for an example
 #'   of the expected format of the taxonomic backbone.
@@ -32,7 +32,10 @@
 #'
 #' @export
 #'
-getTaxBackbone <- function(db) {
+getTaxBackbone <- function(db = NULL) {
+
+  if (is.null(db))
+    stop("The argument 'db' cannot be empty")
 
   if (inherits(db, "character")) {
 
@@ -101,13 +104,13 @@ getTaxBackbone <- function(db) {
       stop("The reference 'db' data frame cannot be empty!",
            call. = FALSE)
 
-    key.cols <- c('name', 'authorship')
+    key.cols <- c('tax.name', 'tax.authorship')
     if (any(!key.cols %in% colnames(db)))
       stop("The reference 'db' data frame must contain the columns: ",
            paste(key.cols, collapse = ", "), call. = FALSE)
 
     opt.col <-  c('id', 'family', 'taxon.rank', 'taxon.status',
-                  'name.status', 'accepted.name', 'accepted.authorship',
+                  'name.status', 'accepted.tax.name', 'accepted.tax.authorship',
                   'accepted.taxon.rank', 'accepted.taxon.status',
                   'accepted.name.status')
     if (any(!opt.col %in% colnames(db))) {
@@ -148,13 +151,13 @@ getTaxBackbone <- function(db) {
         stop("The reference 'db' data frame cannot be empty!",
              call. = FALSE)
 
-      key.cols <- c('name', 'authorship')
+      key.cols <- c('tax.name', 'tax.authorship')
       if (any(!key.cols %in% colnames(db.i)))
         stop("The reference 'db' data frame must contain the columns: ",
              paste(key.cols, collapse = ", "), call. = FALSE)
 
       opt.col <-  c('id', 'family', 'taxon.rank', 'taxon.status',
-                    'name.status', 'accepted.name', 'accepted.authorship',
+                    'name.status', 'accepted.tax.name', 'accepted.tax.authorship',
                     'accepted.taxon.rank', 'accepted.taxon.status',
                     'accepted.name.status')
       if (any(!opt.col %in% colnames(db.i))) {

@@ -4,7 +4,7 @@
 \alias{getTaxBackbone}
 \title{Get Reference Taxonomy}
 \usage{
-getTaxBackbone(db)
+getTaxBackbone(db = NULL)
 }
 \arguments{
 \item{db}{a character with the taxonomic backbone acronym or a data
@@ -23,11 +23,11 @@ backbone(s) of their choice.
 \details{
 The expected format of the user-provided backbone is a data frame
 or a list of data frame that must contain at least the following
-columns: 'name' and 'authorship'. But ideally, it should have
+columns: 'tax.name' and 'tax.authorship'. But ideally, it should have
 more columns such as the backbone taxon ID (column 'id'), other
 information on the taxa (i.e. columns 'phylum', 'family',
 'taxon.rank', 'taxon.status', 'name.status') and on the possibly
-accepted taxa (i.e. columns 'accepted.name', 'accepted.authorship',
+accepted taxa (i.e. columns 'accepted.tax.name', 'accepted.tax.authorship',
 'accepted.taxon.rank', 'accepted.taxon.status',
 'accepted.name.status'). See the object 'bfoNames' for an example
 of the expected format of the taxonomic backbone.
