@@ -77,8 +77,26 @@ file.remove(path)
 
 
 ### Collection Codes
-
-
+link <- "https://docs.google.com/spreadsheets/d/1T4aq9zEXG76wFnVJRTI4-atMK1IiJVW9J8NpJXW9Bn8/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/collectionCodes.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# character to numbers
+cols2change <- c("latitude", "longitude")
+for (i in seq_along(cols2change))
+  dados[[cols2change[i]]] <- as.numeric(dados[[cols2change[i]]])
+cols2change <- c("records", "total accessioned")
+for (i in seq_along(cols2change))
+  dados[[cols2change[i]]] <- as.integer(dados[[cols2change[i]]])
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
 
 
 ## 1. from raw files to processed csv in dictionaries -------------
