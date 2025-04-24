@@ -129,10 +129,10 @@ checkCoord <- function(x,
   if (any(ids.no.coord))
     geo.check[ids.no.coord] <- "no_cannot_check"
 
-  # ids.nas.coord <- x[, orig.coord] %in% "coord_original" &
-  #                   (is.na(x[lon]) | is.na(x[lat]))
-  # if (any(ids.nas.coord))
-  #   geo.check[ids.nas.coord] <- "no_cannot_check"
+  ids.nas.coord <- x[, orig.coord] %in% "coord_original" &
+                    (is.na(x[lon]) | is.na(x[lat]))
+  if (any(ids.nas.coord))
+    geo.check[ids.nas.coord] <- "no_cannot_check"
 
   ## Subsetting data for geographical checking
   tmp <- x[is.na(geo.check), ]
