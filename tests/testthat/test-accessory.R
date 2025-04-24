@@ -21,10 +21,11 @@ test_that("checkColNames works", {
   df <- data.frame(scientificName = c("A a", "A b"),
                    scientificNameAuthorship  = c("C.D.", "C.C"))
   expect_no_warning(checkColNames(df))
+  expect_no_warning(checkColNames(df, group = "format.tax"))
   df <- data.frame(scientificName = c("A a", "A b"),
            geo.check = c("ok", "bad"))
   expect_warning(checkColNames(df))
-
+  expect_no_warning(checkColNames(df, group = "format.tax"))
 
 })
 

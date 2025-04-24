@@ -102,8 +102,7 @@ getCode <- function(x,
   dt[ , collection.string := gsub("^ | $", "", collection.string, perl = TRUE)]
 
   # Getting the collection list
-  ih.list <- collectionCodes
-  ih.list <- data.table::data.table(ih.list)
+  ih.list <- data.table::data.table(collectionCodes)
   dt <- data.table::merge.data.table(dt, ih.list,
                                       by = "collection.string", all.x = TRUE)
 

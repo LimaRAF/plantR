@@ -1,7 +1,7 @@
+df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG", "Observation", NA, NA, NA),
+                 collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY", NA, NA, "MO", "Xuxu"))
+
 test_that("getCode works", {
-  df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG"),
-                   collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"),
-                   stringsAsFactors = FALSE)
   df_code <- getCode(df)
   expect_equal(setdiff(names(df), names(df_code)), character(0))
   expect_equal(setdiff(names(df_code), names(df)), c("collectionCode.new", "collectionObs"))
