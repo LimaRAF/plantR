@@ -72,6 +72,8 @@ checkInverted <- function(x,
   if (!check.names[1] %in% colnames(x))
     stop("The column with the results from the coordinate checking was not found in the input data")
 
+  x <- as.data.frame(x)
+
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
     country.gazet <- sapply(strsplit(x[, country.gazetteer], "_", fixed = TRUE),
