@@ -2,6 +2,29 @@
 
 <br/>
 
+## version 0.1.9
+
+* Fixing an issue in `fixAuthors()` and improving its processing speed (issue #128)
+
+* Updating function `prepSpecies()` and `prepFamily()` to better deal with original and suggested family names and their synonyms (issue #156 and issue #157). `prepFamily()` now returns a new columns called 'genus.new' for consistency
+
+* Adding the new function `checkDist()` to flag records outside an accepted species distribution
+
+* Adding the new function `getFamily()` and thus removing final dependency of the R package __flora__ in `prepFamily()` and `formatDwc()`
+
+* Adding a new tutorial to describe how to use __plantR__ to manage taxonomic information
+
+* Few additions of patterns to clean county/municipality and to scrap locality names using `fixLoc()`
+
+* Updating the internal gazetteer and list of plant taxonomists
+
+* Updating the taxonomic backbone from the Brazilian Flora and Funga (`data\bfoNames.rds`) and its documentation
+
+* Minor bug fixes and improvements in `fixName()`, `prepName()`, `lastName()`, `getInit()`, `getAdmin()`, `checkList()`, `shares_border()`, `checkOut()`, `checkInverted()`, `getTombo()`, `summaryData()` and the internal objects `world`, `wordsForSearch` and `fieldNames` (issues #93, #94, #130, #131, #132, #133, #136, #138, #143, #144, #147, #148, #158)
+
+* Improving tests of imput objects (issue #150)
+
+
 ## version 0.1.8
 
 * Adapting function `prepSpecies()` and related ones to perform taxon name matching using the new internal backbone or any user-provided backbone
@@ -52,7 +75,7 @@
 * Minor improvements in functions `fixLoc()`, `prepCoord()`, 
 `prepFamily()` and `getYear()`. 
 
-* Minor changes in several package functions related to the internal use of 
+* Minor changes in several package functions related to the internal use of
 functions from the package `stringr`. 
 
 

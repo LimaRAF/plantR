@@ -119,54 +119,54 @@ checkDist <- function(x,
                       loc = "loc.correct",
                       sep = "_",
                       source = "bfo") {
-  
+
   if(!inherits(x, "data.frame"))
     stop("Input object 'x' needs to be a data.frame!", call. = FALSE)
-  
+
   if(nrow(x) == 0)
     stop("Input data.frame is empty!", call. = FALSE)
-  
+
   if(!loc %in% names(x))
     stop("Input data.frame must have a column with localities!", call. = FALSE)
-  
+
   if(!tax.name %in% names(x))
     stop("Input data.frame must have a column with species names!", call. = FALSE)
-  
+
   if(is.na(tax.author)) {
     warning("Column name with species authorities not provided; setting to
             'scientificNameAuthorship'")
     tax.author <- "scientificNameAuthorship"
   }
-  
+
   x1 <- x
   sep <- gsub("(\\|)", "\\\\\\1", sep, perl = TRUE)
   sep <- gsub("(\\/)", "\\\\\\1", sep, perl = TRUE)
   x1[[loc]] <- prepLoc(x1[[loc]])
-  
+
   patt <- paste0("^([^", sep,
                  "]*", sep,
                  "[^", sep,
                  "]*)", sep,
                  ".*")
   x1$loc.abbrev <- gsub(patt, "\\1", x1[[loc]], perl = TRUE)
-  
+
   if(inherits(source, "data.frame")){
     user_def <- source
     key.cols <- c("tax.name", "tax.author", "taxon.distribution")
-    
+
     if(dim(user_def)[1] == 0)
       stop("The reference 'source' data.frame cannot be empty!", call. = FALSE)
-    
+
     if(any(!key.cols %in% colnames(user_def)))
       stop("The reference 'source' data.frame must contain the columns: ",
            paste(key.cols, collapse = ", "), call. = FALSE)
-    
+
     if(length(grep("|", user_def[[key.cols[3]]], fixed = TRUE)) == 0)
       stop("Known distributions must be separated by a pipe '|'", call. = FALSE)
-    
+
     loc.source <- key.cols[3]
     user_def[["taxon.distribution"]] <- prepLoc(user_def[["taxon.distribution"]])
-    
+
     x1$hierarchy.high <- prepLoc(gsub(paste0(sep, ".*"),
                                       "",
                                       x1[[loc]]))
@@ -177,11 +177,11 @@ checkDist <- function(x,
                                      "\\1",
                                      x1[[loc]]))
     x1$hierarchy.low[!grepl(sep, x1[[loc]])] <- NA
-    
+
     x1 <- dplyr::left_join(x1, user_def[, key.cols],
                            by = setNames("tax.name", tax.name),
                            keep = TRUE)
-    
+
     x1$obs <- NA
     x1$obs <- ifelse(
       !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1[[tax.name]]),
@@ -193,19 +193,19 @@ checkDist <- function(x,
       x1$obs
     )
     x1$obs[is.na(x1$obs)] <- "no.match"
-    
+
     dist.user <- strsplit(x1[["taxon.distribution"]],
                           split = "|",
                           fixed = TRUE)
-    
+
     case.high <- mapply(grepl, x1$hierarchy.high, dist.user)
     case.low <- mapply(grepl, x1$hierarchy.low, dist.user)
-    
+
     x1$dist.check <- NA
     case.high.vec <- sapply(case.high, function(x) any(x, na.rm = FALSE))
     case.low.vec <- sapply(case.low, function(x) any(x, na.rm = FALSE))
     na_mask <- is.na(case.high.vec) & is.na(case.low.vec)
-    
+
     x1$dist.check[!na_mask & case.high.vec & case.low.vec] <- "ok.dist.finer"
     x1$dist.check[!na_mask & case.high.vec & !case.low.vec] <- "ok.dist.coarser"
     x1$dist.check[!na_mask & !case.high.vec & !case.low.vec] <- "invalid.dist"
@@ -214,17 +214,18 @@ checkDist <- function(x,
     x1$dist.check[is.na(x1$taxon.distribution)] <- "no.cannot.check"
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
-    
+
     return(x)
   }
-  
+
   if(source == 'bfo') {
     x1 <- dplyr::left_join(x1,
-                           bfoNames[, c("tax.name", "tax.authorship",
-                                        "taxon.distribution")],
+                           plantR::bfoNames[, c("tax.name",
+                                                "tax.authorship",
+                                                "taxon.distribution")],
                            by = setNames("tax.name", tax.name),
                            keep = TRUE)
-    
+
     x1$obs <- NA
     x1$obs <- ifelse(
       !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1$tax.name),
@@ -237,18 +238,18 @@ checkDist <- function(x,
     )
     x1$obs[is.na(x1$obs)] <- "no.match"
     x1$dist.check <- "no.cannot.check"
-    
-    rep_these <- grepl("brazil", x1$loc.abbrev, fixed = TRUE) & 
-      !is.na(x1$loc.abbrev) & 
+
+    rep_these <- grepl("brazil", x1$loc.abbrev, fixed = TRUE) &
+      !is.na(x1$loc.abbrev) &
       !x1$taxon.distribution %in% NA
-    
+
     if (any(rep_these)) {
       exact_brazil <- x1$loc.abbrev[rep_these] == "brazil"
-      
+
       if (any(exact_brazil)) {
         x1$dist.check[rep_these][exact_brazil] <- "no.cannot.check"
       }
-      
+
       if (any(!exact_brazil)) {
         pattern <- statesBR
         names(pattern) <- paste0("brazil", sep, names(statesBR))
@@ -257,7 +258,7 @@ checkDist <- function(x,
             x1$loc.abbrev[rep_these][!exact_brazil],
             stringr::fixed(pattern)
           )
-        
+
         dist_matches <- mapply(
           `%in%`,
           x1$loc.abbrev[rep_these][!exact_brazil],
@@ -267,7 +268,7 @@ checkDist <- function(x,
             fixed = TRUE
           )
         )
-        
+
         x1$dist.check[rep_these][!exact_brazil] <- ifelse(
           dist_matches,
           "ok.dist",
@@ -275,26 +276,26 @@ checkDist <- function(x,
         )
       }
     }
-    
+
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
-    
+
     return(x)
   }
-  
+
   if(source == "wcvp") {
     if (!requireNamespace("plantRdata", quietly = TRUE))
       stop("Please install 'plantRdata' to use this feature")
-    
+
     wcvp_lookup <- botanicalCountries
     wcvpNames <-
       plantRdata::wcvpNames[, c("tax.name", "tax.authorship",
                                 "taxon.distribution")]
-    
+
     wcvpNames <- wcvpNames[!duplicated(paste(wcvpNames$tax.name,
                                              wcvpNames$tax.authorship)), ]
-    
+
     x1$level3 <- prepLoc(sub(paste0(sep, ".*"), "", x1[[loc]], perl = TRUE))
     x1$level4 <- prepLoc(gsub(paste0("^[^", sep,
                                      "]*", sep,
@@ -303,12 +304,12 @@ checkDist <- function(x,
                               "\\1",
                               x1[[loc]], perl = TRUE))
     x1$level4[!grepl(sep, x1[[loc]], fixed = TRUE)] <- NA
-    
+
     x1 <- dplyr::left_join(x1,
                            wcvpNames,
                            by = setNames("tax.name", tax.name),
                            keep = TRUE)
-    
+
     x1$obs <- NA
     x1$obs <- ifelse(
       !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1$tax.name),
@@ -319,30 +320,30 @@ checkDist <- function(x,
       ),
       x1$obs
     )
-    
+
     dist.wcvp <- strsplit(x1$taxon.distribution,
                           split = "|",
                           fixed = TRUE)
-    
+
     f1 <- function(x, y, z){
       x2 <- z[match(x, y, incomparables = NA, nomatch = 0)]
       return(x2)
     }
-    
+
     dist.wcvp.name <- lapply(dist.wcvp, function(x)
       f1(x, wcvp_lookup$taxon.distribution.bru.code,
          wcvp_lookup$taxon.distribution.bru))
-    
+
     case1 <- mapply(`%in%`, x1$level3, dist.wcvp.name)
     case2 <- mapply(`%in%`, x1$level4, dist.wcvp.name)
-    
+
     x1$dist.check <- case1 | case2
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
     x1$dist.check[x1$dist.check %in% TRUE] <- 'ok.dist'
     x1$dist.check[x1$dist.check %in% FALSE] <- 'invalid.dist'
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
-    
+
     return(x)
   }
 }

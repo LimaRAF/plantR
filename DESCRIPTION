@@ -1,5 +1,5 @@
 Package: plantR
-Version: 0.1.8
+Version: 0.1.9
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
@@ -15,11 +15,12 @@ Author:
   Andrea Sánchez-Tapia [aut]
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
+  Guilherme Salgado Grittz [ctb]
 Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for
     retrieving, processing, cleaning and validating
-    (plant) species records from biological collections.
+    species records from biological collections.
 License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/LimaRAF/plantR
@@ -34,7 +35,6 @@ Imports:
     data.table,
     doSNOW,
     dplyr,
-    flora,
     foreach,
     igraph,
     jsonlite,
