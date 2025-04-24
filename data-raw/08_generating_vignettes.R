@@ -3,6 +3,9 @@
 #### VIGNETTE ALL FORMATS ####
 rmarkdown::render('./vignettes/plantR.Rmd', "all")
 
+rmarkdown::render('./vignettes/articles/valida_taxonomia.Rmd', "all")
+
+
 #### PDFs ####
 ## Criando os PDFs a partir do Rmd
 # rmarkdown::render('./vignettes/plantr_introduction.Rmd',
