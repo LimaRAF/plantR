@@ -2,19 +2,19 @@
 df <- data.frame(
   family = c("Ulmaceae", "Cannabaceae", "Salicaceae", "Flacourtiaceae",
              "Vivianiaceae", "", "Turneraceae", "Turneraceae", "Geraniaceae",
-             "Vivianiaceae", "", "", ""),
+             "Vivianiaceae", "", "", "", "", "", ""),
   genus = c("Trema", "Trema", "Casearia", "Casearia", "Casearia",
-            "", "Turnera", "", "Viviania","Viviania", "", "", ""),
+            "", "Turnera", "", "Viviania","Viviania", "", "", "", "Indet.", "", "Indet."),
   scientificName = c("Trema micrantha", "Trema micrantha", "Casearia sylvestris",
                   "Casearia sylvestris","Casearia sylvestris","Casearia sylvestris",
                   "Turnera orientalis","Turnera uleana","Viviania albiflora",
                   "Viviania albiflora", "Xylosma prockia", "Xyloma prockia",
-                  "Xuxu zao"))
+                  "Xuxu zao", "sp.1", "Indeterminada1", "Indet. sp."))
 
 # Objects with the expected resolutions
 res0 <- c("Cannabaceae", "Cannabaceae", "Salicaceae", "Salicaceae",
           "Salicaceae", "Salicaceae", "Passifloraceae", "Passifloraceae",
-          "Francoaceae", "Francoaceae", "Salicaceae", "Salicaceae", NA)
+          "Francoaceae", "Francoaceae", "Salicaceae", "Salicaceae", NA, NA, NA, NA)
 
 # Tests
 test_that("prepFamily works", {

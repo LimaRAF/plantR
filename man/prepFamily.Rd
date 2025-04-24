@@ -70,8 +70,7 @@ df <- data.frame(
 family = c("Ulmaceae", "Cannabaceae", "Salicaceae", "Flacourtiaceae", "Vivianiaceae", ""),
 genus = c("Trema", "Trema", "Casearia", "Casearia", "Casearia", ""),
 scientificName = c("Trema micrantha", "Trema micrantha", "Casearia sylvestris",
-"Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"),
-stringsAsFactors = FALSE)
+"Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"))
 prepFamily(df)
 
 }

@@ -66,8 +66,7 @@
 #' family = c("Ulmaceae", "Cannabaceae", "Salicaceae", "Flacourtiaceae", "Vivianiaceae", ""),
 #' genus = c("Trema", "Trema", "Casearia", "Casearia", "Casearia", ""),
 #' scientificName = c("Trema micrantha", "Trema micrantha", "Casearia sylvestris",
-#' "Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"),
-#' stringsAsFactors = FALSE)
+#' "Casearia sylvestris","Casearia sylvestris","Casearia sylvestris"))
 #' prepFamily(df)
 #'
 prepFamily <- function(x,
@@ -80,6 +79,7 @@ prepFamily <- function(x,
   #Avoiding warnings in package check when using data.table
   flora.bb <- name.correct <- name.correct.x <- string.plantr <- NULL
   tmp.fam <- tmp.gen <- tmp.spp <- tmp.ordem <- family.new <- NULL
+  name.correct.y <- NULL
 
   ## check input
   if (!inherits(x, "data.frame"))
@@ -112,17 +112,22 @@ prepFamily <- function(x,
     dt[ , tmp.gen := lapply(.SD, getGenus),
         by = c(spp.name),
         .SDcols = c(spp.name)]
-    data.table::setnames(dt, "tmp.gen", gen.name)
+  } else {
+    dt[ , tmp.gen := .SD, .SDcols = c(gen.name)]
+    dt[is.na(tmp.gen) , tmp.gen := lapply(.SD, getGenus),
+       by = c(spp.name), .SDcols = c(spp.name)]
   }
-
   data.table::setnames(dt,
-                       c(fam.name, gen.name, spp.name),
-                       c("tmp.fam", "tmp.gen", "tmp.spp"))
+                       c(fam.name, spp.name),
+                       c("tmp.fam", "tmp.spp"))
 
-  if (any(dt[ , is.na(tmp.gen)])) {
-    dt[is.na(tmp.gen), tmp.gen := lapply(tmp.spp, getGenus),
-       by = tmp.spp]
-  }
+  indets <- c("indet", "indeterminada", "unclassified", "undetermined")
+  dt[tolower(tmp.gen) %in% indets, tmp.gen := "Indet.",
+     by = "tmp.gen"]
+  dt[grepl("indet|unclass|undet", tolower(tmp.gen), perl = TRUE),
+     tmp.gen := "Indet.", by = "tmp.gen"]
+  dt[grepl("sp\\.|spp\\.", tolower(tmp.gen), perl = TRUE),
+     tmp.gen := "Indet.", by = "tmp.gen"]
 
   if (any(dt[,grepl("cf\\.$|aff\\.$", tmp.gen, perl = TRUE,
                 ignore.case = TRUE),])) {
@@ -131,6 +136,7 @@ prepFamily <- function(x,
                        perl = TRUE),
        by = tmp.spp]
   }
+
 
   kingdons <- unique(familiesSynonyms$kingdom)
 
@@ -153,8 +159,9 @@ prepFamily <- function(x,
 
   # Getting missing family names from Brazilian Flora 2020
   if (any(is.na(families.data$name.correct))) {
-    # families.data[, flora.bb := getFamily(.SD), .SDcol = "tmp.gen"]
-    families.data[, flora.bb := lapply(.SD, getFamily), .SDcols = "tmp.gen"]
+    families.data[, flora.bb := getFamily(.SD), .SDcol = "tmp.gen"]
+    families.data[, flora.bb := lapply(.SD, getFamily),
+                  .SDcols = c("tmp.gen")]
     families.data <-
       data.table::merge.data.table(families.data,
                                    all.families[, c("name", "name.correct")],
@@ -184,7 +191,7 @@ prepFamily <- function(x,
           sep="\n")
     }
   }
-  families.data[name.correct != flora.bb, name.correct := flora.bb, ]
+  families.data[name.correct.x != flora.bb, name.correct.x := flora.bb, ]
 
   # Any missing family names?
   if (families.data[, any(is.na(name.correct))]) {
@@ -201,7 +208,7 @@ prepFamily <- function(x,
                          by.x = "name.correct", by.y = "name", all.x = TRUE)
 
   # If nothing was found, keep the original family
-  families.data[is.na(name.correct), name.correct := name.correct.x ]
+  families.data[is.na(name.correct), name.correct := name.correct.y ]
   families.data[is.na(name.correct), name.correct := tmp.fam ]
 
   # Merging the results by family X genus with the occurrence data
@@ -209,17 +216,18 @@ prepFamily <- function(x,
   families.data[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
   families.data[string.plantr == "_NA", string.plantr := NA_character_, ]
   dt <- data.table::merge.data.table(dt,
-                                     families.data[,c("string.plantr","name.correct.y")],
+                                     families.data[,c("string.plantr","name.correct")],
                                      by = "string.plantr", all.x = TRUE)
   # Preparing to return
   dt[, string.plantr := NULL, ]
-  data.table::setnames(dt,
-                       c("tmp.fam", "tmp.gen", "tmp.spp"),
-                       c(fam.name, gen.name, spp.name))
-  data.table::setnames(dt, dim(dt)[2], 'family.new')
-
   data.table::setkeyv(dt, c("tmp.ordem"))
   dt[, tmp.ordem := NULL, ]
+
+  data.table::setnames(dt,
+                       c("tmp.fam", "tmp.spp"),
+                       c(fam.name, spp.name))
+  data.table::setnames(dt, dim(dt)[2], 'family.new')
+  data.table::setnames(dt, 'tmp.gen', 'genus.new')
 
   return(data.frame(dt))
 }
