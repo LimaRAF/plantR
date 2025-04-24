@@ -194,7 +194,8 @@ lastName <- function(name,
 
   if (invert) {
     # Keeping all but the last name(s)
-    other.names <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+    other.names <- mapply(function(x, y) {
+                          gsub(x, "", y, fixed = TRUE) },
                           last.name, name[!miss.name])
 
     # Inspecting the exceptions (compound names with abbreviations)
