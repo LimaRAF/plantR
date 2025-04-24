@@ -63,6 +63,8 @@ checkInverted <- function(x,
   if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
+  x <- as.data.frame(x)
+
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
 
@@ -72,7 +74,6 @@ checkInverted <- function(x,
   if (!check.names[1] %in% colnames(x))
     stop("The column with the results from the coordinate checking was not found in the input data")
 
-  x <- as.data.frame(x)
 
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {

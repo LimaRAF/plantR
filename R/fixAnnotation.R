@@ -28,11 +28,11 @@ fixAnnotation <- function(x) {
 
   x <- squish(x)
 
-  x <- gsub("var\\.", "var. ", x, perl = TRUE)
-  x <- gsub("subsp\\.", "subsp. ", x, perl = TRUE)
-  x <- gsub("ssp\\.", "subsp. ", x, perl = TRUE)
-  x <- gsub("aff\\.", "aff. ", x, perl = TRUE, ignore.case = TRUE)
-  x <- gsub("cf\\.", "cf. ", x, perl = TRUE, ignore.case = TRUE)
+  x <- gsub("var\\.", " var. ", x, perl = TRUE)
+  x <- gsub("subsp\\.", " subsp. ", x, perl = TRUE)
+  x <- gsub("ssp\\.", " subsp. ", x, perl = TRUE)
+  x <- gsub("aff\\.", " aff. ", x, perl = TRUE, ignore.case = TRUE)
+  x <- gsub("cf\\.", " cf. ", x, perl = TRUE, ignore.case = TRUE)
   x <- gsub(" f\\.", " f. ", x, perl = TRUE)
   x <- gsub(" f\\. \\)", " f.)", x, perl = TRUE)
   x <- gsub(" var ", " var. ", x, fixed = TRUE)
@@ -48,10 +48,9 @@ fixAnnotation <- function(x) {
   x <- gsub("([a-z])( x )([[:alpha:]])","\\1 \u00d7 \\3", x,
             perl = TRUE, ignore.case = TRUE)
 
-  # Codes from STS (check overlap)
+  # Codes from STS (check overlap and usefulness)
   # x1 <- gsub("^cf ", "cf. ", x, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("^cf, ", "cf., ", x1, perl = TRUE, ignore.case = TRUE)
-  # x1 <- gsub(" cf ", " cf. ", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub(" cf$", " cf.", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("(^cf\\.)([a-z])", "\\1 \\2", x1, perl = TRUE)
   # x1 <- gsub("( cf\\.)([a-z])", "\\1 \\2", x1, perl = TRUE)
@@ -60,12 +59,10 @@ fixAnnotation <- function(x) {
   #
   # x1 <- gsub("^cf$", "cf.", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("^Cf\\.$", "cf.", x1, perl = TRUE)
-  # x1 <- gsub(" Cf\\. ", " cf. ", x1, perl = TRUE)
   # x1 <- gsub("^cf\\. ", "cf. ", x1, perl = TRUE, ignore.case = TRUE)
   #
   # x1 <- gsub("^aff ", "aff. ", x, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("^aff, ", "aff., ", x1, perl = TRUE, ignore.case = TRUE)
-  # x1 <- gsub(" aff ", " aff. ", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub(" af\\. ", " aff. ", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub(" aff$", " aff.", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("(^aff\\.)([a-z])", "\\1 \\2", x1, perl = TRUE)
@@ -79,7 +76,6 @@ fixAnnotation <- function(x) {
   # x1 <- gsub("^aff\\. ", "aff. ", x1, perl = TRUE, ignore.case = TRUE)
   #
   # x1 <- gsub("^var ", "var. ", x, perl = TRUE, ignore.case = TRUE)
-  # x1 <- gsub(" var ", " var. ", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub(" var$", " var.", x1, perl = TRUE, ignore.case = TRUE)
   # x1 <- gsub("(^var\\.)([a-z])", "\\1 \\2", x1, perl = TRUE)
   # x1 <- gsub("( var\\.)([a-z])", "\\1 \\2", x1, perl = TRUE)
