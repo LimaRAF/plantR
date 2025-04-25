@@ -2,7 +2,7 @@
 title: "Using __plantR__ to Manage Taxonomy"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
-  - Renato A. F. de Lima^[Universidade de São Paulo, https://github.com/LimaRAF]
+  - Renato A. Ferreira de Lima^[Departamento de Ciências Biológicas, ESALQ, Universidade de São Paulo, https://github.com/LimaRAF]
 
 output: 
     rmarkdown::html_vignette:
@@ -12,7 +12,6 @@ output:
       variant: gfm
     pdf_document:
       toc: true
-      highlight: null
       number_sections: yes
       template: null  
       toc_depth: 3
@@ -21,12 +20,14 @@ vignette: >
   %\VignetteIndexEntry{Using __plantR__ to Manage Taxonomy}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+geometry: margin=3cm
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE,
                       comment  = "#>",
-                      echo = TRUE)
+                      echo = TRUE,
+                      class.output  = "shadebox")
 ```
 
 ```{r load, echo = FALSE, eval = TRUE, include=FALSE}
@@ -45,8 +46,8 @@ devtools::load_all() # for development
 One of the most important steps in managing and using information from
 biological datasets is the management of taxonomic nomenclature. Taxon
 names need to be correctly spelled and we should use their currently
-accepted names based on a given taxonomic backbone (CITE 10 SIMPLE
-RULES). However, there are many small corrections and standardizations
+accepted names based on a given taxonomic backbone (Lima et al. in
+prep.). However, there are many small corrections and standardizations
 that need to be made before one can cross-validate taxonomic
 nomenclature, which can become quite burdensome as the size of the
 dataset increases.
@@ -64,7 +65,7 @@ provides other backbones already in this specific format from the
 
 To simplify the process, the management of taxonomic nomenclature in
 __plantR__ can be simply done using the wrapper function `formatTax()`
-(see the brief code summary below). But first, we will explain in
+(see the section [Brief code summary] below). But first, we will explain in
 detail each step and function to manage taxonomy within __plantR__.
 These functions can be applied individually, as we will show below,
 but the management of taxonomic nomenclature is potentialised when
@@ -73,19 +74,21 @@ they are executed in a specific order.
 <br/><br/>
 
 # Installing __plantR__
-The package can be installed and loaded from [GitHub](https://github.com) with:
+
+The package __plantR__ can be installed and loaded from [GitHub](https://github.com/LimaRAF/plantR) with the following codes (this may take a minute or two):
 ```{r, eval = FALSE}
-install.packages("remotes")
+if (!requireNamespace("remotes")) 
+  install.packages("remotes")
 library("remotes")
-install_github("LimaRAF/plantR")
+
+if (!requireNamespace("plantR")) 
+  install_github("LimaRAF/plantR")
 library("plantR")
 ```
 
-You can also download the development (and probably the most up-to-date) 
-version of the package with:
+For this tutorial, we will also need the global taxonomic backbones available from the companion R package __plantRdata__. Installing this package takes 10-15 minutes because it stores some large files (>10 MB). But this step is done just once.
 ```{r, eval = FALSE}
-install_github("LimaRAF/plantR", ref = "dev")
-library("plantR")
+install_github("LimaRAF/plantRdata")
 ```
 
 <br/><br/>
@@ -286,9 +289,9 @@ and lycophytes). And if the family info is missing it can also be found
 based on genus information.
 
 ```{r prepFamily, eval = TRUE, collapse = TRUE}
-names_fam_valid <- prepFamily(names_valid, 
-                              fam.name = "suggestedFamily",
-                              spp.name = "scientificName.new")
+names_valid <- prepFamily(names_valid,
+                          fam.name = "suggestedFamily",
+                          spp.name = "scientificName.new")
 ```
 
 It was not the case in this example, but `prepFamily()` returns warnings
@@ -330,13 +333,35 @@ names_df_valid <- formatTax(names_df)
 
 If you use __plantR__, please cite it as: 
 
-Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
+> Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
 Siqueira, M.F. (2021). *plantR*: An R package and workflow for
 managing species records from biological collections. Methods in
 Ecology and Evolution 14(2): 332-339.
 https://doi.org/10.1101/2021.04.06.437754
 
-And please also cite the taxonomic backbones that you used!
+And please also cite the taxonomic backbones that you used:
+
+> Borsch, T., Berendsohn, W., Dalcin, E., et al. (2020). World Flora
+Online: Placing taxonomists at the heart of a definitive and
+comprehensive global resource on the world’s plants. Taxon, 69(6):
+1311-1341. https://doi.org/10.1002/tax.12373
+
+> Govaerts, R., Nic Lughadha, E., Black, N. et al. (2021). The World
+Checklist of Vascular Plants, a continuously updated resource for
+exploring global plant diversity. Sci. Data 8: 215.
+https://doi.org/10.1038/s41597-021-00997-6
+
+> GBIF Secretariat (2023). GBIF Backbone Taxonomy. Checklist dataset.
+accessed via GBIF.org. https://doi.org/10.15468/39omei
+
+> Flora e Funga do Brasil (Constantly updated): Flora e Funga do Brasil project. Instituto de Pesquisas Jardim Botânico do Rio de Janeiro. Dataset/Checklist. https://doi.org/10.15468/1mtkaw
+
+<br/><br/>
+
+# References
+
+> Lima, R.A.F. et al. (in prep.) Ten simple rules of taxonomy for
+ecological datasets.
 
 <br/><br/>
 

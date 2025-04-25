@@ -9,8 +9,8 @@
 One of the most important steps in managing and using information from
 biological datasets is the management of taxonomic nomenclature. Taxon
 names need to be correctly spelled and we should use their currently
-accepted names based on a given taxonomic backbone (CITE 10 SIMPLE
-RULES). However, there are many small corrections and standardizations
+accepted names based on a given taxonomic backbone (Lima et al. in
+prep.). However, there are many small corrections and standardizations
 that need to be made before one can cross-validate taxonomic
 nomenclature, which can become quite burdensome as the size of the
 dataset increases.
@@ -28,32 +28,37 @@ Vascular Plants](https://powo.science.kew.org/) and
 
 To simplify the process, the management of taxonomic nomenclature in
 **plantR** can be simply done using the wrapper function `formatTax()`
-(see the brief code summary below). But first, we will explain in detail
-each step and function to manage taxonomy within **plantR**. These
-functions can be applied individually, as we will show below, but the
-management of taxonomic nomenclature is potentialised when they are
-executed in a specific order.
+(see the section [Brief code summary](#brief-code-summary) below). But
+first, we will explain in detail each step and function to manage
+taxonomy within **plantR**. These functions can be applied individually,
+as we will show below, but the management of taxonomic nomenclature is
+potentialised when they are executed in a specific order.
 
 <br/><br/>
 
 # Installing **plantR**
 
-The package can be installed and loaded from
-[GitHub](https://github.com) with:
+The package **plantR** can be installed and loaded from
+[GitHub](https://github.com/LimaRAF/plantR) with the following codes
+(this may take a minute or two):
 
 ``` r
-install.packages("remotes")
+if (!requireNamespace("remotes")) 
+  install.packages("remotes")
 library("remotes")
-install_github("LimaRAF/plantR")
+
+if (!requireNamespace("plantR")) 
+  install_github("LimaRAF/plantR")
 library("plantR")
 ```
 
-You can also download the development (and probably the most up-to-date)
-version of the package with:
+For this tutorial, we will also need the global taxonomic backbones
+available from the companion R package **plantRdata**. Installing this
+package takes 10-15 minutes because it stores some large files (\>10
+MB). But this step is done just once.
 
 ``` r
-install_github("LimaRAF/plantR", ref = "dev")
-library("plantR")
+install_github("LimaRAF/plantRdata")
 ```
 
 <br/><br/>
@@ -111,14 +116,16 @@ names_fixed <- fixSpecies(names)
 head(names_fixed[,-c(2,4)], 7)
 ```
 
-    #>               scientificName scientificName.new scientificNameStatus
-    #> 1               Lindsaea sp.       Lindsaea sp.                indet
-    #> 2           Lindsaeaceae sp.   Lindsaeaceae sp.      family_as_genus
-    #> 3            Lindsaea lancea    Lindsaea lancea          possibly_ok
-    #> 4            Lindsaea lancia    Lindsaea lancia          possibly_ok
-    #> 5            Lindsaea pumila    Lindsaea pumila          possibly_ok
-    #> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea       name_w_authors
-    #> 7            lindsaea lancea    Lindsaea lancea    name_w_wrong_case
+``` shadebox
+#>               scientificName scientificName.new scientificNameStatus
+#> 1               Lindsaea sp.       Lindsaea sp.                indet
+#> 2           Lindsaeaceae sp.   Lindsaeaceae sp.      family_as_genus
+#> 3            Lindsaea lancea    Lindsaea lancea          possibly_ok
+#> 4            Lindsaea lancia    Lindsaea lancia          possibly_ok
+#> 5            Lindsaea pumila    Lindsaea pumila          possibly_ok
+#> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea       name_w_authors
+#> 7            lindsaea lancea    Lindsaea lancea    name_w_wrong_case
+```
 
 The output of `fixSpecies()` is a data frame that contains the columns
 necessary for the name validation step below. For each name, it is
@@ -183,14 +190,22 @@ names_valid <- prepSpecies(names_fixed,
                            tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"))
 head(names_valid[,-c(2,3,4,9,11)], 7)
-#>               scientificName scientificNameStatus suggestedFamily   suggestedName suggestedAuthorship        tax.notes
-#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea           Pic.Serm.    name accepted
-#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae             C.Presl    name accepted
-#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
-#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.  name misspelled
-#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd. replaced synonym
-#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
-#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
+#>               scientificName scientificNameStatus suggestedFamily
+#> 1               Lindsaea sp.                indet    Lindsaeaceae
+#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae
+#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae
+#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae
+#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae
+#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae
+#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae
+#>     suggestedName suggestedAuthorship        tax.notes
+#> 1        Lindsaea           Pic.Serm.    name accepted
+#> 2    Lindsaeaceae             C.Presl    name accepted
+#> 3 Lindsaea lancea          (L.) Bedd.    name accepted
+#> 4 Lindsaea lancea          (L.) Bedd.  name misspelled
+#> 5 Lindsaea lancea          (L.) Bedd. replaced synonym
+#> 6 Lindsaea lancea          (L.) Bedd.    name accepted
+#> 7 Lindsaea lancea          (L.) Bedd.    name accepted
 #>           scientificNameFull
 #> 1         Lindsaea Pic.Serm.
 #> 2       Lindsaeaceae C.Presl
@@ -245,14 +260,14 @@ names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
 diff <- names_valid$scientificNameFull != names_valid_wfo$scientificNameFull
 diff[is.na(diff)] <- FALSE
 head(names_bfo_wfo_wcvp[diff, ], 3)
-#>   names_valid$scientificName.new names_valid$scientificNameFull names_valid_wfo$scientificNameFull
-#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.            Lindsaea Dryand. ex Sm.
-#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl           Lindsaeaceae M.R.Schomb.
-#> 5                Lindsaea pumila     Lindsaea lancea (L.) Bedd.        Asplenium dielerectum Viane
-#>   names_valid_wcvp$scientificNameFull
-#> 1             Lindsaea Dryand. ex Sm.
-#> 2                    Lindsaeaceae sp.
-#> 5         Asplenium dielerectum Viane
+#>   names_valid$scientificName.new names_valid$scientificNameFull
+#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.
+#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl
+#> 5                Lindsaea pumila     Lindsaea lancea (L.) Bedd.
+#>   names_valid_wfo$scientificNameFull names_valid_wcvp$scientificNameFull
+#> 1            Lindsaea Dryand. ex Sm.             Lindsaea Dryand. ex Sm.
+#> 2           Lindsaeaceae M.R.Schomb.                    Lindsaeaceae sp.
+#> 5        Asplenium dielerectum Viane         Asplenium dielerectum Viane
 ```
 
 Note that the computing speed when using larger backbones (over a
@@ -296,9 +311,9 @@ lycophytes). And if the family info is missing it can also be found
 based on genus information.
 
 ``` r
-names_fam_valid <- prepFamily(names_valid, 
-                              fam.name = "suggestedFamily",
-                              spp.name = "scientificName.new")
+names_valid <- prepFamily(names_valid,
+                          fam.name = "suggestedFamily",
+                          spp.name = "scientificName.new")
 ```
 
 It was not the case in this example, but `prepFamily()` returns warnings
@@ -339,12 +354,37 @@ names_df_valid <- formatTax(names_df)
 
 If you use **plantR**, please cite it as:
 
-Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
-Siqueira, M.F. (2021). *plantR*: An R package and workflow for managing
-species records from biological collections. Methods in Ecology and
-Evolution 14(2): 332-339. <https://doi.org/10.1101/2021.04.06.437754>
+> Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
+> Siqueira, M.F. (2021). *plantR*: An R package and workflow for
+> managing species records from biological collections. Methods in
+> Ecology and Evolution 14(2): 332-339.
+> <https://doi.org/10.1101/2021.04.06.437754>
 
-And please also cite the taxonomic backbones that you used!
+And please also cite the taxonomic backbones that you used:
+
+> Borsch, T., Berendsohn, W., Dalcin, E., et al. (2020). World Flora
+> Online: Placing taxonomists at the heart of a definitive and
+> comprehensive global resource on the world’s plants. Taxon, 69(6):
+> 1311-1341. <https://doi.org/10.1002/tax.12373>
+
+> Govaerts, R., Nic Lughadha, E., Black, N. et al. (2021). The World
+> Checklist of Vascular Plants, a continuously updated resource for
+> exploring global plant diversity. Sci. Data 8: 215.
+> <https://doi.org/10.1038/s41597-021-00997-6>
+
+> GBIF Secretariat (2023). GBIF Backbone Taxonomy. Checklist dataset.
+> accessed via GBIF.org. <https://doi.org/10.15468/39omei>
+
+> Flora e Funga do Brasil (Constantly updated): Flora e Funga do Brasil
+> project. Instituto de Pesquisas Jardim Botânico do Rio de Janeiro.
+> Dataset/Checklist. <https://doi.org/10.15468/1mtkaw>
+
+<br/><br/>
+
+# References
+
+> Lima, R.A.F. et al. (in prep.) Ten simple rules of taxonomy for
+> ecological datasets.
 
 <br/><br/>
 
@@ -355,4 +395,5 @@ The plantR project is hosted on
 suggestions for improvements to the package
 [here](https://github.com/LimaRAF/plantR/issues).
 
-[^1]: Universidade de São Paulo, <https://github.com/LimaRAF>
+[^1]: Departamento de Ciências Biológicas, ESALQ, Universidade de São
+    Paulo, <https://github.com/LimaRAF>
