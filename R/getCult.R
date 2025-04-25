@@ -63,7 +63,7 @@ getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", hab
   cult.check <- tmp.ordem <- tmp.vrl <- NULL
 
   #Checking the input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (!(loc.name %in% names(x) |

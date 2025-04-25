@@ -37,9 +37,11 @@ formatDwc(
 )
 }
 \arguments{
-\item{splink_data}{A data frame as in the output from \code{rspeciesLink()}}
+\item{splink_data}{A data frame as in the output from
+\code{rspeciesLink()}}
 
-\item{gbif_data}{A data frame as in the output from \code{rgbif()} or \code{rgbif2()}}
+\item{gbif_data}{A data frame as in the output from \code{rgbif()} or
+\code{rgbif2()}}
 
 \item{bien_data}{A data frame as in the output from the
 \code{BIEN_occurrence}-function family}
@@ -50,101 +52,111 @@ be placed at any order and any given name. If using \code{user_data} argument,
 the user must indicate the name of the column for each field if not already
 in DwC standard}
 
-\item{bind_data}{Logical. Either to bind data from different sources after
-formatting}
+\item{bind_data}{Logical. Either to bind data from different
+sources after formatting}
 
-\item{drop}{Logical. Either to drop non-essential fields to the data cleaning
-routine performed by plantR}
+\item{drop}{Logical. Either to drop non-essential fields to the
+data cleaning routine performed by plantR}
 
-\item{drop.opt}{Logical. Either to drop optional fields in the data cleaning
-routine performed by plantR}
+\item{drop.opt}{Logical. Either to drop optional fields in the data
+cleaning routine performed by plantR}
 
-\item{drop.empty}{Logical. Either to drop fields where all values are NA}
+\item{drop.empty}{Logical. Either to drop fields where all values
+are NA}
 
-\item{fix.encoding}{Character. The name of the input data frame (i.e.
-'splink_data', 'gbif_data', 'bien_data', 'user_data') that common encoding
-problems from text in 'latin1' should be re-encoded to UTF-8. Default to
-NULL (no re-encoding is performed)}
+\item{fix.encoding}{Character. The name of the input data frame
+(i.e. 'splink_data', 'gbif_data', 'bien_data', 'user_data') that
+common encoding problems from text in 'latin1' should be
+re-encoded to UTF-8. Default to NULL (no re-encoding is
+performed)}
 
-\item{institutionCode}{The name of the column containing The name (or
-acronym) in use by the institution having custody of the object(s) or
-information referred to in the record}
+\item{institutionCode}{The name of the column containing The name
+(or acronym) in use by the institution having custody of the
+object(s) or information referred to in the record}
 
-\item{collectionCode}{The name of the column containing the name, acronym,
-coden, or initialism identifying the collection or data set from which the
-record was derived}
+\item{collectionCode}{The name of the column containing the name,
+acronym, coden, or initialism identifying the collection or data
+set from which the record was derived}
 
-\item{catalogNumber}{The name of the column containing an identifier for the
-record within the data set or collection}
+\item{catalogNumber}{The name of the column containing an
+identifier for the record within the data set or collection}
 
-\item{recordNumber}{The name of the column containing an identifier given to
-the Occurrence at the time it was recorded. Often serves as a link between
-field notes and an Occurrence record, such as a specimen collector's number}
+\item{recordNumber}{The name of the column containing an identifier
+given to the Occurrence at the time it was recorded. Often serves
+as a link between field notes and an Occurrence record, such as a
+specimen collector's number}
 
-\item{recordedBy}{The name of the column containing a person, group, or
-organization responsible for recording the original Occurrence}
+\item{recordedBy}{The name of the column containing a person,
+group, or organization responsible for recording the original
+Occurrence}
 
-\item{year}{The name of the column containing the four-digit year in which
-the Event occurred, according to the Common Era Calendar}
+\item{year}{The name of the column containing the four-digit year
+in which the Event occurred, according to the Common Era Calendar}
 
-\item{country}{The name of the column containing the name of the country or
-major administrative unit in which the Location occurs}
+\item{country}{The name of the column containing the name of the
+country or major administrative unit in which the Location occurs}
 
-\item{stateProvince}{The name of the column containing the name of the next
-smaller administrative region than country (state, province, canton,
-department, region, etc.) in which the Location occurs}
+\item{stateProvince}{The name of the column containing the name of
+the next smaller administrative region than country (state,
+province, canton, department, region, etc.) in which the Location
+occurs}
 
-\item{county}{The name of the column containing the full, unabbreviated name
-of the next smaller administrative region than stateProvince (county,
-shire, department, etc.) in which the Location occurs}
+\item{county}{The name of the column containing the full,
+unabbreviated name of the next smaller administrative region than
+stateProvince (county, shire, department, etc.) in which the
+Location occurs}
 
-\item{municipality}{The name of the column containing the full, unabbreviated
-name of the next smaller administrative region than county (city,
-municipality, etc.) in which the Location occurs. Do not use this term for
-a nearby named place that does not contain the actual location}
+\item{municipality}{The name of the column containing the full,
+unabbreviated name of the next smaller administrative region than
+county (city, municipality, etc.) in which the Location occurs.
+Do not use this term for a nearby named place that does not
+contain the actual location}
 
-\item{locality}{The name of the column containing the specific description of
-the place in which the Location occurs.}
+\item{locality}{The name of the column containing the specific
+description of the place in which the Location occurs.}
 
-\item{decimalLatitude}{The name of the column containing the geographic
-latitude (in decimal degrees, using the spatial reference system given in
-geodeticDatum) of the geographic center of a Location. Positive values are
-north of the Equator, negative values are south of it. Legal values lie
-between -90 and 90, inclusive}
+\item{decimalLatitude}{The name of the column containing the
+geographic latitude (in decimal degrees, using the spatial
+reference system given in geodeticDatum) of the geographic center
+of a Location. Positive values are north of the Equator, negative
+values are south of it. Legal values lie between -90 and 90,
+inclusive}
 
-\item{decimalLongitude}{The name of the column containing the geographic
-longitude (in decimal degrees, using the spatial reference system given in
-geodeticDatum) of the geographic center of a Location. Positive values are
-east of the Greenwich Meridian, negative values are west of it. Legal
-values lie between -180 and 180, inclusive}
+\item{decimalLongitude}{The name of the column containing the
+geographic longitude (in decimal degrees, using the spatial
+reference system given in geodeticDatum) of the geographic center
+of a Location. Positive values are east of the Greenwich
+Meridian, negative values are west of it. Legal values lie
+between -180 and 180, inclusive}
 
-\item{identifiedBy}{The name of the column containing a list (concatenated
-and separated) of names of people, groups, or organizations who assigned
-the Taxon to the subject}
+\item{identifiedBy}{The name of the column containing a list
+(concatenated and separated) of names of people, groups, or
+organizations who assigned the Taxon to the subject}
 
-\item{dateIdentified}{The name of the column containing the date on which the
-subject was identified as representing the Taxon}
+\item{dateIdentified}{The name of the column containing the date on
+which the subject was identified as representing the Taxon}
 
-\item{typeStatus}{The name of the column containing a nomenclatural type
-(type status, typified scientific name, publication) applied to the subject}
+\item{typeStatus}{The name of the column containing a nomenclatural
+type (type status, typified scientific name, publication) applied
+to the subject}
 
-\item{family}{The name of the column containing the family in which the taxon
-is classified.}
+\item{family}{The name of the column containing the family in which
+the taxon is classified.}
 
-\item{scientificName}{The name of the column containing the full scientific
-name, with authorship and date information if known. When forming part of
-an Identification, this should be the name in lowest level taxonomic rank
-that can be determined. This term should not contain identification
-qualifications, which should instead be supplied in the
-IdentificationQualifier term}
+\item{scientificName}{The name of the column containing the full
+scientific name, with authorship and date information if known.
+When forming part of an Identification, this should be the name
+in lowest level taxonomic rank that can be determined. This term
+should not contain identification qualifications, which should
+instead be supplied in the IdentificationQualifier term}
 
-\item{scientificNameAuthorship}{The name of the column containing the
-authorship information for the scientificName formatted according to the
-conventions of the applicable nomenclaturalCode}
+\item{scientificNameAuthorship}{The name of the column containing
+the authorship information for the scientificName formatted
+according to the conventions of the applicable nomenclaturalCode}
 }
 \value{
-Either a data.frame or list with the database fields formatted
-following DarwinCore standards
+Either a data.frame or list with the database fields
+formatted following DarwinCore standards
 }
 \description{
 Formats fields in the occurrence data frame - either downloaded

@@ -117,7 +117,7 @@ checkOut <- function(x,
   robust.cut <- out.check <- NULL
 
   ## check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -141,7 +141,7 @@ checkOut <- function(x,
   if (!cult.name %in% colnames(x)) {
     rm.cult <- TRUE
     x[, cult.name] <- TRUE
-    warning("Column with cultivated specimen search not found: assuming that all records are not cultivated", call. = FALSE)
+    warning("Column with cultivated records not found: assuming that all records are not cultivated", call. = FALSE)
   } else { rm.cult <- FALSE }
 
   # Filtering the dataset and creating the data table
@@ -152,21 +152,28 @@ checkOut <- function(x,
   #Getting the classic and robust mahalanobis distances
   dt[, c("lon.wrk", "lat.wrk", "tax.wrk", "geo.wrk", "cult.wrk") := .SD,
      .SDcols =  c(lon, lat, tax.name, geo.name, cult.name)]
-  dt[!is.na(lon.wrk) & !is.na(lat.wrk),
-     maha.classic := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
-                                     method = "classic", center = center,
-                                     geo = geo.wrk, cult = cult.wrk,
-                                     geo.patt = geo.patt,
-                                     cult.patt = cult.patt),
-     by = c("tax.wrk")]
+  if (any(!is.na(dt$lon.wrk) & !is.na(dt$lat.wrk))) {
+    dt[!is.na(lon.wrk) & !is.na(lat.wrk),
+       maha.classic := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
+                                       method = "classic", center = center,
+                                       geo = geo.wrk, cult = cult.wrk,
+                                       geo.patt = geo.patt,
+                                       cult.patt = cult.patt),
+       by = c("tax.wrk")]
 
-  dt[!is.na(lon.wrk) & !is.na(lat.wrk),
-     maha.robust := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
-                                    method = "robust",
-                                    geo = geo.wrk, cult = cult.wrk,
-                                    geo.patt = geo.patt,
-                                    cult.patt = cult.patt),
-     by = c("tax.wrk")]
+    dt[!is.na(lon.wrk) & !is.na(lat.wrk),
+       maha.robust := mahalanobisDist(lon.wrk, lat.wrk, n.min = n.min,
+                                      method = "robust",
+                                      geo = geo.wrk, cult = cult.wrk,
+                                      geo.patt = geo.patt,
+                                      cult.patt = cult.patt),
+       by = c("tax.wrk")]
+  } else {
+    dt[is.na(lon.wrk) & is.na(lat.wrk), maha.classic := NA,
+       by = c("tax.wrk")]
+    dt[is.na(lon.wrk) & is.na(lat.wrk), maha.robust := NA,
+       by = c("tax.wrk")]
+  }
 
   ## Flaging the true and probable outliers based the cut-offs available defined above
   if (!is.null(clas.cut) &

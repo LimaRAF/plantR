@@ -6,7 +6,7 @@
 \title{Preparing People's Names}
 \usage{
 fixName(
-  nomes,
+  nomes = NULL,
   sep.in = c(";", "&", "|", " e ", " y ", " and ", " und ", " et "),
   sep.out = "|",
   bad.comma = TRUE,
@@ -14,8 +14,7 @@ fixName(
 )
 }
 \arguments{
-\item{nomes}{a character string or a vector with names.
-to FALSE.}
+\item{nomes}{a character string or a vector with names with no default.}
 
 \item{sep.in}{a vector of the symbols separating multiple names. Default to:
 ";", "&", "|", " e ", " y ", " and ", " und ", and " et ".}

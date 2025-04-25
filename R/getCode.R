@@ -64,7 +64,7 @@ getCode <- function(x,
   index.herbariorum.or.working.code <- col.OBS <- NULL
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (!inst.code %in% names(x))
@@ -102,8 +102,7 @@ getCode <- function(x,
   dt[ , collection.string := gsub("^ | $", "", collection.string, perl = TRUE)]
 
   # Getting the collection list
-  ih.list <- collectionCodes
-  ih.list <- data.table::data.table(ih.list)
+  ih.list <- data.table::data.table(collectionCodes)
   dt <- data.table::merge.data.table(dt, ih.list,
                                       by = "collection.string", all.x = TRUE)
 

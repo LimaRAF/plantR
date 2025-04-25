@@ -29,7 +29,7 @@
 summaryFlags <- function(x, print = TRUE) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   #Escaping R CMD check notes from using data.table syntax

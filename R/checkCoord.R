@@ -1,35 +1,38 @@
 #' @title Check Geographical Coordinates
 #'
 #' @description This function makes the check of the coordinates
-#' against the world and Latin-American maps. Optionally, it returns the
-#' distance between the original coordinates and those from a gazetteer
-#' for coordinates not validated at the county level.
+#'   against the world and Latin-American maps. Optionally, it returns
+#'   the distance between the original coordinates and those from a
+#'   gazetteer for coordinates not validated at the county level.
 #'
-#' @param x a data frame with the species records and their coordinates in
-#'   decimal degrees.
-#' @param lon Name of the column with the longitude to be validated. Default to
-#'   'decimalLongitude.new'
-#' @param lat Name of the column with the latitude to be validated. Default to
-#'   'decimalLatitude.new'
+#' @param x a data frame with the species records and their
+#'   coordinates in decimal degrees.
+#' @param lon Name of the column with the longitude to be validated.
+#'   Default to 'decimalLongitude.new'
+#' @param lat Name of the column with the latitude to be validated.
+#'   Default to 'decimalLatitude.new'
 #' @param str.name Column with the verified locality search string
-#' @param orig.coord Column with the origin of the coordinates (typically the
-#'   output of function `getCoord()`)
-#' @param low.map a sf multipolygon object containing the global administrative
-#'   map at the lowest level (e.g. country). The default is "plantR", the
-#'   default map obtained from [GADM]{https://gadm.org} (see `worldMap`).
-#' @param high.map a sf multipolygon object or a list of sf objects containing
-#'   the regional map at the highest administrative level (e.g. municipality).
-#'   The default is "plantR", the map for all Latin American countries and
-#'   dependent territories  obtained [GADM]{https://gadm.org} (see `latamMap`).
-#' @param res.gazet Column with the locality resolution level retrieved from the
+#' @param orig.coord Column with the origin of the coordinates
+#'   (typically the output of function `getCoord()`)
+#' @param low.map a sf multipolygon object containing the global
+#'   administrative map at the lowest level (e.g. country). The
+#'   default is "plantR", the default map obtained from
+#'   [GADM]{https://gadm.org} (see `worldMap`).
+#' @param high.map a sf multipolygon object or a list of sf objects
+#'   containing the regional map at the highest administrative level
+#'   (e.g. municipality). The default is "plantR", the map for all
+#'   Latin American countries and dependent territories  obtained
+#'   [GADM]{https://gadm.org} (see `latamMap`).
+#' @param res.gazet Column with the locality resolution level
+#'   retrieved from the gazetteer
+#' @param dist.center Logical. Should the distance (in meters) between
+#'   the original coordinates and those retrieved in the gazetteer be
+#'   returned? Defaults to FALSE.
+#' @param lon.gazet Column with the longitude obtained from a
 #'   gazetteer
-#' @param dist.center Logical. Should the distance (in meters) between the
-#'   original coordinates and those retrieved in the gazetteer be returned?
-#'   Defaults to FALSE.
-#' @param lon.gazet Column with the longitude obtained from a gazetteer
 #' @param lat.gazet Column with the latitude obtained from a gazetteer
-#' @param keep.cols character. Name of columns that should be kept in the
-#'   output.
+#' @param keep.cols character. Name of columns that should be kept in
+#'   the output.
 #'
 #' @importFrom dplyr select one_of rename mutate if_else filter ends_with
 #' @importFrom tidyr separate
@@ -40,10 +43,10 @@
 #'
 #' @details
 #'
-#' By default the function returns only the geographical validation column
-#' ('geo.check') and the distance between the original coordinates and those
-#' from a gazetteer, if `dist.center` is TRUE. Other columns available for the
-#' output that may be relevant are:
+#' By default the function returns only the geographical validation
+#' column ('geo.check') and the distance between the original
+#' coordinates and those from a gazetteer, if `dist.center` is TRUE.
+#' Other columns available for the output that may be relevant are:
 #' - the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
 #'  'NAME_2' and 'NAME_3';
 #' - the locality string in the __plantR__ format combining the locality
@@ -52,13 +55,14 @@
 #' administrative levels from the maps: 'country.check', 'state.check' and
 #' 'county.check'.
 #'
-#' By default, a global map and a regional for Latin America are used in the
-#' validation of the geographical coordinates. But, different maps than the
-#' __plantR__ defaults can be used. These maps must be provided using
-#' the arguments `low.map` and `high.map`. Ideally, these maps which should
-#' have the same format of the locality information in the gazetteer used for
-#' the validation of the locality information (see function `getLoc()` and the
-#' default __plantR__ maps 'worldMap' and 'latamMap').
+#' By default, a global map and a regional for Latin America are used
+#' in the validation of the geographical coordinates. But, different
+#' maps than the __plantR__ defaults can be used. These maps must be
+#' provided using the arguments `low.map` and `high.map`. Ideally,
+#' these maps which should have the same format of the locality
+#' information in the gazetteer used for the validation of the
+#' locality information (see function `getLoc()` and the default
+#' __plantR__ maps 'worldMap' and 'latamMap').
 #'
 #' @encoding UTF-8
 #'
@@ -84,7 +88,7 @@ checkCoord <- function(x,
   latamMap <- latamMap
 
   ## check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -124,6 +128,11 @@ checkCoord <- function(x,
   ids.no.coord <- x[, orig.coord] %in% "no_coord"
   if (any(ids.no.coord))
     geo.check[ids.no.coord] <- "no_cannot_check"
+
+  ids.nas.coord <- x[, orig.coord] %in% "coord_original" &
+                    (is.na(x[lon]) | is.na(x[lat]))
+  if (any(ids.nas.coord))
+    geo.check[ids.nas.coord] <- "no_cannot_check"
 
   ## Subsetting data for geographical checking
   tmp <- x[is.na(geo.check), ]

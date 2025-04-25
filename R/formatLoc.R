@@ -45,11 +45,14 @@ formatLoc <- function(x,
                       orig.names = FALSE) {
 
   # check input:
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
+
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "format.locs")
 
   # fixLoc
   x1 <- fixLoc(x, loc.levels, scrap)

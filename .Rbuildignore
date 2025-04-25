@@ -32,5 +32,6 @@ results/
 ^cran-comments\.md$
 ^cran-comments\\.md$
 cran-comments.md
+^\.github$
 ^doc$
 ^Meta$

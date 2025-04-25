@@ -1,89 +1,114 @@
 #' Gets occurrence data from speciesLink
 #'
-#' This function access version beta 0.1 of the
-#' [speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
-#' species.
+#' This function access the Web service API v1.0 of the
+#' [speciesLink](https://specieslink.net/ws/1.0/) network and returns
+#' species occurrence data
 #'
-#' @param dir Path to directory where the file will be saved. Default is to
-#' create a "results/" directory
+#' @param dir Path to directory where the file will be saved. Default
+#'   is to create a "results/" directory
 #' @param filename Name of the output file
 #' @param save Logical. Save output to filename? Defaults to FALSE
-#' @param basisOfRecord Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
-#'  'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
-#'  'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
-#'  search
-#' @param family Family name. More than one name should be concatenated in a
-#'   vector
-#' @param species Genus or genus and epithet separated by space. More than one
-#'   species can be concatenated into a vector. The request cannot be done
-#'   with more than 50 species at a time. Use lapply, or any sort of loop when
-#'   dealing with multiple species.
-#' @param collectionCode Any collection available at speciesLink. Example: ALCB,
-#'  E, INPA, MOBOT_BR.  Accepts a vector of names
-#' @param country Any country name. No ASCII characters allowed. Accepts a
-#' vector of names
-#' @param county Any municipality name. No ASCII characters allowed. Accepts a
-#' vector of names
-#' @param stateProvince Any state or province. No ASCII characters allowed.
-#' Accepts a vector of names
-#' @param Coordinates Specify if records should have coordinates. Default is
-#' "no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked"
-#'  or "no check"
-#' @param CoordinatesQuality Any character in "Good" or "Bad" to select specific
-#'  type of coordinates
-#' @param Scope Group to be required. If NULL searches all groups. Any in
-#' "plants", "animals", "microrganisms" or "fossils"
-#' @param Synonyms If species names should be checked for synonyms in a specific
-#'  dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
-#'   "flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase"
-#'   for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date,
-#'   "Moure" for Catálogo de Abelhas Moure or "no synonyms".
-#' @param Typus Logic. If TRUE select only typus
-#' @param Images If select only records with images. Default is NULL.
-#' It accepts: "Yes", "Live", "Polen", "Wood"
-#' @param RedList Logic. If TRUE only species in the IUCN Red List are returned
-#' @param MaxRecords Numeric. Maximum number of records to be required
-#' @param file.format Character. The file extension to be used for saving ('csv'
-#'   or 'rds'). Default to 'csv'.
-#' @param compress Logical. Should the file be compressed? Default to FALSE.
+#' @param key Character. Your personal specieslink API key.
+#' @param basisOfRecord Character. Any in 'PreservedSpecimen',
+#'   'LivingSpecimen', 'FossilSpecimen', 'HumanObservation',
+#'   'MachineObservation' or 'MaterialSample'. Default is
+#'   'PreservedSpecimen' for museum and herbarium records.
+#' @param family Character. The family name. More than one name should
+#'   be concatenated in a vector.
+#' @param species Character. The genus name or the genus and epithet separated by
+#'   a space. More than one species can be concatenated into a vector.
+#'   The request cannot be done with more than 50 species at a time.
+#'   Use lapply, or any sort of loop when dealing with multiple
+#'   species (see example).
+#' @param collectionCode Character. Any collection available at speciesLink.
+#'   Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names
+#' @param country Character. Any country name. No ASCII characters allowed.
+#'   Accepts a vector of names
+#' @param county Character. Any municipality name. No ASCII characters allowed.
+#'   Accepts a vector of names
+#' @param stateProvince Character. Any state or province. No ASCII characters
+#'   allowed. Accepts a vector of names
+#' @param Coordinates Character. Specify if records should have coordinates.
+#'   Default is "no check" but it also accepts "Yes", No", "Original",
+#'   "Automatic", "Blocked" or "no check"
+#' @param CoordinatesQuality Character. Any character in "Good" or "Bad" to
+#'   select specific type of coordinates (argument is now deprecated)
+#' @param Scope Character. Major group to be required. If NULL
+#'   searches all groups. Any in "p" (plants), "a" (animals), "m"
+#'   (microorganisms), "f" (fossil) or "b" (broad scope)
+#' @param Synonyms If species names should be checked for synonyms in
+#'   a specific dictionary. Set to "sp2000" for search in
+#'   Catálogo da Vida species2000, "flora2020" for Flora do Brasil
+#'   2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ"
+#'   for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for
+#'   Catálogo de Abelhas Moure or "no synonyms".
+#' @param Typus Logical. If TRUE select only typus. Defaults to FALSE.
+#' @param Images Logical. If TRUE select only records with images.
+#'   Defaults to FALSE.
+#' @param RedList Character. Any of the following threat categories:
+#'   "CR" (critically endangered), "PEX" (Probably extinct), "EN"
+#'   (endangered), "EW" (Extinct in nature), "EX" (Extinct), "RE"
+#'   (Extinct in Brazil) or "VU" (Vulnerable)
+#' @param MaxRecords Numeric. Maximum number of records to be
+#'   required. Default is 200, maximum is 5000.
+#' @param file.format Character. The file extension to be used for
+#'   saving ('csv' or 'rds'). Default to 'csv'.
+#' @param compress Logical. Should the file be compressed? Default to
+#'   FALSE.
 #'
-#' @return A data.frame with the search result, which can also be saved on disk
+#' @return A data.frame with the search result, which can also be
+#'   saved on disk
 #'
-#' @details The time necessary to download records from the speciesLink API will
-#' depend on the number of records and species in the query and from the speed
-#' of the internet connection.
+#' @details The time necessary to download records from the
+#'   speciesLink API will depend on the number of records and species
+#'   in the query and from the speed of the internet connection.
 #'
-#' The speciesLink API does not allow the download of ~50 or more taxa at a
-#' time. So to download records from larger lists of species, you will probably
-#' need to make the queries in a loop (see Examples).
+#'   The speciesLink API does not allow the download of more than 5000
+#'   records at a time. So, to download records from species with
+#'   large number of records (>5000), you will probably need to make
+#'   the queries in a loop (see Examples).
 #'
-#' @author Sara Mortara
+#'   Also, the speciesLink API does not allow the download of ~50 or
+#'   more taxa at a time. So to download records from larger lists of
+#'   species, you will also need to make the queries in a loop
+#'   (see Examples).
+#'
+#' @author Sara Mortara, João Vieira and Renato A. Ferreira de Lima
 #'
 #' @examples
 #'\dontrun{
 #' # Example for a single species, saving into a file called "ex01"
-#' ex01 <-
-#'  rspeciesLink(filename = "ex01",
-#'                     species =  c("Eugenia platyphylla"),
-#'                     Scope = "plants")
+#'
+#' key <- (ADD HERE YOUR PERSONAL API KEY)
+#'
+#' ex01 <- rspeciesLink(species =  c("Eugenia platyphylla"),
+#'                      Scope = "p",
+#'                      key = key)
+#'
+#'
 #' # Use lapply or similar for more than 50 species
+#'
 #' # Making a request for multiple species
-#'sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
-#'                                               Scope = "plants",
+#' sp <- c("Eugenia neoriedeliana", "Eugenia platyphylla")
+#' sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
+#'                                               Scope = "p",
 #'                                               basisOfRecord = "PreservedSpecimen",
-#'                                               Synonyms = "flora2020"))
+#'                                               Synonyms = "flora2020",
+#'                                               key = key))
 #'# Adding species names to each element of the list
-#'names(sp_list) = sp
+#' names(sp_list) = sp
 #'# Binding all searchs and keeping a column w/ the named used in the search
-#'sp_df <- bind_rows(sp_list, .id = "original_search")
+#' sp_df <- bind_rows(sp_list, .id = "original_search")
 #'}
 #'
-#' @import data.table
+#' @importFrom data.table fwrite
 #' @importFrom jsonlite fromJSON
+#'
 #' @export
 rspeciesLink <- function(dir = "results/",
                          filename = "output",
                          save = FALSE,
+                         key = NULL,
                          basisOfRecord = NULL,
                          family = NULL,
                          species = NULL,
@@ -91,38 +116,46 @@ rspeciesLink <- function(dir = "results/",
                          country = NULL,
                          stateProvince = NULL,
                          county = NULL,
-                         Coordinates = NULL, #		Yes | No | Original | Automatic | Blocked
-                         CoordinatesQuality = NULL,	#Good | Bad
-                         Scope = NULL, #			plants, animals, microrganisms,fossils
-                         Synonyms = "no synomyms", #species2000 | flora2020 | MycoBank | AlgaeBase | DSMZ | Moure no synonyms
+                         Coordinates = NULL,
+                         CoordinatesQuality = NULL,
+                         Scope = NULL,
+                         Synonyms = "no synomyms",
                          Typus = FALSE,
-                         Images = NULL,
-                         RedList = FALSE,
-                         MaxRecords = NULL, #		n > 0	 all records
+                         Images = FALSE,
+                         RedList = NULL,
+                         MaxRecords = 5000,
                          file.format = "csv",
-                         compress = FALSE
-) { # Yes | No | Live | Polen | Wood
+                         compress = FALSE)
+{
+
+  if (is.null(key))
+    stop("Please provide an API key! Get one at specieslink.net/aut/profile/apikeys")
+
+  if (!missing("CoordinatesQuality"))
+    warning("Argument deprecated")
+
   # speciesLink url
-  my_url <- "https://api.splink.org.br/records/"
+  my_url <- "https://specieslink.net/ws/1.0/search?"
 
   # helper function
   url_query <-  function(vector, name) {
-    char <- paste(paste0(vector, "/"), collapse = "")
-    url <- paste0(name, "/", char)
+    # char <- paste(paste0(vector, "&"), collapse = "")
+    char <- paste0(paste0(vector, collapse = ","), "&")
+    url <- paste0(name, "=", char)
+    url <- gsub(" ", "+", url)
     return(url)
   }
   # basis of record
   if (is.null(basisOfRecord)) {
     my_url
   } else {
-    if (basisOfRecord %in% c(
-      'PreservedSpecimen',
-      'LivingSpecimen',
-      'FossilSpecimen',
-      'HumanObservation',
-      'MachineObservation',
-      'MaterialSample'
-    )) {
+    if (tolower(basisOfRecord) %in% c(
+                              'preservedspecimen',
+                              'livingspecimen',
+                              'fossilspecimen',
+                              'humanobservation',
+                              'machineobservation',
+                              'materialsample')) {
       br <- url_query(basisOfRecord, "basisOfRecord")
       my_url <- paste0(my_url, br)
     }
@@ -133,12 +166,13 @@ rspeciesLink <- function(dir = "results/",
   } else  {
     if (is.character(species)) {
       if (length(species) > 50)
-        stop("Please make request of no more than 50 species at a time!")
-      species <- gsub(" ", "%20", species)
+        stop("Please make request of less than 50 species at a time!")
+      species <- gsub(" ", "+", species)
+      species <- paste0(species, collapse = ",")
       sp <- url_query(species, "scientificName")
       my_url <- paste0(my_url, sp)
     } else {
-      stop("species must be a character")
+      stop("Genus or species name must be a character")
     }
   }
   # Family name
@@ -150,7 +184,7 @@ rspeciesLink <- function(dir = "results/",
       my_url <- paste0(my_url, fam)
     }
     else {
-      stop("family name must be a character")
+      stop("Family name must be a character")
     }
   }
   # Collection code
@@ -167,7 +201,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(country)) {
-      country <- gsub(" ", "%20", country)
+      country <- gsub(" ", "+", country)
       ct <- url_query(country, "country")
       my_url <- paste0(my_url, ct)
     }
@@ -177,7 +211,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(stateProvince)) {
-      stateProvince <- gsub(" ", "%20", stateProvince)
+      stateProvince <- gsub(" ", "+", stateProvince)
       st <- url_query(stateProvince, "stateProvince")
       my_url <- paste0(my_url, st)
     }
@@ -187,7 +221,7 @@ rspeciesLink <- function(dir = "results/",
     my_url
   } else {
     if (is.character(county)) {
-      county <- gsub(" ", "%20", county)
+      county <- gsub(" ", "+", county)
       co <- url_query(county, "county")
       my_url <- paste0(my_url, co)
     }
@@ -196,92 +230,87 @@ rspeciesLink <- function(dir = "results/",
   if (is.null(Coordinates)) {
     my_url
   } else {
-    if (Coordinates %in% c("Yes", "No", "Original", "Automatic", "Blocked")) {
+    if (tolower(Coordinates) %in% c(
+                           "yes",
+                           "no",
+                           "original",
+                           "automatic",
+                           "blocked",
+                           "suspect",
+                           "consistent")) {
       xy <- url_query(Coordinates, "Coordinates")
       my_url <- paste0(my_url, xy)
-    }
-  }
-  # Coordinates quality
-  if (is.null(CoordinatesQuality)) {
-    my_url
-  } else {
-    if (CoordinatesQuality %in% c("Good", "Bad")) {
-      cq <- url_query(CoordinatesQuality, "CoordinatesQuality")
-      my_url <- paste0(my_url, cq)
     }
   }
   # Scope
   if (is.null(Scope)) {
     my_url
   } else {
-    if (Scope %in% c("plants", "animals", "microrganisms", "fossils")) {
+    if (tolower(Scope) %in% c("p", "a", "m", "f", "b")) {
       sc <- url_query(Scope, "Scope")
       my_url <- paste0(my_url, sc)
     }
   }
+
   #  Synonyms
   # if (length(species) > 9) {
-  #    stop("Function does not support synonym check of more than nine species")
+  #    stop("Function does not support synonym check of >9 species")
   #  } else {
   if (is.null(Synonyms)) {
     my_url
   } else {
-    if (Synonyms %in% c("species2000", "flora2020",
-                        "MycoBank", "AlgaeBase", "DSMZ")) {
+    if (Synonyms %in% c("sp2000", "flora2020", "mycobank",
+                        "algaebase", "dsmz", "moure")) {
       sy <- url_query(Synonyms, "Synonyms")
       my_url <- paste0(my_url, sy)
     }
   }
   #  }
+
   #  Typus
   if (Typus == FALSE) {
     my_url
   } else {
-    my_url <- paste0(my_url, "Typus/Yes/")
+    typ <- url_query("Yes", "Typus")
+    my_url <- paste0(my_url, typ)
   }
+
   # Images # "Yes", "Live", "Polen", "Wood"
-  if (is.null(Images)) {
+  if (Images == FALSE) {
     my_url
   } else {
-    if (Images %in% c("Yes", "Live", "Polen", "Wood")) {
-      im <- url_query(Images, "Images")
+      im <- url_query("Yes", "Images")
       my_url <- paste0(my_url, im)
+  }
+
+  # RedList
+  if (is.null(RedList)) {
+    my_url
+  } else {
+    if (tolower(RedList) %in% c("cr", "pex", "en", "ew", "ex",
+                                "re", "vu")) {
+      red <- url_query(RedList, "RedList")
+      my_url <- paste0(my_url, red)
     }
   }
-  # RedList
-  if (RedList == FALSE) {
-    my_url
-  } else {
-    my_url <- paste0(my_url, "RedList/Yes/")
-  }
+
   # MaxRecords
   if (is.null(MaxRecords)) {
     my_url
   } else {
     if (is.numeric(MaxRecords)) {
-      mr <- url_query(MaxRecords, "MaxRecords")
+      mr <- url_query(MaxRecords, "limit")
       my_url <- paste0(my_url, mr)
     }
   }
-  # making request
-  my_url <- paste0(my_url, "Format/JSON/") #Model/DwC is already default
+  # making the request
+  my_url <- paste0(my_url, "apikey=", key)
   message("Making request to speciesLink...")
-  #r <- httr::GET(my_url)
-  #message("Extracting content ...")
-  #rr <- httr::content(r, as="parse") # text content
-  # requesting JSON format
-  df <- jsonlite::fromJSON(my_url)$result
-  #rrr <- readr::read_tsv(rr, locale = readr::locale(encoding = "UTF-8"))
+  df <- jsonlite::fromJSON(my_url)$features$properties
 
   if (save) {
     # creating dir
     if (!dir.exists(dir)) { dir.create(dir) }
-
-    # fullname <- paste0(dir, filename, ".csv")
-    # message(paste0("Writing ", fullname, " on disk."))
-    # write.csv(df,
-    #           fullname,
-    #           row.names = FALSE)
 
     if (file.format == "csv") {
 
@@ -315,9 +344,7 @@ rspeciesLink <- function(dir = "results/",
     warning("Output is empty. Check your request.")
   }
 
-  warning("Please make sure that the restrictions and citation indicated by
-  each speciesLink/CRIA data provider are observed and respected.")
-
+  message("Important note: Please make sure that the restrictions and citation indicated by each speciesLink/CRIA data provider are observed and respected.")
 
   return(df)
 }

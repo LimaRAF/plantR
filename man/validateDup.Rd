@@ -101,8 +101,8 @@ information. Default to "high".}
 stored in separate, new columns. Default to FALSE (new columns are
 created).}
 
-\item{print.rm}{logical. Should the number of records removed be printed?
-Default to TRUE.}
+\item{print.rm}{logical. Should the number of records removed be
+printed? Default to TRUE.}
 }
 \value{
 The input data frame, plus the new columns with the formatted

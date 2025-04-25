@@ -8,6 +8,7 @@ rspeciesLink(
   dir = "results/",
   filename = "output",
   save = FALSE,
+  key = NULL,
   basisOfRecord = NULL,
   family = NULL,
   species = NULL,
@@ -20,106 +21,130 @@ rspeciesLink(
   Scope = NULL,
   Synonyms = "no synomyms",
   Typus = FALSE,
-  Images = NULL,
-  RedList = FALSE,
-  MaxRecords = NULL,
+  Images = FALSE,
+  RedList = NULL,
+  MaxRecords = 5000,
   file.format = "csv",
   compress = FALSE
 )
 }
 \arguments{
-\item{dir}{Path to directory where the file will be saved. Default is to
-create a "results/" directory}
+\item{dir}{Path to directory where the file will be saved. Default
+is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
 \item{save}{Logical. Save output to filename? Defaults to FALSE}
 
-\item{basisOfRecord}{Character. Any in 'PreservedSpecimen', 'LivingSpecimen',
-'FossilSpecimen', 'HumanObservation', 'MachineObservation' or
-'MaterialSample'. Default is 'PreservedSpecimen' for museum and herbarium
-search}
+\item{key}{Character. Your personal specieslink API key.}
 
-\item{family}{Family name. More than one name should be concatenated in a
-vector}
+\item{basisOfRecord}{Character. Any in 'PreservedSpecimen',
+'LivingSpecimen', 'FossilSpecimen', 'HumanObservation',
+'MachineObservation' or 'MaterialSample'. Default is
+'PreservedSpecimen' for museum and herbarium records.}
 
-\item{species}{Genus or genus and epithet separated by space. More than one
-species can be concatenated into a vector. The request cannot be done
-with more than 50 species at a time. Use lapply, or any sort of loop when
-dealing with multiple species.}
+\item{family}{Character. The family name. More than one name should
+be concatenated in a vector.}
 
-\item{collectionCode}{Any collection available at speciesLink. Example: ALCB,
-E, INPA, MOBOT_BR.  Accepts a vector of names}
+\item{species}{Character. The genus name or the genus and epithet separated by
+a space. More than one species can be concatenated into a vector.
+The request cannot be done with more than 50 species at a time.
+Use lapply, or any sort of loop when dealing with multiple
+species (see example).}
 
-\item{country}{Any country name. No ASCII characters allowed. Accepts a
-vector of names}
+\item{collectionCode}{Character. Any collection available at speciesLink.
+Example: ALCB, E, INPA, MOBOT_BR.  Accepts a vector of names}
 
-\item{stateProvince}{Any state or province. No ASCII characters allowed.
+\item{country}{Character. Any country name. No ASCII characters allowed.
 Accepts a vector of names}
 
-\item{county}{Any municipality name. No ASCII characters allowed. Accepts a
-vector of names}
+\item{stateProvince}{Character. Any state or province. No ASCII characters
+allowed. Accepts a vector of names}
 
-\item{Coordinates}{Specify if records should have coordinates. Default is
-"no check" but it also accepts "Yes", No", "Original", "Automatic", "Blocked"
-or "no check"}
+\item{county}{Character. Any municipality name. No ASCII characters allowed.
+Accepts a vector of names}
 
-\item{CoordinatesQuality}{Any character in "Good" or "Bad" to select specific
-type of coordinates}
+\item{Coordinates}{Character. Specify if records should have coordinates.
+Default is "no check" but it also accepts "Yes", No", "Original",
+"Automatic", "Blocked" or "no check"}
 
-\item{Scope}{Group to be required. If NULL searches all groups. Any in
-"plants", "animals", "microrganisms" or "fossils"}
+\item{CoordinatesQuality}{Character. Any character in "Good" or "Bad" to
+select specific type of coordinates (argument is now deprecated)}
 
-\item{Synonyms}{If species names should be checked for synonyms in a specific
-dictionary. Set to "species2000" for search in Catálogo da Vida species2000,
-"flora2020" for Flora do Brasil 2020, "MycoBank" for MycoBank, "AlgaeBase"
-for AlgaeBase, "DSMZ" for  DSMZ Prokaryotic Nomenclature Up-to-Date,
-"Moure" for Catálogo de Abelhas Moure or "no synonyms".}
+\item{Scope}{Character. Major group to be required. If NULL
+searches all groups. Any in "p" (plants), "a" (animals), "m"
+(microorganisms), "f" (fossil) or "b" (broad scope)}
 
-\item{Typus}{Logic. If TRUE select only typus}
+\item{Synonyms}{If species names should be checked for synonyms in
+a specific dictionary. Set to "sp2000" for search in
+Catálogo da Vida species2000, "flora2020" for Flora do Brasil
+2020, "MycoBank" for MycoBank, "AlgaeBase" for AlgaeBase, "DSMZ"
+for  DSMZ Prokaryotic Nomenclature Up-to-Date, "Moure" for
+Catálogo de Abelhas Moure or "no synonyms".}
 
-\item{Images}{If select only records with images. Default is NULL.
-It accepts: "Yes", "Live", "Polen", "Wood"}
+\item{Typus}{Logical. If TRUE select only typus. Defaults to FALSE.}
 
-\item{RedList}{Logic. If TRUE only species in the IUCN Red List are returned}
+\item{Images}{Logical. If TRUE select only records with images.
+Defaults to FALSE.}
 
-\item{MaxRecords}{Numeric. Maximum number of records to be required}
+\item{RedList}{Character. Any of the following threat categories:
+"CR" (critically endangered), "PEX" (Probably extinct), "EN"
+(endangered), "EW" (Extinct in nature), "EX" (Extinct), "RE"
+(Extinct in Brazil) or "VU" (Vulnerable)}
 
-\item{file.format}{Character. The file extension to be used for saving ('csv'
-or 'rds'). Default to 'csv'.}
+\item{MaxRecords}{Numeric. Maximum number of records to be
+required. Default is 200, maximum is 5000.}
 
-\item{compress}{Logical. Should the file be compressed? Default to FALSE.}
+\item{file.format}{Character. The file extension to be used for
+saving ('csv' or 'rds'). Default to 'csv'.}
+
+\item{compress}{Logical. Should the file be compressed? Default to
+FALSE.}
 }
 \value{
-A data.frame with the search result, which can also be saved on disk
+A data.frame with the search result, which can also be
+saved on disk
 }
 \description{
-This function access version beta 0.1 of the
-[speciesLink API]{https://api.splink.org.br/} and returns occurrence data of
-species.
+This function access the Web service API v1.0 of the
+\href{https://specieslink.net/ws/1.0/}{speciesLink} network and returns
+species occurrence data
 }
 \details{
-The time necessary to download records from the speciesLink API will
-depend on the number of records and species in the query and from the speed
-of the internet connection.
+The time necessary to download records from the
+speciesLink API will depend on the number of records and species
+in the query and from the speed of the internet connection.
 
-The speciesLink API does not allow the download of ~50 or more taxa at a
-time. So to download records from larger lists of species, you will probably
-need to make the queries in a loop (see Examples).
+The speciesLink API does not allow the download of more than 5000
+records at a time. So, to download records from species with
+large number of records (>5000), you will probably need to make
+the queries in a loop (see Examples).
+
+Also, the speciesLink API does not allow the download of ~50 or
+more taxa at a time. So to download records from larger lists of
+species, you will also need to make the queries in a loop
+(see Examples).
 }
 \examples{
 \dontrun{
 # Example for a single species, saving into a file called "ex01"
-ex01 <-
- rspeciesLink(filename = "ex01",
-                    species =  c("Eugenia platyphylla"),
-                    Scope = "plants")
+
+key <- (ADD HERE YOUR PERSONAL API KEY)
+
+ex01 <- rspeciesLink(species =  c("Eugenia platyphylla"),
+                     Scope = "p",
+                     key = key)
+
+
 # Use lapply or similar for more than 50 species
+
 # Making a request for multiple species
+sp <- c("Eugenia neoriedeliana", "Eugenia platyphylla")
 sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
-                                              Scope = "plants",
+                                              Scope = "p",
                                               basisOfRecord = "PreservedSpecimen",
-                                              Synonyms = "flora2020"))
+                                              Synonyms = "flora2020",
+                                              key = key))
 # Adding species names to each element of the list
 names(sp_list) = sp
 # Binding all searchs and keeping a column w/ the named used in the search
@@ -128,5 +153,5 @@ sp_df <- bind_rows(sp_list, .id = "original_search")
 
 }
 \author{
-Sara Mortara
+Sara Mortara, João Vieira and Renato A. Ferreira de Lima
 }

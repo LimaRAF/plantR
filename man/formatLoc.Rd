@@ -35,12 +35,14 @@ formatted.}
 performed? Default to TRUE.}
 
 \item{adm.names}{a vector of columns names containing the country,
-state/province and municipality information, in this order. Defaults to
-'country.new', 'stateProvince.new' and 'municipality.new'.}
+state/province and municipality information, in this order.
+Defaults to 'country.new', 'stateProvince.new' and
+'municipality.new'.}
 
 \item{loc.names}{an vector of columns names containing the locality
-(original and alternative) and the resolution of the locality information.
-Defaults to 'locality.new', 'locality.scrap' and 'resol.orig'.}
+(original and alternative) and the resolution of the locality
+information. Defaults to 'locality.new', 'locality.scrap' and
+'resol.orig'.}
 
 \item{str.names}{a vector of at least two columns names containing the
 locality resolution and search string(s), in that order. Defaults to

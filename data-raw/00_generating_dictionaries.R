@@ -5,14 +5,109 @@ library(stringr)
 library(readr)
 library(dplyr)
 
+## 0. Downloading new information from Google Drive -----------------
 
-#1. from raw files to processed csv in dictionaries----
+### Taxonomists
+link <- "https://docs.google.com/spreadsheets/d/1N3DV-e_2bRKgHTl1VmKwkjEPt4yrMQ2Bb2-X4ZtkXHQ/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/taxonomists.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
+### Gazetteer
+link <- "https://docs.google.com/spreadsheets/d/1qOyD7qDzgqEz6Xdbf5GcrjDChjJbJApfWk_P4pgCOAg/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/gazetteer.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# character to numbers
+cols2change <- c("latitude.gazetteer", "longitude.gazetteer")
+for (i in seq_along(cols2change))
+  dados[[cols2change[i]]] <- as.numeric(dados[[cols2change[i]]])
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
+### Replace Names
+link <- "https://docs.google.com/spreadsheets/d/1ghaHza2waxxufx-mYZMq2a66r6xLVgqfKy4zckwEYj8/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/replaceNames.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
+### Family Synonyms
+link <- "https://docs.google.com/spreadsheets/d/1FHbkNlR_-BXACPMs5CQy0zC4ydwLZrgqabYpHDBJaXc/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/familiesSynonyms.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
+
+### Collection Codes
+link <- "https://docs.google.com/spreadsheets/d/1T4aq9zEXG76wFnVJRTI4-atMK1IiJVW9J8NpJXW9Bn8/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/collectionCodes.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# character to numbers
+cols2change <- c("latitude", "longitude")
+for (i in seq_along(cols2change))
+  dados[[cols2change[i]]] <- as.numeric(dados[[cols2change[i]]])
+cols2change <- c("records", "total accessioned")
+for (i in seq_along(cols2change))
+  dados[[cols2change[i]]] <- as.integer(dados[[cols2change[i]]])
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
+
+## 1. from raw files to processed csv in dictionaries -------------
 dic_files <- list.files(path = "data-raw/raw_dictionaries",
                         pattern = "csv",
                         full.names = TRUE)
 
 #filtering out unwanted files
-dic_files <- dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants|gadmCheck", dic_files)]
+dic_files <-
+  dic_files[!grepl("CC_database|IndexXylariorum|splink_non_plants|gadmCheck",
+                   dic_files)]
 
 #nome das tabelas
 data_names <- basename(dic_files) %>%
@@ -39,13 +134,19 @@ names(dic) <- data_names
 
 # taxonomists:
 taxonomists <- dic$taxonomists[ ,
-                                c("order", "source",
+                                c("order", "source", "status",
                                   "family", "family.obs",
                                   "full.name1", "tdwg.name")]
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
 taxonomists <- taxonomists[!is.na(taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
 taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
+taxonomists <- taxonomists[taxonomists$status %in% "ok", ]
+
+taxonomists$status <- NULL
+taxonomists <- taxonomists[order(taxonomists$order),]
+taxonomists$order <- NULL
+taxonomists$family.obs <- NULL
 
 # collection codes:
 collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
@@ -60,9 +161,11 @@ collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
                                            "col.OBS")]
 collectionCodes <-
   collectionCodes[!is.na(collectionCodes$index.herbariorum.or.working.code),]
+collectionCodes$ordem.colecao <- NULL
 
 # Plant families
 familiesSynonyms <- dic$familiesSynonyms
+familiesSynonyms$order <- NULL
 
 # Field names form different data sources and their equivalencies:
 # ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
@@ -90,11 +193,10 @@ gazetteer <- dic$gazetteer[ ,c("order",
 gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
-
 priorities <- data.frame(source = c("gdam", "gdam_treeco", "treeco", "ibge",
                                     "google", "ibge_treeco", "splink_jabot",
-                                    "gbif", "cncflora", "ibge?", "types"),
-                         priority = c(2, 4, 3, 2, 5, 1, 4, 4, 3, 3, 1))
+                                    "gbif", "gbif_gsg", "cncflora", "ibge?", "types"),
+                         priority = c(2, 3, 3, 2, 5, 1, 4, 4, 4, 3, 3, 1))
 priorities[order(priorities$priority),]
 
 gazetteer <- dplyr::left_join(gazetteer, priorities)
@@ -124,15 +226,20 @@ admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
 
-admin <- admin[, c("order",
+admin <- admin[, c("source",
+                   #"order",
                    "loc.correct",
                    "country_code",
-                   "state_code",
+                   #"state_code",
                    "NAME_0",
                    "NAME_1",
                    "NAME_2",
-                   "NAME_3",
-                   "source")]
+                   "NAME_3")]
+
+gazetteer$order <- NULL
+gazetteer$status <- NULL
+gazetteer$priority <- NULL
+
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
@@ -144,8 +251,8 @@ replaceNames <- dic$replaceNames
 #   replaceNames[, i] <- textclean::replace_non_ascii(replaceNames[, i])
 
 # só checando como estao os arquivos
-head(taxonomists)
-head(familiesSynonyms)
+head(taxonomists); dim(taxonomists)
+head(familiesSynonyms); dim(familiesSynonyms)
 head(collectionCodes)
 head(gazetteer)
 head(admin)
@@ -157,3 +264,8 @@ write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
 write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
 write_csv(admin, "./data-raw/dictionaries/admin.csv")
 write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
+
+#Removing data
+rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin, replaceNames)
+
+

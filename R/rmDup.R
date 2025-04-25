@@ -1,62 +1,69 @@
 #' @title Remove Duplicates
 #'
-#' @description This function keeps one and removes all other specimens within
-#'   groups of duplicate specimens.
+#' @description This function keeps one and removes all other
+#'   specimens within groups of duplicate specimens.
 #'
 #' @param df the input data frame.
-#' @param dup.name character. The name of column in the input data frame with
-#'   the duplicate group ID. Default to the __plantR__ output 'dup.ID'.
-#' @param prop.name character. The name of column in the input data frame with
-#'   the proportion of duplicates found within the group ID. Default to the
-#'   __plantR__ output 'dup.prop'.
-#' @param rec.ID character. The name of the columns containing the unique record
-#' identifier (see function `getTombo()`). Default to 'numTombo'.
-#' @param order.by character. Column name(s) used to order records within
-#'   groups of duplicates.
+#' @param dup.name character. The name of column in the input data
+#'   frame with the duplicate group ID. Default to the __plantR__
+#'   output 'dup.ID'.
+#' @param prop.name character. The name of column in the input data
+#'   frame with the proportion of duplicates found within the group
+#'   ID. Default to the __plantR__ output 'dup.prop'.
+#' @param rec.ID character. The name of the columns containing the
+#'   unique record identifier (see function `getTombo()`). Default to
+#'   'numTombo'.
+#' @param order.by character. Column name(s) used to order records
+#'   within groups of duplicates.
 #' @param rm.all logical. Should all duplicates be removed or only the
-#'   duplicated entries from the same collection but different sources?
-#'   Default to FALSE.
-#' @param  print.rm logical. Should the number of records removed be printed?
-#'   Default to TRUE.
+#'   duplicated entries from the same collection but different
+#'   sources? Default to FALSE.
+#' @param  print.rm logical. Should the number of records removed be
+#'   printed? Default to TRUE.
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @details The input data frame \code{df} must contain the typical columns
-#'   resulting from __plantR__ workflow and functions. Otherwise, the names
-#'   of these columns should be provided using arguments `dup.name` (i.e.
-#'   characters used to aggregate records into groups of duplicates) and
-#'   `prop.name` (i.e. proportion of duplicated records).
+#' @details The input data frame \code{df} must contain the typical
+#'   columns resulting from __plantR__ workflow and functions.
+#'   Otherwise, the names of these columns should be provided using
+#'   arguments `dup.name` (i.e. characters used to aggregate records
+#'   into groups of duplicates) and `prop.name` (i.e. proportion of
+#'   duplicated records).
 #'
-#'   Since only one record is kept per group of duplicates, this procedure
-#'   should preferably be carried after the homogenization of the specimens
-#'   informations (see function `mergeDup()`). Otherwise, important information
-#'   on the removed records may be lost.
+#'   Since only one record is kept per group of duplicates, this
+#'   procedure should preferably be carried after the homogenization
+#'   of the specimens informations (see function `mergeDup()`).
+#'   Otherwise, important information on the removed records may be
+#'   lost.
 #'
-#'   In addition, since not all columns are merged within duplicates (only the
-#'   columns related to the taxonomic, geographical and location validation
-#'   procedures), all other information contained in the removed records are
-#'   lost. Therefore, make sure that this information in unnecessary for your
-#'   specific purposes before using this function.
+#'   In addition, since not all columns are merged within duplicates
+#'   (only the columns related to the taxonomic, geographical and
+#'   location validation procedures), all other information contained
+#'   in the removed records are lost. Therefore, make sure that this
+#'   information in unnecessary for your specific purposes before
+#'   using this function.
 #'
-#'   By default, the record retained for each group of duplicates is determined
-#'   by the proportion of duplicates the record has within the group (argument
-#'   `prop.name`) and by the original order of the input data frame \code{df}.
-#'   So, the first record with the highest proportion of duplicates will be the
-#'   record retained. But the user can use the argument `order.by` if the data
-#'   should be order by any of the columns in the input data. This column will
-#'   be used to create the 'key' within the `data.table` parlance and order the
-#'   data accordingly.
+#'   By default, the record retained for each group of duplicates is
+#'   determined by the proportion of duplicates the record has within
+#'   the group (argument `prop.name`) and by the original order of the
+#'   input data frame \code{df}. So, the first record with the highest
+#'   proportion of duplicates will be the record retained. But the
+#'   user can use the argument `order.by` if the data should be order
+#'   by any of the columns in the input data. This column will be used
+#'   to create the 'key' within the `data.table` parlance and order
+#'   the data accordingly.
 #'
-#'   Finally, users can choose between removing all but one records within each
-#'   group of duplicate, or to remove only those records with duplicated entries
-#'   from the same collection in different sources (i.e. virtual duplicates),
-#'   using the argument `rm.all`. This option can be useful if the same
-#'   collection has its database in two or more repositories (e.g. speciesLink
-#'   and GBIF). It is important to note that this removal is dependent on the
-#'   duplicate group ID found for each record. So, if the information was
-#'   entered differently in the different sources, it is not guaranteed that
-#'   they will be grouped under the same duplicate group ID, and thus be
-#'   excluded from the data.
+#'   Finally, users can choose between removing all but one record
+#'   within each group of duplicated records, or to remove only those
+#'   records with duplicated entries from the same collection in
+#'   different sources (i.e. virtual duplicates), using the argument
+#'   `rm.all`. This option can be useful if the same collection has
+#'   its database in two or more repositories (e.g. speciesLink and
+#'   GBIF). It is important to note that this removal is dependent on
+#'   the duplicate group ID found for each record. So, if the
+#'   information was entered differently in the different sources, it
+#'   is not guaranteed that they will be grouped under the same
+#'   duplicate group ID, and thus be excluded from the data.
 #'
 #' @import data.table
 #'
@@ -72,12 +79,16 @@
 #'
 #' @export rmDup
 #'
-rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
-                  rec.ID = "numTombo", order.by = NULL, rm.all = FALSE,
+rmDup <- function(df,
+                  dup.name = "dup.ID",
+                  prop.name = "dup.prop",
+                  rec.ID = "numTombo",
+                  order.by = NULL,
+                  rm.all = FALSE,
                   print.rm = TRUE) {
 
   ## check input
-  if (!class(df) == "data.frame")
+  if (!inherits(df, "data.frame"))
     stop ("Input object needs to be a data frame!")
 
   if (dim(df)[1] == 0)
@@ -89,7 +100,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
 
   #Checking essential columns
   if (!dup.name %in% names(df))
-    stop(paste0("Removal is only possible if the input data contain a column with the duplicate IDs"))
+    stop(paste0("The input data frame does not contains a column with the duplicate IDs"))
 
   if (all(is.na(df[[dup.name]]))) {
     print("No duplicate IDs available. Returning the same input data frame",
@@ -100,6 +111,7 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   # creating the unique accession number and multiple-acession number for each specimen
   dt <- data.table::data.table(df)
   dt[ , dup.IDs := .SD, .SDcols = c(dup.name)]
+  dt[dup.IDs %in% c("", " "), dup.IDs := NA_character_, ]
 
   # Vector to keep the original data order
   dt[, tmp.ordem := .I, ]
@@ -129,6 +141,8 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
   # Making sure all records have a non duplicated dup.ID and non-missing duplicate proportion
   dt[is.na(dup.IDs), temp.dup.prop := 1]
   dt[is.na(dup.IDs), dup.IDs := .SD, .SDcols = c(rec.ID)]
+  dt[dup.IDs %in% c("", " ", NA) , dup.IDs := paste("NA", .SD, sep = "_"), by = tmp.ordem,
+     .SDcols = c("tmp.ordem")]
 
   if (is.null(order.by)) {
     # re-ordering the data.table, using setorder()
@@ -145,26 +159,40 @@ rmDup <- function(df, dup.name = "dup.ID", prop.name = "dup.prop",
     dt1 <- unique(dt, by = "dup.IDs")
     data.table::setorder(dt1, tmp.ordem)
   } else {
-    data.table::setnames(dt, rec.ID, "temp.rec.ID")
+    dt[, temp.rec.ID := .SD, .SDcols = c(rec.ID)]
+    dt[temp.rec.ID %in% c("", " ", NA),
+        temp.rec.ID := NA_character_]
     dt[, dup.entries := duplicated(.SD),
        by = dup.IDs, .SDcols = c("temp.rec.ID")]
-    dt[is.na(temp.rec.ID), dup.entries := FALSE]
+
+    if (any(is.na(dt$temp.rec.ID)))
+      dt[is.na(temp.rec.ID), dup.entries := FALSE]
+
+    if (any(!is.na(dt$temp.rec.ID) & duplicated(dt$temp.rec.ID)))
+      dt[!is.na(temp.rec.ID) & duplicated(temp.rec.ID),
+         dup.entries := TRUE]
+
     dt[, rename.IDs := any(dup.entries), by = dup.IDs]
     dt[rename.IDs == TRUE,
-       dup.IDs := as.character(paste0(sort(unique(temp.rec.ID)), collapse = "|")),
+       dup.IDs := as.character(paste0(sort(unique(temp.rec.ID)),
+                                      collapse = "|")),
        by = dup.IDs]
     dt1 <- dt[dup.entries == FALSE, ]
-    dt1[, c("dup.entries", "rename.IDs") := NULL, ]
-    data.table::setnames(dt1, "temp.rec.ID", rec.ID)
+    dt1[, c("dup.entries", "rename.IDs", "temp.rec.ID") := NULL, ]
     data.table::setorder(dt1, tmp.ordem)
   }
   #removing the extra column created for ranking
   dt1[, c("dup.IDs", "temp.dup.prop", "tmp.ordem") := NULL]
 
   if (print.rm) {
+
     antes <- dim(dt)[1]
     depois <- dim(dt1)[1]
-    cat(antes - depois, "truly duplicate records (same record in different sources) were removed from the data\n")
+    if (rm.all) {
+      cat(antes - depois, "true or probable duplicate records were removed from the data\n")
+    } else {
+      cat(antes - depois, "true duplicate records (same record in different sources) were removed from the data\n")
+    }
   }
 
   return(data.frame(dt1))

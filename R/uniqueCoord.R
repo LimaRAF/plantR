@@ -71,7 +71,7 @@ uniqueCoord <- function(x,
   lon.wrk <- lat.wrk <- dist.ID <- dists <- NULL
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (!all(c(lat, lon) %in% colnames(x)))

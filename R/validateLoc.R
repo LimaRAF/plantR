@@ -56,12 +56,16 @@ validateLoc <- function(x,
                         res.gazet = "resolution.gazetteer") {
 
   ## check input:
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
 
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "validate.locs")
+
+  # Checking the presence of necessary columns in the input dataset
   if (!all(c(res.orig, res.gazet) %in% colnames(x))) {
     stop(paste0("input object needs to have the following fields: ",
                 res.orig," and ",  res.gazet))

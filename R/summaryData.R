@@ -18,7 +18,7 @@
 #'   The function prints the summary tables related to the occurrence data.
 #'   However, the tables generating those summaries can be saved into an object.
 #'
-#' @import data.table
+#' @importFrom data.table data.table setkeyv uniqueN merge.data.table setorderv setnames
 #' @importFrom stringr str_trim
 #' @importFrom knitr kable
 #' @importFrom stats quantile
@@ -30,7 +30,7 @@
 summaryData <- function(x, print = TRUE, top = 5) {
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -38,7 +38,7 @@ summaryData <- function(x, print = TRUE, top = 5) {
 
   #Escaping R CMD check notes from using data.table syntax
   dup.ID <- dup.prop <- year.new <- country.new <- NULL
-  N <- S <- genus.new <- NULL
+  N <- S <- Taxa <- genus.new <- NULL
 
   #Select which co-variables will be used in the summary (priority to the edited columns)
   covs <- list(collections = c("collectionCode.new", "collectionCode"),
@@ -165,41 +165,62 @@ summaryData <- function(x, print = TRUE, top = 5) {
     tax.cols <- c(covs.present[["families"]],
                   "genus.new",
                   covs.present[["species"]])
-    genus.only <- grepl(" ", dt[[covs.present[["species"]]]], fixed = TRUE)
-    tax <- as.character(dt[genus.only, lapply(.SD, data.table::uniqueN),
+    genus.only <- grepl(" ", dt[[covs.present[["species"]]]],
+                        fixed = TRUE)
+    tax <- as.character(dt[, lapply(.SD, data.table::uniqueN),
                            .SDcols = c(tax.cols)])
-    names(tax) <- tax.cols
+    tax1 <- as.character(dt[genus.only,
+                            lapply(.SD, data.table::uniqueN),
+                           .SDcols = c(tax.cols)])
+    names(tax) <- names(tax1) <- tax.cols
 
     if (nchar(covs.present[["families"]]) > 0) {
       fams <- dt[ , .N, by = c(covs.present[["families"]])]
-      fams[, S := dt[genus.only , data.table::uniqueN(.SD),
-                     by = c(covs.present[["families"]]),
-                     .SDcols = c(covs.present[["species"]])]$V1]
-      data.table::setorderv(fams, c("S", "N"), c(-1,-1))
+      fams0 <- dt[genus.only , data.table::uniqueN(.SD),
+                  by = c(covs.present[["families"]]),
+                  .SDcols = c(covs.present[["species"]])]
+      data.table::setnames(fams0, c("V1"), c("Taxa"))
+      fams <- data.table::merge.data.table(fams, fams0,
+                                           by = covs.present[["families"]],
+                                           all = TRUE)
+      fams[is.na(Taxa), Taxa := 0L]
+      # fams[, S := dt[genus.only , data.table::uniqueN(.SD),
+      #                by = c(covs.present[["families"]]),
+      #                .SDcols = c(covs.present[["species"]])]$V1]
+      data.table::setorderv(fams, c("Taxa", "N"), c(-1,-1))
       if (print)
-        cat("Number of families:", tax[covs.present[["families"]]],"\n", sep=" ")
+        cat("Number of families:",
+            tax[covs.present[["families"]]],"\n", sep=" ")
     } else { fams <- NULL }
 
     if (nchar(tax[["genus.new"]]) > 0) {
       gens <- dt[ , .N, by = c("genus.new")]
-      gens[, S := dt[ , data.table::uniqueN(.SD),
+      gens[, Taxa := dt[ , data.table::uniqueN(.SD),
                       by = c("genus.new"),
                       .SDcols = c(covs.present[["species"]])]$V1]
-      data.table::setorderv(gens, c("S", "N"), c(-1,-1))
+      data.table::setorderv(gens, c("Taxa", "N"), c(-1,-1))
+
       if (print)
         cat("Number of genera:", tax["genus.new"],"\n", sep=" ")
     } else { gens <- NULL }
 
     if (print)
       if (nchar(covs.present[["species"]]) > 0)
-        cat("Number of species:", tax[covs.present[["species"]]],"\n", sep=" ")
+        cat("Number of species:",
+            tax1[covs.present[["species"]]],"\n", sep=" ")
 
     if (print)
-      if (nchar(covs.present[["families"]]) > 0)
-        cat("\nTop richest families:", knitr::kable(utils::head(fams, top)), sep="\n")
+      if (nchar(covs.present[["families"]]) > 0) {
+        data.table::setnames(fams, c("N"), c("Records"))
+        cat("\nTop richest families:",
+            knitr::kable(utils::head(fams, top)), sep="\n")
+      }
 
-    if (print)
-      cat("\nTop richest genera:", knitr::kable(utils::head(gens, top)), sep="\n")
+    if (print) {
+      data.table::setnames(gens, c("N"), c("Records"))
+      cat("\nTop richest genera:",
+          knitr::kable(utils::head(gens, top)), sep="\n")
+    }
   }
 
   ## Countries
@@ -228,7 +249,7 @@ summaryData <- function(x, print = TRUE, top = 5) {
       cat("\nTop countries in numbers of records:",
           knitr::kable(utils::head(paises, top),
                        # knitr::kable(my.head.df(paises, top),
-                       col.names = c("Country", "Records", "Species")[1:dim(paises)[2]]), sep="\n")
+                       col.names = c("Country", "Records", "Taxa")[1:dim(paises)[2]]), sep="\n")
     }
   } else { paises <- NULL }
 

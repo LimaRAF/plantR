@@ -18,39 +18,41 @@ distOutlier(
 
 \item{lat}{numerical. Latitude in decimal degrees}
 
-\item{method}{character. Type of method desired: 'classic' or 'robust'}
+\item{method}{character. Type of method desired: 'classic' or
+'robust'}
 
-\item{n.min}{numerical. Minimum number of unique coordinates to be used in
-the calculations. Default to 10}
+\item{n.min}{numerical. Minimum number of unique coordinates to be
+used in the calculations. Default to 10}
 
-\item{digs}{numerical. Number of digits to be returned after the decimal
-point. Default to 4}
+\item{digs}{numerical. Number of digits to be returned after the
+decimal point. Default to 4}
 
-\item{probs}{numerical. Vector of probabilities between 0 and 1 to calculate
-the sample quantiles. Default to c(0.5, 0.75, 0.9, 0.95, 0.975, 0.99, 100)}
+\item{probs}{numerical. Vector of probabilities between 0 and 1 to
+calculate the sample quantiles. Default to c(0.5, 0.75, 0.9,
+0.95, 0.975, 0.99, 100)}
 }
 \value{
-the number of unique coordinates ('n'), the number of outliers
-detected ('n.out') and the sample quantiles ('qt') of the Mahalanobis
-distances.
+the number of unique coordinates ('n'), the number of
+outliers detected ('n.out') and the sample quantiles ('qt') of
+the Mahalanobis distances.
 }
 \description{
 Outlier Mahalanobis Distances
 }
 \details{
-The function returns the quantiles of the Mahalanobis distances for
-the spatial outliers detected automatically, which can be used in the
-decision making of the more appropriated distance cutoffs to flag spatial
-outliers.
+The function returns the quantiles of the Mahalanobis
+distances for the spatial outliers detected automatically, which
+can be used in the decision making of the more appropriated
+distance cutoffs to flag spatial outliers.
 
-The automatic detection of spatial outliers is based on an adjusted
-threshold of the Mahalanobis distances based on function \code{arw()} from
-package \strong{mvoutlier}.
+The automatic detection of spatial outliers is based on an
+adjusted threshold of the Mahalanobis distances based on function
+\code{arw()} from package \strong{mvoutlier}.
 
-If the number of unique coordinates is below \code{n.min} or if the Minimum
-Covariance Determinant (MCD) estimator has issues, the function returns
-NAs. See the help of function \code{mahalanobisDist()} for details on the other
-parameters.
+If the number of unique coordinates is below \code{n.min} or if the
+Minimum Covariance Determinant (MCD) estimator has issues, the
+function returns NAs. See the help of function
+\code{mahalanobisDist()} for details on the other parameters.
 }
 \examples{
 set.seed(123)

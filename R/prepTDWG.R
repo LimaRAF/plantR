@@ -159,12 +159,13 @@ prepTDWG <- function(x,
 
   nomes <- x
 
-  if (any(commas & words & !NAs)) { # Names already with commas and >1 word
+  w_commas <- commas & words & !NAs
+  if (any(w_commas)) { # Names already with commas and >1 word
 
     # Getting last/first names, as well as prefixes/prepositions and initials
-    split <- matrix(c(lastName(x[commas & words & !NAs],
+    split <- matrix(c(lastName(x[w_commas],
                                first.capital = FALSE),
-                      lastName(x[commas & words & !NAs],
+                      lastName(x[w_commas],
                                invert = TRUE, initials = FALSE,
                                first.capital = FALSE)),
                     ncol = 2)
@@ -269,8 +270,6 @@ prepTDWG <- function(x,
 
       # family name
       split[, 1] <- capName(split[, 1])
-      # split[, 1] <- gsub("(^\\p{Lu})(\\s\\p{Lu})", "\\1.\\2", # muted for now
-      #                    split[, 1], perl = TRUE)
 
       # family name prepositions
       split[, 3] <- tolower(split[, 3])
@@ -301,25 +300,26 @@ prepTDWG <- function(x,
     names <- gsub("^ | $", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
     names <- gsub(",$", "", names, perl = TRUE)
-    nomes[commas & words & !NAs] <- names
+    nomes[w_commas] <- names
 
   }
 
-  if (any(!commas & words & !NAs)) { # Names without commas and >1 word
+  wout_commas <- !commas & words & !NAs
+  if (any(wout_commas)) { # Names without commas and >1 word
 
     # Names ending with (collection) codes in parentheses
     remove_these <-
-      grepl(" \\([A-Z]", x[!commas & words & !NAs]) &
-        grepl("[A-Z]\\)$", x[!commas & words & !NAs])
+      grepl(" \\([A-Z]", x[wout_commas]) &
+        grepl("[A-Z]\\)$", x[wout_commas])
     if (any(remove_these))
-      x[!commas & words & !NAs][remove_these] <-
+      x[wout_commas][remove_these] <-
         gsub(" \\([A-Z].*", "",
-             x[!commas & words & !NAs][remove_these], perl = TRUE)
+             x[wout_commas][remove_these], perl = TRUE)
 
     # Getting last/first names, as well as prefixes/prepositions and initials
-    split <- matrix(c(lastName(x[!commas & words & !NAs],
+    split <- matrix(c(lastName(x[wout_commas],
                                first.capital = FALSE),
-                      lastName(x[!commas & words & !NAs],
+                      lastName(x[wout_commas],
                                invert = TRUE, initials = FALSE,
                                first.capital = FALSE)),
                     ncol = 2)
@@ -449,7 +449,7 @@ prepTDWG <- function(x,
     names <- gsub("^ | $", "", names, perl = TRUE)
     names <- gsub(",$", "", names, perl = TRUE)
     names <- gsub("\\.\\s\\.", ".", names, perl = TRUE)
-    nomes[!commas & words & !NAs] <- names
+    nomes[wout_commas] <- names
 
   }
 

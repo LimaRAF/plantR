@@ -16,6 +16,6 @@ shares_border(country1 = "brazil", country2 = "argentina")
 Checks if two countries share a border
 }
 \author{
-Andrea Sánchez-Tapia & Sara Mortara
+Andrea Sánchez-Tapia, Guilherme S. Grittz & Sara Mortara
 }
 \keyword{internal}

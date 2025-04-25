@@ -2,23 +2,27 @@
 % Please edit documentation in R/rjabot.R
 \name{rjabot}
 \alias{rjabot}
-\title{Gets occurrence data from jabot}
+\title{Gets occurrence data from Jabot}
 \usage{
 rjabot(dir = "results/", filename = "output", species = NULL)
 }
 \arguments{
-\item{dir}{Path to directory where the file will be saved. Default is to
-create a "results/" directory}
+\item{dir}{Path to directory where the file will be saved. Default
+is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{species}{Genus or genus and epithet separated by space. More than one
-species can be concatenated into a vector. The request cannot be done
-with more than 50 species at a time. Use lapply, or any sort of loop when
-dealing with multiple species.}
+\item{species}{Character. The genus name or the genus and epithet separated by
+a space. More than one species can be concatenated into a vector.
+The request cannot be done with more than 50 species at a time.
+Use lapply, or any sort of loop when dealing with multiple
+species (see example).}
 }
 \value{
-A list of two elements. The first element is a character string containing the url search and the second element is a data.frame with the search result. It also saves the output on disk
+A list of two elements. The first element is a character
+string containing the url search and the second element is a
+data.frame with the search result. It also saves the output on
+disk
 }
 \description{
 This function gets occurrence data in Jabot's API (http://servicos.jbrj.gov.br/jabot/). Providing a scientific name for a species is mandatory.

@@ -1,14 +1,14 @@
 #' @title Spatial Validation of Species Records
 #'
 #' @description This function performs the crossing of the geographical
-#' coordinates with the world and Latin-american maps, and it checks for
-#' coordinates falling near the sea shore, open sea and country boundaries. It
-#' also test if problematic coordinates are not inverted or swapped. Finally,
-#' the function searches for records taken from cultivated individuals and
-#' for the presence of spatial outliers for each species.
+#'   coordinates with the world and Latin American maps, and it checks for
+#'   coordinates falling near the sea shore, open sea and country boundaries. It
+#'   also test if problematic coordinates are not inverted or swapped. Finally,
+#'   the function searches for records taken from cultivated individuals, for
+#'   the presence of spatial outliers and also doubtful distribution.
 #'
-#' @param x a data frame with the species records and their coordinates in decimal
-#'   degrees.
+#' @param x a data frame with the species records and their coordinates in
+#'   decimal degrees.
 #' @param country.shape Name of the column with the country name obtained from
 #'   the world map based on the original record coordinates. Default to 'NAME_0'
 #' @param country.gazetteer Name of the column with the country name obtained
@@ -22,21 +22,23 @@
 #'   column `geo.check`). Default to 'same.col'.
 #'
 #' @return The input data frame, plus the new columns with the results of the
-#' geographical coordinates (e.g. 'geo.check').
+#'   geographical coordinates (e.g. 'geo.check').
 #'
 #' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for the validation
-#'   of the spatial information associated to each record (e.g. geographical
+#'   individuals steps of the proposed __plantR__ workflow for the validation of
+#'   the spatial information associated to each record (e.g. geographical
 #'   coordinates) are performed altogether (see the __plantR__ tutorial for
 #'   details).
 #'
 #' @inheritParams checkCoord
+#' @inheritParams checkDist
 #'
-#' @seealso
-#'  \link[plantR]{checkCoord}, \link[plantR]{checkBorders}, \link[plantR]{checkShore},
-#'  \link[plantR]{checkInverted}, \link[plantR]{checkOut}, \link[plantR]{getCult}
+#' @seealso \link[plantR]{checkCoord}, \link[plantR]{checkBorders},
+#' \link[plantR]{checkShore}, \link[plantR]{checkInverted},
+#' \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantR]{checkDist}
 #'
-#' @author Andrea Sánchez-Tapia, Sara R. Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato
+#'   A. F. de Lima
 #'
 #' @encoding UTF-8
 #'
@@ -49,10 +51,14 @@ validateCoord <- function(x,
                           high.map = "plantR",
                           country.shape = "NAME_0",
                           country.gazetteer = "country.gazet",
-                          tax.name = "scientificName.new",
+                          tax.name = "suggestedName",
+                          tax.author = "suggestedAuthorship",
+                          sep = "_",
+                          loc = "loc.correct",
+                          source = "bfo",
                           output = "same.col") {
   ## Check input
-  if (!class(x)[1] == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
@@ -61,6 +67,9 @@ validateCoord <- function(x,
   if (!output %in% c("same.col", "new.col"))
     stop("Please choose an output between 'same.col' and 'new.col'")
 
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "validate.coords")
+
   ## First coordinate check
   x1 <- checkCoord(x,
                    lon = lon,
@@ -68,7 +77,8 @@ validateCoord <- function(x,
                    low.map = low.map,
                    high.map = high.map,
                    dist.center = FALSE,
-                   keep.cols = c("geo.check", country.shape, country.gazetteer))
+                   keep.cols = c("geo.check",
+                                 country.shape, country.gazetteer))
 
   ## Checking bad coordinates close to countries frontiers
   x2 <- checkBorders(x1,
@@ -91,18 +101,22 @@ validateCoord <- function(x,
 
   ## Re-applying checkCoord() to the inverted/swapped coordinates
   #Selecting the right column(s)
-  good.col <- ifelse(output == "same.col", "geo.check", "geo.check.new")
+  good.col <- ifelse(output == "same.col",
+                     "geo.check", "geo.check.new")
   check_these <- grepl("invert_|trans", x4[, good.col], perl = TRUE)
 
   if (any(check_these)) {
     #Filtering the target coordinates
     x4.1 <- x4[check_these, ]
     x4.1 <- x4.1[, -which(names(x4.1) %in%
-                            c("geo.check", country.shape, country.gazetteer))]
+                            c("geo.check",
+                              country.shape, country.gazetteer))]
     #Checking the new coordinates
     x4.2 <- checkCoord(x4.1,
-                       lon = ifelse(output == "same.col", lon, paste0(lon, ".new")),
-                       lat = ifelse(output == "same.col", lat, paste0(lat, ".new")),
+                       lon = ifelse(output == "same.col",
+                                    lon, paste0(lon, ".new")),
+                       lat = ifelse(output == "same.col",
+                                    lat, paste0(lat, ".new")),
                        low.map = low.map,
                        high.map = high.map,
                        dist.center = FALSE,
@@ -138,12 +152,24 @@ validateCoord <- function(x,
 
   ## Checking for spatial outliers
   x6 <- checkOut(x5,
-                 lon = ifelse(output == "same.col", lon, paste0(lon, ".new")),
-                 lat = ifelse(output == "same.col", lat, paste0(lat, ".new")),
+                 lon = ifelse(output == "same.col",
+                              lon, paste0(lon, ".new")),
+                 lat = ifelse(output == "same.col",
+                              lat, paste0(lat, ".new")),
                  tax.name = tax.name,
-                 geo.name = ifelse(output == "same.col", "geo.check", "geo.check.new"),
+                 geo.name = ifelse(output == "same.col",
+                                   "geo.check", "geo.check.new"),
                  cult.name = "cult.check",
                  clas.cut = 3, rob.cut = 16)
-  return(x6)
+
+  ## Checking for doubtful distribution
+  x7 <- checkDist(x6,
+                  tax.name = tax.name,
+                  tax.author = tax.author,
+                  sep = sep,
+                  loc = loc,
+                  source = source)
+
+  return(x7)
 }
 

@@ -1,25 +1,26 @@
 Package: plantR
-Version: 0.1.6
+Version: 0.1.9
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
-                     email = "raflima@usp.br", 
+                     email = "raflima@usp.br",
 	                   comment = c(ORCID = "0000-0002-1048-0138")),
-              person("Sara", "R. Mortara", role = "aut", 
+              person("Sara", "R. Mortara", role = "aut",
                      email = "saramortara@gmail.com"),
               person("Andrea", "Sánchez-Tapia", role = "aut",
                      email = "andreasancheztapia@gmail.com"))
-Author: 
+Author:
   Renato A. F. de Lima [aut, cre]
   Sara R. Mortara [aut]
   Andrea Sánchez-Tapia [aut]
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
-Maintainer: Renato A. F. de Lima <raflima@usp.br>
+  Guilherme Salgado Grittz [ctb]
+Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
-Description: The package plantR provides tools for 
-    retrieving, processing, cleaning and validating 
-    (plant) species records from biological collections.
+Description: The package plantR provides tools for
+    retrieving, processing, cleaning and validating
+    species records from biological collections.
 License: GPL (>= 3) + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/LimaRAF/plantR
@@ -27,33 +28,37 @@ BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-Imports: 
+Imports:
     countrycode,
     data.table,
+    doSNOW,
     dplyr,
-    flora,
+    foreach,
     igraph,
     jsonlite,
     knitr,
+    parallel,
     rgbif,
     robustbase,
     sf,
     spatialrisk,
+    stringdist,
     stringi,
     stringr,
-    Taxonstand (>= 2.3),
     tidyr
 Suggests:
     devtools,
     graphics,
-    grDevices, 
+    grDevices,
+    plantRdata,
     remotes,
     rmarkdown,
-    sp,
     s2,
     stats,
     testthat (>= 3.0.0),
     utils
+Remotes:
+    LimaRAF/plantRdata
 Config/testthat/edition: 3

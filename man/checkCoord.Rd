@@ -21,54 +21,57 @@ checkCoord(
 )
 }
 \arguments{
-\item{x}{a data frame with the species records and their coordinates in
-decimal degrees.}
+\item{x}{a data frame with the species records and their
+coordinates in decimal degrees.}
 
-\item{lon}{Name of the column with the longitude to be validated. Default to
-'decimalLongitude.new'}
+\item{lon}{Name of the column with the longitude to be validated.
+Default to 'decimalLongitude.new'}
 
-\item{lat}{Name of the column with the latitude to be validated. Default to
-'decimalLatitude.new'}
+\item{lat}{Name of the column with the latitude to be validated.
+Default to 'decimalLatitude.new'}
 
 \item{str.name}{Column with the verified locality search string}
 
-\item{orig.coord}{Column with the origin of the coordinates (typically the
-output of function \code{getCoord()})}
+\item{orig.coord}{Column with the origin of the coordinates
+(typically the output of function \code{getCoord()})}
 
-\item{low.map}{a sf multipolygon object containing the global administrative
-map at the lowest level (e.g. country). The default is "plantR", the
-default map obtained from [GADM]{https://gadm.org} (see \code{worldMap}).}
+\item{low.map}{a sf multipolygon object containing the global
+administrative map at the lowest level (e.g. country). The
+default is "plantR", the default map obtained from
+[GADM]{https://gadm.org} (see \code{worldMap}).}
 
-\item{high.map}{a sf multipolygon object or a list of sf objects containing
-the regional map at the highest administrative level (e.g. municipality).
-The default is "plantR", the map for all Latin American countries and
-dependent territories  obtained [GADM]{https://gadm.org} (see \code{latamMap}).}
+\item{high.map}{a sf multipolygon object or a list of sf objects
+containing the regional map at the highest administrative level
+(e.g. municipality). The default is "plantR", the map for all
+Latin American countries and dependent territories  obtained
+[GADM]{https://gadm.org} (see \code{latamMap}).}
 
-\item{res.gazet}{Column with the locality resolution level retrieved from the
+\item{res.gazet}{Column with the locality resolution level
+retrieved from the gazetteer}
+
+\item{dist.center}{Logical. Should the distance (in meters) between
+the original coordinates and those retrieved in the gazetteer be
+returned? Defaults to FALSE.}
+
+\item{lon.gazet}{Column with the longitude obtained from a
 gazetteer}
-
-\item{dist.center}{Logical. Should the distance (in meters) between the
-original coordinates and those retrieved in the gazetteer be returned?
-Defaults to FALSE.}
-
-\item{lon.gazet}{Column with the longitude obtained from a gazetteer}
 
 \item{lat.gazet}{Column with the latitude obtained from a gazetteer}
 
-\item{keep.cols}{character. Name of columns that should be kept in the
-output.}
+\item{keep.cols}{character. Name of columns that should be kept in
+the output.}
 }
 \description{
 This function makes the check of the coordinates
-against the world and Latin-American maps. Optionally, it returns the
-distance between the original coordinates and those from a gazetteer
-for coordinates not validated at the county level.
+against the world and Latin-American maps. Optionally, it returns
+the distance between the original coordinates and those from a
+gazetteer for coordinates not validated at the county level.
 }
 \details{
-By default the function returns only the geographical validation column
-('geo.check') and the distance between the original coordinates and those
-from a gazetteer, if \code{dist.center} is TRUE. Other columns available for the
-output that may be relevant are:
+By default the function returns only the geographical validation
+column ('geo.check') and the distance between the original
+coordinates and those from a gazetteer, if \code{dist.center} is TRUE.
+Other columns available for the output that may be relevant are:
 \itemize{
 \item the name administrative levels obtained from the maps: 'NAME_0', 'NAME_1',
 'NAME_2' and 'NAME_3';
@@ -79,13 +82,14 @@ administrative levels from the maps: 'country.check', 'state.check' and
 'county.check'.
 }
 
-By default, a global map and a regional for Latin America are used in the
-validation of the geographical coordinates. But, different maps than the
-\strong{plantR} defaults can be used. These maps must be provided using
-the arguments \code{low.map} and \code{high.map}. Ideally, these maps which should
-have the same format of the locality information in the gazetteer used for
-the validation of the locality information (see function \code{getLoc()} and the
-default \strong{plantR} maps 'worldMap' and 'latamMap').
+By default, a global map and a regional for Latin America are used
+in the validation of the geographical coordinates. But, different
+maps than the \strong{plantR} defaults can be used. These maps must be
+provided using the arguments \code{low.map} and \code{high.map}. Ideally,
+these maps which should have the same format of the locality
+information in the gazetteer used for the validation of the
+locality information (see function \code{getLoc()} and the default
+\strong{plantR} maps 'worldMap' and 'latamMap').
 }
 \author{
 Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima

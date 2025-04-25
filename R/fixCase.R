@@ -1,12 +1,12 @@
 #' @title Standardize Species Name Casing
 #'
 #' @description Capitalize the genus first letter and lowercase the
-#'   (infra-)specific epiteth of species names.
+#'   (infra-)specific epithet of species names.
 #'
 #' @param x the character string or vector to be standardized.
 #'
 #' @return the character string equal to \code{x} with the first letter of the
-#'   genus capitalized and the first letter of the (infra-)specific epiteth in
+#'   genus capitalized and the first letter of the (infra-)specific epithet in
 #'   lowercase.
 #'
 #' @details The function try to fix some common upper/lowercase issues in
@@ -39,8 +39,7 @@
 #'           "LINDSAEA LANCEA ANGULATA Rosenst.",
 #'           "Blechnum antillanum Proctor",
 #'           "Blechnum occidentale leopoldense Dutra",
-#'           "Blechnum occidentale var. leopoldense Dutra",
-#'           "Cf. Australe")
+#'           "Blechnum occidentale var. leopoldense Dutra")
 #'
 #' fixCase(nomes)
 #' }
@@ -48,7 +47,7 @@
 fixCase <- function (x) {
 
   #Isolating the original vector
-  col.names <- x
+  nomes <- x
 
   # detecting missing names
   miss.name <- x %in% c("NA", NA, "", " ")
@@ -57,15 +56,15 @@ fixCase <- function (x) {
 
   if (all(miss.name)) {
 
-    names(x0) <- col.names
+    names(x0) <- nomes
     return(x0)
 
   } else {
 
     #First letter no capitalized?
-    first <- grepl("^[a-z]", x, perl = TRUE)
-    if (any(first))
-      x[first] <- gsub("(^[a-z])", "\\U\\1", x[first], perl = TRUE)
+    first <- grep("^[a-z]", x, perl = TRUE)
+    if (length(first) > 0L)
+      x[first] <- sub("(^[a-z])", "\\U\\1", x[first], perl = TRUE)
 
     #Getting the position of the second space, if present
     spc.loc <- stringi::stri_locate_all(x, fixed = " ")
@@ -75,14 +74,18 @@ fixCase <- function (x) {
     spc.loc3 <- spc.loc[3, ]
 
     #All letters capitalized, only the species name
-    all.caps <- x == toupper(x) & is.na(spc.loc2)
+    all.caps <- x == toupper(x) & is.na(spc.loc2) & nchar(x) > 2
     if (any(all.caps))
-      x[all.caps] <- paste0(substring(x[all.caps], 1, 1), tolower(substring(x[all.caps], 2)))
+      x[all.caps] <- paste0(substring(x[all.caps], 1, 1),
+                            tolower(substring(x[all.caps], 2)))
 
-    sp.caps <- substr(x, 1, spc.loc1 -1) == toupper(substr(x, 1, spc.loc1 -1)) & !is.na(spc.loc1)
+    sp.caps <- substr(x, 1, spc.loc1 -1) == toupper(substr(x, 1, spc.loc1 -1)) &
+                    !is.na(spc.loc1) &
+                      !substr(x, 1, spc.loc1 -1) %in% "\u00d7"
     sp.caps[is.na(sp.caps)] <- FALSE
     if (any(sp.caps)) {
-      split <- strsplit(gsub("[^[:alnum:] ]", "", x[sp.caps], perl = TRUE), " ", fixed = TRUE)
+      split <- strsplit(gsub("[^[:alnum:] ]", "", x[sp.caps],
+                             perl = TRUE), " ", fixed = TRUE)
       n.nms <- lapply(split, function(x) nchar(x) > 1 & x == toupper(x))
       n.caps <- sapply(n.nms, sum, na.rm = TRUE)
       loc <- spc.loc2[sp.caps]
@@ -94,7 +97,7 @@ fixCase <- function (x) {
                                  sep = "")
     }
 
-    #Specific or infra-specific epiteth with firt letter capitalized
+    #Specific or infra-specific epithet with first letter capitalized
     patt <- " (?=[A-Z])| (?=\\()"
     # split <- stringr::str_split(x, stringr::regex(patt))
     split <- strsplit(x, patt, perl = TRUE)
@@ -104,11 +107,15 @@ fixCase <- function (x) {
     split[is.na(split)] <- ""
 
     if (n.max > 1) {
+      not.name <- nchar(split[,2])
       upper_these <- n.str > 1 & !split[,1] %in% c("cf.","Cf.","aff.","Aff.") &
                         grepl("^[A-Z]", split[,2], perl = TRUE) &
                           !grepl("\\W+", split[,2], perl = TRUE) &
-                            !(!grepl("\\.$", split[,1], perl = TRUE) &
-                               stringr::str_count(split[,1], stringr::fixed(" ")) >= 1)
+                            !grepl("\\ssp+\\.$", split[,1], perl = TRUE) &
+                              !(!grepl("\\.$", split[,1], perl = TRUE) &
+                               stringr::str_count(split[,1], stringr::fixed(" ")) >= 1) &
+                                  not.name >= 3
+
       if (any(upper_these))
         split[upper_these, 2] <-
           gsub("(^[A-Z])", "\\L\\1", split[upper_these, 2], perl = TRUE)
@@ -125,7 +132,7 @@ fixCase <- function (x) {
 
     # Saving elements and names back to the original vector
     x0[!miss.name] <- fixed.names
-    names(x0) <- col.names
+    names(x0) <- nomes
     return(x0)
   }
 }

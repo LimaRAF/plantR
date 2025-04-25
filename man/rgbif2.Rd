@@ -19,68 +19,76 @@ rgbif2(
 )
 }
 \arguments{
-\item{dir}{Path to directory where the file will be saved. Default is to
-create a "results/" directory}
+\item{dir}{Path to directory where the file will be saved. Default
+is to create a "results/" directory}
 
 \item{filename}{Name of the output file}
 
-\item{species}{Name of the family, genus or species (i.e. genus and specific
-epithet separated by space). Accepts author if inserted correctly. Either a
-single character or a vector.}
+\item{species}{Name of the family, genus or species (i.e. genus and
+specific epithet separated by space). Accepts author if inserted
+correctly. Either a single character or a vector.}
 
 \item{n.records}{Number of records to return. Default to 5000.}
 
-\item{force}{Logical. Force downloading data for more than 10 species in a
-loop. Default \code{force = FALSE}}
+\item{force}{Logical. Force downloading data for more than 10
+species in a loop. Default \code{force = FALSE}}
 
 \item{remove_na}{Logical. Should records with NA in the columns
-decimalLatitude and decimalLongitude be removed? Default to FALSE.}
+decimalLatitude and decimalLongitude be removed? Default to
+FALSE.}
 
 \item{save}{Logical. Save output to filename? Defaults to FALSE}
 
-\item{file.format}{Character. The file extension to be used for saving ('csv'
-or 'rds'). Default to 'csv'.}
+\item{file.format}{Character. The file extension to be used for
+saving ('csv' or 'rds'). Default to 'csv'.}
 
-\item{compress}{Logical. Should the file be compressed? Default to FALSE.}
+\item{compress}{Logical. Should the file be compressed? Default to
+FALSE.}
 
 \item{...}{Any argument from occ_search in rgbif package}
 }
 \value{
-A data.frame with the search result. Columns species_id and download
-are added by the function. It can save the search output on disk
+A data.frame with the search result. Columns species_id and
+download are added by the function. It can save the search output
+on disk
 }
 \description{
-This function uses the rgbif package to get occurrence data of a species.
+This function uses the rgbif package to get occurrence data of a
+species.
 }
 \details{
-Despite its name, the argument \code{species} can be used to declare
-names at any taxonomic level (i.e. species, genus, family, order, etc.). But
-not that for some names with homonyms, you may need to declare the authorship
-as well so that GBIF can return the records for the right taxon key.
+Despite its name, the argument \code{species} can be used to
+declare names at any taxonomic level (i.e. species, genus,
+family, order, etc.). But not that for some names with homonyms,
+you may need to declare the authorship as well so that GBIF can
+return the records for the right taxon key.
 
-By default, the function returns a maximum of 5000 records for each query.
-This limit can be changed using the argument \code{n.records}. But note that the
-maximum request imposed by the function \code{rgbif::occ_search()} is 100,000
-records per taxon. This may be the case for the download of records for
-entire families or orders and in this case only the first 100,000 records are
-returned with a warning. So, please consider downloading records separately
-for different regions, basis of records and/or higher taxonomic levels (i.e.
-genera or species).
+By default, the function returns a maximum of 5000 records for
+each query. This limit can be changed using the argument
+\code{n.records}. But note that the maximum request imposed by the
+function \code{rgbif::occ_search()} is 100,000 records per taxon. This
+may be the case for the download of records for entire families
+or orders and in this case only the first 100,000 records are
+returned with a warning. So, please consider downloading records
+separately for different regions, basis of records and/or higher
+taxonomic levels (i.e. genera or species).
 
-The time of download will depend on the number of taxa selected and the
-maximum number of records requested for download, as well as on the speed of
-the internet connection. If you want to download large dataset, consider
-doing your request using the GBIF web interface and load the DwC-A zip file
-using the \strong{plantR} function \code{readData()}.
+The time of download will depend on the number of taxa selected
+and the maximum number of records requested for download, as well
+as on the speed of the internet connection. If you want to
+download large dataset, consider doing your request using the
+GBIF web interface and load the DwC-A zip file using the
+\strong{plantR} function \code{readData()}.
 
-\strong{IMPORTANT NOTE}: \strong{plantR} currently does not provide tools to cite data
-following the \href{https://www.gbif.org/citation-guidelines}{GBIF citation guidelines}.
-So, it is necessary that the user identify the dataset publishers and
-properly acknowledge each of them when citing the data. We recommend the
-package \strong{occCite} (Owens et al. 2021) to help citing data. Another option
-is to manually create a derived dataset and assign a unique DOI that can be
-used to cite the dataset (check more instructions
-\href{https://www.gbif.org/citation-guidelines#derivedDatasets}{here}).
+\strong{IMPORTANT NOTE}: \strong{plantR} currently does not provide tools to
+cite data following the
+\href{https://www.gbif.org/citation-guidelines}{GBIF citation guidelines}.
+So, it is necessary that the user identify the dataset publishers
+and properly acknowledge each of them when citing the data. We
+recommend the package \strong{occCite} (Owens et al. 2021) to help
+citing data. Another option is to manually create a derived dataset
+and assign a unique DOI that can be used to cite the dataset (check
+more instructions \href{https://www.gbif.org/citation-guidelines#derivedDatasets}{here}).
 }
 \examples{
 \dontrun{
@@ -90,10 +98,10 @@ ex_rgbif1 <- rgbif2(species =  "Alouatta fusca")
 
 }
 \references{
-Hannah L. Owens, Cory Merow, Brian Maitner, Jamie M. Kass, Vijay Barve and
-Robert P. Guralnick (2021). occCite: Querying and Managing Large Biodiversity
-Occurrence Datasets. R package version 0.4.6.
-https://CRAN.R-project.org/package=occCite
+Hannah L. Owens, Cory Merow, Brian Maitner, Jamie M. Kass, Vijay
+Barve and Robert P. Guralnick (2021). occCite: Querying and
+Managing Large Biodiversity Occurrence Datasets. R package version
+0.4.6. https://CRAN.R-project.org/package=occCite
 }
 \author{
 Sara R. Mortara, Andrea Sánchez-Tapia & Renato A. F. de Lima

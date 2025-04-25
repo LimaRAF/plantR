@@ -2,6 +2,61 @@
 
 <br/>
 
+## version 0.1.9
+
+* Fixing an issue in `fixAuthors()` and improving its processing speed (issue #128)
+
+* Updating function `prepSpecies()` and `prepFamily()` to better deal with original and suggested family names and their synonyms (issue #156 and issue #157). `prepFamily()` now returns a new columns called 'genus.new' for consistency
+
+* Adding the new function `checkDist()` to flag records outside an accepted species distribution
+
+* Adding the new function `getFamily()` and thus removing final dependency of the R package __flora__ in `prepFamily()` and `formatDwc()`
+
+* Adding a new tutorial to describe how to use __plantR__ to manage taxonomic information
+
+* Few additions of patterns to clean county/municipality and to scrap locality names using `fixLoc()`
+
+* Updating the internal gazetteer and list of plant taxonomists
+
+* Updating the taxonomic backbone from the Brazilian Flora and Funga (`data\bfoNames.rds`) and its documentation
+
+* Minor bug fixes and improvements in `fixName()`, `prepName()`, `lastName()`, `getInit()`, `getAdmin()`, `checkList()`, `shares_border()`, `checkOut()`, `checkInverted()`, `getTombo()`, `summaryData()` and the internal objects `world`, `wordsForSearch` and `fieldNames` (issues #93, #94, #130, #131, #132, #133, #136, #138, #143, #144, #147, #148, #158)
+
+* Improving tests of imput objects (issue #150)
+
+
+## version 0.1.8
+
+* Adapting function `prepSpecies()` and related ones to perform taxon name matching using the new internal backbone or any user-provided backbone
+
+* Adding a new internal dataset with the Brazilian Flora and Funga vascular plant taxonomy (`data\bfoNames.rds`) and its documentation
+
+* Adding the new function `fixAuthors()` to separate and organize taxon names and taxon authors
+
+* Adding the new function `getTaxBackbone` to help getting the taxonomnic backbone ready to use by function `prepSpecies()`
+
+* Adding the new internal functions `getTaxUnique()` and `getTaxNotes()` to clean up the code and organize the output of the high-level function `prepSpecies()`
+
+* Improvements and bug fixes in function `fixSpecies()`
+
+
+## version 0.1.7
+
+* Fixing the function `rspeciesLink()` related to the new speciesLink API address and data structure (related to issue #91)
+
+* Adapting functions `formatDwc()` and `formatOcc()` to the changes in speciesLink data structure
+
+* New version of sysdata (related to issue #100) and the example datasets from speciesLink: `data\example.rda` and  `data\example_intro.rda`
+
+* Adapting the package vignette `plantr_introduction.Rmd` to the new version of `rspeciesLink()` and the speciesLink data structure
+
+* Adding new internal functions `fixAnnotation()` and `fixIndet()` to clean up the code of higher-level functions, particularly `fixSpecies()`
+
+* Adding the function `nameMatching()` and related internal functions (`buildName()` and `cleanName()`) to perform name matching with global taxonomic backbones (WFO, WCVP, GBIF)
+
+* Removing all `Taxonstand` dependencies (issue #104)
+
+
 ## version 0.1.6
 
 * Fixing the functions `prepSpecies()`,  `prepFamily()` and `formatTax()` related to issues #90 and #96 (Plant List website was discontinued)
@@ -20,7 +75,7 @@
 * Minor improvements in functions `fixLoc()`, `prepCoord()`, 
 `prepFamily()` and `getYear()`. 
 
-* Minor changes in several package functions related to the internal use of 
+* Minor changes in several package functions related to the internal use of
 functions from the package `stringr`. 
 
 

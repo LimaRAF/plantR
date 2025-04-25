@@ -60,8 +60,10 @@ checkInverted <- function(x,
   worldMap <- worldMap
 
   ## check input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
+
+  x <- as.data.frame(x)
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
@@ -71,6 +73,7 @@ checkInverted <- function(x,
 
   if (!check.names[1] %in% colnames(x))
     stop("The column with the results from the coordinate checking was not found in the input data")
+
 
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
@@ -160,7 +163,7 @@ checkInverted <- function(x,
 
       check_these <- check1$tmp.country.gazet == check1$NAME_0
 
-      if (any(check_these)) {
+      if (any(check_these, na.rm = TRUE)) {
 
         #getting the new coordinates
         new.coords <- sf::st_coordinates(check1)

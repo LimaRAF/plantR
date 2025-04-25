@@ -8,76 +8,126 @@ formatTax(
   tax,
   use.suggestion = TRUE,
   tax.name = "scientificName",
+  author.name = "scientificNameAuthorship",
   rm.rank = FALSE,
-  tax.names = c("scientificName.new", "scientificNameAuthorship"),
-  db = c("bfo"),
+  tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
+  db = "bfo",
   sug.dist = 0.9,
-  use.authors = FALSE,
-  drop.cols = c("tmp.ordem", "family", "verbatimSpecies", "author", "full_sp",
-    "authorship", "id"),
-  fam.name = "family",
+  clean.indet = TRUE,
+  use.authors = TRUE,
+  replace.names = TRUE,
+  clean.names = FALSE,
+  split.letters = FALSE,
+  parallel = FALSE,
+  cores = 2,
+  drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
+    "name.status", "taxon.status", "accepted.id", "accepted.name", "accepted.authorship",
+    "accepted.taxon.rank", "accepted.taxon.status", "accepted.name.status"),
+  fam.name = "suggestedFamily",
   gen.name = "genus",
-  spp.name = "scientificName"
+  spp.name = "scientificName.new",
+  kingdom = "plantae"
 )
 }
 \arguments{
-\item{tax}{a data.frame containing the taxonomic information to be edited.}
+\item{tax}{a data.frame containing the input taxonomic information
+to be edited.}
 
-\item{use.suggestion}{logical. Should the edited species names be used
-instead of the input species names? Defaults to TRUE.}
+\item{use.suggestion}{logical. Should the edited taxon names and
+authorships be used instead of the input species names? Defaults
+to TRUE.}
 
-\item{tax.name}{character. Name of the columns containing the species name.
-Default to "scientificName"}
+\item{tax.name}{character. The name of the column containing the
+taxon name. Defaults to "scientificName"}
 
-\item{rm.rank}{logical. Should the infra-specific rank abbreviation be
-removed from the name? Default to FALSE}
+\item{author.name}{character. The name of the column containing the
+author of scientific name. Defaults to "scientificNameAuthorship"}
 
-\item{tax.names}{character. Names of the columns containing the species names
-and authors. Defaults to 'scientificName.new' and
+\item{rm.rank}{logical. Should the infra-specific rank abbreviation
+be removed from the name? Defaults to FALSE}
+
+\item{tax.names}{character. Names of the columns containing the
+taxon names and authorships. Defaults to 'scientificName' and
 'scientificNameAuthorship'.}
 
-\item{db}{the list of database to be consulted for valid names, in their
-preferred order of priority. Only the results from Brazilian Flora 2020
-('bfo'), The Plant List ('tpl') or both are currently implemented.}
+\item{db}{the taxonomic backbones to be consulted for valid names,
+in their preferred order of priority. By default, only the
+Brazilian Flora 2020 taxonomic backbone ('bfo') is used.}
 
-\item{sug.dist}{a fraction expressing the maximum distance allowed between
-the original species name and the suggested species name, which is passed
-to the arguments \code{suggestion.distance} of function \code{flora::get.taxa()} and
-\code{max.distance} of function \code{Taxonstand::TPL()}. Defaults to 0.9.}
+\item{sug.dist}{a fraction expressing the maximum distance allowed
+between the taxon name and the suggested names in the backbone,
+which is passed to the argument \code{max.dist} of the function
+\code{nameMatching()}. Defaults to 0.9 (i.e. maximum of 10\%
+difference).}
 
-\item{use.authors}{logical. Should all authors names be verified (takes
-longer)? Default to TRUE.}
+\item{clean.indet}{logical. Should the markers and identifiers of
+unidentified species (e.g. sp. or spp.) be removed prior to name
+matching? Defaults to TRUE.}
 
-\item{drop.cols}{character. Name of columns that should be dropped from the
-results.}
+\item{use.authors}{logical. Should authorships be used in the name
+matching process? Default to TRUE.}
 
-\item{fam.name}{character. The name of the column containing the family
-names. Default to "family".}
+\item{replace.names}{logical. If taxon names should be replaced
+based on the results of the name checking (e.g. if synonyms
+should be replaced by its accepted name. Default to TRUE.}
 
-\item{gen.name}{character. The name of the column containing the genus names.
-Default to "genus"}
+\item{clean.names}{logical. Should spaces, punctuation, symbols and
+species characters be removed prior to name matching? Defaults to
+TRUE.}
 
-\item{spp.name}{character. The name of the column containing the species
-names. Default to "scientificName"}
+\item{split.letters}{logical. Should fuzzy matching be performed
+separately by the input and reference name initials? Defaults to
+FALSE}
+
+\item{parallel}{logical. Should fuzzy matching be performed in
+parallel? Defaults to FALSE}
+
+\item{cores}{integer. The number of cores for parallel execution.
+Two by default.}
+
+\item{drop.cols}{character. Name of columns from the reference
+backbone that should be dropped from the results.}
+
+\item{fam.name}{character. The name of the column containing the
+family names. Defaults to "family".}
+
+\item{gen.name}{character. The name of the column containing the
+genus names. Defaults to "genus"}
+
+\item{spp.name}{character. The name of the column containing the
+species names. Defaults to "scientificName"}
+
+\item{kingdom}{character. The name of the kingdom that the taxa
+belong to names. Defaults to "plantae"}
 }
 \value{
-The input data frame \code{tax}, plus the new columns with the
-formatted information. The new columns have the same name of the
-Darwin Core standards, but followed by the suffix '.new'.
+The input data frame \code{tax}, plus the new columns with
+the formatted information. The new columns have the same name of
+the Darwin Core standards, but followed by the suffix '.new'.
 }
 \description{
-This function edits and standardizes the names of plant
-species and families
+This function edits and standardizes taxon names and
+families, following a given taxonomic backbones
 }
 \details{
-The function works as a wrapper, where the individuals steps of the
-proposed \strong{plantR} workflow for editing taxonomic information are
-performed altogether (see the \strong{plantR} tutorial and the help of each
-function for details).
+The function works as a wrapper, where the individuals
+steps of the proposed \strong{plantR} workflow for editing taxonomic
+information are performed altogether (see the \strong{plantR} tutorial
+and the help of each function for details).
 
-The input data frame usually contains the following taxonomic fields:
-"family", "genus", "scientificName" and "scientificNameAuthorship". But
-users can define the names for their own data.
+The input data frame usually contains the following taxonomic
+fields: "family", "genus", "scientificName" and
+"scientificNameAuthorship". But users can define the names for
+their own data.
+
+By default, the taxonomic backbone used for name validation comes
+from the \href{https://floradobrasil.jbrj.gov.br/consulta}{Flora e Funga do Brasil}.
+However, any taxonomic backbone can be used, as long as it has a
+specific content and format. Check the companion R package
+\strong{plantRdata} that provides other backbones already in this specific
+format from the \href{https://www.worldfloraonline.org/}{World Flora Online},
+the \href{https://powo.science.kew.org/}{World Checklist of Vascular Plants}
+and \href{https://www.gbif.org/}{GBIF}.
 }
 \seealso{
 \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and

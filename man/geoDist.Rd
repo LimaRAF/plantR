@@ -11,17 +11,19 @@ geoDist(lon, lat, radius = 6371)
 
 \item{lat}{numerical. Latitude in decimal degrees}
 
-\item{radius}{numerical. Radius in kilometers to find spherical distances.
-Default to 6371 km. (If 1 distances are returned in radians)}
+\item{radius}{numerical. Radius in kilometers to find spherical
+distances. Default to 6371 km. (If 1 distances are returned in
+radians)}
 }
 \value{
 A distance matrix
 }
 \description{
-Calculate the distances between geographical coordinates, taking
-into account that Earth is an oblate spheroid. By default, distances are
-returned in kilometers. This function is adapted from the function
-\code{rdist.earth()} from package \strong{fields}.
+Calculate the distances between geographical
+coordinates, taking into account that Earth is an oblate
+spheroid. By default, distances are returned in kilometers. This
+function is adapted from the function \code{rdist.earth()} from
+package \strong{fields}.
 }
 \examples{
 
@@ -34,8 +36,8 @@ geoDist(lon, lat)
 
 }
 \references{
-Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools for spatial
-data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
+Nychka, D., Furrer, R., Paige, J., Sain, S. (2017). fields: Tools
+for spatial data. R package version 11.6, <URL: https://github.com/NCAR/Fields>.
 }
 \author{
 Renato A. F. de Lima

@@ -51,6 +51,7 @@
 # foodweb( find.funs("package:plantR"), prune="haversine")
 # foodweb( find.funs("package:plantR"), prune="kable")
 # foodweb( find.funs("package:plantR"), prune="fixCase")
+# foodweb( find.funs("package:plantR"), prune="remove.authors")
 #
 # ## Lista de licensas por dependências
 # licensas <- vector("list", length(import))

@@ -1,42 +1,44 @@
 #' @title Get Last Name
 #'
-#' @description Extract the last name of the collector or determiner of a
-#'   biological specimen.
+#' @description Extract the last name of the collector or determiner
+#'   of a biological specimen.
 #'
 #' @param name the character string or vector containing the names.
 #' @param noName character. The standard notation for missing names in
 #'   \code{name}. Default to "s.n.".
-#' @param invert logical. Should first name(s) be returned instead of the
-#' last name? Default to FALSE.
-#' @param initials logical. If first name(s) are chosen, should they be returned
-#' in full or only their initials? Default to FALSE.
-#' @param first.capital logical. Should the name returned have only the first
-#' letter(s) capitalized or returned as provided? Default to TRUE.
+#' @param invert logical. Should first name(s) be returned instead of
+#'   the last name? Default to FALSE.
+#' @param initials logical. If first name(s) are chosen, should they
+#'   be returned in full or only their initials? Default to FALSE.
+#' @param first.capital logical. Should the name returned have only
+#'   the first letter(s) capitalized or returned as provided? Default
+#'   to TRUE.
 #'
 #' @return the last name provided in \code{name} with the first letter
 #'   capitalized.
 #'
-#' @details The function works for simple last names or compound last names,
-#'   independently if names are provided in lower or capital letters. It is
-#'   relatively stable to the format and spacing of the string provided, but it
-#'   may not work in all cases.
+#' @details The function works for simple last names or compound last
+#'   names, independently if names are provided in lower or capital
+#'   letters. It is relatively stable to the format and spacing of the
+#'   string provided, but it may not work in all cases.
 #'
-#'   It implicitly assumes that last names are (i) the ones provided at the end
-#'   of the name string if there is no comma, or (ii) the first name preceeding
-#'   the comma, if there is a comma in the name string. Few exceptions related
-#'   to names not in the 'first + last name' or 'last name + comma + first name'
-#'   formats (e.g. 'Hatschbach G.G.') are also considered.
+#'   It implicitly assumes that last names are (i) the ones provided
+#'   at the end of the name string if there is no comma, or (ii) the
+#'   first name preceding the comma, if there is a comma in the name
+#'   string. Few exceptions related to names not in the 'first + last
+#'   name' or 'last name + comma + first name' formats (e.g.
+#'   'Hatschbach G.G.') are also considered.
 #'
-#'   If only one name is given, the function returns the same name with the
-#'   first letter capitalized.
+#'   If only one name is given, the function returns the same name
+#'   with the first letter capitalized.
 #'
-#'   For missing names (i.e. "", " " or NAs) the function returns the character
-#'   defined by the argument `noName`.
+#'   For missing names (i.e. "", " " or NAs) the function returns the
+#'   character defined by the argument `noName`.
 #'
-#'   The function can also return all names but the last name detected by
-#'   setting the argument `invert` to TRUE. In this case, user can choose
-#'   between full first names and only their initials by setting the argument
-#'   `initials` to TRUE.
+#'   The function can also return all names but the last name detected
+#'   by setting the argument `invert` to TRUE. In this case, user can
+#'   choose between full first names and only their initials by
+#'   setting the argument `initials` to TRUE.
 #'
 #' @author
 #'   Renato A. F. de Lima & Hans ter Steege
@@ -97,9 +99,10 @@ lastName <- function(name,
 
   # preliminary edits:
   name <- gsub("[.]", ". ", name, perl = TRUE) # adding a space between points
-  name <- gsub("\\s+", " ", name, perl = TRUE)
-  name <- gsub("^ | $", "", name, perl = TRUE)
-  # name <- stringr::str_squish(name) # removing double and end spaces
+  name <- squish(name)
+
+  # Small, preliminary edits
+  name <- gsub("^, | ,$", "", name, perl = TRUE)
 
   # Defining the general name formats (single, mult. w/ comma, mult. w/out comma)
   comma <- grepl("\\p{L},", name[!miss.name], perl = TRUE)
@@ -112,7 +115,8 @@ lastName <- function(name,
     last.name[comma] <- gsub(",.*", "", last.name[comma], perl = TRUE)
 
   if (any(outros))
-    last.name[outros] <- gsub(".*\\s", "", last.name[outros], perl = TRUE)
+    last.name[outros] <- gsub(".*\\s", "", last.name[outros],
+                              perl = TRUE)
 
   # Detecting possible problems with abbreviated initials at the end of the name
   probs <- grepl("^\\p{L}\\.$", last.name, perl = TRUE)
@@ -133,12 +137,12 @@ lastName <- function(name,
   }
 
   # identifying names with generational suffixes
-  cp.nome <- rep("", length(last.name))
-  cp <- c("Filho", "Neto", "Jr.", "Junior", "Sobrinho") #compound names
+  cp <- c("Filho", "Neto", "Jr.", "Junior", "Sobrinho")
   cp <- c(cp, tolower(cp))
   gen.suf <- last.name %in% cp
 
   if (any(gen.suf)) {
+    cp.nome <- rep("", length(last.name))
 
     cp.nome[gen.suf] <- last.name[gen.suf]
     last.name[gen.suf] <- name[!miss.name][gen.suf]
@@ -162,19 +166,44 @@ lastName <- function(name,
       paste(last.name[gen.suf][!double.cp],
             cp.nome[gen.suf][!double.cp], sep = " ")
     last.name[gen.suf][double.cp] <- cp.nome[gen.suf][double.cp]
+  }
 
+  # identifying compound last names
+  cp <- c("Filho", "Neto", "Jr\\.", "Junior", "Sobrinho")
+  compound <- grepl(" ", last.name, fixed = TRUE) &
+                !grepl(paste(cp, collapse = "|"), last.name,
+                       perl = TRUE, ignore.case = TRUE)
+  if (any(compound)) {
+    extra.name <- comp.nome <- rep("", length(last.name))
+    comp.nome[compound] <- last.name[compound]
+
+    extra.name[compound] <- gsub("\\s.*", "", comp.nome[compound], perl = TRUE)
+    last.name[compound] <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                                 extra.name[compound], last.name[compound])
+    last.name[compound] <- squish(last.name[compound])
+
+    name[!miss.name][compound] <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+                          extra.name[compound], name[!miss.name][compound])
+    name[!miss.name][compound] <-
+      gsub("^, | ,$", "", name[!miss.name][compound], perl = TRUE)
+    name[!miss.name][compound] <-
+      squish(name[!miss.name][compound])
+    name[!miss.name][compound] <-
+      paste(name[!miss.name][compound], extra.name[compound])
   }
 
   if (invert) {
     # Keeping all but the last name(s)
-    other.names <- mapply(function(x, y) { gsub(x, "", y, fixed = TRUE) },
+    other.names <- mapply(function(x, y) {
+                          gsub(x, "", y, fixed = TRUE) },
                           last.name, name[!miss.name])
 
     # Inspecting the exceptions (compound names with abbreviations)
     check_these <- other.names == name[!miss.name] &
                       grepl(" ", last.name, fixed = TRUE)
     if (any(check_these)) {
-      last.name1 <- sapply(strsplit(last.name[check_these], " ", fixed),
+      last.name1 <- sapply(strsplit(last.name[check_these], " ",
+                                    fixed = TRUE),
                            stringr::str_c, collapse = "|")
       last.name1 <- gsub("(^\\p{Lu})(\\|)", " \\1$\\2", last.name1,
                          perl = TRUE)

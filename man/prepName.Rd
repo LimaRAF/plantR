@@ -69,33 +69,42 @@ into a standardized name format.
 }
 \details{
 The default name format is the one suggested by the
-\href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
-then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
-the names of multiple people associated to each record are separated by a
-pipe (i.e. '|'). But this default can be altered using the argument
-\code{sep.out}.
+\href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a
+comma and then the initials, separated by points (e.g.
+Hatschbach, G.G.). By default, the names of multiple people
+associated to each record are separated by a pipe (i.e. '|'). But
+this default can be altered using the argument \code{sep.out}.
 
-In the case of names from more then one person (separated by the characters
-defined in the argument \code{sep.in}, the argument \code{output} controls which
-names should be returned: names of all person ("all", the default), first
-person's names ("first") or all but the first person's names ("aux").
+In the case of names from more then one person (separated by the
+characters defined in the argument \code{sep.in}, the argument
+\code{output} controls which names should be returned: names of all
+person ("all", the default), first person's names ("first") or
+all but the first person's names ("aux").
 
-The function identifies (and removes) name prefixes or prepositions (e.g.
-de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
-Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). Users
-can use the \strong{plantR} default list of treatment prepositions (argument
-'treat.prep' = NULL; the default), their own list of prepositions or a
-combination of both (argument 'add.treat' = TRUE; the default). To inspect
-the \strong{plantR} default list of treatment prepositions please check
-the internal object 'treatPreps'.
+The function identifies (and removes) name prefixes or
+prepositions (e.g. de, dos, van, ter, ...). Also, it removes some
+titles (i.e. Dr., Dra., Pe., Sr., Mrs.), but not all of them
+(e.g. Doctor, Priest, Mister, etc.). Users can use the \strong{plantR}
+default list of treatment prepositions (argument 'treat.prep' =
+NULL; the default), their own list of prepositions or a
+combination of both (argument 'add.treat' = TRUE; the default).
+To inspect the \strong{plantR} default list of treatment prepositions
+please check the internal object 'treatPreps'.
 
-The function also does not handle hyphenated first names. If only one name
-is given, the function returns \code{x} with the first letter capitalized.
+The function also does not handle hyphenated first names. If only
+one name is given, the function returns \code{x} with the first
+letter capitalized.
 
-The function has the option of standardizing the general notation of names
-and the general format of names. These standardizations are controlled by
-the arguments \code{fix.names} and \code{prep.tdwg}, which call internally the
-\strong{plantR} functions \code{fixName()} and \code{prepTDWG()}.
+The function does deal with names fully inside brackets or
+parentheses (i.e '(John Doe)') but everything else after brackets
+or parentheses are removed from the name (i.e. 'John Doe (no.
+100)' becomes 'John Doe').
+
+The function has the option of standardizing the general notation
+of names and the general format of names. These standardizations
+are controlled by the arguments \code{fix.names} and \code{prep.tdwg},
+which call internally the \strong{plantR} functions \code{fixName()} and
+\code{prepTDWG()}.
 }
 \examples{
 

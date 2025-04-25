@@ -22,33 +22,42 @@
 #' @return The character string \code{x} in a standardized name format.
 #'
 #' @details The default name format is the one suggested by the
-#'   \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a comma and
-#'   then the initials, separated by points (e.g. Hatschbach, G.G.). By default,
-#'   the names of multiple people associated to each record are separated by a
-#'   pipe (i.e. '|'). But this default can be altered using the argument
-#'   `sep.out`.
+#'   \href{https://www.tdwg.org/}{TDWG} is: Last name, followed by a
+#'   comma and then the initials, separated by points (e.g.
+#'   Hatschbach, G.G.). By default, the names of multiple people
+#'   associated to each record are separated by a pipe (i.e. '|'). But
+#'   this default can be altered using the argument `sep.out`.
 #'
-#'   In the case of names from more then one person (separated by the characters
-#'   defined in the argument `sep.in`, the argument `output` controls which
-#'   names should be returned: names of all person ("all", the default), first
-#'   person's names ("first") or all but the first person's names ("aux").
+#'   In the case of names from more then one person (separated by the
+#'   characters defined in the argument `sep.in`, the argument
+#'   `output` controls which names should be returned: names of all
+#'   person ("all", the default), first person's names ("first") or
+#'   all but the first person's names ("aux").
 #'
-#'   The function identifies (and removes) name prefixes or prepositions (e.g.
-#'   de, dos, van, ter, ...). Also, it removes some titles (i.e. Dr., Dra., Pe.,
-#'   Sr., Mrs.), but not all of them (e.g. Doctor, Priest, Mister, etc.). Users
-#'   can use the __plantR__ default list of treatment prepositions (argument
-#'   'treat.prep' = NULL; the default), their own list of prepositions or a
-#'   combination of both (argument 'add.treat' = TRUE; the default). To inspect
-#'   the __plantR__ default list of treatment prepositions please check
-#'   the internal object 'treatPreps'.
+#'   The function identifies (and removes) name prefixes or
+#'   prepositions (e.g. de, dos, van, ter, ...). Also, it removes some
+#'   titles (i.e. Dr., Dra., Pe., Sr., Mrs.), but not all of them
+#'   (e.g. Doctor, Priest, Mister, etc.). Users can use the __plantR__
+#'   default list of treatment prepositions (argument 'treat.prep' =
+#'   NULL; the default), their own list of prepositions or a
+#'   combination of both (argument 'add.treat' = TRUE; the default).
+#'   To inspect the __plantR__ default list of treatment prepositions
+#'   please check the internal object 'treatPreps'.
 #'
-#'   The function also does not handle hyphenated first names. If only one name
-#'   is given, the function returns \code{x} with the first letter capitalized.
+#'   The function also does not handle hyphenated first names. If only
+#'   one name is given, the function returns \code{x} with the first
+#'   letter capitalized.
 #'
-#'   The function has the option of standardizing the general notation of names
-#'   and the general format of names. These standardizations are controlled by
-#'   the arguments `fix.names` and `prep.tdwg`, which call internally the
-#'   __plantR__ functions `fixName()` and `prepTDWG()`.
+#'   The function does deal with names fully inside brackets or
+#'   parentheses (i.e '(John Doe)') but everything else after brackets
+#'   or parentheses are removed from the name (i.e. 'John Doe (no.
+#'   100)' becomes 'John Doe').
+#'
+#'   The function has the option of standardizing the general notation
+#'   of names and the general format of names. These standardizations
+#'   are controlled by the arguments `fix.names` and `prep.tdwg`,
+#'   which call internally the __plantR__ functions `fixName()` and
+#'   `prepTDWG()`.
 #'
 #' @seealso
 #'  \link[plantR]{fixName}, \link[plantR]{lastName} and \link[plantR]{prepTDWG}.
@@ -134,10 +143,18 @@ prepName <- function(x,
   # name inside brackets or parentheses? removing here and adding after editions
   bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
   if (any(bracks))
-    x[bracks] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[bracks], perl = TRUE) #
+    x[bracks] <- gsub("^\\[|\\]$", "", x[bracks], perl = TRUE)
   parent <- grepl('^\\(', x, perl = TRUE) & grepl('\\)$', x, perl = TRUE)
   if (any(parent))
-    x[parent] <- gsub("^\\[|\\]$|^\\(|\\)$", "", x[parent], perl = TRUE) #
+    x[parent] <- gsub("^\\(|\\)$", "", x[parent], perl = TRUE)
+
+  # removing everything after brackets or parentheses
+  bracks1 <- grepl('\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
+  if (any(bracks1))
+    x[bracks1] <- gsub("\\[.*\\]", "", x[bracks1], perl = TRUE)
+  parent1 <- grepl('\\(', x, perl = TRUE) & grepl('\\)', x, perl = TRUE)
+  if (any(parent1))
+    x[parent1] <- gsub("\\(.*\\)", "", x[parent1], perl = TRUE)
 
   # Editing the general name notation
   if (fix.names)
@@ -181,7 +198,6 @@ prepName <- function(x,
   if (fix.names) {
     patt.split <- paste(sep.out1,
                         paste0(gsub("^ | $", "", sep.out1, perl = TRUE), "(?=\\p{Lu})"),
-                        # paste0(stringr::str_trim(sep.out1),"(?=[A-ZÀ-Ý])"),
                         sep = "|")
   } else {
     patt.split <- paste0(sep.in1, collapse = "|")
@@ -196,8 +212,9 @@ prepName <- function(x,
 
   if (output %in% c("all", "first")) {
     dt$V1 <- prepTDWG(dt$V1,
-                      format = format, pretty = pretty, get.prep = get.prep,
-                      get.initials = get.initials,)
+                      format = format, pretty = pretty,
+                      get.prep = get.prep,
+                      get.initials = get.initials)
   }
 
   if (output %in% c("all", "aux") & length(cols) > 1) {

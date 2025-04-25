@@ -70,11 +70,14 @@ validateDup <- function(occ.df,
                         print.rm = TRUE) {
 
   # check input:
-  if (!class(occ.df)[1] == "data.frame")
+  if (!inherits(occ.df, "data.frame"))
     stop("input object needs to be a data frame!")
 
   if (dim(occ.df)[1] == 0)
     stop("Input data frame is empty!")
+
+  # Checking the presence of reserved columns in the input dataset
+  occ.df <- checkColNames(occ.df, group = "validate.dups")
 
   # getTombo
   occ.df$numTombo <- getTombo(occ.df[, cat.code],

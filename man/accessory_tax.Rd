@@ -14,35 +14,40 @@ rmInfra(x)
 
 rmHyb(x)
 
-addRank(x, rank = NULL)
+addRank(x, rank = NULL, pretty.hyb = FALSE)
 }
 \arguments{
 \item{x}{a vector with scientific names to be standardized.}
 
 \item{rank}{the expression or symbol to be added between names.}
+
+\item{pretty.hyb}{should the hybrid symbol be added close to the
+epiteth? Defaults to FALSE}
 }
 \description{
-These accessory functions work for editing the notation of
-scientific names and are mainly used within \strong{plantR} function
-\code{fixSpecies()}.
+These accessory functions work for editing the
+notation of scientific names and are mainly used within
+\strong{plantR} function \code{fixSpecies()}.
 }
 \details{
-The functions \code{rmOpen()}, \code{rmInfra()}, and \code{rmHyb()} require only a
-vector of scientific names, while the function \code{addRank()} also requires a
-\code{rank} to be provided.
+The functions \code{rmOpen()}, \code{rmInfra()}, and \code{rmHyb()}
+require only a vector of scientific names, while the function
+\code{addRank()} also requires a \code{rank} to be provided.
 
-The function \code{rmOpen()} removes the open nomenclature 'cf.' and 'aff.'.
+The function \code{rmOpen()} removes the open nomenclature 'cf.' and
+'aff.'.
 
 The function \code{rmInfra()} removes the infra-specific ranks from
 varieties, sub-species and forms (e.g. 'var.', 'subsp.', 'f.')
 
 The function \code{rmHyb()} removes the hybrid symbol 'x'.
 
-The function \code{addRank()} does the opposite operation: it adds ranks, open
-nomenclature or hybrid symbols into scientific names. For this function if
-the number of ranks is equal to the number of names provided each rank is
-assigned to the corresponding name. If the number of ranks is different,
-the function silently uses the first rank for all names.
+The function \code{addRank()} does the opposite operation: it adds
+ranks, open nomenclature or hybrid symbols into scientific names.
+For this function if the number of ranks is equal to the number
+of names provided each rank is assigned to the corresponding
+name. If the number of ranks is different, the function silently
+uses the first rank for all names.
 }
 \examples{
 \dontrun{
@@ -57,7 +62,8 @@ rmInfra(c("Lindsaea lancea var. angulata",
 
 \dontrun{
 rmHyb(c("Blechnum ×antillanum", "Blechnum × antillanum",
-       "Blechnum x antillanum", "Blechnum X antillanum"))
+       "Blechnum x antillanum", "Blechnum X antillanum",
+       "× Blechnum antillanum"))
 }
 
 \dontrun{

@@ -1,53 +1,56 @@
 #' @title Confidence on Species Identification
 #'
-#' @description This function assigns different categories of confidence level
-#'   (i.e. high, medium, low or unknown) to the identification of species
-#'   records, based on the name of the person who provided the species
-#'   identification and on type specimens.
+#' @description This function assigns different categories of
+#'   confidence level (i.e. high, medium, low or unknown) to the
+#'   identification of species records, based on the name of the
+#'   person who provided the species identification and on type
+#'   specimens.
 #'
 #' @param x a data frame with the species records.
-#' @param col.names vector. A named vector containing the names of columns in
-#'   the input data frame for each of the information needed to assign
-#'   confidence levels to species identifications. Default to the __plantR__
-#'   output column names.
+#' @param col.names vector. A named vector containing the names of
+#'   columns in the input data frame for each of the information
+#'   needed to assign confidence levels to species identifications.
+#'   Default to the __plantR__ output column names.
 #' @param special.collector Logical. Specimens collected by the family
-#'   specialist but with empty determiner field, should be classified as high
-#'   confidence level? Default to TRUE.
-#' @param generalist Logical. Should family generalists be considered for
-#'   taxonomic validation? Default to FALSE.
-#' @param generalist.class Character. Confidence level to be assigned to family
-#'   generalists. Default to "medium".
+#'   specialist but with empty determiner field, should be classified
+#'   as high confidence level? Default to TRUE.
+#' @param generalist Logical. Should family generalists be considered
+#'   for taxonomic validation? Default to FALSE.
+#' @param generalist.class Character. Confidence level to be assigned
+#'   to family generalists. Default to "medium".
 #' @param other.records Character or Integer. The Confidence level (if
-#'   character) or the number of downgrading steps to be assigned to records
-#'   which are not preserved specimens. Default to NULL (all record types are
-#'   treated the same).
-#' @param miss.taxonomist Vector. Any missing combination of family x taxonomist
-#'   that should be added to the validation?
-#' @param taxonomist.list a data.frame containing the list of taxonomist names.
-#'   The default is "plantR", the internal `plantR` global database of plant
-#'   taxonomists (see Details).
-#' @param voucher.list Vector. One or more unique record identifiers (i.e.
-#'   combination of collection code and number) that should be flagged with a
-#'   high confidence level? Default to NULL.
-#' @param rec.ID Character. The name of the columns containing the unique record
-#' identifier (see function `getTombo()`). Default to 'numTombo'.
-#' @param noName Vector. One or more characters (in lower cases) with the
-#'   standard notation for missing data in the field 'det.name'. Default to some
-#'   typical notation found in herbarium data.
-#' @param top.det Numerical. How many of the top missing identifiers should be
-#'   printed? Default to 10.
-#' @param print logical. Should the table of missing identifiers be printed?
-#'   Default to TRUE.
+#'   character) or the number of downgrading steps to be assigned to
+#'   records which are not preserved specimens. Default to NULL (all
+#'   record types are treated the same).
+#' @param miss.taxonomist Vector. Any missing combination of family x
+#'   taxonomist that should be added to the validation?
+#' @param taxonomist.list a data.frame containing the list of
+#'   taxonomist names. The default is "plantR", the internal `plantR`
+#'   global database of plant taxonomists (see Details).
+#' @param voucher.list Vector. One or more unique record identifiers
+#'   (i.e. combination of collection code and number) that should be
+#'   flagged with a high confidence level? Default to NULL.
+#' @param rec.ID Character. The name of the columns containing the
+#'   unique record identifier (see function `getTombo()`). Default to
+#'   'numTombo'.
+#' @param noName Vector. One or more characters (in lower cases) with
+#'   the standard notation for missing data in the field 'det.name'.
+#'   Default to some typical notation found in herbarium data.
+#' @param top.det Numerical. How many of the top missing identifiers
+#'   should be printed? Default to 10.
+#' @param print logical. Should the table of missing identifiers be
+#'   printed? Default to TRUE.
 #'
 #' @details
-#' The input data frame \code{x} must contain at least the columns with the
-#' information on the record family and the name of the person that provided the
-#' species identification. Preferably, this data frame should also contain
-#' information on type specimens and collectors names. If the user provide a
-#' list of records to be flagged as having a high confidence level in the
-#' identification, the user must also provide the column where the record unique
-#' identifiers are stored. The names of these columns should be provided as a
-#' named vector to the argument `col.names`, as follows:
+#' The input data frame \code{x} must contain at least the columns
+#' with the information on the family of the species and the name of
+#' the person that provided the species identification. Preferably,
+#' this data frame should also contain information on type specimens
+#' and collectors names. If the user provide a list of records to be
+#' flagged as having a high confidence level in the identification,
+#' the user must also provide the column where the record unique
+#' identifiers are stored. The names of these columns should be
+#' provided as a named vector to the argument `col.names`, as follows:
 #'   - 'family': the botanical family (default: 'family.new')
 #'   - 'det.name': the identifier name (default: 'identifiedBy.new')
 #'   - 'col.name': the collector name (default: 'recordedBy.new')
@@ -55,75 +58,91 @@
 #'   - 'rec.ID': the collector serial number (default: 'numTombo')
 #'   - 'rec.type': the type of record (default: 'basisOfRecord')
 #'
-#' As for other functions in __plantR__, using a data frame \code{x} that has
-#' already passed by the editing steps of the __plantR__ workflow should result
-#' in more accurate outputs.
+#' As for other functions in __plantR__, using a data frame \code{x}
+#' that has already passed by the editing steps of the __plantR__
+#' workflow should result in more accurate outputs.
 #'
-#' The function classifies as high confidence level all records whose species
-#' identifications were performed by a family specialist or any type specimens
-#' (isotype, paratypes, etc). By default, the names of family specialists are
-#' obtained from a global list of about 8,500 plant taxonomists names
-#' constructed by Lima et al. (2020) and provided with __plantR__. This
-#' list was built based on information from the
-#' [Harvard University Herbaria](http://kiki.huh.harvard.edu/databases), the
-#' [Brazilian Herbaria Network](http://www.botanica.org.br/rbh) and the
-#' [American Society of Plant Taxonomists](https://members.aspt.net).
-#' The dictionary was manually complemented for missing names of taxonomists and
-#' it includes common variants of taxonomists names (e.g., missing initials,
-#' typos, married or maiden names).
+#' The output of the function contains a new column called 'tax.check'
+#' with the categories of confidence level in species identifications,
+#' which are 'high', 'medium', 'low' or 'unknown' (in a decreasing
+#' order of confidence). The category 'unknown' means that the
+#' assignment of the confidence levels could not be done because the
+#' information in the column 'det.name' in argument `col.names` was
+#' either empty or equal to what is defined by the argument `noName`
+#' (e.g. "anonymous", "incognito", "unknown", "s.d.", "s.n.").
 #'
-#' If a column containing the Darwin Core field 'basisOfRecord' or equivalent is
-#' provided ('rec.type' in argument `col.names`), then by default, __all
-#' occurrences that are not preserved specimens (i.e. human/machine
-#' observations, photos, living specimens, etc.) are classified as having a low
-#' confidence level__.
+#' The function classifies as high confidence level all records whose
+#' species identifications were performed by a family specialist or
+#' any type specimens (isotype, paratypes, etc). By default, the names
+#' of family specialists are obtained from a global list of about
+#' 8,500 plant taxonomists names constructed by Lima et al. (2020) and
+#' provided with __plantR__. This list was mainly built based on information
+#' from the [Harvard University Herbaria](http://kiki.huh.harvard.edu/databases),
+#' the [Brazilian Herbaria Network](http://www.botanica.org.br/rbh) and
+#' the [American Society of Plant Taxonomists](https://members.aspt.net).
+#' The dictionary was manually complemented for missing names of
+#' taxonomists and it includes common variants of taxonomists names
+#' (e.g., missing initials, typos, married or maiden names).
 #'
-#' Some specimens are collected by a specialist of the family, but the
-#' identifier information is missing. By default, we assume the same confidence
-#' level for these specimens as that assigned for specimens where the identifier
-#' is the family specialist. But users can choose otherwise by setting the
-#' argument `special.collector` to FALSE.
+#' If a column containing the Darwin Core field 'basisOfRecord' or
+#' equivalent is provided ('rec.type' in argument `col.names`), then
+#' by default, __all occurrences that are not preserved specimens
+#' (i.e. human/machine observations, photos, living specimens, etc.)
+#' are classified as having a low confidence level__.
 #'
-#' The arguments `generalist` and `generalist.class` define if taxonomists that
-#' provide identifications for many different families outside his specialty,
-#' often referred to as a generalist, should be considered in the validation and
-#' under which confidence level. There are some names of generalists in the
-#' __plantR__ default taxonomist database; however, this list of generalist
-#' names is currently biased towards plant collectors in South America,
+#' Some records are collected by a specialist of the family, but the
+#' the name of the person that provided the species identification is
+#' missing. By default, we assume the same confidence level for these
+#' records as that assigned for records where the identifier is
+#' the family specialist. But users can choose otherwise by setting
+#' the argument `special.collector` to FALSE.
+#'
+#' The arguments `generalist` and `generalist.class` define if
+#' taxonomists that provide identifications for many different
+#' families outside his specialty, often referred to as a generalist,
+#' should be considered in the validation and under which confidence
+#' level. There are some names of generalists in the __plantR__
+#' default taxonomist database; however, this list of generalist names
+#' is currently biased towards plant collectors in South America,
 #' particularly in Brazil.
 #'
-#' The argument `other.records` controls what to do with types of records which
-#' are not preserved specimens (Darwin Core field
-#' [basisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord)). If the argument
-#' is NULL (default), all record types are treated the same. Users can set the
-#' argument to one of the confidence levels (i.e. 'unknown', 'low', 'medium' or
-#' 'high') to assign the same class for all non preserved specimens or to a
-#' value (i.e., 1 or 2), which correspond to the number of downgrading steps
-#' among levels. For instance, if `other.records` is one, the 'high' level
-#' becomes 'medium' and the 'medium' level becomes 'low' ('unknown' and 'low'
-#' levels remain the same).
+#' The argument `other.records` controls what to do with types of
+#' records which are not preserved specimens (Darwin Core field
+#' [basisOfRecord](http://rs.tdwg.org/dwc/terms/basisOfRecord)). If
+#' the argument is NULL (default), all record types are treated the
+#' same, that is they receive a low confidence level. But users can set
+#' the argument to any of the confidence levels (i.e. 'unknown',
+#' 'low', 'medium' or 'high') to assign the same class for all non
+#' preserved specimens or to a value (i.e., 1 or 2), which correspond
+#' to the number of downgrading steps among levels. For instance, if
+#' `other.records` is one, the 'high' level becomes 'medium' and the
+#' 'medium' level becomes 'low' ('unknown' and 'low' levels remain the
+#' same).
 #'
-#' If you miss the validation from one or more taxonomists, you can include them
-#' using the argument `miss.taxonomist`. The format should be:
-#' the name of the family of specialty followed by an underscore and then
-#' the taxonomist name in the TDWG format (e.g. "Bignoniaceae_Gentry, A.H.").
+#' If you miss the validation from one or more taxonomists, you can
+#' include them using the argument `miss.taxonomist`. The format
+#' should be: the name of the family of specialty followed by an
+#' underscore and then the taxonomist name in the TDWG format (e.g.
+#' "Bignoniaceae_Gentry, A.H.").
 #'
-#' A database of taxonomists different than the `plantR` default can be used.
-#' This database must be provided using the argument `taxonomist.list` and it
-#' must contain the columns 'family' and 'tdwg.name'. The first column is the
-#' family of specialty of the taxonomist and the second one is her/his name in
-#' the TDWG format. See `plantR` function `prepName()` on how to get names in
-#' the TDWG format from a list of people's names.
+#' A database of taxonomists different than the `plantR` default can
+#' be used. This database must be provided using the argument
+#' `taxonomist.list` and it must contain the columns 'family' and
+#' 'tdwg.name'. The first column is the family of specialty of the
+#' taxonomist and the second one is her/his name in the TDWG format.
+#' See `plantR` function `prepName()` on how to get names in the TDWG
+#' format from a list of people's names.
 #'
-#' Finally, the user can provide a list of records that should be flagged as
-#' having a high confidence level on their identification. This list should be
-#' provided using the argument `voucher.list` and the information that should be
-#' provided is the record unique identifier (i.e. combination of collection code
-#' and number). It is important that the way in which the list of unique
-#' identifiers was generated matches the one used to construct the the
-#' identifiers in the input data frame \code{x} (see help of function
-#' `getTombo()`). If a list of records is provided, the user must also
-#' provide a valid column name in \code{x} containing the unique record
+#' Finally, the user can provide a list of records that should be
+#' flagged as having a high confidence level on their identification.
+#' This list should be provided using the argument `voucher.list` and
+#' the information that should be provided is the record unique
+#' identifier (i.e. combination of collection code and number). It is
+#' important that the way in which the list of unique identifiers was
+#' generated matches the one used to construct the the identifiers in
+#' the input data frame \code{x} (see help of function `getTombo()`).
+#' If a list of records is provided, the user must also provide a
+#' valid column name in \code{x} containing the unique record
 #' identifiers in `col.names`.
 #'
 #' @return The input data frame \code{x}, plus a new column 'tax.check'
@@ -181,11 +200,14 @@ validateTax <- function(x, col.names = c(family = "family.new",
                         print = TRUE) {
 
   #Checking the input
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!")
+
+  # Checking the presence of reserved columns in the input dataset
+  x <- checkColNames(x, group = "validate.tax")
 
   #list of column names in the data
   id.cols <- col.names %in% names(x)
@@ -219,6 +241,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
   if (all(taxonomist.list %in% c("plantR", "plantr"))) {
 
     autores <- taxonomists
+    autores$order <- 1:dim(autores)[1]
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
                      by.x = "family", by.y = "name", all.x = TRUE)
@@ -226,10 +249,12 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
   } else {
 
-    if(!class(taxonomist.list) == "data.frame")
+    if (!inherits(taxonomist.list, "data.frame"))
       stop("The list of taxonomists must be provided as a data frame")
-    if(!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
+
+    if (!all(c("family", "tdwg.name") %in% names(taxonomist.list)))
       stop("The list of taxonomists must contain at least two columns: 'family' and 'tdwg.name'")
+
     autores <- taxonomist.list
     autores <- merge(autores,
                      families.apg[, c("name", "name.correct")],
@@ -238,12 +263,15 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
   if(!generalist) {
 
-    autores <- autores[!grepl('Generalist', autores$family, fixed = TRUE),]
+    autores <-
+      autores[!grepl('Generalist', autores$family, fixed = TRUE),]
 
   } else {
 
-    generalists <- autores[grepl('Generalist', autores$family, fixed = TRUE),]
-    autores <- autores[!grepl('Generalist', autores$family, fixed = TRUE),]
+    generalists <-
+      autores[grepl('Generalist', autores$family, fixed = TRUE),]
+    autores <-
+      autores[!grepl('Generalist', autores$family, fixed = TRUE),]
 
   }
 
@@ -259,17 +287,13 @@ validateTax <- function(x, col.names = c(family = "family.new",
     tmp <- tmp [!tmp %in% combo]
     combo <- c(combo, tmp)
   }
-  # combo <- stringr::str_squish(combo)
-  combo <- gsub("\\s+", " ", combo, perl = TRUE)
-  combo <- gsub("^ | $", "", combo, perl = TRUE)
+  combo <- squish(combo)
 
   #Getting the unique family-specialist combinations for each occurrence
   #dt <- data.table::data.table(x) # not using data.table for now
   combo.occs <- paste(x[ ,cols["family"]],
                       x[ ,cols["det.name"]], sep = "_")
-  # combo.occs <- stringr::str_squish(combo.occs)
-  combo.occs <- gsub("\\s+", " ", combo.occs, perl = TRUE)
-  combo.occs <- gsub("^ | $", "", combo.occs, perl = TRUE)
+  combo.occs <- squish(combo.occs)
 
   #Crossing the occurrence and reference family-specialist combinations
   x$tax.check <- combo.occs %in% combo
@@ -296,9 +320,7 @@ validateTax <- function(x, col.names = c(family = "family.new",
 
       combo2 <- paste(x[, cols["family"]],
                       x[, cols["col.name"]], sep = "_")
-      # combo2 <- stringr::str_squish(combo2)
-      combo2 <- gsub("\\s+", " ", combo2, perl = TRUE)
-      combo2 <- gsub("^ | $", "", combo2, perl = TRUE)
+      combo2 <- squish(combo2)
 
       #Crossing the occurrence and reference family-specialist combinations
       tax.check1 <- combo2 %in% combo

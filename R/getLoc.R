@@ -124,7 +124,7 @@ getLoc <- function(x,
                    orig.names = FALSE) {
 
   ## check input:
-  if (!class(x) == "data.frame")
+  if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")
 
   ## Checking input data and columns names
