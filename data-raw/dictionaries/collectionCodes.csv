@@ -88,7 +88,7 @@ HERB_BH,HERB,BH,BH,Cornell University,NA
 HERB_BHCB,HERB,BHCB,BHCB,Universidade Federal de Minas Gerais,NA
 LIMO_BIBLIMO,LIMO,BIBLIMO,LIMO,Université de Limoges,NA
 FBIGA_BIGA,FBIGA,BIGA,LOU,AGACAL. Xunta de Galicia,NA
-BIHM_BIHM,7,BIHM,BIHM,NA,not in IH
+BIHM_BIHM,7.0,BIHM,BIHM,NA,not in IH
 BIO_BIO,BIO,BIO,BIO,University of the Basque Country (UPV/EHU),NA
 WIKILIG_BIO-UNIPI,WIKILIG,BIO-UNIPI,PI,Università di Pisa,NA
 WIKISAR_BIO-UNIPI,WIKISAR,BIO-UNIPI,PI,Università di Pisa,NA
@@ -375,7 +375,7 @@ Meebold_HBG,Meebold,HBG,HBG,University of Hamburg,NA
 Ule_nummeriert_HBG,Ule_nummeriert,HBG,HBG,University of Hamburg,NA
 ULEsinenumero_HBG,ULEsinenumero,HBG,HBG,University of Hamburg,NA
 HERB_HBR,HERB,HBR,HBR,Herbário Barbosa Rodrigues,NA
-HCM_HCM,56,HCM,HCM,NA,not in IH
+HCM_HCM,56.0,HCM,HCM,NA,not in IH
 Sp_HCSM,Sp,HCSM,HCSM,NA,not in IH
 COAH_Herbario Amazónico Colombiano,COAH,Herbario Amazónico Colombiano,COAH,Instituto Amazónico de Investigaciones Científicas SINCHI,NA
 HUIS_Herbario de la Universidad Industrial de Santander,HUIS,Herbario de la Universidad Industrial de Santander,UIS,Universidad Industrial de Santander,NA
@@ -711,7 +711,7 @@ BOT_NHMUK,BOT,NHMUK,BM,The Natural History Museum,NA
 Botany_NHMUK,Botany,NHMUK,BM,The Natural History Museum,NA
 PAL_NHMUK,PAL,NHMUK,BM,The Natural History Museum,NA
 ZOO_NHMUK,ZOO,NHMUK,BM,The Natural History Museum,NA
-NHT_NHT,6,NHT,NHT,Tropical Pesticides Research Institute,NA
+NHT_NHT,6.0,NHT,NHT,Tropical Pesticides Research Institute,NA
 PL_NIBR,PL,NIBR,KB,National Institute of Biological Resources,NA
 NIM_NIM,NIM,NIM,NIM,Museum d'histoire naturelle de Nîmes,NA
 NLD_NLD,NLD,NLD,EURISCO,NA,ex_situ_collection
@@ -1089,7 +1089,7 @@ LEA_University of Lethbridge,LEA,University of Lethbridge,LEA,University of Leth
 WIN_University of Manitoba,WIN,University of Manitoba,WIN,University of Manitoba,NA
 JOI_UNIVILLE,JOI,UNIVILLE,JOI,Universidade da Região de Joinville - Univille,NA
 JOIW_UNIVILLE,JOIW,UNIVILLE,JOIw,Universidade da Região de Joinville - Univille,NA
-17126_unknown,17126,unknown,17126,NA,not in IH
+17126_unknown,17126.0,unknown,17126.0,NA,not in IH
 UNM_UNM,UNM,UNM,UNM,University of New Mexico,NA
 HERB_UNR,HERB,UNR,UNR,Universidad Nacional de Rosario,NA
 BBB_UNS,BBB,UNS,BBB,Universidad Nacional del Sur,NA

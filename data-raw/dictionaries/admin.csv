@@ -12326,8 +12326,10 @@ gdam,costa rica_alajuela_san carlos,CR,Costa Rica,Alajuela,San Carlos,NA
 gbif_gsg,costa rica_alajuela_san carlos_pital,NA,costa rica,alajuela,pital,NA
 gdam,costa rica_alajuela_san mateo,CR,Costa Rica,Alajuela,San Mateo,NA
 gdam,costa rica_alajuela_san ramon,CR,Costa Rica,Alajuela,San Ramón,NA
+gbif_gsg,costa rica_alajuela_san ramon_penas blancas,NA,costa rica,alajuela,penas blancas,NA
 gdam,costa rica_alajuela_upala,CR,Costa Rica,Alajuela,Upala,NA
 gbif_gsg,costa rica_alajuela_upala_aguas claras,NA,costa rica,Alajuela,Upala,Aguas Claras
+gbif_gsg,costa rica_alajuela_upala_bijagua,NA,costa rica,alajuela,bijagua,NA
 gdam,costa rica_alajuela_valverde vega,CR,Costa Rica,Alajuela,Valverde Vega,NA
 gdam,costa rica_cartago,CR,Costa Rica,Cartago,NA,NA
 gdam,costa rica_cartago_alvarado,CR,Costa Rica,Cartago,Alvarado,NA
@@ -12414,8 +12416,6 @@ gdam,costa rica_san jose_tarrazu,CR,Costa Rica,San José,Tarrazú,NA
 gdam,costa rica_san jose_tibas,CR,Costa Rica,San José,Tibás,NA
 gdam,costa rica_san jose_turrubares,CR,Costa Rica,San José,Turrubares,NA
 gdam,costa rica_san jose_vasquez coronado,CR,Costa Rica,San José,Vásquez de Coronado,NA
-gbif_gsg,costa_rica_alajuela_san ramon_penas blancas,NA,costa rica,alajuela,penas blancas,NA
-gbif_gsg,costa_rica_alajuela_upala_bijagua,NA,costa rica,alajuela,bijagua,NA
 gdam,cote ivoire,CI,Côte d'Ivoire,NA,NA,NA
 gdam,croatia,HR,Croatia,NA,NA,NA
 gdam,cuba,CU,Cuba,NA,NA,NA
