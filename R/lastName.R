@@ -117,6 +117,7 @@ lastName <- function(name,
   if (any(outros))
     last.name[outros] <- gsub(".*\\s", "", last.name[outros],
                               perl = TRUE)
+  last.name <- squish(last.name)
 
   # Detecting possible problems with abbreviated initials at the end of the name
   probs <- grepl("^\\p{L}\\.$", last.name, perl = TRUE)

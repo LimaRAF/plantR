@@ -140,10 +140,8 @@ which call internally the \strong{plantR} functions \code{fixName()} and
   prepName("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
 
   # Multiple names separated by commas
-  prepName("A. Alvarez, A. Zamora & V. Huaraca") # output correct
-  prepName("Alvarez, A., Zamora, A., Huaraca, V.") # output incorrect
-  prepName("Alvarez, A., Zamora, A. & Huaraca, V.") # output incorrect
-  prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,", "&")) # output correct
+  prepName("A. Alvarez, A. Zamora & V. Huaraca")
+  prepName("Alvarez, A., Zamora, A., Huaraca, V.")
 
 }
 \references{
