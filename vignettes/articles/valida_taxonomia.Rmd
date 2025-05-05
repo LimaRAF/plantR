@@ -60,13 +60,13 @@ However, any taxonomic backbone can be used, as long as it has a
 specific content and format. The companion R package __plantRdata__
 provides other backbones already in this specific format from the
 [World Flora Online](https://www.worldfloraonline.org/), the 
-[World Checklist of Vascular Plants](https://powo.science.kew.org/) and
-[GBIF](https://www.gbif.org/).
+[World Checklist of Vascular Plants](https://powo.science.kew.org/) 
+and [GBIF](https://www.gbif.org/).
 
 To simplify the process, the management of taxonomic nomenclature in
 __plantR__ can be simply done using the wrapper function `formatTax()`
-(see the section [Brief code summary] below). But first, we will explain in
-detail each step and function to manage taxonomy within __plantR__.
+(see the section [Brief code summary] below). But first, we will explain 
+in detail each step and function to manage taxonomy within __plantR__.
 These functions can be applied individually, as we will show below,
 but the management of taxonomic nomenclature is potentialised when
 they are executed in a specific order.
@@ -75,7 +75,8 @@ they are executed in a specific order.
 
 # Installing __plantR__
 
-The package __plantR__ can be installed and loaded from [GitHub](https://github.com/LimaRAF/plantR) with the following codes (this may take a minute or two):
+The package __plantR__ can be installed and loaded from [GitHub](https://github.com/LimaRAF/plantR) 
+with the following codes (this may take a minute or two):
 ```{r, eval = FALSE}
 if (!requireNamespace("remotes")) 
   install.packages("remotes")
@@ -86,7 +87,10 @@ if (!requireNamespace("plantR"))
 library("plantR")
 ```
 
-For this tutorial, we will also need the global taxonomic backbones available from the companion R package __plantRdata__. Installing this package takes 10-15 minutes because it stores some large files (>10 MB). But this step is done just once.
+For this tutorial, we will also need the global taxonomic backbones 
+available from the companion R package __plantRdata__. Installing this 
+package takes a couple of minutes as well because it stores some large 
+files (>10 MB).
 ```{r, eval = FALSE}
 install_github("LimaRAF/plantRdata")
 ```
@@ -226,19 +230,27 @@ By default, `prepSpecies()` uses the internal backbone from the
 But any backbone in the right format can be provided by the user via
 the argument `db` of `prepSpecies()`. The __plantRdata__ package,
 available only on GitHub at [this link](https://github.com/LimaRAF/plantRdata), 
-provides preformatted objects with backbones from different sources.
+provides preformatted objects with backbones from different sources. 
+From __plantRdata__ we are going to use two other taxonomic backbones 
+from the [World Flora Online](https://www.worldfloraonline.org/) and 
+the [World Checklist of Vascular Plants](https://powo.science.kew.org/) 
+(use `?wfoNames` and `?wcvpNames` for details on those backbones).
 
 ```{r prepSpecies_other, eval = TRUE, collapse = TRUE}
+# loading the WFO and WCVP backbones into a temporary environment
+temp.env <- new.env(parent = emptyenv())
+data(list = c("wfoNames", "wcvpNames"), package = "plantRdata", 
+     envir = temp.env)
 # using the World Flora Online
 names_valid_wfo <- prepSpecies(names_fixed,
                                tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"),
-                               db = plantRdata::wfoNames)
+                               db = temp.env$wfoNames)
 # using the World Checklist of Vascular Plants
 names_valid_wcvp <- prepSpecies(names_fixed,
                                 tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"),
-                                db = plantRdata::wcvpNames)
+                                db = temp.env$wcvpNames)
 # Comparing the results
 names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
                                   names_valid$scientificNameFull,
@@ -307,7 +319,9 @@ names of the genera, in the new column called 'family.new'.
 In this tutorial, we described many steps and details related to the
 functions that manage taxonomy within __plantR__. Here we provide the
 main codes that you actually need to include in your scripts, assuming
-that you already created the vector of taxon names called `names`:
+that you already created the vector of taxon names called `names` and 
+that you only want to validate it against the 
+[Flora e Funga do Brasil](https://floradobrasil.jbrj.gov.br/consulta):
 
 ```{r code_summary, eval = TRUE, collapse = TRUE}
 names_fixed <- fixSpecies(names)

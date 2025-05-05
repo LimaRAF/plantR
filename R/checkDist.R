@@ -110,6 +110,7 @@
 #' @importFrom dplyr left_join
 #' @importFrom stringr str_replace_all fixed
 #' @importFrom stats setNames
+#' @importFrom utils data
 #'
 #' @export checkDist
 
@@ -289,12 +290,15 @@ checkDist <- function(x,
       stop("Please install 'plantRdata' to use this feature")
 
     wcvp_lookup <- botanicalCountries
-    wcvpNames <-
-      plantRdata::wcvpNames[, c("tax.name", "tax.authorship",
-                                "taxon.distribution")]
-
-    wcvpNames <- wcvpNames[!duplicated(paste(wcvpNames$tax.name,
-                                             wcvpNames$tax.authorship)), ]
+    temp.env <- new.env(parent = emptyenv())
+    utils::data(list = c("wcvpNames"), package = "plantRdata",
+                envir = temp.env)
+    temp.env$wcvpNames <- temp.env$wcvpNames[, c("tax.name",
+                                                 "tax.authorship",
+                                                 "taxon.distribution")]
+    temp.env$wcvpNames <- temp.env$wcvpNames[!duplicated(paste(
+      temp.env$wcvpNames$tax.name,
+      temp.env$wcvpNames$tax.authorship)),]
 
     x1$level3 <- prepLoc(sub(paste0(sep, ".*"), "", x1[[loc]], perl = TRUE))
     x1$level4 <- prepLoc(gsub(paste0("^[^", sep,
@@ -306,7 +310,7 @@ checkDist <- function(x,
     x1$level4[!grepl(sep, x1[[loc]], fixed = TRUE)] <- NA
 
     x1 <- dplyr::left_join(x1,
-                           wcvpNames,
+                           temp.env$wcvpNames,
                            by = setNames("tax.name", tax.name),
                            keep = TRUE)
 

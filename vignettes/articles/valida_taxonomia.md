@@ -54,8 +54,8 @@ library("plantR")
 
 For this tutorial, we will also need the global taxonomic backbones
 available from the companion R package **plantRdata**. Installing this
-package takes 10-15 minutes because it stores some large files (\>10
-MB). But this step is done just once.
+package takes a couple of minutes as well because it stores some large
+files (\>10 MB).
 
 ``` r
 install_github("LimaRAF/plantRdata")
@@ -190,22 +190,14 @@ names_valid <- prepSpecies(names_fixed,
                            tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"))
 head(names_valid[,-c(2,3,4,9,11)], 7)
-#>               scientificName scientificNameStatus suggestedFamily
-#> 1               Lindsaea sp.                indet    Lindsaeaceae
-#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae
-#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae
-#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae
-#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae
-#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae
-#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae
-#>     suggestedName suggestedAuthorship        tax.notes
-#> 1        Lindsaea           Pic.Serm.    name accepted
-#> 2    Lindsaeaceae             C.Presl    name accepted
-#> 3 Lindsaea lancea          (L.) Bedd.    name accepted
-#> 4 Lindsaea lancea          (L.) Bedd.  name misspelled
-#> 5 Lindsaea lancea          (L.) Bedd. replaced synonym
-#> 6 Lindsaea lancea          (L.) Bedd.    name accepted
-#> 7 Lindsaea lancea          (L.) Bedd.    name accepted
+#>               scientificName scientificNameStatus suggestedFamily   suggestedName suggestedAuthorship        tax.notes
+#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea           Pic.Serm.    name accepted
+#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae             C.Presl    name accepted
+#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
+#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.  name misspelled
+#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd. replaced synonym
+#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
+#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
 #>           scientificNameFull
 #> 1         Lindsaea Pic.Serm.
 #> 2       Lindsaeaceae C.Presl
@@ -240,18 +232,26 @@ backbone in the right format can be provided by the user via the
 argument `db` of `prepSpecies()`. The **plantRdata** package, available
 only on GitHub at [this link](https://github.com/LimaRAF/plantRdata),
 provides preformatted objects with backbones from different sources.
+From **plantRdata** we are going to use two other taxonomic backbones
+from the [World Flora Online](https://www.worldfloraonline.org/) and the
+[World Checklist of Vascular Plants](https://powo.science.kew.org/) (use
+`?wfoNames` and `?wcvpNames` for details on those backbones).
 
 ``` r
+# loading the WFO and WCVP backbones into a temporary environment
+temp.env <- new.env(parent = emptyenv())
+data(list = c("wfoNames", "wcvpNames"), package = "plantRdata", 
+     envir = temp.env)
 # using the World Flora Online
 names_valid_wfo <- prepSpecies(names_fixed,
                                tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"),
-                               db = plantRdata::wfoNames)
+                               db = temp.env$wfoNames)
 # using the World Checklist of Vascular Plants
 names_valid_wcvp <- prepSpecies(names_fixed,
                                 tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"),
-                                db = plantRdata::wcvpNames)
+                                db = temp.env$wcvpNames)
 # Comparing the results
 names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
                                   names_valid$scientificNameFull,
@@ -260,14 +260,14 @@ names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
 diff <- names_valid$scientificNameFull != names_valid_wfo$scientificNameFull
 diff[is.na(diff)] <- FALSE
 head(names_bfo_wfo_wcvp[diff, ], 3)
-#>   names_valid$scientificName.new names_valid$scientificNameFull
-#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.
-#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl
-#> 5                Lindsaea pumila     Lindsaea lancea (L.) Bedd.
-#>   names_valid_wfo$scientificNameFull names_valid_wcvp$scientificNameFull
-#> 1            Lindsaea Dryand. ex Sm.             Lindsaea Dryand. ex Sm.
-#> 2           Lindsaeaceae M.R.Schomb.                    Lindsaeaceae sp.
-#> 5        Asplenium dielerectum Viane         Asplenium dielerectum Viane
+#>   names_valid$scientificName.new names_valid$scientificNameFull names_valid_wfo$scientificNameFull
+#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.            Lindsaea Dryand. ex Sm.
+#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl           Lindsaeaceae M.R.Schomb.
+#> 5                Lindsaea pumila     Lindsaea lancea (L.) Bedd.        Asplenium dielerectum Viane
+#>   names_valid_wcvp$scientificNameFull
+#> 1             Lindsaea Dryand. ex Sm.
+#> 2                    Lindsaeaceae sp.
+#> 5         Asplenium dielerectum Viane
 ```
 
 Note that the computing speed when using larger backbones (over a
@@ -329,7 +329,9 @@ the genera, in the new column called ‘family.new’.
 In this tutorial, we described many steps and details related to the
 functions that manage taxonomy within **plantR**. Here we provide the
 main codes that you actually need to include in your scripts, assuming
-that you already created the vector of taxon names called `names`:
+that you already created the vector of taxon names called `names` and
+that you only want to validate it against the [Flora e Funga do
+Brasil](https://floradobrasil.jbrj.gov.br/consulta):
 
 ``` r
 names_fixed <- fixSpecies(names)
