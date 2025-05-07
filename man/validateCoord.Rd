@@ -52,20 +52,21 @@ Default to 'loc.correct'}
 \item{tax.name}{character. Name of the columns containing the species name.
 Default to "scientificName.new"}
 
-\item{tax.author}{character. The name of the column containing the taxon name
-authorship. Default to "scientificNameAuthorship".}
+\item{tax.author}{character. The name of the column containing the
+taxon name authorship. Default to "scientificNameAuthorship".}
 
-\item{sep}{character. The separator defining different administrative levels
-in both location and known distribution columns. (e.g.,
-"country_state_municipality_locality"). \code{sep} can be one of \code{"_"},
-\code{"/"}, or \code{"|"}. Default to \code{"_"}.}
+\item{sep}{character. The separator defining different
+administrative levels in both location and known distribution
+columns. (e.g., "country_state_municipality_locality"). \code{sep} can
+be one of \code{"_"}, \code{"/"}, or \code{"|"}. Default to
+\code{"_"}.}
 
-\item{loc}{character. The name of the column containing the record location.
-Default to "loc.correct".}
+\item{loc}{character. The name of the column containing the record
+location. Default to "loc.correct".}
 
-\item{source}{character or \code{data.frame}. Source to be consulted for known
-distribution information. One of "bfo", "wcvp", or a user-defined
-\code{data.frame}. Default to "bfo".}
+\item{source}{character or \code{data.frame}. Source to be consulted for
+known distribution information. One of "bfo", "wcvp", or a
+user-defined \code{data.frame}. Default to "bfo".}
 
 \item{output}{a character string with the type of output desired: 'new.col'
 (columns with the new results for each type of validation added to the

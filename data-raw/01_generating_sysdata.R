@@ -383,7 +383,7 @@ names(statesBR) <- c("acre", "alagoas", "amapa", "amazonas", "bahia", "ceara",
                       "santa catarina", "sao paulo", "sergipe", "tocantins")
 
 # Saving data
-usethis::use_data(admin,
+usethis::use_data(admin,# salvar Admin no plantRdata ou como inst/extdata?
                   collectionCodes,
                   familiesSynonyms,
                   fieldNames,
