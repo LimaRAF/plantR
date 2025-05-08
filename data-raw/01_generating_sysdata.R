@@ -309,7 +309,8 @@ simpGeoCheck <- c(
 
 ## Conversion table for the TDWG Botanical Countries
 # Download botanical countries (level3)
-url1 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
+# url1 <- "https://github.com/tdwg/wgsrpd/refs/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
+url1 <- "https://raw.githubusercontent.com/tdwg/wgsrpd/refs/heads/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
 zip <- paste0("wcvp", ".zip")
 path <- file.path(here::here(), "data-raw", zip)
 path1 <- gsub("\\.zip", "_dist.txt", path)
@@ -319,7 +320,8 @@ level3 <- read.table(path1, sep = "*", fileEncoding = "Latin1",
                      quote = "", fill = TRUE)
 unlink(path1)
 # Download subdivision of botanical countries (level4)
-url2 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
+# url2 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
+url2 <- "https://github.com/tdwg/wgsrpd/raw/refs/heads/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
 path2 <- gsub("\\.zip", "_dist1.txt", path)
 utils::download.file(url = url2, destfile = path2, mode = "wb")
 level4 <- read.table(path2, sep = "*", fileEncoding = "Latin1",
@@ -368,6 +370,7 @@ level_all1$taxon.distribution.bru <-
 # level_all1$taxon.distribution.bc <-
 #   substr(level_all1$taxon.distribution.bc, 1, 20)
 botanicalCountries <- level_all1
+row.names(botanicalCountries) <- NULL
 
 # Brazilian states
 statesBR <- c(
@@ -382,8 +385,14 @@ names(statesBR) <- c("acre", "alagoas", "amapa", "amazonas", "bahia", "ceara",
                       "rio grande norte", "rio grande sul", "rondonia", "roraima",
                       "santa catarina", "sao paulo", "sergipe", "tocantins")
 
+# Trying to decrease file sizes
+rownames(admin) <- NULL
+rownames(gazetteer) <- NULL
+rownames(collectionCodes) <- NULL
+rownames(taxonomists) <- NULL
+
 # Saving data
-usethis::use_data(admin,# salvar Admin no plantRdata ou como inst/extdata?
+usethis::use_data(admin, # salvar Admin no plantRdata ou como inst/extdata?
                   collectionCodes,
                   familiesSynonyms,
                   fieldNames,
