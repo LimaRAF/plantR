@@ -163,7 +163,6 @@ checkDist <- function(x,
   sep <- gsub("(\\|)", "\\\\\\1", sep, perl = TRUE)
   sep <- gsub("(\\/)", "\\\\\\1", sep, perl = TRUE)
   x1[[loc]] <- prepLoc(x1[[loc]])
-
   patt <- paste0("^([^", sep,
                  "]*", sep,
                  "[^", sep,
@@ -180,7 +179,6 @@ checkDist <- function(x,
       stop("If a character, argument 'source' must be 'bfo' or 'wcvp'",
          call. = FALSE)
   }
-
 
   if(inherits(source, "data.frame")){
     user_def <- source
@@ -220,15 +218,12 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    x1$obs <- ifelse( ## REVER AQUI TB
-      !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1[[tax.name]]),
-      ifelse(
-        !is.na(x1[[tax.author]]) & (x1[[tax.author]] == x1[["tax.authorship"]]),
-        "full_name_match",
-        "canonical_name_match"
-      ),
-      x1$obs
-    )
+    
+    full_match <- !is.na(x1[[tax.name]]) & 
+      (x1[[tax.name]] == x1$tax.name) &
+      !is.na(x1[[tax.author]]) & 
+      (x1[[tax.author]] == x1$tax.authorship)
+    x1$obs[full_match] <- "full_name_match"
 
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
@@ -290,16 +285,13 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    x1$obs <- ifelse( ### RENATO: gui precisa rever aqui
-      !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1$tax.name),
-      ifelse(
-        !is.na(x1[[tax.author]]) & (x1[[tax.author]] == x1[["tax.authorship"]]),
-        "full_name_match",
-        "canonical_name_match"
-      ),
-      x1$obs
-    )
-
+    
+    full_match <- !is.na(x1[[tax.name]]) & 
+      (x1[[tax.name]] == x1$tax.name) &
+      !is.na(x1[[tax.author]]) & 
+      (x1[[tax.author]] == x1$tax.authorship)
+    x1$obs[full_match] <- "full_name_match"
+    
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
       x2 <- dplyr::left_join(x1[check_these, ],
@@ -393,15 +385,12 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    x1$obs <- ifelse( ### RENATO: Gui rever essa etapa pois todos os matches aqui são full_name_matches agora pois esramos usando tax.name e tax.authorship
-      !is.na(x1[[tax.name]]) & (x1[[tax.name]] == x1$tax.name),
-      ifelse(
-        !is.na(x1[[tax.author]]) & (x1[[tax.author]] == x1[["tax.authorship"]]),
-        "full_name_match",
-        "canonical_name_match"
-      ),
-      x1$obs
-    )
+    
+    full_match <- !is.na(x1[[tax.name]]) & 
+      (x1[[tax.name]] == x1$tax.name) &
+      !is.na(x1[[tax.author]]) & 
+      (x1[[tax.author]] == x1$tax.authorship)
+    x1$obs[full_match] <- "full_name_match"
 
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
