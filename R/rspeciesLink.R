@@ -146,7 +146,7 @@ rspeciesLink <- function(dir = "results/",
                          MaxRecords = 5000,
                          file.format = "csv",
                          compress = FALSE,
-                         offset = 0
+                         offset = 0,
                          ...)
 {
 
