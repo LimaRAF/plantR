@@ -313,12 +313,14 @@ input1 <- c("E.,Aguilar, G.,Alvarez, D,Ramos A., CH",
             "  '( Karl) Emrich ;(Balduino ) Rambo'",
             "G., Alwyn",
             "SILVA, DA",
-            "DA SILVA")
+            "DA SILVA",
+            "Ulloa Ulloa, C.")
 expect1 <- c("E.|Aguilar, G.|Alvarez, D.|Ramos A., C.H.",
              "Emrich, (K.)|Rambo, (B.)",
              "G., A.",
              "Silva, D.A.",
-             "Silva, D.A."
+             "Silva, D.A.",
+             "Ulloa Ulloa, C."
 )
 test_that("prepName not works", {
 

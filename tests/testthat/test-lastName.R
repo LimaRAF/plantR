@@ -23,4 +23,6 @@ test_that("lastName works again", {
 
   expect_equal(lastName(nomes) , expected)
   expect_equal(lastName(nomes, invert = TRUE), expected1)
+
+  expect_equal(lastName("Ulloa Ulloa, C."), "Ulloa Ulloa")
 })
