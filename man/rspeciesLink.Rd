@@ -25,7 +25,9 @@ rspeciesLink(
   RedList = NULL,
   MaxRecords = 5000,
   file.format = "csv",
-  compress = FALSE
+  compress = FALSE,
+  offset = 0,
+  ...
 )
 }
 \arguments{
@@ -100,6 +102,10 @@ saving ('csv' or 'rds'). Default to 'csv'.}
 
 \item{compress}{Logical. Should the file be compressed? Default to
 FALSE.}
+
+\item{offset}{Index of the first record to be returned, used for pagination. Starts at zero.}
+
+\item{...}{Further parameters to pass to the SpeciesLink API}
 }
 \value{
 A data.frame with the search result, which can also be
@@ -118,7 +124,10 @@ in the query and from the speed of the internet connection.
 The speciesLink API does not allow the download of more than 5000
 records at a time. So, to download records from species with
 large number of records (>5000), you will probably need to make
-the queries in a loop (see Examples).
+the queries in a loop (see Examples). Use offset to skip the
+records you have already downloaded. Note: the SpeciesLink API
+may be slow to respond when using large offsets. Avoid using offsets
+larger than 100000.
 
 Also, the speciesLink API does not allow the download of ~50 or
 more taxa at a time. So to download records from larger lists of
@@ -149,6 +158,24 @@ sp_list <- lapply(sp, function(x) rspeciesLink(species = x,
 names(sp_list) = sp
 # Binding all searchs and keeping a column w/ the named used in the search
 sp_df <- bind_rows(sp_list, .id = "original_search")
+
+# Getting more than 5000 records
+
+offset <- 0
+ex <- rspeciesLink(county = "Rio de Janeiro",
+                     Scope = "p",
+                     MaxRecords = 5000,
+                     key = key)
+rj_df <- ex
+
+while(nrow(ex) == 5000)
+   offset <- offset + 5000
+   ex <- rspeciesLink(county = "Rio de Janeiro",
+                     Scope = "p",
+                     MaxRecords = 5000,
+                     offset = offset,
+                     key = key)
+   rj_df <- bind_rows(rj_df, ex)
 }
 
 }

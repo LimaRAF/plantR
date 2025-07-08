@@ -56,6 +56,7 @@
 #' @param compress Logical. Should the file be compressed? Default to
 #'   FALSE.
 #' @param offset Index of the first record to be returned, used for pagination. Starts at zero.
+#' @param ... Further parameters to pass to the SpeciesLink API
 #'
 #' @return A data.frame with the search result, which can also be
 #'   saved on disk
@@ -68,7 +69,9 @@
 #'   records at a time. So, to download records from species with
 #'   large number of records (>5000), you will probably need to make
 #'   the queries in a loop (see Examples). Use offset to skip the
-#'   records you have already downloaded.
+#'   records you have already downloaded. Note: the SpeciesLink API
+#'   may be slow to respond when using large offsets. Avoid using offsets
+#'   larger than 100000.
 #'
 #'   Also, the speciesLink API does not allow the download of ~50 or
 #'   more taxa at a time. So to download records from larger lists of
