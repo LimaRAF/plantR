@@ -38,13 +38,13 @@ Default to 'decimalLatitude.new'}
 \item{low.map}{a sf multipolygon object containing the global
 administrative map at the lowest level (e.g. country). The
 default is "plantR", the default map obtained from
-[GADM]{https://gadm.org} (see \code{worldMap}).}
+\href{https://gadm.org}{GADM} (see \code{worldMap}).}
 
 \item{high.map}{a sf multipolygon object or a list of sf objects
 containing the regional map at the highest administrative level
 (e.g. municipality). The default is "plantR", the map for all
 Latin American countries and dependent territories  obtained
-[GADM]{https://gadm.org} (see \code{latamMap}).}
+\href{https://gadm.org}{GADM} (see \code{latamMap}).}
 
 \item{res.gazet}{Column with the locality resolution level
 retrieved from the gazetteer}
