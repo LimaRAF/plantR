@@ -69,7 +69,18 @@ fixAuthors <- function(taxa = NULL,
     stop("Input object needs to be a character vector!")
   }
 
+  # Generate return object
+  res0 <- data.frame(orig.name = taxa,
+                    tax.name = NA,
+                    tax.author = NA)
+
   rep_ids0 <- grepl(" ", taxa, fixed = TRUE)
+  # Check if there are any potential names to be fixed
+  if (sum(rep_ids0) == 0) {
+    res0$tax.name <- taxa
+    return(res0)
+  }
+
   taxa1 <- taxa[rep_ids0]
   res <- data.frame(orig.name = taxa1,
                     tax.name = NA,
@@ -338,9 +349,6 @@ fixAuthors <- function(taxa = NULL,
   }
 
   res <- res[!duplicated(res$orig.name), ]
-  res0 <- data.frame(orig.name = taxa,
-                    tax.name = NA,
-                    tax.author = NA)
 
   res <- res[, -which(names(res) %in% "fix.author")]
   res1 <- dplyr::left_join(res0, res, by = "orig.name",
