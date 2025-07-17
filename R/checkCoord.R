@@ -17,12 +17,12 @@
 #' @param low.map a sf multipolygon object containing the global
 #'   administrative map at the lowest level (e.g. country). The
 #'   default is "plantR", the default map obtained from
-#'   [GADM]{https://gadm.org} (see `worldMap`).
+#'   [GADM](https://gadm.org) (see `worldMap`).
 #' @param high.map a sf multipolygon object or a list of sf objects
 #'   containing the regional map at the highest administrative level
 #'   (e.g. municipality). The default is "plantR", the map for all
 #'   Latin American countries and dependent territories  obtained
-#'   [GADM]{https://gadm.org} (see `latamMap`).
+#'   [GADM](https://gadm.org) (see `latamMap`).
 #' @param res.gazet Column with the locality resolution level
 #'   retrieved from the gazetteer
 #' @param dist.center Logical. Should the distance (in meters) between
@@ -332,4 +332,3 @@ checkCoord <- function(x,
     return(cbind.data.frame(x, x4))
   }
 }
-
