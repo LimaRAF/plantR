@@ -138,15 +138,10 @@ addRank <- function(x, rank = NULL, pretty.hyb = FALSE) {
   if (length(x) != length(rank))
     rank <- rep(rank[1], length(x))
 
-  split <- stringr::str_split(x, stringr::fixed(" "))
+  split <- stringr::str_split(x, stringr::fixed(" "), n=3)
   n.str <- lengths(split)
   n.max <- suppressWarnings(max(n.str, na.rm = TRUE))
   split.mat <- t(sapply(split, "[", i = 1:n.max))
-
-
-  if (n.max >= 3)
-    split.mat[, 3] <- do.call(paste,
-                              as.data.frame(split.mat[, 3:n.max]))
 
   x_new <- x
 
