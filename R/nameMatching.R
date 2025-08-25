@@ -13,7 +13,7 @@
 #'   both.
 #' @param clean.names logical. Should spaces, punctuation, symbols and
 #'   species characters be removed prior to name matching? Defaults to
-#'   TRUE.
+#'   FALSE.
 #' @param dist.method fuzzy matching algorithm to be passed on to
 #'   `stringdist::amatch()`. Defaults to "jw" (i.e. Jaro-Winkler)
 #' @param p numeric. Weight of the shared prefix when `method` is
@@ -86,7 +86,7 @@
 nameMatching <- function(names = NULL,
                           ref.names = NULL,
                           match.type = c("exact", "fuzzy"),
-                          clean.names = TRUE,
+                          clean.names = FALSE,
                           dist.method = "jw",
                           p = 0.1,
                           max.dist = 0.25,
@@ -280,13 +280,15 @@ nameMatching <- function(names = NULL,
                                       method = dist.method,
                                       p = p,
                                       maxDist = max.dist)
+            names(res) <- list_df1[[x]][["id"]]
             res
           }
 
         if (parallel) parallel::stopCluster(cl)
         if (show.progress) close(pb)
 
-        output <- output[order(df1$id)]
+        # output <- output[order(df1$id)]
+        output <- output[order(as.numeric(names(output)))]
 
       } else {
         output <- stringdist::amatch(df1[["name"]], df2[["name"]],

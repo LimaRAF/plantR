@@ -61,7 +61,7 @@ matching? Defaults to TRUE.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
-TRUE.}
+FALSE.}
 
 \item{dist.method}{fuzzy matching algorithm to be passed on to
 \code{stringdist::amatch()}. Defaults to "jw" (i.e. Jaro-Winkler)}

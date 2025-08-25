@@ -73,7 +73,7 @@ should be replaced by its accepted name. Default to TRUE.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
-TRUE.}
+FALSE.}
 
 \item{split.letters}{logical. Should fuzzy matching be performed
 separately by the input and reference name initials? Defaults to
