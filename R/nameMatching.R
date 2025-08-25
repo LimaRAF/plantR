@@ -37,11 +37,12 @@
 #'
 #' @details
 #'
-#' By default, the argument 'clean.names' is TRUE. Both exact and
-#' fuzzy matches are case, space and punctuation sensitive, so cleaning
-#' names prior to matching can greatly increase the number of matches.
-#' See the internal function `cleanName()` on how this cleaning is
-#' performed.
+#' By default, the argument 'clean.names' is FALSE, to increase
+#' computaional speed. However, both exact and fuzzy matches are case,
+#' space and punctuation sensitive. So, cleaning names (i.e. seting
+#' 'clean.names' to TRUE) can substantially increase the number of
+#' matches. See the internal function `cleanName()` on how this
+#' cleaning is performed.
 #'
 #' If 'split.letters' is TRUE, then the matching is done by chunks
 #' composed by the initial letter of both input and references names.
