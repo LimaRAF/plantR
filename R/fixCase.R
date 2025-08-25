@@ -18,16 +18,15 @@
 #' and their authorities. However, the function has not been tested for a wide
 #' range of possibilities, so some level of double-checking may be necessary.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
-#' @keywords internal
+#' @export fixCase
 #'
 #' @importFrom stringr str_count fixed str_split regex
 #' @importFrom stringi stri_locate_all
 #'
 #' @examples
 #'
-#' \dontrun{
 #' nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
 #'           "Lindsaea Lancea", "LINDSAEA LANCEA", "Lindsaea lancea var. Angulata",
 #'           "Lindsaea lancea (L.) Bedd.", "Lindsaea Lancea (L.) Bedd.",
@@ -40,9 +39,7 @@
 #'           "Blechnum antillanum Proctor",
 #'           "Blechnum occidentale leopoldense Dutra",
 #'           "Blechnum occidentale var. leopoldense Dutra")
-#'
 #' fixCase(nomes)
-#' }
 #'
 fixCase <- function (x) {
 

@@ -30,7 +30,6 @@ range of possibilities, so some level of double-checking may be necessary.
 }
 \examples{
 
-\dontrun{
 nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
           "Lindsaea Lancea", "LINDSAEA LANCEA", "Lindsaea lancea var. Angulata",
           "Lindsaea lancea (L.) Bedd.", "Lindsaea Lancea (L.) Bedd.",
@@ -43,12 +42,9 @@ nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
           "Blechnum antillanum Proctor",
           "Blechnum occidentale leopoldense Dutra",
           "Blechnum occidentale var. leopoldense Dutra")
-
 fixCase(nomes)
-}
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }
-\keyword{internal}

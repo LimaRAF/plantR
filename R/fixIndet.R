@@ -12,21 +12,19 @@
 #' @return the vector \code{x} with the standardize notation of the
 #'   incomplete species identification
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @details The function solve most but not all possible notation of
 #'   incomplete identifications, specially when the notation to
 #'   separate morphotypes include letters instead of numbers.
 #'
 #' @examples
-#' \dontrun{
 #' taxa <- c("Indeterminada1", "Indeterminada sp1", "undeterminedA",
 #'   "Fabaceae1", "FabaceaeA", "indet", "Fabales2", "Andira sp. 2",
 #'   "Andira sp 2", "Andira sp")
 #' fixIndet(taxa)
-#' }
 #'
-#' @keywords internal
+#' @export fixIndet
 #'
 fixIndet <- function(x, rplc = "Indet. sp.") {
 
