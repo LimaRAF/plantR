@@ -17,14 +17,17 @@
 #'
 #'   Besides rare examples of author names starting with lower-case
 #'   prepositions (e.g. 'de', 'van'), authorships should have
-#'   the first letter capitalized, otherwise the function will not
-#'   recognize the start of the authorship.
+#'   the first letter capitalized, otherwise the function will only
+#'   recognize the start of the authorship for very common author
+#'   names (e.g. Kuntze, Baker, Nees, Klotzsch, Mez). The full list of
+#'   common author names is stored in the internal __plantR__ object
+#'   `commonAuthors`.
 #'
 #'   In addition, the function is case-sensitive and it assumes that
 #'   there are no issues related to scientific name casing (e.g.
 #'   'Anthurium cf. Amoenum') to separate the scientific name from the
 #'   authorship. So, please make sure there are no casing issues. See
-#'   the `plantR` functions `fixCase()`
+#'   the __plantR__ function `fixCase()`
 #'
 #' @param taxa a vector containing taxon names
 #' @param ranks a vector containing the super or infra-specific ranks
@@ -49,11 +52,13 @@
 #'  "Casearia sylvestris var. angustifolia",
 #'  "Casearia sylvestris var. angustifolia Uittien",
 #'  "Casearia sylvestris Sw. var. sylvestris",
-#'  "Philodendron sodiroi hort.")
+#'  "Philodendron sodiroi hort.",
+#'  "Richterago kuntze")
 #'
 #' fixAuthors(names)
 #'
-#' @importFrom stringr str_count fixed
+#' @importFrom stringr str_count fixed regex
+#' @importFrom dplyr left_join
 #'
 #' @export fixAuthors
 #'
@@ -322,7 +327,25 @@ fixAuthors <- function(taxa = NULL,
     res[[3]][auth_ids] <- auth.name
   }
 
-  fix_these <- res[[4]] %in% "yes" & !res[[3]] %in% ""
+  ranks_patt <- paste0(" ", c(ranks, "sp.", "spp."), "$",
+                       collapse = "|")
+  no_auth <- res[[2]] %in% NA & res[[3]] %in% NA &
+              !grepl(ranks_patt, res[[1]], perl = TRUE)
+  if (any(no_auth)) {
+    tax2check <- res[[1]][no_auth]
+    epiteths <- gsub(".*\\s", "",
+                     tax2check, perl = TRUE)
+    any_author <- epiteths %in% commonAuthors
+    if (any(any_author)) {
+      res[[2]][no_auth][any_author] <-
+        gsub("\\s.*", "", tax2check[any_author], perl = TRUE)
+      res[[3]][no_auth][any_author] <- epiteths[any_author]
+      res[[4]][no_auth][any_author] <- "yes"
+    }
+  }
+
+  fix_these <- res[[4]] %in% "yes" &
+    !res[[3]] %in% c("", NA, "NA", " ")
   if (any(fix_these))
     res[[3]][fix_these] <-
       gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)

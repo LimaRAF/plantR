@@ -233,6 +233,25 @@ names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "�
 Encoding(names(badEncoding)) <- "UTF-8"
 names(badEncoding) <- iconv(names(badEncoding), "UTF-8", "UTF-8")
 
+## List of most common authors
+library(plantRdata)
+data("wfoNames")
+toto <- wfoNames$tax.authorship
+toto1 <- toto[!grepl("\\.|\\(|&", toto) &
+                !is.na(toto) & !toto %in% ""]
+corte <- 70 # aprox. autores com mais de 1000 spp descritas
+toto2 <- names(tail(sort(table(toto1)), corte))
+spp_or_lower <- c("genus", "species", "form", "subspecies", "variety",
+                  "subvariety","subform")
+epitetos <- wfoNames$tax.name[wfoNames$taxon.rank %in% spp_or_lower]
+epitetos <-
+  unique(sapply(strsplit(epitetos, " ", fixed = TRUE), tail, 1))
+wfoNames[grepl("Ching$", wfoNames$tax.name), ]
+wfoNames[grepl("Hayata$", wfoNames$tax.name), ]
+commonAuthors <- tolower(toto2[!toto2 %in% epitetos])
+commonAuthors <- sort(unique(c(commonAuthors, rmLatin(commonAuthors))))
+rm(wfoNames, epitetos, toto, toto1, toto2)
+
 ## Named vector with plantR reserved column names
 reservedColNames <- c(
   # "format.occcs" - 10 columns
@@ -414,6 +433,7 @@ usethis::use_data(admin, # salvar Admin no plantRdata ou como inst/extdata?
                   simpGeoCheck,
                   botanicalCountries,
                   statesBR,
+                  commonAuthors,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")
@@ -422,4 +442,4 @@ rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
    replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
    unwantedEncoding, cultivated, notCultivated, missColls, missDets,
    treatPreps, namePreps, badEncoding, reservedColNames, simpGeoCheck,
-   botanicalCountries, statesBR)
+   botanicalCountries, statesBR, commonAuthors)
