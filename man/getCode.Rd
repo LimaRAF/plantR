@@ -16,28 +16,31 @@ getCode(
 \arguments{
 \item{x}{a data frame containing the collection codes.}
 
-\item{inst.code}{character. The column name containing the institution codes.}
+\item{inst.code}{character. The column name containing the
+institution codes.}
 
-\item{col.code}{character. The column name containing the collection codes.}
+\item{col.code}{character. The column name containing the
+collection codes.}
 
-\item{drop}{character. List of columns names that should be dropped from the
-output.}
+\item{drop}{character. List of columns names that should be dropped
+from the output.}
 
 \item{print.miss}{logical.}
 }
 \value{
-the data frame \code{x} with (at least) the additional columns called
-'collectionCode.new' and 'collectionObs'.
+the data frame \code{x} with (at least) the additional
+columns called 'collectionCode.new' and 'collectionObs'.
 }
 \description{
-Search for variants of collection and institution codes and
-return their standard codes based on the Index Herbariorum or the Index
-Xylariorum, if available.
+Search for variants of collection and institution
+codes and return their standard codes based on the Index
+Herbariorum or the Index Xylariorum, if available.
 }
 \details{
-The information on collection codes and names stored within \strong{plantR} is
-currently biased towards plant-related collections. The main sources of
-information used to construct the database of collection codes were the
+The information on collection codes and names stored within
+\strong{plantR} is currently biased towards plant-related collections.
+The main sources of information used to construct the database of
+collection codes were the
 \href{http://sweetgum.nybg.org/science/ih/}{Index Herbariorum} (until 2019),
 the
 \href{https://www.botanica.org.br/a-rede-brasileira-de-herbarios/}{Brazilian
@@ -45,17 +48,24 @@ Herbaria Network}, the
 \href{https://globaltimbertrackingnetwork.org/products/iawa-index-xylariorum/}{Index
 Xylariorum} v4.1 and \href{https://www.gbif.org/}{GBIF}.
 
-There is variation in the notation of institutions and collection codes in
-GBIF and other data repositories. Sometimes, the same collection is referred
-differently between these repositories. Thus, this function tried to provide
-a common code for each institution. To avoid mismatches the collection codes
-are compared to the list of collections using a string which combines both
-the institution and collection code.
+There is variation in the notation of institutions and collection
+codes in GBIF and other data repositories. Sometimes, the same
+collection is referred differently between these repositories.
+Thus, this function tried to provide a common code for each
+institution. To avoid mismatches the collection codes are compared
+to the list of collections using a string which combines both the
+institution and collection code.
 
-If the collection code in not found in the Index Herbariorum, the same
-collection code is returned without modifications. A mention if the code is
-not found is stored in the 'collectionObs'. The argument \code{print.miss} can be
-set to TRUE if the user wants to print the table of collections not found.
+If the collection code in not found in the Index Herbariorum, the
+same collection code is returned without modifications. A mention
+if the code is not found is stored in the 'collectionObs'. The
+argument \code{print.miss} can be set to TRUE if the user wants to print
+the table of collections not found.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 

@@ -22,8 +22,8 @@ validateCoord(
 )
 }
 \arguments{
-\item{x}{a data frame with the species records and their coordinates in
-decimal degrees.}
+\item{x}{a data frame with the species records and their
+coordinates in decimal degrees.}
 
 \item{lon}{Name of the column with the longitude to be validated.
 Default to 'decimalLongitude.new'}
@@ -42,15 +42,16 @@ containing the regional map at the highest administrative level
 Latin American countries and dependent territories  obtained
 \href{https://gadm.org}{GADM} (see \code{latamMap}).}
 
-\item{country.shape}{Name of the column with the country name obtained from
-the world map based on the original record coordinates. Default to 'NAME_0'}
+\item{country.shape}{Name of the column with the country name
+obtained from the world map based on the original record
+coordinates. Default to 'NAME_0'}
 
-\item{country.gazetteer}{Name of the column with the country name obtained
-from the gazetteer, based on the description of the record locality.
-Default to 'loc.correct'}
+\item{country.gazetteer}{Name of the column with the country name
+obtained from the gazetteer, based on the description of the
+record locality. Default to 'loc.correct'}
 
-\item{tax.name}{character. Name of the columns containing the species name.
-Default to "scientificName.new"}
+\item{tax.name}{character. Name of the columns containing the
+species name. Default to "scientificName.new"}
 
 \item{tax.author}{character. The name of the column containing the
 taxon name authorship. Default to "scientificNameAuthorship".}
@@ -68,29 +69,31 @@ location. Default to "loc.correct".}
 known distribution information. One of "bfo", "wcvp", or a
 user-defined \code{data.frame}. Default to "bfo".}
 
-\item{output}{a character string with the type of output desired: 'new.col'
-(columns with the new results for each type of validation added to the
-input data) or 'same.col' (results are stored only in overwritten into
-column \code{geo.check}). Default to 'same.col'.}
+\item{output}{a character string with the type of output desired:
+'new.col' (columns with the new results for each type of
+validation added to the input data) or 'same.col' (results are
+stored only in overwritten into column \code{geo.check}). Default to
+'same.col'.}
 }
 \value{
-The input data frame, plus the new columns with the results of the
-geographical coordinates (e.g. 'geo.check').
+The input data frame, plus the new columns with the results
+of the geographical coordinates (e.g. 'geo.check').
 }
 \description{
-This function performs the crossing of the geographical
-coordinates with the world and Latin American maps, and it checks for
-coordinates falling near the sea shore, open sea and country boundaries. It
-also test if problematic coordinates are not inverted or swapped. Finally,
-the function searches for records taken from cultivated individuals, for
-the presence of spatial outliers and also doubtful distribution.
+This function performs the crossing of the
+geographical coordinates with the world and Latin American maps,
+and it checks for coordinates falling near the sea shore, open
+sea and country boundaries. It also test if problematic
+coordinates are not inverted or swapped. Finally, the function
+searches for records taken from cultivated individuals, for the
+presence of spatial outliers and also doubtful distribution.
 }
 \details{
-The function works similarly to a wrapper function, where the
-individuals steps of the proposed \strong{plantR} workflow for the validation of
-the spatial information associated to each record (e.g. geographical
-coordinates) are performed altogether (see the \strong{plantR} tutorial for
-details).
+The function works as a wrapper function, where the
+individuals steps of the \strong{plantR} workflow for the validation
+of the spatial information associated to each record (e.g.
+geographical coordinates) are performed altogether (see the
+\strong{plantR} tutorial for details).
 }
 \seealso{
 \link[plantR]{checkCoord}, \link[plantR]{checkBorders},
@@ -98,6 +101,6 @@ details).
 \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantR]{checkDist}
 }
 \author{
-Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato
-A. F. de Lima
+Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz
+& Renato A. Ferreira de Lima
 }

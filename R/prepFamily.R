@@ -44,7 +44,12 @@
 #' name found based on the genus name, the original name is replaced
 #' by the name from the APG IV or PPG I with a warning.
 #'
-#' @author Renato A. F. de Lima
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
+#' @author Renato A. Ferreira de Lima
 #'
 #' @references
 #'

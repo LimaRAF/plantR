@@ -36,6 +36,7 @@
 #'   the [World Checklist of Vascular Plants](https://powo.science.kew.org/)
 #'   and [GBIF](https://www.gbif.org/).
 #'
+#' @author Renato A. Ferreira de Lima
 #'
 #' @seealso
 #'  \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and

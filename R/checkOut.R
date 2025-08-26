@@ -30,8 +30,8 @@
 #'
 #' @author Renato A. F. de Lima
 #'
-#' @return The input data frame with a new column containing the indication of
-#'   spatial outliers.
+#' @return The input data frame with a new columncalled 'out.check'
+#'   containing the indication of spatial outliers.
 #'
 #' @details The function searches for spatial outliers using two
 #'   different methods to detect outliers (Liu et al., 2018): the
@@ -63,6 +63,11 @@
 #'   available. As a rule of thumb, ten unique coordinates per taxa
 #'   should avoid possible problems (undetected true outliers or
 #'   detection of false outliers). See Examples.
+#'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @examples
 #'

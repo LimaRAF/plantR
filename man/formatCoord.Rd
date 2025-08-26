@@ -22,14 +22,14 @@ formatCoord(
 \arguments{
 \item{coords}{data.frame}
 
-\item{lat}{character. The name of the column containing the latitude. Default
-to "decimalLatitude".}
+\item{lat}{character. The name of the column containing the
+latitude. Default to "decimalLatitude".}
 
-\item{lon}{character. The name of the column containing the longitude.
-Default to "decimalLongitude".}
+\item{lon}{character. The name of the column containing the
+longitude. Default to "decimalLongitude".}
 
-\item{flag}{logical. Should the differences between the original and edited
-coordinates be flagged? Default to TRUE.}
+\item{flag}{logical. Should the differences between the original
+and edited coordinates be flagged? Default to TRUE.}
 
 \item{lat.orig}{character. The name of the column containing the
 latitude. Default to "decimalLatitude".}

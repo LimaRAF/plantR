@@ -17,12 +17,12 @@ checkInverted(
 \arguments{
 \item{x}{a data frame containing the species records}
 
-\item{check.names}{The columns with the results from the coordinate checking,
-border checking and sea-shore checking, in that order. Defaults to 'geo.check',
-'border.check' and 'shore.check'.}
+\item{check.names}{The columns with the results from the coordinate
+checking, border checking and sea-shore checking, in that order.
+Defaults to 'geo.check', 'border.check' and 'shore.check'.}
 
-\item{country.gazetteer}{Name of the column with the country that comes from
-the gazetteer}
+\item{country.gazetteer}{Name of the column with the country that
+comes from the gazetteer}
 
 \item{lat}{Column with the corrected latitude. Defaults to
 'decimalLatitude.new'}
@@ -30,31 +30,35 @@ the gazetteer}
 \item{lon}{Column with the corrected longitude. Defaults to
 'decimalLongitude.new'}
 
-\item{output}{a character string with the type of output desired: 'new.col'
-(new column with the newly validated coordinates are added to the input
-data) or 'same.col' (results are overwritten into the existing columns).}
+\item{output}{a character string with the type of output desired:
+'new.col' (new column with the newly validated coordinates are
+added to the input data) or 'same.col' (results are overwritten
+into the existing columns).}
 }
 \value{
-if \code{output} is 'new.col', new columns with a suffix '.new' are added
-to the data, containing the update information on the columns defined in
-\code{check.names}, \code{lat} and \code{lon}. If \code{output} is 'same.col', the columns
-defined by these arguments are updated with the validated information after
-inverting/swapping the coordinates.
+if \code{output} is 'new.col', new columns with a suffix '.new'
+are added to the data, containing the update information on the
+columns defined in \code{check.names}, \code{lat} and \code{lon}. If \code{output} is
+'same.col', the columns defined by these arguments are updated
+with the validated information after inverting/swapping the
+coordinates.
 }
 \description{
-The function detects possible inversions and/or swaps in the
-geographical coordinates of the records, by creating all possible
-combinations of inverted and swapped latitude/longitudes (see Details) and
-crossing them with the world map. If the procedure does not found at least
-one inverted/swapped coordinate, the input data is returned without edits,
-even if the desired output is to produce new columns (see \code{output}).
+The function detects possible inversions and/or swaps
+in the geographical coordinates of the records, by creating all
+possible combinations of inverted and swapped latitude/longitudes
+(see Details) and crossing them with the world map. If the
+procedure does not found at least one inverted/swapped
+coordinate, the input data is returned without edits, even if the
+desired output is to produce new columns (see \code{output}).
 }
 \details{
-Besides the newly validated geographical coordinates, the function
-returns a 'ok_country' followed by the information on which combination of
-inverted (change in coordinate signal) and/or swapped coordinates (longitude
-as latitude and vice-versa) the validation was acquired. This information is
-provided in brackets, as follows:
+Besides the newly validated geographical coordinates, the
+function returns a 'ok_country' followed by the information on
+which combination of inverted (change in coordinate signal)
+and/or swapped coordinates (longitude as latitude and vice-versa)
+the validation was acquired. This information is provided in
+brackets, as follows:
 \itemize{
 \item 'invert_lon': inverted longitude
 \item 'invert_lat': inverted latitude
@@ -66,5 +70,5 @@ provided in brackets, as follows:
 }
 }
 \author{
-Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 }

@@ -128,6 +128,11 @@
 #'   accepted for the input name. So, users should be extra careful
 #'   when setting `mult.matches` to 'best'.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
 #' @author Renato A. Ferreira de Lima
 #'
 #'

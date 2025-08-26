@@ -90,7 +90,12 @@ these maps which should have the same format of the locality
 information in the gazetteer used for the validation of the
 locality information (see function \code{getLoc()} and the default
 \strong{plantR} maps 'worldMap' and 'latamMap').
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \author{
-Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 }

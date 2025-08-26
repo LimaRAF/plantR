@@ -181,6 +181,11 @@ backbone. Result is a lot cleaner but in many cases this does not
 means that the accepted name returned actually is the right
 accepted for the input name. So, users should be extra careful
 when setting \code{mult.matches} to 'best'.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 sp.list <- c("Casearia sylvestris","Casearia sylvestris",

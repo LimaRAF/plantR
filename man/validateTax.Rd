@@ -49,7 +49,7 @@ record types are treated the same).}
 taxonomist that should be added to the validation?}
 
 \item{taxonomist.list}{a data.frame containing the list of
-taxonomist names. The default is "plantR", the internal \code{plantR}
+taxonomist names. The default is "plantR", the internal \strong{plantR}
 global database of plant taxonomists (see Details).}
 
 \item{voucher.list}{Vector. One or more unique record identifiers
@@ -167,25 +167,30 @@ should be: the name of the family of specialty followed by an
 underscore and then the taxonomist name in the TDWG format (e.g.
 "Bignoniaceae_Gentry, A.H.").
 
-A database of taxonomists different than the \code{plantR} default can
+A database of taxonomists different than the \strong{plantR} default can
 be used. This database must be provided using the argument
 \code{taxonomist.list} and it must contain the columns 'family' and
 'tdwg.name'. The first column is the family of specialty of the
 taxonomist and the second one is her/his name in the TDWG format.
-See \code{plantR} function \code{prepName()} on how to get names in the TDWG
+See \strong{plantR} function \code{prepName()} on how to get names in the TDWG
 format from a list of people's names.
 
-Finally, the user can provide a list of records that should be
-flagged as having a high confidence level on their identification.
-This list should be provided using the argument \code{voucher.list} and
-the information that should be provided is the record unique
-identifier (i.e. combination of collection code and number). It is
-important that the way in which the list of unique identifiers was
-generated matches the one used to construct the the identifiers in
-the input data frame \code{x} (see help of function \code{getTombo()}).
-If a list of records is provided, the user must also provide a
-valid column name in \code{x} containing the unique record
-identifiers in \code{col.names}.
+The user can provide a list of records that should be flagged as
+having a high confidence level on their identification. This list
+should be provided using the argument \code{voucher.list} and the
+information that should be provided is the record unique identifier
+(i.e. combination of collection code and number). It is important
+that the way in which the list of unique identifiers was generated
+matches the one used to construct the the identifiers in the input
+data frame \code{x} (see help of function \code{getTombo()}). If a list
+of records is provided, the user must also provide a valid column
+name in \code{x} containing the unique record identifiers in
+\code{col.names}.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present
+in the input data frame. The full list of reserved columns is
+stored in the internal object \code{reservedColNames}.
 }
 \examples{
 (df <- data.frame(
@@ -209,4 +214,7 @@ Conservation, 252: 108825.
 }
 \seealso{
 \link[plantR]{prepName} and \link[plantR]{getTombo}.
+}
+\author{
+Renato A. Ferreira de Lima
 }

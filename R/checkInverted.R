@@ -1,38 +1,42 @@
 #' @title Check Inverted/Swapped Coordinates
 #'
-#' @description The function detects possible inversions and/or swaps in the
-#'   geographical coordinates of the records, by creating all possible
-#'   combinations of inverted and swapped latitude/longitudes (see Details) and
-#'   crossing them with the world map. If the procedure does not found at least
-#'   one inverted/swapped coordinate, the input data is returned without edits,
-#'   even if the desired output is to produce new columns (see `output`).
+#' @description The function detects possible inversions and/or swaps
+#'   in the geographical coordinates of the records, by creating all
+#'   possible combinations of inverted and swapped latitude/longitudes
+#'   (see Details) and crossing them with the world map. If the
+#'   procedure does not found at least one inverted/swapped
+#'   coordinate, the input data is returned without edits, even if the
+#'   desired output is to produce new columns (see `output`).
 #'
 #'
 #' @param x a data frame containing the species records
-#' @param check.names The columns with the results from the coordinate checking,
-#' border checking and sea-shore checking, in that order. Defaults to 'geo.check',
-#' 'border.check' and 'shore.check'.
-#' @param country.gazetteer Name of the column with the country that comes from
-#'   the gazetteer
+#' @param check.names The columns with the results from the coordinate
+#'   checking, border checking and sea-shore checking, in that order.
+#'   Defaults to 'geo.check', 'border.check' and 'shore.check'.
+#' @param country.gazetteer Name of the column with the country that
+#'   comes from the gazetteer
 #' @param lat Column with the corrected latitude. Defaults to
 #'   'decimalLatitude.new'
 #' @param lon Column with the corrected longitude. Defaults to
 #'   'decimalLongitude.new'
-#' @param output a character string with the type of output desired: 'new.col'
-#'   (new column with the newly validated coordinates are added to the input
-#'   data) or 'same.col' (results are overwritten into the existing columns).
+#' @param output a character string with the type of output desired:
+#'   'new.col' (new column with the newly validated coordinates are
+#'   added to the input data) or 'same.col' (results are overwritten
+#'   into the existing columns).
 #'
-#' @return if `output` is 'new.col', new columns with a suffix '.new' are added
-#'   to the data, containing the update information on the columns defined in
-#'   `check.names`, `lat` and `lon`. If `output` is 'same.col', the columns
-#'   defined by these arguments are updated with the validated information after
-#'   inverting/swapping the coordinates.
+#' @return if `output` is 'new.col', new columns with a suffix '.new'
+#'   are added to the data, containing the update information on the
+#'   columns defined in `check.names`, `lat` and `lon`. If `output` is
+#'   'same.col', the columns defined by these arguments are updated
+#'   with the validated information after inverting/swapping the
+#'   coordinates.
 #'
-#' @details Besides the newly validated geographical coordinates, the function
-#' returns a 'ok_country' followed by the information on which combination of
-#' inverted (change in coordinate signal) and/or swapped coordinates (longitude
-#' as latitude and vice-versa) the validation was acquired. This information is
-#' provided in brackets, as follows:
+#' @details Besides the newly validated geographical coordinates, the
+#'   function returns a 'ok_country' followed by the information on
+#'   which combination of inverted (change in coordinate signal)
+#'   and/or swapped coordinates (longitude as latitude and vice-versa)
+#'   the validation was acquired. This information is provided in
+#'   brackets, as follows:
 #'    - 'invert_lon': inverted longitude
 #'    - 'invert_lat': inverted latitude
 #'    - 'invert_both': inverted longitude and latitude
@@ -43,14 +47,16 @@
 #'
 #' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates st_join st_intersects st_geometry
 #'
-#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
 #' @encoding UTF-8
 #'
 #' @export checkInverted
 #'
 checkInverted <- function(x,
-                          check.names = c("geo.check", "border.check", "shore.check"),
+                          check.names = c("geo.check",
+                                          "border.check",
+                                          "shore.check"),
                           country.gazetteer = "country.gazet",
                           lat = "decimalLatitude.new",
                           lon = "decimalLongitude.new",

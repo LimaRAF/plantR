@@ -101,6 +101,11 @@ use the BFO species name to check botanical countries (\code{source} =
 "wcvp") he would incur in a warning in the output column
 \code{dist.check.obs}, indicating that only the canonical name could
 be found.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 spp_names <- c(rep("Ocotea porosa", 8),

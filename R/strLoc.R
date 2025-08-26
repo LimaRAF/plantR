@@ -40,7 +40,7 @@
 #' municipality.new, locality.new, and, if chosen, locality.scrap) or
 #' change the defaults. See examples below.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @export strLoc
 #'

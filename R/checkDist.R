@@ -75,6 +75,11 @@
 #'   `dist.check.obs`, indicating that only the canonical name could
 #'   be found.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
 #' @return The input data.frame `x` with two additional columns
 #'   containing the information if there was a match in the location
 #'   string (`dist.check`) and auxilliary information
@@ -218,10 +223,10 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    
-    full_match <- !is.na(x1[[tax.name]]) & 
+
+    full_match <- !is.na(x1[[tax.name]]) &
       (x1[[tax.name]] == x1$tax.name) &
-      !is.na(x1[[tax.author]]) & 
+      !is.na(x1[[tax.author]]) &
       (x1[[tax.author]] == x1$tax.authorship)
     x1$obs[full_match] <- "full_name_match"
 
@@ -285,13 +290,13 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    
-    full_match <- !is.na(x1[[tax.name]]) & 
+
+    full_match <- !is.na(x1[[tax.name]]) &
       (x1[[tax.name]] == x1$tax.name) &
-      !is.na(x1[[tax.author]]) & 
+      !is.na(x1[[tax.author]]) &
       (x1[[tax.author]] == x1$tax.authorship)
     x1$obs[full_match] <- "full_name_match"
-    
+
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
       x2 <- dplyr::left_join(x1[check_these, ],
@@ -385,10 +390,10 @@ checkDist <- function(x,
                            keep = TRUE)
 
     x1$obs <- NA
-    
-    full_match <- !is.na(x1[[tax.name]]) & 
+
+    full_match <- !is.na(x1[[tax.name]]) &
       (x1[[tax.name]] == x1$tax.name) &
-      !is.na(x1[[tax.author]]) & 
+      !is.na(x1[[tax.author]]) &
       (x1[[tax.author]] == x1$tax.authorship)
     x1$obs[full_match] <- "full_name_match"
 

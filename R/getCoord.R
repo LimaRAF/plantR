@@ -67,6 +67,10 @@
 #'   and they are replaced by the coordinates coming from the
 #'   gazetteer. See the examples below.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @seealso
 #'  \link[plantR]{getLoc} and \link[plantR]{prepCoord}.

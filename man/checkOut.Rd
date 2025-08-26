@@ -62,8 +62,8 @@ classic Mahalanobis distances. Default to 16}
 robust Mahalanobis distances be returned? Defaults to FALSE.}
 }
 \value{
-The input data frame with a new column containing the indication of
-spatial outliers.
+The input data frame with a new columncalled 'out.check'
+containing the indication of spatial outliers.
 }
 \description{
 This function searches for spatial outliers, i.e. records too
@@ -105,6 +105,11 @@ outliers is safer for cases where many unique coordinates are
 available. As a rule of thumb, ten unique coordinates per taxa
 should avoid possible problems (undetected true outliers or
 detection of false outliers). See Examples.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 

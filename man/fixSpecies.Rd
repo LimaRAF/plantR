@@ -82,10 +82,15 @@ species, possibly not yet a valid name}
 valid name}
 \item{\code{abbreviated_genus}}{genus is abbreviated}
 \item{\code{name_w_digits}}{scientific name has digits} }
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 
-# Two last names are examples for which the function cannot handle yet.
+Two last names are examples for which the function cannot handle yet.
 
 df <- data.frame(scientificName =
 c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",

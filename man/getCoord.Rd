@@ -94,6 +94,11 @@ classified as "miliseconds".
 The function implicitly assumes that NA coordinates are missing
 and they are replaced by the coordinates coming from the
 gazetteer. See the examples below.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 

@@ -1,52 +1,62 @@
 #' @title Format Locality Information
 #'
-#' @description Standardize the notation of the locality fields country,
-#'   stateProvince, municipality and locality, and search from some missing
-#'   information within the available locality information.
+#' @description Standardize the notation of the locality fields
+#'   country, stateProvince, municipality and locality, and search
+#'   from some missing information within the available locality
+#'   information.
 #'
-#' @param x a data frame containing typical locality fields from species
-#'   records.
-#' @param loc.levels a vector containing the names of the locality fields to be
-#'   formatted.
-#' @param scrap logical. Should the search of missing locality information be
-#'   performed? Default to TRUE.
-#' @param to.lower logical. Should the output locality names be return in lower
-#'   cases? Default to TRUE.
+#' @param x a data frame containing typical locality fields from
+#'   species records.
+#' @param loc.levels a vector containing the names of the locality
+#'   fields to be formatted.
+#' @param scrap logical. Should the search of missing locality
+#'   information be performed? Default to TRUE.
+#' @param to.lower logical. Should the output locality names be return
+#'   in lower cases? Default to TRUE.
 #'
-#' @return The input data frame \code{x}, plus the '.new' columns with the
-#'   formatted fields and the resolution of the locality information available.
+#' @return The input data frame \code{x}, plus the '.new' columns with
+#'   the formatted fields and the resolution of the locality
+#'   information available.
 #'
-#' @details The function performs several edits and replacements. Country names
-#'   are formatted into the international format, letters are lower-cased, and
-#'   special characters and common abbreviations are removed.
+#' @details The function performs several edits and replacements.
+#'   Country names are formatted into the international format,
+#'   letters are lower-cased, and special characters and common
+#'   abbreviations are removed.
 #'
-#'   By default, this function formats all four locality fields simultaneously
-#'   (i.e. country, stateProvince, municipality, locality), but the user can
-#'   choose among these fields through the argument `loc.levels`. However, the
-#'   process of searching for missing information is more complete if all the
-#'   four locality fields mentioned above are available.
+#'   By default, this function formats all four locality fields
+#'   simultaneously (i.e. country, stateProvince, municipality,
+#'   locality), but the user can choose among these fields through the
+#'   argument `loc.levels`. However, the process of searching for
+#'   missing information is more complete if all the four locality
+#'   fields mentioned above are available.
 #'
-#'   If present, other Darwin Core fields are used internally to obtain missing
-#'   information on the locality fields declared above, namely: 'countryCode',
-#'   'county', and 'verbatimLocality'.
+#'   If present, other Darwin Core fields are used internally to
+#'   obtain missing information on the locality fields declared above,
+#'   namely: 'countryCode', 'county', and 'verbatimLocality'.
 #'
 #'   The argument `scrap` controls the search for missing municipality
-#'   information from the field 'locality'. It also performs some extra editing
-#'   and cropping of the field 'locality' in order to obtain more standardized
-#'   locality descriptions. This argument uses different ways of splitting and
-#'   cropping the locality description in order to find missing information.
-#'   Although it does not always result in an accurate extraction of the
-#'   information, it provides an extra tool to organize locality information
-#'   which are not provided in the appropriate columns.
+#'   information from the field 'locality'. It also performs some
+#'   extra editing and cropping of the field 'locality' in order to
+#'   obtain more standardized locality descriptions. This argument
+#'   uses different ways of splitting and cropping the locality
+#'   description in order to find missing information. Although it
+#'   does not always result in an accurate extraction of the
+#'   information, it provides an extra tool to organize locality
+#'   information which are not provided in the appropriate columns.
 #'
 #'   The function automatically returns the original resolution of the
-#'   locality information provided. For instance, if only country information is
-#'   provided (i.e. field is not empty), then the resolution is flagged as
-#'   'country'; if country and stateProvince are given, then the resolution is
-#'   flagged as 'stateProvince', and so on.
+#'   locality information provided. For instance, if only country
+#'   information is provided (i.e. field is not empty), then the
+#'   resolution is flagged as 'country'; if country and stateProvince
+#'   are given, then the resolution is flagged as 'stateProvince', and
+#'   so on.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @importFrom stringr str_to_title str_replace_all
 #' @importFrom countrycode countrycode

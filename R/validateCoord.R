@@ -1,34 +1,37 @@
 #' @title Spatial Validation of Species Records
 #'
-#' @description This function performs the crossing of the geographical
-#'   coordinates with the world and Latin American maps, and it checks for
-#'   coordinates falling near the sea shore, open sea and country boundaries. It
-#'   also test if problematic coordinates are not inverted or swapped. Finally,
-#'   the function searches for records taken from cultivated individuals, for
-#'   the presence of spatial outliers and also doubtful distribution.
+#' @description This function performs the crossing of the
+#'   geographical coordinates with the world and Latin American maps,
+#'   and it checks for coordinates falling near the sea shore, open
+#'   sea and country boundaries. It also test if problematic
+#'   coordinates are not inverted or swapped. Finally, the function
+#'   searches for records taken from cultivated individuals, for the
+#'   presence of spatial outliers and also doubtful distribution.
 #'
-#' @param x a data frame with the species records and their coordinates in
-#'   decimal degrees.
-#' @param country.shape Name of the column with the country name obtained from
-#'   the world map based on the original record coordinates. Default to 'NAME_0'
-#' @param country.gazetteer Name of the column with the country name obtained
-#'   from the gazetteer, based on the description of the record locality.
-#'   Default to 'loc.correct'
-#' @param tax.name character. Name of the columns containing the species name.
-#'   Default to "scientificName.new"
-#' @param output a character string with the type of output desired: 'new.col'
-#'   (columns with the new results for each type of validation added to the
-#'   input data) or 'same.col' (results are stored only in overwritten into
-#'   column `geo.check`). Default to 'same.col'.
+#' @param x a data frame with the species records and their
+#'   coordinates in decimal degrees.
+#' @param country.shape Name of the column with the country name
+#'   obtained from the world map based on the original record
+#'   coordinates. Default to 'NAME_0'
+#' @param country.gazetteer Name of the column with the country name
+#'   obtained from the gazetteer, based on the description of the
+#'   record locality. Default to 'loc.correct'
+#' @param tax.name character. Name of the columns containing the
+#'   species name. Default to "scientificName.new"
+#' @param output a character string with the type of output desired:
+#'   'new.col' (columns with the new results for each type of
+#'   validation added to the input data) or 'same.col' (results are
+#'   stored only in overwritten into column `geo.check`). Default to
+#'   'same.col'.
 #'
-#' @return The input data frame, plus the new columns with the results of the
-#'   geographical coordinates (e.g. 'geo.check').
+#' @return The input data frame, plus the new columns with the results
+#'   of the geographical coordinates (e.g. 'geo.check').
 #'
-#' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for the validation of
-#'   the spatial information associated to each record (e.g. geographical
-#'   coordinates) are performed altogether (see the __plantR__ tutorial for
-#'   details).
+#' @details The function works as a wrapper function, where the
+#'   individuals steps of the __plantR__ workflow for the validation
+#'   of the spatial information associated to each record (e.g.
+#'   geographical coordinates) are performed altogether (see the
+#'   __plantR__ tutorial for details).
 #'
 #' @inheritParams checkCoord
 #' @inheritParams checkDist
@@ -37,8 +40,8 @@
 #' \link[plantR]{checkShore}, \link[plantR]{checkInverted},
 #' \link[plantR]{checkOut}, \link[plantR]{getCult}, \link[plantR]{checkDist}
 #'
-#' @author Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz & Renato
-#'   A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara R. Mortara, Guilherme S. Grittz
+#'   & Renato A. Ferreira de Lima
 #'
 #' @encoding UTF-8
 #'

@@ -14,85 +14,100 @@ getLoc(
 )
 }
 \arguments{
-\item{x}{a data.frame containing the strings for locality search. See details
-for the specifications of this data frame.}
+\item{x}{a data.frame containing the strings for locality search.
+See details for the specifications of this data frame.}
 
-\item{str.names}{a vector of at least two columns names containing the
-locality resolution and search string(s), in that order. Defaults to
-'resol.orig', 'loc.string', 'loc.string1' and 'loc.string2'.}
+\item{str.names}{a vector of at least two columns names containing
+the locality resolution and search string(s), in that order.
+Defaults to 'resol.orig', 'loc.string', 'loc.string1' and
+'loc.string2'.}
 
-\item{gazet}{a data.frame containing the gazetteer. The default is "plantR",
-the internal \strong{plantR} gazetteer (biased towards Latin America).}
+\item{gazet}{a data.frame containing the gazetteer. The default is
+"plantR", the internal \strong{plantR} gazetteer (biased towards Latin
+America).}
 
-\item{gazet.names}{a vector of at least four columns names containing the
-locality search string, latitude and longitude, in that order. If
-available, the resolution of the gazetteer can be provided as a fifth name.
-Defaults to columns names of the \strong{plantR} gazetteer: 'loc',
-'loc.correct', 'latitude.gazetteer', 'longitude.gazetteer' and
-'resolution.gazetteer'.}
+\item{gazet.names}{a vector of at least four columns names
+containing the locality search string, latitude and longitude, in
+that order. If available, the resolution of the gazetteer can be
+provided as a fifth name. Defaults to columns names of the
+\strong{plantR} gazetteer: 'loc', 'loc.correct', 'latitude.gazetteer',
+'longitude.gazetteer' and 'resolution.gazetteer'.}
 
-\item{orig.names}{logical. Should the original columns names of the gazetteer
-be preserved. Default to FALSE.}
+\item{orig.names}{logical. Should the original columns names of the
+gazetteer be preserved. Default to FALSE.}
 }
 \value{
-The data frame \code{x}, with the new columns retrieved from the
-gazetteer. More specifically, it returns the string used for the search in
-the gazetteer (column 'loc'), the string retrieved (if any, column
-'loc.correct'), the geographical coordinates (in decimal degrees) and the
-resolution associated with the string retrieved (columns
-'latitude.gazetteer', 'longitude.gazetteer', and 'resolution.gazetteer',
-respectively) and the associated resolution.
+The data frame \code{x}, with the new columns retrieved
+from the gazetteer. More specifically, it returns the string used
+for the search in the gazetteer (column 'loc'), the string
+retrieved (if any, column 'loc.correct'), the geographical
+coordinates (in decimal degrees) and the resolution associated
+with the string retrieved (columns 'latitude.gazetteer',
+'longitude.gazetteer', and 'resolution.gazetteer', respectively)
+and the associated resolution.
 }
 \description{
-This function uses the \strong{plantR} locality strings to search for
-existing localities and their respective coordinates in a
-\href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer}, which can be
-used to replace missing coordinates and in the validation process of the
-locality information and geographical coordinates provided.
+This function uses the \strong{plantR} locality strings to
+search for existing localities and their respective coordinates
+in a \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer},
+which can be used to replace missing coordinates and in the
+validation process of the locality information and geographical
+coordinates provided.
 }
 \details{
-The function was initially designed as part of a larger routine to
-edit and validate locality information from plant occurrence data. It is
-possible to use it separately, but it may be easier to use it under the
-workflow presented in the \strong{plantR} manual. If used separately, users must
-provide a data frame with at least two columns ('resol.orig' and
-'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
-also be provided and in this case, these additional strings are used to
-search for information below the municipality/county level, that is, to
-retrieve from the gazetteer information at the locality level or below. If
-these columns have different names in \code{x}, these names can be supplied
-using, the argument \code{str.names}. See Examples below.
+The function was initially designed as part of a larger
+routine to edit and validate locality information from plant
+occurrence data. It is possible to use it separately, but it may
+be easier to use it under the workflow presented in the
+\strong{plantR} manual. If used separately, users must provide a data
+frame with at least two columns ('resol.orig' and 'loc.string').
+Other locality strings ('loc.string1' and 'loc.string2') may also
+be provided and in this case, these additional strings are used
+to search for information below the municipality/county level,
+that is, to retrieve from the gazetteer information at the
+locality level or below. If these columns have different names in
+\code{x}, these names can be supplied using, the argument
+\code{str.names}. See Examples below.
 
-The default \strong{plantR} gazetteer includes information for all countries at
-the country level (i.e. administrative level 0) and at the lowest
-administrative level available for all Latin at GDAM
-(\url{https://gadm.org}) for 51 Latin American countries. For Brazil, the
-gazetteer also contains information at the locality level (e.g. farms,
-forest fragments, parks), obtained from \href{https://www.ibge.gov.br/}{IBGE},
+The default \strong{plantR} gazetteer includes information for all
+countries at the country level (i.e. administrative level 0) and
+at the lowest administrative level available for all Latin at
+GDAM(\url{https://gadm.org}) for 51 Latin American countries. For
+Brazil, the gazetteer also contains information at the locality
+level (e.g. farms,forest fragments, parks), obtained from
+\href{https://www.ibge.gov.br/}{IBGE},
 \href{http://cncflora.jbrj.gov.br}{CNCFlora} and
 \href{http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start}{TreeCo}
-databases. It also includes common spelling variants and historical changes
-to locality names (currently biased for Brazil) and more common notation
-variants of locality names found in the locality description of records
-from GBIF, speciesLink and JABOT databases (include few type localities).
-In total the gazetteer has nearly 25,000 locality names associated with a
+databases. It also includes common spelling variants and
+historical changes to locality names (currently biased for
+Brazil) and more common notation variants of locality names found
+in the locality description of records from GBIF, speciesLink and
+JABOT databases (include few type localities). In total the
+gazetteer has nearly 25,000 locality names associated with a
 valid geographical coordinates.
 
-A different gazetteer than the \strong{plantR} default can be used. This
-gazetteer must be provided using the argument \code{gazet} and it must contain
-the columns 'loc' (search string), 'loc.correct' (correct string),
-'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
-'resolution.gazetteer' (e.g. country, state, etc). If the names for these
-columns are different, they can be supplied using argument \code{gazet.names}.
+A different gazetteer than the \strong{plantR} default can be used.
+This gazetteer must be provided using the argument \code{gazet} and it
+must contain the columns 'loc' (search string), 'loc.correct'
+(correct string), 'latitude.gazetteer', 'longitude.gazetteer' (in
+decimal degrees) and 'resolution.gazetteer' (e.g. country, state,
+etc). If the names for these columns are different, they can be
+supplied using argument \code{gazet.names}.
 
-It is important to stress that the retrieval of locality information
-depends on the completeness of the gazetteer itself. So, if a query does
-not find a "valid" locality, it does not necessarily mean that the locality
-does not exist or that its notation is wrong. It can simply mean that the
-gazetteer is incomplete for the region you are working with. The gazetteer
-is permanently being improved. If you find an error or if you want to
-contribute with region-specific gazetteers, please send an email to
-\href{mailto:raflima@usp.br}{raflima@usp.br}.
+It is important to stress that the retrieval of locality
+information depends on the completeness of the gazetteer itself.
+So, if a query does not find a "valid" locality, it does not
+necessarily mean that the locality does not exist or that its
+notation is wrong. It can simply mean that the gazetteer is
+incomplete for the region you are working with. The gazetteer is
+permanently being improved. If you find an error or if you want
+to contribute with region-specific gazetteers, please send an
+email to \href{mailto:raflima@usp.br}{raflima@usp.br}.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 
@@ -132,5 +147,5 @@ getLoc(occs.locs)
 \link[plantR]{fixLoc}, \link[plantR]{strLoc} and \link[plantR]{prepLoc}.
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }

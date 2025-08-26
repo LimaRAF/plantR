@@ -1,19 +1,22 @@
 #' @title Prepare, Search and Merge Duplicate Specimens
 #'
-#' @description This function search for duplicated specimens within and across
-#'   collections and it can be used to homogenize the information of
-#'   different groups of fields and to remove duplicates, leaving only one
-#'   occurrence for each group of duplicata.
+#' @description This function search for duplicated specimens within
+#'   and across collections and it can be used to homogenize the
+#'   information of different groups of fields and to remove
+#'   duplicates, leaving only one occurrence for each group of
+#'   duplicates.
 #'
-#' @return The input data frame, plus the new columns with the formatted
-#'   fields.
+#' @return The input data frame, plus the new columns with the
+#'   formatted fields.
 #'
-#' @param occ.df a data frame, containing typical fields from occurrence records
-#'   from herbarium specimens
-#' @param cat.code character. The name of the column containing the code of the
-#'   collection. Default to the __plantR__ output column "collectionCode.new".
-#' @param cat.numb character. The name of the column containing the catalog
-#'   number (a.k.a. accession number) of the record. Default to "catalogNumber".
+#' @param occ.df a data frame, containing typical fields from
+#'   occurrence records from herbarium specimens
+#' @param cat.code character. The name of the column containing the
+#'   code of the collection. Default to the __plantR__ output column
+#'   "collectionCode.new".
+#' @param cat.numb character. The name of the column containing the
+#'   catalog number (a.k.a. accession number) of the record. Default
+#'   to "catalogNumber".
 #' @param merge logical. Should duplicates be merged? Default to TRUE.
 #' @param remove logical. Should all duplicates be removed or only the
 #'   duplicated entries from the same collection? Default to FALSE.
@@ -22,16 +25,16 @@
 #' @inheritParams mergeDup
 #' @inheritParams rmDup
 #'
-#' @details The function works similarly to a wrapper function, where the
-#'   individuals steps of the proposed __plantR__ workflow for preparing,
-#'   searching, merging and removal of duplicates are performed altogether (see
-#'   the __plantR__ tutorial for details).
+#' @details The function works as a wrapper function, where
+#'   the individuals steps of the proposed __plantR__ workflow for
+#'   preparing, searching, merging and removal of duplicates are
+#'   performed altogether (see the __plantR__ tutorial for details).
 #'
 #' @seealso
 #'  \link[plantR]{prepDup}, \link[plantR]{getDup}, \link[plantR]{mergeDup},
 #'  \link[plantR]{rmDup}
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @export validateDup
 #'

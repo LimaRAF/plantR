@@ -9,37 +9,43 @@ prepCoord(x, lat = "decimalLatitude", lon = "decimalLongitude", flag = TRUE)
 \arguments{
 \item{x}{a data.frame containing the geographical coordinates}
 
-\item{lat}{character. The name of the column containing the latitude. Default
-to "decimalLatitude".}
+\item{lat}{character. The name of the column containing the
+latitude. Default to "decimalLatitude".}
 
-\item{lon}{character. The name of the column containing the longitude.
-Default to "decimalLongitude".}
+\item{lon}{character. The name of the column containing the
+longitude. Default to "decimalLongitude".}
 
-\item{flag}{logical. Should the differences between the original and edited
-coordinates be flagged? Default to TRUE.}
+\item{flag}{logical. Should the differences between the original
+and edited coordinates be flagged? Default to TRUE.}
 }
 \value{
-The data frame \code{x} with the edited geographical coordinates, in
-decimal degrees. The new columns have the same name followed by the suffix
-'.new'.
+The data frame \code{x} with the edited geographical
+coordinates, in decimal degrees. The new columns have the same
+name followed by the suffix '.new'.
 }
 \description{
-This function formats geographical coordinates to decimal
-degrees
+This function formats geographical coordinates to
+decimal degrees
 }
 \details{
-This is a simple function that works for standardizing common issues
-in geographical coordinates, such as format and spacing. It was designed to
-process coordinates already in decimal degrees. So, it does not handle all
-formats and may return \code{NA} even if a coordinates are given and valid.
+This is a simple function that works for standardizing
+common issues in geographical coordinates, such as format and
+spacing. It was designed to process coordinates already in
+decimal degrees. So, it does not handle all formats and may
+return \code{NA} even if a coordinates are given and valid.
 
-Currently, the function does not differentiate missing coordinates from those
-provided in a format that \code{prepCoord} does not handle (e.g. UTM). Function
-should work fine for coordinates in the degrees + decimal minutes format.
-See examples below.
+Currently, the function does not differentiate missing coordinates
+from those provided in a format that \code{prepCoord} does not handle
+(e.g. UTM). Function should work fine for coordinates in the
+degrees + decimal minutes format. See examples below.
 
-Note that if one of the coordinates is valid and the other is not, the
-function returns NAs for both coordinates.
+Note that if one of the coordinates is valid and the other is not,
+the function returns NAs for both coordinates.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 

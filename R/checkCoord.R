@@ -39,7 +39,7 @@
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
 #' @importFrom spatialrisk haversine
 #'
-#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
 #' @details
 #'
@@ -63,6 +63,11 @@
 #' information in the gazetteer used for the validation of the
 #' locality information (see function `getLoc()` and the default
 #' __plantR__ maps 'worldMap' and 'latamMap').
+#'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @encoding UTF-8
 #'

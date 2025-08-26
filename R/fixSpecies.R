@@ -10,6 +10,17 @@
 #'   with or without infra-specific ranks (var., subsp. and f.) or
 #'   abbreviations of unspecific names (sp. or spp.).
 #'
+#' @param x a vector or data.frame containing the taxon name
+#'   information
+#' @param tax.name character. The name of the column containing the
+#'   taxon name. Defaults to "scientificName"
+#' @param author.name character. The name of the column containing the
+#'   author of scientific name. Defaults to "scientificNameAuthorship"
+#' @param rm.rank logical. Should the infra-specific rank abbreviation
+#'   be removed from the name? Defaults to FALSE
+#' @param rm.indet logical. Should the abbreviations for unspecific
+#'   names (i.e. sp. or spp.) be removed? Defaults to FALSE
+#'
 #' @return
 #' A data frame with the input vector or data frame plus new columns
 #' `scientificName.new` (suggestion for a more correct taxon name),
@@ -55,16 +66,10 @@
 #' \item{\code{abbreviated_genus}}{genus is abbreviated}
 #' \item{\code{name_w_digits}}{scientific name has digits} }
 #'
-#' @param x a vector or data.frame containing the taxon name
-#'   information
-#' @param tax.name character. The name of the column containing the
-#'   taxon name. Defaults to "scientificName"
-#' @param author.name character. The name of the column containing the
-#'   author of scientific name. Defaults to "scientificNameAuthorship"
-#' @param rm.rank logical. Should the infra-specific rank abbreviation
-#'   be removed from the name? Defaults to FALSE
-#' @param rm.indet logical. Should the abbreviations for unspecific
-#'   names (i.e. sp. or spp.) be removed? Defaults to FALSE
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @author Sara Mortara & Renato A. Ferreira de Lima
 #'
@@ -75,7 +80,7 @@
 #'
 #' @examples
 #'
-#' # Two last names are examples for which the function cannot handle yet.
+#' Two last names are examples for which the function cannot handle yet.
 #'
 #' df <- data.frame(scientificName =
 #' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",

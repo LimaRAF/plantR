@@ -133,3 +133,6 @@ and \href{https://www.gbif.org/}{GBIF}.
 \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and
 \link[plantR]{prepFamily}.
 }
+\author{
+Renato A. Ferreira de Lima
+}
