@@ -91,7 +91,7 @@
 #' @author Renato A. Ferreira de Lima
 #'
 #' @importFrom dplyr left_join
-#' @importFrom stringr str_count
+#' @importFrom stringr str_count fixed
 #'
 #' @export getLoc
 #'
@@ -191,29 +191,38 @@ getLoc <- function(x,
   cols.repl <- cols.gazet[-1]
   resol.gazet <- c("localidade", "localidade|sublocalidade", "sublocalidade",
                    "distrito|vila", "distrito", "distrito|bairro", "bairro",
-                   "cachoeira", "mina", "vila", "serra")
+                   "cachoeira", "mina", "vila", "serra", "locality")
 
   # merging the occurrence data with the gazetteer information
   tmp <- dplyr::left_join(data.frame(loc = x1[,2], stringsAsFactors= FALSE),
                           dic, by = "loc")
-  # Downgrading the locality resolution for the localities not found in the gazetteer
+  # Downgrading the locality resolution when not found in the gazetteer
   tmp1 <- tmp$loc[!is.na(tmp$loc) & is.na(tmp$loc.correct)]
   if (length(tmp1) > 0) {
-    if (any(stringr::str_count(tmp1, "_") == 1))
-      tmp1[stringr::str_count(tmp1, "_") == 1] <-
-        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 1], "_"), function(x) x[1])
-    if (any(stringr::str_count(tmp1, "_") == 2))
-      tmp1[stringr::str_count(tmp1, "_") == 2] <-
-        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 2], "_"), function(x) paste(x[1], x[2], sep = "_"))
 
-    tmp2 <- dplyr::left_join(data.frame(loc=tmp1, stringsAsFactors= FALSE),
+    n.under <- stringr::str_count(tmp1, stringr::fixed("_"))
+    if (any(n.under == 1))
+      tmp1[n.under == 1] <-
+        gsub("_.*", "", tmp1[n.under == 1], perl = TRUE)
+
+    if (any(n.under == 2))
+      tmp1[n.under == 2] <-
+        sapply(strsplit(tmp1[n.under == 2], "_", fixed = TRUE),
+               function(x) paste(x[1], x[2], sep = "_"))
+
+    if (any(n.under > 2))
+      tmp1[n.under > 2] <-
+        sapply(strsplit(tmp1[n.under > 2], "_", fixed = TRUE),
+             function(x) paste(x[1], x[2], sep = "_"))
+
+    tmp2 <- dplyr::left_join(data.frame(loc = tmp1),
                              dic, by = "loc")
 
     #if nothing is found in the gazetteer, we finally try at country level:
     tmp3 <- tmp2$loc[is.na(tmp2$loc.correct)]
     if (length(tmp3) > 0) {
-      tmp3 <- sapply(strsplit(tmp3,"_"), function(x) x[1])
-      tmp3 <- dplyr::left_join(data.frame(loc=tmp3, stringsAsFactors= FALSE),
+      tmp3 <- gsub("_.*", "", tmp3, perl = TRUE)
+      tmp3 <- dplyr::left_join(data.frame(loc = tmp3),
                                dic, by = "loc")
       tmp2[is.na(tmp2$loc.correct), cols.repl] <-
         tmp3[ ,cols.repl]
