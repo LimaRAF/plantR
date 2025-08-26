@@ -91,19 +91,24 @@ information related to the suggested name (columns 'taxon.rank',
 tax.notes' and its 'id' in the reference taxonomic backbone).
 }
 \description{
-Provides valid taxon names or corrects typos and
-orthographic variants based on taxonomic backbones provided by
-the user or by the \code{plantR} companion packages \code{plantRdata} (the
-default).
+Validates taxon names (including the correction of
+typos and the detection of orthographic variants) based on a
+reference list of taxon names (e.g. taxonomic backbone) provided
+by the user, \strong{plantR} (the default) or those obtained from the
+companion package \strong{plantRdata}.
 }
 \details{
-The function first checks taxon names with authorship (if
+First, the function checks taxon names with authorship (if
 available), using both exact and fuzzy matching. This is good
-practice to avoid multiple matches in the reference backbone
-related to homonyms. If a name below the threshold distance
-defined in argument \code{sug.dist} is not found, then the function
-does another round of exact and fuzzy matching using only the
-taxon names without authorship.
+practice to avoid multiple matches in the reference taxonomic
+backbone related to homonyms. If a name below the threshold
+distance defined in argument \code{sug.dist} is not found, then the
+function does a second round of exact and fuzzy matching using
+only the taxon names without authorship. This second check is
+done for names provided without authorship by the user and
+for names provided with an authorship but very distant from
+the one found in the backbone (i.e. bad fuzzy matches of
+authorship names).
 
 The name check compares all unique names in \code{x} with all names in
 the taxonomic backbones selected. So, the speed of the checking
@@ -117,7 +122,7 @@ minute to check a dozen of names.
 But if you have many thousands of input names to check and a
 large backbone, the function offers the possibility of doing the
 name matching by initial letters and/or using parallelization.
-See the help of function \code{nameMatching} which is used internally.
+See the help of function \code{nameMatching()} which is used internally.
 
 The result of the name check will vary depending on the
 completeness of the backbone. And do expect some false positive
@@ -128,13 +133,13 @@ this is the case, one should use more restrictive values of
 \code{sug.dist} than the default of 0.9. See examples for an
 illustration of these differences.
 
-Currently, there are two options: (1) using the \code{plantR} internal
+Currently, there are two options: (1) using the \strong{plantR} internal
 backbone for the Brazilian Vascular Flora (the default) or (2)
 using user-provided taxonomic backbones. The choice between these
 options is declared via the argument \code{db}, which is passed on to
 the function \code{getTaxBackbone()}.
 
-The companion R package \code{plantRdata} provides different global
+The companion R package \strong{plantRdata} provides different global
 and regional taxonomic backbones in the exact format expected by
 \code{prepSpecies()}. See the help of function \code{getTaxBackbone()} for
 more details on this expected format.

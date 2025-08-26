@@ -1,9 +1,10 @@
 #' @title Get Valid Taxon Names
 #'
-#' @description Provides valid taxon names or corrects typos and
-#'   orthographic variants based on taxonomic backbones provided by
-#'   the user or by the `plantR` companion packages `plantRdata` (the
-#'   default).
+#' @description Validates taxon names (including the correction of
+#'   typos and the detection of orthographic variants) based on a
+#'   reference list of taxon names (e.g. taxonomic backbone) provided
+#'   by the user, __plantR__ (the default) or those obtained from the
+#'   companion package __plantRdata__.
 #'
 #' @param x a vector or data.frame of taxon names and their
 #'   authorships, ideally the output from function `fixSpecies()`.
@@ -43,13 +44,17 @@
 #' tax.notes' and its 'id' in the reference taxonomic backbone).
 #'
 #' @details
-#'   The function first checks taxon names with authorship (if
+#'   First, the function checks taxon names with authorship (if
 #'   available), using both exact and fuzzy matching. This is good
-#'   practice to avoid multiple matches in the reference backbone
-#'   related to homonyms. If a name below the threshold distance
-#'   defined in argument `sug.dist` is not found, then the function
-#'   does another round of exact and fuzzy matching using only the
-#'   taxon names without authorship.
+#'   practice to avoid multiple matches in the reference taxonomic
+#'   backbone related to homonyms. If a name below the threshold
+#'   distance defined in argument `sug.dist` is not found, then the
+#'   function does a second round of exact and fuzzy matching using
+#'   only the taxon names without authorship. This second check is
+#'   done for names provided without authorship by the user and
+#'   for names provided with an authorship but very distant from
+#'   the one found in the backbone (i.e. bad fuzzy matches of
+#'   authorship names).
 #'
 #'   The name check compares all unique names in `x` with all names in
 #'   the taxonomic backbones selected. So, the speed of the checking
@@ -63,7 +68,7 @@
 #'   But if you have many thousands of input names to check and a
 #'   large backbone, the function offers the possibility of doing the
 #'   name matching by initial letters and/or using parallelization.
-#'   See the help of function `nameMatching` which is used internally.
+#'   See the help of function `nameMatching()` which is used internally.
 #'
 #'   The result of the name check will vary depending on the
 #'   completeness of the backbone. And do expect some false positive
@@ -74,13 +79,13 @@
 #'   `sug.dist` than the default of 0.9. See examples for an
 #'   illustration of these differences.
 #'
-#'   Currently, there are two options: (1) using the `plantR` internal
+#'   Currently, there are two options: (1) using the __plantR__ internal
 #'   backbone for the Brazilian Vascular Flora (the default) or (2)
 #'   using user-provided taxonomic backbones. The choice between these
 #'   options is declared via the argument `db`, which is passed on to
 #'   the function `getTaxBackbone()`.
 #'
-#'   The companion R package `plantRdata` provides different global
+#'   The companion R package __plantRdata__ provides different global
 #'   and regional taxonomic backbones in the exact format expected by
 #'   `prepSpecies()`. See the help of function `getTaxBackbone()` for
 #'   more details on this expected format.
@@ -551,6 +556,123 @@ prepSpecies <- function(x,
         result[rep_these, tax.names]
     }
 
+    # flagging fuzzy matches above the threshold
+    auth_factor <- 0.5
+    max_dist_auth <- max_dist + auth_factor * max_dist
+    rep_these <- (result[["fuzzy_dist_name"]] > max_dist &
+                    (is.na(result[["fuzzy_dist_author"]]) | result[["fuzzy_dist_author"]] > 0)) |
+      (result[["fuzzy_dist_author"]] > max_dist_auth &
+         result[["fuzzy_dist_name"]] > 0 )
+    rep_these[is.na(rep_these)] <- FALSE
+    if (any(rep_these))
+      result[rep_these, "match_type"] <-
+        paste0("bad_", result[rep_these, "match_type"])
+
+    # name matching without authorships for bad and no matches
+    no_matches <- c("no_match", "bad_fuzzy_w_author",
+                    "bad_fuzzy_wout_author")
+    no_authors_no_match2 <- result[["match_type"]] %in% no_matches
+    if (any(no_authors_no_match2)) {
+
+      # exact matches
+      df2 <- result[no_authors_no_match2, ]
+      tmp.match.col <- "tmp.tax.name"
+
+      if (clean.names) {
+        df2[[tmp.match.col]] <- cleanName(df2[[tax.names[1]]])
+      } else {
+        df2[[tmp.match.col]] <- df2[[tax.names[1]]]
+      }
+
+      ref.df[[tmp.match.col]] <- ref_names_clean1
+
+      bb_cols1 <- bb_cols[!bb_cols %in% "tax.name"]
+
+      unique_tax1 <- getTaxUnique(df2, ref.df,
+                                 match.col = tmp.match.col,
+                                 orig.col = tax.names[1],
+                                 name.col = "tax.name",
+                                 status.col = "taxon.status",
+                                 type.match.col = "match_type",
+                                 mult.match.col = "multiple_match",
+                                 mult.matches = mult.matches,
+                                 agg.cols = bb_cols1)
+
+      check_these <- !is.na(unique_tax1$id) &
+                        !unique_tax1$multiple_match
+      if (any(check_these)) {
+        result[no_authors_no_match2, c(bb_cols, "multiple_match")][check_these, ] <-
+          unique_tax1[check_these, c(bb_cols, "multiple_match")]
+        result$match_type[no_authors_no_match2][check_these] <-
+          "exact_wout_author"
+        result$fuzzy_dist_name[no_authors_no_match2][check_these] <-
+          0L
+        result$fuzzy_dist_author[no_authors_no_match2][check_these] <-
+          NA
+      }
+
+      # double_check <- is.na(result$id)
+      # if (any(double_check)) {
+      #   result$match_type[double_check] <-
+      #     result$multiple_match[double_check] <-
+      #       result$fuzzy_dist_name[double_check] <- NA
+      # }
+
+      # fuzzy matches
+      max_dist = 1 - sug.dist
+      no_authors_no_match3 <- is.na(result$id) &
+                                result[["match_type"]] %in% no_matches
+      if (any(no_authors_no_match3)) {
+
+        input_names_clean2 <-
+          df2[[tmp.match.col]][no_authors_no_match3]
+        fuzzy_match1 <- nameMatching(input_names_clean2,
+                                    ref_names_clean1,
+                                    match.type = "fuzzy",
+                                    clean.names = FALSE,
+                                    dist.method = dist.method,
+                                    max.dist = max_dist,
+                                    split.letters = split.letters,
+                                    parallel = parallel,
+                                    cores = cores,
+                                    show.progress = TRUE)
+
+        if (any(!is.na(fuzzy_match1))) {
+          result[no_authors_no_match3, c(bb_cols)] <-
+            ref.df[fuzzy_match1, bb_cols]
+
+          result$match_type[no_authors_no_match3] <-
+            "fuzzy_wout_author"
+          result$multiple_match[no_authors_no_match3] <- FALSE
+          result$fuzzy_dist_name[no_authors_no_match3] <-
+            result$fuzzy_dist_author[no_authors_no_match3] <- NA
+        }
+
+        # Calculating the new distance between names
+        name_dist2 <-
+          stringdist::stringdist(
+            input_names_clean2,
+            result[["tax.name"]][no_authors_no_match3])
+        result$fuzzy_dist_name[no_authors_no_match3] <-
+          round(name_dist2/
+                  nchar(input_names_clean2), 4)
+
+      }
+
+      # Calculating the new distance between author names
+      rep_these <- no_authors_no_match2 &
+                    !result[["match_type"]] %in% no_matches
+      if (any(rep_these)) {
+        aut_dist1 <-
+          stringdist::stringdist(
+            df2[[tax.names[2]]][rep_these],
+              result[["tax.authorship"]][rep_these])
+        result$fuzzy_dist_author[rep_these] <-
+          round(aut_dist1/
+                  nchar(df2[[tax.names[2]]][rep_these]), 4)
+      }
+    }
+
     rownames(result) <- NULL
 
     select_cols <- c(tax.names,
@@ -562,18 +684,6 @@ prepSpecies <- function(x,
       "suggestedName"
     names(output)[which(names(output) == "tax.authorship")] <-
       "suggestedAuthorship"
-
-    # flagging fuzzy matches above the threshold
-    auth_factor <- 0.5
-    max_dist_auth <- max_dist + auth_factor * max_dist
-    rep_these <- (output[["fuzzy_dist_name"]] > max_dist &
-                    (is.na(output[["fuzzy_dist_author"]]) | output[["fuzzy_dist_author"]] > 0)) |
-                  (output[["fuzzy_dist_author"]] > max_dist_auth &
-                    output[["fuzzy_dist_name"]] > 0 )
-    rep_these[is.na(rep_these)] <- FALSE
-    if (any(rep_these))
-      output[rep_these, "match_type"] <-
-        paste0("bad_", result[rep_these, "match_type"])
 
     output <- getTaxNotes(output)
 
