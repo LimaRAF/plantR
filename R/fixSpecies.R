@@ -80,7 +80,6 @@
 #'
 #' @examples
 #'
-#' Two last names are examples for which the function cannot handle yet.
 #'
 #' df <- data.frame(scientificName =
 #' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
@@ -94,7 +93,7 @@
 #' "Blechnum occidentale leopoldense Dutra",
 #' "Blechnum austrobrasilianum de la Sota",
 #' "Urbanodendron Mez",
-#' "Arabidopsis thaliana × Arabidopsis arenosa"))
+#' "Arabidopsis thaliana × Arabidopsis arenosa")) # This names function cannot handle yet
 #'
 #' fixSpecies(df)
 #' fixSpecies(df, rm.rank = TRUE)

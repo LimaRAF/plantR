@@ -113,7 +113,7 @@ strLoc <- function(x,
   if(any(rep_these))
     loc[rep_these] <- x1[1][rep_these]
 
-  ## Definig a unique code for each locality (if provided)
+  ## Defining a unique code for each locality (if provided)
   if (loc.names[1] %in% names(x1)) {
     loc1 <- rep(NA, dim(x1)[1])
     #locality-level

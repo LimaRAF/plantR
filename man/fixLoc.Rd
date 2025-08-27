@@ -7,6 +7,7 @@
 fixLoc(
   x,
   loc.levels = c("country", "stateProvince", "municipality", "locality"),
+  fix.encoding = TRUE,
   scrap = TRUE,
   to.lower = TRUE
 )
@@ -17,6 +18,10 @@ species records.}
 
 \item{loc.levels}{a vector containing the names of the locality
 fields to be formatted.}
+
+\item{fix.encoding}{logical. Should the function try to find and
+fix common encoding problems from text in 'latin1'? Defaults to
+TRUE}
 
 \item{scrap}{logical. Should the search of missing locality
 information be performed? Default to TRUE.}
@@ -51,6 +56,13 @@ fields mentioned above are available.
 If present, other Darwin Core fields are used internally to
 obtain missing information on the locality fields declared above,
 namely: 'countryCode', 'county', and 'verbatimLocality'.
+
+The argument \code{fix.encoding} controls the attempt to find and
+replace common enconding problems from text with special
+characters. This replacement is performed using the internal
+object \code{unwantedEncoding}. Note that the replacement actually
+removes the special characters (i.e. encoding problem of 'ã'
+becomes 'a').
 
 The argument \code{scrap} controls the search for missing municipality
 information from the field 'locality'. It also performs some
