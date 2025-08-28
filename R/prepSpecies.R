@@ -585,8 +585,10 @@ prepSpecies <- function(x,
 
       if (clean.names) {
         df2[[tmp.match.col]] <- cleanName(df2[[tax.names[1]]])
+        ref_names_clean1 <- cleanName(ref.df[["tax.name"]])
       } else {
         df2[[tmp.match.col]] <- df2[[tax.names[1]]]
+        ref_names_clean1 <- ref.df[["tax.name"]]
       }
 
       ref.df[[tmp.match.col]] <- ref_names_clean1

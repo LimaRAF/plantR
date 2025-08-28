@@ -90,7 +90,6 @@ in the internal object \code{reservedColNames}.
 }
 \examples{
 
-
 df <- data.frame(scientificName =
 c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 "Lindsaea lancea var. Angulata",

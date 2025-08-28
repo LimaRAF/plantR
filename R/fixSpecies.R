@@ -80,7 +80,6 @@
 #'
 #' @examples
 #'
-#'
 #' df <- data.frame(scientificName =
 #' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 #' "Lindsaea lancea var. Angulata",
@@ -164,7 +163,6 @@ fixSpecies <- function(x = NULL,
   inc_string <- "inc\\. sed\\.|Incertae sedis"
   spnov_string <- " sp\\. nov\\.| spec\\. nov\\.| sp\\. n\\.| nov\\. sp\\.| nov\\. spec\\.| n\\. sp\\."
   indet_string <- " sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
-  # indet_string <- " sp\\.$| sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
 
   # Add other possibilities of infraspecific codes
   # "cultivar.", "subvar."
@@ -235,7 +233,8 @@ fixSpecies <- function(x = NULL,
   # recognizing and isolating authorship
   auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$",
                        check$species_new, perl = TRUE) &
-                  !grepl(" [A-Z+]$", check$species_new, perl = TRUE)
+                  !grepl(" [A-Z+]$", check$species_new, perl = TRUE) |
+                    grepl("wrong_case", check$species_status, fixed = TRUE)
 
   if (any(auth_string)) {
     author_split <- fixAuthors(check$species_new[auth_string])
@@ -257,6 +256,12 @@ fixSpecies <- function(x = NULL,
       paste(tax_status[id_authors_indet], "name_w_authors", sep = "|")
     check$species_status[auth_string] <-
       sub("^\\|", "", check$species_status[auth_string], perl = TRUE)
+
+    rep_these <- check$species_status[auth_string] %in% "name_w_wrong_case|name_w_authors" &
+                  !grepl("\\s.+\\s", check$species[auth_string], perl = TRUE)
+    if (any(rep_these))
+      check$species_status[auth_string][rep_these] <- "name_w_authors"
+
     check$species_new[auth_string][id_authors] <-
       squish(tax_name[id_authors])
     check$authors_new[auth_string][id_authors] <-
@@ -347,9 +352,6 @@ fixSpecies <- function(x = NULL,
         check$species_new[rep_these] <-
           addRank(check$species_new[rep_these], "\u00d7")
     }
-
-    check$species_new <-
-      sub(" NA$", "", check$species_new, perl = TRUE)
   }
 
   # option to return names with or without unidentified abbreviations
