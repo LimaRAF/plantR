@@ -196,7 +196,7 @@ gazetteer <- gazetteer[gazetteer$status %in% "ok",]
 priorities <- data.frame(source = c("gdam", "gdam_treeco", "treeco", "ibge",
                                     "google", "ibge_treeco", "splink_jabot",
                                     "gbif", "gbif_gsg", "cncflora", "ibge?", "types"),
-                         priority = c(2, 3, 3, 2, 5, 1, 4, 4, 4, 3, 3, 1))
+                         priority = c(2, 3, 3, 1, 5, 0, 4, 4, 4, 3, 3, 0))
 priorities[order(priorities$priority),]
 
 gazetteer <- dplyr::left_join(gazetteer, priorities)
@@ -239,6 +239,19 @@ admin <- admin[, c("source",
 gazetteer$order <- NULL
 gazetteer$status <- NULL
 gazetteer$priority <- NULL
+
+check_these <- stringr::str_count(admin$loc.correct, "_") > 2
+check_these[is.na(check_these)] <- FALSE
+loc_parc <- admin$loc.correct
+loc_parc[check_these] <- str_extract(loc_parc[check_these], ".*(?=_)")
+probs <- admin$NAME_2[match(loc_parc, admin$loc.correct)] != admin$NAME_2
+probs[is.na(probs)] <- FALSE
+if(any(probs)) {
+  as.data.frame(admin)[probs,c(1,4:6)]
+  # stopifnot(dim(admin[probs, ])[1] == 0)
+  # sort(admin$order[probs])
+}
+
 
 
 # names and abbreviation of localities to be replaced
