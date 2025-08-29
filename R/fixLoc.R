@@ -141,13 +141,13 @@ fixLoc <- function(x,
   x1 <- x[, match(loc.levels, colnames(x), nomatch = 0), drop = FALSE]
 
   ## Loading the dictionary of names, terms, abbreviations and encodign problems to be replaced
-  enc <- unwantedEncoding
   dic <- replaceNames
   missLocs <- missLocs
   wordsForSearch <- wordsForSearch
 
   ## Solving common encoding problems
   if (fix.encoding) {
+    enc <- unwantedEncoding
     for (i in 1:length(enc))
       x1[] <- lapply(x1, gsub, pattern = names(enc)[i], replacement = enc[i],
                      ignore.case = TRUE, perl = TRUE)
@@ -258,11 +258,13 @@ fixLoc <- function(x,
                                     perl = TRUE)
 
       # Replacing locality description at the municipality field
-      rep_these <- nchar(x1[ ,"municipality"]) > 45 & is.na(x1[ ,"locality"])
-      rep_these[is.na(rep_these)] <- FALSE
-      if (any(rep_these)) {
-        x1[["locality"]][rep_these] <- x1[["municipality"]][rep_these]
-        x1[["municipality"]][rep_these] <- NA
+      if ("locality" %in% loc.levels) {
+        rep_these <- nchar(x1[ ,"municipality"]) > 45 & is.na(x1[ ,"locality"])
+        rep_these[is.na(rep_these)] <- FALSE
+        if (any(rep_these)) {
+          x1[["locality"]][rep_these] <- x1[["municipality"]][rep_these]
+          x1[["municipality"]][rep_these] <- NA
+        }
       }
 
       # Removing unwanted prefixes and abbreviations
