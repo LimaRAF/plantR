@@ -276,7 +276,7 @@ reservedColNames <- c(
   # "format.coords" - 5 columns
   "coord.check", "decimalLatitude.new", "decimalLongitude.new",
   "origin.coord", "precision.coord",
-  # "format.tax" - 10 columns
+  # "format.tax" - 13 columns
   "scientificName.new", "scientificNameAuthorship.new",
   "scientificNameStatus", "suggestedFamily",
   "suggestedName", "suggestedAuthorship",
@@ -284,14 +284,16 @@ reservedColNames <- c(
   "id", "scientificNameFull", "family.new",
   # "validate.locs" - 1 column
   "loc.check",
-  # "validate.coords" - 3 columns
+  # "validate.coords" - 8 columns
   "geo.check", "cult.check", "out.check", "dist.check", "dist.check.obs",
+  "NAME_0", "NAME_1", "NAME_2",
   # "validate.tax" - 1 columns
   "tax.check",
-  # "validate.dups" - 21 columns
+  # "validate.dups" - 22 columns
   "numTombo", "dup.ID", "dup.numb", "dup.prop",
-  "family.new1", "scientificName.new1", "identifiedBy.new1",
-  "yearIdentified.new1", "tax.check1", "scientificNameStatus1",
+  "family.new1", "scientificName.new1", "scientificNameAuthorship.new1",
+  "identifiedBy.new1", "yearIdentified.new1", "tax.check1",
+  "taxon.rank1", "scientificNameStatus1", "id1",
   "ref.spec.tax", "decimalLatitude.new1", "decimalLongitude.new1",
   "origin.coord1", "precision.coord1", "geo.check1", "ref.spec.geo",
   "loc.correct1", "resolution.gazetteer1", "loc.check1", "ref.spec.loc"
@@ -299,7 +301,7 @@ reservedColNames <- c(
 groupNames <- rep(c("format.occs", "format.locs", "format.coords",
                     "format.tax", "validate.locs", "validate.coords",
                     "validate.tax", "validate.dups"),
-                  times = c(10, 11, 5, 13, 1, 5, 1, 21))
+                  times = c(10, 11, 5, 13, 1, 8, 1, 24))
 reservedColNames <- setNames(reservedColNames, groupNames)
 
 ## Conversion of coordinate validation categories
