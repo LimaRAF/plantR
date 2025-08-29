@@ -13,22 +13,25 @@ country.shape <- "NAME_0"
 country.gazetteer <- "country.gazet"
 tax.name <- "scientificName.new"
 output <- "new.col"
+brMap <- plantR::worldMap[plantR::worldMap$NAME_0 %in% "brazil", ]
+spMap <- plantR::latamMap$brazil[plantR::latamMap$brazil$NAME_1 %in% "sao paulo", ]
 
 df1 <- checkCoord(df,
-                 low.map = "plantR",
-                 high.map = "plantR",
+                 low.map = brMap,
+                 high.map = spMap,
                  keep.cols = c("geo.check", country.shape, country.gazetteer))
 
-checkBorders(df1,
-                   geo.check = "geo.check",
-                   country.shape = country.shape,
-                   country.gazetteer = country.gazetteer,
-                   output = output)
+# checkBorders(df1,
+#                    geo.check = "geo.check",
+#                    country.shape = country.shape,
+#                    country.gazetteer = country.gazetteer,
+#                    output = output)
 
 df1.1 <- df1
 df1.1$border.check <- c(FALSE, FALSE)
 
 test_that("checkBorders works", {
+  expect_error(checkBorders(df1[,1:2]))
   expect_equal(checkBorders(df1,
                             geo.check = "geo.check",
                             country.shape = country.shape,

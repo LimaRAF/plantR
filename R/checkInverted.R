@@ -23,6 +23,9 @@
 #'   'new.col' (new column with the newly validated coordinates are
 #'   added to the input data) or 'same.col' (results are overwritten
 #'   into the existing columns).
+#' @param world.map a sf object containing the global administrative
+#'   map at the country level. The default is "plantR", the default
+#'   map obtained from [GADM](https://gadm.org) (see `worldMap`).
 #'
 #' @return if `output` is 'new.col', new columns with a suffix '.new'
 #'   are added to the data, containing the update information on the
@@ -60,10 +63,9 @@ checkInverted <- function(x,
                           country.gazetteer = "country.gazet",
                           lat = "decimalLatitude.new",
                           lon = "decimalLongitude.new",
-                          output = "new.col") {
-
-  #Escaping R CMD check notes from using dplyr syntax
-  worldMap <- worldMap
+                          output = "new.col",
+                          world.map = "plantR"
+) {
 
   ## check input
   if (!inherits(x, "data.frame"))
@@ -80,6 +82,35 @@ checkInverted <- function(x,
   if (!check.names[1] %in% colnames(x))
     stop("The column with the results from the coordinate checking was not found in the input data")
 
+  ##Getting the global map
+  world_map <- NULL
+  if (inherits(world.map, "character")) {
+    if (any(world.map %in% c("plantR", "plantr"))) {
+      world_map <- worldMap
+    } else {
+      stop("Please chose between the default map or a user-provided map")
+    }
+  }
+
+  if (inherits(world.map, "list")) {
+    if (all(sapply(world.map, function(x) class(x)[1]) %in% "sf")) {
+      if(!"NAME_0" %in% names(world.map[[1]]))
+        stop("The sf objects must have a column 'NAME_0': the lowest administrative level")
+
+      world_map <- dplyr::bind_rows(world.map)
+    } else {
+      stop("The user-provided map must be an sf object or a list of sf objects")
+    }
+  }
+
+  if (inherits(world.map, "sf")) {
+    if(!"NAME_0" %in% names(world.map))
+      stop("The global map must have a column 'NAME_0': the lowest administrative level")
+    world_map <- world.map
+  }
+
+  if(is.null(world_map))
+    stop("The user-provided map must be an sf object or a list of sf objects")
 
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
@@ -160,9 +191,9 @@ checkInverted <- function(x,
       check <- check[!bad.lat, ]
 
     ## Overlaying inverted lonlat data with the world map
-    check <- sf::st_set_crs(check, sf::st_crs(worldMap))
+    check <- sf::st_set_crs(check, sf::st_crs(world_map))
     check1 <- suppressMessages(
-      sf::st_join(check, worldMap, join = sf::st_intersects))
+      sf::st_join(check, world_map, join = sf::st_intersects))
     check1 <- check1[!is.na(check1$NAME_0),]
 
     if (dim(check1)[1] > 0) {

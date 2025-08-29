@@ -14,9 +14,12 @@ country.gazetteer <- "country.gazet"
 tax.name <- "scientificName.new"
 output <- "new.col"
 
+brMap <- plantR::worldMap[plantR::worldMap$NAME_0 %in% "brazil", ]
+spMap <- plantR::latamMap$brazil[plantR::latamMap$brazil$NAME_1 %in% "sao paulo", ]
+
 df1 <- checkCoord(df,
-                 low.map = "plantR",
-                 high.map = "plantR",
+                 low.map = brMap,
+                 high.map = spMap,
                  keep.cols = c("geo.check", country.shape, country.gazetteer))
 
 df2 <- checkBorders(df1,
@@ -36,8 +39,8 @@ test_that("checkShore works", {
 output <- "same.col"
 
 df1 <- checkCoord(df,
-                  low.map = "plantR",
-                  high.map = "plantR",
+                  low.map = brMap,
+                  high.map = spMap,
                   keep.cols = c("geo.check", country.shape, country.gazetteer))
 
 df2 <- checkBorders(df1,

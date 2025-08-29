@@ -100,7 +100,8 @@ validateCoord <- function(x,
   ## Checking inverted and swapped coordinates
   x4 <- checkInverted(x3,
                       country.gazetteer = country.gazetteer,
-                      output = output)
+                      output = output,
+                      world.map = low.map)
 
   ## Re-applying checkCoord() to the inverted/swapped coordinates
   #Selecting the right column(s)

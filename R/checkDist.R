@@ -369,9 +369,10 @@ checkDist <- function(x,
                 envir = temp.env)
     key.cols <- c("tax.name", "tax.authorship", "taxon.distribution")
     temp.env$wcvpNames <- temp.env$wcvpNames[, key.cols]
-    temp.env$wcvpNames <- temp.env$wcvpNames[!duplicated(paste(
-      temp.env$wcvpNames[["tax.name"]],
-      temp.env$wcvpNames[["tax.authorship"]])),]
+    # Renato: almost sure that this next step in done in plantRdata now (anyways, it does not chande the size of the bb)
+    # temp.env$wcvpNames <- temp.env$wcvpNames[!duplicated(paste(
+    #   temp.env$wcvpNames[["tax.name"]],
+    #   temp.env$wcvpNames[["tax.authorship"]])),]
 
     x1$level3 <- prepLoc(sub(paste0(sep, ".*"), "", x1[[loc]],
                              perl = TRUE))
