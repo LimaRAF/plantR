@@ -34,7 +34,7 @@
 #' @param keep.cols character. Name of columns that should be kept in
 #'   the output.
 #'
-#' @importFrom dplyr select one_of rename mutate if_else filter ends_with
+#' @importFrom dplyr select one_of mutate if_else filter ends_with
 #' @importFrom tidyr separate
 #' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
 #' @importFrom spatialrisk haversine
@@ -106,6 +106,11 @@ checkCoord <- function(x,
     if (any(!c(lon.gazet, lat.gazet) %in% names(x)))
       stop("If 'dist.center' is TRUE, the input must contain the longitude/latitude obtained from a gazetteer: please rename or specify the correct names")
 
+  if (any(grepl("NAME_[0-4]", names(x)))) {
+    x <- x[, !grepl("NAME_[0-4]", names(x))]
+    warning("The columns starting with 'NAME_' cannot be in the input data frame and were removed")
+  }
+
   ##Preliminary edits
   cols.x <- names(x) # original data column names
   x$tmp.order <- 1:nrow(x)
@@ -149,9 +154,8 @@ checkCoord <- function(x,
   tmp <- sf::st_set_crs(tmp, prj)
 
   ##Getting the global map
-  class.low.map <- class(low.map)[1]
   low_map <- NULL
-  if (class.low.map == "character") {
+  if (inherits(low.map, "character")) {
     if (any(low.map %in% c("plantR", "plantr"))) {
       low_map <- worldMap
     } else {
@@ -159,17 +163,18 @@ checkCoord <- function(x,
     }
   }
 
-  if (class.low.map == "list") {
+  if (inherits(low.map, "list")) {
     if (all(sapply(low.map, function(x) class(x)[1]) %in% "sf")) {
       if(!"NAME_0" %in% names(low.map[[1]]))
         stop("The sf objects must have a column 'NAME_0': the lowest administrative level")
+
       low_map <- dplyr::bind_rows(low.map)
     } else {
       stop("The user-provided map must be an sf object or a list of sf objects")
     }
   }
 
-  if (class.low.map == "sf") {
+  if (inherits(low.map, "sf")) {
     if(!"NAME_0" %in% names(low.map))
       stop("The global map must have a column 'NAME_0': the lowest administrative level")
     low_map <- low.map
@@ -185,7 +190,7 @@ checkCoord <- function(x,
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
   ##Solving misterious problems with the country map (could not isolate the problem)
-  check_these <- grepl("\\.[0-9]", rownames(tmp))
+  check_these <- grepl("\\.[0-9]", rownames(tmp), perl = TRUE)
   if (any(check_these)){
     tmp$keep_these <- rep(TRUE, dim(tmp)[1])
     dup.orders <- tmp$tmp.order[check_these]
@@ -203,9 +208,8 @@ checkCoord <- function(x,
   geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
 
   ##Getting the high-resolution map
-  class.high.map <- class(high.map)[1]
   high_map <- NULL
-  if (class.high.map == "character") {
+  if (inherits(high.map, "character")) {
     if (any(high.map %in% c("plantR", "plantr"))) {
       high_map <- dplyr::bind_rows(latamMap)
     } else {
@@ -213,18 +217,19 @@ checkCoord <- function(x,
     }
   }
 
-  if (class.high.map == "list") {
+  if (inherits(high.map, "list")) {
     if (all(sapply(high.map, function(x) class(x)[1]) %in% "sf")) {
       if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
         stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
+
       high_map <- dplyr::bind_rows(high.map)
     } else {
       stop("The user-provided map must be an sf object or a list of sf objects")
     }
   }
 
-  if (class.high.map == "sf") {
-    if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
+  if (inherits(high.map, "sf")) {
+    if (!all(c("NAME_0", "NAME_1") %in% names(high.map)))
       stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
     high_map <- high.map
   }
@@ -237,7 +242,7 @@ checkCoord <- function(x,
           sf::st_join(tmp, high_map, join = sf::st_intersects))
 
   ##Solving misterious problems with the map (could not isolate the problem)
-  check_these <- grepl("\\.[0-9]", rownames(x2))
+  check_these <- grepl("\\.[0-9]", rownames(x2), perl = TRUE)
   if (any(check_these)){
     x2$keep_these <- rep(TRUE, dim(x2)[1])
     dup.orders <- x2$tmp.order[check_these]
@@ -251,21 +256,17 @@ checkCoord <- function(x,
     x2 <- x2[x2$keep_these, ]
   }
 
-  x2 <- dplyr::rename(x2,
-                      pais_latam = NAME_0
-                      #estado = NAME_1,
-                      #municipio = NAME_2
-                      #localidade = NAME_3
-                      #vai ter um NAME_4 e talvez mais
-  )
   #checa diferencas paises e preenche com latam se faltar no mundo
+  names(x2)[which(names(x2) == "NAME_0")] <- "pais_latam"
   x2 <- dplyr::mutate(x2, NAME_0 = dplyr::if_else(is.na(pais_wo) &
                                                     !is.na(pais_latam), pais_latam, pais_wo))
   # cria o vetor para checar
   x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
-  x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
-  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE)
-  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE)
+  if (any(grepl("_NA", x2$loc.coord, fixed = TRUE))) {
+    x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
+    x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE)
+    x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE)
+  }
 
   # recupera todas as linhas
   x3 <- suppressMessages(
