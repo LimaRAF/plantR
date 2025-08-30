@@ -11,7 +11,8 @@ checkInverted(
   country.gazetteer = "country.gazet",
   lat = "decimalLatitude.new",
   lon = "decimalLongitude.new",
-  output = "new.col"
+  output = "new.col",
+  world.map = "plantR"
 )
 }
 \arguments{
@@ -34,6 +35,10 @@ comes from the gazetteer}
 'new.col' (new column with the newly validated coordinates are
 added to the input data) or 'same.col' (results are overwritten
 into the existing columns).}
+
+\item{world.map}{a sf object containing the global administrative
+map at the country level. The default is "plantR", the default
+map obtained from \href{https://gadm.org}{GADM} (see \code{worldMap}).}
 }
 \value{
 if \code{output} is 'new.col', new columns with a suffix '.new'

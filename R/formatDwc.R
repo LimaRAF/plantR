@@ -269,29 +269,47 @@ formatDwc <- function(splink_data = NULL,
       }
     }
 
+    # Variable type issues
+    cand_cols <- c("recordNumber")
+    for (i in seq_along(cand_cols)) {
+      if (cand_cols[i] %in% names(splink_data))
+        if (inherits(splink_data[[cand_cols[i]]], "character")) {
+          rep_these <- grepl("\\.0$", splink_data[[cand_cols[i]]],
+                             perl = TRUE) &
+            suppressWarnings(!is.na(as.numeric(splink_data[[cand_cols[i]]])))
+        }
+      if (any(rep_these))
+        splink_data[[cand_cols[i]]][rep_these] <-
+          sub("\\.0$","", splink_data[[cand_cols[i]]][rep_these],
+              perl = TRUE)
+    }
+
   }
 
   # formating gbif data --------------------------------------------------------
   if (!is.null(gbif_data)) {
     # fixing problematic GBIF names
-    tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)]
-    tmp1 <- sapply(tmp,
-                   function(x)
-                     utils::tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])",
-                                                 perl = TRUE)), n = 1))
+    tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data),
+                                  perl = TRUE)]
+    tmp1 <- gsub(".*([a-z])\\.(?=[a-zA-Z])", "", tmp, perl = TRUE)
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
-    names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)] <- tmp
+    names(gbif_data)[grepl("\\.\\.", names(gbif_data),
+                           perl = TRUE)] <- tmp
 
     # required absent fields in gbif: scientificNameAuthorship
     miss.cols <- must[!must %in% names(gbif_data)]
     # Creating field scientificNameAuthorship
-    species <- as.character(unique(gbif_data$scientificName))
-    species_split <- fixAuthors(species)
-    df <- data.frame(scientificName = squish(species_split$tax.name),
-                     scientificNameAuthorship = squish(species_split$tax.author))
-    gbif_data <- suppressMessages(dplyr::left_join(gbif_data, df,
-                                                   by = 'scientificName'))
+    if (!"scientificNameAuthorship" %in% names(gbif_data)) {
+      species <- as.character(unique(gbif_data$scientificName))
+      species_split <- fixAuthors(species)
+      names(species_split) <- c("scientificName", "tax.name",
+                                "scientificNameAuthorship")
+      df <- dplyr::left_join(gbif_data, species_split,
+                             by = 'scientificName')
+      gbif_data$scientificNameAuthorship <-
+        df$scientificNameAuthorship
+    }
 
     # optional absent fields
     if (!drop.opt) {

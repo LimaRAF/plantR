@@ -67,6 +67,9 @@ checkInverted <- function(x,
                           world.map = "plantR"
 ) {
 
+  #Escaping R CMD check notes from using dplyr syntax
+  worldMap <- worldMap
+
   ## check input
   if (!inherits(x, "data.frame"))
     stop("Input object needs to be a data frame!")

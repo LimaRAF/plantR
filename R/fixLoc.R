@@ -342,7 +342,7 @@ fixLoc <- function(x,
     # Spliting the locality vector to find missing information
     n4 <- strsplit(new_loc, ",|\\.|:|\\(|\\)|;| - |\\/|&", ## Remove the " - "?
                    perl = TRUE)
-    #n4 <- sapply(n4, squish) #### CHECK POSSIBLE OMISSION PROBLEMS ####
+    #n4 <- sapply(n4, squish)
 
     ## scrapping ADM1 and ADM2 from the locality field (ADM3)
     if ("stateProvince" %in% loc.levels) {
@@ -353,15 +353,17 @@ fixLoc <- function(x,
       no_munic <- x1[["municipality"]][w_locality] %in% empty_vec
     } else { no_munic <- rep(FALSE, nrow(x1))}
 
+    patt_yes0 <- "estado|state|provincia|departamento|province|canton"
+    patt_no0 <- "estadual|provincial|departamental|provincias|provinces|cantones"
+
     if (any(no_state | no_munic)) {
 
       # trying to get missing stateProvince (e.g. "Estado de Sao Paulo: Cunha")
-      patt_yes0 <- "estado|state|provincia|departamento|province|canton"
-      patt_no0 <- "estadual|provincial|departamental|provincias|provinces|cantones"
       if (any(no_state)) {
         n4.1 <- as.character(sapply(n4[no_state], function(x)
           paste(unique(gsub("^ | $", "",
-            x[grepl(patt_yes0, x, perl = TRUE) & !grepl(patt_no0, x, perl = TRUE)], perl = TRUE
+            x[grepl(patt_yes0, x, perl = TRUE) &
+                !grepl(patt_no0, x, perl = TRUE)], perl = TRUE
           )), collapse = "|")))
         n4.1 <- squish(n4.1)
         n4.1 <- gsub("^estado de|^state of|^provincia de|^provincia of|^province de|^departamento de",
