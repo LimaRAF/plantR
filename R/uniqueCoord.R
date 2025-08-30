@@ -101,7 +101,9 @@ uniqueCoord <- function(x,
     dt <- data.table::as.data.table(tmp[, cols])
 
     miss.coords <- antes - dim(tmp)[1]
-    warning(paste0("Missing coordinates for ", miss.coords," were excluded from the spatial duplicate search"), call. = FALSE)
+    warning(paste0("Missing coordinates for ", miss.coords,
+                   " were excluded from the spatial duplicate search"),
+            call. = FALSE)
   } else {
     dt <- data.table::as.data.table(x[, cols])
   }
@@ -120,10 +122,12 @@ uniqueCoord <- function(x,
   if (any("dist" %in% type)) {
     dt[, c("lon.wrk", "lat.wrk") := .SD, .SDcols =  c(lon, lat)]
     data.table::setkeyv(dt, c(tax.name))
-    dt[, coord.ID := minDist(lon.wrk, lat.wrk, min.dist = min.dist, output = 'group'),
+    dt[, coord.ID := minDist(lon.wrk, lat.wrk, min.dist = min.dist,
+                             output = 'group'),
        by = c(tax.name)]
     dt[, dist.ID := .GRP, by = c("coord.ID", tax.name)]
-    dt[, dists := duplicated(.SD), by = c("dist.ID"), .SDcols = c("dist.ID")]
+    dt[, dists := duplicated(.SD), by = c("dist.ID"),
+       .SDcols = c("dist.ID")]
     dt[, c("lon.wrk", "lat.wrk", "coord.ID") := NULL]
   }
 
