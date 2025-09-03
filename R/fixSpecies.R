@@ -294,8 +294,11 @@ fixSpecies <- function(x = NULL,
 
   # order as genus
   id_ord <- endsWith(gen, "ales")
-  if (any(id_ord))
-    check$species_status[id_ord] <- "order_as_genus"
+  if (any(id_ord)) {
+    good_gen <- !grepl("thales$|uryales$", gen, perl = TRUE)
+    if (any(good_gen))
+      check$species_status[id_ord & good_gen] <- "order_as_genus"
+  }
 
   # subfamily as genus
   id_sub <- endsWith(gen, "deae")
