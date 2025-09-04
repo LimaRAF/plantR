@@ -92,6 +92,14 @@ res3[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana L."
 
 # Tests
 test_that("prepSpecies works", {
+
+  expect_error(prepSpecies(x = 1))
+  expect_error(prepSpecies(data.frame(scientificName = character())))
+
+  res <- prepSpecies(x = "Casearia sylvestris", use.authors = FALSE)
+  expect_equal(res$scientificNameFull, "Casearia sylvestris Sw.")
+
+
   run_test <- prepSpecies(df, drop = "")
   expect_equal(run_test$scientificNameFull, res1)
   expect_equal(run_test$match_type, match.type)
@@ -102,4 +110,25 @@ test_that("prepSpecies works", {
 
   run_test <- prepSpecies(df, use.authors = FALSE)
   expect_equal(run_test$scientificNameFull, res3)
+
+  df <- data.frame(
+    scientificName = c(
+      "Amaioua intermedia",
+      "Sida glaziovii",
+      "Rhynchospora Vahl"
+    ),
+    scientificNameAuthorship = c(
+      "ex Schult. & Schult. f. & Mart.",
+      "(Sims) Bureau & K.Schum.",
+      NA
+    )
+  )
+
+  res <- prepSpecies(df)
+  expect_equal(res$suggestedName, c(df$scientificName[1:2], "Rhynchospora"))
+  expect_equal(res$taxon.rank, c("species","species","genus"))
+  expect_equal(res$tax.notes, c("author misspelled","author misspelled",
+                                "name accepted"))
+
+
 })

@@ -19,6 +19,8 @@ prepSpecies(
   parallel = FALSE,
   cores = 2,
   show.progress = FALSE,
+  auth.factor = 0.5,
+  auth.factor.max = 3,
   drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
     "name.status", "taxon.status", "accepted.id", "accepted.tax.name",
     "accepted.tax.authorship", "accepted.taxon.rank", "accepted.taxon.status",
@@ -79,6 +81,21 @@ Two by default.}
 \item{show.progress}{logical. Whether fuzzy matching progress
 should displayed. Defaults to FALSE}
 
+\item{auth.factor}{numeric. A proportion of extra increase in the
+distance allowed for author names. By default, this value is 0.5,
+which means that the distance for author names by default is
+0.15, obtained using: (1 - sug.dist) + (1 - sug.dist) *
+auth.factor. This distance is set to 1 with a warning if the
+resulting value of the formula is higher than 1.}
+
+\item{auth.factor.max}{numeric. Any factor to get a maximum
+distance allowed for author names, from which any author matches
+will be flagged as a bad match. By default, this factor is 3,
+which means that the maximum distance for author names by default
+is 0.45, obtained using: auth.factor.max *((1 - sug.dist) + (1 -
+sug.dist) * auth.factor). This distance is set to 1 with a
+warning if the resulting value of the formula is higher than 1.}
+
 \item{drop.cols}{character. Name of columns from the reference
 backbone that should be dropped from the results.}
 }
@@ -108,7 +125,11 @@ only the taxon names without authorship. This second check is
 done for names provided without authorship by the user and
 for names provided with an authorship but very distant from
 the one found in the backbone (i.e. bad fuzzy matches of
-authorship names).
+authorship names). Defining reasonable distance values to flag a
+bad fuzzy matches for authorships is quite arbitrary. In
+\code{prepSpecies()}, this definition is done by combining the
+arguments \code{auth.factor} and \code{auth.factor.max}, whose defaults
+were set based on a try and error process using test names.
 
 The name check compares all unique names in \code{x} with all names in
 the taxonomic backbones selected. So, the speed of the checking
@@ -179,8 +200,8 @@ If \code{mult.matches} is 'best', only one name is returned. Ideally,
 this is the accepted name within the multiple matches in the
 backbone. Result is a lot cleaner but in many cases this does not
 means that the accepted name returned actually is the right
-accepted for the input name. So, users should be extra careful
-when setting \code{mult.matches} to 'best'.
+accepted name for the input name. So, users should be extra
+careful when setting \code{mult.matches} to 'best'.
 
 The output of this function contains columns which are reserved
 within the \strong{plantR} workflow. These columns cannot be present in

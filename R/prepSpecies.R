@@ -32,6 +32,20 @@
 #'   unidentified species (e.g. sp. or spp.) be removed prior to name
 #'   matching? Defaults to TRUE.
 #' @inheritParams nameMatching
+#' @param auth.factor numeric. A proportion of extra increase in the
+#'   distance allowed for author names. By default, this value is 0.5,
+#'   which means that the distance for author names by default is
+#'   0.15, obtained using: (1 - sug.dist) + (1 - sug.dist) *
+#'   auth.factor. This distance is set to 1 with a warning if the
+#'   resulting value of the formula is higher than 1.
+#' @param auth.factor.max numeric. Any factor to get a maximum
+#'   distance allowed for author names, from which any author matches
+#'   will be flagged as a bad match. By default, this factor is 3,
+#'   which means that the maximum distance for author names by default
+#'   is 0.45, obtained using: auth.factor.max *((1 - sug.dist) + (1 -
+#'   sug.dist) * auth.factor). This distance is set to 1 with a
+#'   warning if the resulting value of the formula is higher than 1.
+#'
 #' @param drop.cols character. Name of columns from the reference
 #'   backbone that should be dropped from the results.
 #'
@@ -54,7 +68,11 @@
 #'   done for names provided without authorship by the user and
 #'   for names provided with an authorship but very distant from
 #'   the one found in the backbone (i.e. bad fuzzy matches of
-#'   authorship names).
+#'   authorship names). Defining reasonable distance values to flag a
+#'   bad fuzzy matches for authorships is quite arbitrary. In
+#'   `prepSpecies()`, this definition is done by combining the
+#'   arguments `auth.factor` and `auth.factor.max`, whose defaults
+#'   were set based on a try and error process using test names.
 #'
 #'   The name check compares all unique names in `x` with all names in
 #'   the taxonomic backbones selected. So, the speed of the checking
@@ -125,8 +143,8 @@
 #'   this is the accepted name within the multiple matches in the
 #'   backbone. Result is a lot cleaner but in many cases this does not
 #'   means that the accepted name returned actually is the right
-#'   accepted for the input name. So, users should be extra careful
-#'   when setting `mult.matches` to 'best'.
+#'   accepted name for the input name. So, users should be extra
+#'   careful when setting `mult.matches` to 'best'.
 #'
 #' The output of this function contains columns which are reserved
 #' within the __plantR__ workflow. These columns cannot be present in
@@ -160,6 +178,7 @@
 #'  \link[plantR]{nameMatching} and \link[plantR]{getTaxNotes}.
 #'
 #' @importFrom stringdist stringdist
+#' @importFrom dplyr left_join
 #'
 #' @export prepSpecies
 #'
@@ -178,6 +197,8 @@ prepSpecies <- function(x,
                         parallel = FALSE,
                         cores = 2,
                         show.progress = FALSE,
+                        auth.factor = 0.5,
+                        auth.factor.max = 3,
                         drop.cols = c("match_type", "multiple_match",
                                       "fuzzy_dist_name",
                                       "fuzzy_dist_author",
@@ -358,7 +379,7 @@ prepSpecies <- function(x,
       }
 
       # fuzzy matching
-      max_dist = 1 - sug.dist
+      max_dist <- 1 - sug.dist
       check_these <- is.na(perfect_match) & !no_author
       if (any(check_these)) {
         fuzzy_match <- nameMatching(input_names_clean[check_these],
@@ -505,7 +526,7 @@ prepSpecies <- function(x,
       }
 
       # fuzzy matches
-      max_dist = 1 - sug.dist
+      max_dist <- 1 - sug.dist
       no_authors_no_match1 <- no_author & is.na(result$id)
       if (any(no_authors_no_match1)) {
 
@@ -562,16 +583,28 @@ prepSpecies <- function(x,
     }
 
     # flagging fuzzy matches above the threshold
-    auth_factor <- 0.5
-    max_dist_auth <- max_dist + auth_factor * max_dist
+    max_dist_auth <- max_dist + auth.factor * max_dist
+    if (max_dist_auth > 1) {
+      max_dist_auth == 1
+      warning("Distance considered for author name matches was higher than 1; distance set to 1",
+              call. = FALSE)
+    }
+    bad_dist_auth <- max_dist_auth * auth.factor.max
+    if (bad_dist_auth > 1) {
+      bad_dist_auth == 1
+      warning("Distance considered for author name matches was higher than 1; distance set to 1",
+              call. = FALSE)
+    }
+
     rep_these <- (result[["fuzzy_dist_name"]] > max_dist &
                     (is.na(result[["fuzzy_dist_author"]]) | result[["fuzzy_dist_author"]] > 0)) |
-      (result[["fuzzy_dist_author"]] > max_dist_auth &
-         result[["fuzzy_dist_name"]] > 0 )
+                  (result[["fuzzy_dist_author"]] > max_dist_auth &
+                    result[["fuzzy_dist_name"]] > 0 ) |
+                      result[["fuzzy_dist_author"]] >= bad_dist_auth
     rep_these[is.na(rep_these)] <- FALSE
     if (any(rep_these))
-      result[rep_these, "match_type"] <-
-        paste0("bad_", result[rep_these, "match_type"])
+      result[rep_these, "match_type"] <- sub("bad_bad_", "bad_",
+        paste0("bad_", result[rep_these, "match_type"]), fixed = TRUE)
 
     # name matching without authorships for bad and no matches
     no_matches <- c("no_match", "bad_fuzzy_w_author",
@@ -605,8 +638,7 @@ prepSpecies <- function(x,
                                  mult.matches = mult.matches,
                                  agg.cols = bb_cols1)
 
-      check_these <- !is.na(unique_tax1$id) &
-                        !unique_tax1$multiple_match
+      check_these <- !is.na(unique_tax1$id)
       if (any(check_these)) {
         result[no_authors_no_match2, c(bb_cols, "multiple_match")][check_these, ] <-
           unique_tax1[check_these, c(bb_cols, "multiple_match")]
@@ -626,9 +658,9 @@ prepSpecies <- function(x,
       # }
 
       # fuzzy matches
-      max_dist = 1 - sug.dist
-      no_authors_no_match3 <- is.na(result$id) &
-                                result[["match_type"]] %in% no_matches
+      max_dist <- 1 - sug.dist
+      no_authors_no_match3 <-
+        result[["match_type"]][no_authors_no_match2] %in% no_matches[-1]
       if (any(no_authors_no_match3)) {
 
         input_names_clean2 <-
@@ -644,23 +676,26 @@ prepSpecies <- function(x,
                                     cores = cores,
                                     show.progress = TRUE)
 
-        if (any(!is.na(fuzzy_match1))) {
-          result[no_authors_no_match3, c(bb_cols)] <-
+        rep_these <- !is.na(fuzzy_match1)
+        if (any(rep_these)) {
+          result[no_authors_no_match2, c(bb_cols)][no_authors_no_match3, ] <-
             ref.df[fuzzy_match1, bb_cols]
 
-          result$match_type[no_authors_no_match3] <-
+          result$match_type[no_authors_no_match2][no_authors_no_match3][rep_these] <-
             "fuzzy_wout_author"
-          result$multiple_match[no_authors_no_match3] <- FALSE
-          result$fuzzy_dist_name[no_authors_no_match3] <-
-            result$fuzzy_dist_author[no_authors_no_match3] <- NA
+          result$multiple_match[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+            FALSE
+          result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+            result$fuzzy_dist_author[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+              NA
         }
 
         # Calculating the new distance between names
         name_dist2 <-
           stringdist::stringdist(
             input_names_clean2,
-            result[["tax.name"]][no_authors_no_match3])
-        result$fuzzy_dist_name[no_authors_no_match3] <-
+            result[["tax.name"]][no_authors_no_match2][no_authors_no_match3])
+        result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3] <-
           round(name_dist2/
                   nchar(input_names_clean2), 4)
 
@@ -670,14 +705,28 @@ prepSpecies <- function(x,
       rep_these <- no_authors_no_match2 &
                     !result[["match_type"]] %in% no_matches
       if (any(rep_these)) {
-        aut_dist1 <-
-          stringdist::stringdist(
-            df2[[tax.names[2]]][rep_these],
-              result[["tax.authorship"]][rep_these])
-        result$fuzzy_dist_author[rep_these] <-
-          round(aut_dist1/
-                  nchar(df2[[tax.names[2]]][rep_these]), 4)
+        rep_these_no_mult <- rep_these & !result[["multiple_match"]]
+        if (any(rep_these_no_mult)) {
+          aut_dist1 <-
+            stringdist::stringdist(
+              result[[tax.names[2]]][rep_these_no_mult],
+              result[["tax.authorship"]][rep_these_no_mult])
+          result$fuzzy_dist_author[rep_these_no_mult] <-
+            round(aut_dist1/
+                    nchar(result[[tax.names[2]]][rep_these_no_mult]), 4)
+        }
       }
+
+      # flagging fuzzy matches above the selected threshold
+      rep_these <-
+        result[["fuzzy_dist_name"]][no_authors_no_match2] > max_dist
+      rep_these[is.na(rep_these)] <- FALSE
+      if (any(rep_these))
+        result[no_authors_no_match2, "match_type"][rep_these] <-
+          sub("bad_bad_", "bad_",
+                paste0("bad_",
+                       result[no_authors_no_match2, "match_type"][rep_these]),
+              fixed = TRUE)
     }
 
     rownames(result) <- NULL
@@ -694,12 +743,11 @@ prepSpecies <- function(x,
 
     output <- getTaxNotes(output)
 
+    old.cols <- c("id", "suggestedName", "suggestedAuthorship",
+                  "taxon.rank", "name.status")
+    new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
+                  "accepted.taxon.rank", "accepted.name.status")
     if (replace.names) {
-
-      old.cols <- c("id", "suggestedName", "suggestedAuthorship",
-                    "taxon.rank", "name.status")
-      new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
-                    "accepted.taxon.rank", "accepted.name.status")
 
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
       if (any(rep_these)) {
@@ -751,16 +799,18 @@ prepSpecies <- function(x,
             "+1 name, but 1 accepted"
         }
       }
+    }
 
-      rep_these <- output$notes %in% "bad match"
-      if (any(rep_these)) {
-        output[rep_these, old.cols[2:3]] <- output[rep_these, tax.names]
-        output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <- NA
-        output[rep_these, new.cols] <- NA
-        if ("family" %in% names(output))
-          output$family[rep_these] <- NA
-        output$notes[rep_these] <- "not found"
-      }
+    rep_these <- output$notes %in% c("bad match", "not found")
+    if (any(rep_these)) {
+      output[rep_these, old.cols[2:3]] <-
+        output[rep_these, tax.names]
+      output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <-
+        NA
+      output[rep_these, new.cols] <- NA
+      if ("family" %in% names(output))
+        output$family[rep_these] <- NA
+      output$notes[rep_these] <- "not found"
     }
 
     if (length(drop.cols) > 0) {

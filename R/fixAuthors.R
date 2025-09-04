@@ -84,10 +84,21 @@ fixAuthors <- function(taxa = NULL,
 
     rep_ids1 <- grep(" \\(", taxa1, perl = TRUE)
     if (length(rep_ids1) > 0L) {
-      res[[2]][rep_ids1] <-
-        gsub(" \\(.*", "", res[[1]][rep_ids1], perl = TRUE)
-      res[[3]][rep_ids1] <-
-        gsub("(.* )(\\(.*)", "\\2", res[[1]][rep_ids1], perl = TRUE)
+      tax <- gsub(" \\(.*", "", res[[1]][rep_ids1], perl = TRUE)
+      auth <- gsub("(.* )(\\(.*)", "\\2", res[[1]][rep_ids1],
+                   perl = TRUE)
+
+      check_these <- grep("\\s\\p{Lu}", tax, perl = TRUE)
+      if (length(check_these) > 0L) {
+        tax1 <- gsub("\\s\\p{Lu}.*", "", tax[check_these],
+                     perl = TRUE)
+        auth1 <- sub(".*? (\\p{Lu})", "\\1",
+                     res[[1]][rep_ids1][check_these], perl = TRUE)
+        tax[check_these] <- tax1
+        auth[check_these] <- auth1
+      }
+      res[[2]][rep_ids1] <- tax
+      res[[3]][rep_ids1] <- auth
     }
 
     no_auth <- res[[2]] %in% NA
@@ -112,7 +123,7 @@ fixAuthors <- function(taxa = NULL,
       grep("\\s\\p{Lu}", res[[2]][no_auth][rep_ids2], perl = TRUE)
     if (length(caps_and_prep) > 0L)
       res[[2]][no_auth][rep_ids2][caps_and_prep] <-
-      gsub("\\s\\p{Lu}.*", "",
+        gsub("\\s\\p{Lu}.*", "",
            res[[2]][no_auth][rep_ids2][caps_and_prep], perl = TRUE)
 
     no_auth <- res[[2]] %in% NA

@@ -118,7 +118,7 @@ getTaxNotes <- function(x = NULL,
       notes[rep_these & empty] <- "name misspelled"
   }
 
-  rep_these <- tstat %in% "synonym"
+  rep_these <- tstat %in% "synonym" & !match %in% no.match
   if (any(rep_these)) {
     empty <- notes %in% ""
     if (any(empty))

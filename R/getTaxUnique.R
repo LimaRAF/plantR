@@ -203,6 +203,14 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
   cols_rep <- unique(c(mult.match.col, name.col, agg.cols))
   df.orig[, cols_rep] <- res.temp[, cols_rep]
 
+  if ("name.status" %in% cols_rep) {
+    rep_these <- df.orig[[mult.match.col]] %in% c(TRUE, "TRUE")
+    if (any(rep_these))
+      df.orig[["name.status"]][rep_these] <-
+        gsub("^\\||\\|$", "", df.orig[["name.status"]][rep_these],
+             perl = TRUE)
+  }
+
   # check_these <- res.temp[[match.col]] != res.temp[[name.col]]
   # if (any(check_these)) {
   #   df.orig[[name.col]] <- res.temp[[name.col]]
