@@ -42,9 +42,10 @@ prepLoc <- function(x) {
   # Removing prepositions and other unwanted articles
   x <- gsub("-", " ", x, fixed = TRUE)
   # x <- gsub(" - ", " / ", x, fixed = TRUE)
+  x <- gsub("^municipio d[eo] ", "", x, perl =  TRUE)
   x <- gsub(" de la | del | du | de los ", " ", x, perl = TRUE)
-  x <- gsub(" dos | das | des ", " ", x, perl = TRUE)
-  x <- gsub(" do | da | de ", " ", x, perl = TRUE)
+  x <- gsub(" d[aeo]s ", " ", x, perl = TRUE)
+  x <- gsub(" d[aeo] ", " ", x, perl = TRUE)
   x <- gsub(' d\' | d\'| d\u0060| d\u00b4| d\"| d\u2019', " ", x, perl = TRUE)
   x <- gsub('\\.$', "", x, perl = TRUE)
   x <- gsub(" dx ", " ", x, fixed = TRUE)

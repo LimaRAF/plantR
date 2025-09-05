@@ -43,6 +43,7 @@ dic <- purrr::map2(.x = dic_files,
 encoding <- "UTF-8"
 dic <- lapply(dic_files,
               read_csv,
+              trim_ws = FALSE,
               guess_max = 30000,#this has to be large
               locale = locale(encoding = encoding))
 

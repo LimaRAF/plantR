@@ -37,3 +37,27 @@ test_that("fixLoc works", {
   expect_equal(run_test$stateProvince.new, res4)
 })
 
+df <- data.frame(
+  country = c(NA, NA, rep("Brazil", 6), "Brasil", "Brazil"),
+  stateProvince = c("Minas Gerais", "Minas Gerais state", "state of Minas Gerais",
+                    NA, NA, NA, NA, NA, NA,
+                    "estado: São Paulo"),
+  municipality = NA,
+  locality = c(NA, NA, NA,
+               "Estado do Rio de Janeiro: Paraty",
+               "Brasil – Estado de São Paulo: Paranapiacaba, Estação Biológica.",
+               "State of Sao Paulo. Municipio de Sao Palo: Parque do Estado",
+               "São Paulo ad urbem Santos in prov. S.Pauli",
+               "Mun. de Cunha - prov. de São Paulo",
+               "Municipio de Cunha na provincia de São Paulo",
+               "Municipio de Sao Palo: Parque do Estado"))
+
+res1 <- c("minas gerais", "minas gerais", "minas gerais", "rio de janeiro",
+          "sao paulo", "sao paulo", NA, "sao paulo", "sao paulo", "sao paulo")
+
+
+test_that("fixLoc works", {
+  run_test <- fixLoc(df)
+  expect_equal(run_test$country.new, rep("brazil", dim(df)[1]))
+  expect_equal(run_test$stateProvince.new, res1)
+})

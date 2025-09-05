@@ -49,7 +49,8 @@ path <- 'data-raw/raw_dictionaries/replaceNames.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
                                    path = path,
                                    overwrite = TRUE)
-dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000,
+                                         trim_ws = FALSE))
 # replacing "NA"s
 empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
@@ -124,8 +125,10 @@ encoding <- "UTF-8"
 
 dic <- lapply(dic_files,
               read_csv,
+              trim_ws = FALSE,
               guess_max = 30000,# this has to be large
-              locale = locale(encoding = encoding))
+              locale = locale(encoding = encoding),
+              )
 
 names(dic) <- data_names
 
@@ -256,6 +259,9 @@ if(any(probs)) {
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
+tmp1 <- replaceNames[replaceNames$class %in% "locality1" & apply(is.na(replaceNames[,2:4]), 1, all),]
+tmp1$replace
+
 #Renato ö: o codigo abaixo estava dando problemas e tenho quase certeza que preciamos
 #dos non_ascii para fazer a reposição dos nomes. Descomentar só após verificar
 #se a reposição precisa ou não dos non_ascii. Se tiver alguma entrada dando pau em
