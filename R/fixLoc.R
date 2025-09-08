@@ -421,6 +421,9 @@ fixLoc <- function(x,
     patt_yes0 <- "estado|state|provincia|departamento|province|canton"
     patt_no0 <- "estadual|provincial|departamental|provincias|provinces|cantones|parque|fazenda"
 
+    patt_yes <- "municipio|municipality|county|village|district"
+    patt_no <- "municipios|municipalities|districts"
+
     if (any(no_state | no_munic)) {
 
       # trying to get missing stateProvince (e.g. "Estado de Sao Paulo: Cunha")
@@ -444,8 +447,6 @@ fixLoc <- function(x,
         }
       }
 
-      patt_yes <- "municipio|municipality|county|village|district"
-      patt_no <- "municipios|municipalities|districts"
       if (any(no_munic)) {
         # trying to get missing counties from the locality (e.g. "Pico das Almas, municipio de Rio de Contas")
         n4.2 <- as.character(sapply(n4[no_munic], function(x)
