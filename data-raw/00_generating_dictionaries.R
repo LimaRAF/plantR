@@ -193,7 +193,7 @@ gazetteer <- dic$gazetteer[ ,c("order",
                                "longitude.gazetteer",
                                "resolution.gazetteer")]
 
-gazetteer <- gazetteer[gazetteer$status %in% "ok",]
+gazetteer <- gazetteer[grepl("^ok", gazetteer$status, perl = TRUE),]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
 priorities <- data.frame(source = c("gdam", "gdam_treeco", "treeco", "ibge",
@@ -222,12 +222,14 @@ admin <- dic$gazetteer[ ,c("order",
                            "loc",
                            "loc.correct",
                            "resolution.gazetteer")]
-admin <- admin[admin$status %in% "ok", ]
+admin <- admin[grepl("^ok", admin$status, perl = TRUE), ]
 admin <- left_join(admin, priorities)
 admin <- admin[order(admin$priority), ]
 admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
-admin <- admin[admin$resolution.gazetteer %in% c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
+admin <- admin[!is.na(admin$loc.correct),]
+admin <- admin[admin$resolution.gazetteer %in%
+                 c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
 
 admin <- admin[, c("source",
                    #"order",
@@ -254,7 +256,6 @@ if(any(probs)) {
   # stopifnot(dim(admin[probs, ])[1] == 0)
   # sort(admin$order[probs])
 }
-
 
 
 # names and abbreviation of localities to be replaced

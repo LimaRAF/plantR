@@ -933,6 +933,7 @@ cncflora,brazil_alagoas_rio largo_usina santa clotilde s/a,BR,Brazil,Alagoas,Rio
 ibge,brazil_alagoas_roteiro,BR,Brazil,Alagoas,Roteiro,NA
 ibge,brazil_alagoas_santa luzia norte,BR,Brazil,Alagoas,Santa Luzia do Norte,NA
 ibge,brazil_alagoas_santana ipanema,BR,Brazil,Alagoas,Santana do Ipanema,NA
+splink_jabot,brazil_alagoas_santana ipanema_serra gugi,BR,Brazil,Alagoas,Santana do Ipanema,Serra do Gugi
 ibge,brazil_alagoas_santana mundau,BR,Brazil,Alagoas,Santana do Mundaú,NA
 ibge,brazil_alagoas_sao bras,BR,Brazil,Alagoas,São Brás,NA
 ibge,brazil_alagoas_sao jose laje,BR,Brazil,Alagoas,São José da Laje,NA
@@ -1888,7 +1889,6 @@ cncflora,brazil_bahia_macaubas_povoado veredinha,BR,Brazil,Bahia,Macaúbas,Povoa
 cncflora,brazil_bahia_macaubas_veredinha,BR,Brazil,Bahia,Macaúbas,Veredinha
 ibge,brazil_bahia_macurure,BR,Brazil,Bahia,Macururé,NA
 ibge,brazil_bahia_madre deus,BR,Brazil,Bahia,Madre de Deus,NA
-splink_jabot,brazil_bahia_madre deus_ilha madre deus,BR,Brazil,Bahia,Salvador,Ilha Madre de Deus
 ibge,brazil_bahia_maetinga,BR,Brazil,Bahia,Maetinga,NA
 ibge,brazil_bahia_maiquinique,BR,Brazil,Bahia,Maiquinique,NA
 ibge,brazil_bahia_mairi,BR,Brazil,Bahia,Mairi,NA
@@ -2102,6 +2102,7 @@ cncflora,brazil_bahia_salvador_dunas itapua,BR,Brazil,Bahia,Salvador,Dunas de It
 cncflora,brazil_bahia_salvador_dunas parque abaete,BR,Brazil,Bahia,Salvador,Dunas do Parque do Abaeté
 splink_jabot,brazil_bahia_salvador_ilha bom jesus,BR,Brazil,Bahia,Salvador,Ilha de Bom Jesus
 treeco,brazil_bahia_salvador_ilha frades,BR,Brazil,Bahia,Salvador,Ilha dos Frades
+splink_jabot,brazil_bahia_salvador_ilha madre deus,BR,Brazil,Bahia,Salvador,Ilha Madre de Deus
 treeco,brazil_bahia_salvador_ilha mare,BR,Brazil,Bahia,Salvador,Ilha de Maré
 cncflora,brazil_bahia_salvador_jardim botanico salvador,BR,Brazil,Bahia,Salvador,Jardim Botânico de Salvador
 cncflora,brazil_bahia_salvador_lagoa abaete,BR,Brazil,Bahia,Salvador,Lagoa de Abaete
@@ -3314,6 +3315,7 @@ ibge,brazil_maranhao_bernardo mearim,BR,Brazil,Maranhão,Bernardo do Mearim,NA
 ibge,brazil_maranhao_boa vista gurupi,BR,Brazil,Maranhão,Boa Vista do Gurupi,NA
 ibge,brazil_maranhao_bom jardim,BR,Brazil,Maranhão,Bom Jardim,NA
 cncflora,brazil_maranhao_bom jardim_fazenda agripec (varig airlines),BR,Brazil,Maranhão,Bom Jardim,Fazenda AGRIPEC (Varig Airlines)
+splink_jabot,brazil_maranhao_bom jardim_posto indigena pindare,BR,Brazil,Maranhão,Bom Jardim,posto indigena pindare
 ibge,brazil_maranhao_bom jesus selvas,BR,Brazil,Maranhão,Bom Jesus das Selvas,NA
 ibge,brazil_maranhao_bom lugar,BR,Brazil,Maranhão,Bom Lugar,NA
 ibge,brazil_maranhao_brejo,BR,Brazil,Maranhão,Brejo,NA
@@ -3322,6 +3324,7 @@ treeco,brazil_maranhao_brejo_fazenda typuana,BR,Brazil,Maranhão,Brejo,Fazenda T
 ibge,brazil_maranhao_buriti,BR,Brazil,Maranhão,Buriti,NA
 ibge,brazil_maranhao_buriti bravo,BR,Brazil,Maranhão,Buriti Bravo,NA
 ibge,brazil_maranhao_buriticupu,BR,Brazil,Maranhão,Buriticupu,NA
+splink_jabot,brazil_maranhao_buriticupu_reserva florestal cvrd,BR,Brazil,Maranhão,Buriticupu,reserva florestal cvrd
 ibge,brazil_maranhao_buritirana,BR,Brazil,Maranhão,Buritirana,NA
 ibge,brazil_maranhao_cachoeira grande,BR,Brazil,Maranhão,Cachoeira Grande,NA
 ibge,brazil_maranhao_cajapio,BR,Brazil,Maranhão,Cajapió,NA
@@ -3679,6 +3682,7 @@ treeco,brazil_mato grosso_agua boa_sistema 31,BR,Brazil,Mato Grosso,Água Boa,si
 ibge,brazil_mato grosso_alta floresta,BR,Brazil,Mato Grosso,Alta Floresta,NA
 cncflora,brazil_mato grosso_alta floresta_casa sementes estrela sul,BR,Brazil,Mato Grosso,Alta Floresta,Casa de Sementes - Estrela do Sul
 splink_jabot,brazil_mato grosso_alta floresta_casa sementes jacamim,BR,Brazil,Mato Grosso,Alta Floresta,casa sementes jacamim
+splink_jabot,brazil_mato grosso_alta floresta_fazenda modelo,BR,Brazil,Mato Grosso,Alta Floresta,fazenda modelo
 splink_jabot,brazil_mato grosso_alta floresta_fazenda serra azul,BR,Brazil,Mato Grosso,Alta Floresta,fazenda serra azul
 splink_jabot,brazil_mato grosso_alta floresta_fazenda viviane,BR,Brazil,Mato Grosso,Alta Floresta,fazenda viviane
 cncflora,brazil_mato grosso_alta floresta_hotel floresta amazonica,BR,Brazil,Mato Grosso,Alta Floresta,Hotel Floresta Amazônica
@@ -3716,9 +3720,11 @@ cncflora,brazil_mato grosso_brasnorte_rio sacuriuina,BR,Brazil,Mato Grosso,Brasn
 gdam,brazil_mato grosso_cabixi,BR,Brazil,Mato Grosso,Cabixi,NA
 ibge,brazil_mato grosso_caceres,BR,Brazil,Mato Grosso,Cáceres,NA
 splink_jabot,brazil_mato grosso_caceres_assentamento laranjeiras i,BR,Brazil,Mato Grosso,Cáceres,assentamento laranjeiras i
+splink_jabot,brazil_mato grosso_caceres_baia malheiros,BR,Brazil,Mato Grosso,Cáceres,baia malheiros
 splink_jabot,brazil_mato grosso_caceres_comunidade porto limao,BR,Brazil,Mato Grosso,Cáceres,porto limao
 treeco,brazil_mato grosso_caceres_fazenda baia pedra,BR,Brazil,Mato Grosso,Cáceres,Fazenda Baia da Pedra
 cncflora,brazil_mato grosso_caceres_fazenda descalvados,BR,Brazil,Mato Grosso,Cáceres,Fazenda Descalvados
+splink_jabot,brazil_mato grosso_caceres_rancho duas irmas,BR,Brazil,Mato Grosso,Cáceres,sitio duas irmas
 treeco,brazil_mato grosso_caceres_t1,BR,Brazil,Mato Grosso,Cáceres,T1
 treeco,brazil_mato grosso_caceres_t2,BR,Brazil,Mato Grosso,Cáceres,T2
 treeco,brazil_mato grosso_caceres_t3,BR,Brazil,Mato Grosso,Cáceres,T3
@@ -3847,6 +3853,7 @@ gdam_treeco,brazil_mato grosso_novo santo antonio,BR,Brazil,Mato Grosso,Novo San
 treeco,brazil_mato grosso_novo santo antonio_pe araguaia,BR,Brazil,Mato Grosso,Novo Santo Antônio,PE do Araguaia
 ibge,brazil_mato grosso_novo sao joaquim,BR,Brazil,Mato Grosso,Novo São Joaquim,NA
 ibge,brazil_mato grosso_paranaita,BR,Brazil,Mato Grosso,Paranaíta,NA
+splink_jabot,brazil_mato grosso_paranaita_uhe sao manoel,BR,Brazil,Mato Grosso,Paranaíta,uhe sao manoel reservatorio utm
 splink_jabot,brazil_mato grosso_paranaita_uhe teles pires,BR,Brazil,Mato Grosso,Paranaíta,uhe teles pires
 ibge,brazil_mato grosso_paranatinga,BR,Brazil,Mato Grosso,Paranatinga,NA
 gdam,brazil_mato grosso_pedra preta,BR,Brazil,Mato Grosso,Pedra Preta,NA
@@ -3965,7 +3972,7 @@ ibge,brazil_minas gerais_alto caparao,BR,Brazil,Minas Gerais,Alto Caparaó,NA
 cncflora,brazil_minas gerais_alto caparao_alto caparao,BR,Brazil,Minas Gerais,Alto Caparaó,Alto Caparaó
 cncflora,brazil_minas gerais_alto caparao_casa queimada,BR,Brazil,Minas Gerais,Alto Caparaó,Casa Queimada
 splink_jabot,brazil_minas gerais_alto caparao_parque nacional caparao,BR,Brazil,Minas Gerais,Alto Caparaó,parque nacional caparao
-splink_jabot,brazil_minas gerais_alto caparao_serra caparao,BR,Brazil,Minas Gerais,serra caparao,NA
+splink_jabot,brazil_minas gerais_alto caparao_serra caparao,BR,Brazil,Minas Gerais,Alto Caparaó,Serra do Caparaó
 cncflora,brazil_minas gerais_alto caparao_terreirao,BR,Brazil,Minas Gerais,Alto Caparaó,Terreirão
 cncflora,brazil_minas gerais_alto caparao_vale verde,BR,Brazil,Minas Gerais,Alto Caparaó,Vale Verde
 ibge,brazil_minas gerais_alto jequitiba,BR,Brazil,Minas Gerais,Alto Jequitibá,NA
@@ -5600,6 +5607,7 @@ cncflora,brazil_para_itaituba_montanha mangabal,BR,Brazil,Pará,Itaituba,Montanh
 splink_jabot,brazil_para_itaituba_parque nacional amazonia,BR,Brazil,Pará,Itaituba,parque nacional amazonia
 cncflora,brazil_para_itaituba_rio itapacura,BR,Brazil,Pará,Itaituba,Rio Itapacurá
 cncflora,brazil_para_itaituba_sao luiz tapajos,BR,Brazil,Pará,Itaituba,São Luiz do Tapajós
+splink_jabot,brazil_para_itaituba_serra palito,BR,Brazil,Pará,Itaituba,serra palito
 cncflora,brazil_para_itaituba_vila braga,BR,Brazil,Pará,Itaituba,Vila Braga
 ibge,brazil_para_itupiranga,BR,Brazil,Pará,Itupiranga,NA
 ibge,brazil_para_jacareacanga,BR,Brazil,Pará,Jacareacanga,NA
@@ -5621,6 +5629,7 @@ ibge,brazil_para_mae rio,BR,Brazil,Pará,Mãe do Rio,NA
 ibge,brazil_para_magalhaes barata,BR,Brazil,Pará,Magalhães Barata,NA
 ibge,brazil_para_maraba,BR,Brazil,Pará,Marabá,NA
 cncflora,brazil_para_maraba_mineracao buritirama,BR,Brazil,Pará,Marabá,Mineração Buritirama
+splink_jabot,brazil_para_maraba_serra carajas,BR,Brazil,Pará,Marabá,serra carajas
 ibge,brazil_para_maracana,BR,Brazil,Pará,Maracanã,NA
 splink_jabot,brazil_para_maracana_ilha algodoal,BR,Brazil,Pará,Maracanã,ilha algodoal
 ibge,brazil_para_marapanim,BR,Brazil,Pará,Marapanim,NA
@@ -5774,6 +5783,7 @@ cncflora,brazil_para_senador jose porfirio_trilha genipapo,BR,Brazil,Pará,Senad
 ibge,brazil_para_soure,BR,Brazil,Pará,Soure,NA
 splink_jabot,brazil_para_soure_praia caju una,BR,Brazil,Pará,Soure,praia caju   una
 ibge,brazil_para_tailandia,BR,Brazil,Pará,Tailândia,NA
+splink_jabot,brazil_para_tailandia_agropalma,BR,Brazil,Pará,Tailândia,agropalmas mata secundaria
 ibge,brazil_para_terra alta,BR,Brazil,Pará,Terra Alta,NA
 ibge,brazil_para_terra santa,BR,Brazil,Pará,Terra Santa,NA
 cncflora,brazil_para_terra santa_igarape urupuana / iagarape jamari,BR,Brazil,Pará,Terra Santa,Igarapé Urupuanã / Iagarapé do Jamari
@@ -5793,8 +5803,10 @@ ibge,brazil_para_vigia,BR,Brazil,Pará,Vigia,NA
 ibge,brazil_para_viseu,BR,Brazil,Pará,Viseu,NA
 ibge,brazil_para_vitoria xingu,BR,Brazil,Pará,Vitória do Xingu,NA
 cncflora,brazil_para_vitoria xingu_fazenda esplanada,BR,Brazil,Pará,Vitória do Xingu,Fazenda Esplanada
+splink_jabot,brazil_para_vitoria xingu_travessao 55,BR,Brazil,Pará,Vitória do Xingu,travessao 55
 cncflora,brazil_para_vitoria xingu_travessao cnec,BR,Brazil,Pará,Vitória do Xingu,TravesSão do CNEC
 cncflora,brazil_para_vitoria xingu_uhe belo monte,BR,Brazil,Pará,Vitória do Xingu,UHE Belo Monte
+splink_jabot,brazil_para_vitoria xingu_uhe pimental,BR,Brazil,Pará,Vitória do Xingu,sitio pimental
 ibge,brazil_para_xinguara,BR,Brazil,Pará,Xinguara,NA
 gdam,brazil_paraiba,BR,Brazil,Paraíba,NA,NA
 treeco,brazil_paraiba_(various) serra branca como referencia_varios,BR,Brazil,Paraíba,(various) -Serra Branca como referência,Vários
@@ -9039,7 +9051,7 @@ cncflora,brazil_rio janeiro_teresopolis_represa guinle teresopo*,BR,Brazil,Rio d
 cncflora,brazil_rio janeiro_teresopolis_rio beija flor parnaso,BR,Brazil,Rio de Janeiro,Teresópolis,Rio Beija-Flor - PARNASO
 cncflora,brazil_rio janeiro_teresopolis_seio mulher pedra,BR,Brazil,Rio de Janeiro,Teresópolis,Seio da Mulher de Pedra
 cncflora,brazil_rio janeiro_teresopolis_serra cavalo,BR,Brazil,Rio de Janeiro,Teresópolis,Serra do Cavalo
-splink_jabot,brazil_rio janeiro_teresopolis_serra orgaos,BR,Brazil,Rio de Janeiro,serra orgaos,NA
+splink_jabot,brazil_rio janeiro_teresopolis_serra orgaos,BR,Brazil,Rio de Janeiro,Teresópolis,Serra dos Órgãos
 treeco,brazil_rio janeiro_teresopolis_sorvete,BR,Brazil,Rio de Janeiro,Teresópolis,Sorvete
 cncflora,brazil_rio janeiro_teresopolis_trilha mozart catao parnaso,BR,Brazil,Rio de Janeiro,Teresópolis,Trilha Mozart Catão - PARNASO
 cncflora,brazil_rio janeiro_teresopolis_trilha rancho frio,BR,Brazil,Rio de Janeiro,Teresópolis,Trilha do Rancho Frio
@@ -9120,7 +9132,10 @@ ibge,brazil_rondonia_parecis,BR,Brazil,Rondônia,Parecis,NA
 ibge,brazil_rondonia_pimenta bueno,BR,Brazil,Rondônia,Pimenta Bueno,NA
 ibge,brazil_rondonia_pimenteiras oeste,BR,Brazil,Rondônia,Pimenteiras do Oeste,NA
 ibge,brazil_rondonia_porto velho,BR,Brazil,Rondônia,Porto Velho,NA
+splink_jabot,brazil_rondonia_porto velho_area preservacao permanente reservatorio uhe jirau,BR,Brazil,Rondônia,Porto Velho,area preservacao permanente reservatorio uhe jirau
+splink_jabot,brazil_rondonia_porto velho_br 364,BR,Brazil,Rondônia,Porto Velho,ao longo br   364
 cncflora,brazil_rondonia_porto velho_campus faculdade sao lucas,BR,Brazil,Rondônia,Porto Velho,Campus Faculdade São Lucas
+splink_jabot,brazil_rondonia_porto velho_canteiro obras uhe jirau,BR,Brazil,Rondônia,Porto Velho,canteiro obras uhe jirau
 cncflora,brazil_rondonia_porto velho_embrapa,BR,Brazil,Rondônia,Porto Velho,EMBRAPA
 splink_jabot,brazil_rondonia_porto velho_estacao ecologica cunia,BR,Brazil,Rondônia,Porto Velho,estacao ecologica cunia
 cncflora,brazil_rondonia_porto velho_estacao ecologica serra tres irmaos,BR,Brazil,Rondônia,Porto Velho,Estação Ecológica Serra dos Três Irmãos
@@ -9128,7 +9143,9 @@ cncflora,brazil_rondonia_porto velho_estrada belmonte,BR,Brazil,Rondônia,Porto 
 cncflora,brazil_rondonia_porto velho_jaci parana,BR,Brazil,Rondônia,Porto Velho,Jaci-Paraná
 splink_jabot,brazil_rondonia_porto velho_jacy parana,BR,Brazil,Rondônia,Porto Velho,distrito jacy parana
 cncflora,brazil_rondonia_porto velho_linha transmissao jirau porto velho,BR,Brazil,Rondônia,Porto Velho,Linha de transmisSão Jirau - Porto Velho
+splink_jabot,brazil_rondonia_porto velho_margem direita/esquerda rio madeira e br 319,BR,Brazil,Rondônia,Porto Velho,margem direita/esquerda rio madeira e br 319
 splink_jabot,brazil_rondonia_porto velho_modulo caicara,BR,Brazil,Rondônia,Porto Velho,modulo caicara
+splink_jabot,brazil_rondonia_porto velho_mutum paranaestrada acesso ao porto prainha,BR,Brazil,Rondônia,Porto Velho,Mutum Parana
 cncflora,brazil_rondonia_porto velho_papagaios,BR,Brazil,Rondônia,Porto Velho,Papagaios
 cncflora,brazil_rondonia_porto velho_parcela morro,BR,Brazil,Rondônia,Porto Velho,parcela do morro
 cncflora,brazil_rondonia_porto velho_ramal arrependido,BR,Brazil,Rondônia,Porto Velho,Ramal Arrependido.
@@ -9153,6 +9170,7 @@ ibge,brazil_rondonia_urupa,BR,Brazil,Rondônia,Urupá,NA
 ibge,brazil_rondonia_vale anari,BR,Brazil,Rondônia,Vale do Anari,NA
 ibge,brazil_rondonia_vale paraiso,BR,Brazil,Rondônia,Vale do Paraíso,NA
 ibge,brazil_rondonia_vilhena,BR,Brazil,Rondônia,Vilhena,NA
+splink_jabot,brazil_rondonia_vilhena_sitio recanto passaros,BR,Brazil,Rondônia,Vilhena,sitio recanto passaros
 gdam,brazil_roraima,BR,Brazil,Roraima,NA,NA
 ibge,brazil_roraima_alto alegre,BR,Brazil,Roraima,Alto Alegre,NA
 ibge,brazil_roraima_amajari,BR,Brazil,Roraima,Amajari,NA
@@ -11108,6 +11126,7 @@ cncflora,brazil_tocantins_mateiros_fazenda progresso,BR,Brazil,Tocantins,Mateiro
 splink_jabot,brazil_tocantins_mateiros_parque estadual jalapao,BR,Brazil,Tocantins,Mateiros,jalapao
 treeco,brazil_tocantins_mateiros_pe jalapao,BR,Brazil,Tocantins,Mateiros,PE do Jalapão
 cncflora,brazil_tocantins_mateiros_povoado mumbuca,BR,Brazil,Tocantins,Mateiros,Povoado de Mumbuca
+splink_jabot,brazil_tocantins_mateiros_prainha rio novo,BR,Brazil,Tocantins,Mateiros,rio novo
 cncflora,brazil_tocantins_mateiros_rio preto,BR,Brazil,Tocantins,Mateiros,Rio Preto
 ibge,brazil_tocantins_maurilandia tocantins,BR,Brazil,Tocantins,Maurilândia do Tocantins,NA
 ibge,brazil_tocantins_miracema tocantins,BR,Brazil,Tocantins,Miracema do Tocantins,NA
@@ -13077,6 +13096,7 @@ gdam,ecuador_loja_espindola,EC,Ecuador,Loja,Espíndola,NA
 gdam,ecuador_loja_gonzanama,EC,Ecuador,Loja,Gonzanamá,NA
 gdam,ecuador_loja_loja,EC,Ecuador,Loja,Loja,NA
 gbif_gsg,ecuador_loja_loja_malacatos,NA,Ecuador,Loja,Loja,malacatos
+gbif_gsg,ecuador_loja_loja_parque nacional podocarpus,NA,Ecuador,Loja,Loja,parque nacional podocarpus
 gbif_gsg,ecuador_loja_loja_san pedro vilcabamba,NA,Ecuador,Loja,Loja,san pedro vilcabamba
 gdam,ecuador_loja_macara,EC,Ecuador,Loja,Macará,NA
 gdam,ecuador_loja_olmedo,EC,Ecuador,Loja,Olmedo,NA
@@ -15553,7 +15573,7 @@ gdam,mexico_nuevo leon_santiago,MX,Mexico,Nuevo León,Santiago,NA
 gdam,mexico_nuevo leon_vallecillo,MX,Mexico,Nuevo León,Vallecillo,NA
 gdam,mexico_nuevo leon_villaldama,MX,Mexico,Nuevo León,Villaldama,NA
 gdam,mexico_oaxaca,MX,Mexico,Oaxaca,NA,NA
-gbif_gsg,mexico_oaxaca_asuncion ixtaltepec,NA,mexico,oaxaca,asuncion ixtaltepec,NA
+gbif_gsg,mexico_oaxaca_asuncion ixtaltepec,NA,Mexico,Oaxaca,asuncion ixtaltepec,NA
 gdam,mexico_oaxaca_choapam,MX,Mexico,Oaxaca,Choapam,NA
 gdam,mexico_oaxaca_coixtlahuaca,MX,Mexico,Oaxaca,Coixtlahuaca,NA
 gdam,mexico_oaxaca_cuicatlan,MX,Mexico,Oaxaca,Cuicatlan,NA
@@ -15563,6 +15583,7 @@ gdam,mexico_oaxaca_dist. etla,MX,Mexico,Oaxaca,Etla,NA
 gdam,mexico_oaxaca_dist. ixtlan,MX,Mexico,Oaxaca,Ixtlan,NA
 gdam,mexico_oaxaca_dist. jamiltepec,MX,Mexico,Oaxaca,Jamiltepec,NA
 gdam,mexico_oaxaca_dist. juchitan,MX,Mexico,Oaxaca,Juchitan,NA
+gbif_gsg,mexico_oaxaca_dist. juchitan_juchitan zaragoza,NA,Mexico,Oaxaca,Juchitan,Juchitán de Zaragoza
 gdam,mexico_oaxaca_dist. juquila,MX,Mexico,Oaxaca,Juquila,NA
 gdam,mexico_oaxaca_dist. juxtlahuaca,MX,Mexico,Oaxaca,Juxtlahuaca,NA
 gdam,mexico_oaxaca_dist. miahuatlan,MX,Mexico,Oaxaca,Miahuatlan,NA
@@ -15571,6 +15592,7 @@ gdam,mexico_oaxaca_dist. nochixtlan,MX,Mexico,Oaxaca,Nochixtlan,NA
 gdam,mexico_oaxaca_dist. ocotlan,MX,Mexico,Oaxaca,Ocotlan,NA
 gdam,mexico_oaxaca_dist. pochutla,MX,Mexico,Oaxaca,Pochutla,NA
 gdam,mexico_oaxaca_dist. putla,MX,Mexico,Oaxaca,Putla,NA
+gbif_gsg,mexico_oaxaca_dist. putla_putla villa guerrero,NA,Mexico,Oaxaca,Putla,Putla Villa de Guerrero
 gdam,mexico_oaxaca_dist. silacayoapam,MX,Mexico,Oaxaca,Silacayoapam,NA
 gdam,mexico_oaxaca_dist. sola vega,MX,Mexico,Oaxaca,Sola de Vega,NA
 gdam,mexico_oaxaca_dist. tehuantepec,MX,Mexico,Oaxaca,Tehuantepec,NA
@@ -15584,27 +15606,27 @@ gdam,mexico_oaxaca_dist. yautepec,MX,Mexico,Oaxaca,Yautepec,NA
 gdam,mexico_oaxaca_dist. zaachila,MX,Mexico,Oaxaca,Zaachila,NA
 gdam,mexico_oaxaca_dist. zimatlan,MX,Mexico,Oaxaca,Zimatlan,NA
 gdam,mexico_oaxaca_huajuapam,MX,Mexico,Oaxaca,Huajuapam,NA
-gbif_gsg,mexico_oaxaca_matias romero avendano,NA,mexico,oaxaca,matias romero avendano,NA
-gbif_gsg,mexico_oaxaca_oaxaca juarez,NA,mexico,oaxaca,oaxaca juarez,NA
-gbif_gsg,mexico_oaxaca_san carlos yautepec,NA,mexico,oaxaca,san carlos yautepec,NA
-gbif_gsg,mexico_oaxaca_san felipe usila,NA,mexico,oaxaca,san felipe usila,NA
-gbif_gsg,mexico_oaxaca_san jeronimo coatlan,NA,mexico,oaxaca,san jeronimo coatlan,NA
-gbif_gsg,mexico_oaxaca_san jose chiltepec,NA,mexico,oaxaca,san jose chiltepec,NA
-gbif_gsg,mexico_oaxaca_san juan bautista cuicatlan,NA,mexico,oaxaca,san juan bautista cuicatlan,NA
-gbif_gsg,mexico_oaxaca_san juan bautista tuxtepec,NA,mexico,oaxaca,san juan bautista tuxtepec,NA
-gbif_gsg,mexico_oaxaca_san miguel chimalapa,NA,mexico,oaxaca,san miguel chimalapa,NA
-gbif_gsg,mexico_oaxaca_san miguel del puerto,NA,mexico,oaxaca,san miguel puerto,NA
-gbif_gsg,mexico_oaxaca_san miguel soyaltepec,NA,mexico,oaxaca,san miguel soyaltepec,NA
-gbif_gsg,mexico_oaxaca_san pablo macuiltianguis,NA,mexico,oaxaca,san pablo macuiltianguis,NA
-gbif_gsg,mexico_oaxaca_san pedro huamelula,NA,mexico,oaxaca,san pedro huamelula,NA
-gbif_gsg,mexico_oaxaca_santa maria chimalapa,NA,mexico,oaxaca,santa maria chimalapa,NA
-gbif_gsg,mexico_oaxaca_santa maria huatulco,NA,mexico,oaxaca,santa maria huatulco,NA
-gbif_gsg,mexico_oaxaca_santa maria jacatepec,NA,mexico,oaxaca,santa maria jacatepec,NA
-gbif_gsg,mexico_oaxaca_santiago astata,NA,mexico,oaxaca,santiago astata,NA
-gbif_gsg,mexico_oaxaca_santiago comaltepec,NA,mexico,oaxaca,santiago comaltepec,NA
-gbif_gsg,mexico_oaxaca_santiago textitlan,NA,mexico,oaxaca,santiago textitlan,NA
-gbif_gsg,mexico_oaxaca_tepelmeme villa morelos,NA,mexico,oaxaca,tepelmeme,NA
-gbif_gsg,mexico_oaxaca_totontepec villa morelos,NA,mexico,oaxaca,totontepec,NA
+gbif_gsg,mexico_oaxaca_matias romero avendano,NA,Mexico,Oaxaca,matias romero avendano,NA
+gbif_gsg,mexico_oaxaca_oaxaca juarez,NA,Mexico,Oaxaca,oaxaca juarez,NA
+gbif_gsg,mexico_oaxaca_san carlos yautepec,NA,Mexico,Oaxaca,san carlos yautepec,NA
+gbif_gsg,mexico_oaxaca_san felipe usila,NA,Mexico,Oaxaca,san felipe usila,NA
+gbif_gsg,mexico_oaxaca_san jeronimo coatlan,NA,Mexico,Oaxaca,san jeronimo coatlan,NA
+gbif_gsg,mexico_oaxaca_san jose chiltepec,NA,Mexico,Oaxaca,san jose chiltepec,NA
+gbif_gsg,mexico_oaxaca_san juan bautista cuicatlan,NA,Mexico,Oaxaca,san juan bautista cuicatlan,NA
+gbif_gsg,mexico_oaxaca_san juan bautista tuxtepec,NA,Mexico,Oaxaca,san juan bautista tuxtepec,NA
+gbif_gsg,mexico_oaxaca_san miguel chimalapa,NA,Mexico,Oaxaca,san miguel chimalapa,NA
+gbif_gsg,mexico_oaxaca_san miguel del puerto,NA,Mexico,Oaxaca,san miguel puerto,NA
+gbif_gsg,mexico_oaxaca_san miguel soyaltepec,NA,Mexico,Oaxaca,san miguel soyaltepec,NA
+gbif_gsg,mexico_oaxaca_san pablo macuiltianguis,NA,Mexico,Oaxaca,san pablo macuiltianguis,NA
+gbif_gsg,mexico_oaxaca_san pedro huamelula,NA,Mexico,Oaxaca,san pedro huamelula,NA
+gbif_gsg,mexico_oaxaca_santa maria chimalapa,NA,Mexico,Oaxaca,santa maria chimalapa,NA
+gbif_gsg,mexico_oaxaca_santa maria huatulco,NA,Mexico,Oaxaca,santa maria huatulco,NA
+gbif_gsg,mexico_oaxaca_santa maria jacatepec,NA,Mexico,Oaxaca,santa maria jacatepec,NA
+gbif_gsg,mexico_oaxaca_santiago astata,NA,Mexico,Oaxaca,santiago astata,NA
+gbif_gsg,mexico_oaxaca_santiago comaltepec,NA,Mexico,Oaxaca,santiago comaltepec,NA
+gbif_gsg,mexico_oaxaca_santiago textitlan,NA,Mexico,Oaxaca,santiago textitlan,NA
+gbif_gsg,mexico_oaxaca_tepelmeme villa morelos,NA,Mexico,Oaxaca,tepelmeme villa morelos,NA
+gbif_gsg,mexico_oaxaca_totontepec villa morelos,NA,Mexico,Oaxaca,totontepec,NA
 gdam,mexico_puebla,MX,Mexico,Puebla,NA,NA
 gdam,mexico_puebla_acajete,MX,Mexico,Puebla,Acajete,NA
 gdam,mexico_puebla_acateno,MX,Mexico,Puebla,Acateno,NA
@@ -18153,4 +18175,3 @@ gdam,western sahara,EH,Western Sahara,NA,NA,NA
 gdam,yemen,YE,Yemen,NA,NA,NA
 gdam,zambia,ZM,Zambia,NA,NA,NA
 gdam,zimbabwe,ZW,Zimbabwe,NA,NA,NA
-gbif_gsg,NA,NA,bolivia,beni,ballivian,NA
