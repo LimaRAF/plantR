@@ -440,12 +440,18 @@ prepSpecies <- function(x,
         fuzzy_w_indet <- check_these & w_indet
         if (any(fuzzy_w_indet))
           input_names_temp[w_indet[check_these]] <-
-          search_names[fuzzy_w_indet]
+            search_names[fuzzy_w_indet]
 
         name_dist <- stringdist::stringdist(input_names_temp,
                                             result[["tax.name"]][check_these])
         result$fuzzy_dist_name[check_these] <-
           round(name_dist/nchar(input_names_temp), 4)
+
+        correct_these <- result[["tax.authorship"]][check_these] %in%
+                          c("", " ")
+        if (any(correct_these))
+          result[["tax.authorship"]][check_these][correct_these] <- NA
+
         aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
                                            result[["tax.authorship"]][check_these])
         result$fuzzy_dist_author[check_these] <-
@@ -707,6 +713,12 @@ prepSpecies <- function(x,
       if (any(rep_these)) {
         rep_these_no_mult <- rep_these & !result[["multiple_match"]]
         if (any(rep_these_no_mult)) {
+          correct_these <-
+            result[["tax.authorship"]][rep_these_no_mult] %in% ""
+          if (any(correct_these))
+            result[["tax.authorship"]][rep_these_no_mult][correct_these] <-
+              NA
+
           aut_dist1 <-
             stringdist::stringdist(
               result[[tax.names[2]]][rep_these_no_mult],
@@ -717,17 +729,26 @@ prepSpecies <- function(x,
         }
       }
 
-      # flagging fuzzy matches above the selected threshold
-      rep_these <-
-        result[["fuzzy_dist_name"]][no_authors_no_match2] > max_dist
-      rep_these[is.na(rep_these)] <- FALSE
-      if (any(rep_these))
-        result[no_authors_no_match2, "match_type"][rep_these] <-
-          sub("bad_bad_", "bad_",
-                paste0("bad_",
-                       result[no_authors_no_match2, "match_type"][rep_these]),
-              fixed = TRUE)
+      # # flagging fuzzy matches above the selected threshold
+      # rep_these <-
+      #   result[["fuzzy_dist_name"]][no_authors_no_match2] > max_dist
+      # rep_these[is.na(rep_these)] <- FALSE
+      # if (any(rep_these))
+      #   result[no_authors_no_match2, "match_type"][rep_these] <-
+      #     sub("bad_bad_", "bad_",
+      #           paste0("bad_",
+      #                  result[no_authors_no_match2, "match_type"][rep_these]),
+      #         fixed = TRUE)
     }
+
+    # flagging fuzzy matches above the selected threshold
+    rep_these <- result[["fuzzy_dist_name"]] > max_dist
+    rep_these[is.na(rep_these)] <- FALSE
+    if (any(rep_these))
+      result[["match_type"]][rep_these] <-
+        sub("bad_bad_", "bad_",
+          paste0("bad_", result[["match_type"]][rep_these]),
+        fixed = TRUE)
 
     rownames(result) <- NULL
 
@@ -807,7 +828,7 @@ prepSpecies <- function(x,
         output[rep_these, tax.names]
       output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <-
         NA
-      output[rep_these, new.cols] <- NA
+      output[rep_these, c(new.cols, "accepted.taxon.status")] <- NA
       if ("family" %in% names(output))
         output$family[rep_these] <- NA
       output$notes[rep_these] <- "not found"

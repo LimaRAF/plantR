@@ -100,7 +100,7 @@ test_that("prepSpecies works", {
   expect_equal(res$scientificNameFull, "Casearia sylvestris Sw.")
 
 
-  run_test <- prepSpecies(df, drop = "")
+  run_test <- prepSpecies(df, drop = "taxon.distribution")
   expect_equal(run_test$scientificNameFull, res1)
   expect_equal(run_test$match_type, match.type)
   expect_equal(run_test$tax.notes, notes)
@@ -132,3 +132,42 @@ test_that("prepSpecies works", {
 
 
 })
+
+# sp.list <- c("Abarema alexandri var. alexandri",
+#              "Abies balsamea var. balsamea",
+#              "Abelmoschus cucurbitaceus",
+#              "Abarema barbouriana (Standl.) Barneby & J.W.Grimes var. barbouriana",
+#              "Abarema barbouriana barbouriana var. barbouriana")
+# aut_list <- c("(Urb.) Barneby & J.W. Grimes",
+#               "(L.) Mill.",
+#               "Walp.",
+#               "",
+#               "(Standl.) Barneby & J.W.Grimes")
+# df <- data.frame(scientificName = sp.list,
+#                  scientificNameAuthorship = aut_list)
+#
+# res1 <- c("exact_wout_author", "fuzzy_w_author", "bad_fuzzy_w_author",
+#           "no_match", "no_match")
+# res2 <- c("replaced synonym", "name accepted", rep("not found", 3))
+# data("gbifNamesPlantae", package = "plantRdata")
+#
+# df1 <- fixSpecies(df)
+# res1.1 <- c("exact_wout_author", "fuzzy_w_author", "bad_fuzzy_w_author",
+#           "exact_wout_author", "exact_wout_author")
+# res2.1 <- c("replaced synonym", "name accepted", "not found",
+#             "replaced synonym", "replaced synonym")
+#
+# test_that("prepSpecies works with gibifNames", {
+#
+#   run_test <- prepSpecies(df, db = gbifNamesPlantae, drop = "")
+#   expect_equal(run_test$match_type, res1)
+#   expect_equal(run_test$tax.notes, res2)
+#
+#   run_test1 <- prepSpecies(df1, db = gbifNamesPlantae, drop = "",
+#                            tax.names = c("scientificName.new",
+#                                          "scientificNameAuthorship.new"),
+#                            replace.names = TRUE)
+#   expect_equal(run_test1$match_type, res1.1)
+#   expect_equal(run_test1$tax.notes, res2.1)
+#
+# })
