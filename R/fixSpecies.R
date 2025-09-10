@@ -268,16 +268,9 @@ fixSpecies <- function(x = NULL,
       squish(tax_author[id_authors])
   }
 
-  # removing open taxonomy, ranks and hybrid notation
+  # removing open taxonomy
   if (any(aff | cf))
     check$species_new[aff | cf] <- rmOpen(check$species_new[aff | cf])
-
-  if (any(hyb))
-    check$species_new[hyb] <- rmHyb(check$species_new[hyb])
-
-  if (any(subsp | var | form))
-    check$species_new[subsp | var | form] <-
-      rmInfra(check$species_new[subsp | var | form])
 
   # names not matching genus + epithet pattern
   id_not_gensp <- which(
@@ -326,35 +319,14 @@ fixSpecies <- function(x = NULL,
   }
 
   # option to return names with or without infra-specific ranks
-  if (!rm.rank) {
-    rep_these <- status$variety %in% "variety"
-    if (any(rep_these))
-      check$species_new[rep_these] <-
-        addRank(check$species_new[rep_these], "var.")
+  if (rm.rank) {
 
-    rep_these <- status$subspecies %in% "subspecies"
-    if (any(rep_these))
-        check$species_new[rep_these] <-
-          addRank(check$species_new[rep_these], "subsp.")
+    if (any(hyb))
+      check$species_new[hyb] <- rmHyb(check$species_new[hyb])
 
-    rep_these <- status$forma %in% "forma"
-    if (any(rep_these))
-      check$species_new[rep_these] <-
-        addRank(check$species_new[rep_these], "f.")
-
-    rep_these <- status$hybrid %in% "hybrid"
-    if (any(rep_these)) {
-      pos_hyb <- grep("^\u00d7", check$species[rep_these])
-      if (length(pos_hyb) > 0L) {
-        check$species_new[rep_these][pos_hyb] <-
-          paste("\u00d7", check$species_new[rep_these][pos_hyb])
-        rep_these[rep_these][pos_hyb] <- FALSE
-      }
-
-      if (any(rep_these))
-        check$species_new[rep_these] <-
-          addRank(check$species_new[rep_these], "\u00d7")
-    }
+    if (any(subsp | var | form))
+      check$species_new[subsp | var | form] <-
+        rmInfra(check$species_new[subsp | var | form])
   }
 
   # option to return names with or without unidentified abbreviations

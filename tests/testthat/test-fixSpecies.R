@@ -97,4 +97,26 @@ test_that("fixSpecies works", {
   expect_equal(res$scientificName.new,
                rep("Lindsaea lancea angulata", 3))
 
+  x <- c("Lafoensia pacari subsp. petiolata var. hemisphaerica Koehne",
+         "Lafoensia pacari subsp. petiolata var. hemisphaerica",
+         "Lafoensia pacari subsp. petiolata",
+         "Lafoensia pacari", "Lafoensia", "Lafoensia Vand.")
+  res1 <- c("Lafoensia pacari subsp. petiolata var. hemisphaerica",
+            "Lafoensia pacari subsp. petiolata var. hemisphaerica",
+            "Lafoensia pacari subsp. petiolata",
+            "Lafoensia pacari", "Lafoensia sp.", "Lafoensia")
+  res2 <- c("Lafoensia pacari petiolata hemisphaerica",
+            "Lafoensia pacari petiolata hemisphaerica",
+            "Lafoensia pacari petiolata",
+            "Lafoensia pacari", "Lafoensia sp.", "Lafoensia")
+
+  df <- data.frame(scientificName = x)
+  res <- fixSpecies(df, rm.rank = FALSE)
+  expect_equal(res$scientificName.new,
+               res1)
+
+  res <- fixSpecies(df, rm.rank = TRUE)
+  expect_equal(res$scientificName.new,
+               res2)
+
 })
