@@ -329,6 +329,32 @@ fixSpecies <- function(x = NULL,
         rmInfra(check$species_new[subsp | var | form])
   }
 
+  # fixing status for quadrinomials and pentanomials
+  rep_these <- which(subsp & var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|variety|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(subsp & var & !form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|variety", "subvariety",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(subsp & !var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(!subsp & var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("variety|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
+
   # option to return names with or without unidentified abbreviations
   if (rm.indet) {
     indet.ids <- check$species_status %in%

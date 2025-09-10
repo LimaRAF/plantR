@@ -88,8 +88,8 @@ match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author", "exact_w_author", "exact_w_author")
 status <- c(rep("possibly_ok", 3), "variety", rep("possibly_ok", 12),
             rep("indet", 4), rep("possibly_ok", 6),
-            "subspecies|variety|forma|name_w_authors",
-            "subspecies|variety|name_w_authors",
+            "subforma|name_w_authors",
+            "subvariety|name_w_authors",
             "subspecies|name_w_authors")
 
 res2 <- res1

@@ -37,6 +37,10 @@ test_that("rmInfra works", {
                toupper("Heracleum sphondylium sibiricum"))
   expect_equal(rmInfra(toupper("Lindsaea lancea Mez var. angulata Rosenst.")),
                toupper("Lindsaea lancea angulata Rosenst."))
+  expect_equal(rmInfra("Lafoensia pacari subsp. petiolata var. hemisphaerica f. latifolia"),
+               "Lafoensia pacari petiolata hemisphaerica latifolia")
+
+
 })
 
 test_that("rmHyb works", {

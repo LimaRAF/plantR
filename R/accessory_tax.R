@@ -94,7 +94,7 @@ rmInfra <- function(x) {
 
     start <- fixAuthors(start)$tax.name
     end <- substring(x1, pos_last)
-    end <- gsub(subsp_var, "", end, perl = TRUE, ignore.case = TRUE)
+    end <- gsub(subsp_var, " ", end, perl = TRUE, ignore.case = TRUE)
 
     if (any(all_caps))
       start[all_caps] <- toupper(start[all_caps])

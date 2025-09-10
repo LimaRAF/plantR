@@ -1,10 +1,10 @@
 #' @title Name Matching Against Reference
 #'
 #' @description Performs the exact and fuzzy matching between two sets
-#'   of names (input and reference), based on cleaned names or on
-#'   indexes. To speed up computational time for larger datasets, the
-#'   function can parallelize the matching processes and/or perform
-#'   matching by initial letters.
+#'   of names (input and reference), based on raw or cleaned names. To
+#'   speed up computational time for larger datasets, the function can
+#'   parallelize the matching processes and/or perform matching by
+#'   initial letters.
 #'
 #' @param names a vector of input names to be compared against a
 #'   reference
@@ -39,7 +39,7 @@
 #'
 #' By default, the argument 'clean.names' is FALSE, to increase
 #' computaional speed. However, both exact and fuzzy matches are case,
-#' space and punctuation sensitive. So, cleaning names (i.e. seting
+#' space and punctuation sensitive. So, cleaning names (i.e. setting
 #' 'clean.names' to TRUE) can substantially increase the number of
 #' matches. See the internal function `cleanName()` on how this
 #' cleaning is performed.
