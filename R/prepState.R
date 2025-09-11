@@ -42,7 +42,7 @@
 #' @examples
 #' # Creating a data frame with locality information
 #' estados <- c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
-#'              "Minas Gerais state", "state of Minas Gerais", "Minas Gerais",
+#'              "Minas Gerais state", "state of Minas Gerais", "Minas Geraes",
 #'              NA, "", "Minas Gerais", "MI")
 #' paises <- c(rep("Brazil", 9), "", "Argentina")
 #' df <- data.frame(country = paises, stateProvince = estados)
@@ -135,8 +135,7 @@ prepState <- function(x,
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       cond0 <- unique(tmp1$condition0[is.code])
 
-      available_patts <- gsub("\\^|\\$","", unlist(codes), unlist(codes),
-                              perl = TRUE)
+      available_patts <- gsub("\\^|\\$","", unlist(codes), perl = TRUE)
       available_patts <- unique(unlist(strsplit(available_patts, "\\|",
                                                 perl = TRUE)))
       check_these <- tolower(x2[[state.name]]) %in% available_patts
@@ -169,8 +168,7 @@ prepState <- function(x,
       names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
       cond0 <- unique(tmp1$condition0[is.name])
 
-      available_patts <- gsub("\\^|\\$","", unlist(loc.names), unlist(loc.names),
-                              perl = TRUE)
+      available_patts <- gsub("\\^|\\$","", unlist(loc.names), perl = TRUE)
       available_patts <- unique(unlist(strsplit(available_patts, "\\|",
                                                 perl = TRUE)))
       check_these <- tolower(x2[[state.name]]) %in% available_patts

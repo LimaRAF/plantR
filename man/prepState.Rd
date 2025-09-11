@@ -60,7 +60,7 @@ as state codes or abbeviations and they are converted to the long format.
 \examples{
 # Creating a data frame with locality information
 estados <- c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
-             "Minas Gerais state", "state of Minas Gerais", "Minas Gerais",
+             "Minas Gerais state", "state of Minas Gerais", "Minas Geraes",
              NA, "", "Minas Gerais", "MI")
 paises <- c(rep("Brazil", 9), "", "Argentina")
 df <- data.frame(country = paises, stateProvince = estados)
