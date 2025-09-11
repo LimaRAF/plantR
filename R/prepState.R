@@ -40,6 +40,7 @@
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' # Creating a data frame with locality information
 #' estados <- c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
 #'              "Minas Gerais state", "state of Minas Gerais", "Minas Geraes",
@@ -51,6 +52,7 @@
 #' prepState(df)
 #' prepState(df, to.lower = FALSE)
 #' prepState(df, rm.abbrev = FALSE)
+#' }
 #'
 #' @export
 #'
