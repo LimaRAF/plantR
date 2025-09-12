@@ -32,6 +32,10 @@ df2.1 <- df2
 df2.1$shore.check <- c(NA, FALSE)
 
 test_that("checkShore works", {
+  expect_error(checkShore(TRUE))
+  expect_error(checkShore(data.frame(character())))
+  expect_error(checkShore(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
   expect_equal(checkShore(df2), df2.1)
 })
 

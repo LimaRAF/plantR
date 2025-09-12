@@ -108,7 +108,7 @@ getAdmin <- function(x,
     }
   }
 
-  if (inherits(class.gazet, "data.frame")) {
+  if (class.gazet %in% "data.frame") {
     if (all(gazet.names %in% colnames(gazet))) {
       dic <- gazet[match(gazet.names, colnames(gazet))]
       for(i in 1:length(dic)) colnames(dic)[i] <- cols.gazet[i]

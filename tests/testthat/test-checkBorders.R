@@ -16,7 +16,7 @@ output <- "new.col"
 brMap <- plantR::worldMap[plantR::worldMap$NAME_0 %in% "brazil", ]
 spMap <- plantR::latamMap$brazil[plantR::latamMap$brazil$NAME_1 %in% "sao paulo", ]
 
-df1 <- checkCoord(df,
+df1 <- plantR::checkCoord(df,
                  low.map = brMap,
                  high.map = spMap,
                  keep.cols = c("geo.check", country.shape, country.gazetteer))
@@ -31,6 +31,10 @@ df1.1 <- df1
 df1.1$border.check <- c(FALSE, FALSE)
 
 test_that("checkBorders works", {
+  expect_error(checkBorders(TRUE))
+  expect_error(checkBorders(data.frame(character())))
+  expect_error(checkBorders(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
   expect_error(checkBorders(df1[,1:2]))
   expect_equal(checkBorders(df1,
                             geo.check = "geo.check",
@@ -52,3 +56,26 @@ test_that("checkBorders works", {
                             country.gazetteer = country.gazetteer,
                             output = output), df1.1)
 })
+
+df2 <- df1
+df2$NAME_0[2] <- "argentina"
+df2$geo.check[2] <- "bad_country"
+output <- "new.col"
+
+test_that("checkBorders works", {
+  res <- checkBorders(df2[2,],
+               geo.check = "geo.check",
+               country.shape = country.shape,
+               country.gazetteer = country.gazetteer,
+               output = output)
+  expect_equal(res$border.check, TRUE)
+})
+
+
+test_that("shares_border works", {
+  expect_error(plantR:::shares_border("xuxu", "xoxo"))
+
+  expect_equal(plantR:::shares_border("brazil", "argentina"), TRUE)
+  expect_equal(plantR:::shares_border("brazil", "mexico"), FALSE)
+})
+

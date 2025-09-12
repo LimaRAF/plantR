@@ -10,5 +10,9 @@ res0 <- cbind.data.frame(df, df.out)
 
 # Tests
 test_that("getCult works", {
+  expect_error(getCult(TRUE))
+  expect_error(getCult(data.frame(character())))
+  expect_error(getCult(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
   expect_equal(getCult(df), res0)
 })

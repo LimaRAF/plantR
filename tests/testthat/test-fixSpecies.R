@@ -49,7 +49,7 @@ test_that("fixSpecies works", {
 
   expect_error(fixSpecies(TRUE))
   expect_error(fixSpecies(data.frame(character())))
-  expect_error(fixSpecies(data.frame(xuxu = c("Aa bb", "Bb cc"))))
+  expect_error(fixSpecies(data.frame(xxxx = c("Aa bb", "Bb cc"))))
 
   names <- c("Blechnumcf. spannagelii", "Blechnumcf.spannagelii", "Blechnum cf.spannagelii",
              "Blechnumaff. spannagelii", "Blechnumaff.spannagelii", "Blechnum aff.spannagelii")

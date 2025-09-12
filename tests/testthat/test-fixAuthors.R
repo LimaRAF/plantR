@@ -75,4 +75,9 @@ test_that("fixAuthors works", {
   expect_equal(res_func$tax.name, res)
   expect_equal(res_func$tax.author, res1)
 
+  expect_error(fixAuthors())
+  expect_error(fixAuthors(data.frame(character())))
+  expect_error(fixAuthors(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
+
 })

@@ -64,6 +64,10 @@ df3.1$decimalLongitude.new <- -47.123768
 df3.1$decimalLatitude.new <- -23.475389
 
 test_that("checkInverted works", {
+  expect_error(checkInverted(TRUE))
+  expect_error(checkInverted(data.frame(character())))
+  expect_error(checkInverted(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
   expect_equal(checkInverted(df3, output = output, world.map = brMap),
                df3.1)
 })
