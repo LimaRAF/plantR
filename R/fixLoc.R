@@ -566,10 +566,13 @@ fixLoc <- function(x,
 
   ## Preparing the output
   if (length(loc.levels) == 1) {
-    res <- as.vector(x1[,1])
+    res <- x1[ , loc.levels, drop = FALSE]
 
     if (!to.lower)
-      res <- stringr::str_to_title(res)
+      res[[loc.levels]] <- stringr::str_to_title(res[[loc.levels]])
+
+    names(res) <- paste0(names(x1), ".new")
+    res$resol.orig <- resol.orig
 
   } else {
     names(x1) <- paste0(names(x1), ".new")
@@ -590,10 +593,12 @@ fixLoc <- function(x,
   }
 
   ## Final edits
-  check_these <- !is.na(res$locality.new) & !is.na(res$locality.scrap) &
-                    res$locality.new == res$locality.scrap
-  if (any(check_these))
-    res$locality.scrap[check_these] <- NA
+  if ("locality.new" %in% names(res) & "locality.scrap" %in% names(res)) {
+    check_these <- !is.na(res$locality.new) & !is.na(res$locality.scrap) &
+      res$locality.new == res$locality.scrap
+    if (any(check_these))
+      res$locality.scrap[check_these] <- NA
+  }
 
   ## Merging the results and returning
   result <- cbind.data.frame(x, res)

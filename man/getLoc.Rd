@@ -72,7 +72,7 @@ locality level or below. If these columns have different names in
 The default \strong{plantR} gazetteer includes information for all
 countries at the country level (i.e. administrative level 0) and
 at the lowest administrative level available for all Latin at
-GDAM(\url{https://gadm.org}) for 51 Latin American countries. For
+\href{https://gadm.org}{GADM} for 51 Latin American countries. For
 Brazil, the gazetteer also contains information at the locality
 level (e.g. farms,forest fragments, parks), obtained from
 \href{https://www.ibge.gov.br/}{IBGE},
