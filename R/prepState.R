@@ -40,7 +40,6 @@
 #' @keywords internal
 #'
 #' @examples
-#' \dontrun{
 #' # Creating a data frame with locality information
 #' estados <- c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
 #'              "Minas Gerais state", "state of Minas Gerais", "Minas Geraes",
@@ -52,7 +51,6 @@
 #' prepState(df)
 #' prepState(df, to.lower = FALSE)
 #' prepState(df, rm.abbrev = FALSE)
-#' }
 #'
 #' @export
 #'
@@ -106,11 +104,13 @@ prepState <- function(x,
     patt <- ".* estado d[eo]|.* state of|.* provincia de|.* provincia of|.* province de|.* departamento de"
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-
     patt <- "estado |state |provincia |departamento |province "
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-    patt <- "state$| provincia$| province$"
+    patt <- "state$| provincia$| province$| parish$"
+    x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
+                                    perl = TRUE, ignore.case = TRUE))
+    patt <- " prov\\.$| dept.$"
     x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
                                     perl = TRUE, ignore.case = TRUE))
 
@@ -122,10 +122,13 @@ prepState <- function(x,
                     paste, collapse = "|")
     is.code <- !codes %in% c("", NA)
     codes <- codes[is.code]
+    tmp1.codes <- tmp1[is.code,]
+
     loc.names <- lapply(lapply(tmp1.1, function(x) x[nchar(x) > 4]),
                         paste, collapse = "|")
     is.name <- !loc.names %in% c("", NA)
     loc.names <- loc.names[is.name]
+    tmp1.loc.names <- tmp1[is.name,]
 
     # Converting any state codes into long names
     few_letters <- nchar(x1[[state.name]]) < 4
@@ -148,7 +151,7 @@ prepState <- function(x,
           if (any(cond0 %in% unique(x3[[country.name]]))) {
             cond1 <- cond0[cond0 %in% unique(x3[[country.name]])]
             for (i in seq_along(cond1)) {
-              tmp2.i <- tmp2[tmp1$condition0 %in% cond1[i]]
+              tmp2.i <- tmp2[tmp1.codes$condition0 %in% cond1[i]]
               rep.i <- tolower(x3[[state.name]][x3[[country.name]] %in% cond1[i]])
               rep.i <- stringr::str_replace_all(rep.i, tmp2.i)
               x3[[state.name]][x3[[country.name]] %in% cond1[i]] <-
@@ -181,7 +184,7 @@ prepState <- function(x,
           if (any(cond0 %in% unique(x3[[country.name]]))) {
             cond1 <- cond0[cond0 %in% unique(x3[[country.name]])]
             for (i in seq_along(cond1)) {
-              tmp2.i <- tmp2[tmp1$condition0 %in% cond1[i]]
+              tmp2.i <- tmp2[tmp1.loc.names$condition0 %in% cond1[i]]
               rep.i <- tolower(x3[[state.name]][x3[[country.name]] %in% cond1[i]])
               rep.i <- stringr::str_replace_all(rep.i, tmp2.i)
               x3[[state.name]][x3[[country.name]] %in% cond1[i]] <-
