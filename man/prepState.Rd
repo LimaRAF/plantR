@@ -58,7 +58,6 @@ All state information with less than four letters are treated
 as state codes or abbeviations and they are converted to the long format.
 }
 \examples{
-\dontrun{
 # Creating a data frame with locality information
 estados <- c("RJ", "Rio de Janeiro", "MG", "estado de Minas Gerais",
              "Minas Gerais state", "state of Minas Gerais", "Minas Geraes",
@@ -70,7 +69,6 @@ df <- data.frame(country = paises, stateProvince = estados)
 prepState(df)
 prepState(df, to.lower = FALSE)
 prepState(df, rm.abbrev = FALSE)
-}
 
 }
 \author{

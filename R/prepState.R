@@ -176,7 +176,7 @@ prepState <- function(x,
       available_patts <- gsub("\\^|\\$","", unlist(loc.names), perl = TRUE)
       available_patts <- unique(unlist(strsplit(available_patts, "\\|",
                                                 perl = TRUE)))
-      check_these <- tolower(x2[[state.name]]) %in% available_patts
+      check_these <- rmLatin(tolower(x2[[state.name]])) %in% available_patts
       if (any(check_these)) {
         if (country.name %in% names(x2)) {
           x3 <- x2[check_these, , drop = FALSE]
@@ -185,7 +185,7 @@ prepState <- function(x,
             cond1 <- cond0[cond0 %in% unique(x3[[country.name]])]
             for (i in seq_along(cond1)) {
               tmp2.i <- tmp2[tmp1.loc.names$condition0 %in% cond1[i]]
-              rep.i <- tolower(x3[[state.name]][x3[[country.name]] %in% cond1[i]])
+              rep.i <- rmLatin(tolower(x3[[state.name]][x3[[country.name]] %in% cond1[i]]))
               rep.i <- stringr::str_replace_all(rep.i, tmp2.i)
               x3[[state.name]][x3[[country.name]] %in% cond1[i]] <-
                 rep.i
