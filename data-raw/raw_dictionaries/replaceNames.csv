@@ -186,6 +186,7 @@
 "county",NA,NA,NA,"^s. j. da lage|^s. j. da laje|^s.j da lage|^s.j. da lage|^s.j. da laje|^s.j.da laje|^s.j.da lage","sao jose laje"
 "county",NA,NA,NA,"^vila .b.s. trindade|^vila bela s. trindade|^vila bela santis. trindade|^vila bela santis.trindade|^vila bela sant. trindade|^vila bela sm. trindade|^vila bela stma. trindade","vila bela santissima trindade"
 "county",NA,NA,NA,"^sjrpreto$","sao jose rio preto"
+"county",NA,NA,NA,"^sao luiz paraitinga$","sao luis paraitinga"
 "locality1",NA,NA,NA,"^mun. |^mun.: |^mpio. |^mpio: |^mpio.:","municipio de "
 "locality1",NA,NA,NA,"mun. | mun.: | mpio. | mpio: | mpio.:","municipio de "
 "locality1",NA,NA,NA,"^mun.|^mun.:|^mpio |^mpio.|^mpio:|^mpio.:","municipio de"

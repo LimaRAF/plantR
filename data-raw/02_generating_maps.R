@@ -28,7 +28,7 @@ iso3 <- countrycode::countrycode(countries.latam, "country.name", "iso3c")
 ################################
 ##new sf files
 destfolder <- "vrac/latam"
-destfolder <- "data-raw/GDAM"
+destfolder <- "data-raw/GADM"
 if (!exists(destfolder)) dir.create(destfolder, recursive = T)
 source("https://raw.githubusercontent.com/liibre/Rocc/master/R/getGADM.R")
 
@@ -41,11 +41,41 @@ source("https://raw.githubusercontent.com/liibre/Rocc/master/R/getGADM.R")
 #                best = FALSE, #importante para ter outros niveis
 #                destfolder = destfolder
 #              ))
-gadm_files <- list.files(destfolder, pattern = "rds$",
-                         full.names = TRUE)
+# gadm_files <- list.files(destfolder, pattern = "rds$",
+#                          full.names = TRUE)
+
+# res_list <- vector("list", length(iso3))
+# iso3 <- iso3[!iso3 %in% countrycode::countrycode(c("Bolivia","Chile",
+#                                                    "Costa Rica","Ecuador",
+#                                                    "Haiti","Panama","Peru"), "country.name", "iso3c")]
+for(i in seq_along(iso3)) {
+
+  iso3.i <- iso3[i]
+
+  file.i <- paste0("gadm41_",iso3.i, ".gpkg")
+  destfile.i <- file.path(destfolder, file.i)
+
+  # Automatic download is not working, do it mannually
+  # options(timeout = max(300, getOption("timeout")))
+  # url <- paste0("https://geodata.ucdavis.edu/gadm/gadm4.1/gpkg/gadm41_", iso3.i,".gpkg")
+  # download.file(url, destfile = destfile.i, method = "auto")
+  # message(paste("Downloading ", iso3.i, "..."))
+  # close(url)
+
+  layer.i <- sf::st_layers(destfile.i)
+  map.i <- terra::vect(destfile.i, tail(layer.i$name, 1))
+  col2keep <- names(map.i)[names(map.i) %in% c("GID_0", "COUNTRY", "NAME_1", "NAME_2", "NAME_3", "NAME_4",
+                                               "TYPE_1", "TYPE_2", "TYPE_3", "TYPE_4")]
+  map.ii <- map.i[,col2keep]
+  map.iii <- terra::as.data.frame(map.ii)
+  res_list[[i]] <- map.iii
+}
+
+toto <- dplyr::bind_rows(res_list)
+
 
 ##Loading, editing and converting the world country shapefile
-path <- "E://ownCloud//W_GIS"
+path <- "D://ownCloud//W_GIS"
 #wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
 wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep = ""))
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
@@ -54,23 +84,18 @@ wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rd
 wo@data$pais <- countrycode(as.character(wo@data$GID_0),'iso3c', 'country.name')
 wo@data$pais[is.na(wo@data$pais)] <- as.character(wo@data$NAME_0[is.na(wo@data$pais)])
 wo@data$pais <- prepCountry(wo@data$pais)
-# wo@data$pais <- tolower(chartr(paste(names(unwanted_array), collapse=''), paste(unwanted_array, collapse=''), wo@data$pais))
-# wo@data$pais <- tolower(textclean::replace_non_ascii(wo@data$pais))
-# wo@data$pais <- stringr::str_replace_all(wo@data$pais,  " & ", " and ")
-# wo@data$pais <- gsub("^st. ", "saint ", wo@data$pais)
-# wo@data$pais <- gsub(" of the ", " ", wo@data$pais)
-# wo@data$pais <- gsub(" of ", " ", wo@data$pais)
 
-tmp1 <- replaceNames[replaceNames$class %in% "country" & apply(is.na(replaceNames[, 2:4]), 1, all), ]
+tmp1 <- replaceNames[replaceNames$class %in% "country" &
+                       apply(is.na(replaceNames[, 2:4]), 1, all), ]
 tmp2 <- as.character(tmp1$replace)
 names(tmp2) = as.character(tmp1$pattern)
 #names(tmp2) <- gsub("\\\\", "", names(tmp2))
 wo@data$pais <- sapply(strsplit(wo@data$pais,' \\('), function(x) x[[1]][1])
 wo@data$pais <- stringr::str_replace_all(wo@data$pais, tmp2)
-# wo@data$pais <- plantR::prepLoc(wo@data$pais)
 
 ## Comparing the map with the gazetteer
-tmp <- merge(wo@data, gazetteer[,c("loc", "loc.correct")], by.x = "pais", by.y = "loc", all.x = TRUE)
+tmp <- merge(wo@data, gazetteer[,c("loc", "loc.correct")],
+             by.x = "pais", by.y = "loc", all.x = TRUE)
 tmp[!tmp$pais %in% tmp$loc.correct,] #ok!
 
 #Transforming and simplifying
@@ -130,22 +155,34 @@ save(worldMap, file = "./data/worldMap.rda", compress = "xz")
 #########################################
 
 ##Loading, editing and converting the world country shapefile
-path0 <- "E://ownCloud//W_GIS//Am_Lat_ADM_GADM_v3.6//"
+path0 <- "D://ownCloud//W_GIS//Am_Lat_ADM_GADM_v3.6//"
 countries <- list.files(path0, full.name=TRUE)
 countries <- countries[grep(paste(iso3, collapse = "|") ,countries)]
-countries <- countries[grep("sf.rds",countries)]
-countries3 <- countries[grep('_3_sf.rds',countries)]
-adm3 <- sapply(strsplit(countries3, "//|_"), function(x) x[11])
-countries2 <- countries[grepl('_2_sf.rds',countries) & !grepl(paste0(c(adm3), collapse = "|"), countries)]
-adm2 <- sapply(strsplit(countries2, "//|_"), function(x) x[11])
-countries1 <- countries[grepl('_1_sf.rds',countries) & !grepl(paste0(c(adm2,adm3), collapse = "|"), countries)]
-adm1 <- sapply(strsplit(countries1, "//|_"), function(x) x[11])
-countries0 <- countries[grepl('_0_sf.rds',countries)  & !grepl(paste0(c(adm1,adm2,adm3), collapse = "|"), countries)]
-adm0 <- sapply(strsplit(countries0, "//|_"), function(x) x[11])
+countries <- countries[grep("sp.rds",countries)]
+countries3 <- countries[grepl('_3_sp.rds',countries)]
+adm3 <- sapply(strsplit(countries3, "_"), function(x) x[11])
+if (length(adm3) > 0) {
+  countries2 <- countries[grepl('_2_sp.rds',countries) & !grepl(paste0(c(adm3), collapse = "|"), countries)]
+  adm2 <- sapply(strsplit(countries2, "//|_"), function(x) x[11])
+  countries1 <- countries[grepl('_1_sp.rds',countries) & !grepl(paste0(c(adm2,adm3), collapse = "|"), countries)]
+  adm1 <- sapply(strsplit(countries1, "//|_"), function(x) x[11])
+  countries0 <- countries[grepl('_0_sp.rds',countries)  & !grepl(paste0(c(adm1,adm2), collapse = "|"), countries)]
+  adm0 <- sapply(strsplit(countries0, "//|_"), function(x) x[11])
+  all.countries <- sort(c(adm1, adm2, adm3))
+} else {
+  countries2 <- countries[grepl('_2_sp.rds',countries)]
+  adm2 <- sapply(strsplit(countries2, "//|_"), function(x) x[11])
+  countries1 <- countries[grepl('_1_sp.rds',countries) & !grepl(paste0(c(adm2), collapse = "|"), countries)]
+  adm1 <- sapply(strsplit(countries1, "//|_"), function(x) x[11])
+  countries0 <- countries[grepl('_0_sp.rds',countries)  & !grepl(paste0(c(adm1,adm2), collapse = "|"), countries)]
+  adm0 <- sapply(strsplit(countries0, "//|_"), function(x) x[11])
+  all.countries <- sort(c(adm1, adm2))
+}
 
-all.countries <- sort(c(adm1, adm2, adm3))
-iso3[!iso3 %in% all.countries] # all of these countries are only available at ADM_0, that is, already in worldMap.
-countries <- sort(c(countries1, countries2, countries3))
+check_these <- iso3[!iso3 %in% all.countries]
+check_these[!check_these %in% as.character(plantR::worldMap$GID_0)]
+# code above should be empty, meaning that all of the countries in
+# 'check_these' are only available at ADM_0, that is, already in worldMap.
 
 country.list <- vector('list', length(countries))
 pais = NULL
@@ -181,10 +218,12 @@ for (i in 1:length(country.list)) {
 
   #ADM_1
   tmp1$NAME_1 <- tolower(textclean::replace_non_ascii(tmp1$NAME_1))
+  tmp1$NAME_1 <- plantR:::prepState(tmp1$NAME_1) # new line to match changes made by prepState inside fixLoc
   tmp1$NAME_1 <- plantR::prepLoc(tmp1$NAME_1)
 
   if ("NAME_2" %in% names(tmp1)) {
     tmp1$NAME_2 <- tolower(textclean::replace_non_ascii(tmp1$NAME_2))
+    tmp1$NAME_2 <- sub("dist. ", "", tmp1$NAME_2)
     tmp1$NAME_2 <- plantR::prepLoc(tmp1$NAME_2)
   }
 
@@ -370,6 +409,8 @@ names(country.list) = pais
 
 # Fixing GADM problems
 map.checks <- read.csv("./data-raw/raw_dictionaries/gadmCheck.csv")
+rm_these <- which(map.checks$bad.mun %in% "ivate" & map.checks$replace.mun == "herculandia")
+map.checks <- map.checks[-rm_these, ]
 j = which(names(country.list) == "brazil")
 
 for(w in 1:dim(map.checks)[1]) {
@@ -502,6 +543,21 @@ for(w in 1:dim(map.checks)[1]) {
 #   country.list[[i]] <- tmp1
 # }
 
+## Bug fixes of state names appearing after version 0.1.9 (already added above sure)
+country.list <- plantR::latamMap
+country.list$bahamas$NAME_1 <- plantR:::prepState(country.list$bahamas$NAME_1)
+country.list$`turks caicos islands`$NAME_1 <- plantR:::prepState(country.list$`turks caicos islands`$NAME_1)
+country.list$`trinidad tobago`$NAME_1 <- plantR:::prepState(country.list$`trinidad tobago`$NAME_1)
+# Oaxaca case in Mexico
+toto <- country.list$mexico$NAME_2[grepl("dist.", country.list$mexico$NAME_2)]
+toto <- sub("dist. ", "", toto)
+country.list$mexico$NAME_2[grepl("dist.", country.list$mexico$NAME_2)] <- toto
+# Lima province in Peru
+toto <- sf::st_drop_geometry(country.list$peru[grepl("lima", country.list$peru$NAME_1), ])
+country.list$peru$NAME_1[grepl("lima", country.list$peru$NAME_1)] <-
+  plantR:::prepState(country.list$peru$NAME_1[grepl("lima", country.list$peru$NAME_1)])
+
+
 ## Inspecting
 latamMap <- country.list
 # latamMap_full <- country.list
@@ -512,6 +568,7 @@ latamMap <- country.list
 # plot(latamMap["french guiana"][[1]][,1])
 # plot(latamMap["paraguay"][[1]][,1])
 # plot(latamMap["venezuela"][[1]][,1])
+
 
 ## Saving
 save(latamMap, file = "./data/latamMap.rda", compress = "xz")

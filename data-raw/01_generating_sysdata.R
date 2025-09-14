@@ -251,15 +251,15 @@ epitetos <-
 # wfoNames[grepl("Hayata$", wfoNames$tax.name), ]
 commonAuthors <- tolower(toto2[!toto2 %in% epitetos])
 
-toto <- bfoNames$tax.authorship
+toto <- plantR::bfoNames$tax.authorship
 toto1 <- toto[!grepl("\\.|\\(|&", toto) &
                 !is.na(toto) & !toto %in% ""]
 corte <- 58 # aprox. autores com mais de 100 spp descritas
 toto2 <- names(tail(sort(table(toto1)), corte))
 commonAuthors_bfo <- tolower(toto2[!toto2 %in% epitetos])
 
-commonAuthors <- sort(unique(c(commonAuthors, rmLatin(commonAuthors),
-                               commonAuthors_bfo, rmLatin(commonAuthors_bfo))))
+commonAuthors <- sort(unique(c(commonAuthors, plantR::rmLatin(commonAuthors),
+                               commonAuthors_bfo, plantR::rmLatin(commonAuthors_bfo))))
 rm(wfoNames, epitetos, toto, toto1, toto2)
 
 ## Named vector with plantR reserved column names

@@ -17,7 +17,7 @@ res0 <- data.frame(
   NAME_1 = c("Paraguarí", "Paraná", "Rio de Janeiro", "Rio de Janeiro", "São Paulo", NA, NA),
   NAME_2 = c(NA, "Paranaguá", NA, "Paraty", "São Miguel Arcanjo", NA, NA),
   NAME_3 = rep(NA_character_, 7),
-  source = c("gdam", "ibge", "gdam", "ibge", "ibge", "gdam", "gdam"))
+  source = c("gadm", "ibge", "gadm", "ibge", "ibge", "gadm", "gadm"))
 
 # Tests
 test_that("getAdmin works", {
