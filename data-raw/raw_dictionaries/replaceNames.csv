@@ -156,6 +156,8 @@
 "stateProvince","argentina",NA,NA,"^tf$","tierra del fuego"
 "stateProvince","argentina",NA,NA,"^tu$","tucuman"
 "stateProvince","paraguay",NA,NA,"^canendeyu$","canindeyu"
+"stateProvince","chile",NA,NA,"^aysen","aisen"
+"stateProvince","chile",NA,NA,"^bio bio$|^bio-bio$","biobio"
 "stateProvince","guyana",NA,NA,"^u. takutu-u. essequibo$|^rupununi$|^rupununi district$","upper takutu upper essequibo"
 "stateProvince","guyana",NA,NA,"^e. berbice-corentyne$","east berbice corentyne"
 "stateProvince","guyana",NA,NA,"^u. demerara-berbice$","upper demerara berbice"

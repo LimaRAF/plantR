@@ -7,7 +7,9 @@
 
 <!-- badges: start -->
 <!-- [![R-CMD-check: master](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml) -->
-<!-- [![R-CMD-check: dev](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml?branch=dev) -->
+
+[![R-CMD-check:
+dev](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml?branch=dev)
 <!-- [![Codecov test coverage](https://codecov.io/gh/LimaRAF/plantR/graph/badge.svg)](https://app.codecov.io/gh/LimaRAF/plantR) -->
 <!-- badges: end  -->
 

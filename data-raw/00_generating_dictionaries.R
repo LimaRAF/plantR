@@ -199,12 +199,13 @@ gazetteer <- gazetteer[grepl("^ok", gazetteer$status, perl = TRUE),]
 priorities <- data.frame(source = c("gadm", "gadm_new", "gadm_treeco", "treeco", "ibge",
                                     "google", "ibge_treeco", "splink_jabot",
                                     "gbif", "gbif_gsg", "cncflora", "ibge?", "types"),
-                         priority = c(2, 3, 3, 3, 1, 5, 0, 4, 4, 4, 3, 3, 0))
+                         priority = c(2, 3, 3, 3, 1, 5, 0, 4, 4, 4, 3, 3, 3))
 priorities[order(priorities$priority),]
 
 gazetteer <- dplyr::left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
 dplyr::count(gazetteer, source, priority) %>% arrange(priority)
+gazetteer$loc <- plantR:::squish(gazetteer$loc)
 gazetteer <-
   gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 

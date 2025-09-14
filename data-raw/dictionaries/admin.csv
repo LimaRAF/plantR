@@ -662,7 +662,6 @@ gadm,bolivia_cochabamba_narciso campero,BO,Bolivia,Cochabamba,Narciso Campero,NA
 gadm,bolivia_cochabamba_punata,BO,Bolivia,Cochabamba,Punata,NA
 gadm,bolivia_cochabamba_quillacollo,BO,Bolivia,Cochabamba,Quillacollo,NA
 gadm,bolivia_cochabamba_tapacari,BO,Bolivia,Cochabamba,Tapacarí,NA
-gbif_gsg,bolivia_cochabamba_tiraque,BO,Bolivia,Cochabamba,Tiraque,NA
 gadm,bolivia_el beni,BO,Bolivia,El Beni,NA,NA
 gadm,bolivia_el beni_cercado,BO,Bolivia,El Beni,Cercado,NA
 gadm,bolivia_el beni_jose ballivian,BO,Bolivia,El Beni,José Ballivián,NA
@@ -675,7 +674,6 @@ gadm,bolivia_la paz,BO,Bolivia,La Paz,NA,NA
 gadm,bolivia_la paz_abel iturralde,BO,Bolivia,La Paz,Abel Iturralde,NA
 gadm,bolivia_la paz_aroma,BO,Bolivia,La Paz,Aroma,NA
 gadm,bolivia_la paz_bautista saavedra,BO,Bolivia,La Paz,Bautista Saavedra,NA
-gbif_gsg,bolivia_la paz_caranavi,BO,Bolivia,La Paz,Caranavi,NA
 gadm,bolivia_la paz_eliodoro camacho,BO,Bolivia,La Paz,Eliodoro Camacho,NA
 gadm,bolivia_la paz_franz tamayo,BO,Bolivia,La Paz,Franz Tamayo,NA
 gadm,bolivia_la paz_gualberto villarroel,BO,Bolivia,La Paz,Gualberto Villarroel,NA
@@ -2111,7 +2109,7 @@ cncflora,brazil_bahia_salvador_parque cidade,BR,Brazil,Bahia,Salvador,Parque da 
 treeco,brazil_bahia_salvador_parque joventino silva (parque cidade),BR,Brazil,Bahia,Salvador,Parque Joventino Silva (Parque da Cidade)
 cncflora,brazil_bahia_salvador_parque metropolitano pituacu,BR,Brazil,Bahia,Salvador,Parque Metropolitano de Pituaçu
 cncflora,brazil_bahia_salvador_stella maris,BR,Brazil,Bahia,Salvador,Stella Maris
-splink_jabot,brazil_bahia_salvador_ufba campus ondina,BR,Brazil,Bahia,Salvador,ufba   ondina
+splink_jabot,brazil_bahia_salvador_ufba campus ondina,BR,Brazil,Bahia,Salvador,ufba ondina
 cncflora,brazil_bahia_salvador_unidunas,BR,Brazil,Bahia,Salvador,UNIDUNAS
 treeco,brazil_bahia_salvador_valeria,BR,Brazil,Bahia,Salvador,Valéria
 ibge,brazil_bahia_santa barbara,BR,Brazil,Bahia,Santa Bárbara,NA
@@ -2546,7 +2544,7 @@ cncflora,brazil_distrito federal_brasilia_fazenda/comunidade monjolo,BR,Brazil,D
 treeco,brazil_distrito federal_brasilia_fercal,BR,Brazil,Distrito Federal,Brasília,Fercal
 treeco,brazil_distrito federal_brasilia_flona brasilia,BR,Brazil,Distrito Federal,Brasília,FLONA Brasília
 splink_jabot,brazil_distrito federal_brasilia_fundacao zoobotanica,BR,Brazil,Distrito Federal,Brasília,fundacao zoobotanica
-splink_jabot,brazil_distrito federal_brasilia_inmet   instituto nacional meteorologia,BR,Brazil,Distrito Federal,Brasília,inmet   instituto nacional meteorologia
+splink_jabot,brazil_distrito federal_brasilia_inmet   instituto nacional meteorologia,BR,Brazil,Distrito Federal,Brasília,inmet instituto nacional meteorologia
 cncflora,brazil_distrito federal_brasilia_jardim botanico,BR,Brazil,Distrito Federal,Brasília,Jardim Botanico
 cncflora,brazil_distrito federal_brasilia_jardim zoologico brasilia,BR,Brazil,Distrito Federal,Brasília,Jardim Zoológico de Brasília
 cncflora,brazil_distrito federal_brasilia_memorial idades brasil,BR,Brazil,Distrito Federal,Brasília,Memorial das Idades do Brasil
@@ -6087,7 +6085,7 @@ ibge,brazil_paraiba_sossego,BR,Brazil,Paraíba,Sossêgo,NA
 ibge,brazil_paraiba_sousa,BR,Brazil,Paraíba,Sousa,NA
 ibge,brazil_paraiba_sume,BR,Brazil,Paraíba,Sumé,NA
 treeco,brazil_paraiba_sume_fazenda passagem rasa,BR,Brazil,Paraíba,Sumé,Fazenda Passagem Rasa
-ibge,brazil_paraiba_tacima,BR,Brazil,Paraíba,Campo de Santana,NA
+ibge,brazil_paraiba_tacima,BR,Brazil,Paraíba,Tacima,NA
 ibge,brazil_paraiba_taperoa,BR,Brazil,Paraíba,Taperoá,NA
 ibge,brazil_paraiba_tavares,BR,Brazil,Paraíba,Tavares,NA
 ibge,brazil_paraiba_teixeira,BR,Brazil,Paraíba,Teixeira,NA
@@ -11274,10 +11272,10 @@ gadm,chile_atacama,CL,Chile,Atacama,NA,NA
 gadm,chile_atacama_chanaral,CL,Chile,Atacama,Chañaral,NA
 gadm,chile_atacama_copiapo,CL,Chile,Atacama,Copiapó,NA
 gadm,chile_atacama_huasco,CL,Chile,Atacama,Huasco,NA
-gadm,chile_bio bio,CL,Chile,Bío-Bío,NA,NA
-gadm,chile_bio bio_arauco,CL,Chile,Bío-Bío,Arauco,NA
-gadm,chile_bio bio_biobio,CL,Chile,Bío-Bío,Biobío,NA
-gadm,chile_bio bio_concepcion,CL,Chile,Bío-Bío,Concepción,NA
+gadm,chile_biobio,CL,Chile,Biobío,NA,NA
+gadm,chile_biobio_arauco,CL,Chile,Biobío,Arauco,NA
+gadm,chile_biobio_biobio,CL,Chile,Biobío,Biobío,NA
+gadm,chile_biobio_concepcion,CL,Chile,Biobío,Concepción,NA
 gadm,chile_coquimbo,CL,Chile,Coquimbo,NA,NA
 gadm,chile_coquimbo_choapa,CL,Chile,Coquimbo,Choapa,NA
 gadm,chile_coquimbo_elqui,CL,Chile,Coquimbo,Elqui,NA
@@ -13735,6 +13733,7 @@ gadm,guatemala_huehuetenango_tectitan,GT,Guatemala,Huehuetenango,Tectitán,NA
 gadm,guatemala_huehuetenango_todos santos cuchumatan,GT,Guatemala,Huehuetenango,Todos Santos Cuchumatán,NA
 gadm,guatemala_izabal,GT,Guatemala,Izabal,NA,NA
 gadm,guatemala_izabal_el estor,GT,Guatemala,Izabal,El Estor,NA
+gadm,guatemala_izabal_izabal,GT,Guatemala,Izabal,Izabal,NA
 gadm,guatemala_izabal_livingston,GT,Guatemala,Izabal,Livingston,NA
 gadm,guatemala_izabal_los amates,GT,Guatemala,Izabal,Los Amates,NA
 gadm,guatemala_izabal_morales,GT,Guatemala,Izabal,Morales,NA
@@ -17072,7 +17071,6 @@ gadm,peru_arequipa_camana,PE,Peru,Arequipa,Camaná,NA
 gadm,peru_arequipa_caraveli,PE,Peru,Arequipa,Caravelí,NA
 gadm,peru_arequipa_castilla,PE,Peru,Arequipa,Castilla,NA
 gadm,peru_arequipa_caylloma,PE,Peru,Arequipa,Caylloma,NA
-gbif_gsg,peru_arequipa_chiguata,NA,peru,arequipa,chiguata,NA
 gadm,peru_arequipa_condesuyos,PE,Peru,Arequipa,Condesuyos,NA
 gadm,peru_arequipa_islay,PE,Peru,Arequipa,Islay,NA
 gadm,peru_arequipa_la union,PE,Peru,Arequipa,La Unión,NA

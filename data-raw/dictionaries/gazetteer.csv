@@ -1,16 +1,4 @@
 source,loc,loc.correct,latitude.gazetteer,longitude.gazetteer,resolution.gazetteer
-types,brazil_amazon_NA_basin of rio jurua near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
-types,brazil_amazon_NA_near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
-types,brazil_amazon_NA_near mouth of rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
-types,brazil_amazonas_humaita_lago paraiso,brazil_amazonas_humaita_lago paraiso,-7.50027,-62.942829,localidade
-types,brazil_NA_NA_near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
-types,brazil_NA_NA_near mouth of rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
-types,brazil_NA_NA_near the nouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
-types,brazil_NA_NA_perto boca rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
-types,brazil_NA_NA_perto embocadura rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
-types,mexico_NA_NA_barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
-types,mexico_NA_NA_rocky slopes of barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
-types,mexico_NA_NA_slopes of the barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
 ibge,brazil_acre_acrelandia,brazil_acre_acrelandia,-9.928786085,-66.93057363,county
 ibge,brazil_acre_assis brasil,brazil_acre_assis brasil,-10.87442377,-70.16259514,county
 ibge,brazil_acre_brasileia,brazil_acre_brasileia,-10.76825376,-69.15011225,county
@@ -3798,7 +3786,7 @@ ibge,brazil_paraiba_caldas brandao,brazil_paraiba_caldas brandao,-7.121994015,-3
 ibge,brazil_paraiba_camalau,brazil_paraiba_camalau,-7.893119195,-36.78857406,county
 ibge,brazil_paraiba_campina grande,brazil_paraiba_campina grande,-7.266643591,-35.95832826,county
 ibge,brazil_paraiba_campina grande_galante,brazil_paraiba_campina grande_galante,-7.295,-35.76166667,distrito|vila
-ibge,brazil_paraiba_campo santana,brazil_paraiba_tacima,-6.538134048,-35.51798327,county
+ibge,brazil_paraiba_campo santana,brazil_paraiba_tacima_campo santana,-6.538134047,-35.51798327,locality
 ibge,brazil_paraiba_capim,brazil_paraiba_capim,-6.900409138,-35.16958775,county
 ibge,brazil_paraiba_carrapateira,brazil_paraiba_carrapateira,-7.031928701,-38.32869517,county
 ibge,brazil_paraiba_casserengue,brazil_paraiba_casserengue,-6.754513354,-35.84359757,county
@@ -8908,11 +8896,11 @@ gadm,cayman islands_west bay,cayman islands_west bay,19.367065,-81.38579151,stat
 gadm,central african republic,central african republic,6.574471619,20.48553235,country
 gadm,chad,chad,15.36477473,18.6666572,country
 gadm,chile,chile,-35.30314079,-71.23120665,country
-gadm,chile_aisen general carlos ibanez campo,chile_aisen general carlos ibanez campo,-46.44339801,-73.03667945,state
 gadm,chile_aisen general carlos ibanez campo_aisen,chile_aisen general carlos ibanez campo_aisen,-45.55614308,-73.45340771,county
 gadm,chile_aisen general carlos ibanez campo_capitan prat,chile_aisen general carlos ibanez campo_capitan prat,-47.92474692,-73.26041294,county
 gadm,chile_aisen general carlos ibanez campo_coihaique,chile_aisen general carlos ibanez campo_coihaique,-45.14227678,-71.96003132,county
 gadm,chile_aisen general carlos ibanez campo_general carrera,chile_aisen general carlos ibanez campo_general carrera,-46.52453629,-72.57954146,county
+gadm,chile_aisen general carlos ibanez campo,chile_aisen general carlos ibanez campo,-46.44339801,-73.03667945,state
 gadm,chile_antofagasta,chile_antofagasta,-23.45659803,-69.10300534,state
 gadm,chile_antofagasta_antofagasta,chile_antofagasta_antofagasta,-24.26657863,-69.58321255,county
 gadm,chile_antofagasta_el loa,chile_antofagasta_el loa,-22.87215282,-68.19199299,county
@@ -8927,11 +8915,11 @@ gadm,chile_atacama,chile_atacama,-27.36923611,-69.91336758,state
 gadm,chile_atacama_chanaral,chile_atacama_chanaral,-26.22088842,-69.49425402,county
 gadm,chile_atacama_copiapo,chile_atacama_copiapo,-27.49386331,-69.87930387,county
 gadm,chile_atacama_huasco,chile_atacama_huasco,-28.77830593,-70.55592068,county
-gadm,chile_bio bio,chile_bio bio,-37.48525053,-72.43114739,state
-gadm,chile_bio bio_arauco,chile_bio bio_arauco,-37.7156604,-73.33064883,county
-gadm,chile_bio bio_biobio,chile_bio bio_biobio,-37.54346886,-71.94435206,county
-gadm,chile_bio bio_concepcion,chile_bio bio_concepcion,-36.87053771,-72.8781582,county
-gadm,chile_bio-bio,chile_bio bio,-37.48400744,-72.42620614,state
+gadm,chile_biobio,chile_biobio,-37.48525053,-72.43114739,state
+gadm,chile_bio-bio,chile_biobio,-37.48400744,-72.42620614,state
+gadm,chile_biobio_arauco,chile_biobio_arauco,-37.7156604,-73.33064883,county
+gadm,chile_biobio_biobio,chile_biobio_biobio,-37.54346886,-71.94435206,county
+gadm,chile_biobio_concepcion,chile_biobio_concepcion,-36.87053771,-72.8781582,county
 gadm,chile_coquimbo,chile_coquimbo,-30.60734331,-70.86951292,state
 gadm,chile_coquimbo_choapa,chile_coquimbo_choapa,-31.65115445,-71.01316495,county
 gadm,chile_coquimbo_elqui,chile_coquimbo_elqui,-29.82683597,-70.72981448,county
@@ -11346,7 +11334,7 @@ gadm,guatemala_huehuetenango_tectitan,guatemala_huehuetenango_tectitan,15.363767
 gadm,guatemala_huehuetenango_todos santos cuchumatan,guatemala_huehuetenango_todos santos cuchumatan,15.57806323,-91.55178825,county
 gadm,guatemala_izabal,guatemala_izabal,15.570758,-88.955116,state
 gadm,guatemala_izabal_el estor,guatemala_izabal_el estor,15.46030793,-89.44181266,county
-gadm,guatemala_izabal_izabal,guatemala_izabal_los amates_izabal,15.398825,-89.135542,locality
+gadm,guatemala_izabal_izabal,guatemala_izabal_izabal,15.398825,-89.135542,county
 gadm,guatemala_izabal_livingston,guatemala_izabal_livingston,15.77781814,-89.14990368,county
 gadm,guatemala_izabal_los amates,guatemala_izabal_los amates,15.27015778,-89.05793604,county
 gadm,guatemala_izabal_morales,guatemala_izabal_morales,15.44423543,-88.76887399,county
@@ -11694,7 +11682,6 @@ gadm,guyana_upper demerara berbice_makouria river,guyana_upper demerara berbice_
 gadm,guyana_upper demerara berbice_rest of region 10,guyana_upper demerara berbice_rest of region 10,5.299540206,-58.38909003,county
 gadm,guyana_upper takutu upper essequibo,guyana_upper takutu upper essequibo,2.91667,-59,state
 gadm,"guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib","guyana_upper takutu upper essequibo_aishalton karaudanawa, achiwib",2.263843641,-59.45740602,county
-gadm,guyana_upper takutu upper essequibo_ireng / sawariwau (including  st. ignatius),guyana_upper takutu upper essequibo_ireng / sawariwau (including st. ignatius),3.259916484,-59.70611834,county
 gadm,guyana_upper takutu upper essequibo_ireng / sawariwau (including st. ignatius),guyana_upper takutu upper essequibo_ireng / sawariwau (including st. ignatius),3.259916484,-59.70611834,county
 gadm,guyana_upper takutu upper essequibo_marudi,guyana_upper takutu upper essequibo_marudi,2.007330327,-59.45304724,county
 gadm,guyana_upper takutu upper essequibo_rest of region 9,guyana_upper takutu upper essequibo_rest of region 9,2.70465464,-58.72555546,county
@@ -15723,7 +15710,7 @@ gadm,bolivia_chuquisaca_tomina_villa alcala,bolivia_chuquisaca_tomina_villa alca
 gadm,bolivia_chuquisaca_yamparaez_tarabuco,bolivia_chuquisaca_yamparaez_tarabuco,-19.10937361,-64.91061975,distrito
 gadm,bolivia_chuquisaca_yamparaez_yamparaez,bolivia_chuquisaca_yamparaez_yamparaez,-19.23036285,-65.06861924,distrito
 gadm,bolivia_cochabamba_arani_arani,bolivia_cochabamba_arani_arani,-17.5851496,-65.72382076,distrito
-gadm,bolivia_cochabamba_arani_tiraque,bolivia_cochabamba_arani_tiraque,-17.25235384,-65.48064372,distrito
+gadm,bolivia_cochabamba_arani_tiraque,bolivia_cochabamba_arani_tiraque,-17.425105,-65.719393,distrito
 gadm,bolivia_cochabamba_arani_vacas,bolivia_cochabamba_arani_vacas,-17.58562728,-65.5830778,distrito
 gadm,bolivia_cochabamba_arque_arque,bolivia_cochabamba_arque_arque,-17.81207122,-66.4085618,distrito
 gadm,bolivia_cochabamba_arque_bolivar,bolivia_cochabamba_arque_bolivar,-17.99444662,-66.62811065,distrito
@@ -15768,7 +15755,8 @@ gadm,bolivia_cochabamba_quillacollo_vinto,bolivia_cochabamba_quillacollo_vinto,-
 gadm,bolivia_cochabamba_tapacari_tapacari,bolivia_cochabamba_tapacari_tapacari,-17.56802241,-66.66209372,distrito
 gadm,bolivia_el beni_cercado_san javier,bolivia_el beni_cercado_san javier,-14.43295421,-64.3452984,distrito
 gadm,bolivia_el beni_cercado_trinidad,bolivia_el beni_cercado_trinidad,-14.8368056,-64.67587528,distrito
-gadm,bolivia_el beni_jose ballivian_puerto rurrenabaque,bolivia_el beni_jose ballivian_puerto rurrenabaque,-14.74223918,-67.27438972,distrito
+gadm,bolivia_el beni_jose ballivian_puerto rurrenabaque,bolivia_el beni_jose ballivian_puerto menor rurrenabaque,-14.74223918,-67.27438972,distrito
+gadm,bolivia_el beni_jose ballivian_puerto menor rurrenabaque,bolivia_el beni_jose ballivian_puerto menor rurrenabaque,-14.74223918,-67.27438972,distrito
 gadm,bolivia_el beni_jose ballivian_reyes,bolivia_el beni_jose ballivian_reyes,-13.39844019,-67.06120848,distrito
 gadm,bolivia_el beni_jose ballivian_san borja,bolivia_el beni_jose ballivian_san borja,-15.00515878,-66.79191598,distrito
 gadm,bolivia_el beni_jose ballivian_santa rosa,bolivia_el beni_jose ballivian_santa rosa,-13.31920007,-66.66518845,distrito
@@ -15798,10 +15786,11 @@ gadm,bolivia_la paz_aroma_umala,bolivia_la paz_aroma_umala,-17.39859523,-67.9848
 gadm,bolivia_la paz_aroma_waldo ballivian,bolivia_la paz_aroma_waldo ballivian,-17.10900711,-68.21830421,distrito
 gadm,bolivia_la paz_bautista saavedra_curva,bolivia_la paz_bautista saavedra_curva,-14.97480587,-68.9638187,distrito
 gadm,bolivia_la paz_bautista saavedra_juan jose perez,bolivia_la paz_bautista saavedra_juan jose perez,-15.09536201,-68.77200179,distrito
-gadm,bolivia_la paz_eliodoro camacho_lago,bolivia_la paz_eliodoro camacho_lago,-15.786795,-69.22500039,distrito
+gadm,bolivia_la paz_eliodoro camacho_lago titicaca,bolivia_la paz_eliodoro camacho_lago titicaca,-15.786795,-69.22500039,distrito
 gadm,bolivia_la paz_eliodoro camacho_mocomoco,bolivia_la paz_eliodoro camacho_mocomoco,-15.4103127,-69.0339384,distrito
 gadm,bolivia_la paz_eliodoro camacho_puerto acosta,bolivia_la paz_eliodoro camacho_puerto acosta,-15.51179109,-69.17795062,distrito
-gadm,bolivia_la paz_eliodoro camacho_puerto carabuco,bolivia_la paz_eliodoro camacho_puerto carabuco,-15.72685977,-69.02220461,distrito
+gadm,bolivia_la paz_eliodoro camacho_puerto carabuco,bolivia_la paz_eliodoro camacho_puerto mayor carabuco,-15.72685977,-69.02220461,distrito
+gadm,bolivia_la paz_eliodoro camacho_puerto mayor carabuco,bolivia_la paz_eliodoro camacho_puerto mayor carabuco,-15.72685977,-69.02220461,distrito
 gadm,bolivia_la paz_franz tamayo_apolo,bolivia_la paz_franz tamayo_apolo,-14.64428858,-68.24123703,distrito
 gadm,bolivia_la paz_franz tamayo_pelechuco,bolivia_la paz_franz tamayo_pelechuco,-14.79603053,-69.09650727,distrito
 gadm,bolivia_la paz_gualberto villarroel_chacarilla,bolivia_la paz_gualberto villarroel_chacarilla,-17.53897724,-68.16898927,distrito
@@ -15858,7 +15847,8 @@ gadm,bolivia_la paz_pacajes_santiago callapa,bolivia_la paz_pacajes_santiago cal
 gadm,bolivia_la paz_pacajes_santiago machaca,bolivia_la paz_pacajes_santiago machaca,-17.18161374,-69.26281967,distrito
 gadm,bolivia_la paz_pedro domingo murillo_achocalla,bolivia_la paz_pedro domingo murillo_achocalla,-16.64663687,-68.13709885,distrito
 gadm,bolivia_la paz_pedro domingo murillo_el alto,bolivia_la paz_pedro domingo murillo_el alto,-16.44191499,-68.20403078,distrito
-gadm,bolivia_la paz_pedro domingo murillo_la paz,bolivia_la paz_pedro domingo murillo_la paz,-16.16315354,-67.9681912,distrito
+gadm,bolivia_la paz_pedro domingo murillo_la paz,bolivia_la paz_pedro domingo murillo_nuestra senora paz,-16.16315354,-67.9681912,distrito
+gadm,bolivia_la paz_pedro domingo murillo_nuestra senora paz,bolivia_la paz_pedro domingo murillo_nuestra senora paz,-16.16315354,-67.9681912,distrito
 gadm,bolivia_la paz_pedro domingo murillo_mecapaca,bolivia_la paz_pedro domingo murillo_mecapaca,-16.71164728,-67.97909324,distrito
 gadm,bolivia_la paz_pedro domingo murillo_palca,bolivia_la paz_pedro domingo murillo_palca,-16.65852895,-67.8252956,distrito
 gadm,bolivia_la paz_sud yungas_chulumani,bolivia_la paz_sud yungas_chulumani,-16.37166784,-67.52996236,distrito
@@ -15937,7 +15927,8 @@ gadm,"bolivia_potosi_jose maria linares_caiza ""d""","bolivia_potosi_jose maria 
 gadm,bolivia_potosi_jose maria linares_puna,bolivia_potosi_jose maria linares_puna,-19.78479811,-65.1828178,distrito
 gadm,bolivia_potosi_modesto omiste_villazon,bolivia_potosi_modesto omiste_villazon,-21.90830097,-65.63991197,distrito
 gadm,bolivia_potosi_nor chichas_cotagaita,bolivia_potosi_nor chichas_cotagaita,-20.67273638,-65.78240711,distrito
-gadm,bolivia_potosi_nor chichas_vitichi,bolivia_potosi_nor chichas_vitichi,-20.33558859,-65.43612527,distrito
+gadm,bolivia_potosi_nor chichas_vitichi,bolivia_potosi_nor chichas_vitiche,-20.33558859,-65.43612527,distrito
+gadm,bolivia_potosi_nor chichas_vitiche,bolivia_potosi_nor chichas_vitiche,-20.33558859,-65.43612527,distrito
 gadm,"bolivia_potosi_nor lipez_colcha ""k""","bolivia_potosi_nor lipez_colcha ""k""",-20.94147302,-67.35450543,distrito
 gadm,bolivia_potosi_nor lipez_san agustin,bolivia_potosi_nor lipez_san agustin,-21.46494539,-67.44666069,distrito
 gadm,bolivia_potosi_nor lipez_san pedro quemes,bolivia_potosi_nor lipez_san pedro quemes,-20.97646935,-68.17117693,distrito
@@ -15978,9 +15969,11 @@ gadm,bolivia_santa cruz_ichilo_buena vista,bolivia_santa cruz_ichilo_buena vista
 gadm,bolivia_santa cruz_ichilo_yapacani,bolivia_santa cruz_ichilo_yapacani,-16.74994492,-64.36625854,distrito
 gadm,bolivia_santa cruz_ignacio warnes_okinawa uno,bolivia_santa cruz_ignacio warnes_okinawa uno,-17.28582829,-62.85411923,distrito
 gadm,bolivia_santa cruz_ignacio warnes_warnes,bolivia_santa cruz_ignacio warnes_warnes,-17.39769015,-63.0494168,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,-15.03633608,-60.98339643,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,bolivia_santa cruz_jose miguel velasco_san ignacio,-15.03633608,-60.98339643,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san ignacio,bolivia_santa cruz_jose miguel velasco_san ignacio,-15.03633608,-60.98339643,distrito
 gadm,bolivia_santa cruz_jose miguel velasco_san matias,bolivia_santa cruz_jose miguel velasco_san matias,-17.26399958,-58.80834051,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san miguel velasco,bolivia_santa cruz_jose miguel velasco_san miguel velasco,-16.80634972,-61.28294678,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san miguel velasco,bolivia_santa cruz_jose miguel velasco_san miguel,-16.80634972,-61.28294678,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san miguel,bolivia_santa cruz_jose miguel velasco_san miguel,-16.80634972,-61.28294678,distrito
 gadm,bolivia_santa cruz_jose miguel velasco_san rafael,bolivia_santa cruz_jose miguel velasco_san rafael,-16.80559367,-60.12708779,distrito
 gadm,bolivia_santa cruz_manuel maria caballero_comarapa,bolivia_santa cruz_manuel maria caballero_comarapa,-17.79697886,-64.42821124,distrito
 gadm,bolivia_santa cruz_manuel maria caballero_saipina,bolivia_santa cruz_manuel maria caballero_saipina,-18.00707704,-64.65100169,distrito
@@ -16007,7 +16000,8 @@ gadm,bolivia_tarija_aniceto arce_padcaya,bolivia_tarija_aniceto arce_padcaya,-22
 gadm,bolivia_tarija_burnet o'connor_entre rios,bolivia_tarija_burnet o'connor_entre rios,-21.39274384,-64.05895516,distrito
 gadm,bolivia_tarija_cercado_tarija,bolivia_tarija_cercado_tarija,-21.55483898,-64.59405116,distrito
 gadm,bolivia_tarija_eustaquio mendez_el puente,bolivia_tarija_eustaquio mendez_el puente,-21.27020172,-65.04655958,distrito
-gadm,bolivia_tarija_eustaquio mendez_villa san lorenzo,bolivia_tarija_eustaquio mendez_villa san lorenzo,-21.22953158,-64.69363805,distrito
+gadm,bolivia_tarija_eustaquio mendez_villa san lorenzo,bolivia_tarija_eustaquio mendez_san lorenzo,-21.22953158,-64.69363805,distrito
+gadm,bolivia_tarija_eustaquio mendez_san lorenzo,bolivia_tarija_eustaquio mendez_san lorenzo,-21.22953158,-64.69363805,distrito
 gadm,bolivia_tarija_gran chaco_carapari,bolivia_tarija_gran chaco_carapari,-21.82454754,-63.90810802,distrito
 gadm,bolivia_tarija_gran chaco_villa montes,bolivia_tarija_gran chaco_villa montes,-21.39472148,-62.91381533,distrito
 gadm,bolivia_tarija_gran chaco_yacuiba,bolivia_tarija_gran chaco_yacuiba,-21.79387767,-63.2887357,distrito
@@ -16058,7 +16052,7 @@ cncflora,brazil_acre_xapuri_estrada xapuri km 11,brazil_acre_xapuri_estrada xapu
 cncflora,brazil_acre_xapuri_km 12,brazil_acre_xapuri_km 12,-10.724899,-68.430419,localidade
 cncflora,brazil_acre_xapuri_km 6,brazil_acre_xapuri_km 6,-10.699852,-68.46218,localidade
 cncflora,brazil_acre_xapuri_seringal porongaba,brazil_acre_xapuri_seringal porongaba,-10.701529,-68.62395,localidade
-gadm,brazil_alagoas_ataleia_sapucaia,brazil_alagoas_ataleia_sapucaia,-9.536076201,-36.13451179,locality
+gadm,brazil_alagoas_ataleia_sapucaia,brazil_alagoas_atalaia_sapucaia,-9.529166667,-36.06333333,distrito|vila
 gadm,brazil_alagoas_capela_santa efigenia,brazil_alagoas_capela_santa efigenia,-9.281539309,-36.14771292,locality
 cncflora,brazil_alagoas_cha preta_serra cavaleiros / serra lisa,brazil_alagoas_cha preta_serra cavaleiros / serra lisa,-9.220394,-36.351564,localidade
 cncflora,brazil_alagoas_colonia leopoldina_rppn estrela sul,brazil_alagoas_colonia leopoldina_rppn estrela sul,-8.931697198,-35.68273996,localidade
@@ -16135,6 +16129,9 @@ cncflora,brazil_amapa_porto grande_rio araguari,brazil_amapa_porto grande_rio ar
 gadm,brazil_amapa_santana_igarape lago,brazil_amapa_santana_igarape lago,0.16544452,-51.44773313,locality
 gadm,brazil_amapa_santana_portuario igarape fortaleza,brazil_amapa_santana_portuario igarape fortaleza,-0.015012074,-51.1403227,locality
 cncflora,brazil_amapa_vitoria jari_gleba felipe reserva genetica,brazil_amapa_vitoria jari_gleba felipe reserva genetica,-0.866454595,-52.36676642,localidade
+types,brazil_amazon_NA_basin of rio jurua near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
+types,brazil_amazon_NA_near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
+types,brazil_amazon_NA_near mouth of rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
 cncflora,brazil_amazonas_alvaraes_lago tefe,brazil_amazonas_alvaraes_lago tefe,-3.301052853,-64.77688674,localidade
 cncflora,brazil_amazonas_anama_lago anama,brazil_amazonas_anama_lago anama,-3.521282,-61.571747,localidade
 cncflora,brazil_amazonas_apui_acampamento dner,brazil_amazonas_apui_acampamento dner,-7.54679516,-60.66941416,localidade
@@ -16203,6 +16200,7 @@ cncflora,brazil_amazonas_envira_rio tarauaca,brazil_amazonas_envira_rio tarauaca
 cncflora,brazil_amazonas_guajara_estrada alemanha,brazil_amazonas_guajara_estrada alemanha,-7.582796,-72.708208,localidade
 cncflora,brazil_amazonas_humaita_fazenda brasilia,brazil_amazonas_humaita_fazenda brasilia,-7.605150306,-63.17013657,localidade
 cncflora,brazil_amazonas_humaita_igarape beem,brazil_amazonas_humaita_igarape beem,-7.618077514,-63.01747861,localidade
+types,brazil_amazonas_humaita_lago paraiso,brazil_amazonas_humaita_lago paraiso,-7.50027,-62.942829,localidade
 cncflora,brazil_amazonas_humaita_on plateau between rio livramento and rio ipixuna,brazil_amazonas_humaita_on plateau between rio livramento and rio ipixuna,-6.499972,-62.499986,localidade
 cncflora,brazil_amazonas_humaita_rio ipixuna,brazil_amazonas_humaita_rio ipixuna,-7.135031901,-62.50623749,localidade
 cncflora,brazil_amazonas_humaita_rio livramento (?),brazil_amazonas_humaita_rio livramento (?),-7.000125,-62.499615,localidade
@@ -18402,7 +18400,6 @@ cncflora,brazil_mato grosso_juscimeira_rio sao lourenco,brazil_mato grosso_jusci
 gadm,brazil_mato grosso_juscimeira_sao lourenco fatima,brazil_mato grosso_juscimeira_sao lourenco fatima,-16.27766622,-55.07065026,locality
 gadm,brazil_mato grosso_lucas rio verde_groslndia,brazil_mato grosso_lucas rio verde_groslndia,-12.84713161,-56.24349961,locality
 treeco,brazil_mato grosso_lucas rio verde_pch foz cedro,brazil_mato grosso_lucas rio verde_pch foz cedro,-12.79115,-56.00954,localidade
-gadm,brazil_mato grosso_mato grosso_vila bela santissima trindade,brazil_mato grosso_mato grosso_vila bela santissima trindade,-15.04713007,-59.77656823,locality
 cncflora,brazil_mato grosso_mirassol oeste_cabacal,brazil_mato grosso_mirassol oeste_cabacal,-15.469934,-57.893322,localidade
 treeco,brazil_mato grosso_nobres_comunidade coqueiral queribo,brazil_mato grosso_nobres_comunidade coqueiral queribo,-14.630019,-56.234785,localidade
 cncflora,brazil_mato grosso_nortelandia_arrossensal,brazil_mato grosso_nortelandia_arrossensal,-14.35040308,-56.71021398,localidade
@@ -18863,7 +18860,7 @@ treeco,brazil_minas gerais_guaxupe_fazenda nova floresta,brazil_minas gerais_gua
 cncflora,brazil_minas gerais_guimarania_serra oculos,brazil_minas gerais_guimarania_serra oculos,-18.668899,-46.800039,localidade
 gadm,brazil_minas gerais_gurinhata_flor minas,brazil_minas gerais_gurinhata_flor minas,-18.94903685,-49.87454928,locality
 treeco,brazil_minas gerais_gurinhata_pratinha,brazil_minas gerais_gurinhata_pratinha,-18.918459,-49.958026,localidade
-gadm,brazil_minas gerais_iacu_sao sebastiao barra,brazil_minas gerais_iacu_sao sebastiao barra,-19.24274601,-42.25098977,locality
+gadm,brazil_minas gerais_iapu_sao sebastiao barra,brazil_minas gerais_iapu_sao sebastiao barra,-19.24274601,-42.25098977,locality
 gadm,brazil_minas gerais_ibiracatu_bonanca,brazil_minas gerais_ibiracatu_bonanca,-15.75690389,-44.16675796,locality
 treeco,brazil_minas gerais_ibirite_pe serra rola moca,brazil_minas gerais_ibirite_pe serra rola moca,-20.061287,-44.053222,localidade|sublocalidade
 treeco,brazil_minas gerais_ibituruna_fazenda coqueiro,brazil_minas gerais_ibituruna_fazenda coqueiro,-21.156885,-44.849555,localidade
@@ -19597,6 +19594,11 @@ gadm,brazil_minas gerais_virgem lapa_sao joao vacaria,brazil_minas gerais_virgem
 gadm,brazil_minas gerais_virgolandia_divino virgolandia,brazil_minas gerais_virgolandia_divino virgolandia,-18.403683,-42.2630187,locality
 gadm,brazil_minas gerais_wenceslau braz_iterere,brazil_minas gerais_wenceslau braz_iterere,-22.57882404,-45.4232649,locality
 treeco,brazil_minas gerais_wenceslau braz_venceslau braz,brazil_minas gerais_wenceslau braz_venceslau braz,-22.544113,-45.357192,localidade
+types,brazil_NA_NA_near mouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
+types,brazil_NA_NA_near mouth of rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
+types,brazil_NA_NA_near the nouth of rio embira,brazil_amazonas_envira_near mouth of rio embira,-7.4894529,-70.0602439,localidade
+types,brazil_NA_NA_perto boca rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
+types,brazil_NA_NA_perto embocadura rio macauhan,brazil_acre_sena madureira_boca macaua,-9.19384,-68.723095,localidade
 gadm,brazil_para_acara_guajara miri,brazil_para_acara_guajara miri,-1.618121006,-48.34949757,locality
 cncflora,brazil_para_acara_rio acara,brazil_para_acara_rio acara,-2.186310454,-48.50748411,localidade
 cncflora,brazil_para_alenquer_sete varas / rio curua,brazil_para_alenquer_sete varas / rio curua,-0.959607,-54.904169,localidade
@@ -20352,7 +20354,7 @@ treeco,brazil_parana_telemaco borba_fazenda monte alegre,brazil_parana_telemaco 
 cncflora,brazil_parana_telemaco borba_harmonia,brazil_parana_telemaco borba_harmonia,-24.307498,-50.605006,localidade
 treeco,brazil_parana_telemaco borba_parque ecologico samuel klabin,brazil_parana_telemaco borba_parque ecologico samuel klabin,-24.297922,-50.590832,localidade
 gadm,brazil_parana_terra roxa_santa rita oeste,brazil_parana_terra roxa_santa rita oeste,-24.34214107,-54.01572028,locality
-gadm,brazil_parana_texeira soares_guarauna,brazil_parana_texeira soares_guarauna,-25.28298501,-50.35744901,locality
+gadm,brazil_parana_texeira soares_guarauna,brazil_parana_teixeira soares_guarauna,-25.28298501,-50.35744901,locality
 cncflora,brazil_parana_tibagi_alojamento,brazil_parana_tibagi_alojamento,-24.563037,-50.259164,localidade
 cncflora,brazil_parana_tibagi_alojamento parque estadual guartela,brazil_parana_tibagi_alojamento parque estadual guartela,-24.563037,-50.259164,localidade
 treeco,brazil_parana_tibagi_fazenda batavo,brazil_parana_tibagi_fazenda batavo,-24.500579,-50.418457,localidade|sublocalidade
@@ -23604,6 +23606,16 @@ gadm,brazil_tocantins_santa rosa tocantins_morro sao joao,brazil_tocantins_santa
 cncflora,brazil_tocantins_sao salvador tocantins_serra grande,brazil_tocantins_sao salvador tocantins_serra grande,-12.724545,-48.438834,localidade
 gadm,brazil_tocantins_sao valerio_sao valerio natividade,brazil_tocantins_sao valerio_sao valerio natividade,-11.80402579,-48.1706453,locality
 cncflora,brazil_tocantins_tocantinopolis_posto indigena sao jose,brazil_tocantins_tocantinopolis_posto indigena sao jose,-6.344419,-47.544376,localidade
+gadm,chile_aisen general carlos ibanez campo_aisen_aisen,chile_aisen general carlos ibanez campo_aisen_aisen,-45.97837828,-73.84286839,locality
+gadm,chile_aisen general carlos ibanez campo_aisen_cisnes,chile_aisen general carlos ibanez campo_aisen_cisnes,-44.46766822,-73.15086231,locality
+gadm,chile_aisen general carlos ibanez campo_aisen_guaitecas,chile_aisen general carlos ibanez campo_aisen_guaitecas,-43.95592559,-73.80986443,locality
+gadm,chile_aisen general carlos ibanez campo_capitan prat_cochrane,chile_aisen general carlos ibanez campo_capitan prat_cochrane,-47.36905967,-72.7735114,locality
+gadm,chile_aisen general carlos ibanez campo_capitan prat_o'higgins,chile_aisen general carlos ibanez campo_capitan prat_o'higgins,-48.5009135,-72.91190128,locality
+gadm,chile_aisen general carlos ibanez campo_capitan prat_tortel,chile_aisen general carlos ibanez campo_capitan prat_tortel,-48.04597192,-74.16910017,locality
+gadm,chile_aisen general carlos ibanez campo_coyhaique_coyhaique,chile_aisen general carlos ibanez campo_coyhaique_coyhaique,-45.536753,-72.03085781,locality
+gadm,chile_aisen general carlos ibanez campo_coyhaique_lago verde,chile_aisen general carlos ibanez campo_coyhaique_lago verde,-44.49460778,-71.84374473,locality
+gadm,chile_aisen general carlos ibanez campo_general carrera_chile chico,chile_aisen general carlos ibanez campo_general carrera_chile chico,-46.767376,-72.63792931,locality
+gadm,chile_aisen general carlos ibanez campo_general carrera_rio ibanez,chile_aisen general carlos ibanez campo_general carrera_rio ibanez,-46.27863,-72.5204149,locality
 gadm,chile_antofagasta_antofagasta_antofagasta,chile_antofagasta_antofagasta_antofagasta,-24.27703158,-69.42074268,locality
 gadm,chile_antofagasta_antofagasta_mejillones,chile_antofagasta_antofagasta_mejillones,-22.96965054,-70.2130524,locality
 gadm,chile_antofagasta_antofagasta_sierra gorda,chile_antofagasta_antofagasta_sierra gorda,-23.25991044,-69.32937572,locality
@@ -23656,45 +23668,36 @@ gadm,chile_atacama_huasco_alto carmen,chile_atacama_huasco_alto carmen,-29.12121
 gadm,chile_atacama_huasco_freirina,chile_atacama_huasco_freirina,-28.85536667,-71.19078503,locality
 gadm,chile_atacama_huasco_huasco,chile_atacama_huasco_huasco,-28.24011276,-71.00590626,locality
 gadm,chile_atacama_huasco_vallenar,chile_atacama_huasco_vallenar,-28.56473224,-70.5408023,locality
-gadm,chile_aysen general carlos ibanez campo_aysen_aysen,chile_aysen general carlos ibanez campo_aysen_aysen,-45.97837828,-73.84286839,locality
-gadm,chile_aysen general carlos ibanez campo_aysen_cisnes,chile_aysen general carlos ibanez campo_aysen_cisnes,-44.46766822,-73.15086231,locality
-gadm,chile_aysen general carlos ibanez campo_aysen_guaitecas,chile_aysen general carlos ibanez campo_aysen_guaitecas,-43.95592559,-73.80986443,locality
-gadm,chile_aysen general carlos ibanez campo_capitan prat_cochrane,chile_aysen general carlos ibanez campo_capitan prat_cochrane,-47.36905967,-72.7735114,locality
-gadm,chile_aysen general carlos ibanez campo_capitan prat_o'higgins,chile_aysen general carlos ibanez campo_capitan prat_o'higgins,-48.5009135,-72.91190128,locality
-gadm,chile_aysen general carlos ibanez campo_capitan prat_tortel,chile_aysen general carlos ibanez campo_capitan prat_tortel,-48.04597192,-74.16910017,locality
-gadm,chile_aysen general carlos ibanez campo_coyhaique_coihaique,chile_aysen general carlos ibanez campo_coyhaique_coihaique,-45.536753,-72.03085781,locality
-gadm,chile_aysen general carlos ibanez campo_coyhaique_lago verde,chile_aysen general carlos ibanez campo_coyhaique_lago verde,-44.49460778,-71.84374473,locality
-gadm,chile_aysen general carlos ibanez campo_general carrera_chile chico,chile_aysen general carlos ibanez campo_general carrera_chile chico,-46.767376,-72.63792931,locality
-gadm,chile_aysen general carlos ibanez campo_general carrera_rio ibanez,chile_aysen general carlos ibanez campo_general carrera_rio ibanez,-46.27863,-72.5204149,locality
-gadm,chile_bio bio_arauco_arauco,chile_bio bio_arauco_arauco,-37.2596646,-73.36950687,locality
-gadm,chile_bio bio_arauco_canete,chile_bio bio_arauco_canete,-37.86607304,-73.29273035,locality
-gadm,chile_bio bio_arauco_contulmo,chile_bio bio_arauco_contulmo,-38.04240943,-73.2688729,locality
-gadm,chile_bio bio_arauco_curanilahue,chile_bio bio_arauco_curanilahue,-37.46003155,-73.22372333,locality
-gadm,chile_bio bio_arauco_lebu,chile_bio bio_arauco_lebu,-37.6332932,-73.56272368,locality
-gadm,chile_bio bio_arauco_los alamos,chile_bio bio_arauco_los alamos,-37.69449459,-73.35152831,locality
-gadm,chile_bio bio_arauco_tirua,chile_bio bio_arauco_tirua,-38.32427466,-73.39291652,locality
-gadm,chile_bio bio_bio bio_antuco,chile_bio bio_bio bio_antuco,-37.36777077,-71.35117431,locality
-gadm,chile_bio bio_bio bio_cabrero,chile_bio bio_bio bio_cabrero,-37.08603306,-72.31010942,locality
-gadm,chile_bio bio_bio bio_laja,chile_bio bio_bio bio_laja,-37.21359298,-72.53837826,locality
-gadm,chile_bio bio_bio bio_los angeles,chile_bio bio_bio bio_los angeles,-37.34048416,-72.33802462,locality
-gadm,chile_bio bio_bio bio_mulchen,chile_bio bio_bio bio_mulchen,-37.8140364,-72.11019026,locality
-gadm,chile_bio bio_bio bio_nacimiento,chile_bio bio_bio bio_nacimiento,-37.42618005,-72.81136975,locality
-gadm,chile_bio bio_bio bio_negrete,chile_bio bio_bio bio_negrete,-37.55129231,-72.5911328,locality
-gadm,chile_bio bio_bio bio_quilago,chile_bio bio_bio bio_quilaco,-37.92095324,-71.72015317,locality
-gadm,chile_bio bio_bio bio_quillego,chile_bio bio_bio bio_quilleco,-37.40137622,-71.92666436,locality
-gadm,chile_bio bio_bio bio_rosendo,chile_bio bio_bio bio_san rosendo,-37.12095952,-72.64344292,locality
-gadm,chile_bio bio_bio bio_santa barbara,chile_bio bio_bio bio_santa barbara,-37.71835674,-71.55786452,locality
-gadm,chile_bio bio_bio bio_tucapel,chile_bio bio_bio bio_tucapel,-37.24190994,-71.68983718,locality
-gadm,chile_bio bio_bio bio_yumbel,chile_bio bio_bio bio_yumbel,-37.05255793,-72.56878272,locality
-gadm,chile_bio bio_concepcion_concepcion,chile_bio bio_concepcion_concepcion,-36.86770386,-72.96249922,locality
-gadm,chile_bio bio_concepcion_coronel,chile_bio bio_concepcion_coronel,-36.96107636,-73.06919819,locality
-gadm,chile_bio bio_concepcion_florida,chile_bio bio_concepcion_florida,-36.83270872,-72.66748031,locality
-gadm,chile_bio bio_concepcion_hualqui,chile_bio bio_concepcion_hualqui,-37.01175929,-72.84811339,locality
-gadm,chile_bio bio_concepcion_lota,chile_bio bio_concepcion_lota,-37.07371635,-73.07387067,locality
-gadm,chile_bio bio_concepcion_penco,chile_bio bio_concepcion_penco,-36.76242951,-72.90350448,locality
-gadm,chile_bio bio_concepcion_santa juana,chile_bio bio_concepcion_santa juana,-37.20853305,-72.90929843,locality
-gadm,chile_bio bio_concepcion_talcahuano,chile_bio bio_concepcion_talcahuano,-36.74025135,-73.10670081,locality
-gadm,chile_bio bio_concepcion_tome,chile_bio bio_concepcion_tome,-36.57443764,-72.81779343,locality
+gadm,chile_biobio_arauco_arauco,chile_biobio_arauco_arauco,-37.2596646,-73.36950687,locality
+gadm,chile_biobio_arauco_canete,chile_biobio_arauco_canete,-37.86607304,-73.29273035,locality
+gadm,chile_biobio_arauco_contulmo,chile_biobio_arauco_contulmo,-38.04240943,-73.2688729,locality
+gadm,chile_biobio_arauco_curanilahue,chile_biobio_arauco_curanilahue,-37.46003155,-73.22372333,locality
+gadm,chile_biobio_arauco_lebu,chile_biobio_arauco_lebu,-37.6332932,-73.56272368,locality
+gadm,chile_biobio_arauco_los alamos,chile_biobio_arauco_los alamos,-37.69449459,-73.35152831,locality
+gadm,chile_biobio_arauco_tirua,chile_biobio_arauco_tirua,-38.32427466,-73.39291652,locality
+gadm,chile_biobio_biobio_antuco,chile_biobio_biobio_antuco,-37.36777077,-71.35117431,locality
+gadm,chile_biobio_biobio_cabrero,chile_biobio_biobio_cabrero,-37.08603306,-72.31010942,locality
+gadm,chile_biobio_biobio_laja,chile_biobio_biobio_laja,-37.21359298,-72.53837826,locality
+gadm,chile_biobio_biobio_los angeles,chile_biobio_biobio_los angeles,-37.34048416,-72.33802462,locality
+gadm,chile_biobio_biobio_mulchen,chile_biobio_biobio_mulchen,-37.8140364,-72.11019026,locality
+gadm,chile_biobio_biobio_nacimiento,chile_biobio_biobio_nacimiento,-37.42618005,-72.81136975,locality
+gadm,chile_biobio_biobio_negrete,chile_biobio_biobio_negrete,-37.55129231,-72.5911328,locality
+gadm,chile_biobio_biobio_quilaco,chile_biobio_biobio_quilaco,-37.92095324,-71.72015317,locality
+gadm,chile_biobio_biobio_quilago,chile_biobio_biobio_quilaco,-37.92095324,-71.72015317,locality
+gadm,chile_biobio_biobio_quillego,chile_biobio_biobio_quilleco,-37.40137622,-71.92666436,locality
+gadm,chile_biobio_biobio_san rosendo,chile_biobio_biobio_san rosendo,-37.12095952,-72.64344292,locality
+gadm,chile_biobio_biobio_santa barbara,chile_biobio_biobio_santa barbara,-37.71835674,-71.55786452,locality
+gadm,chile_biobio_biobio_tucapel,chile_biobio_biobio_tucapel,-37.24190994,-71.68983718,locality
+gadm,chile_biobio_biobio_yumbel,chile_biobio_biobio_yumbel,-37.05255793,-72.56878272,locality
+gadm,chile_biobio_concepcion_concepcion,chile_biobio_concepcion_concepcion,-36.86770386,-72.96249922,locality
+gadm,chile_biobio_concepcion_coronel,chile_biobio_concepcion_coronel,-36.96107636,-73.06919819,locality
+gadm,chile_biobio_concepcion_florida,chile_biobio_concepcion_florida,-36.83270872,-72.66748031,locality
+gadm,chile_biobio_concepcion_hualqui,chile_biobio_concepcion_hualqui,-37.01175929,-72.84811339,locality
+gadm,chile_biobio_concepcion_lota,chile_biobio_concepcion_lota,-37.07371635,-73.07387067,locality
+gadm,chile_biobio_concepcion_penco,chile_biobio_concepcion_penco,-36.76242951,-72.90350448,locality
+gadm,chile_biobio_concepcion_santa juana,chile_biobio_concepcion_santa juana,-37.20853305,-72.90929843,locality
+gadm,chile_biobio_concepcion_talcahuano,chile_biobio_concepcion_talcahuano,-36.74025135,-73.10670081,locality
+gadm,chile_biobio_concepcion_tome,chile_biobio_concepcion_tome,-36.57443764,-72.81779343,locality
 gadm,chile_coquimbo_choapa_illapel,chile_coquimbo_choapa_illapel,-31.5183357,-70.96898456,locality
 gadm,chile_coquimbo_choapa_los vilos,chile_coquimbo_choapa_los vilos,-31.89288215,-71.29482274,locality
 gadm,chile_coquimbo_choapa_mincha,chile_coquimbo_choapa_mincha,-31.35740356,-71.40313533,locality
@@ -23725,11 +23728,12 @@ gadm,chile_libertador general bernardo o'higgins_cachapoal_pichidegua,chile_libe
 gadm,chile_libertador general bernardo o'higgins_cachapoal_quinta tilcoco,chile_libertador general bernardo o'higgins_cachapoal_quinta tilcoco,-34.39830918,-71.08251172,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_rancagua,chile_libertador general bernardo o'higgins_cachapoal_rancagua,-34.04195354,-70.93794424,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_rengo,chile_libertador general bernardo o'higgins_cachapoal_rengo,-34.46758902,-70.81054974,locality
-gadm,chile_libertador general bernardo o'higgins_cachapoal_requinao,chile_libertador general bernardo o'higgins_cachapoal_requinao,-34.29559929,-70.76162006,locality
+gadm,chile_libertador general bernardo o'higgins_cachapoal_requinoa,chile_libertador general bernardo o'higgins_cachapoal_requinoa,-34.29559929,-70.76162006,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_san vicente,chile_libertador general bernardo o'higgins_cachapoal_san vicente,-34.50615635,-71.17249981,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_la estrella,chile_libertador general bernardo o'higgins_cardenal caro_la estrella,-34.24878125,-71.63124247,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_litueche,chile_libertador general bernardo o'higgins_cardenal caro_litueche,-34.12033889,-71.75532193,locality
-gadm,chile_libertador general bernardo o'higgins_cardenal caro_marchihue,chile_libertador general bernardo o'higgins_cardenal caro_marchihue,-34.38935591,-71.71682125,locality
+gadm,chile_libertador general bernardo o'higgins_cardenal caro_marchigue,chile_libertador general bernardo o'higgins_cardenal caro_marchigue,-34.38935591,-71.71682125,locality
+gadm,chile_libertador general bernardo o'higgins_cardenal caro_marchihue,chile_libertador general bernardo o'higgins_cardenal caro_marchigue,-34.38935591,-71.71682125,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_navidad,chile_libertador general bernardo o'higgins_cardenal caro_navidad,-34.00900345,-71.81911032,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_paredones,chile_libertador general bernardo o'higgins_cardenal caro_paredones,-34.66418845,-71.93438402,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_pichilemu,chile_libertador general bernardo o'higgins_cardenal caro_pichilemu,-34.365015,-71.93251332,locality
@@ -23838,7 +23842,8 @@ gadm,chile_nuble_itata_ninhue,chile_nuble_itata_ninhue,-36.2674537,-72.31505266,
 gadm,chile_nuble_itata_portezuelo,chile_nuble_itata_portezuelo,-36.44183842,-72.31172563,locality
 gadm,chile_nuble_itata_quirihue,chile_nuble_itata_quirihue,-36.1525518,-72.5119827,locality
 gadm,chile_nuble_itata_ranquil,chile_nuble_itata_ranquil,-36.61788543,-72.49498415,locality
-gadm,chile_nuble_itata_trehuaco,chile_nuble_itata_trehuaco,-36.32749041,-72.58005532,locality
+gadm,chile_nuble_itata_treguaco,chile_nuble_itata_treguaco,-36.32749041,-72.58005532,locality
+gadm,chile_nuble_itata_trehuaco,chile_nuble_itata_treguaco,-36.32749041,-72.58005532,locality
 gadm,chile_nuble_punilla_coihueco,chile_nuble_punilla_coihueco,-36.67502633,-71.4817741,locality
 gadm,chile_nuble_punilla_niquen,chile_nuble_punilla_niquen,-36.22628059,-71.82663959,locality
 gadm,chile_nuble_punilla_san carlos,chile_nuble_punilla_san carlos,-36.28526245,-71.9006447,locality
@@ -23896,7 +23901,7 @@ gadm,chile_valparaiso_san felipe aconcagua_panquehue,chile_valparaiso_san felipe
 gadm,chile_valparaiso_san felipe aconcagua_putaendo,chile_valparaiso_san felipe aconcagua_putaendo,-32.37380555,-70.53879977,locality
 gadm,chile_valparaiso_san felipe aconcagua_san felipe,chile_valparaiso_san felipe aconcagua_san felipe,-32.58320369,-70.78431515,locality
 gadm,chile_valparaiso_san felipe aconcagua_santa maria,chile_valparaiso_san felipe aconcagua_santa maria,-32.56439504,-70.61761056,locality
-gadm,chile_valparaiso_valparaiso_casa blanca,chile_valparaiso_valparaiso_casa blanca,-33.24224938,-71.5091629,locality
+gadm,chile_valparaiso_valparaiso_casablanca,chile_valparaiso_valparaiso_casablanca,-33.24224938,-71.5091629,locality
 gadm,chile_valparaiso_valparaiso_puchuncavi,chile_valparaiso_valparaiso_puchuncavi,-32.6447638,-71.36337041,locality
 gadm,chile_valparaiso_valparaiso_quilpue,chile_valparaiso_valparaiso_quilpue,-33.05325222,-71.28896095,locality
 gadm,chile_valparaiso_valparaiso_quintero,chile_valparaiso_valparaiso_quintero,-32.79287471,-71.43081153,locality
@@ -25351,6 +25356,7 @@ gadm,ecuador_tungurahua_patate_sucre,ecuador_tungurahua_patate_sucre,-1.25243731
 gadm,ecuador_tungurahua_quero_quero,ecuador_tungurahua_quero_quero,-1.432908874,-78.58691724,locality
 gadm,ecuador_tungurahua_quero_rumipamba,ecuador_tungurahua_quero_rumipamba,-1.453409821,-78.63410114,locality
 gadm,ecuador_tungurahua_quero_yanayacu mochapata,ecuador_tungurahua_quero_yanayacu mochapata,-1.466617418,-78.67493284,locality
+gadm,ecuador_tungurahua_quero_yanayacu,ecuador_tungurahua_quero_yanayacu mochapata,-1.466617418,-78.67493284,locality
 gadm,ecuador_tungurahua_san pedro pelileo_benitez,ecuador_tungurahua_san pedro pelileo_benitez,-1.341069295,-78.58408091,locality
 gadm,ecuador_tungurahua_san pedro pelileo_bolivar,ecuador_tungurahua_san pedro pelileo_bolivar,-1.385465724,-78.55094108,locality
 gadm,ecuador_tungurahua_san pedro pelileo_chiquicha,ecuador_tungurahua_san pedro pelileo_chiquicha,-1.253355184,-78.53551688,locality
@@ -25540,6 +25546,9 @@ gadm,haiti_sud_les coteaux_roche a bateau,haiti_sud_les coteaux_roche a bateau,1
 gadm,haiti_sud_port salut_arniquet,haiti_sud_port salut_arniquet,18.14143411,-73.89270943,locality
 gadm,haiti_sud_port salut_port salut,haiti_sud_port salut_port salut,18.11715419,-73.90567021,locality
 gadm,haiti_sud_port salut_saint jean sud,haiti_sud_port salut_saint jean sud,18.05846889,-73.83867928,locality
+types,mexico_NA_NA_barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
+types,mexico_NA_NA_rocky slopes of barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
+types,mexico_NA_NA_slopes of the barranca near guadalajara,mexico_jalisco_guadalajara_rocky slopes of barranca near guadalajara,20.708406,-103.279813,localidade
 gadm,panama_bocas toro_bocas toro_bastimentos,panama_bocas toro_bocas toro_bastimentos,9.306664926,-82.15059512,locality
 gadm,panama_bocas toro_bocas toro_bocas toro,panama_bocas toro_bocas toro_bocas toro,9.396421245,-82.27685649,locality
 gadm,panama_bocas toro_bocas toro_cauchero,panama_bocas toro_bocas toro_cauchero,9.126228532,-82.35283451,locality
@@ -28081,9 +28090,9 @@ gbif,bolivia_beni_vaca diez,bolivia_el beni_vaca diez,-13.48884725,-63.30580364,
 gbif,bolivia_beni_yacuma,bolivia_el beni_yacuma,-13.51390174,-65.8807774,county
 gbif,bolivia_chuquisaca_azurduy,bolivia_chuquisaca_juana azurduay padilla,-19.99710788,-64.48585353,county
 gbif,bolivia_cochabamba_campero,bolivia_cochabamba_narciso campero,-18.29823918,-64.87269756,county
-gbif,bolivia_cochabamba_tiraque,bolivia_cochabamba_tiraque,-17.425105,-65.719393,county
+gbif,bolivia_cochabamba_tiraque,bolivia_cochabamba_arani_tiraque,-17.425105,-65.719393,distrito
 gbif,bolivia_franz tamayo,bolivia_la paz_franz tamayo,-14.6661372,-68.36439633,county
-gbif,bolivia_la paz_caranavi,bolivia_la paz_caranavi,-15.751644,-67.484578,county
+gbif,bolivia_la paz_caranavi,bolivia_la paz_nor yungas_caranavi,-15.75935492,-67.43781293,distrito
 gbif,bolivia_la paz_iturralde,bolivia_la paz_abel iturralde,-13.16884645,-67.99208931,county
 gbif,bolivia_la paz_la paz,bolivia_la paz_la paz,-15.22300139,-68.12551947,state
 gbif,bolivia_la paz_murillo,bolivia_la paz_pedro domingo murillo,-16.38631704,-67.97263779,county
@@ -28152,8 +28161,6 @@ splink_jabot,brazil_alagoas_fleixeiras,brazil_alagoas_flexeiras,-9.245163804,-35
 splink_jabot,brazil_alagoas_flexeira,brazil_alagoas_flexeiras,-9.245163804,-35.76267843,county
 splink_jabot,brazil_alagoas_ibaguatera,brazil_alagoas_ibateguara,-8.956067956,-35.89985644,county
 splink_jabot,brazil_alagoas_ibateguar,brazil_alagoas_ibateguara,-8.956067956,-35.89985644,county
-splink_jabot,brazil_alagoas_ibateguara   coimbra,brazil_alagoas_ibateguara_usina serra grande_floresta coimbra,-9.00634,-35.852798,sublocalidade
-splink_jabot,brazil_alagoas_ibateguara  coimbra,brazil_alagoas_ibateguara_usina serra grande_floresta coimbra,-9.00634,-35.852798,sublocalidade
 splink_jabot,brazil_alagoas_ibateguara coimbra,brazil_alagoas_ibateguara_usina serra grande_floresta coimbra,-9.00634,-35.852798,sublocalidade
 splink_jabot,brazil_alagoas_ibateguara_coimbra,brazil_alagoas_ibateguara_usina serra grande_floresta coimbra,-9.00634,-35.852798,sublocalidade
 splink_jabot,brazil_alagoas_inhapi_serra grude,brazil_alagoas_inhapi_serra grude,-9.208964,-37.768441,localidade
@@ -28285,7 +28292,7 @@ splink_jabot,brazil_amazonas_manaus_reserva 1501,brazil_amazonas_manaus_reserva 
 splink_jabot,brazil_amazonas_manaus_reserva adolfo ducke,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
 splink_jabot,brazil_amazonas_manaus_reserva ducke,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
 splink_jabot,brazil_amazonas_manaus_reserva florestal adolpho ducke,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
-splink_jabot,brazil_amazonas_manaus_reserva florestal ducke   manaus / itaco,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
+splink_jabot,brazil_amazonas_manaus_reserva florestal ducke manaus / itaco,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
 gbif,"brazil_amazonas_manaus, presidente figueiredo",brazil_amazonas_presidente figueiredo,-2.053266,-60.023648,county
 gbif,"brazil_amazonas_NA_reserva florestal adolfo ducke, reserva florestal ducke",brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
 gbif,brazil_amazonas_NA_reserva florestal ducke,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
@@ -28355,7 +28362,7 @@ splink_jabot,"brazil_bahia_campo alegre lourdes: na beira estrada, proximo a uma
 splink_jabot,brazil_bahia_canavieira,brazil_bahia_canavieiras,-15.65426371,-39.12097134,county
 splink_jabot,brazil_bahia_caninde sao francisco,brazil_sergipe_caninde sao francisco,-9.712585866,-37.91350912,county
 splink_jabot,brazil_bahia_canudos_estacao biologica canudos,brazil_bahia_canudos_estacao biologica canudos,-9.945072,-39.014888,localidade
-splink_jabot,brazil_bahia_canudos_reserva biologica canudos   biodiversitas,brazil_bahia_canudos_estacao biologica canudos,-9.945072,-39.014888,localidade
+splink_jabot,brazil_bahia_canudos_reserva biologica canudos biodiversitas,brazil_bahia_canudos_estacao biologica canudos,-9.945072,-39.014888,localidade
 splink_jabot,brazil_bahia_casanova,brazil_bahia_casa nova,-9.239956167,-41.33667777,county
 splink_jabot,brazil_bahia_catoles,brazil_bahia_abaira,-13.28727065,-41.73142106,county
 splink_jabot,brazil_bahia_chorocho,brazil_bahia_chorrocho,-9.244309704,-39.16454696,county
@@ -28457,7 +28464,7 @@ splink_jabot,brazil_bahia_rui barbosa_serra orobo,brazil_bahia_ruy barbosa_serra
 splink_jabot,brazil_bahia_rui brabosa,brazil_bahia_ruy barbosa,-12.24119604,-40.66186673,county
 splink_jabot,brazil_bahia_salinas margaridas,brazil_bahia_salinas margarida,-12.90161126,-38.78325579,county
 splink_jabot,brazil_bahia_salvador_dunas abaete,brazil_bahia_salvador_dunas parque abaete,-12.940513,-38.349214,localidade
-splink_jabot,brazil_bahia_salvador_jardim botanico salvador   jbssa,brazil_bahia_salvador_jardim botanico salvador,-12.93078,-38.434407,localidade
+splink_jabot,brazil_bahia_salvador_jardim botanico salvador jbssa,brazil_bahia_salvador_jardim botanico salvador,-12.93078,-38.434407,localidade
 splink_jabot,brazil_bahia_sant'ana,brazil_bahia_santana,-13.06422602,-43.95130741,county
 splink_jabot,brazil_bahia_santa cruz cabra,brazil_bahia_santa cruz cabralia,-16.236889,-39.066625,county
 splink_jabot,brazil_bahia_santa cruz cabralia_area espab,brazil_bahia_santa cruz cabralia_area estacao ecologica pau brasil,-16.371947,-39.177788,localidade
@@ -28483,7 +28490,7 @@ splink_jabot,brazil_bahia_sobradinho 1,brazil_bahia_sobradinho,-9.666346528,-40.
 splink_jabot,brazil_bahia_tanhuacu,brazil_bahia_tanhacu,-14.13398751,-41.18029386,county
 splink_jabot,brazil_bahia_tapiamuta,brazil_bahia_tapiramuta,-11.88467085,-40.78138931,county
 splink_jabot,brazil_bahia_tremendal,brazil_bahia_tremedal,-15.03304438,-41.45128399,county
-splink_jabot,brazil_bahia_ufba   ondina,brazil_bahia_salvador_ufba campus ondina,-13.002856,-38.508005,localidade
+splink_jabot,brazil_bahia_ufba ondina,brazil_bahia_salvador_ufba campus ondina,-13.002856,-38.508005,localidade
 splink_jabot,brazil_bahia_una_reserva biologica mico leao,"brazil_bahia_una_reserva biologica una (reserva biologica ""mico leao"")",-15.17649198,-39.10515596,localidade
 splink_jabot,brazil_bahia_una_reserva biologica una,"brazil_bahia_una_reserva biologica una (reserva biologica ""mico leao"")",-15.17649198,-39.10515596,localidade
 splink_jabot,brazil_bahia_urandi_serra geral,brazil_bahia_urandi_serra geral,-14.762972,-42.585526,localidade
@@ -28539,7 +28546,7 @@ splink_jabot,brazil_distrito federal_brasilia_fazenda agua limpa universidade br
 splink_jabot,brazil_distrito federal_brasilia_fazenda malunga,brazil_distrito federal_brasilia_paranoa_fazenda malunga,-15.974356,-47.49376,localidade
 splink_jabot,brazil_distrito federal_brasilia_fundacao zoobotanica,brazil_distrito federal_brasilia_fundacao zoobotanica,-15.707457,-47.911777,localidade
 splink_jabot,brazil_distrito federal_brasilia_ibge,brazil_distrito federal_brasilia_resec ibge (roncador),-15.943893,-47.874466,localidade
-splink_jabot,brazil_distrito federal_brasilia_inmet   instituto nacional meteorologia,brazil_distrito federal_brasilia_inmet   instituto nacional meteorologia,-15.789979,-47.927216,localidade
+splink_jabot,brazil_distrito federal_brasilia_inmet instituto nacional meteorologia,brazil_distrito federal_brasilia_inmet   instituto nacional meteorologia,-15.789979,-47.927216,localidade
 splink_jabot,brazil_distrito federal_brasilia_parque ecologico norte burle marx,brazil_distrito federal_brasilia_parque ecologico burle marx,-15.754336,-47.905892,localidade
 splink_jabot,brazil_distrito federal_brasilia_parque nacional brasilia,brazil_distrito federal_brasilia_parna brasilia,-15.689329,-48.001689,localidade
 splink_jabot,brazil_distrito federal_brasilia_parque recreativo e reserva ecologica gama,brazil_distrito federal_brasilia_parque recreativo gama,-16.045788,-48.050657,localidade
@@ -28646,7 +28653,7 @@ splink_jabot,brazil_espirito santo_santa teresa_estacao ecologica santa lucia,br
 splink_jabot,brazil_espirito santo_santa teresa_parque mbml,brazil_espirito santo_santa teresa_museu biologia melo leitao,-19.936241,-40.59993,localidade
 splink_jabot,brazil_espirito santo_santa teresa_parque natural municipal sao lourenco,brazil_espirito santo_santa teresa_parque natural municipal sao lourenco. proximo a area 1,-19.923889,-40.620278,localidade
 splink_jabot,brazil_espirito santo_santa teresa_patio museu biologia mello leitao,brazil_espirito santo_santa teresa_museu biologia melo leitao,-19.936241,-40.59993,localidade
-splink_jabot,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi   nova lombardia,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi,-19.888659,-40.545564,localidade|sublocalidade
+splink_jabot,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi nova lombardia,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi,-19.888659,-40.545564,localidade|sublocalidade
 splink_jabot,brazil_espirito santo_santa teresa_reserva biologica santa lucia,brazil_espirito santo_santa teresa_estacao biologica santa lucia,-19.969888,-40.531545,localidade
 splink_jabot,brazil_espirito santo_santa teresa_santo antonio,brazil_espirito santo_santa teresa_santo antonio. terreno boza,-19.92175712,-40.59144969,localidade
 splink_jabot,brazil_espirito santo_santa tereza,brazil_espirito santo_santa teresa,-19.87777874,-40.63556658,county
@@ -28819,7 +28826,7 @@ splink_jabot,brazil_maranhao_sao luis_alumar,brazil_maranhao_sao luis_alumar,-2.
 splink_jabot,brazil_maranhao_sao luis_dunas praia sao marcos,brazil_maranhao_sao luis_dunas praia sao marcos,-2.489176,-44.294951,localidade
 splink_jabot,brazil_maranhao_sao luis_estacao ecologica rangedor,brazil_maranhao_sao luis_parque estadual rangedor,-2.499946,-44.262522,localidade
 splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga,brazil_maranhao_sao luis_parque estadual bacanga,-2.585453,-44.277291,localidade
-splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga  reserva florestal sacavem,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,-2.575421,-44.25075,localdiade
+splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,-2.575421,-44.25075,localdiade
 splink_jabot,brazil_maranhao_sao luis_praia guia,brazil_maranhao_sao luis_praia guia,-2.532575,-44.333061,localidade
 splink_jabot,brazil_maranhao_sao luiz,brazil_maranhao_sao luis,-2.624029044,-44.31250043,county
 splink_jabot,brazil_mata grosso sul_jatei,brazil_mato grosso sul_jatei,-22.70663106,-53.95720863,county
@@ -28900,7 +28907,6 @@ splink_jabot,brazil_mato grosso sul_vila bela santissima trindade,brazil_mato gr
 splink_jabot,brazil_mato grosso_alta floresta_area emprestimo pch fazenda,brazil_mato grosso_alta floresta_pch fazenda,-10.326681,-56.971893,localidade
 splink_jabot,brazil_mato grosso_alta floresta_area estrutural pch cabeca boi,brazil_mato grosso_alta floresta_pch cabeca boi,-10.351915,-56.98541,localidade
 splink_jabot,brazil_mato grosso_alta floresta_area planta solar pch fazenda,brazil_mato grosso_alta floresta_pch fazenda,10.326681,56.971893,localidade
-splink_jabot,brazil_mato grosso_alta floresta_casa sementes   estrela sul,brazil_mato grosso_alta floresta_casa sementes estrela sul,-9.793042825,-55.88066068,localidade
 splink_jabot,brazil_mato grosso_alta floresta_casa sementes jacamim,brazil_mato grosso_alta floresta_casa sementes jacamim,-10.361194,-56.358806,localidade
 splink_jabot,brazil_mato grosso_alta floresta_fazenda modelo,brazil_mato grosso_alta floresta_fazenda modelo,-9.920983,-55.965309,localidade
 splink_jabot,brazil_mato grosso_alta floresta_fazenda serra azul,brazil_mato grosso_alta floresta_fazenda serra azul,-10.35202778,-56.81375,localidade
@@ -28949,7 +28955,7 @@ splink_jabot,brazil_mato grosso_nova xavantina_fazenda eldorado,brazil_mato gros
 splink_jabot,brazil_mato grosso_nova xavantina_nova xavantina,brazil_mato grosso_nova xavantina,-14.59270328,-52.40938661,county
 splink_jabot,brazil_mato grosso_nova xaventina,brazil_mato grosso_nova xavantina,-14.59270328,-52.40938661,county
 splink_jabot,brazil_mato grosso_novo santo antonio_parque estadual araguaia,brazil_mato grosso_novo santo antonio_pe araguaia,-12.1121,-50.8159,localidade
-splink_jabot,brazil_mato grosso_paranaita_uhe sao manoel   reservatorio utm,brazil_mato grosso_paranaita_uhe sao manoel,-9.1907,-57.056842,localidade
+splink_jabot,brazil_mato grosso_paranaita_uhe sao manoel reservatorio utm,brazil_mato grosso_paranaita_uhe sao manoel,-9.1907,-57.056842,localidade
 splink_jabot,brazil_mato grosso_paranaita_uhe teles pires,brazil_mato grosso_paranaita_uhe teles pires,-9.348194,-56.805118,localidade
 splink_jabot,brazil_mato grosso_peixoto azedevo,brazil_mato grosso_peixoto azevedo,-10.14769299,-53.58728575,county
 splink_jabot,brazil_mato grosso_ponte e lacerda,brazil_mato grosso_pontes e lacerda,-15.25917497,-59.35284018,county
@@ -28993,8 +28999,10 @@ splink_jabot,brazil_matogrosso_cuiaba,brazil_mato grosso_cuiaba,-15.44905151,-55
 splink_jabot,brazil_matop grosso sul,brazil_mato grosso sul,-20.32589839,-54.84547026,state
 splink_jabot,brazil_minas gerais_airuoca,brazil_minas gerais_aiuruoca,-21.955057,-44.64808492,county
 splink_jabot,brazil_minas gerais_airuruoca,brazil_minas gerais_aiuruoca,-21.955057,-44.64808492,county
+splink_jabot,brazil_minas gerais_aiuroca,brazil_minas gerais_aiuruoca,-21.955057,-44.64808492,county
 splink_jabot,brazil_minas gerais_aiurouca,brazil_minas gerais_aiuruoca,-21.955057,-44.64808492,county
 splink_jabot,brazil_minas gerais_alpinoplis,brazil_minas gerais_alpinopolis,-20.86063577,-46.37599713,county
+splink_jabot,brazil_minas gerais_alta caparao,brazil_minas gerais_alto caparao,-20.45888904,-41.86533807,county
 splink_jabot,brazil_minas gerais_alto caparao_parque nacional caparao,brazil_minas gerais_alto caparao_parque nacional caparao,-20.452367,-41.819206,localidade
 gbif,brazil_minas gerais_araguari_araguari,brazil_minas gerais_araguari,-18.5769103,-48.22264965,county
 splink_jabot,brazil_minas gerais_araguari_capim branco i,brazil_minas gerais_araguari_usina hidoreletrica amador aguiar i,-18.788875,-48.150396,localidade
@@ -29116,7 +29124,7 @@ splink_jabot,brazil_minas gerais_joaquim felicio_serra cabral,brazil_minas gerai
 splink_jabot,brazil_minas gerais_joaquim filicio,brazil_minas gerais_joaquim felicio,-17.67646642,-44.11153188,county
 splink_jabot,brazil_minas gerais_joquim felicio,brazil_minas gerais_joaquim felicio,-17.67646642,-44.11153188,county
 splink_jabot,brazil_minas gerais_juiz defora,brazil_minas gerais_juiz fora,-21.74594544,-43.46526982,county
-splink_jabot,brazil_minas gerais_juiz fora_jardim botanico ufjf   mata krambeck,brazil_minas gerais_juiz fora_apa mata krambeck,-21.726263,-43.383067,localidade
+splink_jabot,brazil_minas gerais_juiz fora_jardim botanico ufjf mata krambeck,brazil_minas gerais_juiz fora_apa mata krambeck,-21.726263,-43.383067,localidade
 splink_jabot,brazil_minas gerais_juiz fora_reserva biologica santa candida,brazil_minas gerais_juiz fora_rebio florestal municipal santa candida,-21.760371,-43.39685,localidade|sublocalidade
 splink_jabot,brazil_minas gerais_lagoa santa_carste lagoa santa,brazil_minas gerais_lagoa santa_carste lagoa santa,-19.584851,-43.959978,localidade
 splink_jabot,brazil_minas gerais_lima duarte_conceicao ibitipoca,brazil_minas gerais_lima duarte_conceicao ibitipoca,-21.713803,-43.918404,distrito
@@ -29306,7 +29314,7 @@ gbif,brazil_NA_NA_parque nacional iguacu,brazil_parana_foz iguacu_parna iguacu,-
 gbif,brazil_NA_NA_parque nacional serra orgaos,brazil_rio janeiro_teresopolis_parna serra orgaos,-22.450067,-43.002307,localidade
 gbif,brazil_NA_NA_porto trombetas,brazil_para_oriximina_porto trombetas. mineracao rio norte,-1.466318,-56.380353,localidade
 gbif,brazil_NA_NA_ramal zf5,brazil_amazonas_manaus_ramal zf5 (suframa),-2.405300001,-60.30956699,localidade
-gbif,brazil_NA_NA_reserva biologica augusto ruschi   nova lombardia,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi,-19.9075,-40.553056,localidade
+gbif,brazil_NA_NA_reserva biologica augusto ruschi nova lombardia,brazil_espirito santo_santa teresa_reserva biologica augusto ruschi,-19.9075,-40.553056,localidade
 gbif,brazil_NA_NA_reserva biologica poco antas,brazil_rio janeiro_silva jardim_rebio poco antas,-22.54977,-42.304171,localidade
 gbif,brazil_NA_NA_reserva clube caca e pesca itororo,brazil_minas gerais_uberlandia_clube caca e pesca itororo,-19.005627,-48.313902,localidade
 gbif,brazil_NA_NA_reserva florestal adolfo ducke,brazil_amazonas_manaus_reserva florestal adolfo ducke,-2.964956,-59.929561,localidade
@@ -29340,7 +29348,7 @@ splink_jabot,brazil_para_ipixuna,brazil_para_ipixuna para,-2.80601509,-47.921703
 gbif,brazil_para_itaituba mun,brazil_para_itaituba,-4.252219,-56.000406,county
 splink_jabot,brazil_para_itaituba_parque nacional amazonia,brazil_para_itaituba_parque nacional amazonia,-4.400605,-56.769069,localidade
 splink_jabot,brazil_para_itaituba_serra palito,brazil_para_itaituba_serra palito,-6.32115,-55.784877,localidade
-splink_jabot,brazil_para_jacareacanga_uhe sao manoel   area supressao utm,brazil_para_jacareacanga_uhe sao manoel,-9.182419,-57.047062,localidade
+splink_jabot,brazil_para_jacareacanga_uhe sao manoel area supressao utm,brazil_para_jacareacanga_uhe sao manoel,-9.182419,-57.047062,localidade
 splink_jabot,brazil_para_jacareacanga_uhe sao manoel utm,brazil_para_jacareacanga_uhe sao manoel,-9.182419,-57.047062,localidade
 splink_jabot,brazil_para_maraba_serra carajas,brazil_para_maraba_serra carajas,-5.741326,-50.27903,localidade
 splink_jabot,brazil_para_maracana_ilha algodoal,brazil_para_maracana_ilha algodoal,-0.612294,-47.561281,localidade
@@ -29357,7 +29365,7 @@ splink_jabot,brazil_para_portel_floresta nacional caxiuana,brazil_para_portel_fl
 splink_jabot,brazil_para_porto trombetas,brazil_para_oriximina_porto trombetas. mineracao rio norte,-1.466318,-56.380353,localidade
 gbif,brazil_para_santarem mun,brazil_para_santarem,-2.445286,-54.732124,county
 splink_jabot,brazil_para_santarem_distrito alter chao,brazil_para_santarem_distrito alter chao,-2.506824,-54.950446,localidade
-splink_jabot,brazil_para_soure_praia caju   una,brazil_para_soure_praia caju una,-0.629734,-48.486305,localidade
+splink_jabot,brazil_para_soure_praia caju una,brazil_para_soure_praia caju una,-0.629734,-48.486305,localidade
 splink_jabot,brazil_para_tailandia_agropalmas mata secundaria,brazil_para_tailandia_agropalma,-2.53471,-48.76475,localidade
 gbif,brazil_para_tucurui mun,brazil_para_tucurui,-3.766929,-49.669905,county
 splink_jabot,brazil_para_vitoria xingu_sitio belo monte,brazil_para_vitoria xingu_uhe belo monte,-3.119934,-51.786032,localidade
@@ -29745,7 +29753,7 @@ splink_jabot,brazil_piaui_luiz correia,brazil_piaui_luis correia,-3.082034281,-4
 splink_jabot,brazil_piaui_municipio pedro ii,brazil_piaui_pedro ii,-4.490281064,-41.39962243,county
 splink_jabot,brazil_piaui_pedro i i,brazil_piaui_pedro ii,-4.490281064,-41.39962243,county
 splink_jabot,brazil_piaui_pedro ll,brazil_piaui_pedro ii,-4.490281064,-41.39962243,county
-splink_jabot,brazil_piaui_piracuruca_  parna sete cidades,brazil_piaui_piracuruca_parna sete cidades,-4.096448,-41.724643,localidade
+splink_jabot,brazil_piaui_piracuruca_ parna sete cidades,brazil_piaui_piracuruca_parna sete cidades,-4.096448,-41.724643,localidade
 splink_jabot,brazil_piaui_piracuruca_parque nacional sete cidades,brazil_piaui_piracuruca_parna sete cidades,-4.096448,-41.724643,localidade
 splink_jabot,brazil_porto velho_porto velho,brazil_rondonia_porto velho,-9.153370806,-64.30648105,county
 splink_jabot,brazil_porto velho_rondonia,brazil_rondonia_porto velho,-9.153370806,-64.30648105,county
@@ -29837,7 +29845,7 @@ splink_jabot,brazil_rio grande sul_capao dp leao,brazil_rio grande sul_capao lea
 splink_jabot,brazil_rio grande sul_capivari,brazil_rio grande sul_capivari sul,-30.13516302,-50.51186477,county
 splink_jabot,brazil_rio grande sul_caxias,brazil_rio grande sul_caxias sul,-29.10277556,-51.02498837,county
 splink_jabot,brazil_rio grande sul_caxias sul_ana rech,brazil_rio grande sul_caxias sul_ana rech,-29.106648,-51.092875,localidade
-splink_jabot,brazil_rio grande sul_caxias sul_ana rech   faxinal,brazil_rio grande sul_caxias sul_ana rech,-29.106648,-51.092875,localidade
+splink_jabot,brazil_rio grande sul_caxias sul_ana rech faxinal,brazil_rio grande sul_caxias sul_ana rech,-29.106648,-51.092875,localidade
 splink_jabot,brazil_rio grande sul_caxias sul_campus ucs,brazil_rio grande sul_caxias sul_campus ucs,-29.162481,-51.141662,localidade
 splink_jabot,brazil_rio grande sul_caxias sul_vila oliva,brazil_rio grande sul_caxias sul_oliva,-29.22027778,-50.88805556,distrito|vila
 splink_jabot,brazil_rio grande sul_colonia sao pedro,brazil_rio grande sul_dom pedro alcantara,-29.36739794,-49.85554051,county
@@ -29898,10 +29906,9 @@ splink_jabot,brazil_rio grande sul_sant ana livramento,brazil_rio grande sul_san
 splink_jabot,brazil_rio grande sul_santa cecilia,brazil_rio grande sul_santa cecilia sul,-28.18120741,-51.89840191,county
 splink_jabot,brazil_rio grande sul_santa margarida,brazil_rio grande sul_santa margarida sul,-30.37105953,-54.09771764,county
 splink_jabot,brazil_rio grande sul_santa teresa,brazil_rio grande sul_santa tereza,-29.16422327,-51.71155065,county
-splink_jabot,brazil_rio grande sul_santana livramento  faz,brazil_rio grande sul_sant'ana livramento,-30.73880979,-55.56167169,county
+splink_jabot,brazil_rio grande sul_santana livramento faz,brazil_rio grande sul_sant'ana livramento,-30.73880979,-55.56167169,county
 splink_jabot,brazil_rio grande sul_sao domingo,brazil_rio grande sul_sao domingos sul,-28.53806343,-51.86765965,county
 splink_jabot,brazil_rio grande sul_sao francisco pau,brazil_rio grande sul_sao francisco paula,-29.19929355,-50.56029501,county
-splink_jabot,brazil_rio grande sul_sao francisco paula_cpcn   pro mata,brazil_rio grande sul_sao francisco paula_centro pesquisas e conservacao natureza pro mata,-29.475094,-50.166147,localidade
 splink_jabot,brazil_rio grande sul_sao francisco paula_cpcn pro mata,brazil_rio grande sul_sao francisco paula_centro pesquisas e conservacao natureza pro mata,-29.475094,-50.166147,localidade
 splink_jabot,brazil_rio grande sul_sao francisco paula_flona,brazil_rio grande sul_sao francisco paula_flona sao francisco paula,-29.416121,-50.401424,localidade
 splink_jabot,brazil_rio grande sul_sao francisco paulo,brazil_rio grande sul_sao francisco paula,-29.19929355,-50.56029501,county
@@ -29916,7 +29923,7 @@ splink_jabot,brazil_rio grande sul_tiunfo,brazil_rio grande sul_triunfo,-29.8437
 splink_jabot,brazil_rio grande sul_trindade sul em orla mata,brazil_rio grande sul_trindade sul,-27.52776733,-52.89888003,county
 splink_jabot,brazil_rio grande sul_triunfo_polo petroquimico,brazil_rio grande sul_triunfo_polo petroquimico,-29.859557,-51.404807,localidade
 splink_jabot,brazil_rio grande sul_tupanciretan,brazil_rio grande sul_tupancireta,-29.02061483,-54.00322764,county
-splink_jabot,brazil_rio grande sul_veranopolis (vila flores   rs),brazil_rio grande sul_veranopolis,-28.96321806,-51.55178157,county
+splink_jabot,brazil_rio grande sul_veranopolis (vila flores rs),brazil_rio grande sul_veranopolis,-28.96321806,-51.55178157,county
 splink_jabot,brazil_rio grande sul_viamao_itapua,brazil_rio grande sul_viamao_itapua,-30.35703,-51.021101,distrito|vila
 splink_jabot,brazil_rio grande sul_viamao_parque estadual itapua,brazil_rio grande sul_viamao_pe itapua,-30.350993,-51.043873,localidade
 splink_jabot,brazil_rio grande sul_wesfalia,brazil_rio grande sul_westfalia,-29.40638481,-51.74294013,county
@@ -30019,13 +30026,10 @@ splink_jabot,brazil_rondonia_guajara?mirim,brazil_rondonia_guajara mirim,-11.304
 splink_jabot,brazil_rondonia_guaraja mirim,brazil_rondonia_guajara mirim,-11.3046128,-64.53418561,county
 gbif,brazil_rondonia_inc.sed.cty,brazil_rondonia,-10.89856477,-62.85654951,state
 splink_jabot,brazil_rondonia_itapua oeste_flona jamari,brazil_rondonia_itapua oeste_flona jamari,-9.220853,-62.971341,localidade
-splink_jabot,brazil_rondonia_ji  parana,brazil_rondonia_ji parana,-10.46216151,-61.75712508,county
 splink_jabot,brazil_rondonia_nova mamore_parque estadual guajara mirim,brazil_rondonia_nova mamore_parque estadual guajara mirim,-10.537958,-64.45452,localidade
 gbif,brazil_rondonia_porto velho mun,brazil_rondonia_porto velho,-8.765929,-63.897914,county
-splink_jabot,brazil_rondonia_porto velho_ao longo br   364,brazil_rondonia_porto velho_br 364,-8.803312,-63.827438,localidade
 splink_jabot,brazil_rondonia_porto velho_ao longo br 364,brazil_rondonia_porto velho_br 364,-8.803312,-63.827438,localidade
 splink_jabot,brazil_rondonia_porto velho_area preservacao permanente reservatorio uhe jirau,brazil_rondonia_porto velho_area preservacao permanente reservatorio uhe jirau,-9.201704,-64.667666,localidade
-splink_jabot,brazil_rondonia_porto velho_br   364,brazil_rondonia_porto velho_br 364,-8.803312,-63.827438,localidade
 splink_jabot,brazil_rondonia_porto velho_br 364,brazil_rondonia_porto velho_br 364,-8.803312,-63.827438,localidade
 splink_jabot,brazil_rondonia_porto velho_canteiro obras uhe jirau,brazil_rondonia_porto velho_canteiro obras uhe jirau,-9.236517,-64.647746,localidade
 splink_jabot,brazil_rondonia_porto velho_distrito jacy parana,brazil_rondonia_porto velho_jacy parana,-9.254151,-64.409753,localidade
@@ -30050,7 +30054,7 @@ splink_jabot,brazil_santa catarina_araquari_ilha barcos,brazil_santa catarina_ar
 splink_jabot,brazil_santa catarina_ararangua_morro conventos,brazil_santa catarina_ararangua_morro conventos,-28.940096,-49.369256,distrito|vila
 splink_jabot,brazil_santa catarina_biguassu,brazil_santa catarina_biguacu,-27.42713552,-48.70746732,county
 splink_jabot,brazil_santa catarina_blumenau p. spitzkopf,brazil_santa catarina_blumenau_parna serra itajai_morro spitzkopf,-27.027322,-49.127683,sublocalidade
-splink_jabot,brazil_santa catarina_blumenau_campus i   furb,brazil_santa catarina_blumenau_campus i   furb,-26.905024,-49.079382,localidade
+splink_jabot,brazil_santa catarina_blumenau_campus i furb,brazil_santa catarina_blumenau_campus i   furb,-26.905024,-49.079382,localidade
 splink_jabot,brazil_santa catarina_blumenau_furb,brazil_santa catarina_blumenau_campus i   furb,-26.905024,-49.079382,localidade
 splink_jabot,brazil_santa catarina_blumenau_morro spitzkopf,brazil_santa catarina_blumenau_parna serra itajai_morro spitzkopf,-27.027322,-49.127683,sublocalidade
 splink_jabot,brazil_santa catarina_blumenau_parque nacional serra itajai,brazil_santa catarina_blumenau_parna serra itajai,-27.059131,-49.078254,localidade
@@ -30063,7 +30067,7 @@ splink_jabot,brazil_santa catarina_florianopolis_morro costa lagoa,brazil_santa 
 splink_jabot,brazil_santa catarina_florianopolis_pantano sul,brazil_santa catarina_florianopolis_pantano sul,-27.781347,-48.502476,localidade
 splink_jabot,brazil_santa catarina_florianopolis_parque municipal dunas lagoa conceicao,brazil_santa catarina_florianopolis_parque municipal dunas lagoa conceicao,-27.612253,-48.457575,localidade
 splink_jabot,brazil_santa catarina_florianopolis_parque municipal lagoa peri,brazil_santa catarina_florianopolis_pm lagoa peri,-27.718628,-48.509342,localidade
-splink_jabot,brazil_santa catarina_indaial_faxinal bepe   parque nacional serra itajai,brazil_santa catarina_indaial_parna serra itajai,-27.089908,-49.230095,localidade
+splink_jabot,brazil_santa catarina_indaial_faxinal bepe parque nacional serra itajai,brazil_santa catarina_indaial_parna serra itajai,-27.089908,-49.230095,localidade
 splink_jabot,brazil_santa catarina_indaial_parque nacional serra itajai,brazil_santa catarina_indaial_parna serra itajai,-27.089908,-49.230095,localidade
 splink_jabot,brazil_santa catarina_leopoldo leal,brazil_santa catarina_leoberto leal,-27.47234461,-49.25743633,county
 splink_jabot,brazil_santa catarina_nova veneza_sao bonifacio,brazil_santa catarina_nova veneza_sao bonifacio,-28.70792,-49.588646,localidade
@@ -30074,7 +30078,7 @@ splink_jabot,brazil_santa catarina_sao francisco sul_ilha rita,brazil_santa cata
 splink_jabot,brazil_santa catarina_sao francisco sul_parque estadual acarai,brazil_santa catarina_sao francisco sul_parque estadual acarai,-26.269968,-48.530492,localidade
 splink_jabot,brazil_santa catarina_spmbrio,brazil_santa catarina_sombrio,-29.06997316,-49.65577852,county
 splink_jabot,brazil_sao paula_jundai,brazil_sao paulo_jundiai,-23.19469617,-46.91286083,county
-splink_jabot,brazil_sao paulo                    s_angatuba,brazil_sao paulo_angatuba,-23.43652785,-48.459291,county
+splink_jabot,brazil_sao paulo s_angatuba,brazil_sao paulo_angatuba,-23.43652785,-48.459291,county
 splink_jabot,brazil_sao paulo_aguas santa barbara_estado ecologico santa barbara,brazil_sao paulo_aguas santa barbara_eec santa barbara,-22.834037,-49.234707,localidade
 splink_jabot,brazil_sao paulo_agudo,brazil_sao paulo_agudos,-22.57139205,-49.10872901,county
 splink_jabot,brazil_sao paulo_alanbari,brazil_sao paulo_alambari,-23.54858644,-47.86909731,county
@@ -30135,7 +30139,7 @@ splink_jabot,brazil_sao paulo_corumbati,brazil_sao paulo_corumbatai,-22.2359135,
 splink_jabot,brazil_sao paulo_cristais paulistas,brazil_sao paulo_cristais paulista,-20.37077375,-47.40075677,county
 splink_jabot,brazil_sao paulo_crumbatai,brazil_sao paulo_corumbatai,-22.2359135,-47.61081529,county
 splink_jabot,brazil_sao paulo_cunha_parque estadual serra mar,brazil_sao paulo_cunha_pe serra mar (nucleo cunha),-23.236327,-45.025577,localidade
-splink_jabot,brazil_sao paulo_cunha_serra mar   nucleo cunha,brazil_sao paulo_cunha_pe serra mar (nucleo cunha),-23.236327,-45.025577,localidade
+splink_jabot,brazil_sao paulo_cunha_serra mar nucleo cunha,brazil_sao paulo_cunha_pe serra mar (nucleo cunha),-23.236327,-45.025577,localidade
 splink_jabot,brazil_sao paulo_eldorado_caverna diabo,brazil_sao paulo_eldorado_pe caverna diabo,-24.6374,-48.402934,localidade
 splink_jabot,brazil_sao paulo_eldorado_parque estadual jacupiranga,brazil_sao paulo_eldorado_parque estadual jacupiranga,-24.627344,-48.398324,localidade
 splink_jabot,brazil_sao paulo_est. ecol. boraceia,brazil_sao paulo_salesopolis_estacao biologica boraceia,-23.655006,-45.883951,localidade
@@ -30206,8 +30210,6 @@ splink_jabot,brazil_sao paulo_migi guacu,brazil_sao paulo_mogi guacu,-22.2315126
 splink_jabot,brazil_sao paulo_mirandopoilis,brazil_sao paulo_mirandopolis,-21.080929480000002,-51.13090587,county
 splink_jabot,brazil_sao paulo_mirasol,brazil_sao paulo_mirassol,-20.82751902,-49.50436813,county
 splink_jabot,brazil_sao paulo_mirasolandia,brazil_sao paulo_mirassolandia,-20.59406509,-49.48690267,county
-splink_jabot,brazil_sao paulo_mogi  guacu,brazil_sao paulo_mogi guacu,-22.23151266,-47.02913769,county
-splink_jabot,brazil_sao paulo_mogi  mirim,brazil_sao paulo_mogi mirim,-22.45067412,-46.98847138,county
 splink_jabot,brazil_sao paulo_mogi guacu_fazenda campininha,brazil_sao paulo_mogi guacu_eec mogi guacu,-22.294202,-47.155015,localidade|sublocalidade
 splink_jabot,brazil_sao paulo_mogi guacu_reserva biologica fazenda campininha,brazil_sao paulo_mogi guacu_eec mogi guacu,-22.294202,-47.155015,localidade|sublocalidade
 splink_jabot,brazil_sao paulo_mogidas cruzes,brazil_sao paulo_mogi cruzes,-23.56921402,-46.18619521,county
@@ -30245,8 +30247,6 @@ splink_jabot,brazil_sao paulo_paranapanema_estacao ecologica,brazil_sao paulo_pa
 splink_jabot,brazil_sao paulo_paranapanema_estacao ecologica paranapanema,brazil_sao paulo_paranapanema_estacao ecologica paranapanema,-23.516349,-48.761479,localidade
 splink_jabot,brazil_sao paulo_pariqueira acu,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
 splink_jabot,brazil_sao paulo_pariquera,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
-splink_jabot,brazil_sao paulo_pariquera   acu,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
-splink_jabot,brazil_sao paulo_pariquera  acu,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
 splink_jabot,brazil_sao paulo_pariquera acu_estacao experimental iac,brazil_sao paulo_pariquera acu_estacao experimental instituto agronomico,-24.60370551,-47.87948315,localidade
 splink_jabot,brazil_sao paulo_pariquera acu_iac,brazil_sao paulo_pariquera acu_estacao experimental instituto agronomico,-24.60370551,-47.87948315,localidade
 splink_jabot,brazil_sao paulo_pariquera acu_parque estadual pariquera abaixo,brazil_sao paulo_pariquera acu_pe campina encantado,-24.63858,-47.780572,localidade|sublocalidade
@@ -30276,7 +30276,6 @@ splink_jabot,brazil_sao paulo_piracicaba_mata pedreira,brazil_sao paulo_piracica
 splink_jabot,brazil_sao paulo_piracicaba_parque esalq,brazil_sao paulo_piracicaba_esalq,-22.710642,-47.63319,localidade
 splink_jabot,brazil_sao paulo_piracicaba_parque esalq/usp,brazil_sao paulo_piracicaba_esalq,-22.710642,-47.63319,localidade
 splink_jabot,brazil_sao paulo_pirapora,brazil_sao paulo_pirapora bom jesus,-23.37795034,-46.98465022,county
-splink_jabot,brazil_sao paulo_piraquera  acu,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
 splink_jabot,brazil_sao paulo_piraquera acu,brazil_sao paulo_pariquera acu,-24.67825289,-47.85009149,county
 splink_jabot,brazil_sao paulo_pirassununga_cerrado emas,brazil_sao paulo_pirassununga_cerrado emas,-21.946529,-47.381357,localidade
 splink_jabot,brazil_sao paulo_pirassununga_emas,brazil_sao paulo_pirassununga_cachoeira emas,-21.92805556,-47.36861111,distrito|vila
@@ -30352,13 +30351,13 @@ splink_jabot,brazil_sao paulo_selesopolis,brazil_sao paulo_salesopolis,-23.57973
 splink_jabot,brazil_sao paulo_seta barras,brazil_sao paulo_sete barras,-24.27383936,-47.93513933,county
 splink_jabot,brazil_sao paulo_sete barra,brazil_sao paulo_sete barras,-24.27383936,-47.93513933,county
 splink_jabot,brazil_sao paulo_sete barras_fazenda intervales,brazil_sao paulo_sete barras_pe intervales,-24.232154,-48.082059,localidade|sublocalidade
-splink_jabot,brazil_sao paulo_sete barras_parcela permanente   parque estadual carlos botelho,brazil_sao paulo_sete barras_pe carlos botelho,-24.181361,-47.925,localidade|sublocalidade
+splink_jabot,brazil_sao paulo_sete barras_parcela permanente parque estadual carlos botelho,brazil_sao paulo_sete barras_pe carlos botelho,-24.181361,-47.925,localidade|sublocalidade
 splink_jabot,brazil_sao paulo_sete barras_parque estadual carlos botelho,brazil_sao paulo_sete barras_pe carlos botelho,-24.166173,-47.972686,localidade
 splink_jabot,brazil_sao paulo_sete barras_parque estadual intervales,brazil_sao paulo_sete barras_pe intervales,-24.232154,-48.082059,localidade|sublocalidade
 splink_jabot,brazil_sao paulo_sete barrras,brazil_sao paulo_sete barras,-24.27383936,-47.93513933,county
 splink_jabot,brazil_sao paulo_sjrio preto,brazil_sao paulo_sao jose rio preto,-20.79748841,-49.35832492,county
 splink_jabot,brazil_sao paulo_sjrp,brazil_sao paulo_sao jose rio preto,-20.79748841,-49.35832492,county
-splink_jabot,brazil_sao paulo_sorocaba_campus ufscar   sorocaba,brazil_sao paulo_sorocaba_campus ufscar,-23.585573,-47.523116,localidade
+splink_jabot,brazil_sao paulo_sorocaba_campus ufscar sorocaba,brazil_sao paulo_sorocaba_campus ufscar,-23.585573,-47.523116,localidade
 splink_jabot,brazil_sao paulo_sta rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county
 splink_jabot,brazil_sao paulo_stª rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county
 splink_jabot,brazil_sao paulo_sta.rita passa quatro,brazil_sao paulo_santa rita passa quatro,-21.68195672,-47.50780122,county
@@ -30389,7 +30388,7 @@ splink_jabot,brazil_sao paulo_ubatuba_nucleo picinguaba,brazil_sao paulo_ubatuba
 splink_jabot,brazil_sao paulo_ubatuba_nucleo picinguaba/pesm,brazil_sao paulo_ubatuba_pe serra mar (nucleo picinguaba),-23.356573,-44.853991,localidade
 splink_jabot,brazil_sao paulo_ubatuba_parque estadual ilha anchieta,brazil_sao paulo_ubatuba_pe ilha anchieta,-23.539998,-45.074064,localidade
 splink_jabot,brazil_sao paulo_ubatuba_parque estadual serra mar,brazil_sao paulo_ubatuba_pe serra mar (nucleo picinguaba),-23.356573,-44.853991,localidade
-splink_jabot,brazil_sao paulo_ubatuba_parque estadual serra mar   nucleo picinguaba,brazil_sao paulo_ubatuba_pe serra mar (nucleo picinguaba),-23.356573,-44.853991,localidade
+splink_jabot,brazil_sao paulo_ubatuba_parque estadual serra mar nucleo picinguaba,brazil_sao paulo_ubatuba_pe serra mar (nucleo picinguaba),-23.356573,-44.853991,localidade
 splink_jabot,brazil_sao paulo_ubatuba_serra mar,brazil_sao paulo_ubatuba_parque estadual serra mar,-23.350665,-44.835113,localidade
 splink_jabot,brazil_sao paulo_uniao paulista (g4),brazil_sao paulo_uniao paulista,-20.89061271,-49.88695708,county
 splink_jabot,brazil_sao paulo_valentin gentil,brazil_sao paulo_valentim gentil,-20.41971512,-50.10182719,county
@@ -30477,7 +30476,7 @@ gbif,caribbean netherlands_saint eustatius,caribbean netherlands_sint eustatius,
 gbif,chile_10ª,chile_los lagos,-41.88953324,-72.66834513,state
 gbif,chile_9ª,chile_araucania,-38.69563785,-72.27993231,state
 gbif,chile_antofagasta_taltal,chile_antofagasta_tal tal,-25.4065925962656,-70.4794838883462,county
-gbif,chile_biobio,chile_bio bio,-37.48400744,-72.42620614,state
+gbif,chile_biobio region_antuco,chile_biobio_biobio_antuco,-37.36777077,-71.35117431,locality
 gbif,chile_ii region antofagasta_antofagasta,chile_antofagasta_antofagasta,-24.26657863,-69.58321255,county
 gbif,chile_iv region coquimbo_elqui,chile_coquimbo_elqui,-29.82683597,-70.72981448,county
 gbif,chile_magallanes,chile_magallanes y antartica chilena,-51.62897981,-72.50790254,state
@@ -30989,7 +30988,7 @@ splink_jabot,paraguay_pedro juan caballero,paraguay_amambay_pedro juan caballero
 splink_jabot,paraguay_pedro juan cabellero,paraguay_amambay_pedro juan caballero,-22.78269249,-55.95335016,county
 splink_jabot,paraguay_pero juan cabelero,paraguay_amambay_pedro juan caballero,-22.78269249,-55.95335016,county
 splink_jabot,paraguay_sam pedro,paraguay_san pedro,-24.1649821,-56.64677904,state
-gbif,peru_arequipa_chiguata,peru_arequipa_chiguata,-16.404132,-71.381522,county
+gbif,peru_arequipa_chiguata,peru_arequipa_arequipa_chiguata,-16.35420315,-71.29553128,distrito
 gbif,peru_cajamarca_san ignacio province,peru_cajamarca_san ignacio,-5.149496,-78.997624,county
 gbif,peru_cus,peru_cusco,-13.19106821,-72.15360886,state
 gbif,peru_cusco_la convencin province,peru_cusco_la convencion,-12.32667,-72.920778,county
