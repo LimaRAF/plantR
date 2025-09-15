@@ -100,7 +100,7 @@ prepState <- function(x,
 
     # Standardizing the notation
     patt0 <- c("estado d(e|o)", "state of", "prov[i\u00ED]nc(e|ia) (of|de)",
-               "d[eé]part(amento|ment) (de|of)", "regi[o\u00F3]n (of|de)",
+               "d[e\u00e9]part(amento|ment) (de|of)", "regi[o\u00F3]n (of|de)",
                "distri(to|ct|kt) (de|do|of)", "parish of")
     patt <- paste(paste0("^", patt0), collapse = "|")
     # patt <- "^estado d[eo]|^state of|^provinc(e|ia) de|^provinc(e|ia) of|^departament[eo] de|^region of"
