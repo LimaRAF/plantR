@@ -56,3 +56,22 @@ test_that("prepState works", {
                res4)
 
 })
+
+teste <- c(
+  "estado de SP", "estado do SP", "estado del SP", # estado
+  "state of SP", "SP state", #state
+  "departamento de SP", "department of SP", "SP department", "SP dept.", #Departamento/Departement
+  "provincia de SP", "SP province", "province of SP", "SP prov.", # province/provincia
+  "distrito de SP", "SP district", "SP dist.",  # distrito
+  "distrikt of SP", "SP distrikt", # distrikt
+  "parish of SP", "SP parish", # parish
+  "region of SP", "region de SP", "SP region", # region
+  "estado SP", "province SP", "departamento SP", "distrito SP", # all in the beginning
+  "municipio de SP, estado de SP",
+  "Región de SP", "Província de SP")
+res <- rep("SP", length(teste))
+
+test_that("prepState works for vectors", {
+  expect_equal(prepState(teste, to.lower = FALSE), res)
+
+})

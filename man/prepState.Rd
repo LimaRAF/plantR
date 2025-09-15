@@ -45,17 +45,19 @@ characters and some prepositions and separators.
 }
 \details{
 State information is formatted into a standard notation
-require by \code{plantR}. By default, all letters are
-lower-cased (argument \code{to.lower}) and special characters
-(argument \code{special.char}) and common abbreviations (e.g. 'st.')
-are removed (argument \code{rm.abbrev}). These edits aim at reducing
-possible variation in state name notation and facilitate
-further data processing and comparison within the \strong{plantR}
-workflow, increasing the chances of match against the
-package internal gazetteer.
+require by \strong{plantR}. Typical names of localitite at the
+adm-level 1 (e.g. state, department, province) are also removed.
+By default, all letters are lower-cased (argument \code{to.lower}) and
+special characters (argument \code{special.char}) and common
+abbreviations (e.g. 'st.') are replaced (argument \code{rm.abbrev}).
+These edits aim at reducing possible variation in state name
+notation and facilitate further data processing and comparison
+within the \strong{plantR} workflow, increasing the chances of match
+against the package internal gazetteer.
 
-All state information with less than four letters are treated
-as state codes or abbeviations and they are converted to the long format.
+All state information with less than four letters are treated as
+state codes or abbeviations and they are converted, if possible,
+to the long name format.
 }
 \examples{
 # Creating a data frame with locality information
@@ -74,4 +76,3 @@ prepState(df, rm.abbrev = FALSE)
 \author{
 Renato A. Ferreira de Lima
 }
-\keyword{internal}

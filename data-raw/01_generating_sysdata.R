@@ -89,6 +89,8 @@ missLocs <- c("^\\?$",
               "local ignorado",
               "^indisponivel$")
 
+## Main ADM-1 names in LaTam are: "Estado/State","Departamento/Department","Provincia/Provincia","Parish","District","Distrikt","Region"
+## Main ADM-2 names in LaTam are: "Municipioc/Municipality","Departamento/Departement","Provincia/Provincia","Distrito/District/Distrikt", "Canton", "Commune"
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",
                     "^depto\\. ",

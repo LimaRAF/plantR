@@ -23,21 +23,22 @@
 #'   (see Details)
 #'
 #' @details State information is formatted into a standard notation
-#'   require by `plantR`. By default, all letters are
-#'   lower-cased (argument `to.lower`) and special characters
-#'   (argument `special.char`) and common abbreviations (e.g. 'st.')
-#'   are removed (argument `rm.abbrev`). These edits aim at reducing
-#'   possible variation in state name notation and facilitate
-#'   further data processing and comparison within the __plantR__
-#'   workflow, increasing the chances of match against the
-#'   package internal gazetteer.
+#'   require by __plantR__. Typical names of localitite at the
+#'   adm-level 1 (e.g. state, department, province) are also removed.
+#'   By default, all letters are lower-cased (argument `to.lower`) and
+#'   special characters (argument `special.char`) and common
+#'   abbreviations (e.g. 'st.') are replaced (argument `rm.abbrev`).
+#'   These edits aim at reducing possible variation in state name
+#'   notation and facilitate further data processing and comparison
+#'   within the __plantR__ workflow, increasing the chances of match
+#'   against the package internal gazetteer.
 #'
-#'   All state information with less than four letters are treated
-#'   as state codes or abbeviations and they are converted to the long format.
+#'   All state information with less than four letters are treated as
+#'   state codes or abbeviations and they are converted, if possible,
+#'   to the long name format.
 #'
 #' @author Renato A. Ferreira de Lima
 #'
-#' @keywords internal
 #'
 #' @examples
 #' # Creating a data frame with locality information
@@ -98,21 +99,31 @@ prepState <- function(x,
     x1 <- x[check_these, ]
 
     # Standardizing the notation
-    patt <- "^estado d[eo]|^state of|^provincia de|^provincia of|^province de|^departamento de"
+    patt0 <- c("estado d(e|o)", "state of", "prov[i\u00ED]nc(e|ia) (of|de)",
+               "d[eé]part(amento|ment) (de|of)", "regi[o\u00F3]n (of|de)",
+               "distri(to|ct|kt) (de|do|of)", "parish of")
+    patt <- paste(paste0("^", patt0), collapse = "|")
+    # patt <- "^estado d[eo]|^state of|^provinc(e|ia) de|^provinc(e|ia) of|^departament[eo] de|^region of"
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-    patt <- ".* estado d[eo]|.* state of|.* provincia de|.* provincia of|.* province de|.* departamento de"
+    # patt <- ".* estado d[eo]|.* state of|.* provinci(e|ia) de|.* provinc(e|ia) of|.* departament[eo] de|.* region of"
+    patt <- paste(paste0(".* ", patt0), collapse = "|")
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-    patt <- "estado |state |provincia |departamento |province "
+    # patt <- "estado |state |provincia |departamento |province |region "
+    patt1 <- gsub("\\s.*", " ", patt0, perl = TRUE)
+    patt <- paste(patt1, collapse = "|")
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-    patt <- "state$| provincia$| province$| parish$"
+    # patt <- "state$| provincia$| province$| parish$"
+    patt <- paste(paste0(squish(patt1), "$"), collapse = "|")
     x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
                                     perl = TRUE, ignore.case = TRUE))
-    patt <- " prov\\.$| dept.$"
-    x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
-                                    perl = TRUE, ignore.case = TRUE))
+    patt <- " prov\\.$| dept\\.$| dist\\.$"
+    x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
+                                    perl = TRUE, ignore.case = TRUE)
+    x1[[state.name]] <- gsub("^l ", "", x1[[state.name]], perl = TRUE)
+    x1[[state.name]] <- squish(x1[[state.name]])
 
     dic <- replaceNames
     tmp1 <- dic[dic$class %in% "stateProvince" & !is.na(dic[ ,2]),]
