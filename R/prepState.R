@@ -100,28 +100,41 @@ prepState <- function(x,
 
     # Standardizing the notation
     patt0 <- c("estado d(e|o)", "state of", "prov[i\u00ED]nc(e|ia) (of|de)",
-               "d[e\\00ep]part(amento|ment) (de|of)", "regi[o\u00F3]n (of|de)",
+               "d[e\u00e9]part(amento|ment) (de|of)", "regi[o\u00F3]n (of|de)",
                "distri(to|ct|kt) (de|do|of)", "parish of")
     patt <- paste(paste0("^", patt0), collapse = "|")
-    # patt <- "^estado d[eo]|^state of|^provinc(e|ia) de|^provinc(e|ia) of|^departament[eo] de|^region of"
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
-    # patt <- ".* estado d[eo]|.* state of|.* provinci(e|ia) de|.* provinc(e|ia) of|.* departament[eo] de|.* region of"
     patt <- paste(paste0(".* ", patt0), collapse = "|")
     x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
                              perl = TRUE, ignore.case = TRUE)
     # patt <- "estado |state |provincia |departamento |province |region "
     patt1 <- gsub("\\s.*", " ", patt0, perl = TRUE)
     patt <- paste(patt1, collapse = "|")
-    x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
-                             perl = TRUE, ignore.case = TRUE)
-    # patt <- "state$| provincia$| province$| parish$"
-    patt <- paste(paste0(squish(patt1), "$"), collapse = "|")
-    x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
-                                    perl = TRUE, ignore.case = TRUE))
-    patt <- " prov\\.$| dept\\.$| dist\\.$"
-    x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
-                                    perl = TRUE, ignore.case = TRUE)
+    avoid_these <- grepl("^federal|federal$|capital$", x1[[state.name]],
+                          perl = TRUE, ignore.case = TRUE)
+    if (any(avoid_these)) {
+      x1[[state.name]][!avoid_these] <-
+        gsub(patt, "", x1[[state.name]][!avoid_these], perl = TRUE,
+             ignore.case = TRUE)
+      patt <- paste(paste0(squish(patt1), "$"), collapse = "|")
+      x1[[state.name]][!avoid_these] <-
+        squish(gsub(patt, "", x1[[state.name]][!avoid_these],
+                    perl = TRUE, ignore.case = TRUE))
+      patt <- " prov\\.$| dept\\.$| dist\\.$"
+      x1[[state.name]][!avoid_these] <-
+        gsub(patt, "", x1[[state.name]][!avoid_these],
+                               perl = TRUE, ignore.case = TRUE)
+      } else {
+      x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
+                               perl = TRUE, ignore.case = TRUE)
+      patt <- paste(paste0(squish(patt1), "$"), collapse = "|")
+      x1[[state.name]] <- squish(gsub(patt, "", x1[[state.name]],
+                                      perl = TRUE, ignore.case = TRUE))
+      patt <- " prov\\.$| dept\\.$| dist\\.$"
+      x1[[state.name]] <- gsub(patt, "", x1[[state.name]],
+                               perl = TRUE, ignore.case = TRUE)
+      }
     x1[[state.name]] <- gsub("^l ", "", x1[[state.name]], perl = TRUE)
     x1[[state.name]] <- squish(x1[[state.name]])
 

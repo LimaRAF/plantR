@@ -60,7 +60,7 @@ test_that("prepState works", {
 teste <- c(
   "estado de SP", "estado do SP", "estado del SP", # estado
   "state of SP", "SP state", #state
-  "departamento de SP", "department of SP", "SP department", "SP dept.", #Departamento/Departement
+  "departamento de SP", "départamento de SP", "department of SP", "SP department", "SP dept.", #Departamento/Departement
   "provincia de SP", "SP province", "province of SP", "SP prov.", # province/provincia
   "distrito de SP", "SP district", "SP dist.",  # distrito
   "distrikt of SP", "SP distrikt", # distrikt
@@ -75,3 +75,16 @@ test_that("prepState works for vectors", {
   expect_equal(prepState(teste, to.lower = FALSE), res)
 
 })
+
+teste <- c(
+  "Distrito Federal", "Federal District", "Distrito Capital",
+  "Dist. Federal", "Federal Dist.",
+  "Distrito SP" # all in the beginning
+)
+res <- c(teste[-length(teste)], "SP")
+
+test_that("prepState works for federal districts", {
+  expect_equal(prepState(teste, to.lower = FALSE), res)
+
+})
+
