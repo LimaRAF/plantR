@@ -194,8 +194,7 @@ getLoc <- function(x,
                    "cachoeira", "mina", "vila", "serra", "locality")
 
   # merging the occurrence data with the gazetteer information
-  tmp <- dplyr::left_join(data.frame(loc = x1[,2], stringsAsFactors= FALSE),
-                          dic, by = "loc")
+  tmp <- dplyr::left_join(data.frame(loc = x1[,2]), dic, by = "loc")
   # Downgrading the locality resolution when not found in the gazetteer
   tmp1 <- tmp$loc[!is.na(tmp$loc) & is.na(tmp$loc.correct)]
   if (length(tmp1) > 0) {
@@ -234,33 +233,58 @@ getLoc <- function(x,
 
   ## Getting coordinates from the gazetteer - locality level
   if ("loc.string1" %in% names(x1)) {
-    dic1 <- dic[dic$resolution.gazetteer %in% resol.gazet,]
-    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3], stringsAsFactors= FALSE),
-                             dic1, by = "loc")
-    # Replacing coordinates at county level by those found at locality level
-    tmp[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
 
-    # Replacing coordinates at state level by those found at locality level (rare but can happen due to missing counties)
-    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
-    # Replacing coordinates at country level by those found at locality level due to missing state and counties
-    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
-    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <- "locality"
+    ## at the locality level
+    dic1 <- dic[dic$resolution.gazetteer %in% resol.gazet,]
+    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3]), dic1, by = "loc")
+
+    rep_these <- !is.na(tmp3$resolution.gazetteer)
+    if (any(rep_these)) {
+      # Replacing coordinates at county level by those found at locality level
+      tmp[tmp$resolution.gazetteer %in% "county" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "county" & rep_these, cols.gazet]
+      # Replacing coordinates at state level by those found at locality level (rare but can happen due to missing counties)
+      tmp[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet]
+      # Replacing coordinates at country level by those found at locality level due to missing state and counties
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <-
+        "locality"
+    }
+
+    ## at the county level without states
+    dic1 <- dic[dic$resolution.gazetteer %in% "county",]
+    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3]), dic1, by = "loc")
+
+    rep_these <- !is.na(tmp3$resolution.gazetteer)
+    if (any(rep_these)) {
+      # Replacing coordinates at country level by those found at locality level
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% "country" & rep_these] <-
+        "county"
+    }
+
+
   }
 
   ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation)
   if ("loc.string2" %in% names(x1)) {
-    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors = FALSE),
-                             dic, by = "loc")
-    # replacing coordinates at state level by those found at county level
-    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), cols.gazet] <-
-      tmp4[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), cols.gazet]
-    # Replacing coordinates at country level by those found at locality level due to missing state and counties
-    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), cols.gazet] <-
-      tmp4[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), cols.gazet]
-    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <- "locality"
+    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4]), dic,
+                             by = "loc")
+
+    rep_these <- !is.na(tmp4$resolution.gazetteer)
+    if (any(rep_these)) {
+      # replacing coordinates at state level by those found at county level
+      tmp[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet] <-
+        tmp4[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet]
+      # Replacing coordinates at country level by those found at locality level due to missing state and counties
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp4[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <-
+        "locality"
+    }
   }
 
   ## Assigning the "no_info" category for localities not found at the gazetteer

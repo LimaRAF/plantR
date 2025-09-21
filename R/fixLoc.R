@@ -155,8 +155,12 @@ fixLoc <- function(x,
     x1[] <- lapply(x1, gsub, pattern = "\u00AO", replacement = "", perl = TRUE) # hidden breaking space
   }
 
-  empty_vec <- c("", " ", NA, "na", "<na>")
+  for (i in seq_along(x1)) {
+    rep_these <- x1[[i]] %in% c("", " ", "na", "<na>")
+    if (any(rep_these)) x1[[i]][rep_these] <- NA
+  }
 
+  empty_vec <- c("", " ", NA, "na", "<na>")
   ## ADM0: Country level
   if (any(c("country","countryCode") %in% loc.levels)) {
 
@@ -175,7 +179,7 @@ fixLoc <- function(x,
       countries <- gsub(pattern, NA, countries, perl = TRUE)
       countries[grepl("desconhecid|unknown", countries, perl = TRUE)] <- NA
 
-      check_these1 <- !countries %in% empty_vec
+      check_these1 <- !is.na(countries)
       if (any(check_these1)) {
         countries1 <- countries[check_these1]
 
@@ -203,7 +207,7 @@ fixLoc <- function(x,
       x1[["country"]][check_these] <- countries
     }
 
-    check_these2 <- x1[["country"]] %in% empty_vec
+    check_these2 <- is.na(x1[["country"]])
     if (any(check_these2)) {
       x2 <- x1[check_these2, , drop = FALSE]
       # Missing country for non missing states and counties (only for uniquivocal states)
@@ -247,7 +251,7 @@ fixLoc <- function(x,
                                   x2[["stateProvince"]], perl = TRUE)] <- NA
       x2[["stateProvince"]][x2[["stateProvince"]] %in% c("", " ")] <- NA
 
-      check_these1 <- !x2[["stateProvince"]] %in% empty_vec
+      check_these1 <- !is.na(x2[["stateProvince"]])
       if (any(check_these1)) {
         # Removing unwanted prefixes and abbreviations
         pattern <- paste(wordsForSearch, collapse = "|")
@@ -257,27 +261,6 @@ fixLoc <- function(x,
       }
       x1[["stateProvince"]][check_these] <- x2[["stateProvince"]]
     }
-
-    # # Replacing some general abbreviations non-standard names
-    # x1[ ,"stateProvince"] <- gsub("^st\\.\\s|^st\\s", "saint ", x1[ ,"stateProvince"],
-    #                               perl = TRUE)
-
-    # Replacing variants, abbreviations, typos, and non-standard names
-    # tmp1 <- dic[dic$class %in% "stateProvince" & !is.na(dic[ ,2]),]
-    # tmp2 <- tmp1$replace
-    # names(tmp2) <- tmp1$pattern
-    # names(tmp2) <- gsub('\\.', "\\\\.", names(tmp2), perl = TRUE)
-    # cond0 <- unique(tmp1$condition0)
-    # if ("country" %in% names(x1)) {
-    #   if (any(cond0 %in% unique(x1[, "country"]))) {
-    #       cond1 <- cond0[cond0 %in% unique(x1[, "country"])]
-    #       for (i in 1:length(cond1)) {
-    #         tmp2.i <- tmp2[tmp1$condition0 %in% cond1[i]]
-    #         x1[x1[, "country"] %in% cond1[i] ,"stateProvince"] <-
-    #           stringr::str_replace_all(x1[x1[,"country"] %in% cond1[i] ,"stateProvince"], tmp2.i)
-    #       }
-    #   }
-    # }
   }
 
   ## ADM2: County, Departament, Commune
@@ -393,7 +376,7 @@ fixLoc <- function(x,
 
   ## scrapping ADM3 for additional locality information
   if (c("locality") %in% loc.levels & scrap) {
-    w_locality <- !x1[["locality"]] %in% empty_vec
+    w_locality <- !is.na(x1[["locality"]])
 
     # Some few fixes before splitting
     new_loc <-
@@ -411,11 +394,11 @@ fixLoc <- function(x,
 
     ## scrapping ADM1 and ADM2 from the locality field (ADM3)
     if ("stateProvince" %in% loc.levels) {
-      no_state <- x1[["stateProvince"]][w_locality] %in% empty_vec
+      no_state <- is.na(x1[["stateProvince"]][w_locality])
     } else { no_state <- rep(FALSE, nrow(x1))}
 
     if (any(c("municipality", "county") %in% loc.levels)) {
-      no_munic <- x1[["municipality"]][w_locality] %in% empty_vec
+      no_munic <- is.na(x1[["municipality"]][w_locality])
     } else { no_munic <- rep(FALSE, nrow(x1))}
 
     patt_yes0 <- "estado|state|provincia|departamento|province|canton"
@@ -548,10 +531,10 @@ fixLoc <- function(x,
 
   ## Trimming and editing the edited columns
   for (i in 1:length(loc.levels))
-    x1[, i] <- as.character(squish(x1[, i]))
+    x1[[i]] <- as.character(squish(x1[[i]]))
 
   for (i in 1:length(loc.levels))
-    x1[, i] <- gsub("^-$", NA, x1[, i], perl = TRUE)
+    x1[[i]] <- gsub("^-$", NA, x1[[i]], perl = TRUE)
 
   ## Resolution of the locality information provided
   tmp <- apply(x1[, loc.levels, drop = FALSE], 1, function(x)
