@@ -73,7 +73,7 @@ ibge,brazil_alagoas_maragogi_barra grande,brazil_alagoas_maragogi_barra grande,-
 ibge,brazil_alagoas_maravilha,brazil_alagoas_maravilha,-9.240012029,-37.3806522,county
 ibge,brazil_alagoas_marechal deodoro,brazil_alagoas_marechal deodoro,-9.715495316,-35.90586614,county
 ibge,brazil_alagoas_maribondo,brazil_alagoas_maribondo,-9.55978332,-36.29768832,county
-ibge,brazil_alagoas_mata grande,brazil_alagoas_mata grande,-9.058138103,-37.76016563,county
+ibge,brazil_alagoas_mata grande,brazil_alagoas_mata grande,-9.109018,-37.735463,county
 ibge,brazil_alagoas_matriz camaragibe,brazil_alagoas_matriz camaragibe,-9.107612339,-35.57267056,county
 ibge,brazil_alagoas_messias,brazil_alagoas_messias,-9.342351848,-35.81204766,county
 ibge,brazil_alagoas_minador negrao,brazil_alagoas_minador negrao,-9.337812398,-36.86436043,county
@@ -5062,6 +5062,7 @@ ibge,brazil_rio grande norte_brejinho,brazil_rio grande norte_brejinho,-6.219074
 ibge,brazil_rio grande norte_caicara norte,brazil_rio grande norte_caicara norte,-5.17610628,-36.08370925,county
 ibge,brazil_rio grande norte_caicara rio vento,brazil_rio grande norte_caicara rio vento,-5.765954944,-36.02619687,county
 ibge,brazil_rio grande norte_caico,brazil_rio grande norte_caico,-6.46792675,-37.03803505,county
+ibge,brazil_rio grande norte_campo grande,brazil_rio grande norte_campo grande,-5.863223,-37.312053,county
 ibge,brazil_rio grande norte_campo redondo,brazil_rio grande norte_campo redondo,-6.237816402,-36.2088793,county
 ibge,brazil_rio grande norte_canguaretama,brazil_rio grande norte_canguaretama,-6.395097269,-35.14798743,county
 ibge,brazil_rio grande norte_caraubas,brazil_rio grande norte_caraubas,-5.7673385,-37.58374903,county
@@ -7345,6 +7346,7 @@ ibge,brazil_sao paulo_sao jose rio preto,brazil_sao paulo_sao jose rio preto,-20
 ibge,brazil_sao paulo_sao jose rio preto_engenheiro schmidt,brazil_sao paulo_sao jose rio preto_engenheiro schmidt,-20.8675,-49.30972222,distrito|vila
 ibge,brazil_sao paulo_sao jose rio preto_talhado,brazil_sao paulo_sao jose rio preto_talhado,-20.70805556,-49.29361111,distrito|vila
 ibge,brazil_sao paulo_sao lourenco serra,brazil_sao paulo_sao lourenco serra,-23.85203225,-46.93626609,county
+ibge,brazil_sao paulo_sao luiz paraitinga,brazil_sao paulo_sao luis paraitinga,-23.23994148,-45.25375581,county
 ibge,brazil_sao paulo_sao luis paraitinga,brazil_sao paulo_sao luis paraitinga,-23.23994148,-45.25375581,county
 ibge,brazil_sao paulo_sao manuel,brazil_sao paulo_sao manuel,-22.68185752,-48.54044983,county
 ibge,brazil_sao paulo_sao miguel arcanjo,brazil_sao paulo_sao miguel arcanjo,-23.91400186,-47.99357506,county
@@ -7475,6 +7477,7 @@ ibge,brazil_sergipe_gararu,brazil_sergipe_gararu,-10.02731949,-37.20520937,count
 ibge,brazil_sergipe_gararu_lagoa funda,brazil_sergipe_gararu_lagoa funda,-10.02777778,-36.96166667,distrito|vila
 ibge,brazil_sergipe_general maynard,brazil_sergipe_general maynard,-10.69310893,-36.97063096,county
 ibge,brazil_sergipe_gracho cardoso,brazil_sergipe_gracho cardoso,-10.22291842,-37.21860433,county
+ibge,brazil_sergipe_graccho cardoso,brazil_sergipe_gracho cardoso,-10.22291842,-37.21860433,county
 ibge,brazil_sergipe_ilha flores,brazil_sergipe_ilha flores,-10.45435666,-36.55316583,county
 ibge,brazil_sergipe_indiaroba,brazil_sergipe_indiaroba,-11.52194153,-37.56652625,county
 ibge,brazil_sergipe_itabaianinha,brazil_sergipe_itabaianinha,-11.25922543,-37.77735779,county
@@ -7579,6 +7582,7 @@ ibge,brazil_tocantins_figueiropolis,brazil_tocantins_figueiropolis,-12.26414921,
 ibge,brazil_tocantins_filadelfia,brazil_tocantins_filadelfia,-7.496778613,-47.79404255,county
 ibge,brazil_tocantins_formoso araguaia,brazil_tocantins_formoso araguaia,-11.9590049,-50.09805451,county
 ibge,brazil_tocantins_fortaleza tabocao,brazil_tocantins_fortaleza tabocao,-9.072728002,-48.54579392,county
+ibge,brazil_tocantins_tabocao,brazil_tocantins_fortaleza tabocao,-9.072728002,-48.54579392,county
 ibge,brazil_tocantins_goianorte,brazil_tocantins_goianorte,-8.873715967,-49.00996475,county
 ibge,brazil_tocantins_goiatins,brazil_tocantins_goiatins,-8.093603284,-47.48110748,county
 ibge,brazil_tocantins_goiatins_cartucho,brazil_tocantins_goiatins_cartucho,-8.101944444,-47.65444444,distrito|vila
@@ -8223,7 +8227,7 @@ gadm,bahamas_cat island,bahamas_cat island,24.335,-75.4575,state
 gadm,bahamas_central abaco,bahamas_central abaco,26.43707495,-77.14554096,state
 gadm,bahamas_central andros,bahamas_central andros,24.46016682,-77.9554823,state
 gadm,bahamas_central eleuthera,bahamas_central eleuthera,25.135,-76.14556,state
-gadm,bahamas_city freeport,bahamas_city of freeport,26.52018925,-78.64525914,state
+gadm,bahamas_city freeport,bahamas_city freeport,26.52018925,-78.64525914,state
 gadm,bahamas_crooked island,bahamas_crooked island,22.74011149,-74.20149143,state
 gadm,bahamas_east grand bahama,bahamas_east grand bahama,26.67287084,-78.16398288,state
 gadm,bahamas_exuma,bahamas_exuma,23.55025906,-75.84947774,state
@@ -15927,8 +15931,8 @@ gadm,"bolivia_potosi_jose maria linares_caiza ""d""","bolivia_potosi_jose maria 
 gadm,bolivia_potosi_jose maria linares_puna,bolivia_potosi_jose maria linares_puna,-19.78479811,-65.1828178,distrito
 gadm,bolivia_potosi_modesto omiste_villazon,bolivia_potosi_modesto omiste_villazon,-21.90830097,-65.63991197,distrito
 gadm,bolivia_potosi_nor chichas_cotagaita,bolivia_potosi_nor chichas_cotagaita,-20.67273638,-65.78240711,distrito
-gadm,bolivia_potosi_nor chichas_vitichi,bolivia_potosi_nor chichas_vitiche,-20.33558859,-65.43612527,distrito
-gadm,bolivia_potosi_nor chichas_vitiche,bolivia_potosi_nor chichas_vitiche,-20.33558859,-65.43612527,distrito
+gadm,bolivia_potosi_nor chichas_vitichi,bolivia_potosi_nor chichas_vitichi,-20.33558859,-65.43612527,distrito
+gadm,bolivia_potosi_nor chichas_vitiche,bolivia_potosi_nor chichas_vitichi,-20.33558859,-65.43612527,distrito
 gadm,"bolivia_potosi_nor lipez_colcha ""k""","bolivia_potosi_nor lipez_colcha ""k""",-20.94147302,-67.35450543,distrito
 gadm,bolivia_potosi_nor lipez_san agustin,bolivia_potosi_nor lipez_san agustin,-21.46494539,-67.44666069,distrito
 gadm,bolivia_potosi_nor lipez_san pedro quemes,bolivia_potosi_nor lipez_san pedro quemes,-20.97646935,-68.17117693,distrito
@@ -15969,11 +15973,11 @@ gadm,bolivia_santa cruz_ichilo_buena vista,bolivia_santa cruz_ichilo_buena vista
 gadm,bolivia_santa cruz_ichilo_yapacani,bolivia_santa cruz_ichilo_yapacani,-16.74994492,-64.36625854,distrito
 gadm,bolivia_santa cruz_ignacio warnes_okinawa uno,bolivia_santa cruz_ignacio warnes_okinawa uno,-17.28582829,-62.85411923,distrito
 gadm,bolivia_santa cruz_ignacio warnes_warnes,bolivia_santa cruz_ignacio warnes_warnes,-17.39769015,-63.0494168,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,bolivia_santa cruz_jose miguel velasco_san ignacio,-15.03633608,-60.98339643,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san ignacio,bolivia_santa cruz_jose miguel velasco_san ignacio,-15.03633608,-60.98339643,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,-15.03633608,-60.98339643,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san ignacio,bolivia_santa cruz_jose miguel velasco_san ignacio velasco,-15.03633608,-60.98339643,distrito
 gadm,bolivia_santa cruz_jose miguel velasco_san matias,bolivia_santa cruz_jose miguel velasco_san matias,-17.26399958,-58.80834051,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san miguel velasco,bolivia_santa cruz_jose miguel velasco_san miguel,-16.80634972,-61.28294678,distrito
-gadm,bolivia_santa cruz_jose miguel velasco_san miguel,bolivia_santa cruz_jose miguel velasco_san miguel,-16.80634972,-61.28294678,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san miguel velasco,bolivia_santa cruz_jose miguel velasco_san miguel velasco,-16.80634972,-61.28294678,distrito
+gadm,bolivia_santa cruz_jose miguel velasco_san miguel,bolivia_santa cruz_jose miguel velasco_san miguel velasco,-16.80634972,-61.28294678,distrito
 gadm,bolivia_santa cruz_jose miguel velasco_san rafael,bolivia_santa cruz_jose miguel velasco_san rafael,-16.80559367,-60.12708779,distrito
 gadm,bolivia_santa cruz_manuel maria caballero_comarapa,bolivia_santa cruz_manuel maria caballero_comarapa,-17.79697886,-64.42821124,distrito
 gadm,bolivia_santa cruz_manuel maria caballero_saipina,bolivia_santa cruz_manuel maria caballero_saipina,-18.00707704,-64.65100169,distrito
@@ -18777,7 +18781,7 @@ cncflora,brazil_minas gerais_divino_fazenda fortaleza,brazil_minas gerais_divino
 gadm,brazil_minas gerais_divinopolis_santo antonio campos,brazil_minas gerais_divinopolis_santo antonio campos,-20.08656618,-45.01595473,locality
 gadm,brazil_minas gerais_dom joaquim_gororos,brazil_minas gerais_dom joaquim_gororos,-18.82910653,-43.25669757,locality
 treeco,brazil_minas gerais_dom silverio_pm mata virgem,brazil_minas gerais_dom silverio_pm mata virgem,-20.164266,-42.970314,localidade
-gadm,brazil_minas gerais_dona eusebia_dona euzebia,brazil_minas gerais_dona eusebia_dona euzebia,-21.31240999,-42.79515856,locality
+gadm,brazil_minas gerais_dona euzebia,brazil_minas gerais_dona eusebia,-21.32154515,-42.80152634,county
 ibge?,brazil_minas gerais_dona eusebia_sao manoel guaiacu,brazil_minas gerais_dona eusebia_sao manoel guaiacu,-21.35189745,-42.82268379,distrito|bairro
 gadm,brazil_minas gerais_durande_sao joao figueira,brazil_minas gerais_durande_sao joao figueira,-20.09185099,-41.7988656,locality
 gadm,brazil_minas gerais_durande_sao jose figueira,brazil_minas gerais_durande_sao jose figueira,-20.16795578,-41.85456689,locality
@@ -23684,6 +23688,7 @@ gadm,chile_biobio_biobio_nacimiento,chile_biobio_biobio_nacimiento,-37.42618005,
 gadm,chile_biobio_biobio_negrete,chile_biobio_biobio_negrete,-37.55129231,-72.5911328,locality
 gadm,chile_biobio_biobio_quilaco,chile_biobio_biobio_quilaco,-37.92095324,-71.72015317,locality
 gadm,chile_biobio_biobio_quilago,chile_biobio_biobio_quilaco,-37.92095324,-71.72015317,locality
+gadm,chile_biobio_biobio_quilleco,chile_biobio_biobio_quilleco,-37.40137622,-71.92666436,locality
 gadm,chile_biobio_biobio_quillego,chile_biobio_biobio_quilleco,-37.40137622,-71.92666436,locality
 gadm,chile_biobio_biobio_san rosendo,chile_biobio_biobio_san rosendo,-37.12095952,-72.64344292,locality
 gadm,chile_biobio_biobio_santa barbara,chile_biobio_biobio_santa barbara,-37.71835674,-71.55786452,locality
@@ -28082,7 +28087,7 @@ gbif,belize_toledo district,belize_toledo,16.31297575,-88.87204971,state
 gbif,bolivia_bautista saavedra,bolivia_la paz_bautista saavedra,-15.07261953,-68.8081871,county
 gbif,bolivia_beni_ballivian,bolivia_el beni_jose ballivian,-13.91518036,-66.89262363,county
 gbif,bolivia_beni_cercado,bolivia_el beni_cercado,-14.49363487,-64.39497398,county
-gbif,bolivia_beni_itenez,bolivia_beni_itenez,-13.255475,-63.417723,county
+gbif,bolivia_beni_itenez,bolivia_el beni_itenez,-13.255475,-63.417723,county
 gbif,bolivia_beni_jose ballivian,bolivia_el beni_jose ballivian,-13.91518036,-66.89262363,county
 gbif,bolivia_beni_mamore,bolivia_el beni_mamore,-13.13334307,-64.76259862,county
 gbif,bolivia_beni_moxos,bolivia_el beni_moxos,-15.46583188,-65.68393686,county
@@ -28176,7 +28181,7 @@ splink_jabot,brazil_alagoas_maceio_tabuleiro martins,brazil_alagoas_maceio_tabul
 splink_jabot,brazil_alagoas_maravilha_serra caicara,brazil_alagoas_maravilha_serra caicara,-9.239118,-37.328284,locality
 splink_jabot,brazil_alagoas_marecha deodoro,brazil_alagoas_marechal deodoro,-9.715495316,-35.90586614,county
 splink_jabot,brazil_alagoas_marechal deodoro_apa santa rita,brazil_alagoas_marechal deodoro_apa santa rita,-9.705046,-35.823433,localidade
-splink_jabot,brazil_alagoas_mata grande_mata pau grande,brazil_alagoas_mata grande,-9.058138103,-37.76016563,county
+splink_jabot,brazil_alagoas_mata grande_mata pau grande,brazil_alagoas_mata grande,-9.109018,-37.735463,county
 splink_jabot,brazil_alagoas_matriz camaragibe_santuario ecologico serra agua,brazil_alagoas_matriz camaragibe_rppn serra agua,-9.111619,-35.573852,localidade
 splink_jabot,brazil_alagoas_matriz caramagibe,brazil_alagoas_matriz camaragibe,-9.107612339,-35.57267056,county
 splink_jabot,brazil_alagoas_municipio coite noia,brazil_alagoas_coite noia,-9.629967118,-36.58200255,county
@@ -28925,8 +28930,12 @@ splink_jabot,brazil_mato grosso_barra garca,brazil_mato grosso_barra garcas,-15.
 splink_jabot,brazil_mato grosso_barra garcas_barra garcas,brazil_mato grosso_barra garcas,-15.875402,-52.284394,county
 splink_jabot,brazil_mato grosso_barra garcas_parque estadual serra azul,brazil_mato grosso_barra garcas_parque estadual serra azul,-15.860351,-52.280614,localidade
 splink_jabot,brazil_mato grosso_barra gracas,brazil_mato grosso_barra garcas,-15.3596474,-52.4972519,county
+splink_jabot,brazil_mato grosso_barro bugres,brazil_mato grosso_barra bugres,-15.04250147,-57.69302835,county
+splink_jabot,brazil_mato grosso_barro garcas,brazil_mato grosso_barra garcas,-15.875402,-52.284394,county
 splink_jabot,brazil_mato grosso_bataguacu,brazil_mato grosso sul_bataguassu,-21.80820197,-52.57056605,county
 splink_jabot,brazil_mato grosso_bataguassu,brazil_mato grosso sul_bataguassu,-21.80820197,-52.57056605,county
+splink_jabot,brazil_mato grosso_boa esperanca,brazil_mato grosso_sorriso_boa esperanca,-13.508806,-55.147183,distrito|vila
+splink_jabot,brazil_mato grosso_boa esperanca norte,brazil_mato grosso_sorriso_boa esperanca,-13.508806,-55.147183,distrito|vila
 splink_jabot,brazil_mato grosso_caceres_assentamento laranjeiras i,brazil_mato grosso_caceres_assentamento laranjeiras i,-16.56682222,-57.54495833,localidade
 splink_jabot,brazil_mato grosso_caceres_baia malheiros,brazil_mato grosso_caceres_baia malheiros,-16.053292,-57.690298,localidade
 splink_jabot,brazil_mato grosso_caceres_porto limao,brazil_mato grosso_caceres_comunidade porto limao,-16.143263,-57.997623,localidade

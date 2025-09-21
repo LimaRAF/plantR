@@ -572,7 +572,7 @@ gadm,bahamas_cat island,BS,Bahamas,Cat Island,NA,NA
 gadm,bahamas_central abaco,BS,Bahamas,Central Abaco,NA,NA
 gadm,bahamas_central andros,BS,Bahamas,Central Andros,NA,NA
 gadm,bahamas_central eleuthera,BS,Bahamas,Central Eleuthera,NA,NA
-gadm,bahamas_city of freeport,BS,Bahamas,City of Freeport,NA,NA
+gadm,bahamas_city freeport,BS,Bahamas,City of Freeport,NA,NA
 gadm,bahamas_crooked island,BS,Bahamas,Crooked Island,NA,NA
 gadm,bahamas_east grand bahama,BS,Bahamas,East Grand Bahama,NA,NA
 gadm,bahamas_exuma,BS,Bahamas,Exuma,NA,NA
@@ -635,7 +635,6 @@ gadm,bermuda_southampton,BM,Bermuda,Southampton,NA,NA
 gadm,bermuda_warwick,BM,Bermuda,Warwick,NA,NA
 gadm,bhutan,BT,Bhutan,NA,NA,NA
 gadm,bolivia,BO,Bolivia,NA,NA,NA
-gbif_gsg,bolivia_beni_itenez,NA,bolivia,beni,itenez,NA
 gadm,bolivia_chuquisaca,BO,Bolivia,Chuquisaca,NA,NA
 gadm,bolivia_chuquisaca_belisario boeto,BO,Bolivia,Chuquisaca,Belisario Boeto,NA
 gadm,bolivia_chuquisaca_hernando siles,BO,Bolivia,Chuquisaca,Hernando Siles,NA
@@ -664,6 +663,7 @@ gadm,bolivia_cochabamba_quillacollo,BO,Bolivia,Cochabamba,Quillacollo,NA
 gadm,bolivia_cochabamba_tapacari,BO,Bolivia,Cochabamba,Tapacarí,NA
 gadm,bolivia_el beni,BO,Bolivia,El Beni,NA,NA
 gadm,bolivia_el beni_cercado,BO,Bolivia,El Beni,Cercado,NA
+gbif_gsg,bolivia_el beni_itenez,NA,bolivia,beni,itenez,NA
 gadm,bolivia_el beni_jose ballivian,BO,Bolivia,El Beni,José Ballivián,NA
 gadm,bolivia_el beni_mamore,BO,Bolivia,El Beni,Mamoré,NA
 gadm,bolivia_el beni_marban,BO,Bolivia,El Beni,Marbán,NA
@@ -7343,6 +7343,7 @@ ibge,brazil_rio grande norte_caicara norte,BR,Brazil,Rio Grande do Norte,Caiçar
 ibge,brazil_rio grande norte_caicara rio vento,BR,Brazil,Rio Grande do Norte,Caiçara do Rio do Vento,NA
 ibge,brazil_rio grande norte_caico,BR,Brazil,Rio Grande do Norte,Caicó,NA
 treeco,brazil_rio grande norte_caico_fazenda pedra sino,BR,Brazil,Rio Grande do Norte,Caicó,Fazenda Pedra do Sino
+ibge,brazil_rio grande norte_campo grande,BR,Brazil,Rio Grande do Norte,Campo Grande,NA
 ibge,brazil_rio grande norte_campo redondo,BR,Brazil,Rio Grande do Norte,Campo Redondo,NA
 ibge,brazil_rio grande norte_canguaretama,BR,Brazil,Rio Grande do Norte,Canguaretama,NA
 ibge,brazil_rio grande norte_caraubas,BR,Brazil,Rio Grande do Norte,Caraúbas,NA
@@ -11364,7 +11365,7 @@ gadm,colombia_antioquia_betulia,CO,Colombia,Antioquia,Betulia,NA
 gadm,colombia_antioquia_bolivar,CO,Colombia,Antioquia,Bolívar,NA
 gadm,colombia_antioquia_briceno,CO,Colombia,Antioquia,Briceño,NA
 gadm,colombia_antioquia_buritica,CO,Colombia,Antioquia,Buriticá,NA
-gbif_gsg,colombia_antioquia_buritica_la angelina,NA,Colombia,Antioquia,Buriticá,la angelina
+gbif_gsg,colombia_antioquia_buritica_la angelina,NA,Colombia,Antioquia,Buriticá,La Angelina
 gadm,colombia_antioquia_caceres,CO,Colombia,Antioquia,Cáceres,NA
 gadm,colombia_antioquia_caicedo,CO,Colombia,Antioquia,Caicedo,NA
 gadm,colombia_antioquia_caldas,CO,Colombia,Antioquia,Caldas,NA
