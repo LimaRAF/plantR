@@ -78,6 +78,9 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
     stop("Reference data frame must have a column named: ", status.col,
          call. = FALSE)
 
+  if (is.null(match.col))
+    stop("Please provide the name of the column to match the input and reference data frames", call. = FALSE)
+
   if (!(match.col %in% names(df) & match.col %in% names(df.ref)))
     stop("Both input and reference data frame must have a column named: ",
          match.col, call. = FALSE)
@@ -116,10 +119,20 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
         res[res[[orig.col]] %in% unique(duplicated_spp), ]
       res_dup[[mult.match.col]] <- TRUE
 
+      rep_valid <- is.na(res_dup$accepted.id) &
+        res_dup$taxon.status %in% "accepted"
+      if(any(rep_valid)) {
+        cols.to <- names(res_dup)[grepl("accepted", names(res_dup)) &
+                                    !grepl("\\.x", names(res_dup))]
+        cols.from <- sub("accepted.", "", cols.to)
+        res_dup[rep_valid, cols.to] <- res_dup[rep_valid, cols.from]
+      }
+
       if (mult.matches == "all") {
         tmp0 <- res_dup[, agg.cols]
         tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                          function(x) paste(unique(x[!is.na(x)]),
+                         # function(x) paste(x[!is.na(x)],
                                            collapse = "|"))
         names(tmp)[1] <- orig.col
 
@@ -163,10 +176,20 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
       res[res[[orig.col]] %in% unique(duplicated_spp), ]
     res_dup[[mult.match.col]] <- TRUE
 
+    rep_valid <- is.na(res_dup$accepted.id) &
+      res_dup$taxon.status %in% "accepted"
+    if(any(rep_valid)) {
+      cols.to <- names(res_dup)[grepl("accepted", names(res_dup)) &
+                                  !grepl("\\.x", names(res_dup))]
+      cols.from <- sub("accepted.", "", cols.to)
+      res_dup[rep_valid, cols.to] <- res_dup[rep_valid, cols.from]
+    }
+
     if (mult.matches == "all") {
       tmp0 <- res_dup[, agg.cols]
       tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                        function(x) paste(unique(x[!is.na(x)]),
+                       # function(x) paste(x[!is.na(x)],
                                          collapse = "|"))
       names(tmp)[1] <- orig.col
 

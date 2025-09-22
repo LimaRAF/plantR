@@ -60,7 +60,7 @@ getTaxNotes <- function(x = NULL,
   if (dim(x)[1] == 0)
     stop("Input data frame is empty!", call. = FALSE)
 
-  if (!any(match.cols %in% names(x))) {
+  if (!all(match.cols %in% names(x))) {
     stop("Input data frame must have all columns listed in 'match.cols'",
          call. = FALSE)
   }

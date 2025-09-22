@@ -768,11 +768,12 @@ prepSpecies <- function(x,
                   "taxon.rank", "name.status")
     new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
                   "accepted.taxon.rank", "accepted.name.status")
-    if (replace.names) {
 
+    if (replace.names) {
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
       if (any(rep_these)) {
         w_accept_id <- !is.na(output[, new.cols[1]])
+
         if (any(w_accept_id)){
           output[rep_these & w_accept_id, old.cols] <-
             output[rep_these & w_accept_id, new.cols]
@@ -811,7 +812,7 @@ prepSpecies <- function(x,
       rep_these <- output$notes %in% "check +1 name"
       if (any(rep_these)) {
         rep_these1 <-
-          !grepl("|", output[["accepted.tax.authorship"]][rep_these],
+          !grepl("|", output[["accepted.id"]][rep_these],
                  fixed = TRUE)
         if (any(rep_these1)) {
           output[rep_these, old.cols][rep_these1, ] <-

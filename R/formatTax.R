@@ -55,6 +55,7 @@ formatTax <- function(tax,
                       sug.dist = 0.9,
                       clean.indet = TRUE,
                       use.authors = TRUE,
+                      mult.matches = "all",
                       replace.names = TRUE,
                       clean.names = FALSE,
                       split.letters = FALSE,
@@ -102,6 +103,7 @@ formatTax <- function(tax,
                       split.letters = split.letters,
                       parallel = parallel,
                       cores = cores,
+                      mult.matches = mult.matches,
                       drop.cols = drop.cols)
 
   if (use.suggestion) {

@@ -142,7 +142,6 @@ prepFamily <- function(x,
        by = tmp.spp]
   }
 
-
   kingdons <- unique(familiesSynonyms$kingdom)
 
   if (tolower(kingdom) %in% kingdons) {
@@ -162,27 +161,34 @@ prepFamily <- function(x,
                                  by.x = "tmp.fam",
                                  by.y = "name", all.x = TRUE)
 
-  # Getting missing family names from Brazilian Flora 2020
-  if (any(is.na(families.data$name.correct))) {
-    families.data[, flora.bb := getFamily(.SD), .SDcol = "tmp.gen"]
-    families.data[, flora.bb := lapply(.SD, getFamily),
-                  .SDcols = c("tmp.gen")]
+  # Getting missing or bad family names from Brazilian Flora, except for multiple family names
+  no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
+  if (any(no_mult)) {
+    families.data[no_mult, flora.bb := getFamily(.SD),
+                  .SDcol = "tmp.gen"]
     families.data <-
       data.table::merge.data.table(families.data,
                                    all.families[, c("name", "name.correct")],
                                    by.x = "flora.bb",
                                    by.y = "name", all.x = TRUE,
-                                   suffixes = c(".x", "")
-      )
-    families.data[(is.na(tmp.fam) | is.na(name.correct) & !is.na(flora.bb)),
-                  name.correct :=  flora.bb, ]
-  } else {
-    families.data[, flora.bb := name.correct]
+                                   suffixes = c("", ".x"))
+    families.data[!is.na(name.correct.x),
+                  name.correct :=  name.correct.x, ]
+  }
+
+  # Any missing family names?
+  no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
+  if (families.data[, any(is.na(name.correct) & no_mult)]) {
+    miss.families <- families.data[is.na(name.correct) & no_mult,]
+    fbo.families <- getFamily(miss.families$tmp.gen,
+                              fuzzy.match = TRUE)
+    families.data[no_mult & is.na(name.correct),
+                  name.correct := fbo.families, ]
   }
 
   # Any conflicts between original names and the ones retrieved?
-  print.problems <- unique(families.data[!is.na(flora.bb) &
-                                           tmp.fam != flora.bb, , ])
+  print.problems <- unique(families.data[!is.na(name.correct) &
+                                           tmp.fam != name.correct, , ])
   print.problems <- print.problems[order(tmp.fam), ]
   print.problems <- print.problems[order(tmp.gen), ]
   print.problems <- print.problems[, .SD,
@@ -196,21 +202,13 @@ prepFamily <- function(x,
           sep="\n")
     }
   }
-  families.data[name.correct.x != flora.bb, name.correct.x := flora.bb, ]
-
-  # Any missing family names?
-  if (families.data[, any(is.na(name.correct))]) {
-    miss.families <- families.data[is.na(name.correct),]
-    fbo.families <- getFamily(miss.families$tmp.gen,
-                              fuzzy.match = TRUE)
-    families.data[is.na(name.correct),
-                  name.correct := fbo.families, ]
-  }
 
   # Double checking if all names are in the APG dictionaire
-  families.data <- merge(families.data,
-                         all.families[, c("name", "name.correct")],
-                         by.x = "name.correct", by.y = "name", all.x = TRUE)
+  families.data <-
+    data.table::merge.data.table(families.data,
+                                 all.families[, c("name", "name.correct")],
+                                 by.x = "name.correct", by.y = "name",
+                                 all.x = TRUE)
 
   # If nothing was found, keep the original family
   families.data[is.na(name.correct), name.correct := name.correct.y ]

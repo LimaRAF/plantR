@@ -15,6 +15,7 @@ formatTax(
   sug.dist = 0.9,
   clean.indet = TRUE,
   use.authors = TRUE,
+  mult.matches = "all",
   replace.names = TRUE,
   clean.names = FALSE,
   split.letters = FALSE,
@@ -66,6 +67,11 @@ matching? Defaults to TRUE.}
 
 \item{use.authors}{logical. Should authorships be used in the name
 matching process? Default to TRUE.}
+
+\item{mult.matches}{a character declaring how to deal with multiple
+name matches. Options are 'all' (concatenate all matches in the
+same line) and 'best' (only one name match is returned per line).
+Defaults to 'all'.}
 
 \item{replace.names}{logical. If taxon names should be replaced
 based on the results of the name checking (e.g. if synonyms
