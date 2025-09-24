@@ -8373,6 +8373,8 @@ gadm,bolivia_potosi_nor lipez,bolivia_potosi_nor lipez,-20.98549493,-67.47311315
 gadm,bolivia_potosi_rafael bustillo,bolivia_potosi_rafael bustillo,-18.47966957,-66.48020036,county
 gadm,bolivia_potosi_sud chichas,bolivia_potosi_sud chichas,-21.38196705,-65.88540588,county
 gadm,bolivia_potosi_sud lipez,bolivia_potosi_sud lipez,-22.13311931,-67.09784907,county
+gadm,bolivia_potosi_sur chichas,bolivia_potosi_sud chichas,-21.38196705,-65.88540588,county
+gadm,bolivia_potosi_sur lipez,bolivia_potosi_sud lipez,-22.13311931,-67.09784907,county
 gadm,bolivia_potosi_tomas frias,bolivia_potosi_tomas frias,-19.39787607,-65.9387133,county
 gadm,bolivia_santa cruz,bolivia_santa cruz,-17.29422482,-61.46098747,state
 gadm,bolivia_santa cruz_andres ibanez,bolivia_santa cruz_andres ibanez,-17.87419438,-63.19741144,county
@@ -15703,12 +15705,14 @@ gadm,bolivia_chuquisaca_nor cinti_san lucas,bolivia_chuquisaca_nor cinti_san luc
 gadm,bolivia_chuquisaca_oropeza_poroma,bolivia_chuquisaca_oropeza_poroma,-18.6078171,-65.40052619,distrito
 gadm,bolivia_chuquisaca_oropeza_sucre,bolivia_chuquisaca_oropeza_sucre,-18.91296621,-65.24325521,distrito
 gadm,bolivia_chuquisaca_oropeza_yotala,bolivia_chuquisaca_oropeza_yotala,-19.21995724,-65.25945225,distrito
-gadm,bolivia_chuquisaca_sur cinti_camataqui,bolivia_chuquisaca_sur cinti_camataqui,-20.97491426,-65.30675877,distrito
-gadm,bolivia_chuquisaca_sur cinti_culpina,bolivia_chuquisaca_sur cinti_culpina,-20.86244637,-64.56967557,distrito
-gadm,bolivia_chuquisaca_sur cinti_las carreras,bolivia_chuquisaca_sur cinti_las carreras,-21.269769,-65.32884147,distrito
+gadm,bolivia_chuquisaca_sur cinti_camataqui,bolivia_chuquisaca_sud cinti_camataqui,-20.97491426,-65.30675877,distrito
+gadm,bolivia_chuquisaca_sud cinti_culpina,bolivia_chuquisaca_sud cinti_culpina,-20.86244637,-64.56967557,distrito
+gadm,bolivia_chuquisaca_sud cinti_las carreras,bolivia_chuquisaca_sud cinti_las carreras,-21.269769,-65.32884147,distrito
+gadm,bolivia_chuquisaca_sur cinti,bolivia_chuquisaca_sud cinti,-20.95034361,-64.79598302,county
 gadm,bolivia_chuquisaca_tomina_el villar,bolivia_chuquisaca_tomina_el villar,-19.6807853,-64.27462528,distrito
 gadm,bolivia_chuquisaca_tomina_padilla,bolivia_chuquisaca_tomina_padilla,-19.36374367,-64.157165,distrito
-gadm,bolivia_chuquisaca_tomina_sopachui,bolivia_chuquisaca_tomina_sopachui,-19.45762934,-64.53513123,distrito
+gadm,bolivia_chuquisaca_tomina_sopachui,bolivia_chuquisaca_tomina_sopachuy,-19.45762934,-64.53513123,distrito
+gadm,bolivia_chuquisaca_tomina_sopachuy,bolivia_chuquisaca_tomina_sopachuy,-19.45762934,-64.53513123,distrito
 gadm,bolivia_chuquisaca_tomina_tomina,bolivia_chuquisaca_tomina_tomina,-19.15090155,-64.48978197,distrito
 gadm,bolivia_chuquisaca_tomina_villa alcala,bolivia_chuquisaca_tomina_villa alcala,-19.41735448,-64.36973044,distrito
 gadm,bolivia_chuquisaca_yamparaez_tarabuco,bolivia_chuquisaca_yamparaez_tarabuco,-19.10937361,-64.91061975,distrito
@@ -15735,12 +15739,14 @@ gadm,bolivia_cochabamba_chapare_colomi,bolivia_cochabamba_chapare_colomi,-17.228
 gadm,bolivia_cochabamba_chapare_sacaba,bolivia_cochabamba_chapare_sacaba,-17.32495813,-66.03085386,distrito
 gadm,bolivia_cochabamba_chapare_tiquipaya,bolivia_cochabamba_chapare_tiquipaya,-17.17693033,-66.19766715,distrito
 gadm,bolivia_cochabamba_chapare_villa tunari,bolivia_cochabamba_chapare_villa tunari,-16.63521762,-65.57908276,distrito
-gadm,bolivia_cochabamba_esteban arze_anzaldo,bolivia_cochabamba_esteban arze_anzaldo,-17.8261356,-65.92103564,distrito
-gadm,bolivia_cochabamba_esteban arze_arbieto,bolivia_cochabamba_esteban arze_arbieto,-17.55513073,-66.06770586,distrito
-gadm,bolivia_cochabamba_esteban arze_tacachi,bolivia_cochabamba_esteban arze_tacachi,-17.68289321,-65.76673987,distrito
-gadm,bolivia_cochabamba_esteban arze_tarata,bolivia_cochabamba_esteban arze_tarata,-17.68192933,-66.06459277,distrito
+gadm,bolivia_cochabamba_esteban arce_anzaldo,bolivia_cochabamba_esteban arce_anzaldo,-17.8261356,-65.92103564,distrito
+gadm,bolivia_cochabamba_esteban arce_arbieto,bolivia_cochabamba_esteban arce_arbieto,-17.55513073,-66.06770586,distrito
+gadm,bolivia_cochabamba_esteban arce_tacachi,bolivia_cochabamba_esteban arce_tacachi,-17.68289321,-65.76673987,distrito
+gadm,bolivia_cochabamba_esteban arce_tarata,bolivia_cochabamba_esteban arce_tarata,-17.68192933,-66.06459277,distrito
+gadm,bolivia_cochabamba_esteban arze,bolivia_cochabamba_esteban arce,-17.7501455,-65.98192811,county
 gadm,bolivia_cochabamba_german jordan_cliza,bolivia_cochabamba_german jordan_cliza,-17.57305337,-65.93605943,distrito
-gadm,bolivia_cochabamba_german jordan_toco,bolivia_cochabamba_german jordan_toco,-17.63672007,-65.91897606,distrito
+gadm,bolivia_cochabamba_german jordan_toko,bolivia_cochabamba_german jordan_toko,-17.63672007,-65.91897606,distrito
+gadm,bolivia_cochabamba_german jordan_toco,bolivia_cochabamba_german jordan_toko,-17.63672007,-65.91897606,distrito
 gadm,bolivia_cochabamba_german jordan_tolata,bolivia_cochabamba_german jordan_tolata,-17.52069365,-66.00226244,distrito
 gadm,bolivia_cochabamba_mizque_alalay,bolivia_cochabamba_mizque_alalay,-17.77130639,-65.62927651,distrito
 gadm,bolivia_cochabamba_mizque_mizque,bolivia_cochabamba_mizque_mizque,-18.04717526,-65.42354362,distrito
@@ -15790,7 +15796,7 @@ gadm,bolivia_la paz_aroma_umala,bolivia_la paz_aroma_umala,-17.39859523,-67.9848
 gadm,bolivia_la paz_aroma_waldo ballivian,bolivia_la paz_aroma_waldo ballivian,-17.10900711,-68.21830421,distrito
 gadm,bolivia_la paz_bautista saavedra_curva,bolivia_la paz_bautista saavedra_curva,-14.97480587,-68.9638187,distrito
 gadm,bolivia_la paz_bautista saavedra_juan jose perez,bolivia_la paz_bautista saavedra_juan jose perez,-15.09536201,-68.77200179,distrito
-gadm,bolivia_la paz_eliodoro camacho_lago titicaca,bolivia_la paz_eliodoro camacho_lago titicaca,-15.786795,-69.22500039,distrito
+gadm,bolivia_la paz_eliodoro camacho_lago titicaca,bolivia_la paz_eliodoro camacho_lago,-15.786795,-69.22500039,distrito
 gadm,bolivia_la paz_eliodoro camacho_mocomoco,bolivia_la paz_eliodoro camacho_mocomoco,-15.4103127,-69.0339384,distrito
 gadm,bolivia_la paz_eliodoro camacho_puerto acosta,bolivia_la paz_eliodoro camacho_puerto acosta,-15.51179109,-69.17795062,distrito
 gadm,bolivia_la paz_eliodoro camacho_puerto carabuco,bolivia_la paz_eliodoro camacho_puerto mayor carabuco,-15.72685977,-69.02220461,distrito
@@ -15939,11 +15945,11 @@ gadm,bolivia_potosi_nor lipez_san pedro quemes,bolivia_potosi_nor lipez_san pedr
 gadm,bolivia_potosi_rafael bustillo_chayanta,bolivia_potosi_rafael bustillo_chayanta,-18.4025441,-66.34748407,distrito
 gadm,bolivia_potosi_rafael bustillo_llallagua,bolivia_potosi_rafael bustillo_llallagua,-18.35122868,-66.57441055,distrito
 gadm,bolivia_potosi_rafael bustillo_uncia,bolivia_potosi_rafael bustillo_uncia,-18.58163912,-66.50764604,distrito
-gadm,bolivia_potosi_sur chichas_atocha,bolivia_potosi_sur chichas_atocha,-21.08603101,-66.15919849,distrito
-gadm,bolivia_potosi_sur chichas_tupiza,bolivia_potosi_sur chichas_tupiza,-21.48168681,-65.79314819,distrito
-gadm,bolivia_potosi_sur lipez_mojinete,bolivia_potosi_sur lipez_mojinete,-21.80295822,-66.35184248,distrito
-gadm,bolivia_potosi_sur lipez_san antonio esmoruco,bolivia_potosi_sur lipez_san antonio esmoruco,-22.074239,-66.62947472,distrito
-gadm,bolivia_potosi_sur lipez_san pablo lipez,bolivia_potosi_sur lipez_san pablo lipez,-22.15410853,-67.20756288,distrito
+gadm,bolivia_potosi_sud chichas_atocha,bolivia_potosi_sud chichas_atocha,-21.08603101,-66.15919849,distrito
+gadm,bolivia_potosi_sud chichas_tupiza,bolivia_potosi_sud chichas_tupiza,-21.48168681,-65.79314819,distrito
+gadm,bolivia_potosi_sud lipez_mojinete,bolivia_potosi_sud lipez_mojinete,-21.80295822,-66.35184248,distrito
+gadm,bolivia_potosi_sud lipez_san antonio esmoruco,bolivia_potosi_sud lipez_san antonio esmoruco,-22.074239,-66.62947472,distrito
+gadm,bolivia_potosi_sud lipez_san pablo lipez,bolivia_potosi_sud lipez_san pablo lipez,-22.15410853,-67.20756288,distrito
 gadm,bolivia_potosi_tomas frias_potosi,bolivia_potosi_tomas frias_potosi,-19.52075919,-65.71980932,distrito
 gadm,bolivia_potosi_tomas frias_tinguipaya,bolivia_potosi_tomas frias_tinguipaya,-19.16759193,-65.89311519,distrito
 gadm,bolivia_potosi_tomas frias_urmiri,bolivia_potosi_tomas frias_urmiri,-19.46485464,-66.19296371,distrito
@@ -15988,9 +15994,9 @@ gadm,bolivia_santa cruz_nuflo chavez_san javier,bolivia_santa cruz_nuflo chavez_
 gadm,bolivia_santa cruz_nuflo chavez_san julian,bolivia_santa cruz_nuflo chavez_san julian,-16.56834304,-62.43519458,distrito
 gadm,bolivia_santa cruz_nuflo chavez_san ramon,bolivia_santa cruz_nuflo chavez_san ramon,-16.9255553,-62.73562028,distrito
 gadm,bolivia_santa cruz_nuflo chavez_urubicha,bolivia_santa cruz_nuflo chavez_urubicha,-15.0655367,-63.00057022,distrito
-gadm,bolivia_santa cruz_obispo santisteban_agustin saavedra,bolivia_santa cruz_obispo santisteban_agustin saavedra,-17.15739254,-63.16926503,distrito
-gadm,bolivia_santa cruz_obispo santisteban_mineros,bolivia_santa cruz_obispo santisteban_mineros,-16.55382468,-63.62767542,distrito
-gadm,bolivia_santa cruz_obispo santisteban_montero,bolivia_santa cruz_obispo santisteban_montero,-17.31665758,-63.25188366,distrito
+gadm,bolivia_santa cruz_obispo santistevan_agustin saavedra,bolivia_santa cruz_obispo santistevan_agustin saavedra,-17.15739254,-63.16926503,distrito
+gadm,bolivia_santa cruz_obispo santistevan_mineros,bolivia_santa cruz_obispo santistevan_mineros,-16.55382468,-63.62767542,distrito
+gadm,bolivia_santa cruz_obispo santistevan_montero,bolivia_santa cruz_obispo santistevan_montero,-17.31665758,-63.25188366,distrito
 gadm,bolivia_santa cruz_sara_portachuelo,bolivia_santa cruz_sara_portachuelo,-17.39286847,-63.40884643,distrito
 gadm,bolivia_santa cruz_sara_san carlos,bolivia_santa cruz_sara_san carlos,-17.02563919,-63.89886251,distrito
 gadm,bolivia_santa cruz_sara_santa rosa sara,bolivia_santa cruz_sara_santa rosa sara,-16.81377773,-63.74612157,distrito
@@ -16007,7 +16013,8 @@ gadm,bolivia_tarija_eustaquio mendez_el puente,bolivia_tarija_eustaquio mendez_e
 gadm,bolivia_tarija_eustaquio mendez_villa san lorenzo,bolivia_tarija_eustaquio mendez_san lorenzo,-21.22953158,-64.69363805,distrito
 gadm,bolivia_tarija_eustaquio mendez_san lorenzo,bolivia_tarija_eustaquio mendez_san lorenzo,-21.22953158,-64.69363805,distrito
 gadm,bolivia_tarija_gran chaco_carapari,bolivia_tarija_gran chaco_carapari,-21.82454754,-63.90810802,distrito
-gadm,bolivia_tarija_gran chaco_villa montes,bolivia_tarija_gran chaco_villa montes,-21.39472148,-62.91381533,distrito
+gadm,bolivia_tarija_gran chaco_villa montes,bolivia_tarija_gran chaco_villamontes,-21.39472148,-62.91381533,distrito
+gadm,bolivia_tarija_gran chaco_villamontes,bolivia_tarija_gran chaco_villamontes,-21.39472148,-62.91381533,distrito
 gadm,bolivia_tarija_gran chaco_yacuiba,bolivia_tarija_gran chaco_yacuiba,-21.79387767,-63.2887357,distrito
 gadm,bolivia_tarija_jose maria aviles_uriondo,bolivia_tarija_jose maria aviles_uriondo,-21.73401531,-64.70275984,distrito
 gadm,bolivia_tarija_jose maria aviles_yunchara,bolivia_tarija_jose maria aviles_yunchara,-21.78810985,-65.16247767,distrito
@@ -23616,8 +23623,9 @@ gadm,chile_aisen general carlos ibanez campo_aisen_guaitecas,chile_aisen general
 gadm,chile_aisen general carlos ibanez campo_capitan prat_cochrane,chile_aisen general carlos ibanez campo_capitan prat_cochrane,-47.36905967,-72.7735114,locality
 gadm,chile_aisen general carlos ibanez campo_capitan prat_o'higgins,chile_aisen general carlos ibanez campo_capitan prat_o'higgins,-48.5009135,-72.91190128,locality
 gadm,chile_aisen general carlos ibanez campo_capitan prat_tortel,chile_aisen general carlos ibanez campo_capitan prat_tortel,-48.04597192,-74.16910017,locality
-gadm,chile_aisen general carlos ibanez campo_coyhaique_coyhaique,chile_aisen general carlos ibanez campo_coyhaique_coyhaique,-45.536753,-72.03085781,locality
-gadm,chile_aisen general carlos ibanez campo_coyhaique_lago verde,chile_aisen general carlos ibanez campo_coyhaique_lago verde,-44.49460778,-71.84374473,locality
+gadm,chile_aisen general carlos ibanez campo_coyhaique,chile_aisen general carlos ibanez campo_coihaique,-45.14227678,-71.96003132,county
+gadm,chile_aisen general carlos ibanez campo_coihaique_coihaique,chile_aisen general carlos ibanez campo_coihaique_coyhaique,-45.536753,-72.03085781,locality
+gadm,chile_aisen general carlos ibanez campo_coihaique_lago verde,chile_aisen general carlos ibanez campo_coihaique_lago verde,-44.49460778,-71.84374473,locality
 gadm,chile_aisen general carlos ibanez campo_general carrera_chile chico,chile_aisen general carlos ibanez campo_general carrera_chile chico,-46.767376,-72.63792931,locality
 gadm,chile_aisen general carlos ibanez campo_general carrera_rio ibanez,chile_aisen general carlos ibanez campo_general carrera_rio ibanez,-46.27863,-72.5204149,locality
 gadm,chile_antofagasta_antofagasta_antofagasta,chile_antofagasta_antofagasta_antofagasta,-24.27703158,-69.42074268,locality
@@ -23634,7 +23642,8 @@ gadm,chile_araucania_cautin_cunco,chile_araucania_cautin_cunco,-38.95770287,-71.
 gadm,chile_araucania_cautin_curarrehue,chile_araucania_cautin_curarrehue,-39.32285007,-71.5378402,locality
 gadm,chile_araucania_cautin_freire,chile_araucania_cautin_freire,-39.00310733,-72.46631398,locality
 gadm,chile_araucania_cautin_galvarino,chile_araucania_cautin_galvarino,-38.38877953,-72.70968945,locality
-gadm,chile_araucania_cautin_gorbea,chile_araucania_cautin_gorbea,-39.18751345,-72.6623879,locality
+gadm,chile_araucania_cautin_gorbea,chile_araucania_cautin_golbea,-39.18751345,-72.6623879,locality
+gadm,chile_araucania_cautin_golbea,chile_araucania_cautin_golbea,-39.18751345,-72.6623879,locality
 gadm,chile_araucania_cautin_lautaro,chile_araucania_cautin_lautaro,-38.47094081,-72.16124854,locality
 gadm,chile_araucania_cautin_loncoche,chile_araucania_cautin_loncoche,-39.44899218,-72.61752391,locality
 gadm,chile_araucania_cautin_melipeuco,chile_araucania_cautin_melipeuco,-38.7709966,-71.5017002,locality
@@ -23690,7 +23699,8 @@ gadm,chile_biobio_biobio_quilaco,chile_biobio_biobio_quilaco,-37.92095324,-71.72
 gadm,chile_biobio_biobio_quilago,chile_biobio_biobio_quilaco,-37.92095324,-71.72015317,locality
 gadm,chile_biobio_biobio_quilleco,chile_biobio_biobio_quilleco,-37.40137622,-71.92666436,locality
 gadm,chile_biobio_biobio_quillego,chile_biobio_biobio_quilleco,-37.40137622,-71.92666436,locality
-gadm,chile_biobio_biobio_san rosendo,chile_biobio_biobio_san rosendo,-37.12095952,-72.64344292,locality
+gadm,chile_biobio_biobio_san rosendo,chile_biobio_biobio_rosendo,-37.12095952,-72.64344292,locality
+gadm,chile_biobio_biobio_rosendo,chile_biobio_biobio_rosendo,-37.12095952,-72.64344292,locality
 gadm,chile_biobio_biobio_santa barbara,chile_biobio_biobio_santa barbara,-37.71835674,-71.55786452,locality
 gadm,chile_biobio_biobio_tucapel,chile_biobio_biobio_tucapel,-37.24190994,-71.68983718,locality
 gadm,chile_biobio_biobio_yumbel,chile_biobio_biobio_yumbel,-37.05255793,-72.56878272,locality
@@ -23733,7 +23743,8 @@ gadm,chile_libertador general bernardo o'higgins_cachapoal_pichidegua,chile_libe
 gadm,chile_libertador general bernardo o'higgins_cachapoal_quinta tilcoco,chile_libertador general bernardo o'higgins_cachapoal_quinta tilcoco,-34.39830918,-71.08251172,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_rancagua,chile_libertador general bernardo o'higgins_cachapoal_rancagua,-34.04195354,-70.93794424,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_rengo,chile_libertador general bernardo o'higgins_cachapoal_rengo,-34.46758902,-70.81054974,locality
-gadm,chile_libertador general bernardo o'higgins_cachapoal_requinoa,chile_libertador general bernardo o'higgins_cachapoal_requinoa,-34.29559929,-70.76162006,locality
+gadm,chile_libertador general bernardo o'higgins_cachapoal_requinoa,chile_libertador general bernardo o'higgins_cachapoal_requinao,-34.29559929,-70.76162006,locality
+gadm,chile_libertador general bernardo o'higgins_cachapoal_requinao,chile_libertador general bernardo o'higgins_cachapoal_requinao,-34.29559929,-70.76162006,locality
 gadm,chile_libertador general bernardo o'higgins_cachapoal_san vicente,chile_libertador general bernardo o'higgins_cachapoal_san vicente,-34.50615635,-71.17249981,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_la estrella,chile_libertador general bernardo o'higgins_cardenal caro_la estrella,-34.24878125,-71.63124247,locality
 gadm,chile_libertador general bernardo o'higgins_cardenal caro_litueche,chile_libertador general bernardo o'higgins_cardenal caro_litueche,-34.12033889,-71.75532193,locality
@@ -23857,6 +23868,7 @@ gadm,chile_nuble_punilla_san nicolas,chile_nuble_punilla_san nicolas,-36.3628003
 gadm,chile_region metropolitana santiago_chacabuco_colina,chile_region metropolitana santiago_chacabuco_colina,-33.11566995,-70.6651722,locality
 gadm,chile_region metropolitana santiago_chacabuco_lampa,chile_region metropolitana santiago_chacabuco_lampa,-33.2248228,-70.96330331,locality
 gadm,chile_region metropolitana santiago_chacabuco_tiltil,chile_region metropolitana santiago_chacabuco_tiltil,-33.02242369,-70.90946801,locality
+gadm,chile_region metropolitana santiago_cordillera_san jode maipo,chile_region metropolitana santiago_cordillera_san jode maipo,-33.68607329,-70.1658428,locality
 gadm,chile_region metropolitana santiago_maipo_buin,chile_region metropolitana santiago_maipo_buin,-33.68880527,-70.87931726,locality
 gadm,chile_region metropolitana santiago_maipo_calera tango,chile_region metropolitana santiago_maipo_calera tango,-33.51994693,-70.90741895,locality
 gadm,chile_region metropolitana santiago_maipo_paine,chile_region metropolitana santiago_maipo_paine,-33.825513,-70.84947529,locality
@@ -23906,7 +23918,8 @@ gadm,chile_valparaiso_san felipe aconcagua_panquehue,chile_valparaiso_san felipe
 gadm,chile_valparaiso_san felipe aconcagua_putaendo,chile_valparaiso_san felipe aconcagua_putaendo,-32.37380555,-70.53879977,locality
 gadm,chile_valparaiso_san felipe aconcagua_san felipe,chile_valparaiso_san felipe aconcagua_san felipe,-32.58320369,-70.78431515,locality
 gadm,chile_valparaiso_san felipe aconcagua_santa maria,chile_valparaiso_san felipe aconcagua_santa maria,-32.56439504,-70.61761056,locality
-gadm,chile_valparaiso_valparaiso_casablanca,chile_valparaiso_valparaiso_casablanca,-33.24224938,-71.5091629,locality
+gadm,chile_valparaiso_valparaiso_casablanca,chile_valparaiso_valparaiso_casa blanca,-33.24224938,-71.5091629,locality
+gadm,chile_valparaiso_valparaiso_casa blanca,chile_valparaiso_valparaiso_casa blanca,-33.24224938,-71.5091629,locality
 gadm,chile_valparaiso_valparaiso_puchuncavi,chile_valparaiso_valparaiso_puchuncavi,-32.6447638,-71.36337041,locality
 gadm,chile_valparaiso_valparaiso_quilpue,chile_valparaiso_valparaiso_quilpue,-33.05325222,-71.28896095,locality
 gadm,chile_valparaiso_valparaiso_quintero,chile_valparaiso_valparaiso_quintero,-32.79287471,-71.43081153,locality
@@ -28110,7 +28123,7 @@ gbif,bolivia_santa cruz_andrs ibez,bolivia_santa cruz_andres ibanez,-17.87419438
 gbif,bolivia_santa cruz_angel sandoval,bolivia_santa cruz_angel sandoval,-17.254281,-58.823921,county
 gbif,bolivia_santa cruz_caballero,bolivia_santa cruz_manuel maria caballero,-17.8241649,-64.45703959,county
 gbif,bolivia_santa cruz_german busch,bolivia_santa cruz_german busch,-18.811876,-58.345253,county
-gbif,bolivia_santa cruz_guarayos,bolivia_santa cruz_guarayos,-15.383604,-62.92749,provincia
+gbif,bolivia_santa cruz_guarayos,bolivia_santa cruz_guarayos,-15.383604,-62.92749,county
 gbif,bolivia_santa cruz_obispo santiesteban,bolivia_santa cruz_obispo santistevan,-16.63838692,-63.57283001,county
 gbif,bolivia_santa cruz_velasco,bolivia_santa cruz_jose miguel velasco,-16.02610284,-60.2997809,county
 gbif,bolivia_santa cruz_warnes,bolivia_santa cruz_ignacio warnes,-17.35877167,-62.98146052,county
@@ -28831,7 +28844,7 @@ splink_jabot,brazil_maranhao_sao luis_alumar,brazil_maranhao_sao luis_alumar,-2.
 splink_jabot,brazil_maranhao_sao luis_dunas praia sao marcos,brazil_maranhao_sao luis_dunas praia sao marcos,-2.489176,-44.294951,localidade
 splink_jabot,brazil_maranhao_sao luis_estacao ecologica rangedor,brazil_maranhao_sao luis_parque estadual rangedor,-2.499946,-44.262522,localidade
 splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga,brazil_maranhao_sao luis_parque estadual bacanga,-2.585453,-44.277291,localidade
-splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,-2.575421,-44.25075,localdiade
+splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,-2.575421,-44.25075,localidade
 splink_jabot,brazil_maranhao_sao luis_praia guia,brazil_maranhao_sao luis_praia guia,-2.532575,-44.333061,localidade
 splink_jabot,brazil_maranhao_sao luiz,brazil_maranhao_sao luis,-2.624029044,-44.31250043,county
 splink_jabot,brazil_mata grosso sul_jatei,brazil_mato grosso sul_jatei,-22.70663106,-53.95720863,county
@@ -30546,7 +30559,6 @@ gbif,colombia_choco_san francisco quibdo,colombia_choco_quibdo,5.689398,-76.6537
 gbif,colombia_cun,colombia_cundinamarca,4.764670345,-74.12572228,state
 gbif,colombia_cundinamarca_bogota,colombia_cundinamarca_bogota,4.288579028,-74.21445368,county
 gbif,colombia_cundinamarca_bogota d.c,colombia_cundinamarca_bogota,4.288579028,-74.21445368,county
-gbif,colombia_cundinamarca_colombia,colombia_cundinamarca,4.764670345,-74.12572228,state
 gbif,colombia_cundinamarca_granada,colombia_cundinamarca_granada,4.519279,-74.350903,county
 gbif,colombia_cundinamarca_la concepcion,colombia_cundinamarca_cajica_la concepcion,4.939395,-74.045558,locality
 gbif,colombia_cundinamarca_san luis retiro,colombia_cundinamarca_medina_san luis retiro,4.449583,-73.429491,locality

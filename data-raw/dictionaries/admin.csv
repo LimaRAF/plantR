@@ -730,6 +730,7 @@ gadm,bolivia_santa cruz_chiquitos,BO,Bolivia,Santa Cruz,Chiquitos,NA
 gadm,bolivia_santa cruz_cordillera,BO,Bolivia,Santa Cruz,Cordillera,NA
 gadm,bolivia_santa cruz_florida,BO,Bolivia,Santa Cruz,Florida,NA
 gbif_gsg,bolivia_santa cruz_german busch,BO,Bolivia,Santa Cruz,Germán Busch,NA
+gbif_gsg,bolivia_santa cruz_guarayos,BO,Bolivia,Santa Cruz,Guarayos,NA
 gadm,bolivia_santa cruz_ichilo,BO,Bolivia,Santa Cruz,Ichilo,NA
 gadm,bolivia_santa cruz_ignacio warnes,BO,Bolivia,Santa Cruz,Ignacio Warnes,NA
 gadm,bolivia_santa cruz_jose miguel velasco,BO,Bolivia,Santa Cruz,José Miguel de Velasco,NA
@@ -3486,6 +3487,7 @@ ibge,brazil_maranhao_sao luis gonzaga maranhao,BR,Brazil,Maranhão,São Luís Go
 splink_jabot,brazil_maranhao_sao luis_alumar,BR,Brazil,Maranhão,São Luís,alumar
 splink_jabot,brazil_maranhao_sao luis_dunas praia sao marcos,BR,Brazil,Maranhão,São Luís,dunas praia sao marcos
 splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga,BR,Brazil,Maranhão,São Luís,parque estadual bacanga
+splink_jabot,brazil_maranhao_sao luis_parque estadual bacanga reserva florestal sacavem,BR,Brazil,Maranhão,São Luís,parque estadual bacanga reserva florestal sacavem
 splink_jabot,brazil_maranhao_sao luis_parque estadual rangedor,BR,Brazil,Maranhão,São Luís,estacao ecologica rangedor
 splink_jabot,brazil_maranhao_sao luis_praia guia,BR,Brazil,Maranhão,São Luís,praia guia
 cncflora,brazil_maranhao_sao luis_reserva florestal sacavem,BR,Brazil,Maranhão,São Luís,Reserva Florestal do Sacavém

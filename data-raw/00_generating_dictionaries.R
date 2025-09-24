@@ -43,6 +43,23 @@ write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
           row.names = FALSE)
 file.remove(path)
 
+### GADM checks
+link <- "https://docs.google.com/spreadsheets/d/1ccJVYZMMtrL8mwZbPi-xW0nZK3-zQ3eidr7OMXFr-fE/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/gadmCheck.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000,
+                                         trim_ws = FALSE))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
 ### Replace Names
 link <- "https://docs.google.com/spreadsheets/d/1ghaHza2waxxufx-mYZMq2a66r6xLVgqfKy4zckwEYj8/edit?usp=sharing"
 path <- 'data-raw/raw_dictionaries/replaceNames.xlsx'
