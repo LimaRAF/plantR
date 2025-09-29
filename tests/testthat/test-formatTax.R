@@ -43,7 +43,7 @@ res1 <- c("Casearia sylvestris Sw.",
           "Casearia ulmifolia Vahl ex Vent.",
           "Casearia ulmifolia Vahl ex Vent.",
           "Casearia tropicana L.",
-          "Casearia serrulata J. Seber ex Griseb.|Casearia serrulata Sw.",
+          "Casearia decandra Jacq.|Casearia sylvestris Sw.",
           "Casearia decandra Jacq.",
           "Casearia sylvestris Sw.",
           "Ocotea porosa (Nees & Mart.) Barroso",
@@ -66,7 +66,7 @@ res1 <- c("Casearia sylvestris Sw.",
 notes <- c("name accepted", "name misspelled", "name accepted",
            "replaced synonym", "replaced synonym", "replaced synonym",
            "replaced synonym", "+1 name, but 1 accepted", "not found",
-           "check +1 name", "replaced synonym", "replaced synonym",
+           "check +1 name|replaced synonym", "replaced synonym", "replaced synonym",
            "replaced synonym", "replaced synonym", "name accepted",
            "name accepted", "name accepted", "name misspelled",
            "name accepted", "name misspelled",
@@ -97,9 +97,9 @@ res2[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana"
 # res2[which(sp.list %in% "Casearia serrulata" &
 #               aut_list %in% "")] <- "Casearia decandra Jacq."
 res2[which(sp.list %in% "Casearia serrulata" &
-             aut_list %in% "Sw.")] <- "Casearia serrulata J. Seber ex Griseb.|Casearia serrulata Sw."
+             aut_list %in% "Sw.")] <- "Casearia decandra Jacq.|Casearia sylvestris Sw."
 res2[which(sp.list %in% "Casearia serrulata" &
-             aut_list %in% "J. Seber ex Griseb.")] <- "Casearia serrulata J. Seber ex Griseb.|Casearia serrulata Sw."
+             aut_list %in% "J. Seber ex Griseb.")] <- "Casearia decandra Jacq.|Casearia sylvestris Sw."
 res3 <- res2
 res3[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana L."
 

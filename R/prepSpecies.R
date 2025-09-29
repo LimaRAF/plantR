@@ -820,6 +820,23 @@ prepSpecies <- function(x,
           output$notes[rep_these][rep_these1] <-
             "+1 name, but 1 accepted"
         }
+
+        rep_these2 <- output$notes[rep_these] %in% "check +1 name" &
+                        grepl("synonym", output$taxon.status[rep_these],
+                              perl = TRUE)
+        if (any(rep_these2)) {
+          output[rep_these, old.cols][rep_these2, ] <-
+            output[rep_these, new.cols][rep_these2, ]
+          output$notes[rep_these][rep_these2] <-
+            "check +1 name|replaced synonym"
+        }
+        if (any(!rep_these2)) {
+          rep_these3 <- !output$notes[rep_these][!rep_these2] %in%
+                          "+1 name, but 1 accepted"
+          if (any(rep_these3))
+            output$notes[rep_these][!rep_these2][rep_these3] <-
+              "check +1 name|synonym not replaced"
+        }
       }
     }
 
