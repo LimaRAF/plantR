@@ -189,9 +189,7 @@ getLoc <- function(x,
 
   # List of columns and categories to be used in the manipulation
   cols.repl <- cols.gazet[-1]
-  resol.gazet <- c("localidade", "localidade|sublocalidade", "sublocalidade",
-                   "distrito|vila", "distrito", "distrito|bairro", "bairro",
-                   "cachoeira", "mina", "vila", "serra", "locality")
+  resol.gazet <- c("locality", "sublocality")
 
   # merging the occurrence data with the gazetteer information
   tmp <- dplyr::left_join(data.frame(loc = x1[,2]), dic, by = "loc")

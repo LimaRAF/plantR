@@ -229,6 +229,22 @@ gazetteer <-
 gazetteer$source <- gsub("gadm_new","gadm", gazetteer$source)
 gazetteer$source <- gsub("gbif_gsg","gbif", gazetteer$source)
 
+res.gaz <- c("localidade", "localidade|sublocalidade", "sublocalidade",
+             "distrito|vila", "distrito", "distrito|bairro", "bairro",
+             "cachoeira", "mina", "vila", "serra", "locality")
+res.string <- stringr::str_count(gazetteer$loc.correct, "_")
+rep_these <- gazetteer$resolution.gazetteer %in% res.gaz &
+              res.string > 3
+if(any(rep_these))
+  gazetteer$resolution.gazetteer[rep_these] <- "sublocality"
+
+rep_these <- gazetteer$resolution.gazetteer %in% res.gaz &
+              res.string > 2
+if(any(rep_these))
+  gazetteer$resolution.gazetteer[rep_these] <- "locality"
+all_res <- names(table(gazetteer$resolution.gazetteer))
+stopifnot(all(all_res %in% c("country","state","county","locality","sublocality")))
+
 # administrative descriptors
 admin <- dic$gazetteer[ ,c("order",
                            "status",
@@ -250,7 +266,7 @@ admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[!is.na(admin$loc.correct),]
 admin <- admin[admin$resolution.gazetteer %in%
-                 c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
+                 c("country", "state", "county", "locality"),] # removing localities below locality level (i.e. sublocalities)
 
 admin <- admin[, c("source",
                    #"order",
