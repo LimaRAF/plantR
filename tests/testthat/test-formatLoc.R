@@ -25,8 +25,8 @@ res4 <- c("rio janeiro", "rio de janeiro", "minas gerais", "minas gerais", "mina
 
 res.country <- c(rep("brazil", dim(df)[1]-1), "mexico")
 
-expected.resolution <- c("county", "locality", "county", "locality", "locality", "state",
-                        "county", "county", "locality", "county")
+expected.resolution <- c("county", "locality", "county", "county", "county", "county",
+                        "county", "county", "county", "county")
 
 # Tests
 test_that("formatLoc works", {
@@ -76,12 +76,12 @@ test_that("formatLoc extracts state/mun. info from locality", {
   expect_equal(run_test$resolution.gazetteer, expected.resolution)
 })
 
-# df$municipality <- df$locality
-# df$locality <- NA
+df$municipality <- df$locality
+df$locality <- NA
 
-# test_that("formatLoc extracts state/mun/loc info from municipality", {
-#   run_test <- formatLoc(df)
-#   expect_equal(run_test$country.new, rep("brazil", dim(df)[1]))
-#   expect_equal(run_test$stateProvince.new, expected.state)
-#   expect_equal(run_test$resolution.gazetteer, expected.resolution)
-# })
+test_that("formatLoc extracts state/mun/loc info from municipality", {
+  run_test <- formatLoc(df)
+  expect_equal(run_test$country.new, rep("brazil", dim(df)[1]))
+  expect_equal(run_test$stateProvince.new, expected.state)
+  expect_equal(run_test$resolution.gazetteer, expected.resolution)
+})
