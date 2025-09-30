@@ -85,3 +85,21 @@ test_that("formatLoc extracts state/mun/loc info from municipality", {
   expect_equal(run_test$stateProvince.new, expected.state)
   expect_equal(run_test$resolution.gazetteer, expected.resolution)
 })
+
+df <- data.frame(
+  country = "BR",
+  stateProvince = "SP",
+  municipality = "Santo André",
+  locality = c("E.B. do Alto da Serra de Paranapiacaba - Alto da Serra"))
+
+expected.state <- c("sao paulo")
+expected.resolution <- c("locality")
+expected.locality <- "estacao biologica alto serra paranapiacaba"
+
+test_that("formatLoc fixes names correctly", {
+  run_test <- formatLoc(df)
+  expect_equal(run_test$country.new, rep("brazil", dim(df)[1]))
+  expect_equal(run_test$stateProvince.new, expected.state)
+  # expect_equal(run_test$resolution.gazetteer, expected.resolution)
+  # expect_equal(run_test$locality.new, expected.locality)
+})
