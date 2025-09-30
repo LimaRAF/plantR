@@ -111,8 +111,8 @@ prepState <- function(x,
     # patt <- "estado |state |provincia |departamento |province |region "
     patt1 <- gsub("\\s.*", " ", patt0, perl = TRUE)
     patt <- paste(patt1, collapse = "|")
-    avoid_these <- grepl("^federal|federal$|capital$", x1[[state.name]],
-                          perl = TRUE, ignore.case = TRUE)
+    avoid_these <- grepl("^federal|federal$|capital$|nacional$|metropolitana",
+                         x1[[state.name]], perl = TRUE, ignore.case = TRUE)
     if (any(avoid_these)) {
       x1[[state.name]][!avoid_these] <-
         gsub(patt, "", x1[[state.name]][!avoid_these], perl = TRUE,

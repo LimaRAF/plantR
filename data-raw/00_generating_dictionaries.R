@@ -43,6 +43,23 @@ write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
           row.names = FALSE)
 file.remove(path)
 
+### GADM checks
+link <- "https://docs.google.com/spreadsheets/d/1ccJVYZMMtrL8mwZbPi-xW0nZK3-zQ3eidr7OMXFr-fE/edit?usp=sharing"
+path <- 'data-raw/raw_dictionaries/gadmCheck.xlsx'
+dl <- googledrive::drive_download( googledrive::as_id(link),
+                                   path = path,
+                                   overwrite = TRUE)
+dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000,
+                                         trim_ws = FALSE))
+# replacing "NA"s
+empty.vec <- c("", " ", "NA")
+for (i in seq_along(dados))
+  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+# saving and cleaning
+write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+          row.names = FALSE)
+file.remove(path)
+
 ### Replace Names
 link <- "https://docs.google.com/spreadsheets/d/1ghaHza2waxxufx-mYZMq2a66r6xLVgqfKy4zckwEYj8/edit?usp=sharing"
 path <- 'data-raw/raw_dictionaries/replaceNames.xlsx'
@@ -212,6 +229,22 @@ gazetteer <-
 gazetteer$source <- gsub("gadm_new","gadm", gazetteer$source)
 gazetteer$source <- gsub("gbif_gsg","gbif", gazetteer$source)
 
+res.gaz <- c("localidade", "localidade|sublocalidade", "sublocalidade",
+             "distrito|vila", "distrito", "distrito|bairro", "bairro",
+             "cachoeira", "mina", "vila", "serra", "locality")
+res.string <- stringr::str_count(gazetteer$loc.correct, "_")
+rep_these <- gazetteer$resolution.gazetteer %in% res.gaz &
+              res.string > 3
+if(any(rep_these))
+  gazetteer$resolution.gazetteer[rep_these] <- "sublocality"
+
+rep_these <- gazetteer$resolution.gazetteer %in% res.gaz &
+              res.string > 2
+if(any(rep_these))
+  gazetteer$resolution.gazetteer[rep_these] <- "locality"
+all_res <- names(table(gazetteer$resolution.gazetteer))
+stopifnot(all(all_res %in% c("country","state","county","locality","sublocality")))
+
 # administrative descriptors
 admin <- dic$gazetteer[ ,c("order",
                            "status",
@@ -233,7 +266,7 @@ admin <- admin[order(admin$loc.correct),]
 admin <- admin[!duplicated(admin$loc.correct),] # removing duplicated localities
 admin <- admin[!is.na(admin$loc.correct),]
 admin <- admin[admin$resolution.gazetteer %in%
-                 c("country", "state","county", "localidade"),] # removing localities below locality level (i.e. sublocalities)
+                 c("country", "state", "county", "locality"),] # removing localities below locality level (i.e. sublocalities)
 
 admin <- admin[, c("source",
                    #"order",
