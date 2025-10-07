@@ -42,7 +42,7 @@
 #'
 #' In case there is a conflict in the original family name and the
 #' name found based on the genus name, the original name is replaced
-#' by the name from the APG IV or PPG I with a warning.
+#' by the name from the APG IV or PPG I, with a print and without warning.
 #'
 #' The output of this function contains columns which are reserved
 #' within the __plantR__ workflow. These columns cannot be present in
@@ -148,81 +148,86 @@ prepFamily <- function(x,
 
     all.families <- familiesSynonyms[familiesSynonyms$kingdom %in%
                                        tolower(kingdom), ]
-  } else {
-    all.families <- familiesSynonyms
-  }
 
-  # Getting the list of families and their respective genera
-  data.table::setkeyv(dt, "tmp.fam")
-  families.data <- dt[, unique(.SD), by = tmp.fam, .SDcol = "tmp.gen"]
-  families.data <-
-    data.table::merge.data.table(families.data,
-                                 all.families[, c("name", "name.correct")],
-                                 by.x = "tmp.fam",
-                                 by.y = "name", all.x = TRUE)
-
-  # Getting missing or bad family names from Brazilian Flora, except for multiple family names
-  no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
-  if (any(no_mult)) {
-    families.data[no_mult, flora.bb := getFamily(.SD),
-                  .SDcol = "tmp.gen"]
+    # Getting the list of families and their respective genera
+    data.table::setkeyv(dt, "tmp.fam")
+    families.data <- dt[, unique(.SD), by = tmp.fam, .SDcol = "tmp.gen"]
     families.data <-
       data.table::merge.data.table(families.data,
                                    all.families[, c("name", "name.correct")],
-                                   by.x = "flora.bb",
-                                   by.y = "name", all.x = TRUE,
-                                   suffixes = c("", ".x"))
-    families.data[!is.na(name.correct.x),
-                  name.correct :=  name.correct.x, ]
-  }
+                                   by.x = "tmp.fam",
+                                   by.y = "name", all.x = TRUE)
 
-  # Any missing family names?
-  no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
-  if (families.data[, any(is.na(name.correct) & no_mult)]) {
-    miss.families <- families.data[is.na(name.correct) & no_mult,]
-    fbo.families <- getFamily(miss.families$tmp.gen,
-                              fuzzy.match = TRUE)
-    families.data[no_mult & is.na(name.correct),
-                  name.correct := fbo.families, ]
-  }
-
-  # Any conflicts between original names and the ones retrieved?
-  print.problems <- unique(families.data[!is.na(name.correct) &
-                                           tmp.fam != name.correct, , ])
-  print.problems <- print.problems[order(tmp.fam), ]
-  print.problems <- print.problems[order(tmp.gen), ]
-  print.problems <- print.problems[, .SD,
-                                   .SDcols = c("tmp.fam", "tmp.gen",
-                                               "name.correct")]
-  if (print) {
-    if (dim(print.problems)[1] > 0) {
-      cat("The following family names were automatically replaced:\n",
-          knitr::kable(print.problems[,c(2,1,3)],
-                       col.names = c("Genus", "Old fam.", "New fam.")),"",
-          sep="\n")
+    # Getting missing or bad family names from Brazilian Flora, except for multiple family names
+    no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
+    if (any(no_mult)) {
+      #### add the db argument to getFamily so we can use any db from plantRdata ####
+      families.data[no_mult, flora.bb := getFamily(.SD),
+                    .SDcol = "tmp.gen"]
+      families.data <-
+        data.table::merge.data.table(families.data,
+                                     all.families[, c("name", "name.correct")],
+                                     by.x = "flora.bb",
+                                     by.y = "name", all.x = TRUE,
+                                     suffixes = c("", ".x"))
+      families.data[!is.na(name.correct.x),
+                    name.correct :=  name.correct.x, ]
     }
+
+    # Any missing family names?
+    no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
+    if (families.data[, any(is.na(name.correct) & no_mult)]) {
+      miss.families <- families.data[is.na(name.correct) & no_mult,]
+      #### add the db argument to getFamily so we can use any db from plantRdata ####
+      fbo.families <- getFamily(miss.families$tmp.gen,
+                                fuzzy.match = TRUE)
+      families.data[no_mult & is.na(name.correct),
+                    name.correct := fbo.families, ]
+    }
+
+    # Any conflicts between original names and the ones retrieved?
+    print.problems <- unique(families.data[!is.na(name.correct) &
+                                             tmp.fam != name.correct, , ])
+    print.problems <- print.problems[order(tmp.fam), ]
+    print.problems <- print.problems[order(tmp.gen), ]
+    print.problems <- print.problems[, .SD,
+                                     .SDcols = c("tmp.fam", "tmp.gen",
+                                                 "name.correct")]
+    if (print) {
+      if (dim(print.problems)[1] > 0) {
+        cat("The following family names were automatically replaced:\n",
+            knitr::kable(print.problems[,c(2,1,3)],
+                         col.names = c("Genus", "Old fam.", "New fam.")),"",
+            sep="\n")
+      }
+    }
+
+    # Double checking if all names are in the APG dictionaire
+    families.data <-
+      data.table::merge.data.table(families.data,
+                                   all.families[, c("name", "name.correct")],
+                                   by.x = "name.correct", by.y = "name",
+                                   all.x = TRUE)
+
+    # If nothing was found, keep the original family
+    families.data[is.na(name.correct), name.correct := name.correct.y ]
+    families.data[is.na(name.correct), name.correct := tmp.fam ]
+
+    # Merging the results by family X genus with the occurrence data
+    dt[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
+    families.data[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
+    families.data[string.plantr == "_NA", string.plantr := NA_character_, ]
+    dt <- data.table::merge.data.table(dt,
+                                       families.data[,c("string.plantr","name.correct")],
+                                       by = "string.plantr", all.x = TRUE)
+    dt[, string.plantr := NULL, ]
+  } else {
+    warning("Synonyms for the input kingdom are currently not available. Returning the input family names",
+            call. = FALSE)
+    dt[, name.correct := .SD, .SDcols = c("tmp.fam")]
   }
 
-  # Double checking if all names are in the APG dictionaire
-  families.data <-
-    data.table::merge.data.table(families.data,
-                                 all.families[, c("name", "name.correct")],
-                                 by.x = "name.correct", by.y = "name",
-                                 all.x = TRUE)
-
-  # If nothing was found, keep the original family
-  families.data[is.na(name.correct), name.correct := name.correct.y ]
-  families.data[is.na(name.correct), name.correct := tmp.fam ]
-
-  # Merging the results by family X genus with the occurrence data
-  dt[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
-  families.data[, string.plantr := paste(tmp.fam, tmp.gen, sep="_"), ]
-  families.data[string.plantr == "_NA", string.plantr := NA_character_, ]
-  dt <- data.table::merge.data.table(dt,
-                                     families.data[,c("string.plantr","name.correct")],
-                                     by = "string.plantr", all.x = TRUE)
   # Preparing to return
-  dt[, string.plantr := NULL, ]
   data.table::setkeyv(dt, c("tmp.ordem"))
   dt[, tmp.ordem := NULL, ]
 

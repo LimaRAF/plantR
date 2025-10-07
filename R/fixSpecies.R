@@ -53,9 +53,9 @@
 #' \item{\code{conferre}}{open nomenclature cf. in the scientific name}
 #' \item{\code{affinis}}{open nomenclature aff. in the scientific name}
 #' \item{\code{indet}}{taxon identified only at genus level}
-#' \item{\code{subfamily_as_genus}}{subfamily as genus, not a valid name}
-#' \item{\code{family_as_genus}}{family as genus, not a valid name}
-#' \item{\code{order_as_genus}}{order as genus, not a valid name}
+#' \item{\code{(sub)family_as_genus}}{subfamily or family as genus, not a species-level name}
+#' \item{\code{family_as_genus}}{family as genus, not a species-level name}
+#' \item{\code{order_as_genus}}{order as genus, not a species-level name}
 #' \item{\code{incertae_sedis}}{scientific name of uncertain placement}
 #' \item{\code{species_nova}}{species name contains an indication of a new
 #' species, possibly not yet a valid name}
@@ -297,7 +297,7 @@ fixSpecies <- function(x = NULL,
   # subfamily as genus
   id_sub <- endsWith(gen, "deae")
   if (any(id_sub))
-    check$species_status[id_sub] <- "subfamily_as_genus"
+    check$species_status[id_sub] <- "(sub)family_as_genus"
 
   # abreviated genus
   abbrev_gen <- sub("\\.", "", gen, perl = TRUE)
@@ -359,13 +359,13 @@ fixSpecies <- function(x = NULL,
   # option to return names with or without unidentified abbreviations
   if (rm.indet) {
     indet.ids <- check$species_status %in%
-      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+      c("indet", "family_as_genus", "order_as_genus", "(sub)family_as_genus")
     check$species_new[indet.ids] <-
       sub(" sp+\\..*", "", check$species_new, perl = TRUE)[indet.ids]
 
   } else {
     indet.ids <- check$species_status %in%
-      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+      c("indet", "family_as_genus", "order_as_genus", "(sub)family_as_genus")
     sp.ids <- grepl(" sp+\\.", check$species_new, perl = TRUE)
     if (any(indet.ids & !sp.ids)) {
       check$species_new[indet.ids & !sp.ids] <-
