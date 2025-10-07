@@ -136,6 +136,8 @@ names_valid[,-c(2,3,4,9,11)]
 matching. Below, we demonstrate it using the same names (reference names
 are the “accepted/standardized” targets):
 
+<!-- Du: Acho que aqui podemos deixar uma exemplo menor -->
+
 ```{r, eval = TRUE, collapse = FALSE}
 input_names <- c(
   "Apis mellifera Linnaeus, 1758",
@@ -169,6 +171,22 @@ nameMatching(input_names, ref_names)
 
 ---
 
+# Validating family names using `prepFamily()`
+
+__plantR__ contains an internal dictionary of valid family names which
+can be used via the function `prepFamily()`. Currently, valid family
+names are available only for plants. But a similar procedure will be
+included for animals in the near future. So, for now, the fuction does
+not change the input family names.
+
+```{r prepFamily, eval = TRUE, collapse = TRUE}
+names_valid <- prepFamily(names_valid,
+                          fam.name = "suggestedFamily",
+                          spp.name = "scientificName.new", 
+                          kingdom = "animalia")
+```
+
+
 # Brief code summary
 
 A compact two-step workflow (CTFB-only):
@@ -187,6 +205,14 @@ names_valid <- prepSpecies(
 
 names_valid[, c("scientificName.new","scientificNameFull","tax.notes")]
 ```
+
+Or, even simpler, using the wrapper `formatTax()`:
+
+```{r summary, eval = TRUE, collapse = TRUE}
+names_df <- data.frame(scientificName = names)
+names_df_valid <- formatTax(names_df, db = ctfbNames)
+```
+
 
 ---
 
