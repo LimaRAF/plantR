@@ -19,7 +19,7 @@ country,NA,NA,NA,^porto rico$|^port rico$,puerto rico
 country,NA,NA,NA,^portugual,portugal
 country,NA,NA,NA,^republica dominicana|rep. dominicana,dominican republic
 country,NA,NA,NA,^suaca$,switzerland
-country,NA,NA,NA,^suica| ^suiza,switzerland
+country,NA,NA,NA,^suica|^suiza,switzerland
 country,NA,NA,NA,^surinam$,suriname
 country,NA,NA,NA,^uruguai,uruguay
 country,NA,NA,NA,^burma,myanmar
@@ -231,8 +231,8 @@ locality2,NA,NA,NA,estr.,estrada
 locality2,NA,NA,NA,"p.e.serra do mar,|p.e.serra do mar.",parque estadual serra mar
 locality2,NA,NA,NA,p.e.serra do mar$|p.e.serra do mar,parque estadual serra mar
 locality2,NA,NA,NA,"parque estadual da serra do mar,|parque estadual da serra do mar.",parque estadual serra mar
-locality2,NA,NA,NA,"serra do mar, nucleo |serra do mar (nucleo",serra do mar nucleo
-locality2,NA,NA,NA,e.f.b. |e. f. b.,estacao de ferro de braganca
+locality2,NA,NA,NA,"serra do mar, nucleo |serra do mar (nucleo",serra do mar nucleo 
+locality2,NA,NA,NA,e.f.b. |e. f. b.,estacao de ferro de braganca 
 locality2,NA,NA,NA,r.f.ducke|r.f. ducke,reserva florestal ducke
 locality2,NA,NA,NA,r.f.bananal,reserva florestal bananal
 locality2,NA,NA,NA,r.f.,reserva florestal
@@ -242,7 +242,7 @@ locality2,NA,NA,NA,p. nac.|p. n.|p.n.,parque nacional
 locality2,NA,NA,NA,est. ecologica|est. ecol.|estacao ecol.|e. ecologica|e.ecologica|e.ecol.|e. ecol.|e.ecologica|e.ec.,estacao ecologica
 locality2,NA,NA,NA,est. experimental|est. exp.|estacao exp.|e. experimental|e.experimental|e.exp.|e. exp.,estacao experimental
 locality2,NA,NA,NA,e. experimental|e.experimental|e.exp.|e. exp.,estacao experimental
-locality2,NA,NA,NA,e.b. |e. b. |e. biol. |est. biol. |est. biologica |e. biologica,estacao biologica
+locality2,NA,NA,NA,e.b. |e. b. |e. biol. |est. biol. |est. biologica |e. biologica,estacao biologica 
 locality2,NA,NA,NA,^ca.,circa
 locality2,NA,NA,NA,", ca. ",", circa "
 locality2,NA,NA,NA,c. 1,circa 1
@@ -275,14 +275,14 @@ locality2,NA,NA,NA,^st.,saint
 locality2,NA,NA,NA,", s.t. ",", saint "
 locality2,NA,NA,NA,prop. sr.,propriedade senhor
 locality2,NA,NA,NA,p. n. d|p.n. d,parque nacional d
-locality2,NA,NA,NA,^p.n. |^p. n.,parque nacional
+locality2,NA,NA,NA,^p.n. |^p. n. ,parque nacional 
 locality2,NA,NA,NA,^p.n.n.,parque nacional natural
 locality2,NA,NA,NA,p. e. d|p.e. d,parque estadual d
 locality2,NA,NA,NA,^p.e.,parque estadual
-locality2,NA,NA,NA,p. i. |p.i.,posto indigena
+locality2,NA,NA,NA,p. i. |p.i.,posto indigena 
 locality2,NA,NA,NA,p.i.,posto indigena
 locality2,NA,NA,NA,i.n.p.|i. n. p.,instituto nacional pinho
-locality2,NA,NA,NA,distr. |^dist.,distrito
+locality2,NA,NA,NA,distr. |^dist.,distrito 
 locality2,NA,NA,NA,vic. of,vicinity of
 locality2,NA,NA,NA,^vic.,vicinity
 locality2,NA,NA,NA,r. jari,rio jari
@@ -301,4 +301,4 @@ locality2,NA,NA,NA,^prox.,proximo
 locality2,NA,NA,NA,^p.n.i.,pni
 locality2,NA,NA,NA,^p.n.s.o.,pnso
 locality2,NA,NA,NA,^p.,p
-locality2,NA,NA,NA,^loc. |^loc:,loc
+locality2,NA,NA,NA,^loc. |^loc:,loc 
