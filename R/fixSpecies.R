@@ -209,7 +209,8 @@ fixSpecies <- function(x = NULL,
   no_sp <- stringr::str_count(species, " ") < 1
   indet[no_sp | question] <- TRUE
 
-  digits <- stringr::str_detect(species, '\\d')
+  digits <- stringr::str_detect(species, '\\d') &
+              !stringr::str_detect(species, stringr::regex('\\d{4,4}'))
   digits[indet] <- FALSE
 
   # defining names status
