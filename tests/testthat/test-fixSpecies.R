@@ -90,7 +90,7 @@ test_that("fixSpecies works", {
   expect_equal(res$scientificName.new,
                c("Lindsaea lancea", "Urbanodendron", "Rosideae sp."))
   expect_equal(res$scientificNameStatus,
-               c("name_w_wrong_case", "name_w_authors", "subfamily_as_genus"))
+               c("name_w_wrong_case", "name_w_authors", "(sub)family_as_genus"))
 
   df <- data.frame(scientificName = c("Lindsaea lancea var. angulata",
                                       "Lindsaea lancea subsp. angulata",

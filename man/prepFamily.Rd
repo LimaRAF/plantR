@@ -62,7 +62,7 @@ are then converted to the names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the
 name found based on the genus name, the original name is replaced
-by the name from the APG IV or PPG I with a warning.
+by the name from the APG IV or PPG I, with a print and without warning.
 
 The output of this function contains columns which are reserved
 within the \strong{plantR} workflow. These columns cannot be present in

@@ -70,9 +70,9 @@ infra-specific, but no infra-specific rank}
 \item{\code{conferre}}{open nomenclature cf. in the scientific name}
 \item{\code{affinis}}{open nomenclature aff. in the scientific name}
 \item{\code{indet}}{taxon identified only at genus level}
-\item{\code{subfamily_as_genus}}{subfamily as genus, not a valid name}
-\item{\code{family_as_genus}}{family as genus, not a valid name}
-\item{\code{order_as_genus}}{order as genus, not a valid name}
+\item{\code{(sub)family_as_genus}}{subfamily or family as genus, not a species-level name}
+\item{\code{family_as_genus}}{family as genus, not a species-level name}
+\item{\code{order_as_genus}}{order as genus, not a species-level name}
 \item{\code{incertae_sedis}}{scientific name of uncertain placement}
 \item{\code{species_nova}}{species name contains an indication of a new
 species, possibly not yet a valid name}

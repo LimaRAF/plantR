@@ -64,8 +64,8 @@ fixIndet <- function(x, rplc = "Indet. sp.") {
   x <- gsub(" (sp)([0-9]+)$", " \\1.\\2", x, perl = TRUE)
   x <- gsub(" (sp)_([0-9]+)$", " \\1.\\2", x, perl = TRUE)
 
-  x <- gsub("(.* )([0-9]+)$", "\\1sp.\\2", x, perl = TRUE)
-  x <- gsub("(.*[a-z])([0-9]+)$", "\\1 sp.\\2", x, perl = TRUE)
+  x <- gsub("(.* )(\\d{1,3})$", "\\1sp.\\2", x, perl = TRUE)
+  x <- gsub("(.*[a-z])(\\d{1,3})$", "\\1 sp.\\2", x, perl = TRUE)
 
   x <- gsub("(.* )([A-Z])$", "\\1sp.\\2", x, perl = TRUE)
   x <- gsub("(.*[a-z])([A-Z])$", "\\1 sp.\\2", x, perl = TRUE)
