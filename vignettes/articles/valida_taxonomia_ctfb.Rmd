@@ -119,8 +119,7 @@ utils::data("ctfbNames", package = "plantRdata")
 names_valid <- prepSpecies(
   names_fixed,
   tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
-  db = ctfbNames
-)
+  db = ctfbNames)
 
 names_valid[,-c(2,3,4,9,11)]
 ```
@@ -136,21 +135,14 @@ names_valid[,-c(2,3,4,9,11)]
 matching. Below, we demonstrate it using the same names (reference names
 are the “accepted/standardized” targets):
 
-<!-- Du: Acho que aqui podemos deixar uma exemplo menor -->
-
 ```{r, eval = TRUE, collapse = FALSE}
 input_names <- c(
   "Apis mellifera Linnaeus, 1758",
   "Apis mellifica",
-  "Ancyloscelis armatus",
+  "Ancyloscelis apiformis",
   "Centris aenea",
-  "Centris rufa",
-  "Centris Rhodoprocta Moure & Seabra, 1960",
   "Lutjanus purpureus",
   "Parotocinclus amazonensis",
-  "Panthera onca",
-  "Coelonertus baridioides Solari & Solari, 1906",
-  "Solenopsis bicolor (Emery, 1906)",
   "Eucopricus columbi MacLeay, 1819"
 )
 
@@ -183,7 +175,8 @@ not change the input family names.
 names_valid <- prepFamily(names_valid,
                           fam.name = "suggestedFamily",
                           spp.name = "scientificName.new", 
-                          kingdom = "animalia")
+                          kingdom = "animalia",
+                          db = ctfbNames)
 ```
 
 
@@ -210,7 +203,9 @@ Or, even simpler, using the wrapper `formatTax()`:
 
 ```{r summary, eval = TRUE, collapse = TRUE}
 names_df <- data.frame(scientificName = names)
-names_df_valid <- formatTax(names_df, db = ctfbNames)
+names_df_valid <- formatTax(names_df, 
+                            db = ctfbNames, 
+                            kingdom = "animalia")
 ```
 
 
