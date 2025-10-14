@@ -15,6 +15,9 @@
 #'   belong to names. Defaults to "plantae"
 #' @param print logical. Should the automatically replaced family
 #'   names be printed? Default to TRUE.
+#' @param ... Any argument to be passed on to `getFamily` to obtain
+#'   missing family names from genus names
+#'
 #'
 #' @return the data frame \code{x} with an additional column called
 #'   'family.new'.
@@ -79,7 +82,7 @@ prepFamily <- function(x,
                        gen.name = "genus",
                        spp.name = "scientificName",
                        kingdom = "plantae",
-                       print = TRUE) {
+                       print = TRUE, ...) {
 
   #Avoiding warnings in package check when using data.table
   flora.bb <- name.correct <- name.correct.x <- string.plantr <- NULL
@@ -161,8 +164,7 @@ prepFamily <- function(x,
     # Getting missing or bad family names from Brazilian Flora, except for multiple family names
     no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
     if (any(no_mult)) {
-      #### add the db argument to getFamily so we can use any db from plantRdata ####
-      families.data[no_mult, flora.bb := getFamily(.SD),
+      families.data[no_mult, flora.bb := getFamily(.SD, ...),
                     .SDcol = "tmp.gen"]
       families.data <-
         data.table::merge.data.table(families.data,
@@ -178,9 +180,8 @@ prepFamily <- function(x,
     no_mult <- !grepl("|", families.data$tmp.fam, fixed = TRUE)
     if (families.data[, any(is.na(name.correct) & no_mult)]) {
       miss.families <- families.data[is.na(name.correct) & no_mult,]
-      #### add the db argument to getFamily so we can use any db from plantRdata ####
       fbo.families <- getFamily(miss.families$tmp.gen,
-                                fuzzy.match = TRUE)
+                                fuzzy.match = TRUE, max.dist = 0.1, ...)
       families.data[no_mult & is.na(name.correct),
                     name.correct := fbo.families, ]
     }
