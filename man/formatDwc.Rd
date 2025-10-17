@@ -55,8 +55,8 @@ in DwC standard}
 \item{bind_data}{Logical. Either to bind data from different
 sources after formatting}
 
-\item{drop}{Logical. Either to drop non-essential fields to the
-data cleaning routine performed by plantR}
+\item{drop}{Logical. Either to drop or not the non-essential fields
+to the data cleaning routine performed by plantR}
 
 \item{drop.opt}{Logical. Either to drop optional fields in the data
 cleaning routine performed by plantR}
@@ -126,7 +126,7 @@ inclusive}
 geographic longitude (in decimal degrees, using the spatial
 reference system given in geodeticDatum) of the geographic center
 of a Location. Positive values are east of the Greenwich
-Meridian, negative values are west of it. Legal values lie
+Meridian, negative values are west of it. Possible values lie
 between -180 and 180, inclusive}
 
 \item{identifiedBy}{The name of the column containing a list
@@ -140,8 +140,8 @@ which the subject was identified as representing the Taxon}
 type (type status, typified scientific name, publication) applied
 to the subject}
 
-\item{family}{The name of the column containing the family in which
-the taxon is classified.}
+\item{family}{The name of the column containing the taxonomic
+family in which the taxon is classified.}
 
 \item{scientificName}{The name of the column containing the full
 scientific name, with authorship and date information if known.

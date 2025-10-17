@@ -12,7 +12,7 @@
 #' @param spp.name character. The name of the column containing the
 #'   species names. Defaults to "scientificName"
 #' @param kingdom character. The name of the kingdom that the taxa
-#'   belong to names. Defaults to "plantae"
+#'   belong to. Defaults to "plantae"
 #' @param print logical. Should the automatically replaced family
 #'   names be printed? Default to TRUE.
 #' @param ... Any argument to be passed on to `getFamily` to obtain

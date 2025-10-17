@@ -28,7 +28,7 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "plantae"}
+belong to. Defaults to "plantae"}
 
 \item{print}{logical. Should the automatically replaced family
 names be printed? Default to TRUE.}

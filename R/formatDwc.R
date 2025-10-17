@@ -22,8 +22,8 @@
 #'  in DwC standard
 #' @param bind_data Logical. Either to bind data from different
 #'   sources after formatting
-#' @param drop Logical. Either to drop non-essential fields to the
-#'   data cleaning routine performed by plantR
+#' @param drop Logical. Either to drop or not the non-essential fields
+#'   to the data cleaning routine performed by plantR
 #' @param drop.opt Logical. Either to drop optional fields in the data
 #'   cleaning routine performed by plantR
 #' @param drop.empty Logical. Either to drop fields where all values
@@ -77,7 +77,7 @@
 #'   geographic longitude (in decimal degrees, using the spatial
 #'   reference system given in geodeticDatum) of the geographic center
 #'   of a Location. Positive values are east of the Greenwich
-#'   Meridian, negative values are west of it. Legal values lie
+#'   Meridian, negative values are west of it. Possible values lie
 #'   between -180 and 180, inclusive
 #' @param identifiedBy The name of the column containing a list
 #'   (concatenated and separated) of names of people, groups, or
@@ -87,8 +87,8 @@
 #' @param typeStatus The name of the column containing a nomenclatural
 #'   type (type status, typified scientific name, publication) applied
 #'   to the subject
-#' @param family The name of the column containing the family in which
-#'   the taxon is classified.
+#' @param family The name of the column containing the taxonomic
+#'   family in which the taxon is classified.
 #' @param scientificName The name of the column containing the full
 #'   scientific name, with authorship and date information if known.
 #'   When forming part of an Identification, this should be the name
