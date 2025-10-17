@@ -292,7 +292,6 @@ gadm,argentina_formosa_ramon lista,AR,Argentina,Formosa,Ramón Lista,NA
 gadm,argentina_jujuy,AR,Argentina,Jujuy,NA,NA
 gadm,argentina_jujuy_capital,AR,Argentina,Jujuy,Capital,NA
 gadm,argentina_jujuy_cochinoca,AR,Argentina,Jujuy,Cochinoca,NA
-gbif_gsg,argentina_jujuy_doutor manuel belgrano,NA,argentina,jujuy,doutor manuel belgrano,NA
 gadm,argentina_jujuy_el carmen,AR,Argentina,Jujuy,El Carmen,NA
 gadm,argentina_jujuy_humahuaca,AR,Argentina,Jujuy,Humahuaca,NA
 gadm,argentina_jujuy_ledesma,AR,Argentina,Jujuy,Ledesma,NA
@@ -654,7 +653,7 @@ gadm,bolivia_cochabamba_quillacollo,BO,Bolivia,Cochabamba,Quillacollo,NA
 gadm,bolivia_cochabamba_tapacari,BO,Bolivia,Cochabamba,Tapacarí,NA
 gadm,bolivia_el beni,BO,Bolivia,El Beni,NA,NA
 gadm,bolivia_el beni_cercado,BO,Bolivia,El Beni,Cercado,NA
-gbif_gsg,bolivia_el beni_itenez,NA,bolivia,beni,itenez,NA
+gbif_gsg,bolivia_el beni_itenez,NA,Bolivia,El Beni,Iténez,NA
 gadm,bolivia_el beni_jose ballivian,BO,Bolivia,El Beni,José Ballivián,NA
 gadm,bolivia_el beni_mamore,BO,Bolivia,El Beni,Mamoré,NA
 gadm,bolivia_el beni_marban,BO,Bolivia,El Beni,Marbán,NA
@@ -7733,7 +7732,7 @@ ibge,brazil_sao paulo_cajobi,BR,Brazil,São Paulo,Cajobi,NA
 ibge,brazil_sao paulo_cajuru,BR,Brazil,São Paulo,Cajuru,NA
 ibge,brazil_sao paulo_campina monte alegre,BR,Brazil,São Paulo,Campina do Monte Alegre,NA
 ibge,brazil_sao paulo_campinas,BR,Brazil,São Paulo,Campinas,NA
-gadm_new,brazil_sao paulo_campinas_barao geraldo,NA,Brazil,São Paulo,Campinas,Barao Geraldo
+gadm_new,brazil_sao paulo_campinas_barao geraldo,NA,Brazil,São Paulo,Campinas,Barão Geraldo
 gadm_new,brazil_sao paulo_campinas_joaquim egidio,NA,Brazil,São Paulo,Campinas,Joaquim Egidio
 ibge,brazil_sao paulo_campo limpo paulista,BR,Brazil,São Paulo,Campo Limpo Paulista,NA
 ibge,brazil_sao paulo_campos jordao,BR,Brazil,São Paulo,Campos do Jordão,NA
@@ -13526,7 +13525,7 @@ gadm,mexico_chiapas_sabanilla,MX,Mexico,Chiapas,Sabanilla,NA
 gadm,mexico_chiapas_salto agua,MX,Mexico,Chiapas,Salto de Agua,NA
 gadm,mexico_chiapas_san cristobal las casas,MX,Mexico,Chiapas,San Cristóbal de las Casas,NA
 gadm,mexico_chiapas_san fernando,MX,Mexico,Chiapas,San Fernando,NA
-gbif_gsg,mexico_chiapas_san juan cancuc,NA,mexico,chiapas,san juan cancuc,NA
+gbif_gsg,mexico_chiapas_san juan cancuc,NA,Mexico,Chiapas,San Juan Cancuc,NA
 gadm,mexico_chiapas_san lucas,MX,Mexico,Chiapas,San Lucas,NA
 gadm,mexico_chiapas_siltepec,MX,Mexico,Chiapas,Siltepec,NA
 gadm,mexico_chiapas_simojovel,MX,Mexico,Chiapas,Simojovel,NA
@@ -17264,7 +17263,7 @@ gadm,venezuela_barinas_rojas,VE,Venezuela,Barinas,Rojas,NA
 gadm,venezuela_barinas_sosa,VE,Venezuela,Barinas,Sosa,NA
 gadm,venezuela_bolivar,VE,Venezuela,Bolívar,NA,NA
 gadm,venezuela_bolivar_angostura,VE,Venezuela,Bolívar,Angostura,NA
-gbif_gsg,venezuela_bolivar_bolivar,NA,venezuela,bolivar,bolivar,NA
+gbif_gsg,venezuela_bolivar_bolivar,NA,Venezuela,Bolívar,Bolívar,NA
 gadm,venezuela_bolivar_caroni,VE,Venezuela,Bolívar,Caroní,NA
 gadm,venezuela_bolivar_cedeno,VE,Venezuela,Bolívar,Cedeño,NA
 gadm,venezuela_bolivar_el callao,VE,Venezuela,Bolívar,El Callao,NA

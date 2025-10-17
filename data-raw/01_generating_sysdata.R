@@ -236,7 +236,7 @@ names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "�
 Encoding(names(badEncoding)) <- "UTF-8"
 names(badEncoding) <- iconv(names(badEncoding), "UTF-8", "UTF-8")
 
-## List of most common authors
+## List of most common plant authors
 library(plantRdata)
 data("wfoNames")
 toto <- wfoNames$tax.authorship

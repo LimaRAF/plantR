@@ -141,12 +141,11 @@ loc_list <- purrr::map(dic_files,
 encoding <- "UTF-8"
 
 dic <- lapply(dic_files,
-              read_csv,
+              readr::read_csv,
               trim_ws = FALSE,
               guess_max = 30000,# this has to be large
-              locale = locale(encoding = encoding),
+              locale = readr::locale(encoding = encoding),
               )
-
 names(dic) <- data_names
 
 # # transforma em data.frame
@@ -155,18 +154,62 @@ names(dic) <- data_names
 # taxonomists:
 taxonomists <- dic$taxonomists[ ,
                                 c("order", "source", "status",
-                                  "family", "family.obs",
-                                  "full.name1", "tdwg.name")]
+                                  "tax", "tax.rank", "tax.obs",
+                                  "full.name1", "tdwg.name",
+                                  "tax.kingdom")]
 taxonomists <- taxonomists[!is.na(taxonomists$tdwg.name), ]
-taxonomists <- taxonomists[!is.na(taxonomists$family), ]
-taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$family), ]
-taxonomists <- taxonomists[!grepl('Wood anatomist', taxonomists$family), ]
+taxonomists <- taxonomists[!is.na(taxonomists$tax), ]
+taxonomists <- taxonomists[!grepl('\\?|,',taxonomists$tax), ]
+taxonomists <- taxonomists[!grepl('Wood an|Citizen ', taxonomists$tax), ]
+taxonomists <- taxonomists[!grepl('Naturalist', taxonomists$tax), ]
 taxonomists <- taxonomists[taxonomists$status %in% "ok", ]
 
 taxonomists$status <- NULL
-taxonomists <- taxonomists[order(taxonomists$order),]
+taxonomists <- taxonomists[order(taxonomists$full.name1),]
 taxonomists$order <- NULL
-taxonomists$family.obs <- NULL
+taxonomists$tax.obs <- NULL
+taxonomists$tax.rank[is.na(taxonomists$tax.rank)] <- "family"
+taxonomists$tax.rank[grepl("eneralist", taxonomists$tax)] <- NA
+taxonomists$tax.rank[taxonomists$tax.rank %in% "family" &
+                       !grepl("ceae$", taxonomists$tax) &
+                       grepl("ales$", taxonomists$tax)] <- "order"
+# Conifers
+rep_these <- taxonomists$tax.rank %in% "family" & grepl("Conifers$|Gymnosperms$", taxonomists$tax)
+if (any(rep_these)) { # Note: Gymnos also include Ginkgoopsida and Cycadopsida. Break in more lines?
+  taxonomists$tax.rank[rep_these] <- "class"
+  taxonomists$tax[rep_these] <- "Pinopsida"
+}
+# Monocots
+rep_these <- taxonomists$tax.rank %in% "family" & grepl("Monocots$", taxonomists$tax)
+if (any(rep_these)) {
+  taxonomists$tax.rank[rep_these] <- "class"
+  taxonomists$tax[rep_these] <- "Liliopsida"
+}
+# Pterydophyta
+rep_these <- taxonomists$tax.rank %in% "family" & grepl("Pteridophyta$", taxonomists$tax)
+if (any(rep_these)) { # Note: Ferns also include Lycopodiopsida. Break in more lines?
+  taxonomists$tax.rank[rep_these] <- "class"
+  taxonomists$tax[rep_these] <- "Polypodiopsida"
+}
+# Check for any changes or new taxa:
+table(taxonomists$tax[taxonomists$tax.rank %in% "family" &
+                       !grepl("ceae$", taxonomists$tax)])
+
+# Generalists of multiple classes:
+break_df <- taxonomists[grepl("\\|", taxonomists$tax, perl = TRUE), ]
+split_tax <- strsplit(break_df$tax, "\\|")
+res_df <- vector("list", length(split_tax))
+for (i in 1:length(split_tax)) {
+  split_df <- do.call("rbind", replicate(lengths(split_tax)[i],
+                                         break_df[i, ], simplify = FALSE))
+  split_df$tax <- unlist(split_tax[[i]])
+  res_df[[i]] <- split_df
+}
+res_df1 <- as.data.frame(dplyr::bind_rows(res_df))
+
+taxonomists <- taxonomists[!grepl("\\|", taxonomists$tax, perl = TRUE), ]
+taxonomists <- rbind.data.frame(taxonomists, res_df1)
+stopifnot(!any(grepl("\\|", taxonomists$tax, perl = TRUE)))
 
 # collection codes:
 collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
