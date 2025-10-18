@@ -190,22 +190,22 @@ names_valid <- prepSpecies(names_fixed,
                            tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"))
 head(names_valid[,-c(2,3,4,9,11)], 7)
-#>               scientificName scientificNameStatus suggestedFamily   suggestedName suggestedAuthorship        tax.notes
-#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea           Pic.Serm.    name accepted
-#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae             C.Presl    name accepted
-#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
-#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd.  name misspelled
-#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea          (L.) Bedd. replaced synonym
-#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
-#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea          (L.) Bedd.    name accepted
-#>           scientificNameFull
-#> 1         Lindsaea Pic.Serm.
-#> 2       Lindsaeaceae C.Presl
-#> 3 Lindsaea lancea (L.) Bedd.
-#> 4 Lindsaea lancea (L.) Bedd.
-#> 5 Lindsaea lancea (L.) Bedd.
-#> 6 Lindsaea lancea (L.) Bedd.
-#> 7 Lindsaea lancea (L.) Bedd.
+#>               scientificName scientificNameStatus suggestedFamily   suggestedName
+#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea
+#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae
+#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea
+#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea
+#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea
+#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea
+#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea
+#>   suggestedAuthorship        tax.notes         scientificNameFull
+#> 1           Pic.Serm.    name accepted         Lindsaea Pic.Serm.
+#> 2             C.Presl    name accepted       Lindsaeaceae C.Presl
+#> 3          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
+#> 4          (L.) Bedd.  name misspelled Lindsaea lancea (L.) Bedd.
+#> 5          (L.) Bedd. replaced synonym Lindsaea lancea (L.) Bedd.
+#> 6          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
+#> 7          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
 ```
 
 The output of the function is optimized to ease the user´s
@@ -260,14 +260,14 @@ names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
 diff <- names_valid$scientificNameFull != names_valid_wfo$scientificNameFull
 diff[is.na(diff)] <- FALSE
 head(names_bfo_wfo_wcvp[diff, ], 3)
-#>   names_valid$scientificName.new names_valid$scientificNameFull names_valid_wfo$scientificNameFull
-#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.            Lindsaea Dryand. ex Sm.
-#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl           Lindsaeaceae M.R.Schomb.
-#> 5                Lindsaea pumila     Lindsaea lancea (L.) Bedd.        Asplenium dielerectum Viane
-#>   names_valid_wcvp$scientificNameFull
-#> 1             Lindsaea Dryand. ex Sm.
-#> 2                    Lindsaeaceae sp.
-#> 5         Asplenium dielerectum Viane
+#>   names_valid$scientificName.new names_valid$scientificNameFull
+#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.
+#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl
+#> 3                Lindsaea lancea     Lindsaea lancea (L.) Bedd.
+#>                  names_valid_wfo$scientificNameFull names_valid_wcvp$scientificNameFull
+#> 1                           Lindsaea Dryand. ex Sm.             Lindsaea Dryand. ex Sm.
+#> 2                          Lindsaeaceae M.R.Schomb.                    Lindsaeaceae sp.
+#> 3 Lindsaea lancea (L.) Bedd.|Lindsaea lancea Christ          Lindsaea lancea (L.) Bedd.
 ```
 
 Note that the computing speed when using larger backbones (over a

@@ -97,7 +97,7 @@ For this specific list, some functions may not change anything (which
 is fine). The goal is to illustrate correct usage of the internal
 functions on the **same** input vector of names.
 
-```{r, eval = TRUE, collapse = FALSE}
+```{r, eval = FALSE, collapse = FALSE}
 fixIndet(names)       # detects undetermined names (e.g., "sp.", "indet")
 fixCase(names)        # fixes casing (e.g., "Centris Rhodoprocta")
 fixAuthors(names)     # splits taxon and author names, if present
