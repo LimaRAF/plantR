@@ -2,6 +2,41 @@
 
 <br/>
 
+## version 0.1.10
+
+* Important inclusions and improvements in the function `fixLoc()` to get stateProvince info from the locality field and to downgrade locality to state-level information (issues #172 and #173). 
+
+* Inclusion of the new function `prepState()` to handle different notations of the 'stateProvince' field (i.e. adm-level 1)
+
+* Important inclusions and improvements in function `prepSpecies()`, `fixAuthors()` and `fixSpecies()` to make sure that names at the genus level with authors and names at the species-level with "bad" authors can be checked against the backbone. A list of the most common authors of plant taxon names was included to SysData. Related to issues #170 and #178
+
+* Adapting `validateTax()` and related functions and dictionaries to validate aniaml records 
+
+* Improvements in `getTaxUnique()`, `prepFamily()` and `formatTax()` to better handle cases of multiple name matches in the taxonomic backbone that fall into different families (issue #197)
+
+* Improvements in `fixSpecies()` and `bfoNames` to better handle polynomials
+
+* Minor improvements in `fixSpecies()` and `bfoNames` to better handle polynomials
+
+* Minor improvements in `fixIndet()` and `prepFamily()` to better handle animal names
+
+* More efficient/accurate accessory taxonomic functions (i.e. `rmOpen()`, `rmInfra()`, `rmHyb()`, `addRank()`) that can deal with binomials, trinomials and quadrinomials (issue #182).
+
+* The package gazetteer was also updated to include more localities in the Amazon as well as in other regions outside Brazil and to avoid inconsistent locality names when using `getAdmin()` (issue #183)
+
+* Improvements on how `checkCoord()` and related functions deal with locality information at the locality and sublocality levels (ADM-3 and below)
+
+* Small improvements on function `getLoc()` so that locality strings with county but missing 'stateProvince' can be matched against the package internal gazetteer
+
+* Minor improvements in the code of the functions `prepNames()` (issues #168 and #176), `checkCoord()` (issues #181)
+
+* Minor improvements in the documentation of the functions `prepSpecies()` (issue #184), `mergeDup()` and `validateDup()` (issues #188)
+
+* Minor improvements in `getFamily()` to better deal with synonyms and so that `prepFamily()` and `formatTax()` use user-provided taxonomic backbone for finding missing family names
+
+
+<br/>
+
 ## version 0.1.9
 
 * Fixing an issue in `fixAuthors()` and improving its processing speed (issue #128)

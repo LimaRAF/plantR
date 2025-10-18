@@ -1,5 +1,5 @@
 Package: plantR
-Version: 0.1.9
+Version: 0.1.10
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
@@ -16,6 +16,7 @@ Author:
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
   Guilherme Salgado Grittz [ctb]
+  Mali Oz Salles [ctb]
 Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
 Description: The package plantR provides tools for
