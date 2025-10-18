@@ -112,6 +112,7 @@ huh,Fabaceae,family,Agustín Rudas,Rudas A.,plantae
 huh,Fabaceae,family,Agustín Rudas,"Rudas, A.",plantae
 huh,Fabaceae,family,Agustín Rudas,"Rudas, A.",plantae
 huh,Fabaceae,family,Agustín Rudas,"Rudas, A.",plantae
+herbaria,Magnoliopsida,class,Agustín Rudas,"Rudas, A.",plantae
 herbaria,Verbenaceae,family,Ahmad Abid Munir,"Munir, A.A.",plantae
 aspt,Loranthaceae,family,Ainsley Calladine,"Calladine, A.",plantae
 huh,Gesneriaceae,family,Alain Chautems,"Chautems, A.",plantae
@@ -195,6 +196,7 @@ huh,Orobanchaceae,family,Alexander Gilli,"Gilli, A.",plantae
 huh,Cactaceae,family,Alexander Lux,"Lux, A.",plantae
 huh,Euphorbiaceae,family,Alexander McGowan Ferguson,"Ferguson, A.M.",plantae
 huh,Brassicaceae,family,Alexandr L. Ebel,"Ebel, A.L.",plantae
+herbaria,Magnoliopsida,class,Alexandre Adalardo de Oliveira,"Oliveira, A.A.",plantae
 huh,Rubiaceae,family,Alexandre Antonelli,"Antonelli, A.",plantae
 huh,Asteraceae,family,Alexandre Henri Gabriel de Cassini,"Cassini, A.H.G.",plantae
 huh,Asteraceae,family,Alexandre Henri Gabriel de Cassini,"Cassini, A.H.G.",plantae
@@ -223,6 +225,7 @@ huh,Arecaceae,family,Alfredo Cascante,"Cascante, A.",plantae
 huh,Polygonaceae,family,Alfredo Elio Cocucci,"Cocucci, A.",plantae
 huh,Orchidaceae,family,Alfredo Elio Cocucci,"Cocucci, A.E.",plantae
 huh,Polygonaceae,family,Alfredo Elio Cocucci,"Cocucci, A.E.",plantae
+herbaria,Magnoliopsida,class,Alfredo Fernando Fuentes Claros,"Fuentes, A.",plantae
 huh,Melastomataceae,family,Alice Crawford Nicolson,"Crawford, A.B.",plantae
 huh,Melastomataceae,family,Alice Crawford Nicolson,"Nicolson, A.C.",plantae
 huh,Melastomataceae,family,Alice Crawford Nicolson,"Nicolson, A.C.",plantae
@@ -404,6 +407,7 @@ huh,Arecaceae,family,Anders Sanchez Barfod,"Barfod, A.S.",plantae
 huh,Arecaceae,family,Anders Sanchez Barfod,"Barfod, A.S.",plantae
 huh,Arecaceae,family,Anders Sanchez Barfod,"Barfod, A.S.",plantae
 huh,Sapotaceae,family,Anderson Alves-Araújo,"Alves-Araujo, A.",plantae
+rbh,Magnoliopsida,class,Anderson Cassio Sevilha,"Sevilha, A.C.",plantae
 huh,Cannabaceae,family,Anderson Ferreira Pinto Machado,"Ferreira, A.",plantae
 huh,Moraceae,family,Anderson Ferreira Pinto Machado,"Ferreira, A.",plantae
 huh,Ulmaceae,family,Anderson Ferreira Pinto Machado,"Ferreira, A.",plantae
@@ -466,6 +470,8 @@ aspt,Lentibulariaceae,family,Andreas Fleischmann,"Fleischmann, A.",plantae
 aspt,Orobanchaceae,family,Andreas Fleischmann,"Fleischmann, A.",plantae
 aspt,Sarraceniaceae,family,Andreas Fleischmann,"Fleischmann, A.",plantae
 huh,Cactaceae,family,Andreas Hofacker,"Hofacker, A.",plantae
+rbh,Magnoliopsida,class,Andréia Alves Rezende,"Rezende, A.A.",plantae
+rbh,Magnoliopsida,class,Andreia Fonseca Silva,"Silva, A.F.",plantae
 rbh,Fabaceae,family,Andréia S. Flores,"Flores, A.",plantae
 rbh,Fabaceae,family,Andréia S. Flores,"Flores, A.S.",plantae
 huh,Cycadaceae,family,Andrés (Andrew) Peter Vovides,"Vovides, A.",plantae
@@ -500,6 +506,7 @@ huh,Asteraceae,family,Andrew Spencer Tomb,"Tomb, A.S.",plantae
 huh,Malvaceae,family,Andrew Stewart Mitchell,"Mitchell, A.",plantae
 huh,Malvaceae,family,Andrew Stewart Mitchell,"Mitchell, A.S.",plantae
 huh,Euphorbiaceae,family,Andrew Thomas Gage,"Gage, A.T.",plantae
+rbh,Magnoliopsida,class,Andreza Vianna Neri,"Neri, A.V.",plantae
 rbh,Amaryllidaceae,family,Andrielle Camara Amaral Lopes,"Lopes, A.C.A.",plantae
 aspt,Bromeliaceae,family,Andy Siekkinen,"Siekkinen, A.",plantae
 herbaria,Winteraceae,family,Anelise Hertzog,"Hertzog, A.",plantae
@@ -707,6 +714,7 @@ herbaria,Fabaceae,family,B.A. Krukoff,"Krukoff, B.A.",plantae
 herbaria,Loganiaceae,family,B.A. Krukoff,"Krukoff, B.A.",plantae
 herbaria,Menispermaceae,family,B.A. Krukoff,"Krukoff, B.A.",plantae
 huh,Fagaceae,family,Baki Kasapligil,"Kasapligil, B.",plantae
+herbaria,Magnoliopsida,class,Balduino Rambo,Emrich-Rambo,plantae
 huh,Magnoliaceae,family,Bao-liang Chen,"Chen, B.",plantae
 huh,Amaranthaceae,family,Bao-Min Yang,"Yang, B.",plantae
 huh,Amaranthaceae,family,Bao-Min Yang,"Yang, B.M.",plantae
@@ -760,6 +768,7 @@ huh,Vitaceae,family,Barry L. Comeaux,"Comeaux, B.",plantae
 huh,Vitaceae,family,Barry L. Comeaux,"Comeaux, B.L.",plantae
 herbaria,Bonnetiaceae,family,Basset Maguire,"Maguire, B.",plantae
 herbaria,Clusiaceae,family,Basset Maguire,"Maguire, B.",plantae
+herbaria,Magnoliopsida,class,Basset Maguire,"Maguire, B.",plantae
 huh,Ranunculaceae,family,Bau-Yung Wang,"Wang, B.",plantae
 huh,Cactaceae,family,Beat Ernst Leuenberger,"Leuenberger, B.",plantae
 huh,Cactaceae,family,Beat Ernst Leuenberger,"Leuenberger, B.E.",plantae
@@ -1750,6 +1759,7 @@ huh,Trapaceae,family,Dariya Nikitichna Dobroczajeva,"Dobroczajeva, D.N.",plantae
 aspt,Asteraceae,family,Darrell Brandon,"Brandon, D.",plantae
 huh,Aizoaceae,family,Daryl Lee Koutnik,"Koutnik, D.L.",plantae
 huh,Euphorbiaceae,family,Daryl Lee Koutnik,"Koutnik, D.L.",plantae
+rbh,Magnoliopsida,class,Davi Nepomuceno da Silva Machado,"Machado, D.N.S.",plantae
 huh,Malvaceae,family,David A. Halford,"Halford, D.",plantae
 huh,Rubiaceae,family,David A. Halford,"Halford, D.A.",plantae
 huh,Tiliaceae,family,David A. Halford,"Halford, D.A.",plantae
@@ -1773,6 +1783,7 @@ herbaria,Solanaceae,family,David E. Symon,Symon,plantae
 herbaria,Rosaceae,family,David E. Symon,"Symon, D.E.",plantae
 herbaria,Solanaceae,family,David E. Symon,"Symon, D.E.",plantae
 herbaria,Magnoliopsida,class,David Espinosa Organista,D. Espinosa O.,plantae
+herbaria,Magnoliopsida,class,David Espinosa Organista,"Organista, D.E.",plantae
 huh,Cyperaceae,family,David Fletcher Murray,"Murray, D.F.",plantae
 huh,Asteraceae,family,David G. Lloyd,"Lloyd, D.G.",plantae
 huh,Asteraceae,family,David G. Lloyd,"Lloyd, D.G.",plantae
@@ -1823,6 +1834,7 @@ huh,Caryophyllaceae,family,David John Nicholas Hind,"Hind, D.J.N.",plantae
 huh,Bromeliaceae,family,David Jr. Barry,"Barry Jr, D.",plantae
 huh,Bromeliaceae,family,David Jr. Barry,"Barry Junior, D.",plantae
 huh,Annonaceae,family,David Kenfack,"Kenfack, D.",plantae
+aspt,Magnoliopsida,class,David L. Magney,"Magney, D.L.",plantae
 huh,Poaceae,family,David M. Brandenburg,"Brandenburg, D.M.",plantae
 aspt,Asteraceae,family,David M. Spooner,"Spooner, D.M.",plantae
 aspt,Solanaceae,family,David M. Spooner,"Spooner, D.M.",plantae
@@ -2050,7 +2062,7 @@ herbaria,Polygalaceae,family,E.B. Miranda,"Miranda, E.",plantae
 herbaria,Polygalaceae,family,E.B. Miranda,"Miranda, E.B.",plantae
 aspt,Acanthaceae,family,Eapsa Berry,"Berry, E.",plantae
 herbaria,Magnoliopsida,class,Earl Celestino de Oliveira Chagas,"Chagas, E.C.O.",plantae
-NA,Myrtaceae,family,Earl Celestino de Oliveira Chagas,"Chagas, E.C.O.",plantae
+herbaria,Myrtaceae,family,Earl Celestino de Oliveira Chagas,"Chagas, E.C.O.",plantae
 huh,Asteraceae,family,Eckhard von Raab-Straube,"Raab-Straube, E.",plantae
 gbif_GSG,Orchidaceae,family,Eckhard Willing,"Willing, E.",plantae
 huh,Polemoniaceae,family,Edgar Theodore Wherry,"Wherry, E.T.",plantae
@@ -2205,6 +2217,7 @@ huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes, E.",plantae
 rbh,Trigoniaceae,family,Elsie Franklin Guimarães,"Guimaraes, E.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes, E. .F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes, E.F",plantae
+herbaria,Magnoliopsida,class,Elsie Franklin Guimarães,"Guimaraes, E.F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes, E.F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes, F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraes/, E.F.",plantae
@@ -2215,6 +2228,7 @@ huh,Piperaceae,family,Elsie Franklin Guimarães,"Guimaraœes, E.F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"GuimarAœes, E.F.",plantae
 rbh,Trigoniaceae,family,Elsie Franklin Guimarães,"Guimaraœes, E.F.",plantae
 huh,Piperaceae,family,Elsie Franklin Guimarães,"Gumaraes, E.F.",plantae
+herbaria,Magnoliopsida,class,Elson Felipe Sandoli Rossetto,"Rossetto, E.F.S.",plantae
 herbaria,Monimiaceae,family,Elton John de Lírio,"La?rio, E.J.",plantae
 herbaria,Monimiaceae,family,Elton John de Lírio,"LA?rio, E.J.",plantae
 herbaria,Monimiaceae,family,Elton John de Lírio,Lirio,plantae
@@ -2303,6 +2317,7 @@ huh,Acanthaceae,family,Erin Anne Tripp,"Tripp, E.",plantae
 huh,Acanthaceae,family,Erin Anne Tripp,"Tripp, E.A.",plantae
 huh,Acanthaceae,family,Erin Anne Tripp,"Tripp, E.A.",plantae
 huh,Acanthaceae,family,Erin Anne Tripp,"Tripp, E.A.",plantae
+herbaria,Magnoliopsida,class,Erivaldo Pereira Queiroz,"Queiroz, E.P.",plantae
 rbh,Moraceae,family,Ernani Diaz,"Diaz, E.",plantae
 huh,Ericaceae,family,Ernest Charles Nelson,"Nelson, E.C.",plantae
 huh,Proteaceae,family,Ernest Charles Nelson,"Nelson, E.C.",plantae
@@ -2331,6 +2346,7 @@ huh,Gentianaceae,family,Eva Maria Filippa,"Filippa, E.M.",plantae
 huh,Gentianaceae,family,Eva Maria Filippa,"Filippa, E.M.",plantae
 huh,Oleaceae,family,Eva Wallander,"Wallander, E.",plantae
 rbh,Arecaceae,family,Evandro José Ferreira Linhares,"Linhares, E.J.F.",plantae
+rbh,Magnoliopsida,class,Evandro L.M. Machado,"Machado, E.L.M.",plantae
 huh,Poaceae,family,Evangelina A. Sanchez,"Sanchez, E.",plantae
 huh,Poaceae,family,Evangelina A. Sanchez,"Sanchez, E.A.",plantae
 aspt,Oxalidaceae,family,Eve Emshwiller,"Emshwiller, E.",plantae
@@ -2598,6 +2614,7 @@ huh,Orchidaceae,family,Frederick William Moore,"Moore, F.W.",plantae
 huh,Orchidaceae,family,Frederick William Moore,"Moore, F.W.",plantae
 huh,Cycadaceae,family,Frederick William Moore,Sir Moore,plantae
 huh,Orchidaceae,family,Frederick William Moore,Sir Moore,plantae
+rbh,Magnoliopsida,class,Frederico Augusto Guimarães Guilherme,"Guilherme, F.A.G.",plantae
 huh,Orchidaceae,family,Frederico Halbinger,"Halbinger, F.",plantae
 huh,Sapindaceae,family,Fredericus Arnoldus Constantin Basil Adema,"Adema, F.",plantae
 huh,Sapindaceae,family,Fredericus Arnoldus Constantin Basil Adema,"Adema, F.A.C.B.",plantae
@@ -2762,6 +2779,8 @@ huh,Asteraceae,family,Geraldine A. Allen,"Allen, G.A.",plantae
 huh,Asteraceae,family,Geraldine A. Allen,"Allen, G.A.",plantae
 huh,Liliaceae,family,Geraldine A. Allen,"Allen, G.A.",plantae
 huh,Liliaceae,family,Geraldine A. Allen,"Allen, G.A.",plantae
+rbh,Magnoliopsida,class,Geraldo Daher Correa Franco,"Franco, G.A.D.C.",plantae
+rbh,Magnoliopsida,class,Geraldo Daher Correa Franco,"Franco, G.D.C.",plantae
 huh,Thymelaeaceae,family,Gerard Guy Aymonin,"Aymonin, G.G.",plantae
 aspt,Orchidaceae,family,Gerardo A. Salazar,"Salazar, G.A.",plantae
 huh,Orchidaceae,family,Gerardo A. Salazar Chavez,"Chavez, G.A.S.",plantae
@@ -2987,6 +3006,7 @@ huh,Myrtaceae,family,Gu-tang Gong,"Gong, G.",plantae
 huh,Myrtaceae,family,Gu-tang Gong,"Gong, G.",plantae
 huh,Salicaceae,family,Gu-tang Gong,"Gong, G.",plantae
 huh,Salicaceae,family,Gu-tang Gong,"Gong, G.",plantae
+rbh,Magnoliopsida,class,Guadalupe Edilma Licona de Macedo,"Macedo, G.E.L.",plantae
 huh,Poaceae,family,Guang-han Ye,"Guang-Han, Y.",plantae
 huh,Hydrangeaceae,family,Guang-zhao Li,"Guang-Zhao, L.",plantae
 huh,Scrophulariaceae,family,Guang-zhao Li,"Guang-Zhao, L.",plantae
@@ -3014,6 +3034,7 @@ herbaria,Scrophulariaceae,family,Guilherme Peres Coelho,"Coelho, G.P.",plantae
 huh,Rubiaceae,family,Guillaume Chomicki,"Chomicki, G.",plantae
 huh,Amaranthaceae,family,Guillermo Covas,"Covas, G.",plantae
 huh,Poaceae,family,Guillermo Covas,"Covas, G.",plantae
+herbaria,Magnoliopsida,class,Guillermo Ibarra-Manríquez,G. Ibarra M.,plantae
 herbaria,Moraceae,family,Guillermo Ibarra-Manríquez,G. Ibarra M.,plantae
 herbaria,Moraceae,family,Guillermo Ibarra-Manríquez,"Ibarra-Manriquez, G.",plantae
 herbaria,Moraceae,family,Guillermo Ibarra-Manríquez,"Ibarra, G.",plantae
@@ -3298,10 +3319,16 @@ huh,Ericaceae,family,Hermann Otto Sleumer,"Sleumer, H.",plantae
 huh,Salicaceae,family,Hermann Otto Sleumer,"Sleumer, H.",plantae
 huh,Ericaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
 huh,Ericaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
+herbaria,Magnoliopsida,class,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
+herbaria,Magnoliopsida,class,Hermann Otto Sleumer,"Sleumer, H.",plantae
 flora_neotropica,Olacaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
 huh,Salicaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
 huh,Salicaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
 herbaria,Salicaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
+tropicos,Achariaceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
+tropicos,Asteraceae,family,Hermann Otto Sleumer,"Sleumer, H.O.",plantae
+tropicos,Asteraceae,family,Hermann Otto Sleumer,"Sleumer, H.",plantae
+tropicos,Achariaceae,family,Hermann Otto Sleumer,"Sleumer, H.",plantae
 huh,Arecaceae,family,Hermilo J. Quero,"Quero Rico, H.",plantae
 huh,Arecaceae,family,Hermilo J. Quero,"Quero, H.",plantae
 huh,Arecaceae,family,Hermilo J. Quero,"Quero, H.J.",plantae
@@ -3801,8 +3828,12 @@ huh,Sterculiaceae,family,Jerome K. Munzinger,"Munzinger, J.K.",plantae
 huh,Sterculiaceae,family,Jerome K. Munzinger,"Munzinger, J.K.",plantae
 aspt,Violaceae,family,Jerome K. Munzinger,"Munzinger, J.K.",plantae
 huh,Polygonaceae,family,Jerrold Coolidge,"Coolidge, J.",plantae
-aspt,Burseraceae,family,Jerzy Rzedowski,J. Rzedowski R.,plantae
 aspt,Burseraceae,family,Jerzy Rzedowski,"Rzedowski, J.",plantae
+herbaria,Magnoliopsida,class,Jerzy Rzedowski,"Rzedowski, J.",plantae
+aspt,Burseraceae,family,Jerzy Rzedowski Rotter,J. Rzedowski R.,plantae
+herbaria,Magnoliopsida,class,Jerzy Rzedowski Rotter,J. Rzedowski R.,plantae
+gbif_GSG,Asteraceae,family,Jerzy Rzedowski Rotter,"J. Rzedowski, R.",plantae
+tropicos|ipni,Campanulaceae,family,Jerzy Rzedowski Rotter,"J. Rzedowski, R.",plantae
 huh,Asteraceae,family,Jerzy Staszkiewicz,"Staszkiewicz, J.",plantae
 huh,Trapaceae,family,Jerzy Staszkiewicz,"Staszkiewicz, J.",plantae
 huh,Rosaceae,family,Jerzy Zielinski,"Zielinski, J.",plantae
@@ -3856,7 +3887,9 @@ huh,Papaveraceae,family,Joachim W. Kadereit,"Kadereit, J.W.",plantae
 herbaria,Erythroxylaceae,family,Joalice de Oliveira Mendonça,"Mendonca, J.O.",plantae
 huh,Malvaceae,family,Joan E. Fryxell,"Fryxell, J.E.",plantae
 huh,Sapotaceae,family,Joan T. Pereira,"Pereira, J.T.",plantae
+rbh,Magnoliopsida,class,João A. Jarenkow,"Jarenkow, J.A.",plantae
 rbh,Orchidaceae,family,João Aguiar Nogueira Batista,"Batista, J.A.N.",plantae
+rbh,Magnoliopsida,class,Joao Augusto Alves Meira Neto,"Meira Neto, J.A.A.",plantae
 herbaria,Meliaceae,family,João Aurélio Pastore,"Pastore, J.A.",plantae
 huh,Lauraceae,family,Joao Batista Baitello,"Baitello, J.",plantae
 huh,Lauraceae,family,Joao Batista Baitello,"Baitello, J.B.",plantae
@@ -4108,6 +4141,7 @@ huh,Cactaceae,family,Jorge E. Gutierrez Amaro,"Amaro, J.E.G.",plantae
 huh,Salicaceae,family,Jorge E. Gutierrez Amaro,"Amaro, J.E.G.",plantae
 rbh,Asclepiadaceae,family,Jorge Fontella Pereira,"Pereira, J.F.",plantae
 aspt,Poaceae,family,Jorge Gabriel Sanchez-Ken,"Sanchez-Ken, J.G.",plantae
+herbaria,Magnoliopsida,class,Jorge Gómez-Laurito,"Gomez Laurito, J.",plantae
 aspt,Cactaceae,family,Jorge Hugo Cota-Sanchez,"Cota-Sanchez, J.H.",plantae
 huh,Mimosaceae,family,Jorge León,"Leon, J.",plantae
 huh,Cactaceae,family,Jorge Meyran,"Garcia, J.M.",plantae
@@ -4125,6 +4159,7 @@ herbaria,Fabaceae,family,Jorge Yoshio Tamashiro,"Tamashiro, J.",plantae
 herbaria,Fabaceae,family,Jorge Yoshio Tamashiro,"Tamashiro, J.Y.",plantae
 huh,Amaranthaceae,family,Josafá Carlos de Siqueira,"Sigueira, J.C.",plantae
 huh,Amaranthaceae,family,Josafá Carlos de Siqueira,"Siqueira, J.C.",plantae
+huh,Magnoliopsida,class,Jose (Padre) Gonzalez Raposo,"Gonzalez, J.",plantae
 huh,Orchidaceae,family,Jose (Padre) Gonzalez Raposo,"Gonzalez, J.",plantae
 huh,Orchidaceae,family,Jose (Padre) Gonzalez Raposo,"Raposo, J.G.",plantae
 https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Argentina,Poaceae,family,José Alfredo Caro,"Caro, J.A.",plantae
@@ -4138,6 +4173,7 @@ huh,Asteraceae,family,José Angel Villarreal-Quintanilla,"Villarreal-Quintanilla
 huh,Gentianaceae,family,José Angel Villarreal-Quintanilla,"Villarreal-Quintanilla, J.A.",plantae
 huh,Gentianaceae,family,José Angel Villarreal-Quintanilla,"Villarreal-Quintanilla, J.A.",plantae
 huh,Gentianaceae,family,José Angel Villarreal-Quintanilla,"Villarreal-Quintanilla, J.A.",plantae
+rbh,Magnoliopsida,class,José Ângelo Rizzo,"Rizzo, J.A.",plantae
 huh,Apocynaceae,family,Jose Aquileo Lomeli Sencion,"Sencion, J.A.L.",plantae
 huh,Cactaceae,family,Jose Aquileo Lomeli Sencion,"Sencion, J.A.L.",plantae
 huh,Caricaceae,family,Jose Aquileo Lomeli Sencion,"Sencion, J.A.L.",plantae
@@ -4172,6 +4208,7 @@ huh,Melastomataceae,family,José Fernando Andrade Baumgratz,"Baumgratz, J.F.A.",
 huh,Melastomataceae,family,José Fernando Andrade Baumgratz,"Braumgratz, J.F.",plantae
 huh,Melastomataceae,family,José Fernando Andrade Baumgratz,"Braumgratz, J.F.A.",plantae
 herbaria,Annonaceae,family,José Ferreira Ramos,"Ramos, J.F.",plantae
+herbaria,Magnoliopsida,class,José Ferreira Ramos,"Ramos, J.F.",plantae
 rbh,Lamiaceae,family,José Floriano Barêa Pastore,"Pastore, J.F.",plantae
 rbh,Polygalaceae,family,José Floriano Barêa Pastore,"Pastore, J.F.",plantae
 rbh,Lamiaceae,family,José Floriano Barêa Pastore,"Pastore, J.F.B.",plantae
@@ -4254,6 +4291,7 @@ huh,Simaroubaceae,family,Jose Rubens Pirani,"Pirani, J.R.",plantae
 huh,Simaroubaceae,family,Jose Rubens Pirani,"Pirani, J.R.",plantae
 herbaria,Fabaceae,family,José Salvador Flores,"Flores, J.S.",plantae
 herbaria,Fabaceae,family,José Salvador Flores,J.S. Flores G.,plantae
+rbh,Magnoliopsida,class,José Tadeu Weidlich Motta,"Motta, J.T.W.",plantae
 huh,Araceae,family,Josef Bogner,"Bogner, J.",plantae
 huh,Cactaceae,family,Josef Jakob Halda,"Halda, J.J.",plantae
 huh,Cactaceae,family,Josef Jakob Halda,"Halda, J.J.",plantae
@@ -4301,6 +4339,7 @@ herbaria,Solanaceae,family,Juan Carlos Montero-Castro,"Montero, J.C.",plantae
 herbaria,Anacardiaceae,family,Juan de Dios Munoz,"Munoz, J.D.",plantae
 herbaria,Apocynaceae,family,Juan Francisco Morales Quirós,"Morales Q., J.F.",plantae
 herbaria,Apocynaceae,family,Juan Francisco Morales Quirós,"Morales Quiros, J.F.",plantae
+herbaria,Magnoliopsida,class,Juan Francisco Morales Quirós,"Morales Quiros, J.F.",plantae
 herbaria,Apocynaceae,family,Juan Francisco Morales Quirós,"Quiros, J.F.M.",plantae
 huh,Asteraceae,family,Juan Héctor Hunziker,Hunziker,plantae
 huh,Zygophyllaceae,family,Juan Héctor Hunziker,Hunziker,plantae
@@ -4595,6 +4634,7 @@ huh,Cactaceae,family,Klaus Horst Gilmer,"Gilmer, K.H.",plantae
 herbaria,Dilleniaceae,family,Klaus Kubitzki,Kubitzki,plantae
 aspt,Lauraceae,family,Klaus Kubitzki,Kubitzki,plantae
 herbaria,Dilleniaceae,family,Klaus Kubitzki,"Kubitzki, K.",plantae
+herbaria,Magnoliopsida,class,Klaus Kubitzki,"Kubitzki, K.",plantae
 aspt,Lauraceae,family,Klaus Kubitzki,"Kubitzki, K.",plantae
 huh,Cyperaceae,family,Klaus Lewejohann,"Lewejohann, K.",plantae
 huh,Poaceae,family,Klaus Lewejohann,"Lewejohann, K.",plantae
@@ -4691,6 +4731,7 @@ rbh,Cyatheaceae,family,Lana da Silva Sylvestre,"Sylvestre, L.S.",plantae
 rbh,Dicksoniaceae,family,Lana da Silva Sylvestre,"Sylvestre, L.S.",plantae
 huh,Violaceae,family,Landon E. McKinney,"Mckinney, L.E.",plantae
 rbh,Boraginaceae,family,Larissa Cavalheiro,"Cavalheiro, L.",plantae
+rbh,Magnoliopsida,class,Larissa De Bortolli Chiamolera Sabbi,"Sabbi, L.B.C.",plantae
 huh,Boraginaceae,family,Larry C. Higgins,"Higgins, L.C.",plantae
 huh,Boraginaceae,family,Larry C. Higgins,"Higgins, L.C.",plantae
 huh,Hydrangeaceae,family,Larry Hufford,"Hufford, L.",plantae
@@ -4825,9 +4866,11 @@ herbaria,Celastraceae,family,Leonardo Biral dos Santos,"Santos, L.B.",plantae
 rbh,Bromeliaceae,family,Leonardo de Melo Versieux,"Versieux, L.M.",plantae
 rbh,Myrtaceae,family,Leonardo Dias Meireles,Ldmeireles,plantae
 rbh,Myrtaceae,family,Leonardo Dias Meireles,"Meireles, L.",plantae
+rbh,Magnoliopsida,class,Leonardo Dias Meireles,"Meireles, L.D.",plantae
 wfoChecklistBank,Fabaceae,family,Leonardo M. Borges,"Borges, L.",plantae
 rbh,Fabaceae,family,Leonardo M. Borges,"Borges, L.M.",plantae
 rbh,Orchidaceae,family,Leonardo Pessoa Felix,"Felix, L.P.",plantae
+rbh,Magnoliopsida,class,Leonardo Von Lisingen,"Lisingen, L.",plantae
 huh,Orchidaceae,family,Leonid Vladimirovich Averyanov,"Averyanov, L.V.",plantae
 huh,Orchidaceae,family,Leonid Vladimirovich Averyanov,"Averyanov, L.V.",plantae
 herbaria,Rhamnaceae,family,Leonor Cusato,"Cusato, L.",plantae
@@ -4965,6 +5008,7 @@ huh,Bromeliaceae,family,Lucía Hechavarría Schwesinger,"Schwesinger, L.H.",plan
 huh,Bromeliaceae,family,Lucía Hechavarría Schwesinger,"Schwesinger, L.H.",plantae
 huh,Myrtaceae,family,Lúcia Helena Soares-Silva,"Soares-Silva, L.H.",plantae
 huh,Myrtaceae,family,Lúcia Helena Soares-Silva,"Soares-Soares, L.H.",plantae
+herbaria,Magnoliopsida,class,Lúcia Rossi,"Rossi, L.",plantae
 rbh,Thymelaeaceae,family,Lúcia Rossi,"Rossi, L.",plantae
 herbaria,Euphorbiaceae,family,Luciana dos Santos Dias de Oliveira,"Oliveira, L.S.D.",plantae
 huh,Boraginaceae,family,Luciana Mautone,"Mautone, L.",plantae
@@ -5031,6 +5075,7 @@ huh,Humiriaceae,family,Luiz Carlos da Silva Giordano,"Giordano, L.C.S.",plantae
 herbaria,Sapindaceae,family,Luiz de Aquino Pereira,"Pereira, L.A.",plantae
 rbh,Euphorbiaceae,family,Luiz José Soares Pinto,"Pinto, L.J.S.",plantae
 rbh,Orchidaceae,family,Luiz Menini Neto,"Menini Neto, L.",plantae
+herbaria,Magnoliopsida,class,Luiz Wilson Lima-Verde,"Lima-Verde, L.W.",plantae
 huh,Apocynaceae,family,Luíza Sumiko Kinoshita-Gouvêa,"Kinoshita-Gouvea, L.S.",plantae
 huh,Apocynaceae,family,Luíza Sumiko Kinoshita-Gouvêa,"Kinoshita-Gouvea, L.S.",plantae
 huh,Ericaceae,family,Luíza Sumiko Kinoshita-Gouvêa,"Kinoshita-Gouvea, L.S.",plantae
@@ -5068,6 +5113,7 @@ rbh,Vochysiaceae,family,Luzia Francisca de Souza,"Souza, L.F.",plantae
 ctfb,Thyrididae,family,Luziany Queiroz Santos,"Santos, L.Q.",animalia
 huh,Bromeliaceae,family,Lyman Bradford Smith,"Smith, L.B.",plantae
 huh,Bromeliaceae,family,Lyman Bradford Smith,"Smith, L.B.",plantae
+herbaria,Magnoliopsida,class,Lyman Bradford Smith,"Smith, L.B.",plantae
 huh,Cactaceae,family,Lyman David Benson,"Benson, L.",plantae
 huh,Cactaceae,family,Lyman David Benson,"Benson, L.D.",plantae
 huh,Ranunculaceae,family,Lyman David Benson,"Benson, L.D.",plantae
@@ -5147,6 +5193,7 @@ https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Argentina,Poaceae
 https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Argentina,Rhamnaceae,family,Manuel G. Escalante,"Escalante, M.G.",plantae
 huh,Poaceae,family,Manuel Gonzalez-Ledesma,"Gonzalez-Ledesma, M.",plantae
 huh,Poaceae,family,Manuel Gonzalez-Ledesma,"Gonzalez-Ledesma, M.",plantae
+rbh,Magnoliopsida,class,Manuel Losada Gavilanes,"Gavilanes, M.L.",plantae
 huh,Cactaceae,family,Manuel Nevarez de los Reyes,"Reyes, M.N.L.",plantae
 aspt,Orchidaceae,family,Manuel Pimentel Pereira,"Pereira, M.P.",plantae
 aspt,Poaceae,family,Manuel Pimentel Pereira,"Pereira, M.P.",plantae
@@ -5204,6 +5251,7 @@ aspt,Lecythidaceae,family,Marcelo Monge,"Monge, M.",plantae
 aspt,Malvaceae,family,Marcelo Monge,"Monge, M.",plantae
 herbaria,Cactaceae,family,Marcelo Oliveira Teles de Menezes,"Menezes, M.O.T.",plantae
 renato,Melastomataceae,family,Marcelo Reginato,"Reginato, M.",plantae
+rbh,Magnoliopsida,class,Marcelo T. Nascimento,"Nascimento, M.T.",plantae
 rbh,Eriocaulaceae,family,Marcelo Trovó Lopes de Oliveira,"Oliveira, M.T.L.",plantae
 aspt,Cyperaceae,family,Marcia J. Waterway,"Waterway, M.J.",plantae
 herbaria,Solanaceae,family,Marcia Vignoli-Silva,Vignoli-Silva,plantae
@@ -5374,6 +5422,8 @@ herbaria,Combretaceae,family,Maria Iracema Bezerra Loiola,"Loiola, M.I.B.",plant
 aspt,Erythroxylaceae,family,Maria Iracema Bezerra Loiola,"Loiola, M.I.B.",plantae
 vinicius,Escalloniaceae,family,Maria Isabel Geraldo Rodrigues de Lima,"Lima, M.I.G.R.",plantae
 huh,Amaranthaceae,family,Maria Julia Bena,"Bena, M.J.",plantae
+rbh,Magnoliopsida,class,Maria Lenise Silva Guedes,"Guedes, M.L.",plantae
+rbh,Magnoliopsida,class,Maria Lenise Silva Guedes,"Guedes, M.L.S.",plantae
 herbaria,Melastomataceae,family,Maria Leonor D'El Rei Souza,"Souza, M.L.",plantae
 herbaria,Melastomataceae,family,Maria Leonor D'El Rei Souza,"Souza, M.L.D.",plantae
 herbaria,Melastomataceae,family,Maria Leonor D'El Rei Souza,"Souza, M.L.R.",plantae
@@ -5524,6 +5574,7 @@ huh,Malvaceae,family,Martin Forbes Ray,"Ray, M.F.",plantae
 huh,Gesneriaceae,family,Martin Freiberg,"Freiberg, M.",plantae
 huh,Begoniaceae,family,Martin Jonathan Southgate Sands,"Sands, M.J.S.",plantae
 huh,Zygophyllaceae,family,Martin Jonathan Southgate Sands,"Sands, M.J.S.",plantae
+rbh,Magnoliopsida,class,Martin Molz,"Molz, M.",plantae
 huh,Meliaceae,family,Martin Roy Cheek,"Cheek, M.",plantae
 huh,Meliaceae,family,Martin Roy Cheek,"Cheek, M.R.",plantae
 huh,Meliaceae,family,Martin Roy Cheek,"Cheek, M.R.",plantae
@@ -5745,6 +5796,7 @@ huh,Staphyleaceae,family,Ming-Jin Yang,"Yang, M.",plantae
 herbaria,Bignoniaceae,family,Miriam Kaehler,Kaehler,plantae
 huh,Bignoniaceae,family,Miriam Kaehler,"Kaehler, M.",plantae
 herbaria,Bignoniaceae,family,Miriam Kaehler,"Kaehler, M.",plantae
+rbh,Magnoliopsida,class,Mirley Luciene dos Santos,"Santos, M.L.",plantae
 huh,Poaceae,family,Mirta O. Arriaga,"Arriaga, M.",plantae
 huh,Poaceae,family,Mirta O. Arriaga,"Arriaga, M.O.",plantae
 herbaria,Ebenaceae,family,Mitchell C. Provance,"Provance, M.",plantae
@@ -5843,6 +5895,7 @@ huh,Rosaceae,family,Naohiro Naruhashi,"Naruhashi, N.",plantae
 huh,Rosaceae,family,Naohiro Naruhashi,"Naruhashi, N.",plantae
 aspt,Phrymaceae,family,Naomi Fraga,"Fraga, N.",plantae
 herbaria,Peraceae,family,Narciso Costa Bigio,"Bigio, N.C.",plantae
+rbh,Magnoliopsida,class,Natália Macedo Ivanauskas,"Ivanauskas, N.M.",plantae
 huh,Orchidaceae,family,Natalie Warford,"Warford, N.",plantae
 huh,Arecaceae,family,Natalie Whitford Uhl,"Uhl, N.W.",plantae
 https://es.wikipedia.org/wiki/Categor%C3%ADa:Bot%C3%A1nicos_de_Argentina,Verbenaceae,family,Nataly O'Leary,"O'leary, N.",plantae
@@ -5867,6 +5920,7 @@ huh,Asteraceae,family,Nélida Soria,"Soria, N.",plantae
 huh,Asteraceae,family,Nélida Soria,"Soria, N.",plantae
 herbaria,Onagraceae,family,NELMA XAVIER MARQUES DE SOUSA,"Sousa, N.X.M.",plantae
 herbaria,Magnoliopsida,class,Nelson A. Zamora Villalobos,"Zamora Villalobos, Nelson A.",plantae
+herbaria,Magnoliopsida,class,Nelson de Araújo Rosa,"Rosa, N.A.",plantae
 huh,Asteraceae,family,Nelson Ivo Matzenbacher,"Matzenbacher, N.I.",plantae
 huh,Asteraceae,family,Nelson Ivo Matzenbacher,"Matzenbacher, N.I.",plantae
 huh,Bromeliaceae,family,Nelson R. Salinas,"Salinas, N.R.",plantae
@@ -6006,14 +6060,17 @@ huh,Poaceae,family,Osvaldo Morrone,Morrone,plantae
 huh,Poaceae,family,Osvaldo Morrone,"Morrone, O.",plantae
 herbaria,Burseraceae,family,Oswaldo Téllez-Valdés,O. Tellez V.,plantae
 herbaria,Fabaceae,family,Oswaldo Téllez-Valdés,O. Tellez V.,plantae
+herbaria,Magnoliopsida,class,Oswaldo Téllez-Valdés,O. Tellez V.,plantae
 herbaria,Burseraceae,family,Oswaldo Téllez-Valdés,Otellez,plantae
 herbaria,Fabaceae,family,Oswaldo Téllez-Valdés,Otellez,plantae
+herbaria,Magnoliopsida,class,Oswaldo Téllez-Valdés,Otellez,plantae
 herbaria,Burseraceae,family,Oswaldo Téllez-Valdés,"Tellez V., O.",plantae
 herbaria,Fabaceae,family,Oswaldo Téllez-Valdés,"Tellez V., O.",plantae
 herbaria,Magnoliopsida,class,Oswaldo Téllez-Valdés,"Tellez V., O.",plantae
 powoReviewers,Dioscoreaceae,family,Oswaldo Téllez-Valdés,"Tellez-Valdes, O.",plantae
 herbaria,Burseraceae,family,Oswaldo Téllez-Valdés,"Tellez, O.",plantae
 herbaria,Fabaceae,family,Oswaldo Téllez-Valdés,"Tellez, O.",plantae
+herbaria,Magnoliopsida,class,Oswaldo Téllez-Valdés,"Tellez, O.",plantae
 huh,Cactaceae,family,Otakar Šída,"Sida, O.",plantae
 huh,Microcoleaceae,family,Otakar Strunecky,"Strunecky, O.",plantae
 herbaria,Euphorbiaceae,family,OTÁVIO LUIS MARQUES DA SILVA,"Silva, O.L.M.",plantae
@@ -6061,6 +6118,7 @@ aspt,Apiaceae,family,Patricia Esquivel-Mattos,"Esquivel-Mattos, P.",plantae
 huh,Acanthaceae,family,Patricia Hiriart,"Hiriart, P.",plantae
 huh,Acanthaceae,family,Patricia Hiriart,"Hiriart, P.",plantae
 huh,Annonaceae,family,Patricia J. A. Kessler,"Kessler, P.J.A.",plantae
+aspt,Magnoliopsida,class,Patricia K. Holmgren,"Holmgren, P.K.",plantae
 huh,Bromeliaceae,family,Patricia Magana,"Magana, P.",plantae
 huh,Poaceae,family,Patricio Penailillo B.,"Patricio, P.B.",plantae
 huh,Poaceae,family,Patricio Penailillo B.,"Penailillo B., P.",plantae
@@ -6222,6 +6280,7 @@ gbif_GSG,Sapindaceae,family,Pedro Acevedo-Rodriguez,"Us, P.A.-R.",plantae
 huh,Aquifoliaceae,family,Pedro Alejandro Gonzalez Gutierrez,"Gutierrez, P.A.G.",plantae
 rbh,Cyatheaceae,family,Pedro Bond Schwartsburd,"Schwartsburd, P.B.",plantae
 rbh,Dennstaedtiaceae,family,Pedro Bond Schwartsburd,"Schwartsburd, P.B.",plantae
+herbaria,Magnoliopsida,class,Pedro da Costa Gadelha Neto,"Gadelha Neto, P.C.",plantae
 renato,Rutaceae,family,Pedro Dias,"Dias, P.",plantae
 huh,Iridaceae,family,Pedro Felix Ravenna,"Felice, P.",plantae
 huh,Liliaceae,family,Pedro Felix Ravenna,"Felice, P.",plantae
@@ -6374,6 +6433,7 @@ huh,Rubiaceae,family,Petra De Block,"Block, P.",plantae
 huh,Euphorbiaceae,family,Petra Hoffmann,Hoffmann,plantae
 huh,Euphorbiaceae,family,Petra Hoffmann,"Hoffmann, P.",plantae
 herbaria,Phyllanthaceae,family,Petra Hoffmann,"Hoffmann, P.",plantae
+aspt,Magnoliopsida,class,Philip Arthur Silverstone-Sopkin,"Silverstone-Sopkin, P.A.",plantae
 huh,Solanaceae,family,Philip D. Jenkins,"Jenkins, P.D.",plantae
 huh,Lamiaceae,family,Philip Douglas Cantino,"Cantino, P.D.",plantae
 huh,Verbenaceae,family,Philip Douglas Cantino,"Cantino, P.D.",plantae
@@ -6582,11 +6642,13 @@ aspt,Calyceraceae,family,Raul Pozner,"Pozner, R.",plantae
 aspt,Cucurbitaceae,family,Raul Pozner,"Pozner, R.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, J.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, P.",plantae
+huh,Magnoliopsida,class,Raulino Reitz,"Reitz, P.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, P.R.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, R.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, R.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, R.",plantae
 huh,Bromeliaceae,family,Raulino Reitz,"Reitz, R.",plantae
+huh,Magnoliopsida,class,Raulino Reitz,"Reitz, R.",plantae
 huh,Verbenaceae,family,Ray E. Umber,"Umber, R.E.",plantae
 huh,Asteraceae,family,Raymond Carl Jackson,"Jackson, R.C.",plantae
 huh,Poaceae,family,Raymond Carl Jackson,"Jackson, R.C.",plantae
@@ -6696,6 +6758,7 @@ huh,Piperaceae,family,Ricardo Callejas-Posada,"Callejas, R.",plantae
 huh,Piperaceae,family,Ricardo Callejas-Posada,"Callejas, R.",plantae
 huh,Piperaceae,family,Ricardo Callejas-Posada,R. Callejas P.,plantae
 huh,Piperaceae,family,Ricardo Callejas-Posada,Ricardo Callejas P.,plantae
+rbh,Magnoliopsida,class,Ricardo José Francischetti Garcia,"Garcia, R.J.F.",plantae
 aspt,Lamiales,order,Ricardo Kriebel,"Kriebel, R.",plantae
 aspt,Melastomataceae,family,Ricardo Kriebel,"Kriebel, R.",plantae
 herbaria,Symplocaceae,family,Ricardo Kriebel,"Kriebel, R.",plantae
@@ -6807,6 +6870,7 @@ huh,Fabaceae,family,Robert Carl Koeppen,"Koeppen, R.C.",plantae
 huh,Poaceae,family,Robert D. Webster,"Webster, R.D.",plantae
 huh,Salicaceae,family,Robert Desmond Meikle,"Meikle, R.D.",plantae
 aspt,Melastomataceae,family,Robert Douglas Stone,"Stone, R.D.",plantae
+aspt,Magnoliopsida,class,Robert E. Preston,"Preston, R.E.",plantae
 huh,Apocynaceae,family,Robert Everard Woodson,"Woodson Junior, R.E.",plantae
 huh,Asclepiadaceae,family,Robert Everard Woodson,"Woodson Junior, R.E.",plantae
 huh,Apocynaceae,family,Robert Everard Woodson,"Woodson, R.E.",plantae
@@ -6925,6 +6989,7 @@ huh,Orchidaceae,family,Rodolfo Solano Gómez,"Gomez, R.S.",plantae
 huh,Orchidaceae,family,Rodolfo Solano Gómez,"Solano-Gomez, R.",plantae
 huh,Orchidaceae,family,Rodolfo Solano Gómez,"Solano, R.",plantae
 herbaria,Elaeocarpaceae,family,Rodolfo Vásquez Martínez,"Martinez, R.V.",plantae
+herbaria,Magnoliopsida,class,Rodolfo Vásquez Martínez,"Martinez, R.V.",plantae
 herbaria,Elaeocarpaceae,family,Rodolfo Vásquez Martínez,"Vasquez, R.",plantae
 herbaria,Magnoliopsida,class,Rodolfo Vásquez Martínez,"Vasquez, R.",plantae
 herbaria,Rutaceae,family,Rodolphe Edouard Spichiger,"Spichiger, R.",plantae
@@ -7012,6 +7077,7 @@ huh,Asteraceae,family,Ronald L. Jones,"Jones, R.L.",plantae
 huh,Apiaceae,family,Ronald Lee Hartman,"Hartman, R.L.",plantae
 huh,Asteraceae,family,Ronald Lee Hartman,"Hartman, R.L.",plantae
 huh,Caryophyllaceae,family,Ronald Lee Hartman,"Hartman, R.L.",plantae
+herbaria,Magnoliopsida,class,Ronald Lee Liesner,"Liesner, R.L.",plantae
 herbaria,Achariaceae,family,Ronaldo Marquete,"Marquete, R.",plantae
 herbaria,Lacistemataceae,family,Ronaldo Marquete,"Marquete, R.",plantae
 herbaria,Opiliaceae,family,Ronaldo Marquete,"Marquete, R.",plantae
@@ -7102,7 +7168,9 @@ huh,Orchidaceae,family,Ruben Primitivo Sauleda,"Sauleda, R.P.",plantae
 huh,Orchidaceae,family,Ruben Primitivo Sauleda,"Sauleda, R.P.",plantae
 huh,Sapindaceae,family,Rubens Luiz Gayoso Coelho,"Coelho, R.",plantae
 huh,Sapindaceae,family,Rubens Luiz Gayoso Coelho,"Coelho, R.L.G.",plantae
+rbh,Magnoliopsida,class,Rubens Manoel dos Santos,"Santos, R.M.",plantae
 herbaria,Fabaceae,family,Rubens Teixeira de Queiroz,"Queiroz, R.T.",plantae
+rbh,Magnoliopsida,class,Rúbia Santos Fonseca,"Fonseca, R.S.",plantae
 huh,Arecaceae,family,Rudi A. Maturbongs,"Maturbongs, R.A.",plantae
 huh,Arecaceae,family,Rudi A. Maturbongs,"Maturbongs, R.A.",plantae
 huh,Salicaceae,family,Rudolf Goerz,"Goerz, R.",plantae
@@ -7269,6 +7337,7 @@ huh,Arecaceae,family,Scott Zona,"Zona, S.",plantae
 huh,Arecaceae,family,Scott Zona,"Zona, S.A.",plantae
 huh,Fabaceae,family,Se-Zei Huang,"Huang, S.",plantae
 huh,Rosaceae,family,Se-Zei Huang,"Huang, S.",plantae
+rbh,Magnoliopsida,class,Sebastião José da Silva Neto,"Silva Neto, S.J.",plantae
 huh,Balsaminaceae,family,Sebastien Wohlhauser,"Wohlhauser, S.",plantae
 huh,Gentianaceae,family,Sebastien Wohlhauser,"Wohlhauser, S.",plantae
 huh,Pandanaceae,family,Sebastien Wohlhauser,"Wohlhauser, S.",plantae
@@ -7285,6 +7354,7 @@ huh,Moraceae,family,Sergio Romaniuc Neto,"Romaniuc Neto, S.",plantae
 rbh,Ulmaceae,family,Sergio Romaniuc Neto,"Romaniuc Neto, S.",plantae
 huh,Urticaceae,family,Sergio Romaniuc Neto,"Romaniuc Neto, S.",plantae
 aspt,Lentibulariaceae,family,Sergio Zamudio Ruiz,"Ruiz, S.Z.",plantae
+herbaria,Magnoliopsida,class,Sergio Zamudio Ruiz,S. Zamudio R.,plantae
 herbaria,Lentibulariaceae,family,Sergio Zamudio Ruiz,S. Zamudio R.,plantae
 huh,Mimosaceae,family,Sergio Zarate Pedroche,"Pedroche, S.Z.",plantae
 huh,Pinaceae,family,Servando Carvajal Hernandez,"Hernandez, S.C.",plantae
@@ -7470,6 +7540,7 @@ aspt,Altingiaceae,family,Stefanie M. Ickert-Bond,"Ickert-Bond, S.M.",plantae
 aspt,Vitaceae,family,Stefanie M. Ickert-Bond,"Ickert-Bond, S.M.",plantae
 huh,Asteraceae,family,Steffen Matezki,"Matezki, S.",plantae
 huh,Fagaceae,family,Stellan Sunhede,"Sunhede, S.",plantae
+herbaria,Magnoliopsida,class,Stephan F. Smith,"Smith, S.F.",plantae
 huh,Gentianaceae,family,Stephan F. Smith,"Smith, S.F.",plantae
 huh,Poaceae,family,Stephan LaVor Hatch,"Hatch, S.L.",plantae
 huh,Magnoliaceae,family,Stephen Alan Spongberg,"Spongberg, S.",plantae
@@ -7985,6 +8056,7 @@ huh,Berberidaceae,family,Tsun-shen Ying,"Ying, T.",plantae
 huh,Berberidaceae,family,Tsun-shen Ying,"Ying, T.S.",plantae
 huh,Berberidaceae,family,Tsun-shen Ying,"Ying, T.S.",plantae
 huh,Annonaceae,family,U. Manikandan,"Manikandan, U.",plantae
+rbh,Magnoliopsida,class,Ubiratã Soares Jacobi,"Jacobi, U.S.",plantae
 huh,Caprifoliaceae,family,Uktam Pratovich Pratov,"Pratov, U.P.",plantae
 huh,Chenopodiaceae,family,Uktam Pratovich Pratov,"Pratov, U.P.",plantae
 huh,Rosaceae,family,Uktam Pratovich Pratov,"Pratov, U.P.",plantae
@@ -8030,6 +8102,7 @@ herbaria,Caricaceae,family,V.M. Badillo,"Badillo, V.",plantae
 herbaria,Caricaceae,family,V.M. Badillo,"Badillo, V.M.",plantae
 huh,Asteraceae,family,Vadim Nikolaevich Tikhomirov,"Tikhomirov, V.N.",plantae
 herbaria,Solanaceae,family,VALRIA DA SILVA SAMPAIO,"Sampaio, V.S.",plantae
+herbaria,Magnoliopsida,class,Valdely F. Kinupp,"Kinupp, V.F.",plantae
 rbh,Basellaceae,family,Valdely Ferreira Kinupp,"Kinupp, V.F.",plantae
 rbh,Rubiaceae,family,Valdely Ferreira Kinupp,"Kinupp, V.F.",plantae
 rbh,Rubiaceae,family,Valdivina Pereira,"Pereira, V.",plantae
@@ -8128,6 +8201,7 @@ huh,Bromeliaceae,family,W. Mark Whitten,"Whitten, W.M.",plantae
 huh,Bromeliaceae,family,W. Mark Whitten,"Whitten, W.M.",plantae
 aspt,Orchidaceae,family,W. Mark Whitten,"Whitten, W.M.",plantae
 huh,Cyperaceae,family,Waldemar Zukowski,"Zukowski, W.",plantae
+herbaria,Magnoliopsida,class,Waldir Mantovani,"Mantovani, W.",plantae
 rbh,Magnoliopsida,class,Walnir Gomes Ferreira Júnior,"Ferreira Junior, W.G.",plantae
 huh,Meliaceae,family,Walter A. Palacios,"Palacios Et Alia, W.A.",plantae
 huh,Meliaceae,family,Walter A. Palacios,"Palacios, W.",plantae
