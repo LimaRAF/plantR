@@ -328,8 +328,8 @@ checkDist <- function(x,
       }
 
       if (any(!exact_brazil)) {
-        pattern <- :statesBR
-        names(pattern) <- paste0("brazil", sep, names(:statesBR))
+        pattern <- statesBR
+        names(pattern) <- paste0("brazil", sep, names(statesBR))
         x1$loc.abbrev[rep_these][!exact_brazil] <-
           stringr::str_replace_all(
             x1$loc.abbrev[rep_these][!exact_brazil],
@@ -378,7 +378,7 @@ checkDist <- function(x,
     if (!requireNamespace("plantRdata", quietly = TRUE))
       stop("Please install 'plantRdata' to use this feature")
 
-    wcvp_lookup <- :botanicalCountries
+    wcvp_lookup <- botanicalCountries
     temp.env <- new.env(parent = emptyenv())
     utils::data(list = c("wcvpNames"), package = "plantRdata",
                 envir = temp.env)
@@ -442,13 +442,11 @@ checkDist <- function(x,
                                 split = "|",
                                 fixed = TRUE)
     
-    # Convert level3 and level4 to distribution codes using the same mapping
     level3_codes <- f1(x1$level3, wcvp_lookup$taxon.distribution.bru, 
                        wcvp_lookup$taxon.distribution.bru.code)
     level4_codes <- f1(x1$level4, wcvp_lookup$taxon.distribution.bru, 
                        wcvp_lookup$taxon.distribution.bru.code)
     
-    # Check if specific locations are introduced
     case1.intro <- mapply(function(loc_code, dist_codes) {
       if(is.na(loc_code)) return(FALSE)
       paste0(loc_code, "*") %in% dist_codes
