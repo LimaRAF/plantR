@@ -5,24 +5,27 @@
 \alias{worldMap}
 \title{World Map}
 \format{
-A Multipolygon 'sf' object with 256 features
+A Multipolygon 'sf' object with 263 features
 }
 \source{
-\url{https://gadm.org}
+\url{https://geodata.ucdavis.edu/gadm/gadm4.1/}
 }
 \usage{
 data(worldMap)
 }
 \description{
-Map used to perform the validation of the original geographical coordinates
-at the lowest administrative level (e.g. country). Names were edited to match
-the \strong{plantR} default gazetteer, using the same \strong{plantR} function used for
-locality editing (i.e. \code{fixLoc()}).
+Map used to perform the validation of the original geographical
+coordinates at the lowest administrative level (e.g. country).
+Names were edited to match the \strong{plantR} default gazetteer, using
+the same \strong{plantR} function used for locality editing (i.e.
+\code{fixLoc()}).
 }
 \details{
-Original polygons were simplified (tolerance: 0.001 decimal degrees) to make
-maps smaller in size and thus less burdensome for the geographical validation
-procedures.
+Original polygons were simplified (tolerance: 0.001 decimal
+degrees) to make maps smaller in size and thus less burdensome for
+the geographical validation procedures.
+
+Maps currently used are from the version 4.1 of \href{https://gadm.org/}{GADM}
 
 Reference system: WSG84
 }

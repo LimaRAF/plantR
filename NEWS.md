@@ -16,6 +16,8 @@
 
 * Improvements in `fixSpecies()` and `bfoNames` to better handle polynomials
 
+* Updating __plantR__ internal maps (i.e. `worldMap` and `latamMap`) using the version 4.1 of GADM
+
 * Minor improvements in `fixSpecies()` and `bfoNames` to better handle polynomials
 
 * Minor improvements in `fixIndet()` and `prepFamily()` to better handle animal names

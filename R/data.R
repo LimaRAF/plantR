@@ -29,56 +29,62 @@
 
 #' World Map
 #'
-#' Map used to perform the validation of the original geographical coordinates
-#' at the lowest administrative level (e.g. country). Names were edited to match
-#' the __plantR__ default gazetteer, using the same __plantR__ function used for
-#' locality editing (i.e. `fixLoc()`).
+#' Map used to perform the validation of the original geographical
+#' coordinates at the lowest administrative level (e.g. country).
+#' Names were edited to match the __plantR__ default gazetteer, using
+#' the same __plantR__ function used for locality editing (i.e.
+#' `fixLoc()`).
 #'
-#' Original polygons were simplified (tolerance: 0.001 decimal degrees) to make
-#' maps smaller in size and thus less burdensome for the geographical validation
-#' procedures.
+#' Original polygons were simplified (tolerance: 0.001 decimal
+#' degrees) to make maps smaller in size and thus less burdensome for
+#' the geographical validation procedures.
+#'
+#' Maps currently used are from the version 4.1 of [GADM](https://gadm.org/)
 #'
 #' Reference system: WSG84
 #'
 #' @keywords datasets
 #' @name worldMap
 #' @usage data(worldMap)
-#' @format A Multipolygon 'sf' object with 256 features
-#' @source \url{https://gadm.org}
+#' @format A Multipolygon 'sf' object with 263 features
+#' @source \url{https://geodata.ucdavis.edu/gadm/gadm4.1/}
 "worldMap"
 
 #' Maps of Latin American countries and dependent territories
 #'
-#' Maps used to perform the validation of the original geographical coordinates.
-#' For each country, the map contains the lowest administrative level available
-#' at [GADM](https://gadm.org). We considered an initial total of 51 countries
-#' and dependent territories for Latin America, but since seven of them are
-#' available only at the lowest administrative level (e.g. Aruba, Curacao), they
-#' were not included in this map (total of 44 individual polygons). The Latin
-#' American definition used here include all American territories but the United
-#' States and Canada.
+#' Maps used to perform the validation of the original geographical
+#' coordinates. For each country, the map contains the lowest
+#' administrative level available at [GADM](https://gadm.org). We
+#' considered an initial total of 51 countries and dependent
+#' territories for Latin America, but since some of them are
+#' available only at the country level (e.g. Aruba), they were not
+#' included in this map (total of 46 countries). The Latin
+#' American definition used here include all American territories but
+#' the United States and Canada.
 #'
-#' Locality names (e.g. country, state, county) were edited to match the
-#' __plantR__ default gazetteer, using the same __plantR__ functions used for
-#' locality editing (i.e. `fixLoc()`, `prepLoc()`).
+#' Locality names (e.g. country, state, county) were edited to match
+#' the __plantR__ default gazetteer, using the same __plantR__
+#' functions used for locality editing (i.e. `fixLoc()`, `prepLoc()`,
+#' , `prepCountry()`, `prepState()`).
 #'
-#' For Brazil, we cross-checked and corrected about 400 issues in GADM (version
-#' 3.6) related to municipality names with typos, old toponyms, switched names
-#' and even bad name assignment to polygons (e.g. Manaus assigned under another
-#' municipality, Maués). An internal list of those changes (`gadmCheck`) is
-#' provided for reproducibility.
+#' We cross-checked and corrected issues in GADM (version 4.1), mostly
+#' for Brazil, related to municipality names with typos, old toponyms,
+#' switched names and even bad name assignment to polygons (e.g.
+#' Manaus assigned under another municipality, Maués). An internal
+#' list of those changes (`gadmCheck`) is provided for
+#' reproducibility.
 #'
-#' Finally, polygons were simplified (tolerance: 0.0001 decimal degrees) to make
-#' maps smaller in size and thus less burdensome for the geographical validation
-#' procedures.
+#' Finally, polygons were simplified (tolerance: 0.0001 decimal
+#' degrees) to make maps smaller in size and thus less burdensome for
+#' the geographical validation procedures.
 #'
 #' Reference system: WSG84
 #'
 #' @keywords datasets
 #' @name latamMap
 #' @usage data(latamMap)
-#' @format A list of 44 Multipolygon 'sf' objects
-#' @source \url{https://gadm.org}
+#' @format A list of 46 Multipolygon 'sf' objects
+#' @source \url{https://gadm.org/download_country.html}
 "latamMap"
 
 #' Buffer of World Land Map
