@@ -25,7 +25,8 @@
 #' @details The function provides a way to check if the species
 #'   distribution obtained from the __plantR__ location string (e.g,
 #'   `loc.correct` = "brazil_sao paulo_campinas") matches the species
-#'   known distribution in a specific `source`.
+#'   known distribution in a specific `source`. It also tags introduced
+#'   locations.
 #'
 #'   The information is returned in the column `dist.check`, with
 #'   auxilliary information being returned in column `dist.check.obs`.
@@ -99,12 +100,16 @@
 #'                rep("Araucaria angustifolia", 2),
 #'                rep("Oreodaphne porosa", 2),
 #'                "Echites hirsutus var. angustifolius",
-#'                "Acalypha annobonae")
+#'                "Acalypha annobonae",
+#'                "Mangifera indica",
+#'                "Mangifera indica")
 #' spp_authors <- c(rep("(Nees & Mart.) Barroso", 8),
 #'                 rep(NA, 2),
 #'                 "Nees & Mart.", NA,
 #'                 "Stadelm.",
-#'                 "Pax & K.Hoffm.")
+#'                 "Pax & K.Hoffm.",
+#'                 "L.",
+#'                 "L.")
 #' loc <- c("brazil", "brazil_parana",
 #' "brazil_santa catarina_blumenau_parque são francisco",
 #' "paraguay",
@@ -115,10 +120,12 @@
 #' "brazil_espirito santo",
 #' "brazil_santa catarina_blumenau",
 #' "chile_santiago", "brazil_parana_curitiba", "brazil_minas gerais",
-#' "argentina_buenos aires")
+#' "argentina_buenos aires",
+#' "thailand",
+#' "brazil_parana_curitiba")
 #'
-#' df <- data.frame(scientificName = spp_names,
-#'                  scientificNameAuthorship = spp_authors,
+#' df <- data.frame(suggestedName = spp_names,
+#'                  suggestedAuthorship = spp_authors,
 #'                  loc.correct = loc)
 #' checkDist(df)
 #'
@@ -157,12 +164,6 @@ checkDist <- function(x,
     stop("Input data.frame must have a column with species authorities!",
          call. = FALSE)
   }
-
-  # if(is.na(tax.author)) {
-  #   warning("Column name with species authorities not provided; setting to
-  #           'scientificNameAuthorship'")
-  #   tax.author <- "scientificNameAuthorship"
-  # }
 
   x1 <- x
   sep <- gsub("(\\|)", "\\\\\\1", sep, perl = TRUE)
@@ -280,10 +281,10 @@ checkDist <- function(x,
     return(x)
   }
 
-  if(source == 'bfo') {
+  if(source %in% c('bfo', "fbo")) {
     key.cols <- c("tax.name", "tax.authorship", "taxon.distribution")
     x1 <- dplyr::left_join(x1,
-                           plantR::bfoNames[, key.cols],
+                           bfoNames[, key.cols],
                            by = stats::setNames(
                              c("tax.name", "tax.authorship"),
                              c(tax.name, tax.author)),
@@ -300,7 +301,7 @@ checkDist <- function(x,
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
       x2 <- dplyr::left_join(x1[check_these, ],
-                             plantR::bfoNames[!duplicated(plantR::bfoNames$tax.name), key.cols],
+                             bfoNames[!duplicated(bfoNames$tax.name), key.cols],
                              by = stats::setNames(
                                c("tax.name"), c(tax.name)),
                              keep = TRUE, suffix = c(".x", ""))
@@ -327,32 +328,46 @@ checkDist <- function(x,
       }
 
       if (any(!exact_brazil)) {
-        pattern <- statesBR
-        names(pattern) <- paste0("brazil", sep, names(statesBR))
+        pattern <- :statesBR
+        names(pattern) <- paste0("brazil", sep, names(:statesBR))
         x1$loc.abbrev[rep_these][!exact_brazil] <-
           stringr::str_replace_all(
             x1$loc.abbrev[rep_these][!exact_brazil],
             stringr::fixed(pattern)
           )
 
+        dist_codes_list <- strsplit(
+          x1$taxon.distribution[rep_these][!exact_brazil],
+          split = "|",
+          fixed = TRUE
+        )
+        
         dist_matches <- mapply(
           `%in%`,
           x1$loc.abbrev[rep_these][!exact_brazil],
-          strsplit(
-            x1$taxon.distribution[rep_these][!exact_brazil],
-            split = "|",
-            fixed = TRUE
-          )
+          dist_codes_list
         )
-
+        
+        dist_intro <- mapply(
+          function(loc, dist_codes) {
+            paste0(loc, "*") %in% dist_codes
+          },
+          x1$loc.abbrev[rep_these][!exact_brazil],
+          dist_codes_list
+        )
+        
         x1$dist.check[rep_these][!exact_brazil] <- ifelse(
           dist_matches,
           "ok_dist",
-          "bad_dist"
+          ifelse(
+            dist_intro,
+            "introduced",
+            "bad_dist"
+          )
         )
       }
     }
-
+    
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
@@ -363,16 +378,12 @@ checkDist <- function(x,
     if (!requireNamespace("plantRdata", quietly = TRUE))
       stop("Please install 'plantRdata' to use this feature")
 
-    wcvp_lookup <- botanicalCountries
+    wcvp_lookup <- :botanicalCountries
     temp.env <- new.env(parent = emptyenv())
     utils::data(list = c("wcvpNames"), package = "plantRdata",
                 envir = temp.env)
     key.cols <- c("tax.name", "tax.authorship", "taxon.distribution")
     temp.env$wcvpNames <- temp.env$wcvpNames[, key.cols]
-    # Renato: almost sure that this next step in done in plantRdata now (anyways, it does not chande the size of the bb)
-    # temp.env$wcvpNames <- temp.env$wcvpNames[!duplicated(paste(
-    #   temp.env$wcvpNames[["tax.name"]],
-    #   temp.env$wcvpNames[["tax.authorship"]])),]
 
     x1$level3 <- prepLoc(sub(paste0(sep, ".*"), "", x1[[loc]],
                              perl = TRUE))
@@ -419,7 +430,7 @@ checkDist <- function(x,
                           fixed = TRUE)
 
     f1 <- function(x, y, z){
-      x2 <- z[match(x, y, incomparables = NA, nomatch = 0)]
+      x2 <- z[match(x, y, incomparables = NA, nomatch = NA)]
       return(x2)
     }
 
@@ -427,13 +438,37 @@ checkDist <- function(x,
       f1(x, wcvp_lookup$taxon.distribution.bru.code,
          wcvp_lookup$taxon.distribution.bru))
 
+    dist.wcvp.codes <- strsplit(x1$taxon.distribution,
+                                split = "|",
+                                fixed = TRUE)
+    
+    # Convert level3 and level4 to distribution codes using the same mapping
+    level3_codes <- f1(x1$level3, wcvp_lookup$taxon.distribution.bru, 
+                       wcvp_lookup$taxon.distribution.bru.code)
+    level4_codes <- f1(x1$level4, wcvp_lookup$taxon.distribution.bru, 
+                       wcvp_lookup$taxon.distribution.bru.code)
+    
+    # Check if specific locations are introduced
+    case1.intro <- mapply(function(loc_code, dist_codes) {
+      if(is.na(loc_code)) return(FALSE)
+      paste0(loc_code, "*") %in% dist_codes
+    }, level3_codes, dist.wcvp.codes)
+    
+    case2.intro <- mapply(function(loc_code, dist_codes) {
+      if(is.na(loc_code)) return(FALSE)
+      paste0(loc_code, "*") %in% dist_codes
+    }, level4_codes, dist.wcvp.codes)
+    
     case1 <- mapply(`%in%`, x1$level3, dist.wcvp.name)
     case2 <- mapply(`%in%`, x1$level4, dist.wcvp.name)
-
+    
     x1$dist.check <- case1 | case2
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
+    
     x1$dist.check[x1$dist.check %in% TRUE] <- 'ok_dist'
     x1$dist.check[x1$dist.check %in% FALSE] <- 'bad_dist'
+    x1$dist.check[(case1.intro | case2.intro)] <- 'introduced'
+    
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
     return(x)
