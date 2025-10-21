@@ -64,7 +64,7 @@ missing names of taxonomists, please e-mail <raflima@usp.br>.
 ### Authors and contributors
 
 Renato A. F. de Lima, Sara R. Mortara, Andrea Sánchez-Tapia, Guilherme
-S. Grittz, Hans ter Steege & Marinez F. de Siqueira
+S. Grittz, Mali Oz Salles, Hans ter Steege & Marinez F. de Siqueira
 
 ### Citation
 

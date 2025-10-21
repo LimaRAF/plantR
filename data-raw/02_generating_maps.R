@@ -15,6 +15,8 @@ devtools::load_all()
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
 file_path <- file.path("E:", "ownCloud", "W_GIS", "WO_ADM_limits_GADM",
                        "gadm41", "gadm_41_adm0_r0.rds")
+file_path <- file.path("C:", "Users", "renat", "Documents", "R_packages",
+                       "plantRdata", "data-raw", "gadm", "gadm_41_adm0_r0.rds")
 wo <- terra::vect(terra::unwrap(file_path))
 names(wo) <- c("GID_0", "NAME_0")
 
@@ -22,10 +24,10 @@ names(wo) <- c("GID_0", "NAME_0")
 wo$pais <- countrycode(as.character(wo[["GID_0"]][,1]),'iso3c', 'country.name')
 wo[["pais"]][[1]][is.na(wo[["pais"]][[1]])] <-
   as.character(wo[["NAME_0"]][[1]][is.na(wo[["pais"]][[1]])])
-wo[["pais"]][[1]] <- prepCountry(wo[["pais"]][[1]])
+wo[["pais"]][[1]] <- plantR::prepCountry(wo[["pais"]][[1]])
 
-tmp1 <- replaceNames[replaceNames$class %in% "country" &
-                       apply(is.na(replaceNames[, 2:4]), 1, all), ]
+tmp1 <- plantR:::replaceNames[plantR:::replaceNames$class %in% "country" &
+                       apply(is.na(plantR:::replaceNames[, 2:4]), 1, all), ]
 tmp2 <- as.character(tmp1$replace)
 names(tmp2) = as.character(tmp1$pattern)
 #names(tmp2) <- gsub("\\\\", "", names(tmp2))
@@ -35,10 +37,10 @@ wo[["pais"]][[1]] <- stringr::str_replace_all(wo[["pais"]][[1]], tmp2)
 
 ## Comparing the map with the gazetteer
 wo_df <- terra::as.data.frame(wo)
-tmp <- merge(wo_df, gazetteer[,c("loc", "loc.correct")],
+tmp <- merge(wo_df, plantR:::gazetteer[,c("loc", "loc.correct")],
              by.x = "pais", by.y = "loc", all.x = TRUE)
-tmp[!tmp$pais %in% tmp$loc.correct,] #ok!
-tmp[!tmp$loc.correct %in% tmp$pais,] #ok!
+tmp[!tmp$pais %in% tmp$loc.correct,] #ok if empty!
+tmp[!tmp$loc.correct %in% tmp$pais,] #ok if empty!
 
 #Transforming and simplifying
 # wo@data <- wo@data[,c("GID_0","pais")]
@@ -54,9 +56,31 @@ wo.simp <- terra::simplifyGeom(wo, tol=0.001, preserveTopology = TRUE)
 wo.simp <- terra::buffer(wo.simp, 0)
 wo.simp1_sf <- sf::st_as_sf(wo.simp)
 
+#Repairing possible issues related to spherical geometries
+isv <- sf::st_is_valid(wo.simp1_sf) #Senegal had an issue before; now Chile and Argentina? Not showing in the validity test!
+pais2fix <- c("argentina", "chile")
+# if (any(!isv)) {
+  # for (i in which(!isv)) {
+  for (j in seq_along(pais2fix)) {
+    i <- which(wo.simp1_sf$NAME_0 %in% pais2fix[j])
+    tmp.i <- wo.simp1_sf[i, ]$geometry
+    # proj <- "+proj=laea +lon_0=-63.4570303 +lat_0=-39.280776 +datum=WGS84 +units=m +no_defs"
+    # tmp.ii <- sf::st_transform(tmp.i, proj)
+    tmp.i.1 <- s2::as_s2_geography(sf::st_as_binary(tmp.i), check = FALSE)
+    tmp.i.2 <- s2::s2_as_binary(s2::s2_snap_to_grid(tmp.i.1, grid_size = 1e-7))
+    tmp.i.2.5 <- s2::s2_geog_from_wkb(tmp.i.2, check = FALSE, planar = TRUE)
+    tmp.i.3 <- sf::st_as_sfc(tmp.i.2.5)
+    # tmp.i.3.5 <- sf::st_transform(tmp.i, sf::st_crs(tmp.i))
+    wo.simp1_sf[i, ]$geometry <- sf::st_make_valid(tmp.i.3)
+  }
+# }
+# worldMap <- sf::st_make_valid(worldMap)
+stopifnot(all(sf::st_is_valid(wo.simp1_sf)))
+
 # set spatial coordinates
 prj <- sf::st_crs(4326)
 worldMap <- sf::st_set_crs(wo.simp1_sf, prj)
+
 
 # wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
 # wo.simp2 <- gBuffer(wo.simp2, byid = TRUE, width = 0)
@@ -76,19 +100,6 @@ worldMap <- sf::st_set_crs(wo.simp1_sf, prj)
 # plot(wo[1,], main="Aruba original")
 # plot(wo.simp[1,], border = "red", main="Aruba gSimp 0.001")
 # plot(st_geometry(worldMap[1,1]), border = "green", main = "Aruba gSimp 0.001 sf")
-
-#Repairing possible issues related to spherical geometries
-isv <- sf::st_is_valid(worldMap1) #Senegal had an issue
-if (any(!isv)) {
-  for (i in which(!isv)) {
-    tmp.i <- worldMap[i, ]$geometry
-    tmp.i.1 <- s2::as_s2_geography(sf::st_as_binary(tmp.i), check = FALSE)
-    tmp.i.2 <- s2::s2_as_binary(s2::s2_snap_to_grid(tmp.i.1, grid_size = 1e-7))
-    tmp.i.3 <- sf::st_as_sfc(s2::s2_geog_from_wkb(tmp.i.2, check = TRUE))
-    worldMap[i, ]$geometry <- tmp.i.3
-  }
-}
-# worldMap <- sf::st_make_valid(worldMap)
 
 #Saving
 save(worldMap, file = "./data/worldMap.rda", compress = "xz")
@@ -268,6 +279,11 @@ for (i in 1:length(country.list)) {
 names(country.list) = pais
 country.list1 <- country.list[!is.na(pais)]
 all.countries[is.na(pais)] # countries only available at ADM0 (already in worldMap)
+
+
+isv <- sapply(country.list1, sf::st_is_valid)
+any(!sapply(isv, all))
+
 
 ## This section can be removed --------------------------------------------------------------
 ## Standardizing the shapefile and gazetteer names (for Brazil only)
