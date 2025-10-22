@@ -1,18 +1,25 @@
 #### Script to read shapefiles, edit and generate the data/worldMap.rds ####
-require(rgdal)
-require(rgeos)
-require(sf)
-require(sp)
-require(countrycode)
-devtools::load_all()
+# require(rgdal)
+# require(rgeos)
+# require(sf)
+# require(sp)
+# require(countrycode)
+# devtools::load_all()
 
 
 ## WORLD MAP FOR VALIDATION --------------------------------------------------------------------------------------------------
 
-##Loading, editing and converting the world country shapefile
+## Loading the previous map for comparison
+load(file.path("C:", "Users", "renat", "Documents", "R_packages",
+               "Backups", "plantR", "data-raw", "raw_dictionaries_2025_new",
+               "worldMap.rda"))
+old_map <- worldMap
+
+##Loading, editing and converting the world raw shapefile
 #wo <- readOGR(dsn=paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp",sep=""),layer="gadm36_0")
 # wo <- readRDS(paste(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds",sep = ""))
 #wo <- readRDS(paste0(path,"//WO_ADM_limits_GADM36//gadm36_levels_shp//gadm36_0.rds"))
+
 file_path <- file.path("E:", "ownCloud", "W_GIS", "WO_ADM_limits_GADM",
                        "gadm41", "gadm_41_adm0_r0.rds")
 file_path <- file.path("C:", "Users", "renat", "Documents", "R_packages",
@@ -21,7 +28,7 @@ wo <- terra::vect(terra::unwrap(file_path))
 names(wo) <- c("GID_0", "NAME_0")
 
 #Editing country name as in the gazetteer
-wo$pais <- countrycode(as.character(wo[["GID_0"]][,1]),'iso3c', 'country.name')
+wo$pais <- countrycode::countrycode(as.character(wo[["GID_0"]][,1]),'iso3c', 'country.name')
 wo[["pais"]][[1]][is.na(wo[["pais"]][[1]])] <-
   as.character(wo[["NAME_0"]][[1]][is.na(wo[["pais"]][[1]])])
 wo[["pais"]][[1]] <- plantR::prepCountry(wo[["pais"]][[1]])
@@ -42,44 +49,58 @@ tmp <- merge(wo_df, plantR:::gazetteer[,c("loc", "loc.correct")],
 tmp[!tmp$pais %in% tmp$loc.correct,] #ok if empty!
 tmp[!tmp$loc.correct %in% tmp$pais,] #ok if empty!
 
+wo[["NAME_0"]] <- NULL
+names(wo)[2] <- "NAME_0"
+
 #Transforming and simplifying
 # wo@data <- wo@data[,c("GID_0","pais")]
 # names(wo@data)[2] <- "NAME_0"
-# wo.simp <- gSimplify(wo, tol=0.001, topologyPreserve = TRUE)
-# wo.simp <- gBuffer(wo.simp, byid = TRUE, width = 0)
+# wo1 <- as(wo, "Spatial")
+# wo.simp <- rgeos::gSimplify(wo1, tol=0.001, topologyPreserve = TRUE)
+# wo.simp <- rgeos::gBuffer(wo.simp, byid = TRUE, width = 0)
 # wo.simp1 <- SpatialPolygonsDataFrame(wo.simp, wo@data)
 # wo.simp1_sf <- sf::st_as_sf(wo.simp1)
 
-wo[["NAME_0"]] <- NULL
-names(wo)[2] <- "NAME_0"
 wo.simp <- terra::simplifyGeom(wo, tol=0.001, preserveTopology = TRUE)
 wo.simp <- terra::buffer(wo.simp, 0)
 wo.simp1_sf <- sf::st_as_sf(wo.simp)
 
-#Repairing possible issues related to spherical geometries
-isv <- sf::st_is_valid(wo.simp1_sf) #Senegal had an issue before; now Chile and Argentina? Not showing in the validity test!
-pais2fix <- c("argentina", "chile")
-# if (any(!isv)) {
-  # for (i in which(!isv)) {
-  for (j in seq_along(pais2fix)) {
-    i <- which(wo.simp1_sf$NAME_0 %in% pais2fix[j])
-    tmp.i <- wo.simp1_sf[i, ]$geometry
-    # proj <- "+proj=laea +lon_0=-63.4570303 +lat_0=-39.280776 +datum=WGS84 +units=m +no_defs"
-    # tmp.ii <- sf::st_transform(tmp.i, proj)
-    tmp.i.1 <- s2::as_s2_geography(sf::st_as_binary(tmp.i), check = FALSE)
-    tmp.i.2 <- s2::s2_as_binary(s2::s2_snap_to_grid(tmp.i.1, grid_size = 1e-7))
-    tmp.i.2.5 <- s2::s2_geog_from_wkb(tmp.i.2, check = FALSE, planar = TRUE)
-    tmp.i.3 <- sf::st_as_sfc(tmp.i.2.5)
-    # tmp.i.3.5 <- sf::st_transform(tmp.i, sf::st_crs(tmp.i))
-    wo.simp1_sf[i, ]$geometry <- sf::st_make_valid(tmp.i.3)
-  }
-# }
-# worldMap <- sf::st_make_valid(worldMap)
-stopifnot(all(sf::st_is_valid(wo.simp1_sf)))
-
 # set spatial coordinates
 prj <- sf::st_crs(4326)
 worldMap <- sf::st_set_crs(wo.simp1_sf, prj)
+
+test_valid <- try(sf::st_intersects(sf::st_centroid(worldMap), worldMap), TRUE)
+stopifnot(!inherits(test_valid, "try-error"))
+
+# #Repairing possible issues related to spherical geometries - NOT WORKING ANYMORE!
+# isv <- sf::st_is_valid(worldMap) #Senegal had an issue before; now Chile and Argentina? Not showing in the validity test!
+# pais2fix <- c("argentina", "chile")
+# # if (any(!isv)) {
+#   # for (i in which(!isv)) {
+#   for (j in seq_along(pais2fix)) {
+#     i <- which(worldMap$NAME_0 %in% pais2fix[j])
+#     tmp.i <- worldMap[i, ]$geometry
+#     tmp.ii <- lwgeom::lwgeom_make_valid(sf::st_make_valid(tmp.i))
+#     worldMap[i, ]$geometry <- tmp.ii
+#
+#     # proj <- "+proj=laea +lon_0=-63.4570303 +lat_0=-39.280776 +datum=WGS84 +units=m +no_defs"
+#     # tmp.ii <- sf::st_transform(tmp.i, proj)
+#     # tmp.i.1 <- s2::as_s2_geography(sf::st_as_binary(tmp.i), check = FALSE)
+#     # tmp.i.2 <- s2::s2_as_binary(s2::s2_snap_to_grid(tmp.i.1, grid_size = 1e-7))
+#     # tmp.i.2.5 <- s2::s2_geog_from_wkb(tmp.i.2, check = TRUE, planar = TRUE)
+#     # tmp.i.3 <- sf::st_as_sfc(tmp.i.2.5)
+#     # # tmp.i.3.5 <- sf::st_transform(tmp.i, sf::st_crs(tmp.i))
+#     # worldMap[i, ]$geometry <- tmp.i.3
+#   }
+# # }
+# # worldMap <- sf::st_make_valid(worldMap)
+stopifnot(all(sf::st_is_valid(worldMap)))
+
+## Replacing polygons with problems by the older polygons
+worldMap[worldMap$NAME_0 %in% "argentina", ] <-
+  old_map[old_map$NAME_0 %in% "argentina", ]
+worldMap[worldMap$NAME_0 %in% "chile", ] <-
+  old_map[old_map$NAME_0 %in% "chile", ]
 
 
 # wo.simp2 <- gSimplify(wo, tol = 0.0001, topologyPreserve = TRUE)
