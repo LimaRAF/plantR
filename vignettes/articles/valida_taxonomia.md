@@ -117,14 +117,22 @@ head(names_fixed[,-c(2,4)], 7)
 ```
 
 ``` shadebox
-#>               scientificName scientificName.new scientificNameStatus
-#> 1               Lindsaea sp.       Lindsaea sp.                indet
-#> 2           Lindsaeaceae sp.   Lindsaeaceae sp.      family_as_genus
-#> 3            Lindsaea lancea    Lindsaea lancea          possibly_ok
-#> 4            Lindsaea lancia    Lindsaea lancia          possibly_ok
-#> 5            Lindsaea pumila    Lindsaea pumila          possibly_ok
-#> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea       name_w_authors
-#> 7            lindsaea lancea    Lindsaea lancea    name_w_wrong_case
+#>               scientificName scientificName.new
+#> 1               Lindsaea sp.       Lindsaea sp.
+#> 2           Lindsaeaceae sp.   Lindsaeaceae sp.
+#> 3            Lindsaea lancea    Lindsaea lancea
+#> 4            Lindsaea lancia    Lindsaea lancia
+#> 5            Lindsaea pumila    Lindsaea pumila
+#> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea
+#> 7            lindsaea lancea    Lindsaea lancea
+#>   scientificNameStatus
+#> 1                indet
+#> 2      family_as_genus
+#> 3          possibly_ok
+#> 4          possibly_ok
+#> 5          possibly_ok
+#> 6       name_w_authors
+#> 7    name_w_wrong_case
 ```
 
 The output of `fixSpecies()` is a data frame that contains the columns
@@ -162,9 +170,11 @@ user’s goals. Below, some examples of their isolate use:
 
 ``` r
 plantR:::fixAnnotation(c("Lindsaea lancea var falcata", "Lindsaea Aff.lancea"))
-#> [1] "Lindsaea lancea var. falcata" "Lindsaea aff. lancea"
+#> [1] "Lindsaea lancea var. falcata"
+#> [2] "Lindsaea aff. lancea"
 plantR:::fixIndet(c("Indet1", "Blechnum sp. 2", "Blechnum sp 2", "Blechnum sp"))
-#> [1] "Indet. sp.1"   "Blechnum sp.2" "Blechnum sp.2" "Blechnum sp."
+#> [1] "Indet. sp.1"   "Blechnum sp.2" "Blechnum sp.2"
+#> [4] "Blechnum sp."
 plantR:::fixCase(c("lindsaea lancea", "Lindsaea Lancea", "LINDSAEA LANCEA"))
 #>   lindsaea lancea   Lindsaea Lancea   LINDSAEA LANCEA 
 #> "Lindsaea lancea" "Lindsaea lancea" "Lindsaea lancea"
@@ -190,22 +200,30 @@ names_valid <- prepSpecies(names_fixed,
                            tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"))
 head(names_valid[,-c(2,3,4,9,11)], 7)
-#>               scientificName scientificNameStatus suggestedFamily   suggestedName
-#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea
-#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae
-#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea
-#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea
-#>   suggestedAuthorship        tax.notes         scientificNameFull
-#> 1           Pic.Serm.    name accepted         Lindsaea Pic.Serm.
-#> 2             C.Presl    name accepted       Lindsaeaceae C.Presl
-#> 3          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
-#> 4          (L.) Bedd.  name misspelled Lindsaea lancea (L.) Bedd.
-#> 5          (L.) Bedd. replaced synonym Lindsaea lancea (L.) Bedd.
-#> 6          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
-#> 7          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
+#>               scientificName scientificNameStatus
+#> 1               Lindsaea sp.                indet
+#> 2           Lindsaeaceae sp.      family_as_genus
+#> 3            Lindsaea lancea          possibly_ok
+#> 4            Lindsaea lancia          possibly_ok
+#> 5            Lindsaea pumila          possibly_ok
+#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors
+#> 7            lindsaea lancea    name_w_wrong_case
+#>   suggestedFamily   suggestedName suggestedAuthorship
+#> 1    Lindsaeaceae        Lindsaea           Pic.Serm.
+#> 2    Lindsaeaceae    Lindsaeaceae             C.Presl
+#> 3    Lindsaeaceae Lindsaea lancea          (L.) Bedd.
+#> 4    Lindsaeaceae Lindsaea lancea          (L.) Bedd.
+#> 5    Lindsaeaceae Lindsaea lancea          (L.) Bedd.
+#> 6    Lindsaeaceae Lindsaea lancea          (L.) Bedd.
+#> 7    Lindsaeaceae Lindsaea lancea          (L.) Bedd.
+#>          tax.notes         scientificNameFull
+#> 1    name accepted         Lindsaea Pic.Serm.
+#> 2    name accepted       Lindsaeaceae C.Presl
+#> 3    name accepted Lindsaea lancea (L.) Bedd.
+#> 4  name misspelled Lindsaea lancea (L.) Bedd.
+#> 5 replaced synonym Lindsaea lancea (L.) Bedd.
+#> 6    name accepted Lindsaea lancea (L.) Bedd.
+#> 7    name accepted Lindsaea lancea (L.) Bedd.
 ```
 
 The output of the function is optimized to ease the user´s
@@ -260,14 +278,22 @@ names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
 diff <- names_valid$scientificNameFull != names_valid_wfo$scientificNameFull
 diff[is.na(diff)] <- FALSE
 head(names_bfo_wfo_wcvp[diff, ], 3)
-#>   names_valid$scientificName.new names_valid$scientificNameFull
-#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.
-#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl
-#> 3                Lindsaea lancea     Lindsaea lancea (L.) Bedd.
-#>                  names_valid_wfo$scientificNameFull names_valid_wcvp$scientificNameFull
-#> 1                           Lindsaea Dryand. ex Sm.             Lindsaea Dryand. ex Sm.
-#> 2                          Lindsaeaceae M.R.Schomb.                    Lindsaeaceae sp.
-#> 3 Lindsaea lancea (L.) Bedd.|Lindsaea lancea Christ          Lindsaea lancea (L.) Bedd.
+#>   names_valid$scientificName.new
+#> 1                   Lindsaea sp.
+#> 2               Lindsaeaceae sp.
+#> 3                Lindsaea lancea
+#>   names_valid$scientificNameFull
+#> 1             Lindsaea Pic.Serm.
+#> 2           Lindsaeaceae C.Presl
+#> 3     Lindsaea lancea (L.) Bedd.
+#>                  names_valid_wfo$scientificNameFull
+#> 1                           Lindsaea Dryand. ex Sm.
+#> 2                          Lindsaeaceae M.R.Schomb.
+#> 3 Lindsaea lancea (L.) Bedd.|Lindsaea lancea Christ
+#>   names_valid_wcvp$scientificNameFull
+#> 1             Lindsaea Dryand. ex Sm.
+#> 2                    Lindsaeaceae sp.
+#> 3          Lindsaea lancea (L.) Bedd.
 ```
 
 Note that the computing speed when using larger backbones (over a
