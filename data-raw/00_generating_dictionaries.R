@@ -13,14 +13,15 @@ path <- 'data-raw/raw_dictionaries/taxonomists.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
                                    path = path,
                                    overwrite = TRUE)
-dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+dados <- readxl::read_xlsx(path, guess_max = 10000)
 # replacing "NA"s
 empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
   dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
 # saving and cleaning
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path),)
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 ### Gazetteer
@@ -29,7 +30,7 @@ path <- 'data-raw/raw_dictionaries/gazetteer.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
                                    path = path,
                                    overwrite = TRUE)
-dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
+dados <- readxl::read_xlsx(path, guess_max = 10000)
 # replacing "NA"s
 empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
@@ -38,9 +39,43 @@ for (i in seq_along(dados))
 cols2change <- c("latitude.gazetteer", "longitude.gazetteer")
 for (i in seq_along(cols2change))
   dados[[cols2change[i]]] <- as.numeric(dados[[cols2change[i]]])
+
+# fixing enconding issues
+# bad_enc <- enc2native(names(badEncoding))
+# good_enc <- names(badEncoding)
+# bad_enc <- c(bad_enc, "<U+00C1>")
+# good_enc <- c(good_enc, "Á")
+#
+# col2check <- c("NAME_0", "NAME_1", "NAME_2", "NAME_3")
+# for (i in seq_along(col2check)) {
+#   vect.i <- dados[[col2check[i]]]
+#   check_these <- !stringi::stri_enc_mark(vect.i) %in% "ASCII"
+#   if (any(check_these)) {
+#     vect.i[check_these] <- enc2native(vect.i[check_these])
+#     # vect.i[check_these] <- iconv(vect.i[check_these], "latin1", "UTF-8")
+#     # Encoding(vect.i[check_these]) <- "UTF-8"
+#     for (j in seq_along(bad_enc))
+#       vect.i[check_these] <- gsub(bad_enc[j], good_enc[j],
+#                                   vect.i[check_these], fixed = TRUE)
+#
+#     # t <- stringi::stri_trans_general(vect.i[check_these],"any-latin")
+#     # t <- stringi::stri_trans_general(vect.i[check_these],"ASCII")
+#     # t <- stringi::stri_trans_general(t, "Latin")
+#     # "Any-Accents"
+#     #vect.i <- enc2utf8(vect.i)
+#     vect.i[check_these] <-
+#       stringi::stri_trans_general(vect.i[check_these],"ASCII")
+#     dados[[col2check[i]]] <- iconv(vect.i, "", "UTF-8")
+#   }
+# }
+head(dados)
+head(dados$NAME_0)
+stringi::stri_enc_mark(head(dados$NAME_0))
+
 # saving and cleaning
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path))
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 ### GADM checks
@@ -49,15 +84,15 @@ path <- 'data-raw/raw_dictionaries/gadmCheck.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
                                    path = path,
                                    overwrite = TRUE)
-dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000,
-                                         trim_ws = FALSE))
+dados <- readxl::read_xlsx(path, guess_max = 10000, trim_ws = FALSE)
 # replacing "NA"s
 empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
   dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
 # saving and cleaning
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path))
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 ### Replace Names
@@ -66,15 +101,15 @@ path <- 'data-raw/raw_dictionaries/replaceNames.xlsx'
 dl <- googledrive::drive_download( googledrive::as_id(link),
                                    path = path,
                                    overwrite = TRUE)
-dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000,
-                                         trim_ws = FALSE))
+dados <- readxl::read_xlsx(path, guess_max = 10000, trim_ws = FALSE)
 # replacing "NA"s
 empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
   dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
 
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path))
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 ### Family Synonyms
@@ -89,8 +124,9 @@ empty.vec <- c("", " ", "NA")
 for (i in seq_along(dados))
   dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
 
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path))
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 
@@ -112,8 +148,9 @@ for (i in seq_along(cols2change))
 cols2change <- c("records", "total accessioned")
 for (i in seq_along(cols2change))
   dados[[cols2change[i]]] <- as.integer(dados[[cols2change[i]]])
-write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
-          row.names = FALSE)
+readr::write_csv(dados, gsub("xlsx$", "csv", path))
+# write.csv(dados, gsub("xlsx$", "csv", path), fileEncoding = "UTF-8",
+#           row.names = FALSE)
 file.remove(path)
 
 
@@ -132,7 +169,7 @@ data_names <- basename(dic_files) %>%
   stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
   data.frame() %>%
   select(1) %>%
-  pull()
+  dplyr::pull()
 
 #guess encoding
 loc_list <- purrr::map(dic_files,
@@ -252,25 +289,32 @@ gazetteer <- dic$gazetteer[ ,c("order",
                                "latitude.gazetteer",
                                "longitude.gazetteer",
                                "resolution.gazetteer")]
-
 gazetteer <- gazetteer[grepl("^ok", gazetteer$status, perl = TRUE),]
 
 ### REVER FORMA DE REMOVER LOCALIDADES COM COORDENADAS DIFERENTES...
 priorities <- data.frame(source = c("gadm", "gadm_new", "gadm_treeco", "treeco", "ibge",
                                     "google", "ibge_treeco", "splink_jabot",
-                                    "gbif", "gbif_gsg", "cncflora", "ibge?", "types"),
-                         priority = c(2, 3, 3, 3, 1, 5, 0, 4, 4, 4, 3, 3, 3))
+                                    "gbif", "gbif_gsg", "cncflora", "ibge?", "types",
+                                    "cnuc_ibge", "gadm?", "gbif_jabot",
+                                    "gbif_jabot_reflora", "gbif_jabot_reflora_splink",
+                                    "gbif_jabot_splink", "gbif_reflora",
+                                    "gbif_reflora_splink", "gbif_splink",
+                                    "jabot_splink", "reflora", "splink"),
+                         priority = c(2, 3, 3, 3, 1, 5, 0, 4, 4, 4, 3, 3, 3,
+                                      1, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4))
 priorities[order(priorities$priority),]
 
 gazetteer <- dplyr::left_join(gazetteer, priorities)
 gazetteer <- gazetteer[order(gazetteer$priority), ]
-dplyr::count(gazetteer, source, priority) %>% arrange(priority)
+dplyr::count(gazetteer, source, priority) %>% dplyr::arrange(priority)
 gazetteer$loc <- plantR:::squish(gazetteer$loc)
 gazetteer <-
   gazetteer[!duplicated(gazetteer$loc) & !is.na(gazetteer$loc.correct),]
 
-gazetteer$source <- gsub("gadm_new","gadm", gazetteer$source)
-gazetteer$source <- gsub("gbif_gsg","gbif", gazetteer$source)
+gazetteer$source[grepl("ibge$", gazetteer$source)] <- "ibge"
+gazetteer$source[grepl("^gadm", gazetteer$source)] <- "gadm"
+gazetteer$source[grepl("gbif", gazetteer$source)] <- "herbaria"
+gazetteer$source[grepl("splink", gazetteer$source)] <- "herbaria"
 
 res.gaz <- c("localidade", "localidade|sublocalidade", "sublocalidade",
              "distrito|vila", "distrito", "distrito|bairro", "bairro",
@@ -328,7 +372,7 @@ gazetteer$priority <- NULL
 check_these <- stringr::str_count(admin$loc.correct, "_") > 2
 check_these[is.na(check_these)] <- FALSE
 loc_parc <- admin$loc.correct
-loc_parc[check_these] <- str_extract(loc_parc[check_these], ".*(?=_)")
+loc_parc[check_these] <- stringr::str_extract(loc_parc[check_these], ".*(?=_)")
 probs <- admin$NAME_2[match(loc_parc, admin$loc.correct)] != admin$NAME_2
 probs[is.na(probs)] <- FALSE
 if(any(probs)) {
@@ -340,7 +384,8 @@ if(any(probs)) {
 
 # names and abbreviation of localities to be replaced
 replaceNames <- dic$replaceNames
-tmp1 <- replaceNames[replaceNames$class %in% "locality1" & apply(is.na(replaceNames[,2:4]), 1, all),]
+tmp1 <- replaceNames[replaceNames$class %in% "locality1" &
+                       apply(is.na(replaceNames[,2:4]), 1, all),]
 tmp1$replace
 
 #Renato ö: o codigo abaixo estava dando problemas e tenho quase certeza que preciamos
@@ -358,12 +403,12 @@ head(gazetteer)
 head(admin)
 head(replaceNames)
 
-write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
-write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
-write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
-write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
-write_csv(admin, "./data-raw/dictionaries/admin.csv")
-write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
+readr::write_csv(taxonomists, "./data-raw/dictionaries/taxonomists.csv")
+readr::write_csv(familiesSynonyms, "./data-raw/dictionaries/familiesSynonyms.csv")
+readr::write_csv(collectionCodes, "./data-raw/dictionaries/collectionCodes.csv")
+readr::write_csv(gazetteer, "./data-raw/dictionaries/gazetteer.csv")
+readr::write_csv(admin, "./data-raw/dictionaries/admin.csv")
+readr::write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 
 #Removing data
 rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin, replaceNames)

@@ -1,8 +1,8 @@
 # Script to read from data-raw/dictionaries and generate sysdata
 
 # loading packages
-library(stringr)
-library(readr)
+# library(stringr)
+# library(readr)
 library(dplyr)
 
 # Reading processed files
@@ -15,43 +15,42 @@ data_names <- basename(dic_files) %>%
   stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
   data.frame() %>%
   select(1) %>%
-  pull()
+  dplyr::pull()
 
 #guess encoding
-loc_list <- purrr::map(dic_files,
-                       ~readr::guess_encoding(.))
-
-loc_list <- c("UTF-8",
-              "UTF-8",
-              "UTF-8",
-              "UTF-8", #ASCII?
-              "UTF-8",
-              "UTF-8",
-              # "ASCII",
-              # "ASCII",
-              "UTF-8")
+# loc_list <- purrr::map(dic_files,
+#                        ~readr::guess_encoding(.))
+#
+# loc_list <- c("UTF-8",
+#               "UTF-8",
+#               "UTF-8",
+#               "UTF-8", #ASCII?
+#               "UTF-8",
+#               "UTF-8",
+#               # "ASCII",
+#               # "ASCII",
+#               "UTF-8")
 #Renato: código abaixo estava retornando um erro, por conta dos "ASCII"
 #troquei por "UTF-8" no `loc_list` e o erro sumiu.
 #Mas não pq estava "ASCII" então, checar...
-
-dic <- purrr::map2(.x = dic_files,
-                   .y = loc_list,
-                   ~read_csv(file = .x,
-                             guess_max = 30000,#this has to be large
-                             locale = locale(encoding = .y)))
+# dic <- purrr::map2(.x = dic_files,
+#                    .y = loc_list,
+#                    ~readr::read_csv(file = .x,
+#                              guess_max = 30000,#this has to be large
+#                              locale = readr::locale(encoding = .y)))
 
 encoding <- "UTF-8"
 dic <- lapply(dic_files,
-              read_csv,
+              readr::read_csv,
               trim_ws = FALSE,
               guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding))
+              locale = readr::locale(encoding = encoding))
 
 names(dic) <- data_names
 lapply(dic, nrow)
 #new dims!
-# gazetteer from 34807 to 23436 (July 2020); 23789 (Apr 2025)
-#taxonomists from 9297 to 8518 (July 2020); 8715 (Apr 2025)
+# gazetteer from 34807 to 23436 (July 2020); 31066 (Oct 2025)
+#taxonomists from 9297 to 8518 (July 2020); 8742 (Oct 2025)
 
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
