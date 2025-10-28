@@ -39,7 +39,9 @@
 #' degrees) to make maps smaller in size and thus less burdensome for
 #' the geographical validation procedures.
 #'
-#' Maps currently used are from the version 4.1 of [GADM](https://gadm.org/)
+#' Maps currently used are from the version 4.1 of [GADM](https://gadm.org/),
+#' except for Argentina and Chile that had issues and polygons used
+#' correspond to version 3.6.
 #'
 #' Reference system: WSG84
 #'
@@ -58,9 +60,11 @@
 #' considered an initial total of 51 countries and dependent
 #' territories for Latin America, but since some of them are
 #' available only at the country level (e.g. Aruba), they were not
-#' included in this map (total of 46 countries). The Latin
+#' included in this map (total of 45 countries). The Latin
 #' American definition used here include all American territories but
-#' the United States and Canada.
+# the United States and Canada. Due to projection problems in the
+# source data, two states from Uruguay (i.e. Salto and Tucuarembó) do
+# not have the information at the best administrative level possible.
 #'
 #' Locality names (e.g. country, state, county) were edited to match
 #' the __plantR__ default gazetteer, using the same __plantR__
@@ -83,7 +87,7 @@
 #' @keywords datasets
 #' @name latamMap
 #' @usage data(latamMap)
-#' @format A list of 46 Multipolygon 'sf' objects
+#' @format A list of 45 Multipolygon 'sf' objects
 #' @source \url{https://gadm.org/download_country.html}
 "latamMap"
 

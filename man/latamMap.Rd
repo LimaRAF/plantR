@@ -5,7 +5,7 @@
 \alias{latamMap}
 \title{Maps of Latin American countries and dependent territories}
 \format{
-A list of 46 Multipolygon 'sf' objects
+A list of 45 Multipolygon 'sf' objects
 }
 \source{
 \url{https://gadm.org/download_country.html}
@@ -20,9 +20,8 @@ administrative level available at \href{https://gadm.org}{GADM}. We
 considered an initial total of 51 countries and dependent
 territories for Latin America, but since some of them are
 available only at the country level (e.g. Aruba), they were not
-included in this map (total of 46 countries). The Latin
+included in this map (total of 45 countries). The Latin
 American definition used here include all American territories but
-the United States and Canada.
 }
 \details{
 Locality names (e.g. country, state, county) were edited to match

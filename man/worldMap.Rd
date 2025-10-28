@@ -25,7 +25,9 @@ Original polygons were simplified (tolerance: 0.001 decimal
 degrees) to make maps smaller in size and thus less burdensome for
 the geographical validation procedures.
 
-Maps currently used are from the version 4.1 of \href{https://gadm.org/}{GADM}
+Maps currently used are from the version 4.1 of \href{https://gadm.org/}{GADM},
+except for Argentina and Chile that had issues and polygons used
+correspond to version 3.6.
 
 Reference system: WSG84
 }
