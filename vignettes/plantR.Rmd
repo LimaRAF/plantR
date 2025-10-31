@@ -152,7 +152,7 @@ but using new __plantR__ functions and internal datasets.
 However, any taxonomic backbone can be used for name checking, as long
 as it has a specific content and format. Please check the companion R
 package __plantRdata__ available only in GitHub for name checking
-using the backbones from the [World Flora Online](https://www.worldfloraonline.org/) World Flora Online, the [World Checklist of Vascular Plants](https://powo.science.kew.org/) and [GBIF](https://www.gbif.org/).
+using the backbones from the [World Flora Online](https://www.worldfloraonline.org/) World Flora Online, the [World Checklist of Vascular Plants](https://powo.science.kew.org/), [GBIF](https://www.gbif.org/) and the [Taxonomic Catalog of the Brazilian Fauna](http://fauna.jbrj.gov.br/fauna/listaBrasil).
 
 Previous versiond also used [The Plant List](http://www.theplantlist.org/),  
 via the package __Taxonstand__, but since The Plant List was

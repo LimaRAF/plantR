@@ -8,6 +8,24 @@ gadm,american samoa,AS,American Samoa,NA,NA,NA
 gadm,andorra,AD,Andorra,NA,NA,NA
 gadm,angola,AO,Angola,NA,NA,NA
 gadm,anguilla,AI,Anguilla,NA,NA,NA
+gadm_new,anguilla_blowing point,AI,Anguilla,Blowing Point,NA,NA
+gadm_new,anguilla_dog island,AI,Anguilla,Dog Island,NA,NA
+gadm_new,anguilla_east end,AI,Anguilla,East End,NA,NA
+gadm_new,anguilla_george hill,AI,Anguilla,George Hill,NA,NA
+gadm_new,anguilla_island harbour,AI,Anguilla,Island Harbour,NA,NA
+gadm_new,anguilla_north hill,AI,Anguilla,North Hill,NA,NA
+gadm_new,anguilla_north side,AI,Anguilla,North Side,NA,NA
+gadm_new,anguilla_pricly pear cays,AI,Anguilla,Prickly Pear Cays,NA,NA
+gadm_new,anguilla_sandy ground,AI,Anguilla,Sandy Ground,NA,NA
+gadm_new,anguilla_sandy hill,AI,Anguilla,Sandy Hill,NA,NA
+gadm_new,anguilla_scrub island,AI,Anguilla,Scrub Island,NA,NA
+gadm_new,anguilla_sombrero island,AI,Anguilla,Sombrero Island,NA,NA
+gadm_new,anguilla_south hill,AI,Anguilla,South Hill,NA,NA
+gadm_new,anguilla_stoney ground,AI,Anguilla,Stoney Ground,NA,NA
+gadm_new,anguilla_the farrington,AI,Anguilla,The Farrington,NA,NA
+gadm_new,anguilla_the quarter,AI,Anguilla,The Quarter,NA,NA
+gadm_new,anguilla_the valley,AI,Anguilla,The Valley,NA,NA
+gadm_new,anguilla_west end,AI,Anguilla,West End,NA,NA
 gadm,antarctica,AQ,Antarctica,NA,NA,NA
 gadm,antigua barbuda,AG,Antigua and Barbuda,NA,NA,NA
 gadm,antigua barbuda_barbuda,AG,Antigua and Barbuda,Barbuda,NA,NA
@@ -633,7 +651,7 @@ gadm,bolivia_chuquisaca_juana azurduay padilla,BO,Bolivia,Chuquisaca,Juana Azurd
 gadm,bolivia_chuquisaca_luis calvo,BO,Bolivia,Chuquisaca,Luis Calvo,NA
 gadm,bolivia_chuquisaca_nor cinti,BO,Bolivia,Chuquisaca,Nor Cinti,NA
 gadm,bolivia_chuquisaca_oropeza,BO,Bolivia,Chuquisaca,Oropeza,NA
-gadm,bolivia_chuquisaca_sud cinti,BO,Bolivia,Chuquisaca,Sud Cinti,NA
+gadm,bolivia_chuquisaca_sur cinti,BO,Bolivia,Chuquisaca,Sud Cinti,NA
 gadm,bolivia_chuquisaca_tomina,BO,Bolivia,Chuquisaca,Tomina,NA
 gadm,bolivia_chuquisaca_yamparaez,BO,Bolivia,Chuquisaca,Yamparáez,NA
 gadm,bolivia_cochabamba,BO,Bolivia,Cochabamba,NA,NA
@@ -7631,6 +7649,7 @@ ibge,brazil_sao paulo_americo campos,BR,Brazil,São Paulo,Américo de Campos,NA
 gadm,brazil_sao paulo_amparo,BR,Brazil,São Paulo,Amparo,NA
 gadm_new,brazil_sao paulo_amparo_tres pontes,NA,Brazil,São Paulo,Amparo,Tres Pontes
 ibge,brazil_sao paulo_analandia,BR,Brazil,São Paulo,Analândia,NA
+gbif_splink,brazil_sao paulo_analandia_serra cuscuzeiro,NA,Brazil,São Paulo,Analândia,Serra do Cuscuzeiro
 ibge,brazil_sao paulo_andradina,BR,Brazil,São Paulo,Andradina,NA
 ibge,brazil_sao paulo_angatuba,BR,Brazil,São Paulo,Angatuba,NA
 gadm_new,brazil_sao paulo_angatuba_bom retiro esperanca,NA,Brazil,São Paulo,Angatuba,Bom Retiro Esperanca
@@ -7701,7 +7720,8 @@ ibge,brazil_sao paulo_boraceia,BR,Brazil,São Paulo,Boracéia,NA
 gadm,brazil_sao paulo_borborema,BR,Brazil,São Paulo,Borborema,NA
 ibge,brazil_sao paulo_borebi,BR,Brazil,São Paulo,Borebi,NA
 ibge,brazil_sao paulo_botucatu,BR,Brazil,São Paulo,Botucatu,NA
-gadm_new,brazil_sao paulo_botucatu_rubiao junior,NA,Brazil,São Paulo,Botucatu,Rubiao Junior
+gbif_splink,brazil_sao paulo_botucatu_campus unesp,NA,Brazil,São Paulo,Botucatu,distrito de rubiao junior unesp ib - jardim botanico ( 482 ) | jardim botanico departamento de botanica  ibb - unesp ( 27 ) | jardim botanico ( 14 ) | jardim botanico unesp - distrito de rubiao junior ( 13 ) | jardim botanico distrito de rubiao junior unesp ( 5 ) | distrito de rubiao junior unesp - jardim botanico ( 1 )
+gadm_new,brazil_sao paulo_botucatu_rubiao junior,NA,Brazil,São Paulo,Botucatu,Rubião Junior
 ibge,brazil_sao paulo_braganca paulista,BR,Brazil,São Paulo,Bragança Paulista,NA
 ibge,brazil_sao paulo_brauna,BR,Brazil,São Paulo,Braúna,NA
 ibge,brazil_sao paulo_brejo alegre,BR,Brazil,São Paulo,Brejo Alegre,NA
@@ -7732,7 +7752,9 @@ ibge,brazil_sao paulo_cajobi,BR,Brazil,São Paulo,Cajobi,NA
 ibge,brazil_sao paulo_cajuru,BR,Brazil,São Paulo,Cajuru,NA
 ibge,brazil_sao paulo_campina monte alegre,BR,Brazil,São Paulo,Campina do Monte Alegre,NA
 ibge,brazil_sao paulo_campinas,BR,Brazil,São Paulo,Campinas,NA
+cnuc_ibge,brazil_sao paulo_campinas_arie mata santa genebra,NA,Brazil,São Paulo,Campinas,ARIE MATA DE SANTA GENEBRA
 gadm_new,brazil_sao paulo_campinas_barao geraldo,NA,Brazil,São Paulo,Campinas,Barão Geraldo
+gbif_reflora_splink,brazil_sao paulo_campinas_campus unicamp,NA,Brazil,São Paulo,Campinas,UNICAMP
 gadm_new,brazil_sao paulo_campinas_joaquim egidio,NA,Brazil,São Paulo,Campinas,Joaquim Egidio
 ibge,brazil_sao paulo_campo limpo paulista,BR,Brazil,São Paulo,Campo Limpo Paulista,NA
 ibge,brazil_sao paulo_campos jordao,BR,Brazil,São Paulo,Campos do Jordão,NA
@@ -7784,6 +7806,7 @@ ibge,brazil_sao paulo_cruzalia,BR,Brazil,São Paulo,Cruzália,NA
 ibge,brazil_sao paulo_cruzeiro,BR,Brazil,São Paulo,Cruzeiro,NA
 ibge,brazil_sao paulo_cubatao,BR,Brazil,São Paulo,Cubatão,NA
 ibge,brazil_sao paulo_cunha,BR,Brazil,São Paulo,Cunha,NA
+gbif_jabot_reflora_splink,brazil_sao paulo_cunha_parque estadual serra mar nucleo cunha,NA,Brazil,São Paulo,Cunha,PE Serra do Mar - Núcleo Cunha
 ibge,brazil_sao paulo_descalvado,BR,Brazil,São Paulo,Descalvado,NA
 ibge,brazil_sao paulo_diadema,BR,Brazil,São Paulo,Diadema,NA
 ibge,brazil_sao paulo_dirce reis,BR,Brazil,São Paulo,Dirce Reis,NA
@@ -8018,6 +8041,7 @@ ibge,brazil_sao paulo_mococa,BR,Brazil,São Paulo,Mococa,NA
 gadm_new,brazil_sao paulo_mococa_igarai,NA,Brazil,São Paulo,Mococa,Igarai
 gadm_new,brazil_sao paulo_mococa_sao benedito areias,NA,Brazil,São Paulo,Mococa,Sao Benedito Areias
 ibge,brazil_sao paulo_mogi cruzes,BR,Brazil,São Paulo,Mogi das Cruzes,NA
+splink,brazil_sao paulo_mogi cruzes_apa rio tiete cesar sousa,NA,Brazil,São Paulo,Mogi das Cruzes,apa do rio tiete cesar de sousa
 gadm_new,brazil_sao paulo_mogi cruzes_bras cubas,NA,Brazil,São Paulo,Mogi das Cruzes,Bras Cubas
 gadm_new,brazil_sao paulo_mogi cruzes_quatinga,NA,Brazil,São Paulo,Mogi das Cruzes,Quatinga
 gadm_new,brazil_sao paulo_mogi cruzes_sabauna,NA,Brazil,São Paulo,Mogi das Cruzes,Sabauna
@@ -8249,6 +8273,7 @@ ibge,brazil_sao paulo_santana parnaiba,BR,Brazil,São Paulo,Santana de Parnaíba
 ibge,brazil_sao paulo_santana ponte pensa,BR,Brazil,São Paulo,Santana da Ponte Pensa,NA
 ibge,brazil_sao paulo_santo anastacio,BR,Brazil,São Paulo,Santo Anastácio,NA
 gadm,brazil_sao paulo_santo andre,BR,Brazil,São Paulo,Santo André,NA
+gbif_splink,brazil_sao paulo_santo andre_rebio alto serra paranapiacaba (antiga estacao biologica de mesmo nome),NA,Brazil,São Paulo,Santo André,REBIO do Alto da Serra de Paranapiacaba
 ibge,brazil_sao paulo_santo antonio alegria,BR,Brazil,São Paulo,Santo Antônio da Alegria,NA
 ibge,brazil_sao paulo_santo antonio aracangua,BR,Brazil,São Paulo,Santo Antônio do Aracanguá,NA
 ibge,brazil_sao paulo_santo antonio jardim,BR,Brazil,São Paulo,Santo Antônio do Jardim,NA
@@ -8283,6 +8308,7 @@ gadm_new,brazil_sao paulo_sao manuel_aparecida sao manuel,NA,Brazil,São Paulo,S
 ibge,brazil_sao paulo_sao miguel arcanjo,BR,Brazil,São Paulo,São Miguel Arcanjo,NA
 ibge,brazil_sao paulo_sao paulo,BR,Brazil,São Paulo,São Paulo,NA
 gadm_new,brazil_sao paulo_sao paulo_jaguara,NA,Brazil,São Paulo,São Paulo,Jaguara
+gbif_jabot_reflora_splink,brazil_sao paulo_sao paulo_parque estadual serra mar nucleo curucutu,NA,Brazil,São Paulo,São Paulo,PE Serra do Mar - Núcleo Curucutu
 gadm,brazil_sao paulo_sao pedro,BR,Brazil,São Paulo,São Pedro,NA
 ibge,brazil_sao paulo_sao pedro turvo,BR,Brazil,São Paulo,São Pedro do Turvo,NA
 ibge,brazil_sao paulo_sao roque,BR,Brazil,São Paulo,São Roque,NA
@@ -8932,7 +8958,6 @@ gadm_new,chile_region metropolitana santiago_chacabuco_tiltil,NA,Chile,Región M
 gadm,chile_region metropolitana santiago_cordillera,CL,Chile,Región Metropolitana de Santiago,Cordillera,NA
 gadm,chile_region metropolitana santiago_cordillera_pirque,CL,Chile,Región Metropolitana de Santiago,Cordillera,Pirque
 gadm,chile_region metropolitana santiago_cordillera_puente alto,CL,Chile,Región Metropolitana de Santiago,Cordillera,Puente Alto
-gadm_new,chile_region metropolitana santiago_cordillera_san jode maipo,NA,Chile,Región Metropolitana de Santiago,Cordillera,San José de Maipo
 gadm,chile_region metropolitana santiago_cordillera_san jose maipo,CL,Chile,Región Metropolitana de Santiago,Cordillera,San José de Maipo
 gadm,chile_region metropolitana santiago_maipo,CL,Chile,Región Metropolitana de Santiago,Maipo,NA
 gadm_new,chile_region metropolitana santiago_maipo_buin,NA,Chile,Región Metropolitana de Santiago,Maipo,Buin
