@@ -437,6 +437,7 @@ checkDist <- function(x,
     dist.wcvp.name <- lapply(dist.wcvp, function(x)
       f1(x, wcvp_lookup$taxon.distribution.bru.code,
          wcvp_lookup$taxon.distribution.bru))
+    dist.wcvp.name <- lapply(dist.wcvp.name, function(x) x[!is.na(x)])
 
     dist.wcvp.codes <- strsplit(x1$taxon.distribution,
                                 split = "|",
