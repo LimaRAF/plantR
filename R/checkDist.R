@@ -378,7 +378,7 @@ checkDist <- function(x,
     if (!requireNamespace("plantRdata", quietly = TRUE))
       stop("Please install 'plantRdata' to use this feature")
 
-    wcvp_lookup <- botanicalCountries
+    wcvp_lookup <- plantR:::botanicalCountries
     temp.env <- new.env(parent = emptyenv())
     utils::data(list = c("wcvpNames"), package = "plantRdata",
                 envir = temp.env)
