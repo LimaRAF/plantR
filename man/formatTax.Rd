@@ -104,7 +104,7 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "plantae"}
+belong to. Defaults to "plantae"}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with

@@ -1,33 +1,38 @@
 # SCRIPT TO CHECK THE INTERNAL GAZETTEER AND MISSING LOCALITIES
 
 ## Checking for problems in loc.correct search string -------------------------------------
-dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
-                encoding = "UTF-8")
+# dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
+#                 encoding = "UTF-8")
+dic <- readr::read_csv("./data-raw/raw_dictionaries/gazetteer.csv",
+                       guess_max = 3000,
+                       locale = readr::locale(encoding = "UTF-8"))
 dic$loc <- plantR:::squish(dic$loc)
 
 names(dic)[grepl("NAME_",names(dic))] <-
   c("country", "stateProvince", "municipality", "locality", "sublocality")
 tmp <- dic[, c("country", "stateProvince", "municipality", "locality", "sublocality",
                "order", "source", "status")]
-dim(tmp) # was 35752 entries in 09/2025 and 42712 after the update
+dim(tmp) # was 35752 entries in 09/2025 and 44050 after the update
 
 # Any duplicated order?
-check_these <- duplicated(dic$order)
-any(check_these) # Should be all FALSE: all accepted entries have a loc.correct
+check_these <- duplicated(dic$order, incomparables = NA)
+any(check_these) # Should be all FALSE: all accepted entries have their own order ID
 stopifnot(!any(check_these))
 
 # Any missing loc.correct for accepted entries?
 check_these <- is.na(dic$loc.correct) & grepl("ok", dic$status)
 any(check_these) # Should be all FALSE: all accepted entries have a loc.correct
 stopifnot(!any(check_these))
+dic[check_these,]
 
 # Any gazzetter entry that does not have a loc.correct?
 #Formatting the gazetteer locality info
-tmp1 <- plantR::formatLoc(tmp)
+tmp1 <- plantR::formatLoc(as.data.frame(tmp))
 #Flagging problematic records by names
 check_these <- is.na(tmp1$loc.correct)
 any(check_these) # Should be FALSE: all gazetteer entries have a match, at least at country level
 stopifnot(!any(check_these))
+tmp1[check_these,]
 
 # Any gazzetter entry that does not have a loc.correct at least at the stateProvince level?
 #Flagging problematic records by names
@@ -42,7 +47,6 @@ any(check_these) # Should be FALSE: all gazetteer entries have a match, at least
 table(tmp2$status[check_these], tmp2$source[check_these])
 orders_to_check <- data.frame(order = tmp2$order[check_these],
                               checagem = "no_state_found_check_loc_or_NAMES")
-
 
 # Possibly problematic records by strings
 check_these <- tmp1$loc != dic$loc & tmp1$loc.correct != dic$loc.correct
@@ -85,8 +89,11 @@ colunas <- colunas[colunas %in% names(locs)]
 latam_all2 <- cbind.data.frame(latam_all, latam_all1,
                        locs[, colunas], stringsAsFactors = FALSE)
 
-dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
-                encoding = "UTF-8")
+# dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
+#                 encoding = "UTF-8")
+dic <- readr::read_csv("./data-raw/raw_dictionaries/gazetteer.csv",
+                       guess_max = 3000,
+                       locale = readr::locale(encoding = "UTF-8"))
 add_these <- !latam_all2$loc.string %in% dic$loc.correct[grepl("gadm|ibge", dic$source)] |
                 !latam_all2$loc.string1 %in% dic$loc.correct[grepl("gadm|ibge", dic$source)]
 if (any(add_these)) {
@@ -137,14 +144,17 @@ if (any(add_these)) {
   tmp6 <- dplyr::bind_rows(dic, tmp5)
   tmp6 <- tmp6[which(tmp6$order >= last_order), ]
   tmp7 <- tmp6[!grepl("[0-9]", tmp6$loc.correct, perl = TRUE), ]
-  writexl::write_xlsx(tmp7, "new_entries_gazetteer.xlsx")
+  writexl::write_xlsx(tmp7, "data-raw/new_entries_gazetteer.xlsx")
 }
 
 
 ## Checking the precision of the coordinates in the gazetteer -----------------------------------------------
 ## CHECKING THE GAZETTEER COORDINATES ##
-dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
-                encoding = "UTF-8")
+dic <- readr::read_csv("./data-raw/raw_dictionaries/gazetteer.csv",
+                       guess_max = 3000,
+                       locale = readr::locale(encoding = "UTF-8"))
+# dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
+#                 encoding = "UTF-8")
 dic$loc <- plantR:::squish(dic$loc)
 
 #Renaming dictionaries to the DwC standard
@@ -162,18 +172,19 @@ tmp1$origin.coord <- "coord_original"
 ## Validating gazetteer coordinates
 tmp2 <- plantR::checkCoord(tmp1,
                            keep.cols = c("geo.check", "NAME_0", "NAME_1", "NAME_2", "NAME_3"))
-tmp3 <- dplyr::left_join(tmp, tmp2)
+tmp3 <- dplyr::left_join(tmp,
+                         tmp2[, c("order", "NAME_0", "NAME_1", "NAME_2", "NAME_3", "geo.check")])
 
 ## Creating classes for validation
 tmp3$geo.check <- gsub("^ok_", "", tmp3$geo.check)
 tmp3$check_these <- grepl("^ok", tmp3$status, perl = TRUE) &
                     tmp3$source %in% c("gadm","gadm_new","gadm?", "ibge","ibge?","types","gadm_treeco","ibge_treeco") &
-                    tmp3$resolution.gazetteer %in% c("country","state","county") &
+                    tmp3$resolution.gazetteer %in% c("country","state","county") & #,"localidade", "locality","distrito","distrito|vila","localidade|sublocalidade","distrito|bairro") &
                     (tmp3$geo.check %in% c("bad_country", "sea") | tmp3$resolution.gazetteer != tmp3$geo.check)
 tmp3$check_these1 <- grepl("^ok", tmp3$status, perl = TRUE) &
                     tmp3$source %in% c("gbif","gbif_gsg","google","treeco","splink_jabot","cncflora") &
                     tmp3$resolution.gazetteer %in% c("country","state","county") &
-                    (tmp3$geo.check %in% c("bad_country", "sea") | tmp3$resolution.gazetteer != tmp3$geo.check)
+                    (tmp3$geo.check %in% c("bad_country", "sea", "no_cannot_check") | tmp3$resolution.gazetteer != tmp3$geo.check)
 tmp3$pais <- sapply(tmp3$loc.correct, function (x) strsplit(x, "_")[[1]][1])
 tmp3$estado <- sapply(tmp3$loc.correct, function (x) strsplit(x, "_")[[1]][2])
 tmp3$municipio <- sapply(tmp3$loc.correct, function (x) strsplit(x, "_")[[1]][3])
@@ -300,8 +311,38 @@ dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
 to_save_order <- dplyr::left_join(dic, to_save, by = "order")
 writexl::write_xlsx(to_save_order, "data-raw/gazet.check.tmp.xlsx")
 
-## -------------------------------------------------------------------------------
-## PLOTTING POSSIBLE PROBLEMS IN THE GAZETTEER
+## CHECKING IF SPECIFIC STRINGS ARE VALID -------------------------------------------------------
+## based on the strings
+string <- c("brasil",
+            "brazil_sao paulo_sao luiz paraitinga")
+
+df <- data.frame(resol.orig = c("state","county"),
+                 loc.string = string,
+                 loc.string1 = NA)
+df$suggestedName <- "Casearia sylvestris"
+df$suggestedAuthorship <- "Sw."
+df$occurrenceRemarks <- NA
+toto <- getLoc(df)
+toto$origin.coord <- "coord_original"
+toto$decimalLatitude.new <- toto$latitude.gazetteer
+toto$decimalLongitude.new <- toto$longitude.gazetteer
+checkCoord(toto)$geo.check
+
+
+
+## based on the localities
+df <- data.frame(country= c("Chile"),
+                 stateProvince = c("V Región Valparaiso"),
+                 municipality = "Departamento de Cautin", locality = "")
+df1 <- strLoc(fixLoc(df))
+toto <- getLoc(df1)
+toto$origin.coord <- "coord_original"
+toto$decimalLatitude.new <- toto$latitude.gazetteer
+toto$decimalLongitude.new <- toto$longitude.gazetteer
+checkCoord(toto)
+
+
+## PLOTTING POSSIBLE PROBLEMS IN THE GAZETTEER --------------------------------------------------
 # Bahamas
 tt <- latamMap$bahamas
 tt <- tt[order(sf::st_coordinates(sf::st_centroid(tt))[,2]),]
@@ -320,6 +361,13 @@ plot(map.i[plantR::prepLoc(map.i$NAME_1) %in% nomes[3], "NAME_1"])
 ## Original island tagged as Harbour Island is actually Spanish Wells
 ## Harbour Island is originally part of North Eleuthera but should be a separated ADM_1/polygon
 
+#
+tt <- latamMap$chile[latamMap$chile$NAME_1 %in% c("bio bio", "biobio"), ]
+plot(tt[2], reset=FALSE, col = "white")
+nomes <- unique(tt$NAME_2)[2]
+plot(tt[tt$NAME_2 %in% "biobio", 4], add = TRUE, lwd = 2, col = 1:10)
+tt[tt$NAME_2 %in% nomes[1], 3]
+## Original island tagged as Spanish Wells is actually Royal Island
 
 
 ## -------------------------------------------------------------------------------
@@ -346,5 +394,23 @@ head(latam_all1[is.na(latam_all1$loc.correct),]) # ok if empty
 
 dic <- read.csv("./data-raw/raw_dictionaries/gazetteer.csv", as.is = TRUE,
                  encoding = "UTF-8")
-head(latam_all1[!latam_all1$loc %in% unique(dic$loc),]) #ok
+latam_all1[!latam_all1$loc %in% unique(dic$loc),] #ok
 
+
+## FIXING THE URUGUAYN CASE ---------------------------------------------------
+#ver https://en.wikipedia.org/wiki/Municipalities_of_Uruguay
+tt <- plantR::latamMap$uruguay
+tt_cent <- as.data.frame(sf::st_coordinates(sf::st_centroid(tt)))
+tt_pts <- st_as_sf(tt_cent, coords = c("X", "Y"), crs = 4326)
+# checking
+tt_over <- sf::st_intersects(tt, tt_pts)
+rep_these <- lengths(tt_over) != 1
+if (any(rep_these))
+  tt_cent[rep_these,] <- terra::crds(terra::centroids(terra::vect(tt[rep_these,]), inside=T))
+
+## get GeoBoundaries and cross with the tt_cent object
+url <- "https://github.com/wmgeolab/geoBoundaries/blob/b7dd6a55701c76a330500ad9d9240f2b9997c6a8/releaseData/gbOpen/URY/ADM2/geoBoundaries-URY-ADM2-all.zip"
+# temp <- tempfile()
+# download.file(url, temp)
+# unzip(temp)
+tt_cent

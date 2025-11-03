@@ -118,7 +118,8 @@ formatTax <- function(tax,
                      fam.name = fam.name,
                      gen.name = gen.name,
                      spp.name = spp.name,
-                     kingdom = kingdom)
+                     kingdom = kingdom,
+                     db = db)
 
   if (use.suggestion) {
     tax1$family.new[!is.na(tax1$suggestedFamily)] <-

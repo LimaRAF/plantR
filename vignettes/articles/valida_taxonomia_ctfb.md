@@ -56,20 +56,48 @@ names_fixed[,-c(2,4)]
 ```
 
 ``` shadebox
-#>                              scientificName        scientificName.new             scientificNameStatus
-#> 1             Apis mellifera Linnaeus, 1758            Apis mellifera                   name_w_authors
-#> 2                             Apis melifera             Apis melifera                      possibly_ok
-#> 3                        Apis cf. mellifera            Apis mellifera                         conferre
-#> 4                      Ancyloscelis armatus      Ancyloscelis armatus                      possibly_ok
-#> 5                             Centris aenea             Centris aenea                      possibly_ok
-#> 6                              Centris rufa              Centris rufa                      possibly_ok
-#> 7  Centris Rhodoprocta Moure & Seabra, 1960       Centris rhodoprocta name_w_wrong_case|name_w_authors
-#> 8                        Lutjanus purpureus        Lutjanus purpureus                      possibly_ok
-#> 9                 Parotocinclus amazonensis Parotocinclus amazonensis                      possibly_ok
-#> 10                            Panthera onca             Panthera onca                      possibly_ok
-#> 11         Solenopsis bicolor (Emery, 1906)        Solenopsis bicolor                   name_w_authors
-#> 12         Eucopricus columbi MacLeay, 1819        Eucopricus columbi                   name_w_authors
-#> 13                          Eucopricus sp.1           Eucopricus sp.1                            indet
+#>                              scientificName
+#> 1             Apis mellifera Linnaeus, 1758
+#> 2                             Apis melifera
+#> 3                        Apis cf. mellifera
+#> 4                      Ancyloscelis armatus
+#> 5                             Centris aenea
+#> 6                              Centris rufa
+#> 7  Centris Rhodoprocta Moure & Seabra, 1960
+#> 8                        Lutjanus purpureus
+#> 9                 Parotocinclus amazonensis
+#> 10                            Panthera onca
+#> 11         Solenopsis bicolor (Emery, 1906)
+#> 12         Eucopricus columbi MacLeay, 1819
+#> 13                          Eucopricus sp.1
+#>           scientificName.new
+#> 1             Apis mellifera
+#> 2              Apis melifera
+#> 3             Apis mellifera
+#> 4       Ancyloscelis armatus
+#> 5              Centris aenea
+#> 6               Centris rufa
+#> 7        Centris rhodoprocta
+#> 8         Lutjanus purpureus
+#> 9  Parotocinclus amazonensis
+#> 10             Panthera onca
+#> 11        Solenopsis bicolor
+#> 12        Eucopricus columbi
+#> 13           Eucopricus sp.1
+#>                scientificNameStatus
+#> 1                    name_w_authors
+#> 2                       possibly_ok
+#> 3                          conferre
+#> 4                       possibly_ok
+#> 5                       possibly_ok
+#> 6                       possibly_ok
+#> 7  name_w_wrong_case|name_w_authors
+#> 8                       possibly_ok
+#> 9                       possibly_ok
+#> 10                      possibly_ok
+#> 11                   name_w_authors
+#> 12                   name_w_authors
+#> 13                            indet
 ```
 
 ## Internal functions
@@ -80,54 +108,8 @@ on the **same** input vector of names.
 
 ``` r
 fixIndet(names)       # detects undetermined names (e.g., "sp.", "indet")
-```
-
-``` shadebox
-#>  [1] "Apis mellifera Linnaeus, 1758"            "Apis melifera"                           
-#>  [3] "Apis cf. mellifera"                       "Ancyloscelis armatus"                    
-#>  [5] "Centris aenea"                            "Centris rufa"                            
-#>  [7] "Centris Rhodoprocta Moure & Seabra, 1960" "Lutjanus purpureus"                      
-#>  [9] "Parotocinclus amazonensis"                "Panthera onca"                           
-#> [11] "Solenopsis bicolor (Emery, 1906)"         "Eucopricus columbi MacLeay, 1819"        
-#> [13] "Eucopricus sp.1"
-```
-
-``` r
 fixCase(names)        # fixes casing (e.g., "Centris Rhodoprocta")
-```
-
-``` shadebox
-#>              Apis mellifera Linnaeus, 1758                              Apis melifera                         Apis cf. mellifera 
-#>            "Apis mellifera Linnaeus, 1758"                            "Apis melifera"                       "Apis cf. mellifera" 
-#>                       Ancyloscelis armatus                              Centris aenea                               Centris rufa 
-#>                     "Ancyloscelis armatus"                            "Centris aenea"                             "Centris rufa" 
-#>   Centris Rhodoprocta Moure & Seabra, 1960                         Lutjanus purpureus                  Parotocinclus amazonensis 
-#> "Centris rhodoprocta Moure & Seabra, 1960"                       "Lutjanus purpureus"                "Parotocinclus amazonensis" 
-#>                              Panthera onca           Solenopsis bicolor (Emery, 1906)           Eucopricus columbi MacLeay, 1819 
-#>                            "Panthera onca"         "Solenopsis bicolor (Emery, 1906)"         "Eucopricus columbi MacLeay, 1819" 
-#>                            Eucopricus sp.1 
-#>                          "Eucopricus sp.1"
-```
-
-``` r
 fixAuthors(names)     # splits taxon and author names, if present
-```
-
-``` shadebox
-#>                                   orig.name                  tax.name                       tax.author
-#> 1             Apis mellifera Linnaeus, 1758            Apis mellifera                   Linnaeus, 1758
-#> 2                             Apis melifera             Apis melifera                             <NA>
-#> 3                        Apis cf. mellifera                  Apis cf.                        Mellifera
-#> 4                      Ancyloscelis armatus      Ancyloscelis armatus                             <NA>
-#> 5                             Centris aenea             Centris aenea                             <NA>
-#> 6                              Centris rufa              Centris rufa                             <NA>
-#> 7  Centris Rhodoprocta Moure & Seabra, 1960                   Centris Rhodoprocta Moure & Seabra, 1960
-#> 8                        Lutjanus purpureus        Lutjanus purpureus                             <NA>
-#> 9                 Parotocinclus amazonensis Parotocinclus amazonensis                             <NA>
-#> 10                            Panthera onca             Panthera onca                             <NA>
-#> 11         Solenopsis bicolor (Emery, 1906)        Solenopsis bicolor                    (Emery, 1906)
-#> 12         Eucopricus columbi MacLeay, 1819        Eucopricus columbi                    MacLeay, 1819
-#> 13                          Eucopricus sp.1           Eucopricus sp.1                             <NA>
 ```
 
 ------------------------------------------------------------------------
@@ -146,41 +128,82 @@ utils::data("ctfbNames", package = "plantRdata")
 names_valid <- prepSpecies(
   names_fixed,
   tax.names = c("scientificName.new", "scientificNameAuthorship.new"),
-  db = ctfbNames
-)
+  db = ctfbNames)
 
 names_valid[,-c(2,3,4,9,11)]
 ```
 
 ``` shadebox
-#>                              scientificName             scientificNameStatus suggestedFamily             suggestedName
-#> 1             Apis mellifera Linnaeus, 1758                   name_w_authors          Apidae            Apis mellifera
-#> 2                             Apis melifera                      possibly_ok          Apidae            Apis mellifera
-#> 3                        Apis cf. mellifera                         conferre          Apidae            Apis mellifera
-#> 4                      Ancyloscelis armatus                      possibly_ok          Apidae    Ancyloscelis apiformis
-#> 5                             Centris aenea                      possibly_ok          Apidae             Centris aenea
-#> 6                              Centris rufa                      possibly_ok          Apidae             Centris aenea
-#> 7  Centris Rhodoprocta Moure & Seabra, 1960 name_w_wrong_case|name_w_authors          Apidae       Centris rhodoprocta
-#> 8                        Lutjanus purpureus                      possibly_ok      Lutjanidae      Lutjanus campechanus
-#> 9                 Parotocinclus amazonensis                      possibly_ok    Loricariidae Parotocinclus amazonensis
-#> 10                            Panthera onca                      possibly_ok         Felidae             Panthera onca
-#> 11         Solenopsis bicolor (Emery, 1906)                   name_w_authors      Formicidae        Solenopsis bicolor
-#> 12         Eucopricus columbi MacLeay, 1819                   name_w_authors    Scarabaeidae     Sulcophanaeus columbi
-#> 13                          Eucopricus sp.1                            indet    Scarabaeidae             Sulcophanaeus
-#>     suggestedAuthorship            tax.notes                        scientificNameFull
-#> 1        Linnaeus, 1758        name accepted             Apis mellifera Linnaeus, 1758
-#> 2        Linnaeus, 1758      name misspelled             Apis mellifera Linnaeus, 1758
-#> 3        Linnaeus, 1758        name accepted             Apis mellifera Linnaeus, 1758
-#> 4     (Fabricius, 1793)     replaced synonym  Ancyloscelis apiformis (Fabricius, 1793)
-#> 5      Lepeletier, 1841        name accepted            Centris aenea Lepeletier, 1841
-#> 6      Lepeletier, 1841     replaced synonym            Centris aenea Lepeletier, 1841
-#> 7  Moure & Seabra, 1960        name accepted  Centris rhodoprocta Moure & Seabra, 1960
-#> 8          (Poey, 1860)     replaced synonym         Lutjanus campechanus (Poey, 1860)
-#> 9       Garavello, 1977 synonym not replaced Parotocinclus amazonensis Garavello, 1977
-#> 10     (Linnaeus, 1758)        name accepted            Panthera onca (Linnaeus, 1758)
-#> 11        (Emery, 1906)        name accepted          Solenopsis bicolor (Emery, 1906)
-#> 12      (MacLeay, 1819)     replaced synonym     Sulcophanaeus columbi (MacLeay, 1819)
-#> 13   d'Olsoufieff, 1924     replaced synonym          Sulcophanaeus d'Olsoufieff, 1924
+#>                              scientificName
+#> 1             Apis mellifera Linnaeus, 1758
+#> 2                             Apis melifera
+#> 3                        Apis cf. mellifera
+#> 4                      Ancyloscelis armatus
+#> 5                             Centris aenea
+#> 6                              Centris rufa
+#> 7  Centris Rhodoprocta Moure & Seabra, 1960
+#> 8                        Lutjanus purpureus
+#> 9                 Parotocinclus amazonensis
+#> 10                            Panthera onca
+#> 11         Solenopsis bicolor (Emery, 1906)
+#> 12         Eucopricus columbi MacLeay, 1819
+#> 13                          Eucopricus sp.1
+#>                scientificNameStatus suggestedFamily
+#> 1                    name_w_authors          Apidae
+#> 2                       possibly_ok          Apidae
+#> 3                          conferre          Apidae
+#> 4                       possibly_ok          Apidae
+#> 5                       possibly_ok          Apidae
+#> 6                       possibly_ok          Apidae
+#> 7  name_w_wrong_case|name_w_authors          Apidae
+#> 8                       possibly_ok      Lutjanidae
+#> 9                       possibly_ok    Loricariidae
+#> 10                      possibly_ok         Felidae
+#> 11                   name_w_authors      Formicidae
+#> 12                   name_w_authors    Scarabaeidae
+#> 13                            indet    Scarabaeidae
+#>                suggestedName  suggestedAuthorship
+#> 1             Apis mellifera       Linnaeus, 1758
+#> 2             Apis mellifera       Linnaeus, 1758
+#> 3             Apis mellifera       Linnaeus, 1758
+#> 4     Ancyloscelis apiformis    (Fabricius, 1793)
+#> 5              Centris aenea     Lepeletier, 1841
+#> 6              Centris aenea     Lepeletier, 1841
+#> 7        Centris rhodoprocta Moure & Seabra, 1960
+#> 8       Lutjanus campechanus         (Poey, 1860)
+#> 9  Parotocinclus amazonensis      Garavello, 1977
+#> 10             Panthera onca     (Linnaeus, 1758)
+#> 11        Solenopsis bicolor        (Emery, 1906)
+#> 12     Sulcophanaeus columbi      (MacLeay, 1819)
+#> 13             Sulcophanaeus   d'Olsoufieff, 1924
+#>               tax.notes
+#> 1         name accepted
+#> 2       name misspelled
+#> 3         name accepted
+#> 4      replaced synonym
+#> 5         name accepted
+#> 6      replaced synonym
+#> 7         name accepted
+#> 8      replaced synonym
+#> 9  synonym not replaced
+#> 10        name accepted
+#> 11        name accepted
+#> 12     replaced synonym
+#> 13     replaced synonym
+#>                           scientificNameFull
+#> 1              Apis mellifera Linnaeus, 1758
+#> 2              Apis mellifera Linnaeus, 1758
+#> 3              Apis mellifera Linnaeus, 1758
+#> 4   Ancyloscelis apiformis (Fabricius, 1793)
+#> 5             Centris aenea Lepeletier, 1841
+#> 6             Centris aenea Lepeletier, 1841
+#> 7   Centris rhodoprocta Moure & Seabra, 1960
+#> 8          Lutjanus campechanus (Poey, 1860)
+#> 9  Parotocinclus amazonensis Garavello, 1977
+#> 10            Panthera onca (Linnaeus, 1758)
+#> 11          Solenopsis bicolor (Emery, 1906)
+#> 12     Sulcophanaeus columbi (MacLeay, 1819)
+#> 13          Sulcophanaeus d'Olsoufieff, 1924
 ```
 
 *Tip 1:* for large name lists, consider altering the argument
@@ -196,21 +219,14 @@ controlled by the argument `sug.dist`.
 matching. Below, we demonstrate it using the same names (reference names
 are the “accepted/standardized” targets):
 
-<!-- Du: Acho que aqui podemos deixar uma exemplo menor -->
-
 ``` r
 input_names <- c(
   "Apis mellifera Linnaeus, 1758",
   "Apis mellifica",
-  "Ancyloscelis armatus",
+  "Ancyloscelis apiformis",
   "Centris aenea",
-  "Centris rufa",
-  "Centris Rhodoprocta Moure & Seabra, 1960",
   "Lutjanus purpureus",
   "Parotocinclus amazonensis",
-  "Panthera onca",
-  "Coelonertus baridioides Solari & Solari, 1906",
-  "Solenopsis bicolor (Emery, 1906)",
   "Eucopricus columbi MacLeay, 1819"
 )
 
@@ -230,7 +246,7 @@ nameMatching(input_names, ref_names)
 ```
 
 ``` shadebox
-#>  [1]  1  1  2  3  3  4  5 NA  6  7  8  9
+#> [1]  1  1  2  3  5 NA  9
 ```
 
 ------------------------------------------------------------------------
@@ -247,8 +263,8 @@ not change the input family names.
 names_valid <- prepFamily(names_valid,
                           fam.name = "suggestedFamily",
                           spp.name = "scientificName.new", 
-                          kingdom = "animalia")
-#> Warning: Synonyms for the input kingdom are currently not available. Returning the input family names
+                          kingdom = "animalia",
+                          db = ctfbNames)
 ```
 
 # Brief code summary
@@ -271,39 +287,57 @@ names_valid[, c("scientificName.new","scientificNameFull","tax.notes")]
 ```
 
 ``` shadebox
-#>           scientificName.new                        scientificNameFull            tax.notes
-#> 1             Apis mellifera             Apis mellifera Linnaeus, 1758        name accepted
-#> 2              Apis melifera             Apis mellifera Linnaeus, 1758      name misspelled
-#> 3             Apis mellifera             Apis mellifera Linnaeus, 1758        name accepted
-#> 4       Ancyloscelis armatus  Ancyloscelis apiformis (Fabricius, 1793)     replaced synonym
-#> 5              Centris aenea            Centris aenea Lepeletier, 1841        name accepted
-#> 6               Centris rufa            Centris aenea Lepeletier, 1841     replaced synonym
-#> 7        Centris rhodoprocta  Centris rhodoprocta Moure & Seabra, 1960        name accepted
-#> 8         Lutjanus purpureus         Lutjanus campechanus (Poey, 1860)     replaced synonym
-#> 9  Parotocinclus amazonensis Parotocinclus amazonensis Garavello, 1977 synonym not replaced
-#> 10             Panthera onca            Panthera onca (Linnaeus, 1758)        name accepted
-#> 11        Solenopsis bicolor          Solenopsis bicolor (Emery, 1906)        name accepted
-#> 12        Eucopricus columbi     Sulcophanaeus columbi (MacLeay, 1819)     replaced synonym
-#> 13           Eucopricus sp.1          Sulcophanaeus d'Olsoufieff, 1924     replaced synonym
+#>           scientificName.new
+#> 1             Apis mellifera
+#> 2              Apis melifera
+#> 3             Apis mellifera
+#> 4       Ancyloscelis armatus
+#> 5              Centris aenea
+#> 6               Centris rufa
+#> 7        Centris rhodoprocta
+#> 8         Lutjanus purpureus
+#> 9  Parotocinclus amazonensis
+#> 10             Panthera onca
+#> 11        Solenopsis bicolor
+#> 12        Eucopricus columbi
+#> 13           Eucopricus sp.1
+#>                           scientificNameFull
+#> 1              Apis mellifera Linnaeus, 1758
+#> 2              Apis mellifera Linnaeus, 1758
+#> 3              Apis mellifera Linnaeus, 1758
+#> 4   Ancyloscelis apiformis (Fabricius, 1793)
+#> 5             Centris aenea Lepeletier, 1841
+#> 6             Centris aenea Lepeletier, 1841
+#> 7   Centris rhodoprocta Moure & Seabra, 1960
+#> 8          Lutjanus campechanus (Poey, 1860)
+#> 9  Parotocinclus amazonensis Garavello, 1977
+#> 10            Panthera onca (Linnaeus, 1758)
+#> 11          Solenopsis bicolor (Emery, 1906)
+#> 12     Sulcophanaeus columbi (MacLeay, 1819)
+#> 13          Sulcophanaeus d'Olsoufieff, 1924
+#>               tax.notes
+#> 1         name accepted
+#> 2       name misspelled
+#> 3         name accepted
+#> 4      replaced synonym
+#> 5         name accepted
+#> 6      replaced synonym
+#> 7         name accepted
+#> 8      replaced synonym
+#> 9  synonym not replaced
+#> 10        name accepted
+#> 11        name accepted
+#> 12     replaced synonym
+#> 13     replaced synonym
 ```
 
 Or, even simpler, using the wrapper `formatTax()`:
 
 ``` r
 names_df <- data.frame(scientificName = names)
-names_df_valid <- formatTax(names_df, db = ctfbNames)
-#> The following family names were automatically replaced:
-#> 
-#> |Genus         |Old fam.     |New fam.        |
-#> |:-------------|:------------|:---------------|
-#> |Ancyloscelis  |Apidae       |Araceae         |
-#> |Apis          |Apidae       |Fabaceae        |
-#> |Centris       |Apidae       |Melastomataceae |
-#> |Lutjanus      |Lutjanidae   |Fabaceae        |
-#> |Panthera      |Felidae      |Fabaceae        |
-#> |Parotocinclus |Loricariidae |Cactaceae       |
-#> |Solenopsis    |Formicidae   |Campanulaceae   |
-#> |Sulcophanaeus |Scarabaeidae |Elaeocarpaceae  |
+names_df_valid <- formatTax(names_df, 
+                            db = ctfbNames, 
+                            kingdom = "animalia")
 ```
 
 ------------------------------------------------------------------------

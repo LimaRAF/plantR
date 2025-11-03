@@ -5,38 +5,40 @@
 \alias{latamMap}
 \title{Maps of Latin American countries and dependent territories}
 \format{
-A list of 44 Multipolygon 'sf' objects
+A list of 45 Multipolygon 'sf' objects
 }
 \source{
-\url{https://gadm.org}
+\url{https://gadm.org/download_country.html}
 }
 \usage{
 data(latamMap)
 }
 \description{
-Maps used to perform the validation of the original geographical coordinates.
-For each country, the map contains the lowest administrative level available
-at \href{https://gadm.org}{GADM}. We considered an initial total of 51 countries
-and dependent territories for Latin America, but since seven of them are
-available only at the lowest administrative level (e.g. Aruba, Curacao), they
-were not included in this map (total of 44 individual polygons). The Latin
-American definition used here include all American territories but the United
-States and Canada.
+Maps used to perform the validation of the original geographical
+coordinates. For each country, the map contains the lowest
+administrative level available at \href{https://gadm.org}{GADM}. We
+considered an initial total of 51 countries and dependent
+territories for Latin America, but since some of them are
+available only at the country level (e.g. Aruba), they were not
+included in this map (total of 45 countries). The Latin
+American definition used here include all American territories but
 }
 \details{
-Locality names (e.g. country, state, county) were edited to match the
-\strong{plantR} default gazetteer, using the same \strong{plantR} functions used for
-locality editing (i.e. \code{fixLoc()}, \code{prepLoc()}).
+Locality names (e.g. country, state, county) were edited to match
+the \strong{plantR} default gazetteer, using the same \strong{plantR}
+functions used for locality editing (i.e. \code{fixLoc()}, \code{prepLoc()},
+, \code{prepCountry()}, \code{prepState()}).
 
-For Brazil, we cross-checked and corrected about 400 issues in GADM (version
-3.6) related to municipality names with typos, old toponyms, switched names
-and even bad name assignment to polygons (e.g. Manaus assigned under another
-municipality, Maués). An internal list of those changes (\code{gadmCheck}) is
-provided for reproducibility.
+We cross-checked and corrected issues in GADM (version 4.1), mostly
+for Brazil, related to municipality names with typos, old toponyms,
+switched names and even bad name assignment to polygons (e.g.
+Manaus assigned under another municipality, Maués). An internal
+list of those changes (\code{gadmCheck}) is provided for
+reproducibility.
 
-Finally, polygons were simplified (tolerance: 0.0001 decimal degrees) to make
-maps smaller in size and thus less burdensome for the geographical validation
-procedures.
+Finally, polygons were simplified (tolerance: 0.0001 decimal
+degrees) to make maps smaller in size and thus less burdensome for
+the geographical validation procedures.
 
 Reference system: WSG84
 }

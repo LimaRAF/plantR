@@ -1,10 +1,11 @@
 sp.list = c(rep("Ocotea porosa", 8), rep("Araucaria angustifolia", 3),
             "Oreodaphne porosa", "Oreodaphne porosa", "Acalypha annobonae",
-            "Justicia adhatoda", "Justicia adhatoda", "Abutilon rufinerve")
+            "Justicia adhatoda", "Justicia adhatoda", "Abutilon rufinerve", "Mangifera indica",
+            "Mangifera indica")
 
 aut.list = c(rep("(Nees & Mart.) Barroso", 8),
              NA, NA, "(Bertol.) Kuntze", "Nees & Mart.", NA, "Pax & K.Hoffm.",
-             "L.", "Mart. ex Nees", NA)
+             "L.", "Mart. ex Nees", NA, "L.", "L.")
 
 loc = c("brazil", "brazil_parana",
         "brazil_santa catarina_blumenau_parque são francisco",
@@ -12,7 +13,7 @@ loc = c("brazil", "brazil_parana",
         "brazil_amazonas_manaus", NA, "brazil_espirito santo",
         "brazil_santa catarina_blumenau", "brazil_sao paulo",
         "chile_santiago", "brazil_parana_curitiba", "argentina_buenos aires",
-        "india", "india", "brazil_parana")
+        "india", "india", "brazil_parana", "brazil_santa catarina", "thailand")
 
 df <- data.frame(scientificName = sp.list,
                  scientificNameAuthorship = aut.list,
@@ -45,7 +46,9 @@ res.bfo1 <- c("no_cannot_check",
               "no_cannot_check",
               "no_cannot_check",
               "no_cannot_check",
-              "ok_dist")
+              "ok_dist",
+              "introduced",
+              "no_cannot_check")
 
 res.bfo2 <- c("full_name_match",
               "full_name_match",
@@ -63,7 +66,9 @@ res.bfo2 <- c("full_name_match",
               "no_match",
               "no_match",
               "no_match",
-              "canonical_name_match")
+              "canonical_name_match",
+              "full_name_match",
+              "full_name_match")
 
 res.wcvp1 <- c("bad_dist",
                "ok_dist",
@@ -81,6 +86,8 @@ res.wcvp1 <- c("bad_dist",
                "bad_dist",
                "ok_dist",
                "ok_dist",
+               "ok_dist",
+               "introduced",
                "ok_dist")
 
 res.wcvp2 <- c("full_name_match",
@@ -99,7 +106,9 @@ res.wcvp2 <- c("full_name_match",
                "full_name_match",
                "full_name_match",
                "full_name_match",
-               "canonical_name_match")
+               "canonical_name_match",
+               "full_name_match",
+               "full_name_match")
 
 res.user1 <- c("ok_dist_coarser",
                "ok_dist_finer",
@@ -117,12 +126,16 @@ res.user1 <- c("ok_dist_coarser",
                "no_cannot_check",
                "no_cannot_check",
                "no_cannot_check",
+               "no_cannot_check",
+               "no_cannot_check",
                "no_cannot_check")
 
 res.user2 <- c(rep("full_name_match", 8),
                rep("canonical_name_match", 2),
                rep("full_name_match", 2),
                "canonical_name_match",
+               "no_match",
+               "no_match",
                "no_match",
                "no_match",
                "no_match",

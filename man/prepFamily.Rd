@@ -10,7 +10,8 @@ prepFamily(
   gen.name = "genus",
   spp.name = "scientificName",
   kingdom = "plantae",
-  print = TRUE
+  print = TRUE,
+  ...
 )
 }
 \arguments{
@@ -27,10 +28,13 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "plantae"}
+belong to. Defaults to "plantae"}
 
 \item{print}{logical. Should the automatically replaced family
 names be printed? Default to TRUE.}
+
+\item{...}{Any argument to be passed on to \code{getFamily} to obtain
+missing family names from genus names}
 }
 \value{
 the data frame \code{x} with an additional column called

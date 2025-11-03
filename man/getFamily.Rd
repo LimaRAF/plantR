@@ -16,8 +16,8 @@ By default, the Brazilian Flora 2020 taxonomic backbone
 \item{fuzzy.match}{logical. Whether if fuzzy matching on genus names
 should be conducted. Defaults to FALSE (no fuzzy matching)}
 
-\item{...}{Any argument to be passed on to nameMatching when
-'fuzzy.match = TRUE'}
+\item{...}{Any argument to be passed on to the function
+\code{nameMatching} when 'fuzzy.match = TRUE'}
 }
 \value{
 a vector of the same length as \code{x} with the family
@@ -29,12 +29,19 @@ vector of genus names and a taxonomic backbone
 }
 \details{
 The exact and fuzzy matching (if selected) between \code{x} and the
-names of genera present in the backbone (argument \code{db}) are only
-performed based on currently accepted genus names in the taxonomic
-backbone (i.e. backbone column taxon.status equal to 'accepted').
+names present in the backbone (argument \code{db}) are only first performed
+based on currently accepted genus names in the taxonomic backbone
+(i.e. backbone column taxon.status equal to 'accepted'). If no
+exact match with an accepted name is found, the function then tries
+to match input names to synonyms and unplaced names as well.
 
-Currently, fuzzy macthes are conducted using the defaults of
-function \code{nameMatching()}, which is used internally.
+Fuzzy name matching is only performed using the currently accepted
+genus names in the backbone and the defaults of the \strong{plantR}
+function \code{nameMatching()}, which is used internally. But one can
+specify other values for the arguments of \code{nameMatching()}. The
+argument \code{max.dist} is probably the one that matters most, since it
+controls the maximum accepted distance between input names and
+those in the backbone.
 }
 \examples{
 

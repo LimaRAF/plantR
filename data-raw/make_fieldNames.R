@@ -33,9 +33,11 @@ must_plantr <- c("institutionCode", "collectionCode", "catalogNumber",
                  "year", "country", "stateProvince", "municipality", "locality",
                  "decimalLatitude", "decimalLongitude",
                  "identifiedBy", "dateIdentified",
-                 "typeStatus", "family", "scientificName", "scientificNameAuthorship")
+                 "typeStatus",
+                 "family", "scientificName", "scientificNameAuthorship")
 ### Optional but recommended fields for plantR
-opt_plantr <- c("genus", "acceptedScientificName",
+opt_plantr <- c("class", "order",
+                "genus", "acceptedScientificName",
                 "taxonRank", "taxonomicStatus", #"taxonRemarks",
                 "eventDate", "month", "day", "verbatimEventDate",
                 "dayIdentified", "monthIdentified", "yearIdentified", "identificationRemarks",
@@ -89,11 +91,14 @@ must_splink <- c(institutionCode = "institutioncode",
                  identifiedBy = "identifiedby",
                  # dateIdentified = "",
                  typeStatus = "typestatus",
-                 family = "family",
+                 class = "class",
                  scientificName = "scientificname",
                  scientificNameAuthorship = "scientificnameauthorship")
 ### Optional but recommended fields for plantR
-opt_splink <- c(genus = "genus",
+opt_splink <- c(
+                order = "order",
+                family = "family",
+                genus = "genus",
                 # acceptedScientificName = "",
                 # taxonRank = "",
                 # taxonomicStatus = "",
@@ -102,8 +107,8 @@ opt_splink <- c(genus = "genus",
                 month = "monthcollected",
                 day = "daycollected",
                 # verbatimEventDate = "",
-                # collector = "collector",
-                # collectornumber = "collectornumber",
+                collector = "collector",
+                collectornumber = "collectornumber",
                 # scientificnameauthor = "scientificnameauthor",
                 dayIdentified = "dayidentified",
                 monthIdentified = "monthidentified",
@@ -132,7 +137,7 @@ opt_splink <- c(genus = "genus",
 
 allnames[allnames %in% c(must_splink, opt_splink)]
 sort(allnames[!allnames %in% c(must_splink, opt_splink)])
-# Check these: "collector", "collectornumber", "latitude", "longitude", "notes", "scientificnameauthor"
+# Check these: "collector", "collectornumber",
 
 length(c(must_splink, opt_splink)) == length(c(must_splink, opt_splink)[c(must_splink, opt_splink) %in% allnames]) # ok!
 c(must_splink, opt_splink)[!c(must_splink, opt_splink) %in% allnames] # ok!
@@ -227,7 +232,6 @@ dwc <- dwc_dic %>%
   mutate(low_dwc = tolower(term_localName), dwc = term_localName) %>%
   select(dwc, low_dwc, definition) %>%
   distinct()
-
 
 
 # Creating base for fieldNames data frame -------------------------------------
