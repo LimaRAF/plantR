@@ -282,9 +282,13 @@ checkDist <- function(x,
   }
 
   if(source %in% c('bfo', "fbo")) {
+    
+    bfoNames.temp <- new.env(parent = emptyenv())
+    utils::data(list = c("bfoNames"), package = "plantR", envir = bfoNames.temp)
+    
     key.cols <- c("tax.name", "tax.authorship", "taxon.distribution")
     x1 <- dplyr::left_join(x1,
-                           bfoNames[, key.cols],
+                           bfoNames.temp$bfoNames[, key.cols],
                            by = stats::setNames(
                              c("tax.name", "tax.authorship"),
                              c(tax.name, tax.author)),
@@ -301,7 +305,8 @@ checkDist <- function(x,
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
       x2 <- dplyr::left_join(x1[check_these, ],
-                             bfoNames[!duplicated(bfoNames$tax.name), key.cols],
+                             bfoNames.temp$bfoNames[!duplicated(
+                               bfoNames.temp$bfoNames$tax.name), key.cols],
                              by = stats::setNames(
                                c("tax.name"), c(tax.name)),
                              keep = TRUE, suffix = c(".x", ""))
@@ -378,7 +383,7 @@ checkDist <- function(x,
     if (!requireNamespace("plantRdata", quietly = TRUE))
       stop("Please install 'plantRdata' to use this feature")
 
-    wcvp_lookup <- plantR:::botanicalCountries
+    wcvp_lookup <- botanicalCountries
     temp.env <- new.env(parent = emptyenv())
     utils::data(list = c("wcvpNames"), package = "plantRdata",
                 envir = temp.env)
