@@ -124,8 +124,8 @@
 #' "thailand",
 #' "brazil_parana_curitiba")
 #'
-#' df <- data.frame(suggestedName = spp_names,
-#'                  suggestedAuthorship = spp_authors,
+#' df <- data.frame(scientificName = spp_names,
+#'                  scientificNameAuthorship = spp_authors,
 #'                  loc.correct = loc)
 #' checkDist(df)
 #'
@@ -282,13 +282,14 @@ checkDist <- function(x,
   }
 
   if(source %in% c('bfo', "fbo")) {
-    
-    bfoNames.temp <- new.env(parent = emptyenv())
-    utils::data(list = c("bfoNames"), package = "plantR", envir = bfoNames.temp)
-    
+
+    bfoNames <- plantR::bfoNames
+    # bfoNames.temp <- new.env(parent = emptyenv())
+    # utils::data(list = c("bfoNames"), package = "plantR", envir = bfoNames.temp)
+
     key.cols <- c("tax.name", "tax.authorship", "taxon.distribution")
     x1 <- dplyr::left_join(x1,
-                           bfoNames.temp$bfoNames[, key.cols],
+                           bfoNames[, key.cols],
                            by = stats::setNames(
                              c("tax.name", "tax.authorship"),
                              c(tax.name, tax.author)),
@@ -305,8 +306,7 @@ checkDist <- function(x,
     check_these <- is.na(x1$obs)
     if (any(check_these)) {
       x2 <- dplyr::left_join(x1[check_these, ],
-                             bfoNames.temp$bfoNames[!duplicated(
-                               bfoNames.temp$bfoNames$tax.name), key.cols],
+                             bfoNames[!duplicated(bfoNames$tax.name), key.cols],
                              by = stats::setNames(
                                c("tax.name"), c(tax.name)),
                              keep = TRUE, suffix = c(".x", ""))
@@ -346,13 +346,13 @@ checkDist <- function(x,
           split = "|",
           fixed = TRUE
         )
-        
+
         dist_matches <- mapply(
           `%in%`,
           x1$loc.abbrev[rep_these][!exact_brazil],
           dist_codes_list
         )
-        
+
         dist_intro <- mapply(
           function(loc, dist_codes) {
             paste0(loc, "*") %in% dist_codes
@@ -360,7 +360,7 @@ checkDist <- function(x,
           x1$loc.abbrev[rep_these][!exact_brazil],
           dist_codes_list
         )
-        
+
         x1$dist.check[rep_these][!exact_brazil] <- ifelse(
           dist_matches,
           "ok_dist",
@@ -372,7 +372,7 @@ checkDist <- function(x,
         )
       }
     }
-    
+
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
@@ -384,6 +384,7 @@ checkDist <- function(x,
       stop("Please install 'plantRdata' to use this feature")
 
     wcvp_lookup <- botanicalCountries
+
     temp.env <- new.env(parent = emptyenv())
     utils::data(list = c("wcvpNames"), package = "plantRdata",
                 envir = temp.env)
@@ -447,32 +448,32 @@ checkDist <- function(x,
     dist.wcvp.codes <- strsplit(x1$taxon.distribution,
                                 split = "|",
                                 fixed = TRUE)
-    
-    level3_codes <- f1(x1$level3, wcvp_lookup$taxon.distribution.bru, 
+
+    level3_codes <- f1(x1$level3, wcvp_lookup$taxon.distribution.bru,
                        wcvp_lookup$taxon.distribution.bru.code)
-    level4_codes <- f1(x1$level4, wcvp_lookup$taxon.distribution.bru, 
+    level4_codes <- f1(x1$level4, wcvp_lookup$taxon.distribution.bru,
                        wcvp_lookup$taxon.distribution.bru.code)
-    
+
     case1.intro <- mapply(function(loc_code, dist_codes) {
       if(is.na(loc_code)) return(FALSE)
       paste0(loc_code, "*") %in% dist_codes
     }, level3_codes, dist.wcvp.codes)
-    
+
     case2.intro <- mapply(function(loc_code, dist_codes) {
       if(is.na(loc_code)) return(FALSE)
       paste0(loc_code, "*") %in% dist_codes
     }, level4_codes, dist.wcvp.codes)
-    
+
     case1 <- mapply(`%in%`, x1$level3, dist.wcvp.name)
     case2 <- mapply(`%in%`, x1$level4, dist.wcvp.name)
-    
+
     x1$dist.check <- case1 | case2
     x1$dist.check[is.na(x1$loc.abbrev)] <- NA
-    
+
     x1$dist.check[x1$dist.check %in% TRUE] <- 'ok_dist'
     x1$dist.check[x1$dist.check %in% FALSE] <- 'bad_dist'
     x1$dist.check[(case1.intro | case2.intro)] <- 'introduced'
-    
+
     x$dist.check <- x1$dist.check
     x$dist.check.obs <- x1$obs
     return(x)

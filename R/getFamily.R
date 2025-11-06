@@ -77,6 +77,10 @@ getFamily <- function(x = NULL,
                            !dbs$taxon.status %in% "accepted",
                          c("family", "tax.name")])
       names(dbs2)[2] <- "gen.name"
+      if (any(duplicated(dbs2$gen.name))) {
+        dup_names <- dbs2$gen.name[duplicated(dbs2$gen.name)]
+        dbs2 <- dbs2[!dbs2$gen.name %in% dup_names, ]
+      }
 
       tmp <- dplyr::left_join(genera, dbs2, by = "gen.name")
       rep_these <- !is.na(tmp$family.y) & is.na(tmp$family.x)
