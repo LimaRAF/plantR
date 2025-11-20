@@ -534,6 +534,7 @@ prepSpecies <- function(x,
       # fuzzy matches
       max_dist <- 1 - sug.dist
       no_authors_no_match1 <- no_author & is.na(result$id)
+
       if (any(no_authors_no_match1)) {
 
         input_names_clean1 <- search_names[no_authors_no_match1]
@@ -549,13 +550,33 @@ prepSpecies <- function(x,
                                     show.progress = TRUE)
 
         if (any(!is.na(fuzzy_match))) {
-          result[no_authors_no_match1, c(bb_cols)] <-
-            ref.df[fuzzy_match, bb_cols]
+          name_matches <- ref.df[fuzzy_match, "tax.name"]
+          name_matches_all <- ref_names_clean1[ref_names_clean1 %in% name_matches]
+          dup_fuzzy <- duplicated(name_matches_all)
+          if (any(dup_fuzzy)) {
+            df1.1 <- result[no_authors_no_match1, ]
+            tmp.match.col <- "tmp.tax.name"
+            df1.1[[tmp.match.col]] <- name_matches
+            bb_cols1 <- bb_cols[!bb_cols %in% "tax.name"]
+            unique_tax1 <- getTaxUnique(df1.1, ref.df,
+                                       match.col = tmp.match.col,
+                                       orig.col = tax.names[1],
+                                       name.col = "tax.name",
+                                       status.col = "taxon.status",
+                                       type.match.col = "match_type",
+                                       mult.match.col = "multiple_match",
+                                       mult.matches = mult.matches,
+                                       agg.cols = bb_cols1)
+            result[no_authors_no_match1, c(bb_cols, "multiple_match")] <-
+              unique_tax1[, c(bb_cols, "multiple_match")]
+          } else {
+            result[no_authors_no_match1, c(bb_cols)] <-
+              ref.df[fuzzy_match, bb_cols]
+            result$multiple_match[no_authors_no_match1] <- FALSE
+          }
 
           result$match_type[no_authors_no_match1] <-
             "fuzzy_wout_author"
-          result$multiple_match[no_authors_no_match1] <- FALSE
-
           result$match_type[no_authors_no_match1 & w_indet] <-
             "fuzzy_wout_author_wout_indet"
 
@@ -582,10 +603,8 @@ prepSpecies <- function(x,
     # no matches
     rep_these <- is.na(result$id)
     if (any(rep_these)) {
-      result$match_type[rep_these] <-
-        "no_match"
-      result[rep_these, bb_cols[3:4]] <-
-        result[rep_these, tax.names]
+      result$match_type[rep_these] <- "no_match"
+      result[rep_these, bb_cols[3:4]] <- result[rep_these, tax.names]
     }
 
     # flagging fuzzy matches above the threshold
@@ -809,7 +828,9 @@ prepSpecies <- function(x,
         }
       }
 
-      rep_these <- output$notes %in% "check +1 name"
+      check.plus <- c("check +1 name",
+                      "name misspelled|check +1 name")
+      rep_these <- output$notes %in% check.plus
       if (any(rep_these)) {
         rep_these1 <-
           !grepl("|", output[["accepted.id"]][rep_these],
@@ -821,14 +842,15 @@ prepSpecies <- function(x,
             "+1 name, but 1 accepted"
         }
 
-        rep_these2 <- output$notes[rep_these] %in% "check +1 name" &
+        rep_these2 <- output$notes[rep_these] %in% check.plus &
                         grepl("synonym", output$taxon.status[rep_these],
                               perl = TRUE)
         if (any(rep_these2)) {
           output[rep_these, old.cols][rep_these2, ] <-
             output[rep_these, new.cols][rep_these2, ]
           output$notes[rep_these][rep_these2] <-
-            "check +1 name|replaced synonym"
+            sub("check +1 name", "check +1 name|replaced synonym",
+                output$notes[rep_these][rep_these2], fixed = TRUE)
         }
         if (any(!rep_these2)) {
           rep_these3 <- !output$notes[rep_these][!rep_these2] %in%

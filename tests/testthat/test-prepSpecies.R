@@ -20,7 +20,9 @@ sp.list <- c("Casearia sylvestris",
              "Tabebuia heterophylla",
              "Cola acuminata",
              "Xylosma ciliatifolium",
-             "Cinnamomum camphora")
+             "Cinnamomum camphora",
+             "Casearia serulata",
+             "Casearia serulata")
 aut_list <- c("Sw.",
               "Sw.",
               "",
@@ -39,7 +41,9 @@ aut_list <- c("Sw.",
               "Aubl.", "L.",
               "", "", "", "",
               "(Clos) Eichler",
-              "")
+              "",
+              "",
+              "Sw.")
 
 df <- data.frame(scientificName = sp.list,
                  scientificNameAuthorship = aut_list)
@@ -70,7 +74,9 @@ res1 <- c("Casearia sylvestris Sw.",
           "Tabebuia heterophylla",
           "Cola acuminata",
           "Xylosma ciliatifolia (Clos) Eichler",
-          "Cinnamomum camphora (L.) J.Presl")
+          "Cinnamomum camphora (L.) J.Presl",
+          "Casearia decandra Jacq.|Casearia sylvestris Sw.",
+          "Casearia sylvestris Sw.")
 notes <- c("name accepted",
            "name misspelled",
            "name accepted",
@@ -87,7 +93,9 @@ notes <- c("name accepted",
            "name accepted", "name misspelled",
            "not found", "not found", "not found",
            "not found", "replaced orth. variant",
-           "+1 name, but 1 accepted")
+           "+1 name, but 1 accepted",
+           "name misspelled|check +1 name|replaced synonym",
+           "name misspelled|replaced synonym")
 match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author", "exact_w_author", "exact_w_author",
                 "exact_w_author", "exact_wout_author", "no_match",
@@ -98,13 +106,15 @@ match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author_wout_indet",
                 "fuzzy_w_autor_wout_indet",
                 "bad_fuzzy_wout_author", "bad_fuzzy_wout_author", "bad_fuzzy_wout_author",
-                "no_match", "exact_w_author", "exact_wout_author")
+                "no_match", "exact_w_author", "exact_wout_author",
+                "fuzzy_wout_author",
+                "fuzzy_w_author")
 
 res2 <- res1
 res2[which(sp.list %in% "Casearia tropicana")] <- "Casearia tropicana"
 # res2[which(sp.list %in% "Casearia serrulata" &
 #               aut_list %in% "")] <- "Casearia decandra Jacq."
-res2[which(sp.list %in% "Casearia serrulata" &
+res2[which(sp.list %in% c("Casearia serrulata", "Casearia serulata") &
              aut_list %in% "Sw.")] <- "Casearia decandra Jacq.|Casearia sylvestris Sw."
 res2[which(sp.list %in% "Casearia serrulata" &
              aut_list %in% "J. Seber ex Griseb.")] <- "Casearia decandra Jacq.|Casearia sylvestris Sw."
@@ -119,7 +129,6 @@ test_that("prepSpecies works", {
 
   res <- prepSpecies(x = "Casearia sylvestris", use.authors = FALSE)
   expect_equal(res$scientificNameFull, "Casearia sylvestris Sw.")
-
 
   run_test <- prepSpecies(df, drop = "taxon.distribution")
   expect_equal(run_test$scientificNameFull, res1)

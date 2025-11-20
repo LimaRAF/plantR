@@ -227,7 +227,8 @@ fixAuthors <- function(taxa = NULL,
     }
 
     no_auth <- res[[2]] %in% NA
-    ranks_patt <- paste0(" ", c(ranks, "sp.", "spp."), "$",collapse = "|")
+    ranks_patt <- paste0(" ", c(ranks, "sp.", "spp."), "$", collapse = "|")
+    ranks_patt <- paste0(c(ranks_patt, " aff. ", " cf. "), collapse = "|")
     ranks_patt <- gsub("\\.", "\\\\.", ranks_patt, perl = TRUE)
     low_names <- stringr::str_count(taxa1[no_auth],
                                     stringr::regex(" [a-z]"))
@@ -360,7 +361,7 @@ fixAuthors <- function(taxa = NULL,
       !res[[3]] %in% c("", NA, "NA", " ")
     if (any(fix_these))
       res[[3]][fix_these] <-
-      gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)
+        gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)
 
     no_auth <- res[[2]] %in% NA
     if (any(no_auth))

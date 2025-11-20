@@ -28,7 +28,8 @@ test_that("fixAuthors works", {
             "Anthurium amoenum Kunth & C.D.Bouche",
             "Anthurium amoenum var. humile (Schott) Engl.",
             "Magnoliopsida",
-            "Acacia arborea Benth ex (L.) Willd.")
+            "Acacia arborea Benth ex (L.) Willd.",
+            "Humiriastrum aff. dentatum")
 
   res <- c("Lindsaea", "Lindsaea sp.", "Lindsaea lancea",
            "Lindsaea lancea", "Parablechnum",
@@ -56,7 +57,8 @@ test_that("fixAuthors works", {
            "Anthurium amoenum",
            "Anthurium amoenum var. humile",
            "Magnoliopsida",
-           "Acacia arborea")
+           "Acacia arborea",
+           "Humiriastrum aff. dentatum")
   res1 <- c(NA, NA, NA, "(L.) Bedd.", "C.Presl", "Rosenst.",
             "de la Sota", "Dutra", NA, "Uittien", "Sw.", "Sw.", NA,
             "hort.", "Dahlst.apud van Soest", "sensu Hilliard non DC.",
@@ -65,7 +67,7 @@ test_that("fixAuthors works", {
             "(Thunb.) Hook. f. ex Nied.", "(Thunb.) Hook. f.",
             "Schur ex Nyman", "ex DC.", "Sherff",
             "Vahl", "Juss.", "Kunth & C.D.Bouche", "(Schott) Engl.",
-            NA, "Benth ex (L.) Willd.")
+            NA, "Benth ex (L.) Willd.", NA)
 
   res_func <- fixAuthors(taxa)
 

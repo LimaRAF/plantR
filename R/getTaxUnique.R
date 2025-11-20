@@ -130,6 +130,9 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
 
       if (mult.matches == "all") {
         tmp0 <- res_dup[, agg.cols]
+        if ("family" %in% colnames(tmp0))
+          tmp0[["family"]][tmp0[["family"]] %in% c("")] <- NA
+
         tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                          function(x) paste(unique(x[!is.na(x)]),
                          # function(x) paste(x[!is.na(x)],
@@ -187,12 +190,14 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
 
     if (mult.matches == "all") {
       tmp0 <- res_dup[, agg.cols]
+      if ("family" %in% colnames(tmp0))
+        tmp0[["family"]][tmp0[["family"]] %in% c("")] <- NA
+
       tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                        function(x) paste(unique(x[!is.na(x)]),
                        # function(x) paste(x[!is.na(x)],
                                          collapse = "|"))
       names(tmp)[1] <- orig.col
-
       res_dup <- res_dup[order(res_dup[[status.col]],
                                decreasing = FALSE),]
       tmp1 <- res_dup[!duplicated(res_dup[[orig.col]]),]

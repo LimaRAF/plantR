@@ -116,6 +116,10 @@ getTaxNotes <- function(x = NULL,
     empty <- rep_these & notes %in% ""
     if (any(empty))
       notes[rep_these & empty] <- "name misspelled"
+
+    empty <- rep_these & notes %in% "check +1 name"
+    if (any(empty))
+      notes[rep_these & empty] <- "name misspelled|check +1 name"
   }
 
   rep_these <- tstat %in% "synonym" & !match %in% no.match
@@ -149,7 +153,8 @@ getTaxNotes <- function(x = NULL,
 
   rep_these <- grep("check +1 name|", notes, fixed = TRUE)
   if (length(rep_these) > 0L)
-    notes[rep_these] <- "check +1 name"
+    notes[rep_these] <- gsub("(.*check \\+1 name)(\\|.*)", "\\1",
+                             notes[rep_these], perl = TRUE)
 
   rep_these <- grep("orthographic variant|", notes, fixed = TRUE)
   if (length(rep_these) > 0L)

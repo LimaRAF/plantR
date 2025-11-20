@@ -8,7 +8,8 @@ nomes <- c("Casearia sylvestris", "Casearia sylvestris",
            "Casearia serrulata", "Casearia serrulata",
            "Xylosma ciliatifolium", NA,
            "Ocotea sp.", "Chrysophyllum mexicanum",
-           "Lobelia","Justicia","Gerardia")
+           "Lobelia","Justicia","Gerardia",
+           "Miconia eleagnoides")
 df_input <- data.frame(suggestedName = nomes)
 df_input$match_type <- c("exact_w_author", "exact_wout_author",
                          "fuzzy_w_author", "no_match", "exact_w_author",
@@ -17,49 +18,54 @@ df_input$match_type <- c("exact_w_author", "exact_wout_author",
                          "exact_wout_author", "exact_w_author",
                          "exact_w_author", "exact_w_author", "no_match",
                          "exact_w_indet", "bad_fuzzy_wout_author",
-                         rep("exact_wout_author", 3))
+                         rep("exact_wout_author", 3),
+                         "fuzzy_wout_author")
 df_input$multiple_match <- c(FALSE, FALSE, FALSE, NA, FALSE, FALSE,
                              TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,
                              FALSE, NA, FALSE, FALSE,
-                             TRUE, TRUE, TRUE)
+                             TRUE, TRUE, TRUE, TRUE)
 df_input$fuzzy_dist_name <- c(0, 0, 0.2174, NA, 0, 0, 0, 0, 0, 0,
                               0, 0, 0, NA, 0, 0.1739,
-                              0, 0, 0)
+                              0, 0, 0, 0.0526)
 df_input$fuzzy_dist_author <- c(0, NA, 0, NA, 0, 0, NA, 0, 0, NA,
                                 0, 0, 0, NA, 0, NA,
-                                NA, NA, NA)
+                                NA, NA, NA, NA)
 df_input$name.status <- c("valid", "valid", "valid", NA, "incorrect",
                           "incorrect", "incorrect", "incorrect",
                           "incorrect", "incorrect", "incorrect",
                           "incorrect", "orthographic variant", NA,
                           "valid", NA,
-                          "illegitimate|valid", "conserved|illegitimate", "rejected")
+                          "illegitimate|valid", "conserved|illegitimate", "rejected",
+                          "valid")
 df_input$taxon.status <- c("accepted", "accepted", "accepted", NA,
                            "synonym", "synonym", "synonym",
                            "synonym", "synonym", "synonym", "synonym",
                            "synonym", "unplaced", NA, "accepted", NA,
-                           "synonym|accepted", "accepted|synonym", "synonym")
+                           "synonym|accepted", "accepted|synonym", "synonym",
+                           "synonym")
 
 res0 <- c("name accepted", "name accepted", "name misspelled", "not found",
           "synonym", "synonym", "check +1 name", "synonym",
           "synonym", "check +1 name", "synonym", "synonym",
           "orthographic variant", "not found",
           "name accepted", "bad match",
-          rep("check +1 name", 3))
+          rep("check +1 name", 3), "name misspelled|check +1 name")
 
 # output when mult.matches = "best"
 df_input1 <- df_input
-rep_these <- res0 %in% "check +1 name"
+rep_these <- grepl("check +1 name", res0, fixed = TRUE)
 df_input1$name.status[rep_these] <- c("incorrect", "incorrect",
-                                      "valid", "conserved", "")
+                                      "valid", "conserved", "",
+                                      "valid")
 df_input1$taxon.status[rep_these] <- c("synonym", "synonym",
-                                       "accepted", "accepted", "synonym")
+                                       "accepted", "accepted", "synonym",
+                                       "synonym")
 res1 <- c("name accepted", "name accepted", "name misspelled", "not found",
           "synonym", "synonym", "check +1 name", "synonym",
           "synonym", "check +1 name", "synonym", "synonym",
           "orthographic variant", "not found",
           "name accepted", "bad match",
-          rep("check +1 name", 3))
+          rep("check +1 name", 3), "name misspelled|check +1 name")
 
 
 
@@ -78,6 +84,5 @@ test_that("getTaxNotes works", {
 
   res_func1 <- getTaxNotes(df_input1)
   expect_equal(res_func1$notes, res1)
-
 
 })
