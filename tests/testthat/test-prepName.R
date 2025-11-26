@@ -207,7 +207,8 @@ input <- c( "(HF Leitão Filho)",
             "TER STEEGE, HANS",
             "  'F. da S.N. Thomé'",
             "F.daS.N.Thomé",
-            "Tiritan, O; Paiva, M")
+            "Tiritan, O; Paiva, M",
+            "Ulloa Ulloa, C.")
 expect <- c(  "(Leitao Filho, H.F.)",
               "[Hugh-Jones, D.]",
               "Ahg",
@@ -292,12 +293,12 @@ expect <- c(  "(Leitao Filho, H.F.)",
               "Steege, H.",
               "Thome, F.S.N.",
               "Thome, F.S.N.",
-              "Tiritan, O.|Paiva, M."
-              )
+              "Tiritan, O.|Paiva, M.",
+              "Ulloa Ulloa, C.")
 
 test_that("prepName works fully", {
 
-  expect_error(prepName(NULL), NA_character_)
+  expect_error(prepName(NULL))
 
   expect_equal(prepName(""), NA_character_)
   expect_equal(prepName(" "), NA_character_)
@@ -313,15 +314,12 @@ input1 <- c("E.,Aguilar, G.,Alvarez, D,Ramos A., CH",
             "  '( Karl) Emrich ;(Balduino ) Rambo'",
             "G., Alwyn",
             "SILVA, DA",
-            "DA SILVA",
-            "Ulloa Ulloa, C.")
+            "DA SILVA")
 expect1 <- c("E.|Aguilar, G.|Alvarez, D.|Ramos A., C.H.",
              "Emrich, (K.)|Rambo, (B.)",
              "G., A.",
              "Silva, D.A.",
-             "Silva, D.A.",
-             "Ulloa Ulloa, C."
-)
+             "Silva, D.A.")
 test_that("prepName not works", {
 
   expect_error(expect_equal(prepName(input1), expect1))
