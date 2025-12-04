@@ -22,7 +22,8 @@ sp.list <- c("Casearia sylvestris",
              "Xylosma ciliatifolium",
              "Cinnamomum camphora",
              "Casearia serulata",
-             "Casearia serulata")
+             "Casearia serulata",
+             "Tapirira obtusa")
 aut_list <- c("Sw.",
               "Sw.",
               "",
@@ -43,7 +44,8 @@ aut_list <- c("Sw.",
               "(Clos) Eichler",
               "",
               "",
-              "Sw.")
+              "Sw.",
+              "(Benth.) J.D. Mitch.")
 
 df <- data.frame(scientificName = sp.list,
                  scientificNameAuthorship = aut_list)
@@ -76,7 +78,8 @@ res1 <- c("Casearia sylvestris Sw.",
           "Xylosma ciliatifolia (Clos) Eichler",
           "Cinnamomum camphora (L.) J.Presl",
           "Casearia decandra Jacq.|Casearia sylvestris Sw.",
-          "Casearia sylvestris Sw.")
+          "Casearia sylvestris Sw.",
+          "Tapirira obtusa (Benth.) J.D.Mitch.")
 notes <- c("name accepted",
            "name misspelled",
            "name accepted",
@@ -95,7 +98,8 @@ notes <- c("name accepted",
            "not found", "replaced orth. variant",
            "+1 name, but 1 accepted",
            "name misspelled|check +1 name|replaced synonym",
-           "name misspelled|replaced synonym")
+           "name misspelled|replaced synonym",
+           "name accepted")
 match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "exact_w_author", "exact_w_author", "exact_w_author",
                 "exact_w_author", "exact_wout_author", "no_match",
@@ -108,6 +112,7 @@ match.type <- c("exact_w_author", "fuzzy_w_author", "exact_wout_author",
                 "bad_fuzzy_wout_author", "bad_fuzzy_wout_author", "bad_fuzzy_wout_author",
                 "no_match", "exact_w_author", "exact_wout_author",
                 "fuzzy_wout_author",
+                "fuzzy_w_author",
                 "fuzzy_w_author")
 
 res2 <- res1
@@ -159,7 +164,6 @@ test_that("prepSpecies works", {
   expect_equal(res$taxon.rank, c("species","species","genus"))
   expect_equal(res$tax.notes, c("author misspelled","author misspelled",
                                 "name accepted"))
-
 
 })
 

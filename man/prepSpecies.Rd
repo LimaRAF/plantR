@@ -100,12 +100,14 @@ warning if the resulting value of the formula is higher than 1.}
 backbone that should be dropped from the results.}
 }
 \value{
-A data frame with the same columns provided by the user and some
-additional columns containing the suggested taxon name
-('suggestedName'), taxon authorship ('suggestedAuthorship'), the
-corresponding scientific name ('scientificNameFull'), the taxonomic
-information related to the suggested name (columns 'taxon.rank',
-tax.notes' and its 'id' in the reference taxonomic backbone).
+A data frame with the same columns provided by the user and, by
+default, some additional columns containing the suggested taxon
+name ('suggestedName'), taxon authorship ('suggestedAuthorship'),
+the corresponding scientific name ('scientificNameFull'), the
+taxonomic information related to the suggested name (columns
+'taxon.rank', tax.notes' and its 'id' in the reference taxonomic
+backbone). The return of other columns can be controlled using the
+argument \code{drop.cols}.
 }
 \description{
 Validates taxon names (including the correction of
@@ -116,25 +118,37 @@ companion package \strong{plantRdata}.
 }
 \details{
 First, the function checks taxon names with authorship (if
-available), using both exact and fuzzy matching. This is good
+available), using both exact and fuzzy matching. This is a good
 practice to avoid multiple matches in the reference taxonomic
 backbone related to homonyms. If a name below the threshold
 distance defined in argument \code{sug.dist} is not found, then the
 function does a second round of exact and fuzzy matching using
 only the taxon names without authorship. This second check is
 done for names provided without authorship by the user and
-for names provided with an authorship but very distant from
+for names provided with authorship but very distant from
 the one found in the backbone (i.e. bad fuzzy matches of
-authorship names). Defining reasonable distance values to flag a
-bad fuzzy matches for authorships is quite arbitrary. In
-\code{prepSpecies()}, this definition is done by combining the
-arguments \code{auth.factor} and \code{auth.factor.max}, whose defaults
-were set based on a try and error process using test names.
+authorship names).
+
+Distances between input and matched names and authorships are
+computed without the hybrid symbol and without spaces,
+respectively. These distances are computed separately and after
+name matching, meaning that there is the possibility of fuzzy
+matches with zero distances between input and reference names.
+This is done to avoid inflating the number of names below the
+threshold distances simply due to differences in format between
+the input and reference names. This is particularly true for
+author names, which can be quite variable in format between sources.
+
+Defining reasonable distance values to flag bad fuzzy matched for
+author names is quite arbitrary. In \code{prepSpecies()}, this
+definition is done by combining the arguments \code{auth.factor} and
+\code{auth.factor.max}, whose defaults were set based on a try and
+error process using test names.
 
 The name check compares all unique names in \code{x} with all names in
 the taxonomic backbones selected. So, the speed of the checking
 process depends on the number of name combinations in \code{x} and in
-the backbone, besides the computer's operational system and
+the backbone, besides the computer's operating system and
 specifications. But if the backbone selected has many names (over
 hundreds of thousands of names), such as those containing all
 plant names for the entire world, the process may take up to a

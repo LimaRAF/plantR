@@ -50,34 +50,48 @@
 #'   backbone that should be dropped from the results.
 #'
 #' @return
-#' A data frame with the same columns provided by the user and some
-#' additional columns containing the suggested taxon name
-#' ('suggestedName'), taxon authorship ('suggestedAuthorship'), the
-#' corresponding scientific name ('scientificNameFull'), the taxonomic
-#' information related to the suggested name (columns 'taxon.rank',
-#' tax.notes' and its 'id' in the reference taxonomic backbone).
+#' A data frame with the same columns provided by the user and, by
+#' default, some additional columns containing the suggested taxon
+#' name ('suggestedName'), taxon authorship ('suggestedAuthorship'),
+#' the corresponding scientific name ('scientificNameFull'), the
+#' taxonomic information related to the suggested name (columns
+#' 'taxon.rank', tax.notes' and its 'id' in the reference taxonomic
+#' backbone). The return of other columns can be controlled using the
+#' argument `drop.cols`.
 #'
 #' @details
 #'   First, the function checks taxon names with authorship (if
-#'   available), using both exact and fuzzy matching. This is good
+#'   available), using both exact and fuzzy matching. This is a good
 #'   practice to avoid multiple matches in the reference taxonomic
 #'   backbone related to homonyms. If a name below the threshold
 #'   distance defined in argument `sug.dist` is not found, then the
 #'   function does a second round of exact and fuzzy matching using
 #'   only the taxon names without authorship. This second check is
 #'   done for names provided without authorship by the user and
-#'   for names provided with an authorship but very distant from
+#'   for names provided with authorship but very distant from
 #'   the one found in the backbone (i.e. bad fuzzy matches of
-#'   authorship names). Defining reasonable distance values to flag a
-#'   bad fuzzy matches for authorships is quite arbitrary. In
-#'   `prepSpecies()`, this definition is done by combining the
-#'   arguments `auth.factor` and `auth.factor.max`, whose defaults
-#'   were set based on a try and error process using test names.
+#'   authorship names).
+#'
+#'   Distances between input and matched names and authorships are
+#'   computed without the hybrid symbol and without spaces,
+#'   respectively. These distances are computed separately and after
+#'   name matching, meaning that there is the possibility of fuzzy
+#'   matches with zero distances between input and reference names.
+#'   This is done to avoid inflating the number of names below the
+#'   threshold distances simply due to differences in format between
+#'   the input and reference names. This is particularly true for
+#'   author names, which can be quite variable in format between sources.
+#'
+#'   Defining reasonable distance values to flag bad fuzzy matched for
+#'   author names is quite arbitrary. In `prepSpecies()`, this
+#'   definition is done by combining the arguments `auth.factor` and
+#'   `auth.factor.max`, whose defaults were set based on a try and
+#'   error process using test names.
 #'
 #'   The name check compares all unique names in `x` with all names in
 #'   the taxonomic backbones selected. So, the speed of the checking
 #'   process depends on the number of name combinations in `x` and in
-#'   the backbone, besides the computer's operational system and
+#'   the backbone, besides the computer's operating system and
 #'   specifications. But if the backbone selected has many names (over
 #'   hundreds of thousands of names), such as those containing all
 #'   plant names for the entire world, the process may take up to a
@@ -442,8 +456,10 @@ prepSpecies <- function(x,
           input_names_temp[w_indet[check_these]] <-
             search_names[fuzzy_w_indet]
 
-        name_dist <- stringdist::stringdist(input_names_temp,
-                                            result[["tax.name"]][check_these])
+        input_names_temp <- rmHyb(input_names_temp)
+        ref_names_temp <- rmHyb(result[["tax.name"]][check_these])
+        name_dist <-
+          stringdist::stringdist(input_names_temp, ref_names_temp)
         result$fuzzy_dist_name[check_these] <-
           round(name_dist/nchar(input_names_temp), 4)
 
@@ -452,10 +468,16 @@ prepSpecies <- function(x,
         if (any(correct_these))
           result[["tax.authorship"]][check_these][correct_these] <- NA
 
-        aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
-                                           result[["tax.authorship"]][check_these])
+        input_auth_temp <- gsub(" ", "",
+                                result[[tax.names[2]]][check_these],
+                                fixed = TRUE)
+        ref_auth_temp <- gsub(" ", "",
+                              result[["tax.authorship"]][check_these],
+                              fixed = TRUE)
+        aut_dist <-
+          stringdist::stringdist(input_auth_temp, ref_auth_temp)
         result$fuzzy_dist_author[check_these] <-
-          round(aut_dist/nchar(result[[tax.names[2]]][check_these]), 4)
+          round(aut_dist/nchar(input_auth_temp), 4)
       }
     } else {
       empty_df <- as.data.frame(matrix(NA,
@@ -581,13 +603,13 @@ prepSpecies <- function(x,
             "fuzzy_wout_author_wout_indet"
 
           # Calculating the distance between names
+          input_names_temp1 <- rmHyb(input_names_clean1)
+          ref_names_temp1 <- rmHyb(result[["tax.name"]][no_authors_no_match1])
+
           name_dist1 <-
-            stringdist::stringdist(
-              input_names_clean1,
-              result[["tax.name"]][no_authors_no_match1])
+            stringdist::stringdist(input_names_temp1, ref_names_temp1)
           result$fuzzy_dist_name[no_authors_no_match1] <-
-            round(name_dist1/
-                    nchar(input_names_clean1), 4)
+            round(name_dist1/nchar(input_names_temp1), 4)
 
           # Fixing some bad indexing replacements
           double_check <- is.na(result$id)
@@ -716,14 +738,14 @@ prepSpecies <- function(x,
         }
 
         # Calculating the new distance between names
-        name_dist2 <-
-          stringdist::stringdist(
-            input_names_clean2,
-            result[["tax.name"]][no_authors_no_match2][no_authors_no_match3])
-        result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3] <-
-          round(name_dist2/
-                  nchar(input_names_clean2), 4)
+        input_names_temp2 <- rmHyb(input_names_clean2)
+        ref_names_temp1 <-
+          rmHyb(result[["tax.name"]][no_authors_no_match2][no_authors_no_match3])
 
+        name_dist2 <-
+          stringdist::stringdist(input_names_temp2, ref_names_temp1)
+        result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3] <-
+          round(name_dist2/nchar(input_names_temp2), 4)
       }
 
       # Calculating the new distance between author names
@@ -738,13 +760,16 @@ prepSpecies <- function(x,
             result[["tax.authorship"]][rep_these_no_mult][correct_these] <-
               NA
 
+          input_auth_temp1 <- gsub(" ", "",
+                                   result[[tax.names[2]]][rep_these_no_mult],
+                                   fixed = TRUE)
+          ref_auth_temp1 <- gsub(" ", "",
+                                 result[["tax.authorship"]][rep_these_no_mult],
+                                 fixed = TRUE)
           aut_dist1 <-
-            stringdist::stringdist(
-              result[[tax.names[2]]][rep_these_no_mult],
-              result[["tax.authorship"]][rep_these_no_mult])
+            stringdist::stringdist(input_auth_temp1, ref_auth_temp1)
           result$fuzzy_dist_author[rep_these_no_mult] <-
-            round(aut_dist1/
-                    nchar(result[[tax.names[2]]][rep_these_no_mult]), 4)
+            round(aut_dist1/nchar(input_auth_temp1), 4)
         }
       }
 
