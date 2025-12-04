@@ -98,7 +98,7 @@
 #' fixSpecies(df, rm.rank = TRUE)
 #' fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 #'
-#' @importFrom stringr str_detect regex fixed str_count str_split
+#' @importFrom stringr str_detect regex fixed str_count
 #' @importFrom stringi stri_enc_mark
 #'
 #' @seealso
@@ -232,7 +232,7 @@ fixSpecies <- function(x = NULL,
     check$species_new[case] <- fixed_cases[case]
 
   # recognizing and isolating authorship
-  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$",
+  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$| \\[",
                        check$species_new, perl = TRUE) &
                   !grepl(" [A-Z+]$", check$species_new, perl = TRUE) |
                     grepl("wrong_case", check$species_status, fixed = TRUE)
@@ -275,7 +275,7 @@ fixSpecies <- function(x = NULL,
 
   # names not matching genus + epithet pattern
   id_not_gensp <- which(
-    lengths(stringr::str_split(check$species_new, " ")) > 2 &
+    stringr::str_count(check$species_new, " ") > 1 &
       check$species_status %in% "")
   if (length(id_not_gensp) > 0L)
     check$species_status[id_not_gensp] <- "not_Genus_epithet_format"
@@ -310,7 +310,7 @@ fixSpecies <- function(x = NULL,
     "possibly_ok"
 
   # non-ascii characters
-  string_type <- stringi::stri_enc_mark(check$species_new)
+  string_type <- stringi::stri_enc_mark(rmHyb(check$species_new))
   ascii <- string_type != "ASCII"
   if (any(ascii)) {
     check$species_status[ascii] <- paste(check$species_status[ascii],
