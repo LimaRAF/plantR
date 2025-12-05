@@ -205,3 +205,31 @@ test_that("prepSpecies works", {
 #   expect_equal(run_test1$tax.notes, res2.1)
 #
 # })
+
+
+# sp.list <- c("Pelargonium × hortorum",
+#              "Quercus xylina",
+#              "Jatropha multifida",
+#              "Baccharis odorata",
+#              "Miconia elaeagnoides",
+#              "Miconia eleagnoides")
+# aut_list <- c("L.H. Bailey",
+#               "[Scheidw.]",
+#               "L",
+#               "", "", "")
+# df <- data.frame(scientificName = sp.list,
+#                  scientificNameAuthorship = aut_list)
+#
+# res1 <- c("fuzzy_w_author", "exact_w_author", "exact_wout_author",
+#           "exact_wout_author", "exact_wout_author", "fuzzy_wout_author")
+# res2 <- c("check not resolved", "name accepted", "author misspelled",
+#           rep("check +1 name|replaced synonym", 2),
+#           "name misspelled|check +1 name|replaced synonym")
+# data("wfoNames", package = "plantRdata")
+#
+# test_that("prepSpecies works with wfoNames", {
+#
+#   run_test <- prepSpecies(df, db = wfoNames, drop = "")
+#   expect_equal(run_test$match_type, res1)
+#   expect_equal(run_test$tax.notes, res2)
+# })

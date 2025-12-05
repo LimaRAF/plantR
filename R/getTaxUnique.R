@@ -119,8 +119,15 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
         res[res[[orig.col]] %in% unique(duplicated_spp), ]
       res_dup[[mult.match.col]] <- TRUE
 
-      rep_valid <- is.na(res_dup$accepted.id) &
-        res_dup$taxon.status %in% "accepted"
+      if ("accepted.tax.authorship" %in% colnames(res_dup)) {
+        rep_miss_auth <- !is.na(res_dup[["accepted.id"]]) &
+          is.na(res_dup[["accepted.tax.authorship"]])
+        if (any(rep_miss_auth))
+          res_dup[["accepted.tax.authorship"]][rep_miss_auth] <- ""
+      }
+
+      rep_valid <- is.na(res_dup[["accepted.id"]]) &
+                    res_dup[["taxon.status"]] %in% "accepted"
       if(any(rep_valid)) {
         cols.to <- names(res_dup)[grepl("accepted", names(res_dup)) &
                                     !grepl("\\.x", names(res_dup))]
@@ -136,6 +143,7 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
         tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                          function(x) paste(unique(x[!is.na(x)]),
                          # function(x) paste(x[!is.na(x)],
+                         # function(x) paste(x,
                                            collapse = "|"))
         names(tmp)[1] <- orig.col
 
@@ -175,12 +183,18 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
   } else {
 
     duplicated_spp <- res[[orig.col]][dup_names]
-    res_dup <-
-      res[res[[orig.col]] %in% unique(duplicated_spp), ]
+    res_dup <- res[res[[orig.col]] %in% unique(duplicated_spp), ]
     res_dup[[mult.match.col]] <- TRUE
 
-    rep_valid <- is.na(res_dup$accepted.id) &
-      res_dup$taxon.status %in% "accepted"
+    if ("accepted.tax.authorship" %in% colnames(res_dup)) {
+      rep_miss_auth <- !is.na(res_dup[["accepted.id"]]) &
+                        is.na(res_dup[["accepted.tax.authorship"]])
+      if (any(rep_miss_auth))
+        res_dup[["accepted.tax.authorship"]][rep_miss_auth] <- ""
+    }
+
+    rep_valid <- is.na(res_dup[["accepted.id"]]) &
+                    res_dup[["taxon.status"]] %in% "accepted"
     if(any(rep_valid)) {
       cols.to <- names(res_dup)[grepl("accepted", names(res_dup)) &
                                   !grepl("\\.x", names(res_dup))]
@@ -196,6 +210,7 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
       tmp <- aggregate(tmp0, list(res_dup[[orig.col]]),
                        function(x) paste(unique(x[!is.na(x)]),
                        # function(x) paste(x[!is.na(x)],
+                       # function(x) paste(x,
                                          collapse = "|"))
       names(tmp)[1] <- orig.col
       res_dup <- res_dup[order(res_dup[[status.col]],
@@ -231,12 +246,26 @@ getTaxUnique <- function(df = NULL, df.ref = NULL,
   cols_rep <- unique(c(mult.match.col, name.col, agg.cols))
   df.orig[, cols_rep] <- res.temp[, cols_rep]
 
+  if ("accepted.tax.authorship" %in% cols_rep) {
+    rep_these <- df.orig[[mult.match.col]] %in% c(TRUE, "TRUE")
+    if (any(rep_these)) {
+      df.orig[["accepted.tax.authorship"]][rep_these] <-
+        sub("^\\|", "NA|", df.orig[["accepted.tax.authorship"]][rep_these],
+            perl = TRUE)
+      df.orig[["accepted.tax.authorship"]][rep_these] <-
+        sub("\\|$", "|NA", df.orig[["accepted.tax.authorship"]][rep_these],
+            perl = TRUE)
+    }
+  }
+
   if ("name.status" %in% cols_rep) {
     rep_these <- df.orig[[mult.match.col]] %in% c(TRUE, "TRUE")
-    if (any(rep_these))
+    if (any(rep_these)) {
       df.orig[["name.status"]][rep_these] <-
-        gsub("^\\||\\|$", "", df.orig[["name.status"]][rep_these],
-             perl = TRUE)
+        sub("^\\|", "NA|", df.orig[["name.status"]][rep_these], perl = TRUE)
+      df.orig[["name.status"]][rep_these] <-
+        sub("\\|$", "|NA", df.orig[["name.status"]][rep_these], perl = TRUE)
+    }
   }
 
   # check_these <- res.temp[[match.col]] != res.temp[[name.col]]

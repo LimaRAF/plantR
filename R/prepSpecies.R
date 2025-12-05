@@ -697,13 +697,6 @@ prepSpecies <- function(x,
           NA
       }
 
-      # double_check <- is.na(result$id)
-      # if (any(double_check)) {
-      #   result$match_type[double_check] <-
-      #     result$multiple_match[double_check] <-
-      #       result$fuzzy_dist_name[double_check] <- NA
-      # }
-
       # fuzzy matches
       max_dist <- 1 - sug.dist
       no_authors_no_match3 <-
@@ -772,17 +765,6 @@ prepSpecies <- function(x,
             round(aut_dist1/nchar(input_auth_temp1), 4)
         }
       }
-
-      # # flagging fuzzy matches above the selected threshold
-      # rep_these <-
-      #   result[["fuzzy_dist_name"]][no_authors_no_match2] > max_dist
-      # rep_these[is.na(rep_these)] <- FALSE
-      # if (any(rep_these))
-      #   result[no_authors_no_match2, "match_type"][rep_these] <-
-      #     sub("bad_bad_", "bad_",
-      #           paste0("bad_",
-      #                  result[no_authors_no_match2, "match_type"][rep_these]),
-      #         fixed = TRUE)
     }
 
     # flagging fuzzy matches above the selected threshold
@@ -833,11 +815,6 @@ prepSpecies <- function(x,
                  output$notes[rep_these & !w_accept_id],
                  perl = TRUE)
         }
-
-        # output[rep_these, old.cols] <- output[rep_these, new.cols]
-        # output$notes[rep_these] <-
-        #   gsub("synonym", "replaced synonym", output$notes[rep_these],
-        #        perl = TRUE)
       }
 
       rep_these <- grepl("orthographic", output$notes, perl = TRUE)
@@ -956,6 +933,11 @@ prepSpecies <- function(x,
     taxa.split <- strsplit(tmp[[1]], "|", fixed = TRUE)
     auth.split <- strsplit(tmp[[2]], "|", fixed = TRUE)
     names.new <- mapply(paste, taxa.split, auth.split)
+
+    rep_these <- grepl(" NA$", names.new, perl = TRUE)
+    if (any(rep_these))
+      names.new[rep_these] <-
+        sub(" NA$", "", names.new[rep_these], perl = TRUE)
 
     if (inherits(names.new, "matrix")) {
       tmp.names.new <-
