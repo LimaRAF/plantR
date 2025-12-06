@@ -57,14 +57,13 @@
 #' @examples
 #'
 #' df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG"),
-#' collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"),
-#' stringsAsFactors = FALSE)
+#' collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"))
 #' getCode(df)
 #'
 getCode <- function(x,
                     inst.code = "institutionCode",
                     col.code = "collectionCode",
-                    drop = c("ordem.colecao","collectioncode.gbif",
+                    drop = c("ordem.colecao", "collectioncode.gbif",
                              "institutioncode.gbif", "organization",
                              "collection.string"),
                     print.miss = FALSE) {
@@ -77,17 +76,23 @@ getCode <- function(x,
   if (!inherits(x, "data.frame"))
     stop("input object needs to be a data frame!")
 
+  if (dim(x)[1] == 0)
+    stop("input data frame cannot be empty!")
+
   if (!inst.code %in% names(x))
     stop("Input data frame must have a column with the institution codes")
 
   if (!col.code %in% names(x))
     stop("Input data frame must have a column with the collection codes")
 
+  # Detecting NAs
+  x[[col.code]][x[[col.code]] %in% c("", " ")] <- NA_character_
+  x[[inst.code]][x[[inst.code]] %in% c("", " ")] <- NA_character_
+
   # Missing collection code that may be stored in the field 'institutionCode'
-  if ("collectionCode" %in% names(x) & "institutionCode" %in% names(x)) {
-    ids <- is.na(x$collectionCode) & !is.na(x$institutionCode)
-    x$collectionCode[ids] <- x$institutionCode[ids]
-  }
+  ids <- is.na(x[[col.code]]) & !is.na(x[[inst.code]])
+  if (any(ids))
+    x[[col.code]][ids] <- x[[inst.code]][ids]
 
   dt <- data.table::data.table(x)
   dt[, cod.inst.tmp := .SD, .SDcols = c(inst.code)]
@@ -111,8 +116,7 @@ getCode <- function(x,
   # Getting the search string for the data
   dt[ , collection.string := do.call(paste, c(.SD, sep="_")),
       .SDcols = c("cod.coll.tmp","cod.inst.tmp")]
-  dt[ , collection.string := gsub("^ | $", "", collection.string,
-                                  perl = TRUE)]
+  dt[ , collection.string := squish(collection.string)]
 
   # Getting the collection list
   ih.list <- data.table::data.table(collectionCodes)

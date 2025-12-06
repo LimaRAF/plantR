@@ -70,8 +70,7 @@ in the internal object \code{reservedColNames}.
 \examples{
 
 df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG"),
-collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"),
-stringsAsFactors = FALSE)
+collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"))
 getCode(df)
 
 }

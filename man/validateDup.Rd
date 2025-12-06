@@ -68,7 +68,7 @@ combined.}
 
 \item{ignore.miss}{logical. Should the duplicate search strings
 with missing/unknown information (e.g. 'n.d.', 's.n.', NA) be
-excluded from the duplicate search. Default to TRUE.}
+excluded from the duplicate search? Default to TRUE.}
 
 \item{dup.name}{character. The name of column in the input data
 frame with the duplicate group ID. Default to the \strong{plantR}
