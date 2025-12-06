@@ -2,6 +2,21 @@
 
 <br/>
 
+## version 0.2.0
+
+* Version consolidating the changes from previous versions (0.1.8 to 0.1.10), that should require users to adapt their previous codes. Novelties and changes implemented in those versions were double-checked and some final and minor enhancements were done.
+
+* Minor improvements in functions `fixSpecies()`, `fixAnnotation()` and `fixAuthors()` to flag and prepare species names with or without authorships (issues #204 and #206)
+
+* Minor improvements in functions `prepSpecies()` and `getTaxNotes()` to better deal with multiple name matches coming from fuzzy matches (issue #204)
+
+* Minor improvements in functions `getCode()`, `getTombo()`, `prepDup()` and `getDup()` to better deal with missing collection and/or accession codes (issue #202)
+
+* Updates on the plantR internal object `collectionCodes`
+
+
+<br/>
+
 ## version 0.1.10
 
 * Important inclusions and improvements in the function `fixLoc()` to get stateProvince info from the locality field and to downgrade locality to state-level information (issues #172 and #173). 
