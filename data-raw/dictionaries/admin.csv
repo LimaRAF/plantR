@@ -15,7 +15,7 @@ gadm_new,anguilla_george hill,AI,Anguilla,George Hill,NA,NA
 gadm_new,anguilla_island harbour,AI,Anguilla,Island Harbour,NA,NA
 gadm_new,anguilla_north hill,AI,Anguilla,North Hill,NA,NA
 gadm_new,anguilla_north side,AI,Anguilla,North Side,NA,NA
-gadm_new,anguilla_pricly pear cays,AI,Anguilla,Prickly Pear Cays,NA,NA
+gadm_new,anguilla_prickly pear cays,AI,Anguilla,Prickly Pear Cays,NA,NA
 gadm_new,anguilla_sandy ground,AI,Anguilla,Sandy Ground,NA,NA
 gadm_new,anguilla_sandy hill,AI,Anguilla,Sandy Hill,NA,NA
 gadm_new,anguilla_scrub island,AI,Anguilla,Scrub Island,NA,NA
@@ -646,7 +646,6 @@ gadm,bolivia,BO,Bolivia,NA,NA,NA
 gadm,bolivia_chuquisaca,BO,Bolivia,Chuquisaca,NA,NA
 gadm,bolivia_chuquisaca_belisario boeto,BO,Bolivia,Chuquisaca,Belisario Boeto,NA
 gadm,bolivia_chuquisaca_hernando siles,BO,Bolivia,Chuquisaca,Hernando Siles,NA
-gadm,bolivia_chuquisaca_jaime zudanez,BO,Bolivia,Chuquisaca,Jaime Zudáñez,NA
 gadm,bolivia_chuquisaca_juana azurduay padilla,BO,Bolivia,Chuquisaca,Juana Azurduay de Padilla,NA
 gadm,bolivia_chuquisaca_luis calvo,BO,Bolivia,Chuquisaca,Luis Calvo,NA
 gadm,bolivia_chuquisaca_nor cinti,BO,Bolivia,Chuquisaca,Nor Cinti,NA
@@ -654,10 +653,14 @@ gadm,bolivia_chuquisaca_oropeza,BO,Bolivia,Chuquisaca,Oropeza,NA
 gadm,bolivia_chuquisaca_sur cinti,BO,Bolivia,Chuquisaca,Sud Cinti,NA
 gadm,bolivia_chuquisaca_tomina,BO,Bolivia,Chuquisaca,Tomina,NA
 gadm,bolivia_chuquisaca_yamparaez,BO,Bolivia,Chuquisaca,Yamparáez,NA
+gadm,bolivia_chuquisaca_zudanez,BO,Bolivia,Chuquisaca,Zudáñez,NA
+gadm_new,bolivia_chuquisaca_zudanez_villa ricardo mugia icla,BO,Bolivia,Chuquisaca,Zudáñez,Villa Ricardo Mugia Icla
+gadm_new,bolivia_chuquisaca_zudanez_zudanez,BO,Bolivia,Chuquisaca,Zudáñez,Zudanez
 gadm,bolivia_cochabamba,BO,Bolivia,Cochabamba,NA,NA
 gadm,bolivia_cochabamba_arani,BO,Bolivia,Cochabamba,Arani,NA
 gadm,bolivia_cochabamba_arque,BO,Bolivia,Cochabamba,Arque,NA
 gadm,bolivia_cochabamba_ayopaya,BO,Bolivia,Cochabamba,Ayopaya,NA
+gadm_new,bolivia_cochabamba_ayopaya_cocapata,NA,Bolivia,Cochabamba,Ayopaya,Cocapata
 gadm,bolivia_cochabamba_capinota,BO,Bolivia,Cochabamba,Capinota,NA
 gadm,bolivia_cochabamba_carrasco,BO,Bolivia,Cochabamba,Carrasco,NA
 gadm,bolivia_cochabamba_cercado,BO,Bolivia,Cochabamba,Cercado,NA
@@ -1566,6 +1569,7 @@ gadm_new,brazil_bahia_sao jose jacuipe_itatiaia alto bonito,NA,Brazil,Bahia,São
 ibge,brazil_bahia_sao jose vitoria,BR,Brazil,Bahia,São José da Vitória,NA
 ibge,brazil_bahia_sao miguel matas,BR,Brazil,Bahia,São Miguel das Matas,NA
 ibge,brazil_bahia_sao sebastiao passe,BR,Brazil,Bahia,São Sebastião do Passé,NA
+splink_jabot,brazil_bahia_sao sebastiao passe_fazenda panema,BR,Brazil,Bahia,São Sebastião do Passé,Fazenda Panema
 gadm_new,brazil_bahia_sao sebastiao passe_jacuipe,NA,Brazil,Bahia,São Sebastião do Passé,Jacuipe
 ibge,brazil_bahia_sapeacu,BR,Brazil,Bahia,Sapeaçu,NA
 ibge,brazil_bahia_satiro dias,BR,Brazil,Bahia,Sátiro Dias,NA
@@ -1582,6 +1586,7 @@ ibge,brazil_bahia_sento se,BR,Brazil,Bahia,Sento Sé,NA
 gadm_new,brazil_bahia_sento se_amaniu,NA,Brazil,Bahia,Sento Sé,Amaniu
 gadm_new,brazil_bahia_sento se_americo alves,NA,Brazil,Bahia,Sento Sé,Americo Alves
 gadm_new,brazil_bahia_sento se_cajui,NA,Brazil,Bahia,Sento Sé,Cajui
+splink_jabot,brazil_bahia_sento se_parque nacional boqueirao onca,BR,Brazil,Bahia,Sento Sé,Parque Nacional do Boqueirão da Onça
 gadm_new,brazil_bahia_sento se_picarrao,NA,Brazil,Bahia,Sento Sé,Picarrao
 ibge,brazil_bahia_serra dourada,BR,Brazil,Bahia,Serra Dourada,NA
 ibge,brazil_bahia_serra preta,BR,Brazil,Bahia,Serra Preta,NA
@@ -5339,6 +5344,7 @@ ibge,brazil_parana_tapejara,BR,Brazil,Paraná,Tapejara,NA
 gadm_new,brazil_parana_tapejara_bela vista tapiracui,NA,Brazil,Paraná,Tapejara,Bela Vista Tapiracui
 gadm,brazil_parana_tapira,BR,Brazil,Paraná,Tapira,NA
 ibge,brazil_parana_teixeira soares,BR,Brazil,Paraná,Teixeira Soares,NA
+gadm_new,brazil_parana_teixeira soares_guarauna,NA,Brazil,Paraná,Teixeira Soares,Guarauna
 ibge,brazil_parana_telemaco borba,BR,Brazil,Paraná,Telêmaco Borba,NA
 ibge,brazil_parana_terra boa,BR,Brazil,Paraná,Terra Boa,NA
 ibge,brazil_parana_terra rica,BR,Brazil,Paraná,Terra Rica,NA
@@ -8398,6 +8404,7 @@ ibge,brazil_sao paulo_vitoria brasil,BR,Brazil,São Paulo,Vitória Brasil,NA
 gadm_new,brazil_sao paulo_vitoria brasil_vitoria brazil,NA,Brazil,São Paulo,Vitória Brasil,Vitoria Brazil
 ibge,brazil_sao paulo_votorantim,BR,Brazil,São Paulo,Votorantim,NA
 ibge,brazil_sao paulo_votuporanga,BR,Brazil,São Paulo,Votuporanga,NA
+gbif_reflora_splink,brazil_sao paulo_votuporanga_fazenda vizinha estacao experimental iac,NA,Brazil,São Paulo,Votuporanga,fazenda vizinha da estacao experimental do iac
 ibge,brazil_sao paulo_zacarias,BR,Brazil,São Paulo,Zacarias,NA
 gadm,brazil_sergipe,BR,Brazil,Sergipe,NA,NA
 ibge,brazil_sergipe_amparo sao francisco,BR,Brazil,Sergipe,Amparo de São Francisco,NA
@@ -10183,6 +10190,7 @@ gbif_gsg,costa rica_alajuela_zarcero,NA,Costa Rica,Alajuela,zarcero,NA
 gadm,costa rica_cartago,CR,Costa Rica,Cartago,NA,NA
 gadm,costa rica_cartago_alvarado,CR,Costa Rica,Cartago,Alvarado,NA
 gadm,costa rica_cartago_cartago,CR,Costa Rica,Cartago,Cartago,NA
+gbif_gsg,costa rica_cartago_cartago_san francisco,NA,Costa Rica,Cartago,Cartago,San Francisco
 gadm,costa rica_cartago_el guarco,CR,Costa Rica,Cartago,El Guarco,NA
 gadm,costa rica_cartago_jimenez,CR,Costa Rica,Cartago,Jiménez,NA
 gadm,costa rica_cartago_la union,CR,Costa Rica,Cartago,La Unión,NA
@@ -13454,9 +13462,11 @@ gbif_gsg,mexico_baja california sur_loreto,NA,mexico,baja california sur,loreto,
 gbif_gsg,mexico_baja california sur_los cabos,NA,mexico,baja california sur,los cabos,NA
 gadm,mexico_baja california sur_mulege,MX,Mexico,Baja California Sur,Mulegé,NA
 gadm,mexico_baja california_ensenada,MX,Mexico,Baja California,Ensenada,NA
+gbif_gsg,mexico_baja california_ensenada_sierra san pedro martir,NA,Mexico,Baja California,Ensenada,Sierra de San Pedro Mártir
 gadm,mexico_baja california_mexicali,MX,Mexico,Baja California,Mexicali,NA
 gadm,mexico_baja california_mulege,MX,Mexico,Baja California,Mulegé,NA
 gadm,mexico_baja california_tecate,MX,Mexico,Baja California,Tecate,NA
+gbif_gsg,mexico_baja california_tecate_sierra juarez,NA,Mexico,Baja California,Tecate,Sierra de Juárez
 gadm,mexico_baja california_tijuana,MX,Mexico,Baja California,Tijuana,NA
 gadm,mexico_campeche,MX,Mexico,Campeche,NA,NA
 gbif_gsg,mexico_campeche_calakmul,NA,mexico,campeche,calakmul,NA
@@ -14433,26 +14443,73 @@ gadm,mexico_nuevo leon_villaldama,MX,Mexico,Nuevo León,Villaldama,NA
 gadm,mexico_oaxaca,MX,Mexico,Oaxaca,NA,NA
 gbif_gsg,mexico_oaxaca_asuncion ixtaltepec,NA,Mexico,Oaxaca,asuncion ixtaltepec,NA
 gadm,mexico_oaxaca_choapam,MX,Mexico,Oaxaca,Choapam,NA
+gbif_gsg,mexico_oaxaca_choapam_san juan lalana,NA,Mexico,Oaxaca,Choapam,San Juan Lalana
+gbif_gsg,mexico_oaxaca_choapam_santiago choapam,NA,Mexico,Oaxaca,Choapam,Santiago Choapam
 gadm,mexico_oaxaca_coixtlahuaca,MX,Mexico,Oaxaca,Coixtlahuaca,NA
+gbif_gsg,mexico_oaxaca_coixtlahuaca_concepcion buenavista,NA,Mexico,Oaxaca,Coixtlahuaca,Concepción Buenavista
 gadm,mexico_oaxaca_cuicatlan,MX,Mexico,Oaxaca,Cuicatlan,NA
+gbif_gsg,mexico_oaxaca_cuicatlan_concepcion papalo,NA,Mexico,Oaxaca,Cuicatlán,Concepción Pápalo
+gbif_gsg,mexico_oaxaca_cuicatlan_san juan tepeuxila,NA,Mexico,Oaxaca,Cuicatlán,San Juan Tepeuxila
+gbif_gsg,mexico_oaxaca_cuicatlan_san pedro jocotipac,NA,Mexico,Oaxaca,Cuicatlán,San Pedro Jocotipac
+gbif_gsg,mexico_oaxaca_cuicatlan_san pedro teutila,NA,Mexico,Oaxaca,Cuicatlán,San Pedro Teutila
+gbif_gsg,mexico_oaxaca_cuicatlan_santiago nacaltepec,NA,Mexico,Oaxaca,Cuicatlán,Santiago Nacaltepec
+gbif_gsg,mexico_oaxaca_cuicatlan_valerio trujano,NA,Mexico,Oaxaca,Cuicatlán,Valerio Trujano
 gadm,mexico_oaxaca_del centro,MX,Mexico,Oaxaca,Del Centro,NA
 gadm,mexico_oaxaca_ejutla,MX,Mexico,Oaxaca,Ejutla,NA
 gadm,mexico_oaxaca_etla,MX,Mexico,Oaxaca,Etla,NA
+gbif_gsg,mexico_oaxaca_etla_san felipe tejalapam,NA,Mexico,Oaxaca,Etla,San Felipe Tejalapam
+gbif_gsg,mexico_oaxaca_etla_san francisco telixtlahuaca,NA,Mexico,Oaxaca,Etla,San Francisco Telixtlahuaca
+gbif_gsg,mexico_oaxaca_etla_san jeronimo sosola,NA,Mexico,Oaxaca,Etla,San Jerónimo Sosola
+gbif_gsg,mexico_oaxaca_etla_san juan bautista atatlahuca,NA,Mexico,Oaxaca,Etla,San Juan Bautista Atatlahuca
 gadm,mexico_oaxaca_huajuapam,MX,Mexico,Oaxaca,Huajuapam,NA
+gbif_gsg,mexico_oaxaca_huajuapam_heroica ciudad huajuapan leon,NA,Mexico,Oaxaca,Huajuapam,Heroica Ciudad de Huajuapan de León
+gbif_gsg,mexico_oaxaca_huajuapan_san marcos arteaga,NA,Mexico,Oaxaca,Huajuapan,San Marcos Arteaga
+gbif_gsg,mexico_oaxaca_huajuapan_san pedro y san pablo tequixtepec,NA,Mexico,Oaxaca,Huajuapan,San Pedro y San Pablo Tequixtepec
+gbif_gsg,mexico_oaxaca_huajuapan_santa catarina zapoquila,NA,Mexico,Oaxaca,Huajuapan,Santa Catarina Zapoquila
+gbif_gsg,mexico_oaxaca_huajuapan_santiago chazumba,NA,Mexico,Oaxaca,Huajuapan,Santiago Chazumba
+gbif_gsg,mexico_oaxaca_huajuapan_santo domingo tonala,NA,Mexico,Oaxaca,Huajuapan,Santo Domingo Tonalá
 gadm,mexico_oaxaca_ixtlan,MX,Mexico,Oaxaca,Ixtlán,NA
+gbif_gsg,mexico_oaxaca_ixtlan_capulalpam mendez,NA,Mexico,Oaxaca,Ixtlán,Capulálpam de Méndez
+gbif_gsg,mexico_oaxaca_ixtlan_san juan atepec,NA,Mexico,Oaxaca,Ixtlán,San Juan Atepec
+gbif_gsg,mexico_oaxaca_ixtlan_san juan quiotepec,NA,Mexico,Oaxaca,Ixtlán,San Juan Quiotepec
+gbif_gsg,mexico_oaxaca_ixtlan_san pedro yolox,NA,Mexico,Oaxaca,Ixtlán,San Pedro Yólox
+gbif_gsg,mexico_oaxaca_ixtlan_santa catarina ixtepeji,NA,Mexico,Oaxaca,Ixtlán,Santa Catarina Ixtepeji
+gbif_gsg,mexico_oaxaca_ixtlan_santiago laxopa,NA,Mexico,Oaxaca,Ixtlán,Santiago Laxopa
 gadm,mexico_oaxaca_jamiltepec,MX,Mexico,Oaxaca,Jamiltepec,NA
 gadm,mexico_oaxaca_juchitan,MX,Mexico,Oaxaca,Juchitán,NA
+gbif_gsg,mexico_oaxaca_juchitan_barrio soledad,NA,Mexico,Oaxaca,Juchitán,El Barrio de La Soledad
+gbif_gsg,mexico_oaxaca_juchitan_ciudad ixtepec,NA,Mexico,Oaxaca,Juchitán,Ciudad Ixtepec
+gbif_gsg,mexico_oaxaca_juchitan_matias romero,NA,Mexico,Oaxaca,Juchitán,Matías Romero
+gbif_gsg,mexico_oaxaca_juchitan_san juan guichicovi,NA,Mexico,Oaxaca,Juchitán,San Juan Guichicovi
+gbif_gsg,mexico_oaxaca_juchitan_san pedro tapanatepec,NA,Mexico,Oaxaca,Juchitán,San Pedro Tapanatepec
 gadm,mexico_oaxaca_juquila,MX,Mexico,Oaxaca,Juquila,NA
+gbif_gsg,mexico_oaxaca_juquila_san juan lachao,NA,Mexico,Oaxaca,Juquila,San Juan Lachao
+gbif_gsg,mexico_oaxaca_juquila_villa tututepec melchor ocampo,NA,Mexico,Oaxaca,Juquila,Villa de Tututepec de Melchor Ocampo
 gadm,mexico_oaxaca_juxtlahuaca,MX,Mexico,Oaxaca,Juxtlahuaca,NA
+gbif_gsg,mexico_oaxaca_juxtlahuaca_san juan mixtepec,NA,Mexico,Oaxaca,Juxtlahuaca,San Juan Mixtepec
 gbif_gsg,mexico_oaxaca_juxtlahuaca_san juan mixtepec dto. 08,NA,Mexico,Oaxaca,Juxtlahuaca,san juan mixtepec dto. 08
+gbif_gsg,mexico_oaxaca_juxtlahuaca_san martin peras,NA,Mexico,Oaxaca,Juxtlahuaca,San Martín Peras
+gbif_gsg,mexico_oaxaca_juxtlahuaca_san sebastian tecomaxtlahuaca,NA,Mexico,Oaxaca,Juxtlahuaca,San Sebastián Tecomaxtlahuaca
+gbif_gsg,mexico_oaxaca_juxtlahuaca_santos reyes tepejillo,NA,Mexico,Oaxaca,Juxtlahuaca,Santos Reyes Tepejillo
 gbif_gsg,mexico_oaxaca_matias romero avendano,NA,Mexico,Oaxaca,matias romero avendano,NA
 gadm,mexico_oaxaca_miahuatlan,MX,Mexico,Oaxaca,Miahuatlan,NA
+gbif_gsg,mexico_oaxaca_miahuatlan_miahuatlan porfirio diaz,NA,Mexico,Oaxaca,Miahuatlan,Miahuatlán de Porfirio Díaz
+gbif_gsg,mexico_oaxaca_miahuatlan_san miguel suchixtepec,NA,Mexico,Oaxaca,Miahuatlán,San Miguel Suchixtepec
 gadm,mexico_oaxaca_mixe,MX,Mexico,Oaxaca,Mixe,NA
+gbif_gsg,mexico_oaxaca_mixe_san juan cotzocon,NA,Mexico,Oaxaca,Mixe,San Juan Cotzocón
+gbif_gsg,mexico_oaxaca_mixe_san pedro y san pablo ayutla,NA,Mexico,Oaxaca,Mixe,San Pedro y San Pablo Ayutla
 gadm,mexico_oaxaca_nochixtlan,MX,Mexico,Oaxaca,Nochixtlan,NA
+gbif_gsg,mexico_oaxaca_nochixtlan_asuncion nochixtlan,NA,Mexico,Oaxaca,Nochixtlán,Asunción Nochixtlán
+gbif_gsg,mexico_oaxaca_nochixtlan_santo domingo yanhuitlan,NA,Mexico,Oaxaca,Nochixtlán,Santo Domingo Yanhuitlán
 gbif_gsg,mexico_oaxaca_oaxaca juarez,NA,Mexico,Oaxaca,oaxaca juarez,NA
 gadm,mexico_oaxaca_ocotlan,MX,Mexico,Oaxaca,Ocotlan,NA
 gadm,mexico_oaxaca_pochutla,MX,Mexico,Oaxaca,Pochutla,NA
+gbif_gsg,mexico_oaxaca_pochutla_candelaria loxicha,NA,Mexico,Oaxaca,Pochutla,Candelária Loxicha
+gbif_gsg,mexico_oaxaca_pochutla_pluma hidalgo,NA,Mexico,Oaxaca,Pochutla,Pluma Hidalgo
+gbif_gsg,mexico_oaxaca_pochutla_san pedro pochutla,NA,Mexico,Oaxaca,Pochutla,San Pedro Pochutla
 gadm,mexico_oaxaca_putla,MX,Mexico,Oaxaca,Putla,NA
+gbif_gsg,mexico_oaxaca_putla_santa cruz itundujia,NA,Mexico,Oaxaca,Putla,Santa Cruz Itundujia
+gbif_gsg,mexico_oaxaca_putla_santa maria zacatepec,NA,Mexico,Oaxaca,Putla,Santa María Zacatepec
 gbif_gsg,mexico_oaxaca_san felipe usila,NA,Mexico,Oaxaca,san felipe usila,NA
 gbif_gsg,mexico_oaxaca_san jeronimo coatlan,NA,Mexico,Oaxaca,san jeronimo coatlan,NA
 gbif_gsg,mexico_oaxaca_san jose chiltepec,NA,Mexico,Oaxaca,san jose chiltepec,NA
@@ -14472,16 +14529,47 @@ gbif_gsg,mexico_oaxaca_santiago comaltepec,NA,Mexico,Oaxaca,santiago comaltepec,
 gbif_gsg,mexico_oaxaca_santiago textitlan,NA,Mexico,Oaxaca,santiago textitlan,NA
 gadm,mexico_oaxaca_silacayoapam,MX,Mexico,Oaxaca,Silacayoapam,NA
 gadm,mexico_oaxaca_sola vega,MX,Mexico,Oaxaca,Sola de Vega,NA
+gbif_gsg,mexico_oaxaca_sola vega_villa sola vega,NA,Mexico,Oaxaca,Sola de Vega,Villa Sola de Vega
 gadm,mexico_oaxaca_tehuantepec,MX,Mexico,Oaxaca,Tehuantepec,NA
+gbif_gsg,mexico_oaxaca_tehuantepec_guevea humboldt,NA,Mexico,Oaxaca,Tehuantepec,guevea humboldt
+gbif_gsg,mexico_oaxaca_tehuantepec_san mateo mar,NA,Mexico,Oaxaca,Tehuantepec,San Mateo del Mar
+gbif_gsg,mexico_oaxaca_tehuantepec_san miguel tenango,NA,Mexico,Oaxaca,Tehuantepec,San Miguel Tenango
+gbif_gsg,mexico_oaxaca_tehuantepec_santa maria guienagati,NA,Mexico,Oaxaca,Tehuantepec,Santa María Guienagati
+gbif_gsg,mexico_oaxaca_tehuantepec_santiago lachiguiri,NA,Mexico,Oaxaca,Tehuantepec,Santiago Lachiguiri
 gadm,mexico_oaxaca_teotitlan,MX,Mexico,Oaxaca,Teotitlan,NA
+gbif_gsg,mexico_oaxaca_teotitlan_eloxochitlan flores magon,NA,Mexico,Oaxaca,Teotitlán,Eloxochitlán de Flores Magón
+gbif_gsg,mexico_oaxaca_teotitlan_san bartolome ayautla,NA,Mexico,Oaxaca,Teotitlán,San Bartolomé Ayautla
+gbif_gsg,mexico_oaxaca_teotitlan_san jose tenango,NA,Mexico,Oaxaca,Teotitlán,San José Tenango
+gbif_gsg,mexico_oaxaca_teotitlan_san juan cues,NA,Mexico,Oaxaca,Teotitlán,San Juan de los Cués
+gbif_gsg,mexico_oaxaca_teotitlan_santa maria chilchotla,NA,Mexico,Oaxaca,Teotitlán,Santa María Chilchotla
+gbif_gsg,mexico_oaxaca_teotitlan_santa maria ixcatlan,NA,Mexico,Oaxaca,Teotitlán,Santa María Ixcatlán
+gbif_gsg,mexico_oaxaca_teotitlan_santa maria tecomavaca,NA,Mexico,Oaxaca,Teotitlán,Santa María Tecomavaca
+gbif_gsg,mexico_oaxaca_teotitlan_santa maria teopoxco,NA,Mexico,Oaxaca,Teotitlán,Santa María Teopoxco
+gbif_gsg,mexico_oaxaca_teotitlan_teotitlan flores magon,NA,Mexico,Oaxaca,Teotitlán,Teotitlán de Flores Magón
 gbif_gsg,mexico_oaxaca_tepelmeme villa morelos,NA,Mexico,Oaxaca,tepelmeme villa morelos,NA
 gadm,mexico_oaxaca_teposcolula,MX,Mexico,Oaxaca,Teposcolula,NA
+gbif_gsg,mexico_oaxaca_teposcolula_san pedro nopala,NA,Mexico,Oaxaca,Teposcolula,San Pedro Nopala
+gbif_gsg,mexico_oaxaca_teposcolula_san pedro y san pablo teposcolula,NA,Mexico,Oaxaca,Teposcolula,San Pedro y San Pablo Teposcolula
+gbif_gsg,mexico_oaxaca_teposcolula_villa tamazulapam progreso,NA,Mexico,Oaxaca,Teposcolula,Villa de Tamazulápam del Progreso
 gadm,mexico_oaxaca_tlacolula,MX,Mexico,Oaxaca,Tlacolula,NA
+gbif_gsg,mexico_oaxaca_tlacolula_san lorenzo albarradas,NA,Mexico,Oaxaca,Tlacolula,San Lorenzo Albarradas
+gbif_gsg,mexico_oaxaca_tlacolula_san pablo villa mitla,NA,Mexico,Oaxaca,Tlacolula,San Pablo Villa de Mitla
+gbif_gsg,mexico_oaxaca_tlacolula_san pedro totolapam,NA,Mexico,Oaxaca,Tlacolula,San Pedro Totolápam
+gbif_gsg,mexico_oaxaca_tlacolula_tlacolula matamoros,NA,Mexico,Oaxaca,Tlacolula,Tlacolula de Matamoros
 gadm,mexico_oaxaca_tlaxiaco,MX,Mexico,Oaxaca,Tlaxiaco,NA
+gbif_gsg,mexico_oaxaca_tlaxiaco_santiago yosondua,NA,Mexico,Oaxaca,Tlaxiaco,Santiago Yosondúa
 gbif_gsg,mexico_oaxaca_totontepec villa morelos,NA,Mexico,Oaxaca,totontepec,NA
 gadm,mexico_oaxaca_tuxtepec,MX,Mexico,Oaxaca,Tuxtepec,NA
+gbif_gsg,mexico_oaxaca_tuxtepec_acatlan perez figueroa,NA,Mexico,Oaxaca,Tuxtepec,Acatlán de Pérez Figueroa
+gbif_gsg,mexico_oaxaca_tuxtepec_san juan bautista valle nacional,NA,Mexico,Oaxaca,Tuxtepec,San Juan Bautista Valle Nacional
+gbif_gsg,mexico_oaxaca_tuxtepec_san lucas ojitlan,NA,Mexico,Oaxaca,Tuxtepec,San Lucas Ojitlán
 gadm,mexico_oaxaca_villa alta,MX,Mexico,Oaxaca,Villa Alta,NA
+gbif_gsg,mexico_oaxaca_villa alta_san juan juquila vijanos,NA,Mexico,Oaxaca,Villa Alta,San Juan Juquila Vijanos
+gbif_gsg,mexico_oaxaca_villa alta_tanetze zaragoza,NA,Mexico,Oaxaca,Villa Alta,Tanetze de Zaragoza
 gadm,mexico_oaxaca_yautepec,MX,Mexico,Oaxaca,Yautepec,NA
+gbif_gsg,mexico_oaxaca_yautepec_nejapa madero,NA,Mexico,Oaxaca,Yautepec,Nejapa de Madero
+gbif_gsg,mexico_oaxaca_yautepec_san bartolo yautepec,NA,Mexico,Oaxaca,Yautepec,San Bartolo Yautepec
+gbif_gsg,mexico_oaxaca_yautepec_santa maria ecatepec,NA,Mexico,Oaxaca,Yautepec,Santa María Ecatepec
 gadm,mexico_oaxaca_zaachila,MX,Mexico,Oaxaca,Zaachila,NA
 gadm,mexico_oaxaca_zimatlan,MX,Mexico,Oaxaca,Zimatlan,NA
 gadm,mexico_puebla,MX,Mexico,Puebla,NA,NA
@@ -16785,6 +16873,48 @@ gadm,romania,RO,Romania,NA,NA,NA
 gadm,russia,RU,Russia,NA,NA,NA
 gadm,rwanda,RW,Rwanda,NA,NA,NA
 gadm,saint barthelemy,BL,St. Barthélemy,NA,NA,NA
+gadm_new,saint barthelemy_au vent_anse gouverneur,NA,St. Barthélemy,au vent,Anse Gouverneur,NA
+gadm_new,saint barthelemy_au vent_anse grand cul sac,NA,St. Barthélemy,au vent,Anse Grand Cul Sac,NA
+gadm_new,saint barthelemy_au vent_barriere quatres vents,NA,St. Barthélemy,au vent,Barriere Quatres Vents,NA
+gadm_new,saint barthelemy_au vent_camaruche,NA,St. Barthélemy,au vent,Camaruche,NA
+gadm_new,saint barthelemy_au vent_devet,NA,St. Barthélemy,au vent,Devet,NA
+gadm_new,saint barthelemy_au vent_gouverneur,NA,St. Barthélemy,au vent,Gouverneur,NA
+gadm_new,saint barthelemy_au vent_grand cul sac,NA,St. Barthélemy,au vent,Grand Cul Sac,NA
+gadm_new,saint barthelemy_au vent_grand fond,NA,St. Barthélemy,au vent,Grand Fond,NA
+gadm_new,saint barthelemy_au vent_grande saline,NA,St. Barthélemy,au vent,Grande Saline,NA
+gadm_new,saint barthelemy_au vent_isles,NA,St. Barthélemy,au vent,Isles,NA
+gadm_new,saint barthelemy_au vent_lorient,NA,St. Barthélemy,au vent,Lorient,NA
+gadm_new,saint barthelemy_au vent_marigot,NA,St. Barthélemy,au vent,Marigot,NA
+gadm_new,saint barthelemy_au vent_mont jean,NA,St. Barthélemy,au vent,Mont Jean,NA
+gadm_new,saint barthelemy_au vent_morne criquet,NA,St. Barthélemy,au vent,Morne Criquet,NA
+gadm_new,saint barthelemy_au vent_morne depoudre,NA,St. Barthélemy,au vent,Morne Depoudre,NA
+gadm_new,saint barthelemy_au vent_morne rouge,NA,St. Barthélemy,au vent,Morne Rouge,NA
+gadm_new,saint barthelemy_au vent_petit cul sac,NA,St. Barthélemy,au vent,Petit Cul Sac,NA
+gadm_new,saint barthelemy_au vent_petite saline,NA,St. Barthélemy,au vent,Petite Saline,NA
+gadm_new,saint barthelemy_au vent_pointe milou,NA,St. Barthélemy,au vent,Pointe Milou,NA
+gadm_new,saint barthelemy_au vent_toiny,NA,St. Barthélemy,au vent,Toiny,NA
+gadm_new,saint barthelemy_au vent_vitet,NA,St. Barthélemy,au vent,Vitet,NA
+gadm_new,saint barthelemy_sous le vent_aeroport,NA,St. Barthélemy,sous le vent,Aeroport,NA
+gadm_new,saint barthelemy_sous le vent_anse cayes,NA,St. Barthélemy,sous le vent,Anse Cayes,NA
+gadm_new,saint barthelemy_sous le vent_anse lezards,NA,St. Barthélemy,sous le vent,Anse Lezards,NA
+gadm_new,saint barthelemy_sous le vent_carenage,NA,St. Barthélemy,sous le vent,Carenage,NA
+gadm_new,saint barthelemy_sous le vent_col tourmente,NA,St. Barthélemy,sous le vent,Col Tourmente,NA
+gadm_new,saint barthelemy_sous le vent_colombier,NA,St. Barthélemy,sous le vent,Colombier,NA
+gadm_new,saint barthelemy_sous le vent_corossol,NA,St. Barthélemy,sous le vent,Corossol,NA
+gadm_new,saint barthelemy_sous le vent_flamands,NA,St. Barthélemy,sous le vent,Flamands,NA
+gadm_new,saint barthelemy_sous le vent_grande vigie,NA,St. Barthélemy,sous le vent,Grande Vigie,NA
+gadm_new,saint barthelemy_sous le vent_gustavia,NA,St. Barthélemy,sous le vent,Gustavia,NA
+gadm_new,saint barthelemy_sous le vent_isles,NA,St. Barthélemy,sous le vent,Isles,NA
+gadm_new,saint barthelemy_sous le vent_la grande montagne,NA,St. Barthélemy,sous le vent,La Grande Montagne,NA
+gadm_new,saint barthelemy_sous le vent_la pointe,NA,St. Barthélemy,sous le vent,La Pointe,NA
+gadm_new,saint barthelemy_sous le vent_le chateau,NA,St. Barthélemy,sous le vent,Le Chateau,NA
+gadm_new,saint barthelemy_sous le vent_le palidor,NA,St. Barthélemy,sous le vent,Le Palidor,NA
+gadm_new,saint barthelemy_sous le vent_lurin,NA,St. Barthélemy,sous le vent,Lurin,NA
+gadm_new,saint barthelemy_sous le vent_merlette,NA,St. Barthélemy,sous le vent,Merlette,NA
+gadm_new,saint barthelemy_sous le vent_public,NA,St. Barthélemy,sous le vent,Public,NA
+gadm_new,saint barthelemy_sous le vent_quartier roi,NA,St. Barthélemy,sous le vent,Quartier Roi,NA
+gadm_new,saint barthelemy_sous le vent_saint jean,NA,St. Barthélemy,sous le vent,Saint Jean,NA
+gadm_new,saint barthelemy_sous le vent_terre neuve,NA,St. Barthélemy,sous le vent,Terre Neuve,NA
 gadm,saint helena,SH,Saint Helena,NA,NA,NA
 gadm,saint kitts nevis,KN,Saint Kitts and Nevis,NA,NA,NA
 gadm,saint kitts nevis_christ church nichola town,KN,Saint Kitts and Nevis,Christ Church Nichola Town,NA,NA

@@ -18,6 +18,7 @@ teste.pdf
 test/
 data-raw/dictionaries/preliminary_gazetteer_GADM.csv
 data-raw/raw_dictionaries
+data-raw/results
 vignettes/formatOcc details.Rmd
 vignettes/articles/geographic validation.Rmd
 vignettes/articles/plantr_tutorial_rename.Rmd
