@@ -19,6 +19,8 @@ prepSpecies(
   parallel = FALSE,
   cores = 2,
   show.progress = FALSE,
+  auth.factor = 0.5,
+  auth.factor.max = 3,
   drop.cols = c("match_type", "multiple_match", "fuzzy_dist_name", "fuzzy_dist_author",
     "name.status", "taxon.status", "accepted.id", "accepted.tax.name",
     "accepted.tax.authorship", "accepted.taxon.rank", "accepted.taxon.status",
@@ -61,7 +63,7 @@ matching? Defaults to TRUE.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
-TRUE.}
+FALSE.}
 
 \item{dist.method}{fuzzy matching algorithm to be passed on to
 \code{stringdist::amatch()}. Defaults to "jw" (i.e. Jaro-Winkler)}
@@ -79,36 +81,74 @@ Two by default.}
 \item{show.progress}{logical. Whether fuzzy matching progress
 should displayed. Defaults to FALSE}
 
+\item{auth.factor}{numeric. A proportion of extra increase in the
+distance allowed for author names. By default, this value is 0.5,
+which means that the distance for author names by default is
+0.15, obtained using: (1 - sug.dist) + (1 - sug.dist) *
+auth.factor. This distance is set to 1 with a warning if the
+resulting value of the formula is higher than 1.}
+
+\item{auth.factor.max}{numeric. Any factor to get a maximum
+distance allowed for author names, from which any author matches
+will be flagged as a bad match. By default, this factor is 3,
+which means that the maximum distance for author names by default
+is 0.45, obtained using: auth.factor.max *((1 - sug.dist) + (1 -
+sug.dist) * auth.factor). This distance is set to 1 with a
+warning if the resulting value of the formula is higher than 1.}
+
 \item{drop.cols}{character. Name of columns from the reference
 backbone that should be dropped from the results.}
 }
 \value{
-A data frame with the same columns provided by the user and some
-additional columns containing the suggested taxon name
-('suggestedName'), taxon authorship ('suggestedAuthorship'), the
-corresponding scientific name ('scientificNameFull'), the taxonomic
-information related to the suggested name (columns 'taxon.rank',
-tax.notes' and its 'id' in the reference taxonomic backbone).
+A data frame with the same columns provided by the user and, by
+default, some additional columns containing the suggested taxon
+name ('suggestedName'), taxon authorship ('suggestedAuthorship'),
+the corresponding scientific name ('scientificNameFull'), the
+taxonomic information related to the suggested name (columns
+'taxon.rank', tax.notes' and its 'id' in the reference taxonomic
+backbone). The return of other columns can be controlled using the
+argument \code{drop.cols}.
 }
 \description{
-Provides valid taxon names or corrects typos and
-orthographic variants based on taxonomic backbones provided by
-the user or by the \code{plantR} companion packages \code{plantRdata} (the
-default).
+Validates taxon names (including the correction of
+typos and the detection of orthographic variants) based on a
+reference list of taxon names (e.g. taxonomic backbone) provided
+by the user, \strong{plantR} (the default) or those obtained from the
+companion package \strong{plantRdata}.
 }
 \details{
-The function first checks taxon names with authorship (if
-available), using both exact and fuzzy matching. This is good
-practice to avoid multiple matches in the reference backbone
-related to homonyms. If a name below the threshold distance
-defined in argument \code{sug.dist} is not found, then the function
-does another round of exact and fuzzy matching using only the
-taxon names without authorship.
+First, the function checks taxon names with authorship (if
+available), using both exact and fuzzy matching. This is a good
+practice to avoid multiple matches in the reference taxonomic
+backbone related to homonyms. If a name below the threshold
+distance defined in argument \code{sug.dist} is not found, then the
+function does a second round of exact and fuzzy matching using
+only the taxon names without authorship. This second check is
+done for names provided without authorship by the user and
+for names provided with authorship but very distant from
+the one found in the backbone (i.e. bad fuzzy matches of
+authorship names).
+
+Distances between input and matched names and authorships are
+computed without the hybrid symbol and without spaces,
+respectively. These distances are computed separately and after
+name matching, meaning that there is the possibility of fuzzy
+matches with zero distances between input and reference names.
+This is done to avoid inflating the number of names below the
+threshold distances simply due to differences in format between
+the input and reference names. This is particularly true for
+author names, which can be quite variable in format between sources.
+
+Defining reasonable distance values to flag bad fuzzy matched for
+author names is quite arbitrary. In \code{prepSpecies()}, this
+definition is done by combining the arguments \code{auth.factor} and
+\code{auth.factor.max}, whose defaults were set based on a try and
+error process using test names.
 
 The name check compares all unique names in \code{x} with all names in
 the taxonomic backbones selected. So, the speed of the checking
 process depends on the number of name combinations in \code{x} and in
-the backbone, besides the computer's operational system and
+the backbone, besides the computer's operating system and
 specifications. But if the backbone selected has many names (over
 hundreds of thousands of names), such as those containing all
 plant names for the entire world, the process may take up to a
@@ -117,7 +157,7 @@ minute to check a dozen of names.
 But if you have many thousands of input names to check and a
 large backbone, the function offers the possibility of doing the
 name matching by initial letters and/or using parallelization.
-See the help of function \code{nameMatching} which is used internally.
+See the help of function \code{nameMatching()} which is used internally.
 
 The result of the name check will vary depending on the
 completeness of the backbone. And do expect some false positive
@@ -128,13 +168,13 @@ this is the case, one should use more restrictive values of
 \code{sug.dist} than the default of 0.9. See examples for an
 illustration of these differences.
 
-Currently, there are two options: (1) using the \code{plantR} internal
+Currently, there are two options: (1) using the \strong{plantR} internal
 backbone for the Brazilian Vascular Flora (the default) or (2)
 using user-provided taxonomic backbones. The choice between these
 options is declared via the argument \code{db}, which is passed on to
 the function \code{getTaxBackbone()}.
 
-The companion R package \code{plantRdata} provides different global
+The companion R package \strong{plantRdata} provides different global
 and regional taxonomic backbones in the exact format expected by
 \code{prepSpecies()}. See the help of function \code{getTaxBackbone()} for
 more details on this expected format.
@@ -174,8 +214,13 @@ If \code{mult.matches} is 'best', only one name is returned. Ideally,
 this is the accepted name within the multiple matches in the
 backbone. Result is a lot cleaner but in many cases this does not
 means that the accepted name returned actually is the right
-accepted for the input name. So, users should be extra careful
-when setting \code{mult.matches} to 'best'.
+accepted name for the input name. So, users should be extra
+careful when setting \code{mult.matches} to 'best'.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 sp.list <- c("Casearia sylvestris","Casearia sylvestris",

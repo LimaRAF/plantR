@@ -1,11 +1,25 @@
-df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG", "Observation", NA, NA, NA),
-                 collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY", NA, NA, "MO", "Xuxu"))
+df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG", NA,
+                                     "Observation",
+                                     NA, NA, "", NA, ""),
+                 collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY", "MO",
+                                    NA,
+                                    "Xuxu", NA, NA, "", ""))
+res <- c("ASU", "NX", "MO", "NY", "MO", "Observation", "Xuxu", NA, NA, NA, NA)
+res1 <- c(rep(NA, 5), rep("code not found", 6))
 
 test_that("getCode works", {
+  expect_error(getCode())
+  expect_error(getCode(data.frame()))
+  expect_error(getCode(data.frame(institutionCode = NA)))
+  expect_error(getCode(data.frame(collectionCode = NA)))
+
   df_code <- getCode(df)
   expect_equal(setdiff(names(df), names(df_code)), character(0))
   expect_equal(setdiff(names(df_code), names(df)), c("collectionCode.new", "collectionObs"))
   expect_equal(nrow(df_code), nrow(df))
+  expect_equal(df_code$collectionCode.new, res)
+  expect_equal(df_code$collectionObs, res1)
+
 })
 
 test_that("getCode parameter works", {

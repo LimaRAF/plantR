@@ -117,8 +117,9 @@ as it has a specific content and format. Please check the companion R
 package **plantRdata** available only in GitHub for name checking using
 the backbones from the [World Flora
 Online](https://www.worldfloraonline.org/) World Flora Online, the
-[World Checklist of Vascular Plants](https://powo.science.kew.org/) and
-[GBIF](https://www.gbif.org/).
+[World Checklist of Vascular Plants](https://powo.science.kew.org/),
+[GBIF](https://www.gbif.org/) and the [Taxonomic Catalog of the
+Brazilian Fauna](http://fauna.jbrj.gov.br/fauna/listaBrasil).
 
 Previous versiond also used [The Plant
 List](http://www.theplantlist.org/),  
@@ -272,12 +273,19 @@ occs <- validateLoc(occs)
 
     #> [1] "Locality resolution in the original data vs. edited data:"
     #>                original
-    #> edited          country locality municipality no_info stateProvince
-    #>   country           236        9            1       0             2
-    #>   locality            4      369            0       0             0
-    #>   municipality        1     1217          156       0             0
-    #>   no_info             3        3            0      53             0
-    #>   stateProvince       0      439            4       0            35
+    #> edited          country locality municipality no_info
+    #>   country          3335       17            2       0
+    #>   locality            0      448            0       0
+    #>   municipality        1     1112          235       0
+    #>   no_info             1        0            3      33
+    #>   stateProvince       0      476            6       0
+    #>                original
+    #> edited          stateProvince
+    #>   country                   4
+    #>   locality                  0
+    #>   municipality              0
+    #>   no_info                   0
+    #>   stateProvince            40
 
 #### Geographical coordinates
 
@@ -303,15 +311,15 @@ occs <- validateTax(occs)
     #> |Identifier       | Records|
     #> |:----------------|-------:|
     #> |Caxambu, M.G.    |      76|
-    #> |Funez, L.A.      |      38|
-    #> |Verdi, M.        |      28|
+    #> |Funez, L.A.      |      39|
+    #> |Verdi, M.        |      24|
+    #> |Arroyo, F.       |      23|
     #> |Romano, P.       |      23|
-    #> |Arroyo, F.       |      21|
-    #> |Guedes, M.L.     |      21|
     #> |Monsores, D.     |      21|
-    #> |Souza, V.C.      |      21|
+    #> |Souza, V.C.      |      20|
     #> |Reis, A.         |      19|
     #> |Wandekoken, D.T. |      19|
+    #> |Guedes, M.L.     |      18|
 
 Note that the function returns up to 10 names of determiners not taken
 as specialists of the family. The argument `miss.taxonomist` can be used
@@ -330,7 +338,7 @@ is performed using the function `validateDup()`:
 
 ``` r
 occs <- validateDup(occs)
-#> 701 true duplicate records (same record in different sources) were removed from the data
+#> 3813 true duplicate records (same record in different sources) were removed from the data
 ```
 
 ### Data summary and export
@@ -349,27 +357,27 @@ summ <- summaryData(occs)
     #> =========
     #> |Type                     | Records|
     #> |:------------------------|-------:|
-    #> |Unicates                 |      84|
-    #> |Duplicates               |     780|
-    #> |Unknown                  |     967|
-    #> |Total without duplicates |    1450|
-    #> |Total with duplicates    |    1831|
+    #> |Unicates                 |      92|
+    #> |Duplicates               |     788|
+    #> |Unknown                  |    1020|
+    #> |Total without duplicates |    1514|
+    #> |Total with duplicates    |    1900|
     #> 
     #> =============
     #>  COLLECTIONS 
     #> =============
-    #> Number of biological collections: 179 
-    #> Number of collectors' names: 637 
-    #> Collection years: 2-2025 (>90% and >50% after 1977 and 2008)
+    #> Number of biological collections: 176 
+    #> Number of collectors' names: 692 
+    #> Collection years: 2-2025 (>90% and >50% after 1979.4 and 2010)
     #> 
     #> Top collections in numbers of records:
     #> |Collection    | Records|
     #> |:-------------|-------:|
-    #> |Observations  |     486|
-    #> |RB            |      93|
+    #> |Observations  |     564|
+    #> |RB            |      96|
     #> |HCF           |      67|
     #> |SINBIOTA      |      57|
-    #> |MBML-HERBARIO |      50|
+    #> |MBML-HERBARIO |      51|
     #> 
     #> Top collectors in numbers of records:
     #> |Collector         | Records|
@@ -390,26 +398,26 @@ summ <- summaryData(occs)
     #> Top richest families:
     #> |family.new | Records| Taxa|
     #> |:----------|-------:|----:|
-    #> |Arecaceae  |    1831|    1|
+    #> |Arecaceae  |    1900|    1|
     #> 
     #> Top richest genera:
     #> |genus.new | Records| Taxa|
     #> |:---------|-------:|----:|
-    #> |Euterpe   |    1831|    1|
+    #> |Euterpe   |    1900|    1|
     #> 
     #> ===========
     #>  COUNTRIES 
     #> ===========
-    #> Number of countries: 22 
+    #> Number of countries: 21 
     #> 
     #> Top countries in numbers of records:
     #> |Country   | Records| Taxa|
     #> |:---------|-------:|----:|
-    #> |Brazil    |    1627|    1|
-    #> |Argentina |      92|    1|
+    #> |Brazil    |    1702|    1|
+    #> |Argentina |     101|    1|
     #> |Paraguay  |      39|    1|
-    #> |bolivia   |      36|    1|
-    #> |Guyana    |       6|    1|
+    #> |[Unknown] |      28|    1|
+    #> |Guyana    |       4|    1|
 
 **plantR** also provides an overview of the validation results (function
 `summaryFlags()`):
@@ -425,10 +433,10 @@ flags <- summaryFlags(occs)
     #> 
     #> |Strenght               | Records|
     #> |:----------------------|-------:|
-    #> |0%                     |      84|
-    #> |25%                    |      52|
-    #> |100%                   |     728|
-    #> |Cannot check (no info) |     967|
+    #> |0%                     |      92|
+    #> |25%                    |      54|
+    #> |100%                   |     734|
+    #> |Cannot check (no info) |    1020|
     #> 
     #> =====================
     #>  LOCALITY VALIDATION 
@@ -437,21 +445,21 @@ flags <- summaryFlags(occs)
     #> 
     #> |Validation           | Records|
     #> |:--------------------|-------:|
-    #> |probably ok          |     881|
-    #> |ok (same resolution) |     571|
-    #> |check (downgraded)   |     370|
-    #> |ok (upgraded)        |       5|
-    #> |check (not found)    |       4|
+    #> |probably ok          |     835|
+    #> |ok (same resolution) |     640|
+    #> |check (downgraded)   |     421|
+    #> |check (not found)    |       3|
+    #> |ok (upgraded)        |       1|
     #> 
     #> Details of the validation (original vs. validated localities):
     #> 
     #> |original.resolution | no_info| country| stateProvince| municipality| locality|
     #> |:-------------------|-------:|-------:|-------------:|------------:|--------:|
-    #> |no_info             |      36|       0|             0|            0|        0|
-    #> |country             |       1|     201|             0|            1|        4|
-    #> |stateProvince       |       0|       2|            31|            0|        0|
-    #> |municipality        |       0|       1|             3|          126|        0|
-    #> |locality            |       3|       6|           372|          816|      228|
+    #> |no_info             |      28|       0|             0|            0|        0|
+    #> |country             |       0|     183|             0|            1|        0|
+    #> |stateProvince       |       0|       3|            34|            0|        0|
+    #> |municipality        |       3|       1|             3|          150|        0|
+    #> |locality            |       0|      14|           409|          791|      280|
     #> 
     #> =======================
     #>  COORDINATE VALIDATION 
@@ -460,21 +468,21 @@ flags <- summaryFlags(occs)
     #> 
     #> |Validated |Origin       | Records|
     #> |:---------|:------------|-------:|
-    #> |yes       |original     |    1494|
-    #> |yes       |gazetter     |     297|
-    #> |no        |cannot_check |      40|
+    #> |yes       |original     |    1574|
+    #> |yes       |gazetter     |     295|
+    #> |no        |cannot_check |      31|
     #> 
     #> Valid coordinates per resolution:
     #> 
     #> |Validated |Resolution          | Records|
     #> |:---------|:-------------------|-------:|
-    #> |yes       |ok_county           |     954|
-    #> |yes       |ok_state            |     520|
-    #> |yes       |ok_country          |     225|
-    #> |no        |no_cannot_check     |      40|
-    #> |yes       |bad_country[border] |      28|
-    #> |yes       |ok_locality         |      27|
-    #> |yes       |shore               |      26|
+    #> |yes       |ok_county           |     973|
+    #> |yes       |ok_state            |     581|
+    #> |yes       |ok_country          |     218|
+    #> |yes       |bad_country[border] |      32|
+    #> |no        |no_cannot_check     |      31|
+    #> |yes       |ok_locality         |      31|
+    #> |yes       |shore               |      23|
     #> |yes       |open_sea            |      11|
     #> 
     #> ======================
@@ -484,8 +492,8 @@ flags <- summaryFlags(occs)
     #> 
     #> |Cultivated   | Records|
     #> |:------------|-------:|
-    #> |probably not |    1817|
-    #> |probably yes |      13|
+    #> |probably not |    1885|
+    #> |probably yes |      14|
     #> |yes          |       1|
     #> 
     #> ======================
@@ -495,9 +503,9 @@ flags <- summaryFlags(occs)
     #> 
     #> |Confidence | Records|
     #> |:----------|-------:|
-    #> |low        |     954|
-    #> |unknown    |     584|
-    #> |high       |     293|
+    #> |low        |    1047|
+    #> |unknown    |     555|
+    #> |high       |     298|
 
 The package **plantR** can also build species checklists with vouchers
 using the function `checkList()`:
@@ -507,9 +515,9 @@ checkList(occs, n.vouch = 3, type = "short")
 ```
 
     #>   family.new scientificName.new records tax.CL geo.CL
-    #> 1  Arecaceae     Euterpe edulis    1450  10.83  45.79
-    #>                                                                                                                                                                                                             vouchers
-    #> 1 Fernandes, H.Q.B., 2519 (MBML-HERBARIO 5289, MBML 5289) [type]; Fernandes, H.Q.B., 2543 (MBML-HERBARIO 5288, MBML 5288, R-TIPOS 174930) [type]; Fernandes, H.Q.B., 2564 (MBML-HERBARIO 5301, MBML 5301) [holotype]
+    #> 1  Arecaceae     Euterpe edulis    1514  10.57  45.18
+    #>                                                                                                                                                                                          vouchers
+    #> 1 Fernandes, H.Q.B., 2519 (MBML-HERBARIO 5289, MBML 5289) [paratype]; Fernandes, H.Q.B., 2543 (MBML-HERBARIO 5288, MBML 5288, R-TIPOS 174930) [paratype]; Mattos, J., 15608 (SP 75466) [holotype]
 
 Finally, **plantR** exports data into a local folder, using function
 `saveData()`, which can be used to save compressed ‘.csv’ files based on

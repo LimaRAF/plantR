@@ -1,10 +1,10 @@
 #' @title Name Matching Against Reference
 #'
 #' @description Performs the exact and fuzzy matching between two sets
-#'   of names (input and reference), based on cleaned names or on
-#'   indexes. To speed up computational time for larger datasets, the
-#'   function can parallelize the matching processes and/or perform
-#'   matching by initial letters.
+#'   of names (input and reference), based on raw or cleaned names. To
+#'   speed up computational time for larger datasets, the function can
+#'   parallelize the matching processes and/or perform matching by
+#'   initial letters.
 #'
 #' @param names a vector of input names to be compared against a
 #'   reference
@@ -13,7 +13,7 @@
 #'   both.
 #' @param clean.names logical. Should spaces, punctuation, symbols and
 #'   species characters be removed prior to name matching? Defaults to
-#'   TRUE.
+#'   FALSE.
 #' @param dist.method fuzzy matching algorithm to be passed on to
 #'   `stringdist::amatch()`. Defaults to "jw" (i.e. Jaro-Winkler)
 #' @param p numeric. Weight of the shared prefix when `method` is
@@ -37,11 +37,12 @@
 #'
 #' @details
 #'
-#' By default, the argument 'clean.names' is TRUE. Both exact and
-#' fuzzy matches are case, space and punctuation sensitive, so cleaning
-#' names prior to matching can greatly increase the number of matches.
-#' See the internal function `cleanName()` on how this cleaning is
-#' performed.
+#' By default, the argument 'clean.names' is FALSE, to increase
+#' computaional speed. However, both exact and fuzzy matches are case,
+#' space and punctuation sensitive. So, cleaning names (i.e. setting
+#' 'clean.names' to TRUE) can substantially increase the number of
+#' matches. See the internal function `cleanName()` on how this
+#' cleaning is performed.
 #'
 #' If 'split.letters' is TRUE, then the matching is done by chunks
 #' composed by the initial letter of both input and references names.
@@ -86,7 +87,7 @@
 nameMatching <- function(names = NULL,
                           ref.names = NULL,
                           match.type = c("exact", "fuzzy"),
-                          clean.names = TRUE,
+                          clean.names = FALSE,
                           dist.method = "jw",
                           p = 0.1,
                           max.dist = 0.25,
@@ -280,13 +281,15 @@ nameMatching <- function(names = NULL,
                                       method = dist.method,
                                       p = p,
                                       maxDist = max.dist)
+            names(res) <- list_df1[[x]][["id"]]
             res
           }
 
         if (parallel) parallel::stopCluster(cl)
         if (show.progress) close(pb)
 
-        output <- output[order(df1$id)]
+        # output <- output[order(df1$id)]
+        output <- output[order(as.numeric(names(output)))]
 
       } else {
         output <- stringdist::amatch(df1[["name"]], df2[["name"]],

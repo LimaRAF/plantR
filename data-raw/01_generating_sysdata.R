@@ -1,8 +1,8 @@
 # Script to read from data-raw/dictionaries and generate sysdata
 
 # loading packages
-library(stringr)
-library(readr)
+# library(stringr)
+# library(readr)
 library(dplyr)
 
 # Reading processed files
@@ -15,42 +15,42 @@ data_names <- basename(dic_files) %>%
   stringr::str_split(., "[:punct:]", simplify = TRUE) %>%
   data.frame() %>%
   select(1) %>%
-  pull()
+  dplyr::pull()
 
 #guess encoding
-loc_list <- purrr::map(dic_files,
-                       ~readr::guess_encoding(.))
-
-loc_list <- c("UTF-8",
-              "UTF-8",
-              "UTF-8",
-              "UTF-8", #ASCII?
-              "UTF-8",
-              "UTF-8",
-              # "ASCII",
-              # "ASCII",
-              "UTF-8")
+# loc_list <- purrr::map(dic_files,
+#                        ~readr::guess_encoding(.))
+#
+# loc_list <- c("UTF-8",
+#               "UTF-8",
+#               "UTF-8",
+#               "UTF-8", #ASCII?
+#               "UTF-8",
+#               "UTF-8",
+#               # "ASCII",
+#               # "ASCII",
+#               "UTF-8")
 #Renato: código abaixo estava retornando um erro, por conta dos "ASCII"
 #troquei por "UTF-8" no `loc_list` e o erro sumiu.
 #Mas não pq estava "ASCII" então, checar...
-
-dic <- purrr::map2(.x = dic_files,
-                   .y = loc_list,
-                   ~read_csv(file = .x,
-                             guess_max = 30000,#this has to be large
-                             locale = locale(encoding = .y)))
+# dic <- purrr::map2(.x = dic_files,
+#                    .y = loc_list,
+#                    ~readr::read_csv(file = .x,
+#                              guess_max = 30000,#this has to be large
+#                              locale = readr::locale(encoding = .y)))
 
 encoding <- "UTF-8"
 dic <- lapply(dic_files,
-              read_csv,
+              readr::read_csv,
+              trim_ws = FALSE,
               guess_max = 30000,#this has to be large
-              locale = locale(encoding = encoding))
+              locale = readr::locale(encoding = encoding))
 
 names(dic) <- data_names
 lapply(dic, nrow)
 #new dims!
-# gazetteer from 34807 to 23436 (July 2020); 23789 (Apr 2025)
-#taxonomists from 9297 to 8518 (July 2020); 8715 (Apr 2025)
+# gazetteer from 34807 to 23436 (July 2020); 31066 (Oct 2025)
+#taxonomists from 9297 to 8518 (July 2020); 8742 (Oct 2025)
 
 # transforma em data.frame
 dic <- lapply(dic, as.data.frame)
@@ -88,6 +88,8 @@ missLocs <- c("^\\?$",
               "local ignorado",
               "^indisponivel$")
 
+## Main ADM-1 names in LaTam are: "Estado/State","Departamento/Department","Provincia/Provincia","Parish","District","Distrikt","Region"
+## Main ADM-2 names in LaTam are: "Municipioc/Municipality","Departamento/Departement","Provincia/Provincia","Distrito/District/Distrikt", "Canton", "Commune"
 wordsForSearch <- c("^prov\\. ",
                     "^dep\\. ",
                     "^depto\\. ",
@@ -233,6 +235,34 @@ names(badEncoding) <- c("À", "Â", "Ã", "Ä", "Å", "Æ", "Ç", "È", "É", "�
 Encoding(names(badEncoding)) <- "UTF-8"
 names(badEncoding) <- iconv(names(badEncoding), "UTF-8", "UTF-8")
 
+## List of most common plant authors
+library(plantRdata)
+data("wfoNames")
+toto <- wfoNames$tax.authorship
+toto1 <- toto[!grepl("\\.|\\(|&", toto) &
+                !is.na(toto) & !toto %in% ""]
+corte <- 70 # aprox. autores com mais de 1000 spp descritas
+toto2 <- names(tail(sort(table(toto1)), corte))
+spp_or_lower <- c("genus", "species", "form", "subspecies", "variety",
+                  "subvariety","subform")
+epitetos <- wfoNames$tax.name[wfoNames$taxon.rank %in% spp_or_lower]
+epitetos <-
+  unique(sapply(strsplit(epitetos, " ", fixed = TRUE), tail, 1))
+# wfoNames[grepl("Ching$", wfoNames$tax.name), ]
+# wfoNames[grepl("Hayata$", wfoNames$tax.name), ]
+commonAuthors <- tolower(toto2[!toto2 %in% epitetos])
+
+toto <- plantR::bfoNames$tax.authorship
+toto1 <- toto[!grepl("\\.|\\(|&", toto) &
+                !is.na(toto) & !toto %in% ""]
+corte <- 58 # aprox. autores com mais de 100 spp descritas
+toto2 <- names(tail(sort(table(toto1)), corte))
+commonAuthors_bfo <- tolower(toto2[!toto2 %in% epitetos])
+
+commonAuthors <- sort(unique(c(commonAuthors, plantR::rmLatin(commonAuthors),
+                               commonAuthors_bfo, plantR::rmLatin(commonAuthors_bfo))))
+rm(wfoNames, epitetos, toto, toto1, toto2)
+
 ## Named vector with plantR reserved column names
 reservedColNames <- c(
   # "format.occcs" - 10 columns
@@ -248,7 +278,7 @@ reservedColNames <- c(
   # "format.coords" - 5 columns
   "coord.check", "decimalLatitude.new", "decimalLongitude.new",
   "origin.coord", "precision.coord",
-  # "format.tax" - 10 columns
+  # "format.tax" - 13 columns
   "scientificName.new", "scientificNameAuthorship.new",
   "scientificNameStatus", "suggestedFamily",
   "suggestedName", "suggestedAuthorship",
@@ -256,14 +286,16 @@ reservedColNames <- c(
   "id", "scientificNameFull", "family.new",
   # "validate.locs" - 1 column
   "loc.check",
-  # "validate.coords" - 3 columns
+  # "validate.coords" - 8 columns
   "geo.check", "cult.check", "out.check", "dist.check", "dist.check.obs",
+  "NAME_0", "NAME_1", "NAME_2",
   # "validate.tax" - 1 columns
   "tax.check",
-  # "validate.dups" - 21 columns
+  # "validate.dups" - 22 columns
   "numTombo", "dup.ID", "dup.numb", "dup.prop",
-  "family.new1", "scientificName.new1", "identifiedBy.new1",
-  "yearIdentified.new1", "tax.check1", "scientificNameStatus1",
+  "family.new1", "scientificName.new1", "scientificNameAuthorship.new1",
+  "identifiedBy.new1", "yearIdentified.new1", "tax.check1",
+  "taxon.rank1", "scientificNameStatus1", "id1",
   "ref.spec.tax", "decimalLatitude.new1", "decimalLongitude.new1",
   "origin.coord1", "precision.coord1", "geo.check1", "ref.spec.geo",
   "loc.correct1", "resolution.gazetteer1", "loc.check1", "ref.spec.loc"
@@ -271,7 +303,7 @@ reservedColNames <- c(
 groupNames <- rep(c("format.occs", "format.locs", "format.coords",
                     "format.tax", "validate.locs", "validate.coords",
                     "validate.tax", "validate.dups"),
-                  times = c(10, 11, 5, 13, 1, 5, 1, 21))
+                  times = c(10, 11, 5, 13, 1, 8, 1, 24))
 reservedColNames <- setNames(reservedColNames, groupNames)
 
 ## Conversion of coordinate validation categories
@@ -309,7 +341,8 @@ simpGeoCheck <- c(
 
 ## Conversion table for the TDWG Botanical Countries
 # Download botanical countries (level3)
-url1 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
+# url1 <- "https://github.com/tdwg/wgsrpd/refs/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
+url1 <- "https://raw.githubusercontent.com/tdwg/wgsrpd/refs/heads/master/109-488-1-ED/2nd%20Edition/tblLevel3.txt"
 zip <- paste0("wcvp", ".zip")
 path <- file.path(here::here(), "data-raw", zip)
 path1 <- gsub("\\.zip", "_dist.txt", path)
@@ -319,7 +352,8 @@ level3 <- read.table(path1, sep = "*", fileEncoding = "Latin1",
                      quote = "", fill = TRUE)
 unlink(path1)
 # Download subdivision of botanical countries (level4)
-url2 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
+# url2 <- "https://github.com/tdwg/wgsrpd/raw/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
+url2 <- "https://github.com/tdwg/wgsrpd/raw/refs/heads/master/109-488-1-ED/2nd%20Edition/tblLevel4.txt"
 path2 <- gsub("\\.zip", "_dist1.txt", path)
 utils::download.file(url = url2, destfile = path2, mode = "wb")
 level4 <- read.table(path2, sep = "*", fileEncoding = "Latin1",
@@ -368,6 +402,7 @@ level_all1$taxon.distribution.bru <-
 # level_all1$taxon.distribution.bc <-
 #   substr(level_all1$taxon.distribution.bc, 1, 20)
 botanicalCountries <- level_all1
+row.names(botanicalCountries) <- NULL
 
 # Brazilian states
 statesBR <- c(
@@ -382,8 +417,14 @@ names(statesBR) <- c("acre", "alagoas", "amapa", "amazonas", "bahia", "ceara",
                       "rio grande norte", "rio grande sul", "rondonia", "roraima",
                       "santa catarina", "sao paulo", "sergipe", "tocantins")
 
+# Trying to decrease file sizes
+rownames(admin) <- NULL
+rownames(gazetteer) <- NULL
+rownames(collectionCodes) <- NULL
+rownames(taxonomists) <- NULL
+
 # Saving data
-usethis::use_data(admin,
+usethis::use_data(admin, # salvar Admin no plantRdata ou como inst/extdata?
                   collectionCodes,
                   familiesSynonyms,
                   fieldNames,
@@ -405,6 +446,7 @@ usethis::use_data(admin,
                   simpGeoCheck,
                   botanicalCountries,
                   statesBR,
+                  commonAuthors,
                   overwrite = TRUE,
                   internal = TRUE,
                   compress = "xz")
@@ -413,4 +455,4 @@ rm(admin, collectionCodes, familiesSynonyms, fieldNames, gazetteer,
    replaceNames, taxonomists, missLocs, wordsForSearch, unwantedLatin,
    unwantedEncoding, cultivated, notCultivated, missColls, missDets,
    treatPreps, namePreps, badEncoding, reservedColNames, simpGeoCheck,
-   botanicalCountries, statesBR)
+   botanicalCountries, statesBR, commonAuthors)

@@ -3,67 +3,77 @@
 #' @description This function searches for duplicate specimens among
 #'   collections, based on duplicate search strings.
 #'
-#' @param df a data frame with the unique record identifier (in the first
-#'   column) and the strings to be used for the duplicate search (second and
-#'   other columns). See Examples.
-#' @param flag.ind logical. Should duplicates based on indirect matches be
-#'   flagged with brackets? Default to TRUE.
+#' @param df a data frame with the unique record identifier (in the
+#'   first column) and the strings to be used for the duplicate search
+#'   (second and other columns). See Examples.
+#' @param flag.ind logical. Should duplicates based on indirect
+#'   matches be flagged with brackets? Default to TRUE.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
-#' @return The input data frame with new columns containing the number and
-#'   proportion of duplicated search strings found (i.e. 'dup.numb' and
-#'   'dup.prop') and the duplicated ID string ('dup.ID'). If no duplicate was
-#'   found dup.ID = NA.
+#' @return The input data frame with new columns containing the number
+#'   and proportion of duplicated search strings found (i.e.
+#'   'dup.numb' and 'dup.prop') and the duplicated ID string
+#'   ('dup.ID'). If no duplicate was found dup.ID = NA.
 #'
-#' @details The function searches for duplicated specimens within and across
-#'   collections based on one or more duplicate search strings, typically the
-#'   output of the __plantR__ function `prepDup()`. These strings combine
-#'   different types of information (i.e. taxonomy, collection and locality).
-#'   For instance, a string combining information on taxonomy, collector last
-#'   name and number, and collection locality would look like:
+#' @details The function searches for duplicated specimens within and
+#'   across collections based on one or more duplicate search strings,
+#'   typically the output of the __plantR__ function `prepDup()`.
+#'   These strings combine different types of information (i.e.
+#'   taxonomy, collection and locality). For instance, a string
+#'   combining information on taxonomy, collector last name and
+#'   number, and collection locality would look like:
 #'   'Myrtaceae_Silva_110_Curitiba'.
 #'
-#'   Strings too flexible (e.g. 'Silva_110') return more duplicated records but
-#'   many may be false duplicates. Strings too strict, on the other hand, may
-#'   miss true duplicates if some of the collections have not entered all search
-#'   fields or if they were entered using different notation standards. Finding
-#'   all existing duplicates requires that all collections are available and
-#'   that all search fields are complete, filled in without typos and using the
-#'   same notation standards. This is rarely the case, so the list of duplicates
-#'   returned should be considered incomplete in many cases. Moreover, to make
-#'   sure missing information does not prevent the retrieval of duplicates,
-#'   using more than two combinations of fields is advised. See Lima et al.
-#'   (2020) for an example of a conservative usage of different combinations
-#'   of strings to find duplicated specimens.
+#'   Strings too flexible (e.g. 'Silva_110') return more duplicated
+#'   records but many may be false duplicates. Strings too strict, on
+#'   the other hand, may miss true duplicates if some of the
+#'   collections have not entered all search fields or if they were
+#'   entered using different notation standards. Finding all existing
+#'   duplicates requires that all collections are available and that
+#'   all search fields are complete, filled in without typos and using
+#'   the same notation standards. This is rarely the case, so the list
+#'   of duplicates returned should be considered incomplete in many
+#'   cases. Moreover, to make sure missing information does not
+#'   prevent the retrieval of duplicates, using more than two
+#'   combinations of fields is advised. See Lima et al. (2020) for an
+#'   example of a conservative usage of different combinations of
+#'   strings to find duplicated specimens.
 #'
-#'   The function returns direct matches for up to one search string. If
-#'   two or more search strings are provided, the search of duplicates uses
-#'   tools from network analysis to find both direct and indirect matches of
-#'   strings between records. If records are grouped under the same duplicated
-#'   ID string ('dup.ID') but only based on indirect matches with other records,
-#'   'dup.ID' is returned between brackets (the default of argument `flag.ind`).
-#'   These IDs may need to be inspected more closely to detect possible spurious
-#'   matches.
+#'   The function returns direct matches for up to one search string.
+#'   If two or more search strings are provided, the search of
+#'   duplicates uses tools from network analysis to find both direct
+#'   and indirect matches of strings between records. If records are
+#'   grouped under the same duplicated ID string ('dup.ID') but only
+#'   based on indirect matches with other records, 'dup.ID' is
+#'   returned between brackets (the default of argument `flag.ind`).
+#'   These IDs may need to be inspected more closely to detect
+#'   possible spurious matches.
 #'
-#'   Note that duplicate records can be physical (i.e. samples of the same
-#'   biological specimen incorporated in two or more collections) or virtual
-#'   (i.e. duplicated entries of the same record in different data
-#'   repositories). Although the function aims to detect the physical
-#'   duplicates, it also flags the virtual duplicates by adding 'virtual' inside
-#'   brackets  to the end of the duplicated ID string. Currently, this flag is
-#'   only added if the duplicate is purely virtual, i.e., if the virtual
-#'   duplicate is not also part of a physical duplicate.
+#'   Note that duplicate records can be physical (i.e. samples of the
+#'   same biological specimen incorporated in two or more collections)
+#'   or virtual (i.e. duplicated entries of the same record in
+#'   different data repositories). Although the function aims to
+#'   detect the physical duplicates, it also flags the virtual
+#'   duplicates by adding 'virtual' inside brackets  to the end of the
+#'   duplicated ID string. Currently, this flag is only added if the
+#'   duplicate is purely virtual, i.e., if the virtual duplicate is
+#'   not also part of a physical duplicate.
 #'
-#'   Besides the duplicated ID, the function returns the number and proportion
-#'   of duplicated search strings found for each record within its group of
-#'   duplicates (i.e., 'dup.numb' and 'dup.prop'). These values can be used to
-#'   assess the confidence level that records are indeed true duplicates within
-#'   its group. The higher the 'dup.prop', the greater the chances that the
-#'   record is indeed a duplicate. To calculate the proportion of duplicates
-#'   found within the number of available search strings, mismatches due to
+#'   Besides the duplicated ID, the function returns the number and
+#'   proportion of duplicated search strings found for each record
+#'   within its group of duplicates (i.e., 'dup.numb' and 'dup.prop').
+#'   These values can be used to assess the confidence level that
+#'   records are indeed true duplicates within its group. The higher
+#'   the 'dup.prop', the greater the chances that the record is indeed
+#'   a duplicate. To calculate the proportion of duplicates found
+#'   within the number of available search strings, mismatches due to
 #'   different or to missing strings are treated the same.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @examples
 #'
@@ -171,6 +181,7 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
     cols <- c(rec.ID, str_names)
     d <- data.table::melt.data.table(dt[, 1:(length(cols)),],
                                      id.vars = "numTombo", na.rm = TRUE)
+    d <- d[!is.na(numTombo), ]
 
     # convert to graph
     g <- igraph::graph_from_data_frame(d[ , .(numTombo, value)])

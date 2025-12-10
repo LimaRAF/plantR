@@ -81,7 +81,8 @@ shares_border <- function(country1 = "brazil",
 #'   'borders' or 'inverted' added to the validation class inside
 #'   brackets.
 #'
-#' @importFrom dplyr left_join if_else
+#'
+#' @importFrom dplyr left_join
 #'
 #' @author Andrea Sánchez-Tapia & Sara Mortara
 #'
@@ -133,9 +134,6 @@ checkBorders <- function(x,
     share_border <- suppressMessages(suppressWarnings(
       shares_bord(country.shp[check_these],
                   country.gazet[check_these])))
-    # border.check <-
-    #   dplyr::if_else(share_border == TRUE,
-    #           "check_borders", "check_inverted")
 
     ## Preparing to return
     if (output == 'new.col') {

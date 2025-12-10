@@ -55,6 +55,8 @@
 #'   saving ('csv' or 'rds'). Default to 'csv'.
 #' @param compress Logical. Should the file be compressed? Default to
 #'   FALSE.
+#' @param offset Index of the first record to be returned, used for pagination. Starts at zero.
+#' @param ... Further parameters to pass to the SpeciesLink API
 #'
 #' @return A data.frame with the search result, which can also be
 #'   saved on disk
@@ -66,7 +68,10 @@
 #'   The speciesLink API does not allow the download of more than 5000
 #'   records at a time. So, to download records from species with
 #'   large number of records (>5000), you will probably need to make
-#'   the queries in a loop (see Examples).
+#'   the queries in a loop (see Examples). Use offset to skip the
+#'   records you have already downloaded. Note: the SpeciesLink API
+#'   may be slow to respond when using large offsets. Avoid using offsets
+#'   larger than 100000.
 #'
 #'   Also, the speciesLink API does not allow the download of ~50 or
 #'   more taxa at a time. So to download records from larger lists of
@@ -95,10 +100,28 @@
 #'                                               basisOfRecord = "PreservedSpecimen",
 #'                                               Synonyms = "flora2020",
 #'                                               key = key))
-#'# Adding species names to each element of the list
+#' # Adding species names to each element of the list
 #' names(sp_list) = sp
-#'# Binding all searchs and keeping a column w/ the named used in the search
+#' # Binding all searchs and keeping a column w/ the named used in the search
 #' sp_df <- bind_rows(sp_list, .id = "original_search")
+#'
+#' # Getting more than 5000 records
+#'
+#' offset <- 0
+#' ex <- rspeciesLink(county = "Rio de Janeiro",
+#'                      Scope = "p",
+#'                      MaxRecords = 5000,
+#'                      key = key)
+#' rj_df <- ex
+#'
+#' while(nrow(ex) == 5000)
+#'    offset <- offset + 5000
+#'    ex <- rspeciesLink(county = "Rio de Janeiro",
+#'                      Scope = "p",
+#'                      MaxRecords = 5000,
+#'                      offset = offset,
+#'                      key = key)
+#'    rj_df <- bind_rows(rj_df, ex)
 #'}
 #'
 #' @importFrom data.table fwrite
@@ -125,7 +148,9 @@ rspeciesLink <- function(dir = "results/",
                          RedList = NULL,
                          MaxRecords = 5000,
                          file.format = "csv",
-                         compress = FALSE)
+                         compress = FALSE,
+                         offset = 0,
+                         ...)
 {
 
   if (is.null(key))
@@ -303,6 +328,27 @@ rspeciesLink <- function(dir = "results/",
       my_url <- paste0(my_url, mr)
     }
   }
+
+  # Offset
+  if (!is.null(offset)) {
+    os <- as.integer(offset)
+    if(is.na(os)) {
+      stop(paste("Offset must be an integer number. Got", offset))
+    }
+    q <- url_query(offset, "offset")
+    my_url <- paste0(my_url, q)
+  }
+
+  # Add extra parameters
+  my_params <- list(...)
+  ns <- names(my_params)
+
+  for(name in ns) {
+    q <- url_query(my_params[[name]], name)
+    my_url <- paste0(my_url, q)
+  }
+
+
   # making the request
   my_url <- paste0(my_url, "apikey=", key)
   message("Making request to speciesLink...")

@@ -1,9 +1,10 @@
 #' @title Get Valid Taxon Names
 #'
-#' @description Provides valid taxon names or corrects typos and
-#'   orthographic variants based on taxonomic backbones provided by
-#'   the user or by the `plantR` companion packages `plantRdata` (the
-#'   default).
+#' @description Validates taxon names (including the correction of
+#'   typos and the detection of orthographic variants) based on a
+#'   reference list of taxon names (e.g. taxonomic backbone) provided
+#'   by the user, __plantR__ (the default) or those obtained from the
+#'   companion package __plantRdata__.
 #'
 #' @param x a vector or data.frame of taxon names and their
 #'   authorships, ideally the output from function `fixSpecies()`.
@@ -31,30 +32,66 @@
 #'   unidentified species (e.g. sp. or spp.) be removed prior to name
 #'   matching? Defaults to TRUE.
 #' @inheritParams nameMatching
+#' @param auth.factor numeric. A proportion of extra increase in the
+#'   distance allowed for author names. By default, this value is 0.5,
+#'   which means that the distance for author names by default is
+#'   0.15, obtained using: (1 - sug.dist) + (1 - sug.dist) *
+#'   auth.factor. This distance is set to 1 with a warning if the
+#'   resulting value of the formula is higher than 1.
+#' @param auth.factor.max numeric. Any factor to get a maximum
+#'   distance allowed for author names, from which any author matches
+#'   will be flagged as a bad match. By default, this factor is 3,
+#'   which means that the maximum distance for author names by default
+#'   is 0.45, obtained using: auth.factor.max *((1 - sug.dist) + (1 -
+#'   sug.dist) * auth.factor). This distance is set to 1 with a
+#'   warning if the resulting value of the formula is higher than 1.
+#'
 #' @param drop.cols character. Name of columns from the reference
 #'   backbone that should be dropped from the results.
 #'
 #' @return
-#' A data frame with the same columns provided by the user and some
-#' additional columns containing the suggested taxon name
-#' ('suggestedName'), taxon authorship ('suggestedAuthorship'), the
-#' corresponding scientific name ('scientificNameFull'), the taxonomic
-#' information related to the suggested name (columns 'taxon.rank',
-#' tax.notes' and its 'id' in the reference taxonomic backbone).
+#' A data frame with the same columns provided by the user and, by
+#' default, some additional columns containing the suggested taxon
+#' name ('suggestedName'), taxon authorship ('suggestedAuthorship'),
+#' the corresponding scientific name ('scientificNameFull'), the
+#' taxonomic information related to the suggested name (columns
+#' 'taxon.rank', tax.notes' and its 'id' in the reference taxonomic
+#' backbone). The return of other columns can be controlled using the
+#' argument `drop.cols`.
 #'
 #' @details
-#'   The function first checks taxon names with authorship (if
-#'   available), using both exact and fuzzy matching. This is good
-#'   practice to avoid multiple matches in the reference backbone
-#'   related to homonyms. If a name below the threshold distance
-#'   defined in argument `sug.dist` is not found, then the function
-#'   does another round of exact and fuzzy matching using only the
-#'   taxon names without authorship.
+#'   First, the function checks taxon names with authorship (if
+#'   available), using both exact and fuzzy matching. This is a good
+#'   practice to avoid multiple matches in the reference taxonomic
+#'   backbone related to homonyms. If a name below the threshold
+#'   distance defined in argument `sug.dist` is not found, then the
+#'   function does a second round of exact and fuzzy matching using
+#'   only the taxon names without authorship. This second check is
+#'   done for names provided without authorship by the user and
+#'   for names provided with authorship but very distant from
+#'   the one found in the backbone (i.e. bad fuzzy matches of
+#'   authorship names).
+#'
+#'   Distances between input and matched names and authorships are
+#'   computed without the hybrid symbol and without spaces,
+#'   respectively. These distances are computed separately and after
+#'   name matching, meaning that there is the possibility of fuzzy
+#'   matches with zero distances between input and reference names.
+#'   This is done to avoid inflating the number of names below the
+#'   threshold distances simply due to differences in format between
+#'   the input and reference names. This is particularly true for
+#'   author names, which can be quite variable in format between sources.
+#'
+#'   Defining reasonable distance values to flag bad fuzzy matched for
+#'   author names is quite arbitrary. In `prepSpecies()`, this
+#'   definition is done by combining the arguments `auth.factor` and
+#'   `auth.factor.max`, whose defaults were set based on a try and
+#'   error process using test names.
 #'
 #'   The name check compares all unique names in `x` with all names in
 #'   the taxonomic backbones selected. So, the speed of the checking
 #'   process depends on the number of name combinations in `x` and in
-#'   the backbone, besides the computer's operational system and
+#'   the backbone, besides the computer's operating system and
 #'   specifications. But if the backbone selected has many names (over
 #'   hundreds of thousands of names), such as those containing all
 #'   plant names for the entire world, the process may take up to a
@@ -63,7 +100,7 @@
 #'   But if you have many thousands of input names to check and a
 #'   large backbone, the function offers the possibility of doing the
 #'   name matching by initial letters and/or using parallelization.
-#'   See the help of function `nameMatching` which is used internally.
+#'   See the help of function `nameMatching()` which is used internally.
 #'
 #'   The result of the name check will vary depending on the
 #'   completeness of the backbone. And do expect some false positive
@@ -74,13 +111,13 @@
 #'   `sug.dist` than the default of 0.9. See examples for an
 #'   illustration of these differences.
 #'
-#'   Currently, there are two options: (1) using the `plantR` internal
+#'   Currently, there are two options: (1) using the __plantR__ internal
 #'   backbone for the Brazilian Vascular Flora (the default) or (2)
 #'   using user-provided taxonomic backbones. The choice between these
 #'   options is declared via the argument `db`, which is passed on to
 #'   the function `getTaxBackbone()`.
 #'
-#'   The companion R package `plantRdata` provides different global
+#'   The companion R package __plantRdata__ provides different global
 #'   and regional taxonomic backbones in the exact format expected by
 #'   `prepSpecies()`. See the help of function `getTaxBackbone()` for
 #'   more details on this expected format.
@@ -120,8 +157,13 @@
 #'   this is the accepted name within the multiple matches in the
 #'   backbone. Result is a lot cleaner but in many cases this does not
 #'   means that the accepted name returned actually is the right
-#'   accepted for the input name. So, users should be extra careful
-#'   when setting `mult.matches` to 'best'.
+#'   accepted name for the input name. So, users should be extra
+#'   careful when setting `mult.matches` to 'best'.
+#'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @author Renato A. Ferreira de Lima
 #'
@@ -150,6 +192,7 @@
 #'  \link[plantR]{nameMatching} and \link[plantR]{getTaxNotes}.
 #'
 #' @importFrom stringdist stringdist
+#' @importFrom dplyr left_join
 #'
 #' @export prepSpecies
 #'
@@ -168,6 +211,8 @@ prepSpecies <- function(x,
                         parallel = FALSE,
                         cores = 2,
                         show.progress = FALSE,
+                        auth.factor = 0.5,
+                        auth.factor.max = 3,
                         drop.cols = c("match_type", "multiple_match",
                                       "fuzzy_dist_name",
                                       "fuzzy_dist_author",
@@ -348,7 +393,7 @@ prepSpecies <- function(x,
       }
 
       # fuzzy matching
-      max_dist = 1 - sug.dist
+      max_dist <- 1 - sug.dist
       check_these <- is.na(perfect_match) & !no_author
       if (any(check_these)) {
         fuzzy_match <- nameMatching(input_names_clean[check_these],
@@ -409,16 +454,30 @@ prepSpecies <- function(x,
         fuzzy_w_indet <- check_these & w_indet
         if (any(fuzzy_w_indet))
           input_names_temp[w_indet[check_these]] <-
-          search_names[fuzzy_w_indet]
+            search_names[fuzzy_w_indet]
 
-        name_dist <- stringdist::stringdist(input_names_temp,
-                                            result[["tax.name"]][check_these])
+        input_names_temp <- rmHyb(input_names_temp)
+        ref_names_temp <- rmHyb(result[["tax.name"]][check_these])
+        name_dist <-
+          stringdist::stringdist(input_names_temp, ref_names_temp)
         result$fuzzy_dist_name[check_these] <-
           round(name_dist/nchar(input_names_temp), 4)
-        aut_dist <- stringdist::stringdist(result[[tax.names[2]]][check_these],
-                                           result[["tax.authorship"]][check_these])
+
+        correct_these <- result[["tax.authorship"]][check_these] %in%
+                          c("", " ")
+        if (any(correct_these))
+          result[["tax.authorship"]][check_these][correct_these] <- NA
+
+        input_auth_temp <- gsub(" ", "",
+                                result[[tax.names[2]]][check_these],
+                                fixed = TRUE)
+        ref_auth_temp <- gsub(" ", "",
+                              result[["tax.authorship"]][check_these],
+                              fixed = TRUE)
+        aut_dist <-
+          stringdist::stringdist(input_auth_temp, ref_auth_temp)
         result$fuzzy_dist_author[check_these] <-
-          round(aut_dist/nchar(result[[tax.names[2]]][check_these]), 4)
+          round(aut_dist/nchar(input_auth_temp), 4)
       }
     } else {
       empty_df <- as.data.frame(matrix(NA,
@@ -495,8 +554,9 @@ prepSpecies <- function(x,
       }
 
       # fuzzy matches
-      max_dist = 1 - sug.dist
+      max_dist <- 1 - sug.dist
       no_authors_no_match1 <- no_author & is.na(result$id)
+
       if (any(no_authors_no_match1)) {
 
         input_names_clean1 <- search_names[no_authors_no_match1]
@@ -512,24 +572,44 @@ prepSpecies <- function(x,
                                     show.progress = TRUE)
 
         if (any(!is.na(fuzzy_match))) {
-          result[no_authors_no_match1, c(bb_cols)] <-
-            ref.df[fuzzy_match, bb_cols]
+          name_matches <- ref.df[fuzzy_match, "tax.name"]
+          name_matches_all <- ref_names_clean1[ref_names_clean1 %in% name_matches]
+          dup_fuzzy <- duplicated(name_matches_all)
+          if (any(dup_fuzzy)) {
+            df1.1 <- result[no_authors_no_match1, ]
+            tmp.match.col <- "tmp.tax.name"
+            df1.1[[tmp.match.col]] <- name_matches
+            bb_cols1 <- bb_cols[!bb_cols %in% "tax.name"]
+            unique_tax1 <- getTaxUnique(df1.1, ref.df,
+                                       match.col = tmp.match.col,
+                                       orig.col = tax.names[1],
+                                       name.col = "tax.name",
+                                       status.col = "taxon.status",
+                                       type.match.col = "match_type",
+                                       mult.match.col = "multiple_match",
+                                       mult.matches = mult.matches,
+                                       agg.cols = bb_cols1)
+            result[no_authors_no_match1, c(bb_cols, "multiple_match")] <-
+              unique_tax1[, c(bb_cols, "multiple_match")]
+          } else {
+            result[no_authors_no_match1, c(bb_cols)] <-
+              ref.df[fuzzy_match, bb_cols]
+            result$multiple_match[no_authors_no_match1] <- FALSE
+          }
 
           result$match_type[no_authors_no_match1] <-
             "fuzzy_wout_author"
-          result$multiple_match[no_authors_no_match1] <- FALSE
-
           result$match_type[no_authors_no_match1 & w_indet] <-
             "fuzzy_wout_author_wout_indet"
 
           # Calculating the distance between names
+          input_names_temp1 <- rmHyb(input_names_clean1)
+          ref_names_temp1 <- rmHyb(result[["tax.name"]][no_authors_no_match1])
+
           name_dist1 <-
-            stringdist::stringdist(
-              input_names_clean1,
-              result[["tax.name"]][no_authors_no_match1])
+            stringdist::stringdist(input_names_temp1, ref_names_temp1)
           result$fuzzy_dist_name[no_authors_no_match1] <-
-            round(name_dist1/
-                    nchar(input_names_clean1), 4)
+            round(name_dist1/nchar(input_names_temp1), 4)
 
           # Fixing some bad indexing replacements
           double_check <- is.na(result$id)
@@ -545,11 +625,156 @@ prepSpecies <- function(x,
     # no matches
     rep_these <- is.na(result$id)
     if (any(rep_these)) {
-      result$match_type[rep_these] <-
-        "no_match"
-      result[rep_these, bb_cols[3:4]] <-
-        result[rep_these, tax.names]
+      result$match_type[rep_these] <- "no_match"
+      result[rep_these, bb_cols[3:4]] <- result[rep_these, tax.names]
     }
+
+    # flagging fuzzy matches above the threshold
+    max_dist_auth <- max_dist + auth.factor * max_dist
+    if (max_dist_auth > 1) {
+      max_dist_auth == 1
+      warning("Distance considered for author name matches was higher than 1; distance set to 1",
+              call. = FALSE)
+    }
+    bad_dist_auth <- max_dist_auth * auth.factor.max
+    if (bad_dist_auth > 1) {
+      bad_dist_auth == 1
+      warning("Distance considered for author name matches was higher than 1; distance set to 1",
+              call. = FALSE)
+    }
+
+    rep_these <- (result[["fuzzy_dist_name"]] > max_dist &
+                    (is.na(result[["fuzzy_dist_author"]]) | result[["fuzzy_dist_author"]] > 0)) |
+                  (result[["fuzzy_dist_author"]] > max_dist_auth &
+                    result[["fuzzy_dist_name"]] > 0 ) |
+                      result[["fuzzy_dist_author"]] >= bad_dist_auth
+    rep_these[is.na(rep_these)] <- FALSE
+    if (any(rep_these))
+      result[rep_these, "match_type"] <- sub("bad_bad_", "bad_",
+        paste0("bad_", result[rep_these, "match_type"]), fixed = TRUE)
+
+    # name matching without authorships for bad and no matches
+    no_matches <- c("no_match", "bad_fuzzy_w_author",
+                    "bad_fuzzy_wout_author")
+    no_authors_no_match2 <- result[["match_type"]] %in% no_matches
+    if (any(no_authors_no_match2)) {
+
+      # exact matches
+      df2 <- result[no_authors_no_match2, ]
+      tmp.match.col <- "tmp.tax.name"
+
+      if (clean.names) {
+        df2[[tmp.match.col]] <- cleanName(df2[[tax.names[1]]])
+        ref_names_clean1 <- cleanName(ref.df[["tax.name"]])
+      } else {
+        df2[[tmp.match.col]] <- df2[[tax.names[1]]]
+        ref_names_clean1 <- ref.df[["tax.name"]]
+      }
+
+      ref.df[[tmp.match.col]] <- ref_names_clean1
+
+      bb_cols1 <- bb_cols[!bb_cols %in% "tax.name"]
+
+      unique_tax1 <- getTaxUnique(df2, ref.df,
+                                 match.col = tmp.match.col,
+                                 orig.col = tax.names[1],
+                                 name.col = "tax.name",
+                                 status.col = "taxon.status",
+                                 type.match.col = "match_type",
+                                 mult.match.col = "multiple_match",
+                                 mult.matches = mult.matches,
+                                 agg.cols = bb_cols1)
+
+      check_these <- !is.na(unique_tax1$id)
+      if (any(check_these)) {
+        result[no_authors_no_match2, c(bb_cols, "multiple_match")][check_these, ] <-
+          unique_tax1[check_these, c(bb_cols, "multiple_match")]
+        result$match_type[no_authors_no_match2][check_these] <-
+          "exact_wout_author"
+        result$fuzzy_dist_name[no_authors_no_match2][check_these] <-
+          0L
+        result$fuzzy_dist_author[no_authors_no_match2][check_these] <-
+          NA
+      }
+
+      # fuzzy matches
+      max_dist <- 1 - sug.dist
+      no_authors_no_match3 <-
+        result[["match_type"]][no_authors_no_match2] %in% no_matches[-1]
+      if (any(no_authors_no_match3)) {
+
+        input_names_clean2 <-
+          df2[[tmp.match.col]][no_authors_no_match3]
+        fuzzy_match1 <- nameMatching(input_names_clean2,
+                                    ref_names_clean1,
+                                    match.type = "fuzzy",
+                                    clean.names = FALSE,
+                                    dist.method = dist.method,
+                                    max.dist = max_dist,
+                                    split.letters = split.letters,
+                                    parallel = parallel,
+                                    cores = cores,
+                                    show.progress = TRUE)
+
+        rep_these <- !is.na(fuzzy_match1)
+        if (any(rep_these)) {
+          result[no_authors_no_match2, c(bb_cols)][no_authors_no_match3, ] <-
+            ref.df[fuzzy_match1, bb_cols]
+
+          result$match_type[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+            "fuzzy_wout_author"
+          result$multiple_match[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+            FALSE
+          result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+            result$fuzzy_dist_author[no_authors_no_match2][no_authors_no_match3][rep_these] <-
+              NA
+        }
+
+        # Calculating the new distance between names
+        input_names_temp2 <- rmHyb(input_names_clean2)
+        ref_names_temp1 <-
+          rmHyb(result[["tax.name"]][no_authors_no_match2][no_authors_no_match3])
+
+        name_dist2 <-
+          stringdist::stringdist(input_names_temp2, ref_names_temp1)
+        result$fuzzy_dist_name[no_authors_no_match2][no_authors_no_match3] <-
+          round(name_dist2/nchar(input_names_temp2), 4)
+      }
+
+      # Calculating the new distance between author names
+      rep_these <- no_authors_no_match2 &
+                    !result[["match_type"]] %in% no_matches
+      if (any(rep_these)) {
+        rep_these_no_mult <- rep_these & !result[["multiple_match"]]
+        if (any(rep_these_no_mult)) {
+          correct_these <-
+            result[["tax.authorship"]][rep_these_no_mult] %in% ""
+          if (any(correct_these))
+            result[["tax.authorship"]][rep_these_no_mult][correct_these] <-
+              NA
+
+          input_auth_temp1 <- gsub(" ", "",
+                                   result[[tax.names[2]]][rep_these_no_mult],
+                                   fixed = TRUE)
+          ref_auth_temp1 <- gsub(" ", "",
+                                 result[["tax.authorship"]][rep_these_no_mult],
+                                 fixed = TRUE)
+          aut_dist1 <-
+            stringdist::stringdist(input_auth_temp1, ref_auth_temp1)
+          result$fuzzy_dist_author[rep_these_no_mult] <-
+            round(aut_dist1/nchar(input_auth_temp1), 4)
+        }
+      }
+    }
+
+    # flagging fuzzy matches above the selected threshold
+    rep_these <- result[["fuzzy_dist_name"]] > max_dist
+    rep_these[is.na(rep_these)] <- FALSE
+    if (any(rep_these))
+      result[["match_type"]][rep_these] <-
+        sub("bad_bad_", "bad_",
+          paste0("bad_", result[["match_type"]][rep_these]),
+        fixed = TRUE)
 
     rownames(result) <- NULL
 
@@ -563,30 +788,18 @@ prepSpecies <- function(x,
     names(output)[which(names(output) == "tax.authorship")] <-
       "suggestedAuthorship"
 
-    # flagging fuzzy matches above the threshold
-    auth_factor <- 0.5
-    max_dist_auth <- max_dist + auth_factor * max_dist
-    rep_these <- (output[["fuzzy_dist_name"]] > max_dist &
-                    (is.na(output[["fuzzy_dist_author"]]) | output[["fuzzy_dist_author"]] > 0)) |
-                  (output[["fuzzy_dist_author"]] > max_dist_auth &
-                    output[["fuzzy_dist_name"]] > 0 )
-    rep_these[is.na(rep_these)] <- FALSE
-    if (any(rep_these))
-      output[rep_these, "match_type"] <-
-        paste0("bad_", result[rep_these, "match_type"])
-
     output <- getTaxNotes(output)
 
+    old.cols <- c("id", "suggestedName", "suggestedAuthorship",
+                  "taxon.rank", "name.status")
+    new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
+                  "accepted.taxon.rank", "accepted.name.status")
+
     if (replace.names) {
-
-      old.cols <- c("id", "suggestedName", "suggestedAuthorship",
-                    "taxon.rank", "name.status")
-      new.cols <- c("accepted.id", "accepted.tax.name", "accepted.tax.authorship",
-                    "accepted.taxon.rank", "accepted.name.status")
-
       rep_these <- grepl("synonym", output$notes, perl = TRUE)
       if (any(rep_these)) {
         w_accept_id <- !is.na(output[, new.cols[1]])
+
         if (any(w_accept_id)){
           output[rep_these & w_accept_id, old.cols] <-
             output[rep_these & w_accept_id, new.cols]
@@ -602,11 +815,6 @@ prepSpecies <- function(x,
                  output$notes[rep_these & !w_accept_id],
                  perl = TRUE)
         }
-
-        # output[rep_these, old.cols] <- output[rep_these, new.cols]
-        # output$notes[rep_these] <-
-        #   gsub("synonym", "replaced synonym", output$notes[rep_these],
-        #        perl = TRUE)
       }
 
       rep_these <- grepl("orthographic", output$notes, perl = TRUE)
@@ -622,10 +830,12 @@ prepSpecies <- function(x,
         }
       }
 
-      rep_these <- output$notes %in% "check +1 name"
+      check.plus <- c("check +1 name",
+                      "name misspelled|check +1 name")
+      rep_these <- output$notes %in% check.plus
       if (any(rep_these)) {
         rep_these1 <-
-          !grepl("|", output[["accepted.tax.authorship"]][rep_these],
+          !grepl("|", output[["accepted.id"]][rep_these],
                  fixed = TRUE)
         if (any(rep_these1)) {
           output[rep_these, old.cols][rep_these1, ] <-
@@ -633,17 +843,37 @@ prepSpecies <- function(x,
           output$notes[rep_these][rep_these1] <-
             "+1 name, but 1 accepted"
         }
-      }
 
-      rep_these <- output$notes %in% "bad match"
-      if (any(rep_these)) {
-        output[rep_these, old.cols[2:3]] <- output[rep_these, tax.names]
-        output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <- NA
-        output[rep_these, new.cols] <- NA
-        if ("family" %in% names(output))
-          output$family[rep_these] <- NA
-        output$notes[rep_these] <- "not found"
+        rep_these2 <- output$notes[rep_these] %in% check.plus &
+                        grepl("synonym", output$taxon.status[rep_these],
+                              perl = TRUE)
+        if (any(rep_these2)) {
+          output[rep_these, old.cols][rep_these2, ] <-
+            output[rep_these, new.cols][rep_these2, ]
+          output$notes[rep_these][rep_these2] <-
+            sub("check +1 name", "check +1 name|replaced synonym",
+                output$notes[rep_these][rep_these2], fixed = TRUE)
+        }
+        if (any(!rep_these2)) {
+          rep_these3 <- !output$notes[rep_these][!rep_these2] %in%
+                          "+1 name, but 1 accepted"
+          if (any(rep_these3))
+            output$notes[rep_these][!rep_these2][rep_these3] <-
+              "check +1 name|synonym not replaced"
+        }
       }
+    }
+
+    rep_these <- output$notes %in% c("bad match", "not found")
+    if (any(rep_these)) {
+      output[rep_these, old.cols[2:3]] <-
+        output[rep_these, tax.names]
+      output[rep_these, c("id", old.cols[4:5], "taxon.status") ] <-
+        NA
+      output[rep_these, c(new.cols, "accepted.taxon.status")] <- NA
+      if ("family" %in% names(output))
+        output$family[rep_these] <- NA
+      output$notes[rep_these] <- "not found"
     }
 
     if (length(drop.cols) > 0) {
@@ -703,6 +933,11 @@ prepSpecies <- function(x,
     taxa.split <- strsplit(tmp[[1]], "|", fixed = TRUE)
     auth.split <- strsplit(tmp[[2]], "|", fixed = TRUE)
     names.new <- mapply(paste, taxa.split, auth.split)
+
+    rep_these <- grepl(" NA$", names.new, perl = TRUE)
+    if (any(rep_these))
+      names.new[rep_these] <-
+        sub(" NA$", "", names.new[rep_these], perl = TRUE)
 
     if (inherits(names.new, "matrix")) {
       tmp.names.new <-

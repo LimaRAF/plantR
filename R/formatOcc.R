@@ -1,46 +1,49 @@
 #' @title Format Names, Numbers, Dates and Codes
 #'
-#' @description This function standardizes collector names, determiner names,
-#'   collection number, dates and collection codes from herbarium occurrences
-#'   obtained from on-line databases, such as GBIF or speciesLink.
+#' @description This function standardizes collector names, determiner
+#'   names, collection number, dates and collection codes from
+#'   herbarium occurrences obtained from on-line databases, such as
+#'   GBIF or speciesLink.
 #'
-#' @return The input data frame \code{x}, plus the new columns with the
-#'   formatted information. The new columns have the same name as proposed by
-#'   the Darwin Core standards followed by the suffix '.new'.
+#' @return The input data frame \code{x}, plus the new columns with
+#'   the formatted information. The new columns have the same name as
+#'   proposed by the Darwin Core standards followed by the suffix
+#'   '.new'.
 #'
-#' @param x a data frame, containing typical fields from occurrence records from
-#'   herbarium specimens
-#' @param noNumb character. The standard notation for missing data in the field
-#'   'Number'. Default to "s.n."
-#' @param noYear character. The standard notation for missing data in the field
-#'   'Year'. Default to  "n.d."
-#' @param noName character. The standard notation for missing data in the field
-#'   'Name'. Default to  "s.n."
+#' @param x a data frame, containing typical fields from occurrence
+#'   records from herbarium specimens
+#' @param noNumb character. The standard notation for missing data in
+#'   the field 'Number'. Default to "s.n."
+#' @param noYear character. The standard notation for missing data in
+#'   the field 'Year'. Default to  "n.d."
+#' @param noName character. The standard notation for missing data in
+#'   the field 'Name'. Default to  "s.n."
 #'
-#' @details The function works similarly to a wrapper, where many individual
-#'   steps of the proposed __plantR__ workflow for editing collection
-#'   information are performed altogether (see the __plantR__ tutorial and the
-#'   help of each function for details).
+#' @details The function works similarly to a wrapper, where many
+#'   individual steps of the proposed __plantR__ workflow for editing
+#'   collection information are performed altogether (see the
+#'   __plantR__ tutorial and the help of each function for details).
 #'
-#'   Ideally, the input data frame must contain at least the following fields
-#'   from the Darwin Core standards (the functions default):
-#'   - 'institutionCode' and 'collectionCode' (codes of the institution and
-#'   collection);
+#'   Ideally, the input data frame must contain at least the following
+#'   fields from the Darwin Core standards (the functions default):
+#'   - 'institutionCode' and 'collectionCode' (codes of the institution
+#'   and collection);
 #'   - 'year' and 'eventDate' (year of the collection);
 #'   - 'recordedBy' (collector(s) name(s));
 #'   - 'recordNumber' (collector number)
 #'   - 'identifiedBy' (identifier name);
 #'   - 'yearIdentified' and 'dateIdentified' (year of identification)
 #'
-#'   Missing year of collection in the field 'year' are internally replaced by
-#'   the date stored in the field 'eventDate', if this field is not empty as well.
+#'   Missing year of collection in the field 'year' are internally
+#'   replaced by the date stored in the field 'eventDate', if this
+#'   field is not empty as well.
 #'
 #' @seealso
 #'  \link[plantR]{getCode}, \link[plantR]{fixName}, \link[plantR]{colNumber},
 #'  \link[plantR]{getYear}, \link[plantR]{prepTDWG}, \link[plantR]{prepName},
 #'  \link[plantR]{missName} and \link[plantR]{lastName}.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @import data.table
 #'

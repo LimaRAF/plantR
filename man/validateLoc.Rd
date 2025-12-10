@@ -7,47 +7,55 @@
 validateLoc(x, res.orig = "resol.orig", res.gazet = "resolution.gazetteer")
 }
 \arguments{
-\item{x}{a data frame containing the resolution of the original and the
-gazetteer locality information.resolution from the gazetteer.}
+\item{x}{a data frame containing the resolution of the original and
+the gazetteer locality information.resolution from the gazetteer.}
 
-\item{res.orig}{character. The name of the column containing the resolution
-of the locality information from the original records. Default to
-'resol.orig'.}
+\item{res.orig}{character. The name of the column containing the
+resolution of the locality information from the original records.
+Default to 'resol.orig'.}
 
-\item{res.gazet}{character. The name of the column containing the resolution
-of the locality information from which the gazetteer coordinates were
-obtained. Default to 'resolution.gazetteer'.}
+\item{res.gazet}{character. The name of the column containing the
+resolution of the locality information from which the gazetteer
+coordinates were obtained. Default to 'resolution.gazetteer'.}
 }
 \value{
-the data frame \code{x} with a new column 'loc.check' with the result
-of the locality validation.
+the data frame \code{x} with a new column 'loc.check' with
+the result of the locality validation.
 }
 \description{
 Compares the resolution of the locality information provided in
 the original record with the resolution retrieved from the gazetteer.
 }
 \details{
-The function simply compares if the original information provided
-with each specimen is found in the locality gazetteer and at which
-resolution (i.e. country, state, municipality). This comparison is strongly
-dependent on the completeness of the gazetteer used. Please remind that the
-gazetteer provided with \strong{plantR} is strongly biased towards Latin
-America, particularly Brazil.
+The function simply compares if the original information
+provided with each specimen is found in the locality gazetteer
+and at which resolution (i.e. country, state, municipality). This
+comparison is strongly dependent on the completeness of the
+gazetteer used. Please remind that the gazetteer provided with
+\strong{plantR} is strongly biased towards Latin America, particularly
+Brazil.
 
-The records whose locality was not found in the gazetteer at the same
-resolution are flagged with a "check_...". For these records, the locality
-resolution is downgraded until a locality is found in the gazetteer. If
-even the country name is not found, then the locality is flagged as
-"no_info". Specimens retaining their resolution are flagged with a
-"ok_same_resolution" and those found at a better resolution are flagged
-with an "ok_" (e.g. 'ok_state2municipality': a record which had its
-original resolution at the ' 'stateProvince' level is now at the
+The records whose locality was not found in the gazetteer at the
+same resolution are flagged with a "check_...". For these
+records, the locality resolution is downgraded until a locality
+is found in the gazetteer. If even the country name is not found,
+then the locality is flagged as "no_info". Specimens retaining
+their resolution are flagged with a "ok_same_resolution" and
+those found at a better resolution are flagged with an "ok_"
+(e.g. 'ok_state2municipality': a record which had its original
+resolution at the ' 'stateProvince' level is now at the
 'municipality' level).
 
-The records flagged with the class "check_local.2municip." should not be
-seen as problematic, since the \strong{plantR} gazetteer contain a list of
-county names that is much more comprehensive than the list of locality
-names.
+The records flagged with the class "check_local.2municip." should
+not be seen as problematic, since the \strong{plantR} gazetteer
+contain a list of county names that is much more comprehensive
+than the list of locality names. That is, most locality names are
+not expected to be in the gazetteer.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present
+in the input data frame. The full list of reserved columns is
+stored in the internal object \code{reservedColNames}.
 }
 \examples{
 (df <- data.frame(
@@ -60,5 +68,5 @@ res
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }

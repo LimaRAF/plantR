@@ -1,49 +1,55 @@
 #' @title Merge Duplicate Information
 #'
-#' @description This function homogenize the information of different groups of
-#'   fields (e.g. taxonomic, geographic or locality) for groups of duplicate
-#'   specimens.
+#' @description This function homogenize the information of different
+#'   groups of fields (e.g. taxonomic, geographic or locality) for
+#'   groups of duplicate specimens.
 #'
 #' @param dups the input data frame.
-#' @param dup.name character. The name of column in the input data frame with
-#'   the duplicate group ID. Default to the __plantR__ output 'dup.ID'.
-#' @param prop.name character. The name of column in the input data frame with
-#'   the proportion of duplicates found within the group ID. Default to the
-#'   __plantR__ output 'dup.prop'.
-#' @param prop numerical. The threshold value of proportion of duplicated values
-#'   retrieved (i.e. dup.prop) to enter the merging routine. Should be between
-#'   zero and one. Default to 0.75.
-#' @param rec.ID character. The name of the columns containing the unique record
-#'   identifier (see function `getTombo()`). Default to 'numTombo'.
-#' @param info2merge Vector. The groups of information (i.e. fields) to be
-#'   merged. Currently, only taxonomic ('tax'), geographic ('geo') and/or
-#'   locality ('loc') information can be merged. Default to merge all of them.
-#' @param tax.names Vector. A named vector containing the names of columns in
-#'   the input data frame with the taxonomic information to be merged.
-#' @param geo.names Vector. A named vector containing the names of columns in
-#'   the input data frame with the geographical information to be merged.
-#' @param loc.names Vector. A named vector containing the names of columns in
-#'   the input data frame with the locality information to be merged.
-#' @param tax.level character. A vector with the confidence level of the
-#'   identification that should be considered in the merge of taxonomic
-#'   information. Default to "high".
-#' @param overwrite logical. Should the merged information be overwritten or
-#'   stored in separate, new columns. Default to FALSE (new columns are
-#'   created).
+#' @param dup.name character. The name of column in the input data
+#'   frame with the duplicate group ID. Default to the __plantR__
+#'   output 'dup.ID'.
+#' @param prop.name character. The name of column in the input data
+#'   frame with the proportion of duplicates found within the group
+#'   ID. Default to the __plantR__ output 'dup.prop'.
+#' @param prop numerical. The threshold value of proportion of
+#'   duplicated values retrieved (i.e. dup.prop) to enter the merging
+#'   routine. Should be between zero and one. Default to 0.75.
+#' @param rec.ID character. The name of the columns containing the
+#'   unique record identifier (see function `getTombo()`). Default to
+#'   'numTombo'.
+#' @param info2merge Vector. The groups of information (i.e. fields)
+#'   to be merged. Currently, only taxonomic ('tax'), geographic
+#'   ('geo') and/or locality ('loc') information can be merged.
+#'   Default to merge all of them.
+#' @param tax.names Vector. A named vector containing the names of
+#'   columns in the input data frame with the taxonomic information to
+#'   be merged.
+#' @param geo.names Vector. A named vector containing the names of
+#'   columns in the input data frame with the geographical information
+#'   to be merged.
+#' @param loc.names Vector. A named vector containing the names of
+#'   columns in the input data frame with the locality information to
+#'   be merged.
+#' @param tax.level character. A vector with the confidence level of
+#'   the identification that should be considered in the merge of
+#'   taxonomic information. Default to "high".
+#' @param overwrite logical. Should the merged information be
+#'   overwritten or stored in separate, new columns. Default to FALSE
+#'   (new columns are created).
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
-#' @details
-#'   The homogenization of the information within groups of duplicates depends
-#'   on the existence of some fields in the input data frame, which result from
-#'   the __plantR__ workflow. The first essential field is the duplicate group
-#'   identifiers, which is used to aggregate the records (see functions
-#'   `prepDup()` and `getDup()`). The name of the column with these identifiers
-#'   must be provided to the argument `dup.name` (default to 'dup.ID'). Other
-#'   essential fields depend on the type of merge desired (argument
-#'   `info2merge`), a different set of columns names are needed. These names
-#'   should be provided to the arguments `tax.names`, `geo.names`, and
-#'   `loc.names`.
+#' @details The homogenization of the information within groups of
+#' duplicates depends on the existence of some fields in the input
+#' data frame, which result from the __plantR__ workflow. The first
+#' essential field is the duplicate group identifiers, which is used
+#' to aggregate the records (see functions `prepDup()` and
+#' `getDup()`). The name of the column with these identifiers must be
+#' provided to the argument `dup.name` (default to 'dup.ID'). Other
+#' essential fields depend on the type of merge desired (argument
+#' `info2merge`), a different set of columns names are needed. These
+#' names should be provided to the arguments `tax.names`, `geo.names`,
+#' and `loc.names`.
 #'
 #'   For the merge of taxonomic information, the fields required by
 #'   `tax.names` are:
@@ -65,8 +71,8 @@
 #'   - 'geo.check': the result of the geo. coordinate validation (default:
 #'   'geo.check')
 #'
-#'   For the merge of locality information, the fields required by `loc.names`
-#'   are:
+#'   For the merge of locality information, the fields required by
+#'   `loc.names` are:
 #'   - 'loc.str': the locality search string (default: 'loc.correct')
 #'   - 'res.gazet': the resolution of the gazetteer coordinates (default:
 #'   'resolution.gazetteer')
@@ -74,56 +80,69 @@
 #'   'resol.orig')
 #'   - 'loc.check': the result of the locality validation (default: 'loc.check')
 #'
-#'  For all groups of information (i.e. taxonomic, geographic and locality), the
-#'  merging process consists in ordering the the information available for each
-#'  group of duplicates from the best to the worst quality/resolution available.
-#'  The best information available is then expanded for all records of the group
-#'  of duplicates. The argument `prop` defines the duplicated proportion (given
-#'  by `prop.name`) that should be used as a threshold. Only records with
-#'  duplicated proportions above this threshold will be merged. For all other
-#'  records, the output will be the same as the input. If no column `prop.name`
-#'  is found in the input data, merge is performed for all records, with a
-#'  warning.
+#'  For all groups of information (i.e. taxonomic, geographic and
+#'  locality), the merging process consists in ordering the the
+#'  information available for each group of duplicates from the best
+#'  to the worst quality/resolution available. The best information
+#'  available is then expanded for all records of the group of
+#'  duplicates. The argument `prop` defines the duplicated proportion
+#'  (given by `prop.name`) that should be used as a threshold. Only
+#'  records with duplicated proportions above this threshold will be
+#'  merged. For all other records, the output will be the same as the
+#'  input. If no column `prop.name` is found in the input data, merge
+#'  is performed for all records, with a warning.
 #'
-#'  For the merge of taxonomic information, the specimen(s) with the highest
-#'  confidence level of the identification is used as the standard, from which
-#'  the taxonomic information is expanded to other specimens within the same
-#'  group of duplicates. By default, `mergeDup()` uses specimens flagged as
-#'  having a 'high' confidence level.
+#'  For the merge of taxonomic information, the specimen(s) with the
+#'  highest confidence level of the identification is used as the
+#'  standard, from which the taxonomic information is expanded to
+#'  other specimens within the same group of duplicates. By default,
+#'  `mergeDup()` uses specimens flagged as having a 'high' confidence
+#'  level.
 #'
-#'  In the case of conflicting species identification among specialists for the
-#'  same group of duplicates, the most recent identification is assumed as the
-#'  most up-to-date one. Note that if the year of identification is missing from
-#'  one or more records, the corresponding identifications of these records are
-#'  not taken into account while trying to assign the most up-to-date
+#'  In the case of conflicting species identification among
+#'  specialists for the same group of duplicates, the most recent
+#'  identification is assumed as the most up-to-date one. Note that if
+#'  the year of identification is missing from one or more records,
+#'  the corresponding identifications of these records are not taken
+#'  into account while trying to assign the most up-to-date
 #'  identification for a group of duplicates.
 #'
-#'  For the merge of geographical information, specimens are ordered according
-#'  to the result of their geographical validation (i.e. field 'geo.check') and
-#'  the resolutions of the original geographical coordinates. Thus, for each
-#'  group of duplicates the specimen whose coordinates were validated at the
-#'  best level (e.g. 'ok_county') is used to expand the information for the
-#'  specimens validate at lower levels (e.g. state or country levels).
+#'  For the merge of geographical information, specimens are ordered
+#'  according to the result of their geographical validation (i.e.
+#'  field 'geo.check') and the resolutions of the original
+#'  geographical coordinates. Thus, for each group of duplicates the
+#'  specimen whose coordinates were validated at the best level (e.g.
+#'  'ok_county') is used to expand the information for the specimens
+#'  validate at lower levels (e.g. state or country levels).
 #'
-#'  A similar procedure is performed to merge the information regarding the
-#'  locality description. Specimens are ordered according to the result of their
-#'  locality validation (i.e. field 'loc.check'), and the one ranked best within
-#'  the group of duplicates (e.g. 'ok_municip.2locality') is the one used as the
+#'  A similar procedure is performed to merge the information
+#'  regarding the locality description. Specimens are ordered
+#'  according to the result of their locality validation (i.e. field
+#'  'loc.check'), and the one ranked best within the group of
+#'  duplicates (e.g. 'ok_municip.2locality') is the one used as the
 #'  standard.
 #'
-#'  For the merge of taxonomic, geographic and locality information, the
-#'  specimens used as references of the best information available for each
-#'  group of duplicate are stored in the columns 'ref.spec.tax', 'ref.spec.geo'
-#'  and 'ref.spec.loc', respectively. The merge of collector information (i.e.
-#'  collector name, number and year) is predicted, but not yet implemented in
-#'  the current version of the package.
+#'  For the merge of taxonomic, geographic and locality information,
+#'  the specimens used as references of the best information available
+#'  for each group of duplicate are stored in the columns
+#'  'ref.spec.tax', 'ref.spec.geo' and 'ref.spec.loc', respectively.
+#'  The merge of collector information (i.e. collector name, number
+#'  and year) is predicted, but not yet implemented in the current
+#'  version of the package.
 #'
-#' @return If `overwrite == FALSE`, the function returns the input data frame
-#'   \code{dups} and the new columns containing the homogenized information.
-#'   The names of these columns are the same of the previous one but with an
-#'   added suffix '1'. If `overwrite == TRUE`, the homogenized information is
-#'   saved on the same columns of the input data and the names of the columns
-#'   remain the same.
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
+#'
+#' @return If `overwrite == FALSE`, the function returns the input
+#'   data frame \code{dups} and the new columns containing the
+#'   homogenized information. The names of these columns are the same
+#'   of the previous one but with an added suffix '1'. If `overwrite
+#'   == TRUE`, the homogenized information is saved on the same
+#'   columns of the input data and the names of the columns remain the
+#'   same.
 #'
 #' @examples
 #' #An example for the merge of taxonomic information only
@@ -162,10 +181,13 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
                      info2merge = c("tax", "geo", "loc"),
                      tax.names = c(family = "family.new",
                                    species = "scientificName.new",
+                                   tax.auth = "scientificNameAuthorship.new",
                                    det.name = "identifiedBy.new",
                                    det.year = "yearIdentified.new",
                                    tax.check = "tax.check",
-                                   status = "scientificNameStatus"),
+                                   tax.rank = "taxon.rank",
+                                   status = "scientificNameStatus",
+                                   id = "id"),
                      geo.names = c(lat = "decimalLatitude.new",
                                    lon = "decimalLongitude.new",
                                    org.coord = "origin.coord",

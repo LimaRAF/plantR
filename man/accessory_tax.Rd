@@ -47,7 +47,9 @@ ranks, open nomenclature or hybrid symbols into scientific names.
 For this function if the number of ranks is equal to the number
 of names provided each rank is assigned to the corresponding
 name. If the number of ranks is different, the function silently
-uses the first rank for all names.
+uses the first rank for all names. The function always adds the
+rank between the last two names, independently if the name is a
+binomial, trinomial or quadrinomial.
 }
 \examples{
 \dontrun{
@@ -78,6 +80,6 @@ addRank(c("Lindsaea lancea", "Lindsaea lancea angulata",
 \link[plantR]{fixCase}.
 }
 \author{
-Sara Mortara & Renato A. F. de Lima
+Sara Mortara & Renato A. Ferreira de Lima
 }
 \keyword{internal}

@@ -1,12 +1,13 @@
 "dwc","low_dwc","definition","plantr","type","bien","speciesLink","gbif"
 "type","type","The nature or genre of the resource.","type","optional",NA,NA,"type"
-"modified","modified","The most recent date-time on which the resource was changed.",NA,NA,NA,NA,"modified"
+"modified","modified","Date on which the resource was changed.",NA,NA,NA,NA,"modified"
 "language","language","A language of the resource.",NA,NA,NA,NA,"language"
 "license","license","A legal document giving official permission to do something with the resource.",NA,NA,NA,NA,"license"
 "rightsHolder","rightsholder","A person or organization owning or managing rights over the resource.",NA,NA,NA,NA,"rightsHolder"
 "accessRights","accessrights","Information about who can access the resource or an indication of its security status.",NA,NA,NA,NA,"accessRights"
 "bibliographicCitation","bibliographiccitation","A bibliographic reference for the resource.","bibliographicCitation","optional",NA,NA,"bibliographicCitation"
 "references","references","A related resource that is referenced, cited, or otherwise pointed to by the described resource.",NA,NA,NA,NA,"references"
+"feedbackURL","feedbackurl","A uniform resource locator (URL) that points to a webpage on which a form may be submitted to gather feedback about the record.",NA,NA,NA,NA,NA
 "institutionID","institutionid","An identifier for the institution having custody of the object(s) or information referred to in the record.",NA,NA,NA,NA,"institutionID"
 "collectionID","collectionid","An identifier for the collection or dataset from which the record was derived.","collectionID","optional",NA,"collectionid","collectionID"
 "datasetID","datasetid","An identifier for the set of data. May be a global unique identifier or an identifier specific to a collection or institution.","datasetID","optional","datasource_id",NA,"datasetID"
@@ -41,18 +42,22 @@
 "associatedMedia","associatedmedia","A list (concatenated and separated) of identifiers (publication, global unique identifier, URI) of media associated with the dwc:Occurrence.",NA,NA,NA,NA,NA
 "associatedOccurrences","associatedoccurrences","A list (concatenated and separated) of identifiers of other dwc:Occurrence records and their associations to this dwc:Occurrence.",NA,NA,NA,NA,"associatedOccurrences"
 "associatedReferences","associatedreferences","A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the dwc:Occurrence.",NA,NA,NA,NA,"associatedReferences"
-"associatedTaxa","associatedtaxa","A list (concatenated and separated) of identifiers or names of dwc:Taxon records and the associations of this dwc:Occurrence to each of them.",NA,NA,NA,NA,"associatedTaxa"
+"associatedTaxa","associatedtaxa","A list (concatenated and separated) of identifiers or names of dwc:Taxon records and the associations of this dwc:Occurrence to each of them.",NA,NA,NA,NA,NA
 "otherCatalogNumbers","othercatalognumbers","A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same dwc:Occurrence, whether in the current or any other data set or collection.",NA,NA,NA,NA,"otherCatalogNumbers"
 "occurrenceRemarks","occurrenceremarks","Comments or notes about the dwc:Occurrence.","occurrenceRemarks","optional",NA,"occurrenceremarks","occurrenceRemarks"
 "Organism","organism","A particular organism or defined group of organisms considered to be taxonomically homogeneous.",NA,NA,NA,NA,NA
 "organismID","organismid","An identifier for the dwc:Organism instance (as opposed to a particular digital record of the dwc:Organism). May be a globally unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"organismID"
 "organismName","organismname","A textual name or label assigned to a dwc:Organism instance.",NA,NA,NA,NA,"organismName"
 "organismScope","organismscope","A description of the kind of dwc:Organism instance. Can be used to indicate whether the dwc:Organism instance represents a discrete organism or if it represents a particular type of aggregation.",NA,NA,NA,NA,"organismScope"
+"causeOfDeath","causeofdeath","An indication of the known or suspected cause of death of a dwc:Organism.",NA,NA,NA,NA,NA
 "associatedOrganisms","associatedorganisms","A list (concatenated and separated) of identifiers of other dwc:Organisms and the associations of this dwc:Organism to each of them.",NA,NA,NA,NA,NA
 "previousIdentifications","previousidentifications","A list (concatenated and separated) of previous assignments of names to the dwc:Organism.",NA,NA,NA,NA,"previousIdentifications"
 "organismRemarks","organismremarks","Comments or notes about the dwc:Organism instance.",NA,NA,NA,NA,"organismRemarks"
 "MaterialEntity","materialentity","An entity that can be identified, exists for some period of time, and consists in whole or in part of physical matter while it exists.",NA,NA,NA,NA,NA
-"materialEntityID","materialentityid","An identifier for a particular instance of a dwc:MaterialEntity.",NA,NA,NA,NA,NA
+"materialEntityID","materialentityid","An identifier for a particular instance of a dwc:MaterialEntity.",NA,NA,NA,NA,"materialEntityID"
+"digitalSpecimenID","digitalspecimenid","An identifier for a particular instance of a Digital Specimen.",NA,NA,NA,NA,NA
+"materialEntityType","materialentitytype","A category that best matches the nature of a dwc:MaterialEntity.",NA,NA,NA,NA,NA
+"discipline","discipline","The primary branch or branches of knowledge represented by the record.",NA,NA,NA,NA,NA
 "preparations","preparations","A list (concatenated and separated) of preparations and preservation methods for a dwc:MaterialEntity.",NA,NA,NA,NA,"preparations"
 "disposition","disposition","The current state of a dwc:MaterialEntity with respect to a collection.",NA,NA,NA,NA,"disposition"
 "verbatimLabel","verbatimlabel","The content of this term should include no embellishments, prefixes, headers or other additions made to the text. Abbreviations must not be expanded and supposed misspellings must not be corrected. Lines or breakpoints between blocks of text that could be verified by seeing the original labels or images of them may be used. Examples of material entities include preserved specimens, fossil specimens, and material samples. Best practice is to use UTF-8 for all characters. Best practice is to add comment “verbatimLabel derived from human transcription” in dwc:occurrenceRemarks.",NA,NA,NA,NA,"verbatimLabel"
@@ -65,6 +70,10 @@
 "parentEventID","parenteventid","An identifier for the broader dwc:Event that groups this and potentially other dwc:Events.",NA,NA,NA,NA,"parentEventID"
 "eventType","eventtype","The nature of the dwc:Event.",NA,NA,NA,NA,"eventType"
 "fieldNumber","fieldnumber","An identifier given to the dwc:Event in the field. Often serves as a link between field notes and the dwc:Event.",NA,NA,NA,NA,"fieldNumber"
+"projectTitle","projecttitle","A list (concatenated and separated) of titles or names for projects that contributed to a dwc:Event.",NA,NA,NA,NA,NA
+"projectID","projectid","A list (concatenated and separated) of identifiers for projects that contributed to a dwc:Event.",NA,NA,NA,NA,"projectId"
+"fundingAttribution","fundingattribution","Text description of organizations or individuals who funded the creation of the resource.",NA,NA,NA,NA,NA
+"fundingAttributionID","fundingattributionid","A list (concatenated and separated) of the globally unique identifiers for the funding organizations or agencies that supported the project.",NA,NA,NA,NA,NA
 "eventDate","eventdate","The date-time or interval during which a dwc:Event occurred. For occurrences, this is the date-time when the dwc:Event was recorded. Not suitable for a time in a geological context.","eventDate","optional","date_collected",NA,"eventDate"
 "eventTime","eventtime","The time or interval during which a dwc:Event occurred.",NA,NA,NA,NA,"eventTime"
 "startDayOfYear","startdayofyear","The earliest integer day of the year on which the dwc:Event occurred (1 for January 1, 365 for December 31, except in a leap year, in which case it is 366).",NA,NA,NA,NA,"startDayOfYear"
@@ -124,7 +133,7 @@
 "georeferencedDate","georeferenceddate","The date on which the dcterms:Location was georeferenced.",NA,NA,NA,NA,"georeferencedDate"
 "georeferenceProtocol","georeferenceprotocol","A description or reference to the methods used to determine the spatial footprint, coordinates, and uncertainties.",NA,NA,NA,NA,"georeferenceProtocol"
 "georeferenceSources","georeferencesources","A list (concatenated and separated) of maps, gazetteers, or other resources used to georeference the dcterms:Location, described specifically enough to allow anyone in the future to use the same resources.",NA,NA,NA,NA,"georeferenceSources"
-"georeferenceRemarks","georeferenceremarks","Notes or comments about the spatial description determination, explaining assumptions made in addition or opposition to the those formalized in the method referred to in dwc:georeferenceProtocol.",NA,NA,NA,NA,"georeferenceRemarks"
+"georeferenceRemarks","georeferenceremarks","Comments or notes about the spatial description determination, explaining assumptions made in addition or opposition to the those formalized in the method referred to in dwc:georeferenceProtocol.",NA,NA,NA,NA,"georeferenceRemarks"
 "GeologicalContext","geologicalcontext","Geological information, such as stratigraphy, that qualifies a region or place.",NA,NA,NA,NA,NA
 "geologicalContextID","geologicalcontextid","An identifier for the set of information associated with a dwc:GeologicalContext (the location within a geological context, such as stratigraphy). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,NA
 "earliestEonOrLowestEonothem","earliesteonorlowesteonothem","The full name of the earliest possible geochronologic eon or lowest chrono-stratigraphic eonothem or the informal name (""Precambrian"") attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
@@ -139,7 +148,7 @@
 "latestAgeOrHighestStage","latestageorhigheststage","The full name of the latest possible geochronologic age or highest chronostratigraphic stage attributable to the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "lowestBiostratigraphicZone","lowestbiostratigraphiczone","The full name of the lowest possible geological biostratigraphic zone of the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "highestBiostratigraphicZone","highestbiostratigraphiczone","The full name of the highest possible geological biostratigraphic zone of the stratigraphic horizon from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
-"lithostratigraphicTerms","lithostratigraphicterms","The combination of all litho-stratigraphic names for the rock from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
+"lithostratigraphicTerms","lithostratigraphicterms","The combination of all lithostratigraphic names for the rock from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "group","group","The full name of the lithostratigraphic group from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "formation","formation","The full name of the lithostratigraphic formation from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "member","member","The full name of the lithostratigraphic member from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
@@ -149,6 +158,7 @@
 "verbatimIdentification","verbatimidentification","A string representing the taxonomic identification as it appeared in the original record.",NA,NA,NA,NA,"verbatimIdentification"
 "identificationQualifier","identificationqualifier","A brief phrase or a standard term (""cf."", ""aff."") to express the determiner's doubts about the dwc:Identification.",NA,NA,NA,NA,"identificationQualifier"
 "typeStatus","typestatus","A list (concatenated and separated) of nomenclatural types (type status, typified scientific name, publication) applied to the subject.","typeStatus","required",NA,"typestatus","typeStatus"
+"typifiedName","typifiedname","A scientific name that is based on a type specimen.",NA,NA,NA,NA,"typifiedName"
 "identifiedBy","identifiedby","A list (concatenated and separated) of names of people, groups, or organizations who assigned the dwc:Taxon to the subject.","identifiedBy","required","identified_by","identifiedby","identifiedBy"
 "identifiedByID","identifiedbyid","A list (concatenated and separated) of the globally unique identifier for the person, people, groups, or organizations responsible for assigning the dwc:Taxon to the subject.",NA,NA,NA,NA,NA
 "dateIdentified","dateidentified","The date on which the subject was determined as representing the dwc:Taxon.","dateIdentified","required","date_identified",NA,"dateIdentified"
@@ -174,8 +184,8 @@
 "higherClassification","higherclassification","A list (concatenated and separated) of taxa names terminating at the rank immediately superior to the referenced dwc:Taxon.",NA,NA,"higher_plant_group",NA,"higherClassification"
 "kingdom","kingdom","The full scientific name of the kingdom in which the dwc:Taxon is classified.",NA,NA,NA,NA,"kingdom"
 "phylum","phylum","The full scientific name of the phylum or division in which the dwc:Taxon is classified.",NA,NA,NA,NA,"phylum"
-"class","class","The full scientific name of the class in which the dwc:Taxon is classified.",NA,NA,NA,NA,"class"
-"order","order","The full scientific name of the order in which the dwc:Taxon is classified.",NA,NA,NA,NA,"order"
+"class","class","The full scientific name of the class in which the dwc:Taxon is classified.","class","optional",NA,"class","class"
+"order","order","The full scientific name of the order in which the dwc:Taxon is classified.","order","optional",NA,"order","order"
 "superfamily","superfamily","The full scientific name of the superfamily in which the dwc:Taxon is classified.",NA,NA,NA,NA,NA
 "family","family","The full scientific name of the family in which the dwc:Taxon is classified.","family","required","family_matched","family","family"
 "subfamily","subfamily","The full scientific name of the subfamily in which the dwc:Taxon is classified.",NA,NA,NA,NA,NA
@@ -183,7 +193,7 @@
 "subtribe","subtribe","The full scientific name of the subtribe in which the dwc:Taxon is classified.",NA,NA,NA,NA,NA
 "genus","genus","The full scientific name of the genus in which the dwc:Taxon is classified.","genus","optional","scrubbed_genus","genus","genus"
 "genericName","genericname","The genus part of the dwc:scientificName without authorship.",NA,NA,NA,NA,"genericName"
-"subgenus","subgenus","The full scientific name of the subgenus in which the dwc:Taxon is classified. Values should include the genus to avoid homonym confusion.",NA,NA,NA,NA,NA
+"subgenus","subgenus","The full scientific name of the subgenus in which the dwc:Taxon is classified.",NA,NA,NA,NA,NA
 "infragenericEpithet","infragenericepithet","The infrageneric part of a binomial name at ranks above species but below genus.",NA,NA,NA,NA,NA
 "specificEpithet","specificepithet","The name of the first or species epithet of the dwc:scientificName.",NA,NA,NA,NA,"specificEpithet"
 "infraspecificEpithet","infraspecificepithet","The name of the lowest or terminal infraspecific epithet of the dwc:scientificName, excluding any rank designation.",NA,NA,NA,NA,"infraspecificEpithet"
@@ -200,6 +210,7 @@
 "measurementID","measurementid","An identifier for the dwc:MeasurementOrFact (information pertaining to measurements, facts, characteristics, or assertions). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,NA
 "parentMeasurementID","parentmeasurementid","An identifier for a broader dwc:MeasurementOrFact that groups this and potentially other dwc:MeasurementOrFacts.",NA,NA,NA,NA,NA
 "measurementType","measurementtype","The nature of the measurement, fact, characteristic, or assertion.",NA,NA,NA,NA,NA
+"verbatimMeasurementType","verbatimmeasurementtype","A string representing the type of measurement or fact as it appeared in the original record.",NA,NA,NA,NA,NA
 "measurementValue","measurementvalue","The value of the measurement, fact, characteristic, or assertion.",NA,NA,NA,NA,NA
 "measurementAccuracy","measurementaccuracy","The description of the potential error associated with the dwc:measurementValue.",NA,NA,NA,NA,NA
 "measurementUnit","measurementunit","The units associated with the dwc:measurementValue.",NA,NA,NA,NA,NA
@@ -216,13 +227,14 @@
 "relationshipAccordingTo","relationshipaccordingto","The source (person, organization, publication, reference) establishing the relationship between the two resources.",NA,NA,NA,NA,NA
 "relationshipEstablishedDate","relationshipestablisheddate","The date-time on which the relationship between the two resources was established.",NA,NA,NA,NA,NA
 "relationshipRemarks","relationshipremarks","Comments or notes about the relationship between the two resources.",NA,NA,NA,NA,NA
-"inDescribedPlace","indescribedplace","Use to link a dcterms:Location instance subject to the lowest level standardized hierarchically-described resource.",NA,NA,NA,NA,NA
-"toTaxon","totaxon","Use to link a dwc:Identification instance subject to a taxonomic entity such as a taxon, taxon concept, or taxon name use.",NA,NA,NA,NA,NA
-"inCollection","incollection","Use to link any subject resource that is part of a collection to the collection containing the resource.",NA,NA,NA,NA,NA
 "earliestGeochronologicalEra","earliestgeochronologicalera","Use to link a dwc:GeologicalContext instance to chronostratigraphic time periods at the lowest possible level in a standardized hierarchy. Use this property to point to the earliest possible geological time period from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
 "fromLithostratigraphicUnit","fromlithostratigraphicunit","Use to link a dwc:GeologicalContext instance to an IRI-identified lithostratigraphic unit at the lowest possible level in a hierarchy.",NA,NA,NA,NA,NA
+"inCollection","incollection","Use to link any subject resource that is part of a collection to the collection containing the resource.",NA,NA,NA,NA,NA
 "inDataset","indataset","Use to link a subject dataset record to the dataset which contains it.",NA,NA,NA,NA,NA
+"inDescribedPlace","indescribedplace","Use to link a dcterms:Location instance subject to the lowest level standardized hierarchically-described resource.",NA,NA,NA,NA,NA
 "latestGeochronologicalEra","latestgeochronologicalera","Use to link a dwc:GeologicalContext instance to chronostratigraphic time periods at the lowest possible level in a standardized hierarchy. Use this property to point to the latest possible geological time period from which the dwc:MaterialEntity was collected.",NA,NA,NA,NA,NA
+"toDigitalSpecimen","todigitalspecimen","Use to link a dwc:Identification instance subject to a taxonomic entity such as a taxon, taxon concept, or taxon name use.",NA,NA,NA,NA,NA
+"toTaxon","totaxon","Use to link a dwc:Identification instance subject to a taxonomic entity such as a taxon, taxon concept, or taxon name use.",NA,NA,NA,NA,NA
 "LivingSpecimen","livingspecimen","A specimen that is alive.",NA,NA,NA,NA,NA
 "PreservedSpecimen","preservedspecimen","A specimen that has been preserved.",NA,NA,NA,NA,NA
 "FossilSpecimen","fossilspecimen","A preserved specimen that is a fossil.",NA,NA,NA,NA,NA

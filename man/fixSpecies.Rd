@@ -70,9 +70,9 @@ infra-specific, but no infra-specific rank}
 \item{\code{conferre}}{open nomenclature cf. in the scientific name}
 \item{\code{affinis}}{open nomenclature aff. in the scientific name}
 \item{\code{indet}}{taxon identified only at genus level}
-\item{\code{subfamily_as_genus}}{subfamily as genus, not a valid name}
-\item{\code{family_as_genus}}{family as genus, not a valid name}
-\item{\code{order_as_genus}}{order as genus, not a valid name}
+\item{\code{(sub)family_as_genus}}{subfamily or family as genus, not a species-level name}
+\item{\code{family_as_genus}}{family as genus, not a species-level name}
+\item{\code{order_as_genus}}{order as genus, not a species-level name}
 \item{\code{incertae_sedis}}{scientific name of uncertain placement}
 \item{\code{species_nova}}{species name contains an indication of a new
 species, possibly not yet a valid name}
@@ -82,10 +82,13 @@ species, possibly not yet a valid name}
 valid name}
 \item{\code{abbreviated_genus}}{genus is abbreviated}
 \item{\code{name_w_digits}}{scientific name has digits} }
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
-
-# Two last names are examples for which the function cannot handle yet.
 
 df <- data.frame(scientificName =
 c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
@@ -99,7 +102,7 @@ c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
 "Blechnum occidentale leopoldense Dutra",
 "Blechnum austrobrasilianum de la Sota",
 "Urbanodendron Mez",
-"Arabidopsis thaliana × Arabidopsis arenosa"))
+"Arabidopsis thaliana × Arabidopsis arenosa")) # This names function cannot handle yet
 
 fixSpecies(df)
 fixSpecies(df, rm.rank = TRUE)

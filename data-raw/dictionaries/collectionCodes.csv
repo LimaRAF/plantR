@@ -16,7 +16,7 @@ University of Michigan_AFS,University of Michigan,AFS,AFS,American Fern Society 
 DAO_Agriculture &#38; Agri-Food Canada,DAO,Agriculture &#38; Agri-Food Canada,DAO,Agriculture and Agri-Food Canada,NA
 AK_AK,AK,AK,AK,Auckland War Memorial Museum,NA
 vs_AKPM,vs,AKPM,AKPM,Akita Prefectural Museum,NA
-ALB_ALB,ALB,ALB,EURISCO,NA,ex_situ_collection
+ALB_ALB,ALB,ALB,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_ALCB,HERB,ALCB,ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
 ALF_ALF,ALF,ALF,ALF,CIRAD,NA
 BAMBO_ANDUZE,BAMBO,ANDUZE,BAMBO,NA,not in IH
@@ -28,7 +28,7 @@ PI-IABIN_APN-AR,PI-IABIN,APN-AR,PI-IABIN,NA,not in IH
 Pl_AQP,Pl,AQP,AQP,Estudios Fitogeográficos del Perú,NA
 Aran_ARAN,Aran,ARAN,ARAN,Aranzadi Zientzia Elkartea/Sociedad de Ciencias Aranzadi,NA
 HERB_ARIZ,HERB,ARIZ,ARIZ,University of Arizona,NA
-ARM_ARM,ARM,ARM,EURISCO,NA,ex_situ_collection
+ARM_ARM,ARM,ARM,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_AS,HERB,AS,AS,Jardín Botánico,NA
 Jardin Botanico_AS,Jardin Botanico,AS,AS,Jardín Botánico,NA
 Jardín Botánico_AS,Jardín Botánico,AS,AS,Jardín Botánico,NA
@@ -36,9 +36,9 @@ Arizona State University_ASU,Arizona State University,ASU,ASU,Arizona State Univ
 ASU_ASU,ASU,ASU,ASU,Arizona State University,NA
 ASUPlants_ASU,ASUPlants,ASU,ASU,Arizona State University,NA
 HERB_ASU,HERB,ASU,ASU,Arizona State University,NA
-AUT_AUT,AUT,AUT,EURISCO,NA,ex_situ_collection
+AUT_AUT,AUT,AUT,EURISCO,NA,not in IH (ex_situ_collection)
 AV_AV,AV,AV,AV,Muséum Requien,NA
-AZE_AZE,AZE,AZE,EURISCO,NA,ex_situ_collection
+AZE_AZE,AZE,AZE,EURISCO,NA,not in IH (ex_situ_collection)
 Blettaucoll_B,Blettaucoll,B,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
 "Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universitat Berlin_B","Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universitat Berlin",B,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
 "Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin_B","Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",B,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
@@ -75,27 +75,27 @@ Tracheophyta_BDCJ,Tracheophyta,BDCJ,BDCJ,Biodiversity Center of Japan,not in IH
 BESA_BESA,BESA,BESA,BESA,Muséum d'Histoire naturelle de Besançon,NA
 RBHw_BFH,RBHw,BFH,RBHw,"Federal Research Institute for Rural Areas, Forestry and Fisheries)",xylarium|not in IH
 BFLportal01coll_BFL,BFLportal01coll,BFL,BFL,NA,not in IH (flora)
-CHITw_BFRI,CHITw,BFRI,CHITw,Bangladesh Forest Research Institute,xylarium
+CHITw_BFRI,CHITw,BFRI,CHITw,Bangladesh Forest Research Institute,xylarium|not in IH
 S_BG,S,BG,BG,University of Bergen,CHECK
 Herbarium Berolinense_BGBM,Herbarium Berolinense,BGBM,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
 NK_Bilsa_BGBM,NK_Bilsa,BGBM,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
 NK_Otonga_BGBM,NK_Otonga,BGBM,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
 UM05_BGBM,UM05,BGBM,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
-BGR_BGR,BGR,BGR,EURISCO,NA,ex_situ_collection
+BGR_BGR,BGR,BGR,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_BH,HERB,BH,BH,Cornell University,NA
 "Belo Horizonte, Herbario_BHCB","Belo Horizonte, Herbario",BHCB,BHCB,Universidade Federal de Minas Gerais,NA
 "Belo Horizonte, Herbârio_BHCB","Belo Horizonte, Herbârio",BHCB,BHCB,Universidade Federal de Minas Gerais,NA
 HERB_BHCB,HERB,BHCB,BHCB,Universidade Federal de Minas Gerais,NA
 LIMO_BIBLIMO,LIMO,BIBLIMO,LIMO,Université de Limoges,NA
 FBIGA_BIGA,FBIGA,BIGA,LOU,AGACAL. Xunta de Galicia,NA
-BIHM_BIHM,7,BIHM,BIHM,NA,not in IH
+BIHM_BIHM,7.0,BIHM,BIHM,Bihoro Museum,NA
 BIO_BIO,BIO,BIO,BIO,University of the Basque Country (UPV/EHU),NA
 WIKILIG_BIO-UNIPI,WIKILIG,BIO-UNIPI,PI,Università di Pisa,NA
 WIKISAR_BIO-UNIPI,WIKISAR,BIO-UNIPI,PI,Università di Pisa,NA
 WIKITOS_BIO-UNIPI,WIKITOS,BIO-UNIPI,PI,Università di Pisa,NA
 OAC_Biodiversity Institute of Ontario,OAC,Biodiversity Institute of Ontario,OAC,University of Guelph,NA
 BSC_BIOECO,BSC,BIOECO,BSC,Centro Oriental de Ecosistemas y Biodiversidad,NA
-BLR_BLR,BLR,BLR,EURISCO,NA,ex_situ_collection
+BLR_BLR,BLR,BLR,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_BM,HERB,BM,BM,The Natural History Museum,NA
 The Natural History Museum_BM,The Natural History Museum,BM,BM,The Natural History Museum,NA
 OHN_BMO,OHN,BMO,OHN,"Biological Museum, Oskarshamn",NA
@@ -151,7 +151,7 @@ Universidade Federal de Juiz de Fora_CESJ,Universidade Federal de Juiz de Fora,C
 CETI_CETI,CETI,CETI,CETI,NA,not in IH
 NO DISPONIBLE_CFS,NO DISPONIBLE,CFS,CFS,NA,not in IH
 HERB_CHAM,HERB,CHAM,CHAM,"I.N.T.A., E.E.A. La Rioja",NA
-CHE_CHE,CHE,CHE,EURISCO,NA,ex_situ_collection
+CHE_CHE,CHE,CHE,EURISCO,NA,not in IH (ex_situ_collection)
 CHR_CHR,CHR,CHR,CHR,Manaaki Whenua - Landcare Research,NA
 HERB_CHR,HERB,CHR,CHR,Manaaki Whenua - Landcare Research,NA
 VascularPlants_CHSC,VascularPlants,CHSC,CHSC,"California State University, Chico",NA
@@ -222,18 +222,18 @@ HERB_CTESN,HERB,CTESN,CTESN,Universidad Nacional del Nordeste,NA
 BH_CU,BH,CU,CU,Cornell University,NA
 DMCyP_CUCEI-UDG,DMCyP,CUCEI-UDG,DMCyP,NA,not in IH
 HERB_CUVC,HERB,CUVC,CUVC,Universidad del Valle,NA
-CZE_CZE,CZE,CZE,EURISCO,NA,ex_situ_collection
+CZE_CZE,CZE,CZE,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_DAO,HERB,DAO,DAO,Agriculture and Agri-Food Canada,NA
 Herbarium_DAV,Herbarium,DAV,DAV,"University of California, Davis",NA
 University of California_DAV,University of California,DAV,DAV,"University of California, Davis",NA
 AtlasFloraDanica_DBF-NHMD,AtlasFloraDanica,DBF-NHMD,AtlasFloraDanica,NA,not in IH (flora)
 KHD_NA,KHD,NA,KHD,Denver Botanic Gardens,NA
 HERB_DBN,HERB,DBN,DBN,National Botanic Gardens,NA
-DEU_DEU,DEU,DEU,EURISCO,NA,ex_situ_collection
+DEU_DEU,DEU,DEU,EURISCO,NA,not in IH (ex_situ_collection)
 USON_DICTUS-USON,USON,DICTUS-USON,USON,Universidad de Sonora,NA
 DNA_DNA,DNA,DNA,DNA,Department of Environment and Natural Resources,NA
 NT_DNA,NT,DNA,DNA,Department of Environment and Natural Resources,NA
-NGB_DNK,NGB,DNK,EURISCO,NA,ex_situ_collection
+NGB_DNK,NGB,DNK,EURISCO,NA,not in IH (ex_situ_collection)
 California Academy of Sciences_DS,California Academy of Sciences,DS,DS,California Academy of Sciences,NA
 HERB_DUKE,HERB,DUKE,DUKE,Duke University,NA
 E_E,E,E,E,Royal Botanic Garden Edinburgh,NA
@@ -259,7 +259,7 @@ HERB_ERA,HERB,ERA,ERA,Universidad Nacional de Entre Ríos,NA
 HERB_ESA,HERB,ESA,ESA,Universidade de São Paulo,NA
 "ESA_Escola Superior de Agricultura Luiz de Queiroz, ESALQ",ESA,"Escola Superior de Agricultura Luiz de Queiroz, ESALQ",ESA,Universidade de São Paulo,NA
 BWCw_ESF-SUNY,BWCw,ESF-SUNY,BWCw,"College of Environmental Science and Forestry, State University of New York",xylarium|not in IH
-ESP_ESP,ESP,ESP,EURISCO,NA,ex_situ_collection
+ESP_ESP,ESP,ESP,EURISCO,NA,not in IH (ex_situ_collection)
 EST_ETSI-UPM,EST,ETSI-UPM,EST,NA,not in IH
 All Taxa Biodiversity Inventory - Gemer (Slovakia)_European Distributed Institute of Taxonomy (EDIT),All Taxa Biodiversity Inventory - Gemer (Slovakia),European Distributed Institute of Taxonomy (EDIT),All Taxa Biodiversity Inventory - Gemer (Slovakia),NA,not in IH (flora)
 Botany_F,Botany,F,F,Field Museum of Natural History,NA
@@ -267,7 +267,7 @@ Field Museum of Natural History_F,Field Museum of Natural History,F,F,Field Muse
 HERB_F,HERB,F,F,Field Museum of Natural History,NA
 UAS_FA-UAS,UAS,FA-UAS,UAS,Universidad Autónoma de Sinaloa,NA
 HFSL_Faculdade São Lucas (FSL),HFSL,Faculdade São Lucas (FSL),HFSL,"Centro de Ensino, Faculdade São Lucas Ltda.",NA
-PRAGw_FAFNR-CZU,PRAGw,FAFNR-CZU,PRAGw,"Faculty of Agrobiology, Food and Natural Resources, Czech University of Life Sciences Prague",xylarium?|not in IH
+PRAGw_FAFNR-CZU,PRAGw,FAFNR-CZU,PRAGw,"Faculty of Agrobiology, Food and Natural Resources, Czech University of Life Sciences Prague",xylarium|not in IH
 HERB_FAVE,HERB,FAVE,FAVE,NA,not in IH
 EBUM_FB-UMSNH,EBUM,FB-UMSNH,EBUM,Universidad Michoacana de San Nicolás de Hidalgo,NA
 XALU_FB-UV,XALU,FB-UV,XALU,Universidad Veracruzana,NA
@@ -277,7 +277,7 @@ CODAGEM_FCA-UAEM,CODAGEM,FCA-UAEM,CODAGEM,Universidad Autonoma del Estado de Mex
 UNL_FCB-UANL,UNL,FCB-UANL,UNL,Universidad Autónoma de Nuevo León,NA
 CORU_FCBA-UV,CORU,FCBA-UV,CORU,"Universidad Veracruzana, Campus Córdoba",NA
 CFNL_FCF-UANL,CFNL,FCF-UANL,CFNL,Universidad Autónoma de Nuevo León,NA
-CFNLw_FCF-UANL,CFNLw,FCF-UANL,CFNLw,Universidad Autónoma de Nuevo León,xylarium?
+CFNLw_FCF-UANL,CFNLw,FCF-UANL,CFNLw,Universidad Autónoma de Nuevo León,xylarium|not in IH
 MERw_FCFA-ULA,MERw,FCFA-ULA,MERw,Universidad de Los Andes,xylarium|not in IH
 QMEX_FCN-UAQ,QMEX,FCN-UAQ,QMEX,"Universidad Autónoma de Querétaro, Centro Universitario",NA
 herb_fcnym.unlp.edu.ar,herb,fcnym.unlp.edu.ar,LP,Museo de La Plata,NA
@@ -290,9 +290,9 @@ FEZA_FESZ-UNAM,FEZA,FESZ-UNAM,FEZA,Universidad Nacional Autónoma de México,NA
 TFA_FFPRI,TFA,FFPRI,TFA,"Tama Forest Science Garden, Forestry and Forest Products Research Institute",NA
 HERB_FHO,HERB,FHO,FHO,University of Oxford,NA
 HERB_FI,HERB,FI,FI,Natural History Museum,NA
-NGB_FIN,NGB,FIN,EURISCO,NA,ex_situ_collection
+NGB_FIN,NGB,FIN,EURISCO,NA,not in IH (ex_situ_collection)
 FITECMA_FITECMA-UMSNH,FITECMA,FITECMA-UMSNH,FITECMA,Universidad Michoacana de San Nicolás de Hidalgo,not in IH
-Plant_FKSE,Plant,FKSE,FKSE,Fukushima University,not in IH
+Plant_FKSE,Plant,FKSE,FKSE,Fukushima University,NA
 sgn_digi_rhoen_flad_FLAD,sgn_digi_rhoen_flad,FLAD,FLAD,NA,not in IH
 HERB_FLAS,HERB,FLAS,FLAS,Florida Museum of Natural History,NA
 FLAS_FLMNH-UF,FLAS,FLMNH-UF,FLAS,Florida Museum of Natural History,NA
@@ -300,9 +300,9 @@ HERB_FLOR,HERB,FLOR,FLOR,Universidade Federal de Santa Catarina,NA
 Universidade Federal de Santa Catarina_FLOR,Universidade Federal de Santa Catarina,FLOR,FLOR,Universidade Federal de Santa Catarina,NA
 HERB_FM,HERB,FM,FM,Fan Memorial Institute of Biology,NA
 F_FMNH,F,FMNH,F,Field Museum of Natural History,NA
-Fw_FMNH,Fw,FMNH,Fw,Field Museum of Natural History,xylarium?
-MADw_FPL-USDA,MADw,FPL-USDA,MADw,Forest Products Laboratory,NA
-FPRLw_FPRL-BRE,FPRLw,FPRL-BRE,FPRLw,Building Research Establishment,xylarium
+Fw_FMNH,Fw,FMNH,Fw,Field Museum of Natural History,xylarium|not in IH
+MADw_FPL-USDA,MADw,FPL-USDA,MADw,Forest Products Laboratory,xylarium|not in IH
+FPRLw_FPRL-BRE,FPRLw,FPRL-BRE,FPRLw,Building Research Establishment,xylarium|not in IH
 Forschungsinstitut Senckenberg_FR,Forschungsinstitut Senckenberg,FR,FR,Senckenberg Gesellschaft für Naturforschung: Senckenberg Forschungsinstitut und Naturmuseum,NA
 Herbarium Senckenbergianum_FR,Herbarium Senckenbergianum,FR,FR,Senckenberg Gesellschaft für Naturforschung: Senckenberg Forschungsinstitut und Naturmuseum,NA
 Herbarium_FTG,Herbarium,FTG,FTG,Fairchild Tropical Botanic Garden,NA
@@ -312,7 +312,7 @@ CGMS_Fundação Universidade Federal de Mato Grosso do Sul (UFMS),CGMS,Fundaçã
 JAUM_Fundación Estación Biológica Guayacanal,JAUM,Fundación Estación Biológica Guayacanal,JAUM,"Fundación Jardín Botánico ""Joaquín Antonio Uribe"", de Medellín",NA
 CUVC_Fundación GAIA,CUVC,Fundación GAIA,CUVC,Universidad del Valle,NA
 NAM_FUNDP,NAM,FUNDP,NAM,Facultés Universitaires Notre-Dame de la Paix,NA
-FUNED-POL_FUNED,FUNED-POL,FUNED,FUNED-POL,Fundação Ezequiel Dias,NA
+FUNED-POL_FUNED,FUNED-POL,FUNED,FUNED-POL,Fundação Ezequiel Dias,pollen_collection
 HVAT_FUVATES,HVAT,FUVATES,HVAT,University of  Vale do Taquari - Univates,NA
 FZUACH_FZ-UACH,FZUACH,FZ-UACH,FZUACH,NA,not in IH
 BHZB_FZB-BH,BHZB,FZB-BH,BHZB,Fundação de Parques Municipais e Zoo-Botânica de Belo Horizonte,NA
@@ -328,7 +328,7 @@ Goteborg University_GB,Goteborg University,GB,GB,University of Gothenburg,NA
 Göteborg University_GB,Göteborg University,GB,GB,University of Gothenburg,NA
 HERB_GB,HERB,GB,GB,University of Gothenburg,NA
 Types_GB,Types,GB,GB,University of Gothenburg,NA
-GBR_GBR,GBR,GBR,EURISCO,NA,ex_situ_collection
+GBR_GBR,GBR,GBR,EURISCO,NA,not in IH (ex_situ_collection)
 Fanerogamia-GDA_GDA,Fanerogamia-GDA,GDA,GDA,Universidad de Granada,NA
 Fanerogamia-GDAC_GDA,Fanerogamia-GDAC,GDA,GDA,Universidad de Granada,NA
 HERB_GH,HERB,GH,GH,Harvard University,NA
@@ -375,8 +375,8 @@ Meebold_HBG,Meebold,HBG,HBG,University of Hamburg,NA
 Ule_nummeriert_HBG,Ule_nummeriert,HBG,HBG,University of Hamburg,NA
 ULEsinenumero_HBG,ULEsinenumero,HBG,HBG,University of Hamburg,NA
 HERB_HBR,HERB,HBR,HBR,Herbário Barbosa Rodrigues,NA
-HCM_HCM,56,HCM,HCM,NA,not in IH
-Sp_HCSM,Sp,HCSM,HCSM,NA,not in IH
+HCM_HCM,56.0,HCM,HCM,Hiratsuka City Museum,NA
+Sp_HCSM,Sp,HCSM,HCSM,Universidad Católica de Santa María,NA
 COAH_Herbario Amazónico Colombiano,COAH,Herbario Amazónico Colombiano,COAH,Instituto Amazónico de Investigaciones Científicas SINCHI,NA
 HUIS_Herbario de la Universidad Industrial de Santander,HUIS,Herbario de la Universidad Industrial de Santander,UIS,Universidad Industrial de Santander,NA
 MBM_Herbário do Museu Botânico Municipal,MBM,Herbário do Museu Botânico Municipal,MBM,Museu Botânico Municipal,NA
@@ -399,7 +399,7 @@ HERB_HPL,HERB,HPL,HPL,Jardim Botânico Plantarum,NA
 HERB_HRCB,HERB,HRCB,HRCB,Universidade Estadual Paulista,NA
 VascularPlants_HREC,VascularPlants,HREC,HREC,Hopland Research & Extension Center,NA
 HERB_HRP,HERB,HRP,HRP,Universidad Nacional de La Patagonia,NA
-HRV_HRV,HRV,HRV,EURISCO,NA,ex_situ_collection
+HRV_HRV,HRV,HRV,EURISCO,NA,not in IH (ex_situ_collection)
 VascularPlants_HSC,VascularPlants,HSC,HSC,Humboldt State University,NA
 HSS_HSS,HSS,HSS,HSS,"Research Centre of ""La Orden-Valdesequera""",NA
 A_HU,A,HU,A,Harvard University,NA
@@ -412,7 +412,7 @@ HERB_HUCS,HERB,HUCS,HUCS,University of  Caxias do Sul,NA
 HERB_HUEFS,HERB,HUEFS,HUEFS,Universidade Estadual de Feira de Santana,NA
 HERB_HUEM,HERB,HUEM,HUEM,Universidade Estadual de Maringá,NA
 Herbarium_HUJ,Herbarium,HUJ,HUJ,Hebrew University,NA
-HUN_HUN,HUN,HUN,EURISCO,NA,ex_situ_collection
+HUN_HUN,HUN,HUN,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_HUNIVATES,HERB,HUNIVATES,HUNIVATES,NA,not in IH
 VASC_HUSA,VASC,HUSA,HUSA,Universidad Nacional de San Agustín de Arequipa,NA
 HERB_HUT,HERB,HUT,HUT,Universidad Nacional de La Libertad-Trujillo,NA
@@ -424,7 +424,7 @@ IAC_IAC,IAC,IAC,IAC,Instituto Agronômico de Campinas,NA
 MERL_IADIZA,MERL,IADIZA,MERL,"Instituto Argentino de Investigaciones de las Zonas Áridas (IADIZA, CRICYTME)",NA
 Embrapa Amazonia Oriental_IAN,Embrapa Amazonia Oriental,IAN,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
 Embrapa Amazônia Oriental_IAN,Embrapa Amazônia Oriental,IAN,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
-XFR_IANIGLA,XFR,IANIGLA,XIAM,CCT CONICET Mendoza,not on IH (https://datos.sndb.mincyt.gob.ar/collectory/public/show/dr194)
+XFR_IANIGLA,XFR,IANIGLA,XIAM,CCT CONICET Mendoza,not in IH
 PACA-AGP_IAP,PACA-AGP,IAP,PACA,Instituto Anchietano de Pesquisas/UNISINOS,NA
 FMB_IAvH,FMB,IAvH,FMB,Instituto de Investigación de Recursos Biológicos Alexander von Humboldt,NA
 IAvH-BT_IAvH,IAvH-BT,IAvH,FMB,Instituto de Investigación de Recursos Biológicos Alexander von Humboldt,NA
@@ -439,7 +439,7 @@ Dataflos_IBOT SAS,Dataflos,IBOT SAS,SAV,Slovak Academy of Sciences,NA
 EBCh_IBUNAM,EBCh,IBUNAM,MEXU,Universidad Nacional Autónoma de México,NA
 MEXU_IBUNAM,MEXU,IBUNAM,MEXU,Universidad Nacional Autónoma de México,NA
 MEXU/Coleccion de Tipos_IBUNAM,MEXU/Coleccion de Tipos,IBUNAM,MEXU,Universidad Nacional Autónoma de México,NA
-MEXUw_IBUNAM,MEXUw,IBUNAM,MEXUw,Universidad Nacional Autónoma de México,xylarium
+MEXUw_IBUNAM,MEXUw,IBUNAM,MEXUw,Universidad Nacional Autónoma de México,xylarium|not in IH
 ICESI_ICESI,ICESI,ICESI,ICESI,Universidad ICESI,NA
 HE_ICM,HE,ICM,HE,NA,not in IH
 COL_ICN,COL,ICN,COL,Universidad Nacional de Colombia,NA
@@ -473,17 +473,17 @@ IEB_INECOL,IEB,INECOL,IEB,"Instituto de Ecología, A.C.",NA
 INECOL-CRD_INECOL,INECOL-CRD,INECOL,INECOL-CRD,NA,not in IH
 JBC_INECOL,JBC,INECOL,JBC,NA,not in IH
 XAL_INECOL,XAL,INECOL,XAL,"Instituto de Ecología, A.C.",NA
-XALw_INECOL,XALw,INECOL,XALw,"Instituto de Ecología, A.C.",xylarium
+XALw_INECOL,XALw,INECOL,XALw,"Instituto de Ecología, A.C.",xylarium|not in IH
 INEGI_INEGI,INEGI,INEGI,INEGI,Instituto Nacional de Estadística y Geografía,NA
 MAIA_Euc_INIA-CIFOR,MAIA_Euc,INIA-CIFOR,MAIA,INIA (Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria),NA
 MAIA_MMB_INIA-CIFOR,MAIA_MMB,INIA-CIFOR,MAIA,INIA (Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria),NA
 MAIA_Quercus_INIA-CIFOR,MAIA_Quercus,INIA-CIFOR,MAIA,INIA (Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria),NA
 INIF_INIFAP-CECOY,INIF,INIFAP-CECOY,INIF,INIFAP,NA
-MEXFw_INIFAP-CECOY,MEXFw,INIFAP-CECOY,MEXFw,"Instituto Nacional de Investigaciones Forestales, Agrícolas y Pecuarias, Campo Experimental Coyoacán",xylarium
+MEXFw_INIFAP-CECOY,MEXFw,INIFAP-CECOY,MEXFw,"Instituto Nacional de Investigaciones Forestales, Agrícolas y Pecuarias, Campo Experimental Coyoacán",xylarium|not in IH
 INIREB_INIREB,INIREB,INIREB,INIREB,IB-UNAMw?,not in IH
 Va_INM,Va,INM,INM,Ibaraki Nature Museum,NA
 HERB_INPA,HERB,INPA,INPA,Instituto Nacional de Pesquisas da Amazônia,NA
-INPAw_INPA,INPAw,INPA,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium
+INPAw_INPA,INPAw,INPA,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium|not in IH
 Instituto Nacional de Pesquisas da Amazonia_INPA,Instituto Nacional de Pesquisas da Amazonia,INPA,INPA,Instituto Nacional de Pesquisas da Amazônia,NA
 Instituto Nacional de Pesquisas da Amazônia_INPA,Instituto Nacional de Pesquisas da Amazônia,INPA,INPA,Instituto Nacional de Pesquisas da Amazônia,NA
 HERBIER_INRA Antilles-Guyane,HERBIER,INRA Antilles-Guyane,GUAD,Institut National de la Recherche Agronomique and Parc National de Guadeloupe,NA
@@ -512,7 +512,7 @@ VascularPlants_IRVC,VascularPlants,IRVC,IRVC,University of California,NA
 LISI_ISA,LISI,ISA,LISI,Instituto Superior de Agronomia,NA
 Pl_ISKW,Pl,ISKW,ISKW,Ishikawa Museum of Natural History,NA
 ISC_ISU,ISC,ISU,ISU,Illinois State University,NA
-ITA_ITA,ITA,ITA,EURISCO,NA,ex_situ_collection
+ITA_ITA,ITA,ITA,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_IZAC,HERB,IZAC,IZAC,Universidad Nacional de La Rioja-Sede Chamical,NA
 PL_JACM,PL,JACM,JACM,Atsugi City Museum,not in IH
 HEPH_Jardim Botânico de Brasília (JBB),HEPH,Jardim Botânico de Brasília (JBB),HEPH,Jardim Botânico de Brasília,NA
@@ -525,7 +525,7 @@ BGJBCLM_JBCLM,BGJBCLM,JBCLM,JBCLM,NA,not in IH
 JBGP_JBGP,JBGP,JBGP,JBGP,Jardín Botánico de Cartagena “Guillermo Piñeres”,NA
 HAJB_JBN,HAJB,JBN,JBN,Fundacion Jardin Botanico Nacional,NA
 RB_JBRJ,RB,JBRJ,RB,Jardim Botânico do Rio de Janeiro,NA
-RBw_JBRJ,RBw,JBRJ,RBw,Jardim Botânico do Rio de Janeiro,xylarium
+RBw_JBRJ,RBw,JBRJ,RBw,Jardim Botânico do Rio de Janeiro,xylarium|not in IH
 JBRJ herbarium - RB_JBRJ - Instituto de Pesquisas Jardim Botânico do Rio de Janeiro,JBRJ herbarium - RB,JBRJ - Instituto de Pesquisas Jardim Botânico do Rio de Janeiro,RB,Jardim Botânico do Rio de Janeiro,NA
 BGVIB_JBS,BGVIB,JBS,HJBS,Fundació Jardí Botànic de Sóller,NA
 Fbonafe_JBS,Fbonafe,JBS,HJBS,Fundació Jardí Botànic de Sóller,NA
@@ -555,7 +555,7 @@ plants_KNA,plants,KNA,KH,Korea National Arboretum,NA
 p_KOM,p,KOM,KOM,NA,not in IH
 Plants_KSTC,Plants,KSTC,KSTC,Emporia State University,NA
 KANU_KU,KANU,KU,KU,Kwangsi University,NA
-KURA_KURA,KURA,KURA,KURA,NA,not in IH (http://www2.city.kurashiki.okayama.jp/musnat/english.html)
+KURA_KURA,KURA,KURA,KURA,NA,not in IH
 FU_KYUM,FU,KYUM,FU,Kyushu University,NA
 HERB_L,HERB,L,L,Naturalis,NA
 Phanerogam_L,Phanerogam,L,L,Naturalis,NA
@@ -584,7 +584,7 @@ HERB_LPS,HERB,LPS,LPS,Universidad Nacional de La Plata,NA
 Vascular Plants_LSU,Vascular Plants,LSU,LSU,Louisiana State University,NA
 LTB_LTB,LTB,LTB,LTB,La Trobe University,NA
 Biologie du bois (INERA-LUKI)_LUKI_INERA,Biologie du bois (INERA-LUKI),LUKI_INERA,LUKI,Institut National pour l'Etude et la Recherche Agronomiques,NA
-LVA_LVA,LVA,LVA,EURISCO,NA,ex_situ_collection
+LVA_LVA,LVA,LVA,EURISCO,NA,not in IH (ex_situ_collection)
 LYJB_LYJB,LYJB,LYJB,LYJB,Jardin botanique de la ville de Lyon,NA
 Botanische Staatssammlung Muenchen_M,Botanische Staatssammlung Muenchen,M,M,Botanische Staatssammlung München,NA
 HERB_M,HERB,M,M,Botanische Staatssammlung München,NA
@@ -608,7 +608,7 @@ MBM_MBM,MBM,MBM,MBM,Museu Botânico Municipal,NA
 "Museu Botanico Municipal Curritiba, Brasilia_MBM","Museu Botanico Municipal Curritiba, Brasilia",MBM,MBM,Museu Botânico Municipal,NA
 MBML-HERBARIO_MBML,MBML-HERBARIO,MBML,MBML,Instituto Nacional da Mata Atlântica - INMA,NA
 MTMG_McGill University,MTMG,McGill University,MTMG,"McGill University, Macdonald Campus",NA
-BH_MCNAM,BH,MCNAM,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,NA
+BH_MCNAM,BH,MCNAM,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,not in IH
 HERB_MCNS,HERB,MCNS,MCNS,Museo de Ciencias Naturales de Salta,NA
 MEL_MEL,MEL,MEL,MEL,Royal Botanic Gardens Victoria,NA
 MELU_MELU,MELU,MELU,MELU,University of Melbourne,NA
@@ -630,7 +630,7 @@ MO_Missouri Botanical Garden: Missouri Botanical Garden,MO,Missouri Botanical Ga
 Tropicos_Missouri Botanical Garden: Missouri Botanical Garden,Tropicos,Missouri Botanical Garden: Missouri Botanical Garden,MO,Missouri Botanical Garden,NA
 Johannes Gutenberg-Universitat_MJG,Johannes Gutenberg-Universitat,MJG,MJG,Johannes Gutenberg-Universität,NA
 Johannes Gutenberg-Universität_MJG,Johannes Gutenberg-Universität,MJG,MJG,Johannes Gutenberg-Universität,NA
-MKD_MKD,MKD,MKD,EURISCO,NA,ex_situ_collection
+MKD_MKD,MKD,MKD,EURISCO,NA,not in IH (ex_situ_collection)
 Angiospermae_MMHNSR,Angiospermae,MMHNSR,MMHNSR,Museo Municipal de Historia Natural de San Rafael (MMHNSR),not in IH
 Angiospermas_MMHNSR,Angiospermas,MMHNSR,MMHNSR,Museo Municipal de Historia Natural de San Rafael (MMHNSR),not in IH
 Farmacognosia_MMHNSR,Farmacognosia,MMHNSR,MMHNSR,Museo Municipal de Historia Natural de San Rafael (MMHNSR),not in IH
@@ -661,7 +661,7 @@ Patología_MMHNSR,Patología,MMHNSR,MMHNSR,Museo Municipal de Historia Natural d
 Semillas_MMHNSR,Semillas,MMHNSR,MMHNSR,Museo Municipal de Historia Natural de San Rafael (MMHNSR),not in IH
 MMPEAAH_MMP,MMPEAAH,MMP,MMPEAAH,Museo Municipal de Ciencias Naturales 'Lorenzo Scaglia',not in IH
 R_MN,R,MN,R,Museu Nacional,NA
-R-TIPOS_MN,R-TIPOS,MN,R-Tipos,Museu Nacional,NA
+R-TIPOS_MN,R-TIPOS,MN,R-Tipos,Museu Nacional,not in IH
 HERB_MNES,HERB,MNES,MNES,Universidad Nacional de Misiones,NA
 MNHM-Botany_MNHM,MNHM-Botany,MNHM,MNHM,Naturhistorisches Museum Mainz/Landessammlung für Naturkunde Rheinland-Pfalz,NA
 MNHN-HerbariumOesau_MNHM,MNHN-HerbariumOesau,MNHM,MNHN-HerbariumOesau,NA,not in IH
@@ -711,10 +711,10 @@ BOT_NHMUK,BOT,NHMUK,BM,The Natural History Museum,NA
 Botany_NHMUK,Botany,NHMUK,BM,The Natural History Museum,NA
 PAL_NHMUK,PAL,NHMUK,BM,The Natural History Museum,NA
 ZOO_NHMUK,ZOO,NHMUK,BM,The Natural History Museum,NA
-NHT_NHT,6,NHT,NHT,Tropical Pesticides Research Institute,NA
+NHT_NHT,6.0,NHT,NHT,Tropical Pesticides Research Institute,NA
 PL_NIBR,PL,NIBR,KB,National Institute of Biological Resources,NA
 NIM_NIM,NIM,NIM,NIM,Museum d'histoire naturelle de Nîmes,NA
-NLD_NLD,NLD,NLD,EURISCO,NA,ex_situ_collection
+NLD_NLD,NLD,NLD,EURISCO,NA,not in IH (ex_situ_collection)
 V_NLH,V,NLH,NLH,Agricultural University of Norway,NA
 Swiss Psyllid (Hemiptera) Collections - Basel_NMB,Swiss Psyllid (Hemiptera) Collections - Basel,NMB,Swiss Psyllid (Hemiptera) Collections - Basel,NA,not in IH
 US_NMNH-SI,US,NMNH-SI,US,Smithsonian Institution,NA
@@ -728,8 +728,8 @@ NMC_NMSU,NMC,NMSU,NMSU,Northwest Missouri State University,NA
 NMCR_NMSU,NMCR,NMSU,NMSU,Northwest Missouri State University,NA
 GBH_NO APLICA,GBH,NO APLICA,GBH,Herbarium of Geo. B. Hinton,NA
 BORJA_NO DISPONIBLE,BORJA,NO DISPONIBLE,VAL,Universitat de València,NA
-VFw_NO DISPONIBLE,VFw,NO DISPONIBLE,VALw,Universitat de València,xylarium?
-WFw_NO DISPONIBLE,WFw,NO DISPONIBLE,WFw,Woods and Forests Department,xylarium?|not in IH
+VFw_NO DISPONIBLE,VFw,NO DISPONIBLE,VALw,Universitat de València,xylarium|not in IH
+WFw_NO DISPONIBLE,WFw,NO DISPONIBLE,WFw,Woods and Forests Department,xylarium|not in IH
 HERB_NSW,HERB,NSW,NSW,Royal Botanic Gardens & Domain Trust,NA
 NSW_NSW,NSW,NSW,NSW,Royal Botanic Gardens & Domain Trust,NA
 Royal Botanic Gardens Sydney_NSW,Royal Botanic Gardens Sydney,NSW,NSW,Royal Botanic Gardens & Domain Trust,NA
@@ -798,7 +798,7 @@ Universidad de Panama_PMA,Universidad de Panama,PMA,PMA,Universidad de Panamá,N
 Universidad de Panamá_PMA,Universidad de Panamá,PMA,PMA,Universidad de Panamá,NA
 PNC_PNC,PNC,PNC,PNC,Parc National des Cevennes,NA
 IRAI_PNFM,IRAI,PNFM,IRAI,Parque da Ciência Newton Freire Maia,NA
-POL_POL,POL,POL,EURISCO,NA,ex_situ_collection
+POL_POL,POL,POL,EURISCO,NA,not in IH (ex_situ_collection)
 POM_POM,POM,POM,POM,Pomona College,NA
 VascularPlants_POM,VascularPlants,POM,POM,Pomona College,NA
 HPUJ_Pontificia Universidad Javeriana (PUJ),HPUJ,Pontificia Universidad Javeriana (PUJ),HPUJ,Pontificia Universidad Javeriana,NA
@@ -834,12 +834,12 @@ ALCA-BGV_RJBJCI,ALCA-BGV,RJBJCI,ALCA,NA,not in IH
 Xylarium_RMCA-Metafro-Infosys,Xylarium,RMCA-Metafro-Infosys,Tw,Royal Museum for Central Africa,xylarium|not in IH
 USFS_RMFRES-USFS-USDA,USFS,RMFRES-USFS-USDA,USFS,Rocky Mountain Forest and Range Experiment Station,NA
 HERB_RNG,HERB,RNG,RNG,University of Reading,NA
-ROU_ROM,ROU,ROM,EURISCO,NA,ex_situ_collection
+ROU_ROM,ROU,ROM,EURISCO,NA,not in IH (ex_situ_collection)
 TRT_Royal Ontario Museum,TRT,Royal Ontario Museum,TRT,Royal Ontario Museum,NA
 HERB_RSA,HERB,RSA,RSA,Rancho Santa Ana Botanic Garden,NA
 VascularPlants_RSA,VascularPlants,RSA,RSA,Rancho Santa Ana Botanic Garden,NA
-RSA_RSABG,RSA,RSABG,RSA,Rancho Santa Ana Botanic Garden,not in IH
-RUS_RUS,RUS,RUS,EURISCO,NA,ex_situ_collection
+RSA_RSABG,RSA,RSABG,RSA,Rancho Santa Ana Botanic Garden,NA
+RUS_RUS,RUS,RUS,EURISCO,NA,not in IH (ex_situ_collection)
 ISP_RYU,ISP,RYU,RYU,University of the Ryukyus,NA
 HERB_S,HERB,S,S,Swedish Museum of Natural History,NA
 VascularPlants_S,VascularPlants,S,S,Swedish Museum of Natural History,NA
@@ -855,7 +855,7 @@ H_SBT,H,SBT,SBT,The Bergius Foundation at the Royal Swedish Academy of Sciences,
 VascularPlants_SD,VascularPlants,SD,SD,San Diego Natural History Museum,NA
 SD_SDNHM,SD,SDNHM,SD,San Diego Natural History Museum,NA
 VascularPlants_SDSU,VascularPlants,SDSU,SDSU,San Diego State University,NA
-VascularPlants_SEINET,VascularPlants,SEINET,SEINet,NA,not in IH (http://swbiodiversity.org/seinet/index.php)
+VascularPlants_SEINET,VascularPlants,SEINET,SEINet,NA,not in IH
 SERO_SERBO,SERO,SERBO,SERO,Sociedad para el Estudio de los Recursos Bióticos de Oaxaca,NA
 HerbarioSEV_SEV,HerbarioSEV,SEV,SEV,Universidad de Sevilla,NA
 HistoricoSEV_SEV,HistoricoSEV,SEV,SEV,Universidad de Sevilla,NA
@@ -896,9 +896,9 @@ HERB_SRFA,HERB,SRFA,SRFA,Universidad Nacional de La Pampa,NA
 Vs_SUG,Vs,SUG,SUG,University of Tsukuba,not in IH
 U_SUU,U,SUU,SUU,Southern Utah University,NA
 V_SVG,V,SVG,SVG,University of Stavanger,NA
-SVK_SVK,SVK,SVK,EURISCO,NA,ex_situ_collection
+SVK_SVK,SVK,SVK,EURISCO,NA,not in IH (ex_situ_collection)
 V_SW,V,SW,V,Royal British Columbia Museum,NA
-NGB_SWE,NGB,SWE,EURISCO,NA,ex_situ_collection
+NGB_SWE,NGB,SWE,EURISCO,NA,not in IH (ex_situ_collection)
 TAI_TAI,TAI,TAI,TAI,National Taiwan University,NA
 PLANT_TAIF,PLANT,TAIF,TAIF,Taiwan Forestry Research Institute,NA
 TAIF_TAIF,TAIF,TAIF,TAIF,Taiwan Forestry Research Institute,NA
@@ -933,7 +933,7 @@ Plant_TPM,Plant,TPM,TPM,NA,not in IH
 V_TRH,V,TRH,TRH,Norwegian University of Science and Technology,NA
 V_TROM,V,TROM,TROM,UiT The Arctic University of Norway?,NA
 HERB_TRT,HERB,TRT,TRT,Royal Ontario Museum,NA
-TSFw_TU,TSFw,TU,TSFw,Universitat Dresden,xylarium
+TSFw_TU,TSFw,TU,TSFw,Universitat Dresden,xylarium|not in IH
 TUBvplantscoll_TUB,TUBvplantscoll,TUB,TUB,Universität Tübingen,NA
 NO_TUMNH,NO,TUMNH,NO,Tulane University,NA
 HERB_U,HERB,U,U,Naturalis,NA
@@ -950,7 +950,7 @@ GUADA_UAG,GUADA,UAG,GUADA,Universidad Autónoma de Guadalajara,NA
 Acalypha_UAM,Acalypha,UAM,UAM,University of Arkansas at Monticello,NA
 Plant specimens (ALA)_UAM,Plant specimens (ALA),UAM,UAM,University of Arkansas at Monticello,NA
 UAMIZ_UAMI,UAMIZ,UAMI,UAMIZ,Universidad Autónoma Metropolitana Iztapalapa,NA
-UAMIZw_UAMI,UAMIZw,UAMI,UAMIZw,Universidad Autónoma Metropolitana Iztapalapa,xylarium?
+UAMIZw_UAMI,UAMIZw,UAMI,UAMIZw,Universidad Autónoma Metropolitana Iztapalapa,xylarium|not in IH
 HUAZ_UAZ,HUAZ,UAZ,HUAZ,Universidad de la Amazonia,NA
 HERB_UB,HERB,UB,UB,Universidade de Brasília,NA
 Universidade de Brasilia_UB,Universidade de Brasilia,UB,UB,Universidade de Brasília,NA
@@ -969,7 +969,7 @@ VascularPlants_UCR,VascularPlants,UCR,UCR,University of California,NA
 HUCS_UCS,HUCS,UCS,HUCS,University of  Caxias do Sul,NA
 VascularPlants_UCSB,VascularPlants,UCSB,UCSB,University of California,NA
 VascularPlants_UCSC,VascularPlants,UCSC,UCSC,University of California Santa Cruz,NA
-BOFw_UD,BOFw,UD,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium
+BOFw_UD,BOFw,UD,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium|not in IH
 HUA_UDEA,HUA,UDEA,HUA,Universidad de Antioquia,NA
 PSO_UDENAR,PSO,UDENAR,PSO,Universidad de Nariño,NA
 UDO_UdeO,UDO,UdeO,UDO,NA,not in IH
@@ -1007,9 +1007,9 @@ SMDB_UFSM,SMDB,UFSM,SMDB,Universidade Federal de Santa Maria,NA
 HUFU_UFU,HUFU,UFU,HUFU,Universidade Federal de Uberlândia,NA
 VIC_UFV,VIC,UFV,VIC,Universidade Federal de Viçosa,NA
 UJAT_UJAT,UJAT,UJAT,UJAT,Universidad Juárez Autónoma de Tabasco,NA
-UJATw_UJAT,UJATw,UJAT,UJATw,Universidad Juárez Autónoma de Tabasco,xylarium?
+UJATw_UJAT,UJATw,UJAT,UJATw,Universidad Juárez Autónoma de Tabasco,xylarium|not in IH
 UJLOG_Griepe_UJLOG,UJLOG_Griepe,UJLOG,UJLOG_Griepe,NA,not in IH
-UKR_UKR,UKR,UKR,EURISCO,NA,ex_situ_collection
+UKR_UKR,UKR,UKR,EURISCO,NA,not in IH (ex_situ_collection)
 BRLU_ULB,BRLU,ULB,BRLU,Université Libre de Bruxelles,NA
 FloVegSI-FLO_ULBF-AGR,FloVegSI-FLO,ULBF-AGR,ULBF-AGR,NA,not in IH
 Herbarium University Ulm_ULM,Herbarium University Ulm,ULM,ULM,Universität Ulm,NA
@@ -1026,7 +1026,7 @@ NCU_UNC,NCU,UNC,NCU,University of North Carolina at Chapel Hill,NA
 HERBAM_UNEMAT,HERBAM,UNEMAT,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
 NX_UNEMAT,NX,UNEMAT,NX,Universidade do Estado de Mato Grosso - UNEMAT,NA
 CRI_UNESC,CRI,UNESC,CRI,"Universidade do Extremo Sul Catarinense, Bairro Universitário",NA
-BOTUW_UNESPFCA,BOTUW,UNESPFCA,BOTUw,Universidade Estadual Paulista,xylarium
+BOTUW_UNESPFCA,BOTUW,UNESPFCA,BOTUw,Universidade Estadual Paulista,xylarium|not in IH
 SJRP_UNESPSJRP,SJRP,UNESPSJRP,SJRP,"UNESP, Campus São José Rio Prêto",NA
 SJRP-PTERIDOPHYTA_UNESPSJRP,SJRP-PTERIDOPHYTA,UNESPSJRP,SJRP,"UNESP, Campus São José Rio Prêto",NA
 UNEX_UNEX,UNEX,UNEX,UNEX,Universidad de Extremadura,NA
@@ -1054,7 +1054,7 @@ UIS-H_Universidad Industrial de Santander (UIS),UIS-H,Universidad Industrial de 
 CHOCO_Universidad Tecnológica del Chocó (UTCH),CHOCO,Universidad Tecnológica del Chocó (UTCH),CHOCO,Universidad Tecnológica del Chocó,NA
 HPAN_Universidade do Estado de Mato Grosso (UNEMAT),HPAN,Universidade do Estado de Mato Grosso (UNEMAT),HPAN,"University of the State of Mato Grosso, UNEMAT",NA
 "FUEL_Universidade Estadual de Londrina, UEL",FUEL,"Universidade Estadual de Londrina, UEL",FUEL,Universidade Estadual de Londrina,NA
-HUCO_Universidade Estadual do Centro-Oeste (UNICENTRO),HUCO,Universidade Estadual do Centro-Oeste (UNICENTRO),HUCO,NA,not in IH
+HUCO_Universidade Estadual do Centro-Oeste (UNICENTRO),HUCO,Universidade Estadual do Centro-Oeste (UNICENTRO),HUCO,Universidad Católica  de Oriente,NA
 "BOTU_Universidade Estadual Paulista, UNESP",BOTU,"Universidade Estadual Paulista, UNESP",BOTU,Universidade Estadual Paulista,NA
 "HRCB_Universidade Estadual Paulista, UNESP",HRCB,"Universidade Estadual Paulista, UNESP",HRCB,Universidade Estadual Paulista,NA
 ALCB_Universidade Federal da Bahia (UFBA),ALCB,Universidade Federal da Bahia (UFBA),ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
@@ -1088,8 +1088,8 @@ HOH_University of Hohenheim,HOH,University of Hohenheim,HOH,Universität Hohenhe
 LEA_University of Lethbridge,LEA,University of Lethbridge,LEA,University of Lethbridge,NA
 WIN_University of Manitoba,WIN,University of Manitoba,WIN,University of Manitoba,NA
 JOI_UNIVILLE,JOI,UNIVILLE,JOI,Universidade da Região de Joinville - Univille,NA
-JOIW_UNIVILLE,JOIW,UNIVILLE,JOIw,Universidade da Região de Joinville - Univille,NA
-17126_unknown,17126,unknown,17126,NA,not in IH
+JOIW_UNIVILLE,JOIW,UNIVILLE,JOIw,Universidade da Região de Joinville - Univille,xylarium|not in IH
+17126_unknown,17126.0,unknown,17126.0,NA,not in IH
 UNM_UNM,UNM,UNM,UNM,University of New Mexico,NA
 HERB_UNR,HERB,UNR,UNR,Universidad Nacional de Rosario,NA
 BBB_UNS,BBB,UNS,BBB,Universidad Nacional del Sur,NA
@@ -1114,13 +1114,13 @@ Herb_USF,Herb,USF,USF,University of South Florida,NA
 Universidad de Costa Rica_USJ,Universidad de Costa Rica,USJ,USJ,Universidad de Costa Rica,NA
 Universidad Nacional Mayor de San Marcos_USM,Universidad Nacional Mayor de San Marcos,USM,USM,Universidad Nacional Mayor de San Marcos,NA
 SPF_USP,SPF,USP,SPF,Universidade de São Paulo,NA
-SPFW_USP,SPFW,USP,SPFw,Universidade de São Paulo,xylarium
+SPFW_USP,SPFW,USP,SPFw,Universidade de São Paulo,xylarium|not in IH
 HERB_USZ,HERB,USZ,USZ,Museo de Historia Natural Noel Kempff Mercado -- Universidad Autónoma Gabriel René Moreno,NA
 TOLI_UT,TOLI,UT,UT,University of Utah,NA
 TU_UTE,TU,UTE,TU,University of Tartu,NA
 Plant specimens_UTEP,Plant specimens,UTEP,UTEP,University of Texas at El Paso,NA
 DVPR_UTFPR,DVPR,UTFPR,DVPR,Universidade Tecnológica Federal do Paraná,NA
-Uw_UU,Uw,UU,Uw,Naturalis Biodiversity Center,xylarium
+Uw_UU,Uw,UU,Uw,Naturalis Biodiversity Center,xylarium|not in IH
 prm-pol-refcol_UvA-IBED,prm-pol-refcol,UvA-IBED,AMD?,University of Amsterdam,NA
 University of Victoria_UVIC,University of Victoria,UVIC,UVIC,University of Victoria,NA
 WIS_UW,WIS,UW,WIS,University of Wisconsin,NA
@@ -1145,7 +1145,7 @@ WELT_WELT,WELT,WELT,WELT,Museum of New Zealand Te Papa Tongarewa,NA
 PlantsofWII_WII,PlantsofWII,WII,WII,Wildlife Institute of India,NA
 HERB_WIS,HERB,WIS,WIS,University of Wisconsin,NA
 WOLL_WOLL,WOLL,WOLL,WOLL,University of Wollongong,NA
-WRIw_WRI-KU,WRIw,WRI-KU,WRIw,NA,xylarium?|not in IH
+WRIw_WRI-KU,WRIw,WRI-KU,WRIw,NA,xylarium|not in IH
 HERB_WTU,HERB,WTU,WTU,University of Washington,NA
 BG_WU,BG,WU,WU,Universität Wien,NA
 Herbarium WU_WU,Herbarium WU,WU,WU,Universität Wien,NA
@@ -1157,7 +1157,7 @@ Va_YAMA,Va,YAMA,YAMA,Yamagata Prefectural Museum,NA
 CBS_YPM,CBS,YPM,YU,Yale University,NA
 IZ_YPM,IZ,YPM,YU,Yale University,NA
 YU_YPM,YU,YPM,YU,Yale University,NA
-MNE_YUG,MNE,YUG,EURISCO,NA,ex_situ_collection
+MNE_YUG,MNE,YUG,EURISCO,NA,not in IH (ex_situ_collection)
 HERB_Z,HERB,Z,Z,Universität Zürich,NA
 Herbaria of the University and ETH Zürich_Z,Herbaria of the University and ETH Zürich,Z,Z,Universität Zürich,NA
 India_ZMO,India,ZMO,ZMO,NA,not in IH
@@ -1178,7 +1178,7 @@ ABDC_NA,ABDC,NA,ABDC,Aba Institute for Drug Control,NA
 ABDF_NA,ABDF,NA,ABDF,University of Aberdeen,NA
 ABDH_NA,ABDH,NA,ABDH,UAE University,NA
 ABDM_NA,ABDM,NA,ABDM,"Marischal College, University of Aberdeen",NA
-ABFM_NA,ABFM,NA,ABFM,The Barnes Foundation Arboretum,NA
+ABFM_NA,ABFM,NA,ABFM,The Barnes Foundation Arboretum,not in IH
 ABGI_NA,ABGI,NA,ABGI,Amur Branch of Botanical Garden-Institute of the Far East Branch of the Russian Academy of Sciences,NA
 ABI_NA,ABI,NA,ABI,Centre ORSTOM d'Adiopodoume,NA
 ABL_NA,ABL,NA,ABL,Adviesbureau voor Bryologie en Lichenologie,NA
@@ -1429,7 +1429,7 @@ BENN_NA,BENN,NA,BENN,Bennington College,NA
 BEO_NA,BEO,NA,BEO,Natural History Museum,NA
 BEOU_NA,BEOU,NA,BEOU,University of Belgrade,NA
 BER_NA,BER,NA,BER,"Orto Botanico de Bergamo ""Lorenzo Rota""",NA
-BEREA_NA,BEREA,NA,BEREA,NA,NA
+BEREA_NA,BEREA,NA,BEREA,Berea College,NA
 BERN_NA,BERN,NA,BERN,University of Bern,NA
 BEV_NA,BEV,NA,BEV,Borough of Beverley Art Gallery and Museum,NA
 BEX_NA,BEX,NA,BEX,Bexhill Museum,NA
@@ -1841,7 +1841,7 @@ CU_NA,CU,NA,CU,Cornell University,NA
 CUFH_NA,CUFH,NA,CUFH,Cumhuriyet University,NA
 CUH_NA,CUH,NA,CUH,University of Calcutta,NA
 CUHK_NA,CUHK,NA,CUHK,The Chinese University of Hong Kong,NA
-CUK_NA,CUK,NA,CUK,Chosun University,NA
+CUK_NA,CUK,NA,CUK,Chosun University,not in IH
 CUP_NA,CUP,NA,CUP,Cornell University,NA
 CURLA_NA,CURLA,NA,CURLA,Centro Universitario Regional del Litoral Atlantico,NA
 CUS_NA,CUS,NA,CUS,"Cusino Wildlife Research Station, Michigan Department of Natural Resources",NA
@@ -1936,7 +1936,7 @@ DQTC_NA,DQTC,NA,DQTC,Daqing Teachers College,NA
 DR_NA,DR,NA,DR,Technische Universität Dresden,NA
 DRK_NA,DRK,NA,DRK,Drake University,NA
 DSC_NA,DSC,NA,DSC,Delta State University,NA
-DSM_NA,DSM,NA,DSM,NA,NA
+DSM_NA,DSM,NA,DSM,University of Dar es Salaam,NA
 DSU_NA,DSU,NA,DSU,Oles Honchar Dniprovsky National University,NA
 DSUM_NA,DSUM,NA,DSUM,Dakota State University,NA
 DSY_NA,DSY,NA,DSY,Dewsbury Museum,NA
@@ -2548,7 +2548,7 @@ HYD_NA,HYD,NA,HYD,Heywood and District Botanical Society,NA
 HYE_NA,HYE,NA,HYE,Conservatoire botanique national méditerranéen de Porquerolles,NA
 HZTC_NA,HZTC,NA,HZTC,Hanzhong Teachers College,NA
 HZU_NA,HZU,NA,HZU,Zhejiang University,NA
-I_NA,I,NA,I,"""Alexandru Ioan Cuza"" University",NA
+I_NA,I,NA,I,Alexandru Ioan Cuza University,NA
 IA_NA,IA,NA,IA,University of Iowa,NA
 IABH_NA,IABH,NA,IABH,Al-Bayt University,NA
 IACM_NA,IACM,NA,IACM,Instituto Agronômico,NA
@@ -2785,7 +2785,7 @@ KFRA_NA,KFRA,NA,KFRA,"Klamath Falls Resource Area, BLM",NA
 KFRI_NA,KFRI,NA,KFRI,Kerala Forest Research Institute,NA
 KFTA_NA,KFTA,NA,KFTA,Saint Petersburg S. M. Kirov Forestry Academy,NA
 KFUH_NA,KFUH,NA,KFUH,King Faisal University,NA
-KG_NA,KG,NA,KG,Internatinal Phytochemistry Research and Production Institute,NA
+KG_NA,KG,NA,KG,Internatinal Phytochemistry Research and Production Institute,not in IH
 KGY_NA,KGY,NA,KGY,Cliffe Castle Art Gallery and Museum,NA
 KH_NA,KH,NA,KH,Korea National Arboretum,NA
 KHA_NA,KHA,NA,KHA,"Institute for Water and Ecology Problems, Far East Branch, Russian Academy of Sciences",NA
@@ -2843,7 +2843,7 @@ KRF_NA,KRF,NA,KRF,V. N. Sukachev Institute of Forest and Wood,NA
 KRFB_NA,KRFB,NA,KRFB,University of Agriculture,NA
 KRG_NA,KRG,NA,KRG,Westfield Museum,NA
 KRIB_NA,KRIB,NA,KRIB,Korea Research Institute of Bioscience and Biotechnology,NA
-KRM_NA,KRM,NA,KRM,Krasnoyarsk Regional Museum,NA
+KRM_NA,KRM,NA,KRM,Krasnoyarsk Regional Museum,not in IH
 KRMS_NA,KRMS,NA,KRMS,"Sternwarte Kremsmünster, Stift",NA
 KRSU_NA,KRSU,NA,KRSU,Siberian Federal University,NA
 KSAN_NA,KSAN,NA,KSAN,South African National Parks,NA
@@ -3306,7 +3306,7 @@ NCE_NA,NCE,NA,NCE,University of Newcastle upon Tyne,NA
 NCH_NA,NCH,NA,NCH,Norwich Botanical Society,NA
 NCKU_NA,NCKU,NA,NCKU,National Cheng-Kung University,NA
 NCLN_NA,NCLN,NA,NCLN,New College,NA
-NCMS_NA,NCMS,NA,NCMS,North Carolina Museum of Natural Sciences,NA
+NCMS_NA,NCMS,NA,NCMS,North Carolina Museum of Natural Sciences,not in IH
 NCP_NA,NCP,NA,NCP,National  Collection of Passiflora,NA
 NCPF_NA,NCPF,NA,NCPF,Bristol Public Health Laboratory,NA
 NCSC_NA,NCSC,NA,NCSC,North Carolina State University,NA
@@ -3843,7 +3843,7 @@ SAT_NA,SAT,NA,SAT,Angelo State University,NA
 SAU_NA,SAU,NA,SAU,Sichuan Agricultural University,NA
 SAUF_NA,SAUF,NA,SAUF,Sichuan Agricultural University,NA
 SAUT_NA,SAUT,NA,SAUT,Sichuan Agricultural University,NA
-SAWV_NA,SAWV,NA,SAWV,Salem International University,NA
+SAWV_NA,SAWV,NA,SAWV,Salem International University,not in IH
 SB_NA,SB,NA,SB,Saint Bernard Abbey,NA
 SBAC_NA,SBAC,NA,SBAC,Audubon Society -- Silver Bluff Audubon Center and Sanctuary,NA
 SBC_NA,SBC,NA,SBC,University of California,NA
@@ -4340,7 +4340,7 @@ UDM_NA,UDM,NA,UDM,Museo Friulano di Storia Naturale,NA
 UDU_NA,UDU,NA,UDU,Udmurt State University,NA
 UDW_NA,UDW,NA,UDW,"University of KwaZulu-Natal, Westville campus",NA
 UEA_NA,UEA,NA,UEA,University of East Anglia,NA
-UEGQ_NA,UEGQ,NA,UEGQ,Universidade Estadual de Goiás,NA
+UEGQ_NA,UEGQ,NA,UEGQ,Universidade Estadual de Goiás,not in IH
 UEVH_NA,UEVH,NA,UEVH,Universidade de Évora,NA
 UFA_NA,UFA,NA,UFA,"Ufa Scientific Centre, Russian Academy of Sciences",NA
 UFH_NA,UFH,NA,UFH,University of Fort Hare,NA
@@ -4763,12 +4763,12 @@ CVRD_NA,CVRD,NA,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
 CEN_NA,CEN,NA,CEN,Embrapa Recursos Genéticos e Biotecnologia - Embrapa Cenargen,NA
 INPA_NA,INPA,NA,INPA,Instituto Nacional de Pesquisas da Amazônia,NA
 NA_MNHW,NA,MNHW,MNHW,NA,not in IH
-NA_BIHM,NA,BIHM,BIHM,NA,not in IH
+NA_BIHM,NA,BIHM,BIHM,Bihoro Museum,NA
 HAL_NA,HAL,NA,HAL,Martin-Luther-Universität,NA
 M_NA,M,NA,M,Botanische Staatssammlung München,NA
 UC_NA,UC,NA,UC,University of California,NA
 TEX_NA,TEX,NA,TEX,University of Texas at Austin,NA
-S_NA,S,NA,S,NA,NA
+S_NA,S,NA,S,Swedish Museum of Natural History,NA
 NA_Prioksko-Terrasnyi Biosphere Reserve,NA,Prioksko-Terrasnyi Biosphere Reserve,Prioksko-Terrasnyi Biosphere Reserve,NA,not in IH
 NA_uwi-cms-dbml,NA,uwi-cms-dbml,uwi-cms-dbml,NA,not in IH
 NA_UPCB,NA,UPCB,UPCB,Universidade Federal do Paraná,NA
@@ -4780,7 +4780,7 @@ F_F_BOTANY,F,F_BOTANY,F,Field Museum of Natural History,NA
 F_F,F,F,F,Field Museum of Natural History,NA
 CNPJBPE_CENPAT_CONICET,CNPJBPE,CENPAT_CONICET,CENPAT,CONICET,not in IH
 LIL_FML,LIL,FML,LIL,Fundación Miguel Lillo,NA
-B_MCNAM,B,MCNAM,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,NA
+B_MCNAM,B,MCNAM,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,not in IH
 HERBMG_MPEG,HERBMG,MPEG,MG,Museu Paraense Emílio Goeldi,NA
 MG_MPEG,MG,MPEG,MG,Museu Paraense Emílio Goeldi,NA
 MMHNSR_MMHNSR,MMHNSR,MMHNSR,MMHNSR,Museo Municipal de Historia Natural de San Rafael (MMHNSR),not in IH
@@ -4806,7 +4806,7 @@ HDCF_UFSM,HDCF,UFSM,HDCF,Department of Forestry Science,NA
 HISA_UNESP-IS,HISA,UNESP-IS,HISA,Universidade Estadual Paulista,NA
 HPUC-MG_MCN-PUC-MINAS,HPUC-MG,MCN-PUC-MINAS,HPUC,Pontifícia Universidade Católica de Minas Gerais,not in IH
 HSTM_UFOPA,HSTM,UFOPA,HSTM,Universidade Federal do Oeste do Pará,NA
-HUCO_UNICENTRO,HUCO,UNICENTRO,HUCO,Universidade Estadual do Centro-Oeste,not in IH
+HUCO_UNICENTRO,HUCO,UNICENTRO,HUCO,Universidade Estadual do Centro-Oeste,NA
 HUMC_UMC,HUMC,UMC,HUMC,Universidade de Mogi das Cruzes,NA
 HUNEB_UNEB,HUNEB,UNEB,HUNEB,Universidade do Estado da Bahia,NA
 HUNI_UNIRIO,HUNI,UNIRIO,HUNI,Universidade Federal do Estado do Rio de Janeiro,NA
@@ -4825,11 +4825,11 @@ PERD_PERD,PERD,PERD,PERD,Parque Estadual do Rio Doce,not in IH
 RBR_UFRRJ,RBR,UFRRJ,RBR,Universidade Federal Rural do Rio de Janeiro,NA
 RFA_UFRJ,RFA,UFRJ,RFA,Universidade Federal do Rio de Janeiro,NA
 RON_UNIR,RON,UNIR,RON,Universidade Federal de Rondônia,NA
-RSPF_UPF,RSPF,UPF,RSPF,Museu Zoobotânico Augusto Ruschi,not in IH
+RSPF_UPF,RSPF,UPF,RSPF,Museu Zoobotânico Augusto Ruschi,NA
 SAMES_UFES,SAMES,UFES,SAMES,Universidade Federal do Espírito Santo,NA
 SPFR_FFCLRP,SPFR,FFCLRP,SPFR,Universidade de São Paulo,NA
 SPSC_UFSCar,SPSC,UFSCar,SPSC,Universidade Federal de São Carlos,NA
-TANG_UNEMAT,TANG,UNEMAT,TANG,UNEMAT,not in IH
+TANG_UNEMAT,TANG,UNEMAT,TANG,UNEMAT,NA
 UFRR_UFRR,UFRR,UFRR,UFRR,Universidade Federal de Roraima,NA
 UNOP_UNIOESTE,UNOP,UNIOESTE,UNOP,Universidade Estadual do Oeste do Paraná,NA
 US_SMITHSONIAN,US,SMITHSONIAN,US,Smithsonian Institution,NA
@@ -4848,9 +4848,9 @@ HRB_JBRJ,HRB,JBRJ,HRB,Fundação Instituto Brasileiro de Geografia e Estatístic
 HRJ_JBRJ,HRJ,JBRJ,HRJ,Universidade do Estado do Rio de Janeiro,NA
 HSTM_JBRJ,HSTM,JBRJ,HSTM,Universidade Federal do Oeste do Pará,NA
 HUCP_JBRJ,HUCP,JBRJ,HUCP,Pontifícia Universidade Católica do Paraná,NA
-HUENF_JBRJ,HUENF,JBRJ,HUENF,NA,not in IH
+HUENF_JBRJ,HUENF,JBRJ,HUENF,Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF),NA
 HUNI_JBRJ,HUNI,JBRJ,HUNI,Universidade Federal do Estado do Rio de Janeiro,NA
-HVC_JBRJ,HVC,JBRJ,HVC,Universidade Federal da Bahia,not in IH
+HVC_JBRJ,HVC,JBRJ,HVC,Universidade Federal da Bahia,NA
 IBGE_JBRJ,IBGE,JBRJ,IBGE,Instituto Brasileiro de Geografia e Estatística - IBGE,NA
 IFRV_JBRJ,IFRV,JBRJ,IFRV,Instituto Federal Goiano,not in IH
 JOI_JBRJ,JOI,JBRJ,JOI,Universidade da Região de Joinville - Univille,NA
@@ -4894,13 +4894,13 @@ HEPH_JBB,HEPH,JBB,HEPH,Jardim Botânico de Brasília,NA
 FURB_FURB,FURB,FURB,FURB,Universidade Regional de Blumenau,NA
 HJ_UFG,HJ,UFG,HJ,Universidade Federal de Jataí,NA
 HRJ_UERJ,HRJ,UERJ,HRJ,Universidade do Estado do Rio de Janeiro,NA
-HVC_UFBA-IMS,HVC,UFBA-IMS,HVC,Universidade Federal da Bahia,not in IH
+HVC_UFBA-IMS,HVC,UFBA-IMS,HVC,Universidade Federal da Bahia,NA
 IFRV_IFGoiano,IFRV,IFGoiano,IFRV,Instituto Federal Goiano,not in IH
 NIT_UFF,NIT,UFF,NIT,Universidade Federal Fluminense (Fluminense Federal University - UFF),NA
 CVRD_CVRD,CVRD,CVRD,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
 FSU_FSU,FSU,FSU,FSU,Florida State University,NA
 BLA_FEPAGRO,BLA,FEPAGRO,BLA,Fundação Estadual de Pesquisa Agropecuária,NA
-BOTUW_UNESP-IBB,BOTUW,UNESP-IBB,BOTUw,Universidade Estadual Paulista,xylarium
+BOTUW_UNESP-IBB,BOTUW,UNESP-IBB,BOTUw,Universidade Estadual Paulista,xylarium|not in IH
 CPMA_CPQBA,CPMA,CPQBA,CPMA,Universidade Estadual de Campinas,not in IH
 CSTR_UFCG,CSTR,UFCG,CSTR,Universidade Federal de Campina Grande - Campus Patos,not in IH
 CVJBFZB_FZB-BH,CVJBFZB,FZB-BH,CVJBFZB,Fundação Zoo-Botânica de Belo Horizonte,not in IH
@@ -4917,9 +4917,9 @@ NYBG_NY,NYBG,NY,NY,The New York Botanical Garden,NA
 REAL_UFSS,REAL,UFSS,REAL,Universidade Federal da Fronteira Sul,not in IH
 RECOLNAT_MNHN_P_MNHN,RECOLNAT,MNHN_P_MNHN,P,Muséum National d'Histoire Naturelle,NA
 RECOLNAT_UM_MPU_UM,RECOLNAT,UM_MPU_UM,MPU,Université de Montpellier,NA
-SAMES-CARPOTECA_UFES,SAMES-CARPOTECA,UFES,SAMEScarpo,Universidade Federal do Espírito Santo,carpothek
+SAMES-CARPOTECA_UFES,SAMES-CARPOTECA,UFES,SAMEScarpo,Universidade Federal do Espírito Santo,carpothek|not in IH
 SHPR_UTFPR-SL,SHPR,UTFPR-SL,SHPR,Universidade Tecnológica Federal do Paraná,NA
-UFP-CARPOTECA_UFPE,UFP-CARPOTECA,UFPE,UFP-CARPOTECA,Universidade Federal de Pernambuco,carpothek
+UFP-CARPOTECA_UFPE,UFP-CARPOTECA,UFPE,UFP-CARPOTECA,Universidade Federal de Pernambuco,carpothek|not in IH
 US_US,US,US,US,Smithsonian Institution,NA
 CTBS_UFSC,CTBS,UFSC,CTBS,Universidade Federal de Santa Catarina,NA
 HUFABC_UFABC,HUFABC,UFABC,HUFABC,Universidade Federal do ABC,NA
@@ -4937,168 +4937,168 @@ HST_UFRPE,HST,UFRPE,HST,Universidade Federal Rural de Pernambuco,not in IH
 HCDAL_URCA,HCDAL,URCA,HCDAL,Universidade Regional do Cariri,NA
 HPBR_URICER,HPBR,URICER,HPBR,Universidade Regional Integrada do Alto Uruguai e das Missões,NA
 HCF_UTFPR,HCF,UTFPR,HCF,Universidade Tecnológica Federal do Paraná,NA
-INPAW_INPA,INPAW,INPA,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium
+INPAW_INPA,INPAW,INPA,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium|not in IH
 BCTW_IPT,BCTW,IPT,BCTw,Instituto de Pesquisas Tecnológicas do Estado de São Paulo,xylarium|not in IH
-BAw_NA,BAw,NA,BAw,NA,xylarium
-LILw_NA,LILw,NA,LILw,Foundation Miguel Lillo - Institut Miguel Lillo,xylarium
-CQTw_NA,CQTw,NA,CQTw,Fisheries and Forestry,xylarium
-BOKUw_NA,BOKUw,NA,BOKUw,Institute of Wood Technology and Renewable Resources,xylarium
-VFw_NA,VFw,NA,VFw,NA,xylarium
-CHITw_NA,CHITw,NA,CHITw,Bangladesh Forest Research Institute,xylarium
+BAw_NA,BAw,NA,BAw,NA,xylarium|not in IH
+LILw_NA,LILw,NA,LILw,Foundation Miguel Lillo - Institut Miguel Lillo,xylarium|not in IH
+CQTw_NA,CQTw,NA,CQTw,Fisheries and Forestry,xylarium|not in IH
+BOKUw_NA,BOKUw,NA,BOKUw,Institute of Wood Technology and Renewable Resources,xylarium|not in IH
+VFw_NA,VFw,NA,VFw,NA,xylarium|not in IH
+CHITw_NA,CHITw,NA,CHITw,Bangladesh Forest Research Institute,xylarium|not in IH
 Tw_NA,Tw,NA,Tw,Royal Museum for Central Africa,xylarium|not in IH
-MGw_NA,MGw,NA,MGw,Museu Paraense Emilio Goeldi - Campus de Pesquisa,xylarium
-UCAXw_NA,UCAXw,NA,UCAXw,Universidade de Caxias do Sul,xylarium
-BOTUw_NA,BOTUw,NA,BOTUw,Universidade Estadual Paulista,xylarium
-LPFw_NA,LPFw,NA,LPFw,Laboratorio de Produtos Florestais Serviço Florestal Brasileiro/Ministério do Meio Ambiente- SFB/MMA,xylarium
-CEPECw_NA,CEPECw,NA,CEPECw,"CEPEC Herbarium, Divisao de Botanica, Centro de Pesquisas do Cacau",xylarium
-HBRw_NA,HBRw,NA,HBRw,NA,xylarium
-CVRDw_NA,CVRDw,NA,CVRDw,Reserva Florestal da CVRD,xylarium
-INPAw_NA,INPAw,NA,INPAw,Instituto Nacional de Pesquisas do Amazonia,xylarium
-ITAw_NA,ITAw,NA,ITAw,Instituto de Tecnologia do Amazonia/UTAM,xylarium
-JARIw_NA,JARIw,NA,JARIw,"JARI-Companhia Florestal Monte Dourado, Superintendencia de Pesquisa Florestal",xylarium
-ESAw_NA,ESAw,NA,ESAw,"Curso de Engenharia Florestal, Escola Superior de Agricultura Luiz de Queiroz, Universidade de Sao Paulo",xylarium
-TIPw_NA,TIPw,NA,TIPw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium
-SUDENEw_NA,SUDENEw,NA,SUDENEw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium
-RBw_NA,RBw,NA,RBw,Instituto de Pesquisas Jardim Botanico do Rio de Janeiro,xylarium
-NITw_NA,NITw,NA,NITw,Universidade Federal Fluminense Outeiro São João Batista,xylarium
-PJPSw_NA,PJPSw,NA,PJPSw,"Universidade Federal da Bahia; Departamento de Botânica, Instituto de Biologia; Laboratório de Anatomia Vegetal e Identificação de Madeiras",xylarium
-ASEw_NA,ASEw,NA,ASEw,"Departamento de biologia, Universidade Federal de Sergipe",xylarium
+MGw_NA,MGw,NA,MGw,Museu Paraense Emilio Goeldi - Campus de Pesquisa,xylarium|not in IH
+UCAXw_NA,UCAXw,NA,UCAXw,Universidade de Caxias do Sul,xylarium|not in IH
+BOTUw_NA,BOTUw,NA,BOTUw,Universidade Estadual Paulista,xylarium|not in IH
+LPFw_NA,LPFw,NA,LPFw,Laboratorio de Produtos Florestais Serviço Florestal Brasileiro/Ministério do Meio Ambiente- SFB/MMA,xylarium|not in IH
+CEPECw_NA,CEPECw,NA,CEPECw,"CEPEC Herbarium, Divisao de Botanica, Centro de Pesquisas do Cacau",xylarium|not in IH
+HBRw_NA,HBRw,NA,HBRw,NA,xylarium|not in IH
+CVRDw_NA,CVRDw,NA,CVRDw,Reserva Florestal da CVRD,xylarium|not in IH
+INPAw_NA,INPAw,NA,INPAw,Instituto Nacional de Pesquisas do Amazonia,xylarium|not in IH
+ITAw_NA,ITAw,NA,ITAw,Instituto de Tecnologia do Amazonia/UTAM,xylarium|not in IH
+JARIw_NA,JARIw,NA,JARIw,"JARI-Companhia Florestal Monte Dourado, Superintendencia de Pesquisa Florestal",xylarium|not in IH
+ESAw_NA,ESAw,NA,ESAw,"Curso de Engenharia Florestal, Escola Superior de Agricultura Luiz de Queiroz, Universidade de Sao Paulo",xylarium|not in IH
+TIPw_NA,TIPw,NA,TIPw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium|not in IH
+SUDENEw_NA,SUDENEw,NA,SUDENEw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium|not in IH
+RBw_NA,RBw,NA,RBw,Instituto de Pesquisas Jardim Botanico do Rio de Janeiro,xylarium|not in IH
+NITw_NA,NITw,NA,NITw,Universidade Federal Fluminense Outeiro São João Batista,xylarium|not in IH
+PJPSw_NA,PJPSw,NA,PJPSw,"Universidade Federal da Bahia; Departamento de Botânica, Instituto de Biologia; Laboratório de Anatomia Vegetal e Identificação de Madeiras",xylarium|not in IH
+ASEw_NA,ASEw,NA,ASEw,"Departamento de biologia, Universidade Federal de Sergipe",xylarium|not in IH
 BCTw_NA,BCTw,NA,BCTw,Instituto de Pesquisas Tecnológicas do Estado de São Paulo S.A. - IPT,xylarium|not in IH
-SPSFw_NA,SPSFw,NA,SPSFw,Instituto de Florestal de Sao Paulo,xylarium
-SPw_NA,SPw,NA,SPw,Instituto de Botanica,xylarium
-SPFw_NA,SPFw,NA,SPFw,Universidade de São Paulo,xylarium
-FPDw_NA,FPDw,NA,FPDw,"Universidade Federal Rural do Rio de Janeiro, Instituto de Florestas, Departamento de Produtos Florestais,",xylarium
-OLw_NA,OLw,NA,OLw,"Canadian Forest Service, Canadian Wood Fibre Centre",xylarium
-TRTw_NA,TRTw,NA,TRTw,University of Toronto,xylarium
-VLw_NA,VLw,NA,VLw,University of British Columbia,xylarium
-CONCw_NA,CONCw,NA,CONCw,"Facultad de Ciencias Naturales y Oceanograficas, Universidad de Concepcion",xylarium
-EIFw_NA,EIFw,NA,EIFw,"Departamento de Ciencia y Tecnologia de la Madera, Facultad de Ciencias Forestales, Universidad de Chile",xylarium
-BOFw_NA,BOFw,NA,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium
-MEDELw_NA,MEDELw,NA,MEDELw,"Departamento de Ciencias Forestales, Laboratorio de Productos Forestales LPF",xylarium
-TECw_NA,TECw,NA,TECw,"Instituto Tecnologico de Costa Rica, Escuela de Ingeniería Forestal",xylarium
-ECw_NA,ECw,NA,ECw,Universidad Nacional,xylarium
-IICAw_NA,IICAw,NA,IICAw,Universidad de Costa Rica,xylarium
+SPSFw_NA,SPSFw,NA,SPSFw,Instituto de Florestal de Sao Paulo,xylarium|not in IH
+SPw_NA,SPw,NA,SPw,Instituto de Botanica,xylarium|not in IH
+SPFw_NA,SPFw,NA,SPFw,Universidade de São Paulo,xylarium|not in IH
+FPDw_NA,FPDw,NA,FPDw,"Universidade Federal Rural do Rio de Janeiro, Instituto de Florestas, Departamento de Produtos Florestais,",xylarium|not in IH
+OLw_NA,OLw,NA,OLw,"Canadian Forest Service, Canadian Wood Fibre Centre",xylarium|not in IH
+TRTw_NA,TRTw,NA,TRTw,University of Toronto,xylarium|not in IH
+VLw_NA,VLw,NA,VLw,University of British Columbia,xylarium|not in IH
+CONCw_NA,CONCw,NA,CONCw,"Facultad de Ciencias Naturales y Oceanograficas, Universidad de Concepcion",xylarium|not in IH
+EIFw_NA,EIFw,NA,EIFw,"Departamento de Ciencia y Tecnologia de la Madera, Facultad de Ciencias Forestales, Universidad de Chile",xylarium|not in IH
+BOFw_NA,BOFw,NA,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium|not in IH
+MEDELw_NA,MEDELw,NA,MEDELw,"Departamento de Ciencias Forestales, Laboratorio de Productos Forestales LPF",xylarium|not in IH
+TECw_NA,TECw,NA,TECw,"Instituto Tecnologico de Costa Rica, Escuela de Ingeniería Forestal",xylarium|not in IH
+ECw_NA,ECw,NA,ECw,Universidad Nacional,xylarium|not in IH
+IICAw_NA,IICAw,NA,IICAw,Universidad de Costa Rica,xylarium|not in IH
 HBw_NA,HBw,NA,HBw,Forest Research Institute,xylarium|not in IH
-SVw_NA,SVw,NA,SVw,Institute of Ecology and Systematic,xylarium
-LSw_NA,LSw,NA,LSw,Institute of Ecology and Systematic,xylarium
-HACw_NA,HACw,NA,HACw,Institute of Ecology and Systematic,xylarium
-ACCw_NA,ACCw,NA,ACCw,Institute of Ecology and Systematic,xylarium
-LPIw_NA,LPIw,NA,LPIw,Loyola Polytechnic Institute,xylarium
-JBSDw_NA,JBSDw,NA,JBSDw,"Herbarium, Botany Department",xylarium
-DEQw_NA,DEQw,NA,DEQw,Instituto Ecuatoriano de Ciencias Naturales,xylarium
-CTFw_NA,CTFw,NA,CTFw,CIRAD-Foret,xylarium
-Pw_NA,Pw,NA,Pw,Galerie de Botanique,xylarium
-PATw_NA,PATw,NA,PATw,Natures & Societes,xylarium
-CTBw_NA,CTBw,NA,CTBw,Centre Technique du Bois et de l'Ameublement,xylarium
-BHUw_NA,BHUw,NA,BHUw,"Museum fur Naturkunde, Institut fur Palaontologie",xylarium
-Bw_NA,Bw,NA,Bw,NA,xylarium
-DREw_NA,DREw,NA,DREw,NA,xylarium
-JWGw_NA,JWGw,NA,JWGw,Institut fur archaologische Wissenschaften,xylarium
-FRw_NA,FRw,NA,FRw,"Herbarium Senckenbergianum, Abteilung Botanik & molekulare Evolutionsforschung",xylarium
+SVw_NA,SVw,NA,SVw,Institute of Ecology and Systematic,xylarium|not in IH
+LSw_NA,LSw,NA,LSw,Institute of Ecology and Systematic,xylarium|not in IH
+HACw_NA,HACw,NA,HACw,Institute of Ecology and Systematic,xylarium|not in IH
+ACCw_NA,ACCw,NA,ACCw,Institute of Ecology and Systematic,xylarium|not in IH
+LPIw_NA,LPIw,NA,LPIw,Loyola Polytechnic Institute,xylarium|not in IH
+JBSDw_NA,JBSDw,NA,JBSDw,"Herbarium, Botany Department",xylarium|not in IH
+DEQw_NA,DEQw,NA,DEQw,Instituto Ecuatoriano de Ciencias Naturales,xylarium|not in IH
+CTFw_NA,CTFw,NA,CTFw,CIRAD-Foret,xylarium|not in IH
+Pw_NA,Pw,NA,Pw,Galerie de Botanique,xylarium|not in IH
+PATw_NA,PATw,NA,PATw,Natures & Societes,xylarium|not in IH
+CTBw_NA,CTBw,NA,CTBw,Centre Technique du Bois et de l'Ameublement,xylarium|not in IH
+BHUw_NA,BHUw,NA,BHUw,"Museum fur Naturkunde, Institut fur Palaontologie",xylarium|not in IH
+Bw_NA,Bw,NA,Bw,NA,xylarium|not in IH
+DREw_NA,DREw,NA,DREw,NA,xylarium|not in IH
+JWGw_NA,JWGw,NA,JWGw,Institut fur archaologische Wissenschaften,xylarium|not in IH
+FRw_NA,FRw,NA,FRw,"Herbarium Senckenbergianum, Abteilung Botanik & molekulare Evolutionsforschung",xylarium|not in IH
 RBHw_NA,RBHw,NA,RBHw,"Federal Research Institute for Rural Areas, Forestry and Fisheries)",xylarium|not in IH
-MUNw_NA,MUNw,NA,MUNw,Holzforschung Muenchen,xylarium
-RFw_NA,RFw,NA,RFw,NA,xylarium
-TSFw_NA,TSFw,NA,TSFw,"Bereich Biologie, Forstbotanischer Garten, Technische Universitat Dresden",xylarium
-FORIGw_NA,FORIGw,NA,FORIGw,Wood Anatomy Laboratory,xylarium
-TAUw_NA,TAUw,NA,TAUw,"School of Agriculture & Forestry, Aristotelian University",xylarium
-GTw_NA,GTw,NA,GTw,"Jonah Boyan Herbarium, Guyana Forestry Commission",xylarium
-EHHw_NA,EHHw,NA,EHHw,"Faculte d'Agronomie et de Medecine Veterinaire, Universite d'Etat d'Haiti",xylarium
-BPw_NA,BPw,NA,BPw,Botanical Department of the Hungarian Natural History Museum,xylarium
-SZDw_NA,SZDw,NA,SZDw,Universitatis Szeged,xylarium
-REYw_NA,REYw,NA,REYw,NA,xylarium
-AMw_NA,AMw,NA,AMw,Birla Institute of Scientific Research,xylarium
-DDw_NA,DDw,NA,DDw,Forest Research Institute,xylarium
-KFRIw_NA,KFRIw,NA,KFRIw,Kerala Forest Research Institute,xylarium
-BZFw_NA,BZFw,NA,BZFw,Forest Products Research and Development Center,xylarium
-KARw_NA,KARw,NA,KARw,"Forest Products Laboratory, College of Natural Resources, Karaj",xylarium
-DBNw_NA,DBNw,NA,DBNw,"National Herbarium, National Botanic Gardens",xylarium
-DBw_NA,DBw,NA,DBw,Department of Forestry,xylarium
-NATw_NA,NATw,NA,NATw,Agricultural Research Organisation,xylarium
-FLw_NA,FLw,NA,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium
-FLW_NA,FLW,NA,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium
-MCSw_NA,MCSw,NA,MCSw,Civico Museo de Storia Naturale,xylarium
-UPADw_NA,UPADw,NA,UPADw,"Università di Padova, Department of Land, Environment, Agriculture and Forestry (TESAF)",xylarium
-IJw_NA,IJw,NA,IJw,Institute of Jamaica,xylarium
-HYOw_NA,HYOw,NA,HYOw,NA,xylarium
-KYOw_NA,KYOw,NA,KYOw,Kyoto University,xylarium
-TUSw_NA,TUSw,NA,TUSw,"Botanical Garden, Graduate School of Science, Tohoku University",xylarium
-TOFOw_NA,TOFOw,NA,TOFOw,"University Museum, University of Tokyo",xylarium
-TWTw_NA,TWTw,NA,TWTw,Matsunosato,xylarium
-KEPw_NA,KEPw,NA,KEPw,Forest Research Institute Malaysia (FRIM),xylarium
-SARFw_NA,SARFw,NA,SARFw,Forest Department,xylarium
-SANw_NA,SANw,NA,SANw,Forest Research Centre,xylarium
-MEXUw_NA,MEXUw,NA,MEXUw,"Instituto de Biologia, Universidad Nacional Autonoma de Mexico",xylarium
-MEXFw_NA,MEXFw,NA,MEXFw,"Seccion de Anatomia de Maderas, lnstituto Nacional de Investigaciones Forestales",xylarium
-XALw_NA,XALw,NA,XALw,"Instituto de Ecología, A.C.",xylarium
-ARw_NA,ARw,NA,ARw,Forest Research Institute,xylarium
-KATHw_NA,KATHw,NA,KATHw,National Herbarium and Plant Laboratory,xylarium
-GIAw_NA,GIAw,NA,GIAw,Groningen Institute of Archaeology,xylarium
-Dw_NA,Dw,NA,Dw,Naturalis Biodiversity Center,xylarium
-Lw_NA,Lw,NA,Lw,NA,xylarium
-Uw_NA,Uw,NA,Uw,Naturalis Biodiversity Center,xylarium
-RTIw_NA,RTIw,NA,RTIw,NA,xylarium
-"WAGw, WLw, WIBw_NA","WAGw, WLw, WIBw",NA,"WAGw, WLw, WIBw",NA,xylarium
-CHNw_NA,CHNw,NA,CHNw,University of Canterbury,xylarium
-WZw_NA,WZw,NA,WZw,Forest Research,xylarium
-NINw_NA,NINw,NA,NINw,""" Nicaraguan Institute of Natural Resources and Environment",xylarium
-FHIw_NA,FHIw,NA,FHIw,"Forest Products Research Division, Forestry Research Institute of Nigeria",xylarium
-PMPw_NA,PMPw,NA,PMPw,NA,xylarium
-BULHw_NA,BULHw,NA,BULHw,Papua New Guinea Forestry College,xylarium
-CAFw_NA,CAFw,NA,CAFw,Chinese Academy of Forestry (CAF),xylarium
-SYSw_NA,SYSw,NA,SYSw,"Botanical Laboratories, Department of Biology, Sun Yat-Sen University",xylarium
-FRTGw_NA,FRTGw,NA,FRTGw,NA,xylarium
-HEFw_NA,HEFw,NA,HEFw,Anhui Agricultural College,xylarium
-SWFUw_NA,SWFUw,NA,SWFUw,Southwest Forestry University,xylarium
-NFUw_NA,NFUw,NA,NFUw,Nanjing Forestry University,xylarium
-IFPw_NA,IFPw,NA,IFPw,"Institute of Forestry and Pedology, Academia Sinica",xylarium
-YANw_NA,YANw,NA,YANw,Northwestern College of Forestry,xylarium
-CLPw_NA,CLPw,NA,CLPw,"Materials Properties Evaluation Division, Forest Products Research and Development Institute (FPRDI), Department of Science and Technology",xylarium
-ALCw_NA,ALCw,NA,ALCw,"Departamento de Tecnologia Fisico-mecanica dos Produtos Florestais, Estacao de Experimentacao Florestal, Alcobaca",xylarium
-LISFLw_NA,LISFLw,NA,LISFLw,"Instituto de Investigacao Cientifica Tropical, FLOR -Florestas e Produtos Florestais, Dep. Engenharia Florestal",xylarium
-LNECw_NA,LNECw,NA,LNECw,Laboratorio Nacional de Engenharia Civil,xylarium
-LISJCw_NA,LISJCw,NA,LISJCw,Jardim Botânico Tropical,xylarium
-MHNC-UP_NA,MHNC-UP,NA,MHNC-UP,Museu de História Natural e da Ciência da Universidade do Porto,xylarium
-LEw_NA,LEw,NA,LEw,"Botanical Museum, Komarov Botanical Institute of the Russian Academy of Sciences",xylarium
-JPRw_NA,JPRw,NA,JPRw,"Bernard Price Institute for Palaeontological Research, University of the Witwatersrand",xylarium
-PFPw_NA,PFPw,NA,PFPw,South African Forestry Research Institute,xylarium
-STEw_NA,STEw,NA,STEw,University of Stellenbosch,xylarium
-UPMAw_NA,UPMAw,NA,UPMAw,Escuela Tecnica Superior de Ingenieros de Montes,xylarium
-MADRw_NA,MADRw,NA,MADRw,Centro de Investigacion Forestal (CIFOR),xylarium
-BBSw_NA,BBSw,NA,BBSw,Surinam Forest Service,xylarium
-S-PAw_NA,S-PAw,NA,S-PAw,Swedish Museum of Natural History,xylarium
-WSLw_NA,WSLw,NA,WSLw,"Swiss Federal Institute for Forest, Snow and Landscape",xylarium
-ZTw_NA,ZTw,NA,ZTw,Fachbereich Holzkunde und Holztechnologie,xylarium
-TNMw_NA,TNMw,NA,TNMw,National Museum of Natural Science,xylarium
-TAIFw_NA,TAIFw,NA,TAIFw,Botanical Garden,xylarium
-BKFw_NA,BKFw,NA,BKFw,"Forest Products Research Division, Royal Forest Department",xylarium
-ISTUFw_NA,ISTUFw,NA,ISTUFw,"Faculty of Forestry, Department of Forest Biology and Wood Protection Technology",xylarium
-UCNWw_NA,UCNWw,NA,UCNWw,Natural Resources and Geography,xylarium
-NMWw_NA,NMWw,NA,NMWw,National Museum Wales,xylarium
-FPRLw_NA,FPRLw,NA,FPRLw,Building Research Establishment Ltd,xylarium
-Kw_NA,Kw,NA,Kw,Royal Botanic Gardens Kew,xylarium
-K-Jw_NA,K-Jw,NA,K-Jw,Royal Botanic Gardens Kew,xylarium
-LIVw_NA,LIVw,NA,LIVw,Liverpool Museum,xylarium
-HMw_NA,HMw,NA,HMw,NA,xylarium
-FHOw_NA,FHOw,NA,FHOw,University of Oxford,xylarium
-MICHw_NA,MICHw,NA,MICHw,"North University Building, University of Michigan",xylarium
-NYw_NA,NYw,NA,NYw,NA,xylarium
-Aw_NA,Aw,NA,Aw,Harvard University Herbaria,xylarium
-RSAw_NA,RSAw,NA,RSAw,NA,xylarium
-DAVw_NA,DAVw,NA,DAVw,"College of Biological Sciences, Section of Plant Biology",xylarium
-BRITw_NA,BRITw,NA,BRITw,The BRIT Philecology Herbarium,xylarium
-FLASw_NA,FLASw,NA,FLASw,University of Florida Herbarium,xylarium
-BISHw_NA,BISHw,NA,BISHw,Department of Botany,xylarium
-"MADw, SJRw_NA","MADw, SJRw",NA,"MADw, SJRw","USDA Forest Service, Forest Products Laboratory",xylarium
-MUw_NA,MUw,NA,MUw,"Department of Botany, Miami University",xylarium
-NYJw_NA,NYJw,NA,NYJw,World Forestry Center,xylarium
-PACw_NA,PACw,NA,PACw,"Department of Wood and Paper Science, College of Natural Resources, North Carolina State University",xylarium
-UCw_NA,UCw,NA,UCw,"Forest Products Laboratory, University of California",xylarium
-RPPRw_NA,RPPRw,NA,RPPRw,NA,xylarium
-WTUFw_NA,WTUFw,NA,WTUFw,University of Washington,xylarium
+MUNw_NA,MUNw,NA,MUNw,Holzforschung Muenchen,xylarium|not in IH
+RFw_NA,RFw,NA,RFw,NA,xylarium|not in IH
+TSFw_NA,TSFw,NA,TSFw,"Bereich Biologie, Forstbotanischer Garten, Technische Universitat Dresden",xylarium|not in IH
+FORIGw_NA,FORIGw,NA,FORIGw,Wood Anatomy Laboratory,xylarium|not in IH
+TAUw_NA,TAUw,NA,TAUw,"School of Agriculture & Forestry, Aristotelian University",xylarium|not in IH
+GTw_NA,GTw,NA,GTw,"Jonah Boyan Herbarium, Guyana Forestry Commission",xylarium|not in IH
+EHHw_NA,EHHw,NA,EHHw,"Faculte d'Agronomie et de Medecine Veterinaire, Universite d'Etat d'Haiti",xylarium|not in IH
+BPw_NA,BPw,NA,BPw,Botanical Department of the Hungarian Natural History Museum,xylarium|not in IH
+SZDw_NA,SZDw,NA,SZDw,Universitatis Szeged,xylarium|not in IH
+REYw_NA,REYw,NA,REYw,NA,xylarium|not in IH
+AMw_NA,AMw,NA,AMw,Birla Institute of Scientific Research,xylarium|not in IH
+DDw_NA,DDw,NA,DDw,Forest Research Institute,xylarium|not in IH
+KFRIw_NA,KFRIw,NA,KFRIw,Kerala Forest Research Institute,xylarium|not in IH
+BZFw_NA,BZFw,NA,BZFw,Forest Products Research and Development Center,xylarium|not in IH
+KARw_NA,KARw,NA,KARw,"Forest Products Laboratory, College of Natural Resources, Karaj",xylarium|not in IH
+DBNw_NA,DBNw,NA,DBNw,"National Herbarium, National Botanic Gardens",xylarium|not in IH
+DBw_NA,DBw,NA,DBw,Department of Forestry,xylarium|not in IH
+NATw_NA,NATw,NA,NATw,Agricultural Research Organisation,xylarium|not in IH
+FLw_NA,FLw,NA,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium|not in IH
+FLW_NA,FLW,NA,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium|not in IH
+MCSw_NA,MCSw,NA,MCSw,Civico Museo de Storia Naturale,xylarium|not in IH
+UPADw_NA,UPADw,NA,UPADw,"Università di Padova, Department of Land, Environment, Agriculture and Forestry (TESAF)",xylarium|not in IH
+IJw_NA,IJw,NA,IJw,Institute of Jamaica,xylarium|not in IH
+HYOw_NA,HYOw,NA,HYOw,NA,xylarium|not in IH
+KYOw_NA,KYOw,NA,KYOw,Kyoto University,xylarium|not in IH
+TUSw_NA,TUSw,NA,TUSw,"Botanical Garden, Graduate School of Science, Tohoku University",xylarium|not in IH
+TOFOw_NA,TOFOw,NA,TOFOw,"University Museum, University of Tokyo",xylarium|not in IH
+TWTw_NA,TWTw,NA,TWTw,Matsunosato,xylarium|not in IH
+KEPw_NA,KEPw,NA,KEPw,Forest Research Institute Malaysia (FRIM),xylarium|not in IH
+SARFw_NA,SARFw,NA,SARFw,Forest Department,xylarium|not in IH
+SANw_NA,SANw,NA,SANw,Forest Research Centre,xylarium|not in IH
+MEXUw_NA,MEXUw,NA,MEXUw,"Instituto de Biologia, Universidad Nacional Autonoma de Mexico",xylarium|not in IH
+MEXFw_NA,MEXFw,NA,MEXFw,"Seccion de Anatomia de Maderas, lnstituto Nacional de Investigaciones Forestales",xylarium|not in IH
+XALw_NA,XALw,NA,XALw,"Instituto de Ecología, A.C.",xylarium|not in IH
+ARw_NA,ARw,NA,ARw,Forest Research Institute,xylarium|not in IH
+KATHw_NA,KATHw,NA,KATHw,National Herbarium and Plant Laboratory,xylarium|not in IH
+GIAw_NA,GIAw,NA,GIAw,Groningen Institute of Archaeology,xylarium|not in IH
+Dw_NA,Dw,NA,Dw,Naturalis Biodiversity Center,xylarium|not in IH
+Lw_NA,Lw,NA,Lw,NA,xylarium|not in IH
+Uw_NA,Uw,NA,Uw,Naturalis Biodiversity Center,xylarium|not in IH
+RTIw_NA,RTIw,NA,RTIw,NA,xylarium|not in IH
+"WAGw, WLw, WIBw_NA","WAGw, WLw, WIBw",NA,"WAGw, WLw, WIBw",NA,xylarium|not in IH
+CHNw_NA,CHNw,NA,CHNw,University of Canterbury,xylarium|not in IH
+WZw_NA,WZw,NA,WZw,Forest Research,xylarium|not in IH
+NINw_NA,NINw,NA,NINw,Nicaraguan Institute of Natural Resources and Environment,xylarium|not in IH
+FHIw_NA,FHIw,NA,FHIw,"Forest Products Research Division, Forestry Research Institute of Nigeria",xylarium|not in IH
+PMPw_NA,PMPw,NA,PMPw,NA,xylarium|not in IH
+BULHw_NA,BULHw,NA,BULHw,Papua New Guinea Forestry College,xylarium|not in IH
+CAFw_NA,CAFw,NA,CAFw,Chinese Academy of Forestry (CAF),xylarium|not in IH
+SYSw_NA,SYSw,NA,SYSw,"Botanical Laboratories, Department of Biology, Sun Yat-Sen University",xylarium|not in IH
+FRTGw_NA,FRTGw,NA,FRTGw,NA,xylarium|not in IH
+HEFw_NA,HEFw,NA,HEFw,Anhui Agricultural College,xylarium|not in IH
+SWFUw_NA,SWFUw,NA,SWFUw,Southwest Forestry University,xylarium|not in IH
+NFUw_NA,NFUw,NA,NFUw,Nanjing Forestry University,xylarium|not in IH
+IFPw_NA,IFPw,NA,IFPw,"Institute of Forestry and Pedology, Academia Sinica",xylarium|not in IH
+YANw_NA,YANw,NA,YANw,Northwestern College of Forestry,xylarium|not in IH
+CLPw_NA,CLPw,NA,CLPw,"Materials Properties Evaluation Division, Forest Products Research and Development Institute (FPRDI), Department of Science and Technology",xylarium|not in IH
+ALCw_NA,ALCw,NA,ALCw,"Departamento de Tecnologia Fisico-mecanica dos Produtos Florestais, Estacao de Experimentacao Florestal, Alcobaca",xylarium|not in IH
+LISFLw_NA,LISFLw,NA,LISFLw,"Instituto de Investigacao Cientifica Tropical, FLOR -Florestas e Produtos Florestais, Dep. Engenharia Florestal",xylarium|not in IH
+LNECw_NA,LNECw,NA,LNECw,Laboratorio Nacional de Engenharia Civil,xylarium|not in IH
+LISJCw_NA,LISJCw,NA,LISJCw,Jardim Botânico Tropical,xylarium|not in IH
+MHNC-UP_NA,MHNC-UP,NA,MHNC-UP,Museu de História Natural e da Ciência da Universidade do Porto,xylarium|not in IH
+LEw_NA,LEw,NA,LEw,"Botanical Museum, Komarov Botanical Institute of the Russian Academy of Sciences",xylarium|not in IH
+JPRw_NA,JPRw,NA,JPRw,"Bernard Price Institute for Palaeontological Research, University of the Witwatersrand",xylarium|not in IH
+PFPw_NA,PFPw,NA,PFPw,South African Forestry Research Institute,xylarium|not in IH
+STEw_NA,STEw,NA,STEw,University of Stellenbosch,xylarium|not in IH
+UPMAw_NA,UPMAw,NA,UPMAw,Escuela Tecnica Superior de Ingenieros de Montes,xylarium|not in IH
+MADRw_NA,MADRw,NA,MADRw,Centro de Investigacion Forestal (CIFOR),xylarium|not in IH
+BBSw_NA,BBSw,NA,BBSw,Surinam Forest Service,xylarium|not in IH
+S-PAw_NA,S-PAw,NA,S-PAw,Swedish Museum of Natural History,xylarium|not in IH
+WSLw_NA,WSLw,NA,WSLw,"Swiss Federal Institute for Forest, Snow and Landscape",xylarium|not in IH
+ZTw_NA,ZTw,NA,ZTw,Fachbereich Holzkunde und Holztechnologie,xylarium|not in IH
+TNMw_NA,TNMw,NA,TNMw,National Museum of Natural Science,xylarium|not in IH
+TAIFw_NA,TAIFw,NA,TAIFw,Botanical Garden,xylarium|not in IH
+BKFw_NA,BKFw,NA,BKFw,"Forest Products Research Division, Royal Forest Department",xylarium|not in IH
+ISTUFw_NA,ISTUFw,NA,ISTUFw,"Faculty of Forestry, Department of Forest Biology and Wood Protection Technology",xylarium|not in IH
+UCNWw_NA,UCNWw,NA,UCNWw,Natural Resources and Geography,xylarium|not in IH
+NMWw_NA,NMWw,NA,NMWw,National Museum Wales,xylarium|not in IH
+FPRLw_NA,FPRLw,NA,FPRLw,Building Research Establishment Ltd,xylarium|not in IH
+Kw_NA,Kw,NA,Kw,Royal Botanic Gardens Kew,xylarium|not in IH
+K-Jw_NA,K-Jw,NA,K-Jw,Royal Botanic Gardens Kew,xylarium|not in IH
+LIVw_NA,LIVw,NA,LIVw,Liverpool Museum,xylarium|not in IH
+HMw_NA,HMw,NA,HMw,NA,xylarium|not in IH
+FHOw_NA,FHOw,NA,FHOw,University of Oxford,xylarium|not in IH
+MICHw_NA,MICHw,NA,MICHw,"North University Building, University of Michigan",xylarium|not in IH
+NYw_NA,NYw,NA,NYw,NA,xylarium|not in IH
+Aw_NA,Aw,NA,Aw,Harvard University Herbaria,xylarium|not in IH
+RSAw_NA,RSAw,NA,RSAw,NA,xylarium|not in IH
+DAVw_NA,DAVw,NA,DAVw,"College of Biological Sciences, Section of Plant Biology",xylarium|not in IH
+BRITw_NA,BRITw,NA,BRITw,The BRIT Philecology Herbarium,xylarium|not in IH
+FLASw_NA,FLASw,NA,FLASw,University of Florida Herbarium,xylarium|not in IH
+BISHw_NA,BISHw,NA,BISHw,Department of Botany,xylarium|not in IH
+"MADw, SJRw_NA","MADw, SJRw",NA,"MADw, SJRw","USDA Forest Service, Forest Products Laboratory",xylarium|not in IH
+MUw_NA,MUw,NA,MUw,"Department of Botany, Miami University",xylarium|not in IH
+NYJw_NA,NYJw,NA,NYJw,World Forestry Center,xylarium|not in IH
+PACw_NA,PACw,NA,PACw,"Department of Wood and Paper Science, College of Natural Resources, North Carolina State University",xylarium|not in IH
+UCw_NA,UCw,NA,UCw,"Forest Products Laboratory, University of California",xylarium|not in IH
+RPPRw_NA,RPPRw,NA,RPPRw,NA,xylarium|not in IH
+WTUFw_NA,WTUFw,NA,WTUFw,University of Washington,xylarium|not in IH
 BWCw_NA,BWCw,NA,BWCw,"College of Environmental Science and Forestry, State University of New York",xylarium|not in IH
-USw_NA,USw,NA,USw,"National Museum of Natural History, Smithsonian Institution",xylarium
-WDw_NA,WDw,NA,WDw,The Henry Francis du Pont Winterthur Museum,xylarium
-VENw_NA,VENw,NA,VENw,Herbario Nacional de Venezuela,xylarium
+USw_NA,USw,NA,USw,"National Museum of Natural History, Smithsonian Institution",xylarium|not in IH
+WDw_NA,WDw,NA,WDw,The Henry Francis du Pont Winterthur Museum,xylarium|not in IH
+VENw_NA,VENw,NA,VENw,Herbario Nacional de Venezuela,xylarium|not in IH
 MERw_NA,MERw,NA,MERw,Universidad de Los Andes,xylarium|not in IH
 ASU-Lichen_ASU,ASU-Lichen,ASU,ASU,Arizona State University,NA
 B_FU-Berlin,B,FU-Berlin,B,"Botanischer Garten und Botanisches Museum Berlin-Dahlem, Zentraleinrichtung der Freien Universität Berlin",NA
@@ -5107,7 +5107,7 @@ BHCB-SL_UFMG,BHCB-SL,UFMG,BHCB,Universidade Federal de Minas Gerais,NA
 BMA_UFMA,BMA,UFMA,BMA,Universidade Federal do Maranhão,NA
 BOTU_UNESP,BOTU,UNESP,BOTU,Universidade Estadual Paulista,NA
 BOTU-Fungi_UNESP,BOTU-Fungi,UNESP,BOTU,Universidade Estadual Paulista,NA
-BOTUw_UNESP,BOTUw,UNESP,BOTUw,Universidade Estadual Paulista,xylarium
+BOTUw_UNESP,BOTUw,UNESP,BOTUw,Universidade Estadual Paulista,xylarium|not in IH
 BPI_USDA,BPI,USDA,BPI,"U.S. National Fungus Collections, USDA-ARS",NA
 Catavento_CCE,Catavento,CCE,Catavento,Catavento Cultural e Educacional,NA
 CEN_EMBRAPA,CEN,EMBRAPA,CEN,Embrapa Recursos Genéticos e Biotecnologia - Embrapa Cenargen,NA
@@ -5115,7 +5115,7 @@ CEPEC-Fungi_CEPLAC,CEPEC-Fungi,CEPLAC,CEPEC,"CEPEC, CEPLAC",NA
 Convolvulaceae_BR_UFRPE,Convolvulaceae_BR,UFRPE,Convolvulaceae_BR,Universidade Federal Rural de Pernambuco,NA
 COR_UFMS,COR,UFMS,COR,"Universidade Federal de Mato Grosso do Sul, Campus do Pantanal",NA
 CPAP_EMBRAPA,CPAP,EMBRAPA,CPAP,EMBRAPA,NA
-CPMA_UNICAMP,CPMA,UNICAMP,CPMA,Universidade Estadual de Campinas,NA
+CPMA_UNICAMP,CPMA,UNICAMP,CPMA,Universidade Estadual de Campinas,not in IH (ex_situ_collection)
 CUP_UF,CUP,UF,CUP,Cornell University,NA
 CVRD_VALE,CVRD,VALE,CVRD,"Reserva Natural da Vale, Meio Ambiente",NA
 DUKE_DUKE,DUKE,DUKE,DUKE,Duke University,NA
@@ -5131,7 +5131,7 @@ HAS_FZBRS,HAS,FZBRS,HAS,Fundação Zoobotânica do Rio Grande do Sul,NA
 HAS-Algae-Cyanobacteria_FZBRS,HAS-Algae-Cyanobacteria,FZBRS,HAS,Fundação Zoobotânica do Rio Grande do Sul,NA
 HBRA_UFPA,HBRA,UFPA,HBRA,"Universidade Federal do Pará, Campus Bragança",NA
 HDELTA_UFPI,HDELTA,UFPI,HDELTA,Universidade Federal do Piauí,NA
-HDJFw_UFVJM,HDJFw,UFVJM,HDJFw,Universidade Federal dos Vales do Jequitinhonha e Mucuri,NA
+HDJFw_UFVJM,HDJFw,UFVJM,HDJFw,Universidade Federal dos Vales do Jequitinhonha e Mucuri,xylarium|not in IH
 HFSL-Fungos_FSL,HFSL-Fungos,FSL,HFSL,"Centro de Ensino, Faculdade São Lucas Ltda.",NA
 HISA_UNESP,HISA,UNESP,HISA,Universidade Estadual Paulista,NA
 HJ_UFJ,HJ,UFJ,HJ,Universidade Federal de Jataí,NA
@@ -5140,27 +5140,27 @@ HPUC-MG_PUC-MINAS,HPUC-MG,PUC-MINAS,HPUC,Pontifícia Universidade Católica de M
 HRCB_UNESP,HRCB,UNESP,HRCB,Universidade Estadual Paulista,NA
 HTO_UFT,HTO,UFT,HTO,Universidade Federal do Tocantins,NA
 HTSA_EMBRAPA,HTSA,EMBRAPA,HTSA,Empresa Brasileira de Pesquisa Agropecuária,not in IH
-HTSA-Carpoteca_EMBRAPA,HTSA-Carpoteca,EMBRAPA,HTSAf,Empresa Brasileira de Pesquisa Agropecuária,not in IH
+HTSA-Carpoteca_EMBRAPA,HTSA-Carpoteca,EMBRAPA,HTSAf,Empresa Brasileira de Pesquisa Agropecuária,carpothek|not in IH
 HTSAw_EMBRAPA,HTSAw,EMBRAPA,HTSAw,Empresa Brasileira de Pesquisa Agropecuária,xylarium|not in IH
 HUCS-Liquenoteca_UCS,HUCS-Liquenoteca,UCS,HUCS,University of  Caxias do Sul,NA
 HUCS-Micoteca_UCS,HUCS-Micoteca,UCS,HUCS,University of  Caxias do Sul,NA
 HU-Herb_HU,HU-Herb,HU,A,Harvard University,NA
-HVASFw_UNIVASF,HVASFw,UNIVASF,HVASFw,Universidade Federal do Vale do São Francisco,NA
+HVASFw_UNIVASF,HVASFw,UNIVASF,HVASFw,Universidade Federal do Vale do São Francisco,xylarium|not in IH
 HVAT_UNIVATES,HVAT,UNIVATES,HVAT,University of  Vale do Taquari - Univates,NA
-HVC_UFBA,HVC,UFBA,HVC,Universidade Federal da Bahia,not in IH
+HVC_UFBA,HVC,UFBA,HVC,Universidade Federal da Bahia,NA
 IAN_EMBRAPA,IAN,EMBRAPA,IAN,"Embrapa Amazônia Oriental, Ministry of Agriculture",NA
-INPA-Carpoteca_INPA,INPA-Carpoteca,INPA,INPA-Carpoteca,Instituto Nacional de Pesquisas da Amazônia,NA
+INPA-Carpoteca_INPA,INPA-Carpoteca,INPA,INPA-Carpoteca,Instituto Nacional de Pesquisas da Amazônia,carpothek|not in IH
 INPA-Fungos_INPA,INPA-Fungos,INPA,INPA,Instituto Nacional de Pesquisas da Amazônia,NA
 ISE_UFS,ISE,UFS,ISE,"Universidade Federal de Sergipe, Campus Professor Alberto Carvalho",NA
 LABEV_UFAC,LABEV,UFAC,LABEV,Universidade Federal do Acre,not in IH
 LabFito_UFES,LabFito,UFES,LabFito,Universidade Federal do Espírito Santo,not in IH
-LBMBP_USP,LBMBP,USP,LBMBP,Universidade de São Paulo,NA
+LBMBP_USP,LBMBP,USP,LBMBP,Universidade de São Paulo,not in IH (ex_situ_collection)
 LSUM_LSU,LSUM,LSU,LSUM,Louisiana State University,NA
 MBML-Herbario_INMA,MBML-Herbario,INMA,MBML,Instituto Nacional da Mata Atlântica - INMA,NA
 MCCA_UFMG,MCCA,UFMG,MCCA,Universidade Federal de Minas Gerais,NA
-MFS-Flores_UEPA,MFS-Flores,UEPA,MFS-Flores,Universidade do Estado do Pará,NA
-MFS-Frutos_UEPA,MFS-Frutos,UEPA,MFS-Frutos,Universidade do Estado do Pará,NA
-MFS-Plantulas_UEPA,MFS-Plantulas,UEPA,MFS-Plantulas,Universidade do Estado do Pará,NA
+MFS-Flores_UEPA,MFS-Flores,UEPA,MFS-Flores,Universidade do Estado do Pará,not in IH
+MFS-Frutos_UEPA,MFS-Frutos,UEPA,MFS-Frutos,Universidade do Estado do Pará,not in IH
+MFS-Plantulas_UEPA,MFS-Plantulas,UEPA,MFS-Plantulas,Universidade do Estado do Pará,not in IH
 MOBOT_MOBOT,MOBOT,MOBOT,MO,Missouri Botanical Garden,NA
 NYBG_NYBG,NYBG,NYBG,NY,The New York Botanical Garden,NA
 PACA-Algas_IAP,PACA-Algas,IAP,PACA,Instituto Anchietano de Pesquisas/UNISINOS,NA
@@ -5174,7 +5174,7 @@ R-Bryophyta_UFRJ,R-Bryophyta,UFRJ,R,Museu Nacional,NA
 REAL_UFFS,REAL,UFFS,REAL,Universidade Federal da Fronteira Sul,not in IH
 RECOLNAT_MNHN_PC_MNHN,RECOLNAT_MNHN_PC,MNHN,P,Muséum National d'Histoire Naturelle,NA
 R-Fungi_UFRJ,R-Fungi,UFRJ,R,Museu Nacional,NA
-R-Tipos_UFRJ,R-Tipos,UFRJ,R-Tipos,Museu Nacional,NA
+R-Tipos_UFRJ,R-Tipos,UFRJ,R-Tipos,Museu Nacional,not in IH
 SHPR_UTFPR,SHPR,UTFPR,SHPR,Universidade Tecnológica Federal do Paraná,NA
 SJRP_UNESP,SJRP,UNESP,SJRP,"UNESP, Campus São José Rio Prêto",NA
 SJRP-Algae_UNESP,SJRP-Algae,UNESP,SJRP,"UNESP, Campus São José Rio Prêto",NA
@@ -5209,7 +5209,7 @@ ABDC_ABDC,ABDC,ABDC,ABDC,Aba Institute for Drug Control,NA
 ABDF_ABDF,ABDF,ABDF,ABDF,University of Aberdeen,NA
 ABDH_ABDH,ABDH,ABDH,ABDH,UAE University,NA
 ABDM_ABDM,ABDM,ABDM,ABDM,"Marischal College, University of Aberdeen",NA
-ABFM_ABFM,ABFM,ABFM,ABFM,The Barnes Foundation Arboretum,NA
+ABFM_ABFM,ABFM,ABFM,ABFM,The Barnes Foundation Arboretum,not in IH
 ABGI_ABGI,ABGI,ABGI,ABGI,Amur Branch of Botanical Garden-Institute of the Far East Branch of the Russian Academy of Sciences,NA
 ABI_ABI,ABI,ABI,ABI,Centre ORSTOM d'Adiopodoume,NA
 ABL_ABL,ABL,ABL,ABL,Adviesbureau voor Bryologie en Lichenologie,NA
@@ -5227,7 +5227,7 @@ ACAD_ACAD,ACAD,ACAD,ACAD,Acadia University,NA
 ACAM_ACAM,ACAM,ACAM,ACAM,Agricultural University of Athens,NA
 ACAM-UEPB_ACAM-UEPB,ACAM-UEPB,ACAM-UEPB,ACAM-UEPB,Universidade Estadual da Paraíba,not in IH
 ACC_ACC,ACC,ACC,ACC,Oak Hill Park Museum,NA
-ACCw_ACCw,ACCw,ACCw,ACCw,Institute of Ecology and Systematic,xylarium
+ACCw_ACCw,ACCw,ACCw,ACCw,Institute of Ecology and Systematic,xylarium|not in IH
 ACD_ACD,ACD,ACD,ACD,Alemaya University of Agriculture,NA
 ACE_ACE,ACE,ACE,ACE,Anhui College of Education,NA
 ACH_ACH,ACH,ACH,ACH,National Mycology Reference Centre,NA
@@ -5282,7 +5282,7 @@ ALBORZ_ALBORZ,ALBORZ,ALBORZ,ALBORZ,"Science and Research Branch, Islamic Azad Un
 ALBU_ALBU,ALBU,ALBU,ALBU,"Rocky Mountain Forest and Range Experiment Station, USDA Forest Service",NA
 ALCA_ALCA,ALCA,ALCA,ALCA,NA,not in IH
 ALCB_ALCB,ALCB,ALCB,ALCB,"Universidade Federal da Bahia, Campus Universitário de Ondina",NA
-ALCw_ALCw,ALCw,ALCw,ALCw,"Departamento de Tecnologia Fisico-mecanica dos Produtos Florestais, Estacao de Experimentacao Florestal, Alcobaca",xylarium
+ALCw_ALCw,ALCw,ALCw,ALCw,"Departamento de Tecnologia Fisico-mecanica dos Produtos Florestais, Estacao de Experimentacao Florestal, Alcobaca",xylarium|not in IH
 ALD_ALD,ALD,ALD,ALD,Alderney Society and Museum,NA
 ALEX_ALEX,ALEX,ALEX,ALEX,University of Alexandria,NA
 ALGU_ALGU,ALGU,ALGU,ALGU,Universidade do Algarve,NA
@@ -5309,7 +5309,7 @@ AMMS_AMMS,AMMS,AMMS,AMMS,Academy of Military Medical Sciences,NA
 AMNH_AMNH,AMNH,AMNH,AMNH,"Icelandic Institute of Natural History, Akureyri Division",NA
 AMO_AMO,AMO,AMO,AMO,"Instituto Chinoin, A.C.",NA
 AMP_AMP,AMP,AMP,AMP,Ampleforth College,NA
-AMw_AMw,AMw,AMw,AMw,Birla Institute of Scientific Research,xylarium
+AMw_AMw,AMw,AMw,AMw,Birla Institute of Scientific Research,xylarium|not in IH
 AMWH_AMWH,AMWH,AMWH,AMWH,Amway Corporation,NA
 ANA_ANA,ANA,ANA,ANA,Orange County Department of Agriculture,NA
 ANC_ANC,ANC,ANC,ANC,Università Politecnica delle Marche,NA
@@ -5355,13 +5355,13 @@ ARRI_ARRI,ARRI,ARRI,ARRI,Ayurveda Regional Research Institute,NA
 ARSEF_ARSEF,ARSEF,ARSEF,ARSEF,"Robert W. Holley Center for Agriculture & Health, USDA ARS",NA
 ARTH_ARTH,ARTH,ARTH,ARTH,Artvin Coruh University,NA
 ARUN_ARUN,ARUN,ARUN,ARUN,"Botanical Survey of India, Arunachal Pradesh Regional Centre",NA
-ARw_ARw,ARw,ARw,ARw,Forest Research Institute,xylarium
+ARw_ARw,ARw,ARw,ARw,Forest Research Institute,xylarium|not in IH
 ARWESP_ARWESP,ARWESP,ARWESP,ARWESP,Arboretum Wespelaar,"herbarium, xilarium and carpothek"
 AS_AS,AS,AS,AS,Jardín Botánico,NA
 ASC_ASC,ASC,ASC,ASC,Northern Arizona University,NA
 ASDM_ASDM,ASDM,ASDM,ASDM,Arizona-Sonora Desert Museum,NA
 ASE_ASE,ASE,ASE,ASE,Universidade Federal de Sergipe (UFS),NA
-ASEw_ASEw,ASEw,ASEw,ASEw,"Departamento de biologia, Universidade Federal de Sergipe",xylarium
+ASEw_ASEw,ASEw,ASEw,ASEw,"Departamento de biologia, Universidade Federal de Sergipe",xylarium|not in IH
 ASH_ASH,ASH,ASH,ASH,National Institute of Deserts Flora and Fauna,NA
 ASM_ASM,ASM,ASM,ASM,Arts and Science University,NA
 ASSAM_ASSAM,ASSAM,ASSAM,ASSAM,"Botanical Survey of India, Eastern Regional Centre",NA
@@ -5392,7 +5392,7 @@ AUV_AUV,AUV,AUV,AUV,Andhra University,NA
 AVCH_AVCH,AVCH,AVCH,AVCH,City of Alexandria,NA
 AVE_AVE,AVE,AVE,AVE,Universidade de Aveiro,NA
 AVU_AVU,AVU,AVU,AVU,Vrije Universiteit,NA
-Aw_Aw,Aw,Aw,Aw,Harvard University Herbaria,xylarium
+Aw_Aw,Aw,Aw,Aw,Harvard University Herbaria,xylarium|not in IH
 AWC_AWC,AWC,AWC,AWC,Arizona Western College,NA
 AWH_AWH,AWH,AWH,AWH,Dr. Henri Van Heurck Museum,NA
 AWL_AWL,AWL,AWL,AWL,Abitibi Paper Company,NA
@@ -5445,7 +5445,7 @@ BATHG_BATHG,BATHG,BATHG,BATHG,Bath Royal Literary and Scientific Institution,NA
 BATU_BATU,BATU,BATU,BATU,Batumi Botanical Garden,NA
 BAU_BAU,BAU,BAU,BAU,Beijing Agricultural University,NA
 BAV_BAV,BAV,BAV,BAV,Slovenskej akadémie vied,NA
-BAw_BAw,BAw,BAw,BAw,NA,xylarium
+BAw_BAw,BAw,BAw,BAw,NA,xylarium|not in IH
 BAY_BAY,BAY,BAY,BAY,Muséum d'Histoire Naturelle de Bayonne,NA
 BAYLU_BAYLU,BAYLU,BAYLU,BAYLU,Baylor University,NA
 BB_BB,BB,BB,BB,Universidad Nacional del Sur,NA
@@ -5457,7 +5457,7 @@ BBH_BBH,BBH,BBH,BBH,National Science and Technology Development Agency,NA
 BBLM_BBLM,BBLM,BBLM,BBLM,Boise District Bureau of Land Management,NA
 BBS_BBS,BBS,BBS,BBS,University of Suriname,NA
 BBSUK_BBSUK,BBSUK,BBSUK,BBSUK,National Museum and Gallery,NA
-BBSw_BBSw,BBSw,BBSw,BBSw,Surinam Forest Service,xylarium
+BBSw_BBSw,BBSw,BBSw,BBSw,Surinam Forest Service,xylarium|not in IH
 BCB_BCB,BCB,BCB,BCB,Universitat Autònoma de Barcelona,NA
 BCC_BCC,BCC,BCC,BCC,Universitat de Barcelona,NA
 BCF_BCF,BCF,BCF,BCF,Universitat de Barcelona,NA
@@ -5496,7 +5496,7 @@ BENN_BENN,BENN,BENN,BENN,Bennington College,NA
 BEO_BEO,BEO,BEO,BEO,Natural History Museum,NA
 BEOU_BEOU,BEOU,BEOU,BEOU,University of Belgrade,NA
 BER_BER,BER,BER,BER,"Orto Botanico de Bergamo ""Lorenzo Rota""",NA
-BEREA_BEREA,BEREA,BEREA,BEREA,NA,NA
+BEREA_BEREA,BEREA,BEREA,BEREA,Berea College,NA
 BERN_BERN,BERN,BERN,BERN,University of Bern,NA
 BEV_BEV,BEV,BEV,BEV,Borough of Beverley Art Gallery and Museum,NA
 BEX_BEX,BEX,BEX,BEX,Bexhill Museum,NA
@@ -5525,7 +5525,7 @@ BHSC_BHSC,BHSC,BHSC,BHSC,Black Hills State University,NA
 BHU_BHU,BHU,BHU,BHU,Humboldt-Universität zu Berlin,NA
 BHUPM_BHUPM,BHUPM,BHUPM,BHUPM,Museum für Naturkunde,NA
 BHUPP_BHUPP,BHUPP,BHUPP,BHUPP,Banaras Hindu University,NA
-BHUw_BHUw,BHUw,BHUw,BHUw,"Museum fur Naturkunde, Institut fur Palaontologie",xylarium
+BHUw_BHUw,BHUw,BHUw,BHUw,"Museum fur Naturkunde, Institut fur Palaontologie",xylarium|not in IH
 BHZB_BHZB,BHZB,BHZB,BHZB,Fundação de Parques Municipais e Zoo-Botânica de Belo Horizonte,NA
 BI_BI,BI,BI,BI,"Museo Orto Botanico, Università degli Studi di Bari.",NA
 BIA_BIA,BIA,BIA,BIA,British Institute of Archaeology,NA
@@ -5540,7 +5540,7 @@ BIOT_BIOT,BIOT,BIOT,BIOT,Regional Center for Tropical Biology,NA
 BIRA_BIRA,BIRA,BIRA,BIRA,Birmingham Museums Trust,NA
 BIRM_BIRM,BIRM,BIRM,BIRM,University of Birmingham,NA
 BISH_BISH,BISH,BISH,BISH,Bishop Museum,NA
-BISHw_BISHw,BISHw,BISHw,BISHw,Department of Botany,xylarium
+BISHw_BISHw,BISHw,BISHw,BISHw,Department of Botany,xylarium|not in IH
 BJ_BJ,BJ,BJ,BJ,Bi Jie University,NA
 BJA_BJA,BJA,BJA,BJA,University of Burundi,NA
 BJFC_BJFC,BJFC,BJFC,BJFC,Beijing Forestry University,NA
@@ -5548,7 +5548,7 @@ BJM_BJM,BJM,BJM,BJM,Beijing Natural History Museum,NA
 BJTC_BJTC,BJTC,BJTC,BJTC,Capital Normal University,NA
 BK_BK,BK,BK,BK,Bangkok Herbarium,NA
 BKF_BKF,BKF,BKF,BKF,"National Park, Wildlife and Plant Conservation Department",NA
-BKFw_BKFw,BKFw,BKFw,BKFw,"Forest Products Research Division, Royal Forest Department",xylarium
+BKFw_BKFw,BKFw,BKFw,BKFw,"Forest Products Research Division, Royal Forest Department",xylarium|not in IH
 BKL_BKL,BKL,BKL,BKL,Brooklyn Botanic Garden,NA
 BLA_BLA,BLA,BLA,BLA,Fundação Estadual de Pesquisa Agropecuária,NA
 BLAT_BLAT,BLAT,BLAT,BLAT,St. Xavier's College,NA
@@ -5581,10 +5581,10 @@ BNU_BNU,BNU,BNU,BNU,Beijing Normal University,NA
 BO_BO,BO,BO,BO,Research Centre for Biology,NA
 BOCH_BOCH,BOCH,BOCH,BOCH,Ruhr-Universität Bochum,NA
 BOD_BOD,BOD,BOD,BOD,University of Oxford,NA
-BOFw_BOFw,BOFw,BOFw,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium
+BOFw_BOFw,BOFw,BOFw,BOFw,"Instituto de Investigaciones y Proyectos Forestales y Madereros, Universidad Distrital",xylarium|not in IH
 BOG_BOG,BOG,BOG,BOG,Universidad de La Salle,NA
 BOIS_BOIS,BOIS,BOIS,BOIS,"Rocky Mountain Research Station, USDA Forest Service",NA
-BOKUw_BOKUw,BOKUw,BOKUw,BOKUw,Institute of Wood Technology and Renewable Resources,xylarium
+BOKUw_BOKUw,BOKUw,BOKUw,BOKUw,Institute of Wood Technology and Renewable Resources,xylarium|not in IH
 BOL_BOL,BOL,BOL,BOL,University of Cape Town,NA
 BOLO_BOLO,BOLO,BOLO,BOLO,Università di Bologna,NA
 BOLV_BOLV,BOLV,BOLV,BOLV,Centro de Biodiversidad y Genetica-UMSS,NA
@@ -5598,7 +5598,7 @@ BORD_BORD,BORD,BORD,BORD,Bordeaux Botanical,NA
 BORH_BORH,BORH,BORH,BORH,Universiti Malaysia Sabah,NA
 BOSC_BOSC,BOSC,BOSC,BOSC,Boston State College,NA
 BOTU_BOTU,BOTU,BOTU,BOTU,Universidade Estadual Paulista,NA
-BOTUw_BOTUw,BOTUw,BOTUw,BOTUw,Universidade Estadual Paulista,xylarium
+BOTUw_BOTUw,BOTUw,BOTUw,BOTUw,Universidade Estadual Paulista,xylarium|not in IH
 BOUM_BOUM,BOUM,BOUM,BOUM,Muséum d'Histoire Naturelle de Bourges,NA
 BOZ_BOZ,BOZ,BOZ,BOZ,Naturmuseum Südtirol/Museo Scienze Naturali Alto Adige,NA
 BP_BP,BP,BP,BP,Hungarian Natural History Museum,NA
@@ -5606,7 +5606,7 @@ BPI_BPI,BPI,BPI,BPI,"U.S. National Fungus Collections, USDA-ARS",NA
 BPL_BPL,BPL,BPL,BPL,Museum of Barnstaple & North Devon,NA
 BPS_BPS,BPS,BPS,BPS,California Department of Food and Agriculture,NA
 BPU_BPU,BPU,BPU,BPU,Eötvös Loránd University,NA
-BPw_BPw,BPw,BPw,BPw,Botanical Department of the Hungarian Natural History Museum,xylarium
+BPw_BPw,BPw,BPw,BPw,Botanical Department of the Hungarian Natural History Museum,xylarium|not in IH
 BR_BR,BR,BR,BR,Meise Botanic Garden,NA
 BRA_BRA,BRA,BRA,BRA,Slovak National Museum,NA
 BRAD_BRAD,BRAD,BRAD,BRAD,University of Bradford,NA
@@ -5626,7 +5626,7 @@ BRI_BRI,BRI,BRI,BRI,Queensland Herbarium,NA
 BRIP_BRIP,BRIP,BRIP,BRIP,Department of Agriculture and Fisheries,NA
 BRIST_BRIST,BRIST,BRIST,BRIST,University of Bristol,NA
 BRISTM_BRISTM,BRISTM,BRISTM,BRISTM,Bristol Museum and Art Gallery,NA
-BRITw_BRITw,BRITw,BRITw,BRITw,The BRIT Philecology Herbarium,xylarium
+BRITw_BRITw,BRITw,BRITw,BRITw,The BRIT Philecology Herbarium,xylarium|not in IH
 BRIU_BRIU,BRIU,BRIU,BRIU,University of Queensland,NA
 BRL_BRL,BRL,BRL,BRL,Bristol City Library,NA
 BRLU_BRLU,BRLU,BRLU,BRLU,Université Libre de Bruxelles,NA
@@ -5686,7 +5686,7 @@ BUH_BUH,BUH,BUH,BUH,University of Baghdad,NA
 BUHGC_BUHGC,BUHGC,BUHGC,BUHGC,Barton-on-Humber Grammar School,NA
 BUHR_BUHR,BUHR,BUHR,BUHR,Baysgarth Museum,NA
 BUL_BUL,BUL,BUL,BUL,Natural History Museum of Zimbabwe,NA
-BULHw_BULHw,BULHw,BULHw,BULHw,Papua New Guinea Forestry College,xylarium
+BULHw_BULHw,BULHw,BULHw,BULHw,Papua New Guinea Forestry College,xylarium|not in IH
 BULQ_BULQ,BULQ,BULQ,BULQ,Bishop's University,NA
 BULU_BULU,BULU,BULU,BULU,Uludag University,NA
 BUNH_BUNH,BUNH,BUNH,BUNH,University of Baghdad,NA
@@ -5697,7 +5697,7 @@ BURI_BURI,BURI,BURI,BURI,Banasthali University,NA
 BUS_BUS,BUS,BUS,BUS,University of Miami,NA
 BUT_BUT,BUT,BUT,BUT,Butler University,NA
 BVS_BVS,BVS,BVS,BVS,Transylvania University of Brasov,NA
-Bw_Bw,Bw,Bw,Bw,NA,xylarium
+Bw_Bw,Bw,Bw,Bw,NA,xylarium|not in IH
 BWCw_BWCw,BWCw,BWCw,BWCw,"College of Environmental Science and Forestry, State University of New York",xylarium|not in IH
 BWNC_BWNC,BWNC,BWNC,BWNC,Baltimore Woods Nature Center,NA
 BYBS_BYBS,BYBS,BYBS,BYBS,Bungay Botanical Society,NA
@@ -5705,12 +5705,12 @@ BYDG_BYDG,BYDG,BYDG,BYDG,Technical-Agriculture Academy,NA
 BZ_BZ,BZ,BZ,BZ,Herbarium Bogoriense,NA
 BZCM_BZCM,BZCM,BZCM,BZCM,Bozhou Vocational and Technical College,NA
 BZF_BZF,BZF,BZF,BZF,Forest Research and Development Center and Nature Conservation,NA
-BZFw_BZFw,BZFw,BZFw,BZFw,Forest Products Research and Development Center,xylarium
+BZFw_BZFw,BZFw,BZFw,BZFw,Forest Products Research and Development Center,xylarium|not in IH
 C_C,C,C,C,University of Copenhagen,NA
 CACS_CACS,CACS,CACS,CACS,Chicago Academy of Sciences,NA
 CAF_CAF,CAF,CAF,CAF,Chinese Academy of Forestry,NA
 CAFB_CAFB,CAFB,CAFB,CAFB,"Northern Forestry Centre, Canadian Forest Service",NA
-CAFw_CAFw,CAFw,CAFw,CAFw,Chinese Academy of Forestry (CAF),xylarium
+CAFw_CAFw,CAFw,CAFw,CAFw,Chinese Academy of Forestry (CAF),xylarium|not in IH
 CAG_CAG,CAG,CAG,CAG,Università degli Studi di Cagliari,NA
 CAH_CAH,CAH,CAH,CAH,University of Zimbabwe,NA
 CAHS_CAHS,CAHS,CAHS,CAHS,Crispus Attucks High School,NA
@@ -5795,7 +5795,7 @@ CEL_CEL,CEL,CEL,CEL,University of Illinois,NA
 CEN_CEN,CEN,CEN,CEN,Embrapa Recursos Genéticos e Biotecnologia - Embrapa Cenargen,NA
 CENPAT_CENPAT,CENPAT,CENPAT,CENPAT,CONICET,not in IH
 CEPEC_CEPEC,CEPEC,CEPEC,CEPEC,"CEPEC, CEPLAC",NA
-CEPECw_CEPECw,CEPECw,CEPECw,CEPECw,"CEPEC Herbarium, Divisao de Botanica, Centro de Pesquisas do Cacau",xylarium
+CEPECw_CEPECw,CEPECw,CEPECw,CEPECw,"CEPEC Herbarium, Divisao de Botanica, Centro de Pesquisas do Cacau",xylarium|not in IH
 CERN_CERN,CERN,CERN,CERN,University,NA
 CESJ_CESJ,CESJ,CESJ,CESJ,Universidade Federal de Juiz de Fora,NA
 CESK_CESK,CESK,CESK,CESK,Muzeum Tešínska,NA
@@ -5805,7 +5805,7 @@ CFIA_CFIA,CFIA,CFIA,CFIA,Canadian Food Inspection Agency / Genotyping/Botany,NA
 CFMR_CFMR,CFMR,CFMR,CFMR,"U.S. Forest Service, NRS, Center for Forest Mycology Research",NA
 CFN_CFN,CFN,CFN,CFN,Clifton College,NA
 CFNL_CFNL,CFNL,CFNL,CFNL,Universidad Autónoma de Nuevo León,NA
-CFNLw_CFNLw,CFNLw,CFNLw,CFNLw,Universidad Autónoma de Nuevo León,xylarium?
+CFNLw_CFNLw,CFNLw,CFNLw,CFNLw,Universidad Autónoma de Nuevo León,xylarium|not in IH
 CFS_CFS,CFS,CFS,CFS,NA,not in IH
 CFSHB_CFSHB,CFSHB,CFSHB,CFSHB,North Coast Regional Botanic Gardens,NA
 CGCC_CGCC,CGCC,CGCC,CGCC,Columbia-Greene Community College,NA
@@ -5836,10 +5836,10 @@ CHIC_CHIC,CHIC,CHIC,CHIC,Chicago Botanic Garden,NA
 CHIP_CHIP,CHIP,CHIP,CHIP,Instituto de Historia Natural,NA
 CHIS_CHIS,CHIS,CHIS,CHIS,Academy of Sciences of Moldova,NA
 CHISA_CHISA,CHISA,CHISA,CHISA,University of Agriculture,NA
-CHITw_CHITw,CHITw,CHITw,CHITw,Bangladesh Forest Research Institute,xylarium
+CHITw_CHITw,CHITw,CHITw,CHITw,Bangladesh Forest Research Institute,xylarium|not in IH
 CHL_CHL,CHL,CHL,CHL,Cheltenham Grammar School,NA
 CHM_CHM,CHM,CHM,CHM,Cheltenham Art Gallery and Museum,NA
-CHNw_CHNw,CHNw,CHNw,CHNw,University of Canterbury,xylarium
+CHNw_CHNw,CHNw,CHNw,CHNw,University of Canterbury,xylarium|not in IH
 CHOCO_CHOCO,CHOCO,CHOCO,CHOCO,Universidad Tecnológica del Chocó,NA
 CHOM_CHOM,CHOM,CHOM,CHOM,Okresní muzeum Chomutov,NA
 CHPU_CHPU,CHPU,CHPU,CHPU,Chelyabinsk State Pedagogical University,NA
@@ -5879,7 +5879,7 @@ CLI_CLI,CLI,CLI,CLI,Literary and Philosophical Institution of Chatham,NA
 CLM_CLM,CLM,CLM,CLM,Cleveland Museum of Natural History,NA
 CLOE_CLOE,CLOE,CLOE,CLOE,Clitheroe Castle Museum,NA
 CLP_CLP,CLP,CLP,CLP,Forest Products Research and Development Institute,NA
-CLPw_CLPw,CLPw,CLPw,CLPw,"Materials Properties Evaluation Division, Forest Products Research and Development Institute (FPRDI), Department of Science and Technology",xylarium
+CLPw_CLPw,CLPw,CLPw,CLPw,"Materials Properties Evaluation Division, Forest Products Research and Development Institute (FPRDI), Department of Science and Technology",xylarium|not in IH
 CLR_CLR,CLR,CLR,CLR,All Saint's Church,NA
 CLU_CLU,CLU,CLU,CLU,Università della Calabria,NA
 CM_CM,CM,CM,CM,Carnegie Museum of Natural History,NA
@@ -5927,7 +5927,7 @@ COLO_COLO,COLO,COLO,COLO,University of Colorado Museum,NA
 COLOM_COLOM,COLOM,COLOM,COLOM,Colorado State Museum,NA
 CON_CON,CON,CON,CON,"Bristol, Clifton and West of England Zoological Society's Gardens",NA
 CONC_CONC,CONC,CONC,CONC,Universidad de Concepción,NA
-CONCw_CONCw,CONCw,CONCw,CONCw,"Facultad de Ciencias Naturales y Oceanograficas, Universidad de Concepcion",xylarium
+CONCw_CONCw,CONCw,CONCw,CONCw,"Facultad de Ciencias Naturales y Oceanograficas, Universidad de Concepcion",xylarium|not in IH
 CONN_CONN,CONN,CONN,CONN,University of Connecticut,NA
 CONV_CONV,CONV,CONV,CONV,Converse College,NA
 COR_COR,COR,COR,COR,"Universidade Federal de Mato Grosso do Sul, Campus do Pantanal",NA
@@ -5950,7 +5950,7 @@ CPUH_CPUH,CPUH,CPUH,CPUH,Career Point University Hamirpur,NA
 CPUN_CPUN,CPUN,CPUN,CPUN,Universidad Nacional de Cajamarca,NA
 CQBG_CQBG,CQBG,CQBG,CQBG,Chongqing Botanical Garden,NA
 CQNM_CQNM,CQNM,CQNM,CQNM,Chongqing Natural History Museum,NA
-CQTw_CQTw,CQTw,CQTw,CQTw,Fisheries and Forestry,xylarium
+CQTw_CQTw,CQTw,CQTw,CQTw,Fisheries and Forestry,xylarium|not in IH
 CR_CR,CR,CR,CR,Museo Nacional de Costa Rica,NA
 CRAF_CRAF,CRAF,CRAF,CRAF,University of Craiova,NA
 CRAI_CRAI,CRAI,CRAI,CRAI,University of Craiova,NA
@@ -5986,11 +5986,11 @@ CSUSB_CSUSB,CSUSB,CSUSB,CSUSB,"California State University, San Bernardino",NA
 CSVFC_CSVFC,CSVFC,CSVFC,CSVFC,Caradoc and Severn Valley Field Club,NA
 CT_CT,CT,CT,CT,University of Cape Town,NA
 CTBS_CTBS,CTBS,CTBS,CTBS,Universidade Federal de Santa Catarina,NA
-CTBw_CTBw,CTBw,CTBw,CTBw,Centre Technique du Bois et de l'Ameublement,xylarium
+CTBw_CTBw,CTBw,CTBw,CTBw,Centre Technique du Bois et de l'Ameublement,xylarium|not in IH
 CTC_CTC,CTC,CTC,CTC,Chongqing Normal University,NA
 CTES_CTES,CTES,CTES,CTES,Instituto de Botánica del Nordeste,NA
 CTESN_CTESN,CTESN,CTESN,CTESN,Universidad Nacional del Nordeste,NA
-CTFw_CTFw,CTFw,CTFw,CTFw,CIRAD-Foret,xylarium
+CTFw_CTFw,CTFw,CTFw,CTFw,CIRAD-Foret,xylarium|not in IH
 CTN_CTN,CTN,CTN,CTN,Free Library and Museum,NA
 CTS_CTS,CTS,CTS,CTS,Chongqing Teachers College,NA
 CTY_CTY,CTY,CTY,CTY,Canterbury Literary and Philosophical Institution,NA
@@ -5998,7 +5998,7 @@ CU_CU,CU,CU,CU,Cornell University,NA
 CUFH_CUFH,CUFH,CUFH,CUFH,Cumhuriyet University,NA
 CUH_CUH,CUH,CUH,CUH,University of Calcutta,NA
 CUHK_CUHK,CUHK,CUHK,CUHK,The Chinese University of Hong Kong,NA
-CUK_CUK,CUK,CUK,CUK,Chosun University,NA
+CUK_CUK,CUK,CUK,CUK,Chosun University,not in IH
 CUP_CUP,CUP,CUP,CUP,Cornell University,NA
 CURLA_CURLA,CURLA,CURLA,CURLA,Centro Universitario Regional del Litoral Atlantico,NA
 CUS_CUS,CUS,CUS,CUS,"Cusino Wildlife Research Station, Michigan Department of Natural Resources",NA
@@ -6008,7 +6008,7 @@ CUZ_CUZ,CUZ,CUZ,CUZ,Universidad Nacional San Antonio Abad del Cusco,NA
 CVCW_CVCW,CVCW,CVCW,CVCW,"Clinch Valley College, University of Virginia",NA
 CVJBFZB_CVJBFZB,CVJBFZB,CVJBFZB,CVJBFZB,Fundação Zoo-Botânica de Belo Horizonte,not in IH
 CVM_CVM,CVM,CVM,CVM,City Museum,NA
-CVRDw_CVRDw,CVRDw,CVRDw,CVRDw,Reserva Florestal da CVRD,xylarium
+CVRDw_CVRDw,CVRDw,CVRDw,CVRDw,Reserva Florestal da CVRD,xylarium|not in IH
 CWB_CWB,CWB,CWB,CWB,Kharkov State University,NA
 CWC_CWC,CWC,CWC,CWC,Central Wyoming College,NA
 CWDR_CWDR,CWDR,CWDR,CWDR,Cawdor Castle,NA
@@ -6029,19 +6029,19 @@ DAU_DAU,DAU,DAU,DAU,University of Daugavpils,NA
 DAV_DAV,DAV,DAV,DAV,"University of California, Davis",NA
 DAVFP_DAVFP,DAVFP,DAVFP,DAVFP,"Pacific Forestry Centre, Canadian Forest Service",NA
 DAVH_DAVH,DAVH,DAVH,DAVH,University of California,NA
-DAVw_DAVw,DAVw,DAVw,DAVw,"College of Biological Sciences, Section of Plant Biology",xylarium
+DAVw_DAVw,DAVw,DAVw,DAVw,"College of Biological Sciences, Section of Plant Biology",xylarium|not in IH
 DAWES_DAWES,DAWES,DAWES,DAWES,The Dawes Arboretum,NA
 DBC_DBC,DBC,DBC,DBC,University College,NA
 DBEV_DBEV,DBEV,DBEV,DBEV,University of Antananarivo,NA
 DBN_DBN,DBN,DBN,DBN,National Botanic Gardens,NA
-DBNw_DBNw,DBNw,DBNw,DBNw,"National Herbarium, National Botanic Gardens",xylarium
-DBw_DBw,DBw,DBw,DBw,Department of Forestry,xylarium
+DBNw_DBNw,DBNw,DBNw,DBNw,"National Herbarium, National Botanic Gardens",xylarium|not in IH
+DBw_DBw,DBw,DBw,DBw,Department of Forestry,xylarium|not in IH
 DBY_DBY,DBY,DBY,DBY,Derby Museum and Art Gallery,NA
 DCH_DCH,DCH,DCH,DCH,Davidson College,NA
 DCR_DCR,DCR,DCR,DCR,Museum and Art Gallery,NA
 DD_DD,DD,DD,DD,"Forest Research Institute, Indian Council of Forestry Research and Education",NA
 DDMS_DDMS,DDMS,DDMS,DDMS,Fundação Universidade Federal da Grande Dourados,NA
-DDw_DDw,DDw,DDw,DDw,Forest Research Institute,xylarium
+DDw_DDw,DDw,DDw,DDw,Forest Research Institute,xylarium|not in IH
 DE_DE,DE,DE,DE,Debrecen University,NA
 DECA_DECA,DECA,DECA,DECA,Agnes Scott College,NA
 DECV_DECV,DECV,DECV,DECV,Douglas Ecological Consultants,NA
@@ -6053,7 +6053,7 @@ DEN_DEN,DEN,DEN,DEN,Denison University,NA
 DENA_DENA,DENA,DENA,DENA,Watt Institute,NA
 DEND_DEND,DEND,DEND,DEND,University of Zagreb,NA
 DENF_DENF,DENF,DENF,DENF,"Grand Mesa-Uncompahgre-Gunnison Natonal Forests, USDA Forest Service",NA
-DEQw_DEQw,DEQw,DEQw,DEQw,Instituto Ecuatoriano de Ciencias Naturales,xylarium
+DEQw_DEQw,DEQw,DEQw,DEQw,Instituto Ecuatoriano de Ciencias Naturales,xylarium|not in IH
 DERM_DERM,DERM,DERM,DERM,Intermountain Experiment Station,NA
 DES_DES,DES,DES,DES,Desert Botanical Garden,NA
 DEV_DEV,DEV,DEV,DEV,St. Joseph's College,NA
@@ -6103,11 +6103,11 @@ DPU_DPU,DPU,DPU,DPU,DePauw University,NA
 DPUH_DPUH,DPUH,DPUH,DPUH,University of Duhok,NA
 DQTC_DQTC,DQTC,DQTC,DQTC,Daqing Teachers College,NA
 DR_DR,DR,DR,DR,Technische Universität Dresden,NA
-DREw_DREw,DREw,DREw,DREw,NA,xylarium
+DREw_DREw,DREw,DREw,DREw,NA,xylarium|not in IH
 DRK_DRK,DRK,DRK,DRK,Drake University,NA
 DS_DS,DS,DS,DS,California Academy of Sciences,NA
 DSC_DSC,DSC,DSC,DSC,Delta State University,NA
-DSM_DSM,DSM,DSM,DSM,NA,NA
+DSM_DSM,DSM,DSM,DSM,University of Dar es Salaam,NA
 DSU_DSU,DSU,DSU,DSU,Oles Honchar Dniprovsky National University,NA
 DSUM_DSUM,DSUM,DSUM,DSUM,Dakota State University,NA
 DSY_DSY,DSY,DSY,DSY,Dewsbury Museum,NA
@@ -6129,7 +6129,7 @@ DUSS_DUSS,DUSS,DUSS,DUSS,Universität Düsseldorf,NA
 DVM_DVM,DVM,DVM,DVM,Diablo Valley College,NA
 DVPR_DVPR,DVPR,DVPR,DVPR,Universidade Tecnológica Federal do Paraná,NA
 DVR_DVR,DVR,DVR,DVR,Dover Corporation Museum,NA
-Dw_Dw,Dw,Dw,Dw,Naturalis Biodiversity Center,xylarium
+Dw_Dw,Dw,Dw,Dw,Naturalis Biodiversity Center,xylarium|not in IH
 DWC_DWC,DWC,DWC,DWC,West Chester University,NA
 DWN_DWN,DWN,DWN,DWN,Darwen Library,NA
 DWP_DWP,DWP,DWP,DWP,Disney Wilderness Preserve/The Nature Conservancy,NA
@@ -6162,7 +6162,7 @@ ECT_ECT,ECT,ECT,ECT,Embrapa,NA
 ECU_ECU,ECU,ECU,ECU,Edith Cowan University,NA
 ECUAMZ_ECUAMZ,ECUAMZ,ECUAMZ,ECUAMZ,Universidad Estatal Amazónica,NA
 ECUH_ECUH,ECUH,ECUH,ECUH,East Carolina University,NA
-ECw_ECw,ECw,ECw,ECw,Universidad Nacional,xylarium
+ECw_ECw,ECw,ECw,ECw,Universidad Nacional,xylarium|not in IH
 ECWP_ECWP,ECWP,ECWP,ECWP,Emirates Centre for Wildlife Propagation,NA
 EDC_EDC,EDC,EDC,EDC,Hubei Institute for Drug Control,NA
 EDH_EDH,EDH,EDH,EDH,Plinian Society,NA
@@ -6177,10 +6177,10 @@ EGHF_EGHF,EGHF,EGHF,EGHF,University of Edinburgh,NA
 EGR_EGR,EGR,EGR,EGR,Eszterhazy Karoly University of Applied Sciences,NA
 EHCV_EHCV,EHCV,EHCV,EHCV,Emory and Henry College,NA
 EHH_EHH,EHH,EHH,EHH,Université d'Etat d'Haiti,NA
-EHHw_EHHw,EHHw,EHHw,EHHw,"Faculte d'Agronomie et de Medecine Veterinaire, Universite d'Etat d'Haiti",xylarium
+EHHw_EHHw,EHHw,EHHw,EHHw,"Faculte d'Agronomie et de Medecine Veterinaire, Universite d'Etat d'Haiti",xylarium|not in IH
 EIDM_EIDM,EIDM,EIDM,EIDM,EID Méditerranée,NA
 EIF_EIF,EIF,EIF,EIF,Universidad de Chile,NA
-EIFw_EIFw,EIFw,EIFw,EIFw,"Departamento de Ciencia y Tecnologia de la Madera, Facultad de Ciencias Forestales, Universidad de Chile",xylarium
+EIFw_EIFw,EIFw,EIFw,EIFw,"Departamento de Ciencia y Tecnologia de la Madera, Facultad de Ciencias Forestales, Universidad de Chile",xylarium|not in IH
 EIU_EIU,EIU,EIU,EIU,Eastern Illinois University,NA
 EKY_EKY,EKY,EKY,EKY,The Ronald L. Jones Herbarium,NA
 ELH_ELH,ELH,ELH,ELH,"Bureau of Land Management, Eagle Lake Field Office",NA
@@ -6222,7 +6222,7 @@ ERHM_ERHM,ERHM,ERHM,ERHM,Yerevan State University,NA
 ERZ_ERZ,ERZ,ERZ,ERZ,Fürstin-Eugenie-Institut für Arzneipflanzenforschung,NA
 ESA_ESA,ESA,ESA,ESA,Universidade de São Paulo,NA
 ESAL_ESAL,ESAL,ESAL,ESAL,Universidade Federal de Lavras,NA
-ESAw_ESAw,ESAw,ESAw,ESAw,"Curso de Engenharia Florestal, Escola Superior de Agricultura Luiz de Queiroz, Universidade de Sao Paulo",xylarium
+ESAw_ESAw,ESAw,ESAw,ESAw,"Curso de Engenharia Florestal, Escola Superior de Agricultura Luiz de Queiroz, Universidade de Sao Paulo",xylarium|not in IH
 ESK_ESK,ESK,ESK,ESK,Seker Enstitüsü,NA
 ESN_ESN,ESN,ESN,ESN,École des Sciences de Niamey,NA
 ESNHS_ESNHS,ESNHS,ESNHS,ESNHS,Scottish Natural History Society,NA
@@ -6276,12 +6276,12 @@ FFS_FFS,FFS,FFS,FFS,University of Stellenbosch,NA
 FGC_FGC,FGC,FGC,FGC,"Grassland Research Institute, Chinese Academy of Agricultural Sciences",NA
 FH_FH,FH,FH,FH,Harvard University,NA
 FHI_FHI,FHI,FHI,FHI,Forestry Research Institute of Nigeria,NA
-FHIw_FHIw,FHIw,FHIw,FHIw,"Forest Products Research Division, Forestry Research Institute of Nigeria",xylarium
+FHIw_FHIw,FHIw,FHIw,FHIw,"Forest Products Research Division, Forestry Research Institute of Nigeria",xylarium|not in IH
 FHK_FHK,FHK,FHK,FHK,Divisional Forest Office,NA
 FHKSC_FHKSC,FHKSC,FHKSC,FHKSC,Fort Hays State University,NA
 FHL_FHL,FHL,FHL,FHL,"Friday Harbor Laboratories, University of Washington",NA
 FHO_FHO,FHO,FHO,FHO,University of Oxford,NA
-FHOw_FHOw,FHOw,FHOw,FHOw,University of Oxford,xylarium
+FHOw_FHOw,FHOw,FHOw,FHOw,University of Oxford,xylarium|not in IH
 FI_FI,FI,FI,FI,Natural History Museum,NA
 FIAF_FIAF,FIAF,FIAF,FIAF,Università degli Studi di Firenze,NA
 FINH_FINH,FINH,FINH,FINH,The Falkland Islands National Herbarium,NA
@@ -6292,15 +6292,15 @@ FJFC_FJFC,FJFC,FJFC,FJFC,Fujian Forestry College,NA
 FJSI_FJSI,FJSI,FJSI,FJSI,Fujian Institute of Subtropical Botany,NA
 FKE_FKE,FKE,FKE,FKE,Folk Museum,NA
 FKEN_FKEN,FKEN,FKEN,FKEN,Folkestone Natural History Society,NA
-FKSE_FKSE,FKSE,FKSE,FKSE,Fukushima University,not in IH
+FKSE_FKSE,FKSE,FKSE,FKSE,Fukushima University,NA
 FLAD_FLAD,FLAD,FLAD,FLAD,NA,not in IH
-FLASw_FLASw,FLASw,FLASw,FLASw,University of Florida Herbarium,xylarium
+FLASw_FLASw,FLASw,FLASw,FLASw,University of Florida Herbarium,xylarium|not in IH
 FLD_FLD,FLD,FLD,FLD,Fort Lewis College,NA
 FLH_FLH,FLH,FLH,FLH,Finger Lakes Community College,NA
 FLK_FLK,FLK,FLK,FLK,Falkirk District Council Museum,NA
 FLOR_FLOR,FLOR,FLOR,FLOR,Universidade Federal de Santa Catarina,NA
 FLSP_FLSP,FLSP,FLSP,FLSP,Oscar Scherer State Park,NA
-FLw_FLw,FLw,FLw,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium
+FLw_FLw,FLw,FLw,FLw,Istituto per la Valorizzazione del Legno e delle Specie Arboree - Consiglio Nazionale delle Ricerche (Trees and Timber Institute - National Research Council),xylarium|not in IH
 FM_FM,FM,FM,FM,Fan Memorial Institute of Biology,NA
 FMB_FMB,FMB,FMB,FMB,Instituto de Investigación de Recursos Biológicos Alexander von Humboldt,NA
 FMC_FMC,FMC,FMC,FMC,North Museum of Natural History and Science,NA
@@ -6315,13 +6315,13 @@ FNPS_FNPS,FNPS,FNPS,FNPS,"South Florida Collections Management Center, Everglade
 FNU_FNU,FNU,FNU,FNU,Fujian Normal University,NA
 FOF_FOF,FOF,FOF,FOF,National University of Laos,NA
 FOR_FOR,FOR,FOR,FOR,Forssa Museum of Natural History,NA
-FORIGw_FORIGw,FORIGw,FORIGw,FORIGw,Wood Anatomy Laboratory,xylarium
+FORIGw_FORIGw,FORIGw,FORIGw,FORIGw,Wood Anatomy Laboratory,xylarium|not in IH
 FPDB_FPDB,FPDB,FPDB,FPDB,Universidad de Puerto Rico,NA
-FPDw_FPDw,FPDw,FPDw,FPDw,"Universidade Federal Rural do Rio de Janeiro, Instituto de Florestas, Departamento de Produtos Florestais,",xylarium
+FPDw_FPDw,FPDw,FPDw,FPDw,"Universidade Federal Rural do Rio de Janeiro, Instituto de Florestas, Departamento de Produtos Florestais,",xylarium|not in IH
 FPF_FPF,FPF,FPF,FPF,"Rocky Mountain Research Station, USDA Forest Service",NA
 FPI_FPI,FPI,FPI,FPI,"Faculty of Pharmacy, O.A.U",NA
 FPRL_FPRL,FPRL,FPRL,FPRL,Building Research Establishment,NA
-FPRLw_FPRLw,FPRLw,FPRLw,FPRLw,Building Research Establishment,xylarium
+FPRLw_FPRLw,FPRLw,FPRLw,FPRLw,Building Research Establishment,xylarium|not in IH
 FQH_FQH,FQH,FQH,FQH,Fort Qu'Appelle Herbarium,NA
 FR_FR,FR,FR,FR,Senckenberg Gesellschaft für Naturforschung: Senckenberg Forschungsinstitut und Naturmuseum,NA
 FRC_FRC,FRC,FRC,FRC,Institute of Forest Genetics and Tree Breeding,NA
@@ -6329,9 +6329,9 @@ FRI_FRI,FRI,FRI,FRI,Commonwealth Scientific and Industrial Research Organization
 FRLH_FRLH,FRLH,FRLH,FRLH,Foundation for Revitalisation of Local Health Traditions,NA
 FRP_FRP,FRP,FRP,FRP,Palmengarten,NA
 FRS_FRS,FRS,FRS,FRS,Falconer Museum,NA
-FRTGw_FRTGw,FRTGw,FRTGw,FRTGw,NA,xylarium
+FRTGw_FRTGw,FRTGw,FRTGw,FRTGw,NA,xylarium|not in IH
 FRU_FRU,FRU,FRU,FRU,Institute for Biology of National Academy of Sci.,NA
-FRw_FRw,FRw,FRw,FRw,"Herbarium Senckenbergianum, Abteilung Botanik & molekulare Evolutionsforschung",xylarium
+FRw_FRw,FRw,FRw,FRw,"Herbarium Senckenbergianum, Abteilung Botanik & molekulare Evolutionsforschung",xylarium|not in IH
 FSC_FSC,FSC,FSC,FSC,California State University,NA
 FSCL_FSCL,FSCL,FSCL,FSCL,Florida Southern College,NA
 FSLF_FSLF,FSLF,FSLF,FSLF,Rocky Mountain Forest and Range Experiment Station,NA
@@ -6348,10 +6348,10 @@ FUH_FUH,FUH,FUH,FUH,Firat Üniversitesi,NA
 FUK_FUK,FUK,FUK,FUK,Fukui Botanical Garden,NA
 FULD_FULD,FULD,FULD,FULD,Verein für Naturkunde in Osthessen,NA
 FUMH_FUMH,FUMH,FUMH,FUMH,Ferdowsi University of Mashhad,NA
-FUNED-POL_FUNED-POL,FUNED-POL,FUNED-POL,FUNED-POL,Fundação Ezequiel Dias,NA
+FUNED-POL_FUNED-POL,FUNED-POL,FUNED-POL,FUNED-POL,Fundação Ezequiel Dias,pollen_collection
 FUS_FUS,FUS,FUS,FUS,Fudan University,NA
 FVCC_FVCC,FVCC,FVCC,FVCC,Flathead Valley Community College,NA
-Fw_Fw,Fw,Fw,Fw,Field Museum of Natural History,xylarium?
+Fw_Fw,Fw,Fw,Fw,Field Museum of Natural History,xylarium|not in IH
 FWM_FWM,FWM,FWM,FWM,Fort Worth Museum of Science and History,NA
 FWVA_FWVA,FWVA,FWVA,FWVA,Fairmont State University,NA
 FZUACH_FZUACH,FZUACH,FZUACH,FZUACH,NA,not in IH
@@ -6411,7 +6411,7 @@ GHD_GHD,GHD,GHD,GHD,Shipley Art Gallery and Saltwell Tower Museum,NA
 GHPG_GHPG,GHPG,GHPG,GHPG,Harold Porter National Botanical Garden,NA
 GHS_GHS,GHS,GHS,GHS,George Heriot's School,NA
 GI_GI,GI,GI,GI,Justus-Liebig-Universität Giessen,NA
-GIAw_GIAw,GIAw,GIAw,GIAw,Groningen Institute of Archaeology,xylarium
+GIAw_GIAw,GIAw,GIAw,GIAw,Groningen Institute of Archaeology,xylarium|not in IH
 GILAN_GILAN,GILAN,GILAN,GILAN,Agricultural and Natural Resources Research Center of Gilan,NA
 GINCO_GINCO,GINCO,GINCO,GINCO,Agriculture and Agri-Food Canada,NA
 GJO_GJO,GJO,GJO,GJO,Universalmuseum Joanneum,NA
@@ -6472,7 +6472,7 @@ GSO_GSO,GSO,GSO,GSO,Glasgow Society of Field Naturalists',NA
 GSU_GSU,GSU,GSU,GSU,F. Scorina Gomel State University,NA
 GSW_GSW,GSW,GSW,GSW,Georgia Southwestern State University,NA
 GTM_GTM,GTM,GTM,GTM,Grantham Museum,NA
-GTw_GTw,GTw,GTw,GTw,"Jonah Boyan Herbarium, Guyana Forestry Commission",xylarium
+GTw_GTw,GTw,GTw,GTw,"Jonah Boyan Herbarium, Guyana Forestry Commission",xylarium|not in IH
 GU_GU,GU,GU,GU,Gotland University,NA
 GUA_GUA,GUA,GUA,GUA,"DIVEA, DEP, FEEMA",NA
 GUAD_GUAD,GUAD,GUAD,GUAD,Institut National de la Recherche Agronomique and Parc National de Guadeloupe,NA
@@ -6510,7 +6510,7 @@ HABE_HABE,HABE,HABE,HABE,Instituto de Biología,NA
 HABIT_HABIT,HABIT,HABIT,HABIT,Universidade Estadual do Maranhão/UEMA,NA
 HAC_HAC,HAC,HAC,HAC,Instituto de Ecología y Sistemática,NA
 HACC_HACC,HACC,HACC,HACC,Academia de Ciencias Camagüey,NA
-HACw_HACw,HACw,HACw,HACw,Institute of Ecology and Systematic,xylarium
+HACw_HACw,HACw,HACw,HACw,Institute of Ecology and Systematic,xylarium|not in IH
 HAF_HAF,HAF,HAF,HAF,Hainan Forestry Institute,NA
 HAG_HAG,HAG,HAG,HAG,Universidad Nacional Amazónica de Madre de Dios (UNAMAD),NA
 HAH_HAH,HAH,HAH,HAH,Hoyt Arboretum,NA
@@ -6562,7 +6562,7 @@ HB-LIE_HB-LIE,HB-LIE,HB-LIE,HB-LIE,NA,not in IH
 HBNU_HBNU,HBNU,HBNU,HBNU,Hebei Normal University,NA
 HBR_HBR,HBR,HBR,HBR,Herbário Barbosa Rodrigues,NA
 HBRA_HBRA,HBRA,HBRA,HBRA,"Universidade Federal do Pará, Campus Bragança",NA
-HBRw_HBRw,HBRw,HBRw,HBRw,NA,xylarium
+HBRw_HBRw,HBRw,HBRw,HBRw,NA,xylarium|not in IH
 HBSH_HBSH,HBSH,HBSH,HBSH,Highlands Biological Station,NA
 HBw_HBw,HBw,HBw,HBw,Forest Research Institute,xylarium|not in IH
 HC_HC,HC,HC,HC,Hangchow Christian College,NA
@@ -6582,13 +6582,13 @@ HCNGB_HCNGB,HCNGB,HCNGB,HCNGB,China National GeneBank,NA
 HCOA_HCOA,HCOA,HCOA,HCOA,College of the Atlantic,NA
 HCOM_HCOM,HCOM,HCOM,HCOM,Centre d'Océanologie de Marseille - University of Aix-Marseille II,NA
 HCP_HCP,HCP,HCP,HCP,Universidade Federal Rural da Amazônia,NA
-HCSM_HCSM,HCSM,HCSM,HCSM,NA,not in IH
+HCSM_HCSM,HCSM,HCSM,HCSM,Universidad Católica de Santa María,NA
 HCT_HCT,HCT,HCT,HCT,Taiwan Forestry Research Institute,NA
 HDCF_HDCF,HDCF,HDCF,HDCF,Department of Forestry Science,NA
 HDD_HDD,HDD,HDD,HDD,Tolson Memorial Museum,NA
 HDELTA_HDELTA,HDELTA,HDELTA,HDELTA,Universidade Federal do Piauí,NA
 HDJF_HDJF,HDJF,HDJF,HDJF,Universidade Federal dos Vales do Jequitinhonha e Mucuri,"herbarium, xylarium and carpothek"
-HDJFw_HDJFw,HDJFw,HDJFw,HDJFw,Universidade Federal dos Vales do Jequitinhonha e Mucuri,NA
+HDJFw_HDJFw,HDJFw,HDJFw,HDJFw,Universidade Federal dos Vales do Jequitinhonha e Mucuri,xylarium|not in IH
 HDSM_HDSM,HDSM,HDSM,HDSM,University of Massachusetts Dartmouth,NA
 HDTC_HDTC,HDTC,HDTC,HDTC,Huddersfield Technical College,NA
 HE_HE,HE,HE,HE,NA,not in IH
@@ -6597,7 +6597,7 @@ HEB_HEB,HEB,HEB,HEB,Hebden Bridge Literary and Scientific Society,NA
 HEBI_HEBI,HEBI,HEBI,HEBI,Henan Academy of Sciences,NA
 HECM_HECM,HECM,HECM,HECM,Henan College of Traditional Chinese Medicine,NA
 HEFG_HEFG,HEFG,HEFG,HEFG,l'Ecole de Faune de Garoua,NA
-HEFw_HEFw,HEFw,HEFw,HEFw,Anhui Agricultural College,xylarium
+HEFw_HEFw,HEFw,HEFw,HEFw,Anhui Agricultural College,xylarium|not in IH
 HEH_HEH,HEH,HEH,HEH,Escuela Nacional de Ciencias Forestales,NA
 HEID_HEID,HEID,HEID,HEID,University of Heidelberg,NA
 HEL_HEL,HEL,HEL,HEL,University of Helsinki,NA
@@ -6700,7 +6700,7 @@ HMNR_HMNR,HMNR,HMNR,HMNR,Mordovian State Nature Reserve,NA
 HMP_HMP,HMP,HMP,HMP,Hornonitrianske muzeum,NA
 HMS_HMS,HMS,HMS,HMS,Embrapa Gado de Corte,NA
 HMUT_HMUT,HMUT,HMUT,HMUT,Tarim University,NA
-HMw_HMw,HMw,HMw,HMw,NA,xylarium
+HMw_HMw,HMw,HMw,HMw,NA,xylarium|not in IH
 HN_HN,HN,HN,HN,Vietnam Academy of Science and Technology (VAST),NA
 HNBU_HNBU,HNBU,HNBU,HNBU,Institut de l'Environnement et de Recherche Agricola (INERA),NA
 HND_HND,HND,HND,HND,Centre d’Etude et de Recherche de Djibouti (CERD),NA
@@ -6792,7 +6792,7 @@ HUBE_HUBE,HUBE,HUBE,HUBE,Golden West College,NA
 HUBO_HUBO,HUBO,HUBO,HUBO,Università degli Studi di Bologna,NA
 HUC_HUC,HUC,HUC,HUC,Universidad de Córdoba,NA
 HUCM_HUCM,HUCM,HUCM,HUCM,Hunan College of Traditional Chinese Medicine,NA
-HUCO_HUCO,HUCO,HUCO,HUCO,Universidade Estadual do Centro-Oeste,not in IH
+HUCO_HUCO,HUCO,HUCO,HUCO,Universidade Estadual do Centro-Oeste,NA
 HUCOMR_HUCOMR,HUCOMR,HUCOMR,HUCOMR,NA,not in IH
 HUCP_HUCP,HUCP,HUCP,HUCP,Pontifícia Universidade Católica do Paraná,NA
 HUCPE_HUCPE,HUCPE,HUCPE,HUCPE,Universidade Católica de Pernambuco,not in IH
@@ -6803,7 +6803,7 @@ HUEF_HUEF,HUEF,HUEF,HUEF,Hacettepe University,NA
 HUEFS_HUEFS,HUEFS,HUEFS,HUEFS,Universidade Estadual de Feira de Santana,NA
 HUEG_HUEG,HUEG,HUEG,HUEG,Universidade Estadual de Goiás,NA
 HUEM_HUEM,HUEM,HUEM,HUEM,Universidade Estadual de Maringá,NA
-HUENF_HUENF,HUENF,HUENF,HUENF,NA,not in IH
+HUENF_HUENF,HUENF,HUENF,HUENF,Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF),NA
 HUESB_HUESB,HUESB,HUESB,HUESB,Universidade Estadual do Sudoeste da Bahia-Campus de Jequié,NA
 HUESBVC_HUESBVC,HUESBVC,HUESBVC,HUESBVC,Universidade Estadual do Sudoeste da Bahia-Vitória  da Conquista,NA
 HUF_HUF,HUF,HUF,HUF,Hunan Forestry School,NA
@@ -6846,9 +6846,9 @@ HUTPL_HUTPL,HUTPL,HUTPL,HUTPL,Universidad Tecnica Particular De Loja (UTPL),NA
 HUUD_HUUD,HUUD,HUUD,HUUD,Dublin City University,NA
 HUVA_HUVA,HUVA,HUVA,HUVA,Universidade Estadual Vale do Acaraú,NA
 HVASF_HVASF,HVASF,HVASF,HVASF,Universidade Federal do Vale do São Francisco,NA
-HVASFw_HVASFw,HVASFw,HVASFw,HVASFw,Universidade Federal do Vale do São Francisco,NA
+HVASFw_HVASFw,HVASFw,HVASFw,HVASFw,Universidade Federal do Vale do São Francisco,xylarium|not in IH
 HVAT_HVAT,HVAT,HVAT,HVAT,University of  Vale do Taquari - Univates,NA
-HVC_HVC,HVC,HVC,HVC,Universidade Federal da Bahia,not in IH
+HVC_HVC,HVC,HVC,HVC,Universidade Federal da Bahia,NA
 HVR_HVR,HVR,HVR,HVR,Universidade de Trás-os-Montes e Alto Douro,NA
 HWA_HWA,HWA,HWA,HWA,Southwest Agricultural University,NA
 HWB_HWB,HWB,HWB,HWB,Harrow School,NA
@@ -6860,10 +6860,10 @@ HY_HY,HY,HY,HY,Osmania University,NA
 HYD_HYD,HYD,HYD,HYD,Heywood and District Botanical Society,NA
 HYE_HYE,HYE,HYE,HYE,Conservatoire botanique national méditerranéen de Porquerolles,NA
 HYO_HYO,HYO,HYO,HYO,Museum of Nature and Human Activities,NA
-HYOw_HYOw,HYOw,HYOw,HYOw,NA,xylarium
+HYOw_HYOw,HYOw,HYOw,HYOw,NA,xylarium|not in IH
 HZTC_HZTC,HZTC,HZTC,HZTC,Hanzhong Teachers College,NA
 HZU_HZU,HZU,HZU,HZU,Zhejiang University,NA
-I_I,I,I,I,"""Alexandru Ioan Cuza"" University",NA
+I_I,I,I,I,Alexandru Ioan Cuza University,NA
 IA_IA,IA,IA,IA,University of Iowa,NA
 IAA_IAA,IAA,IAA,IAA,Dirección Nacional del Antártico,NA
 IABH_IABH,IABH,IABH,IABH,Al-Bayt University,NA
@@ -6924,7 +6924,7 @@ IFGH_IFGH,IFGH,IFGH,IFGH,Idaho Fish and Game Department,NA
 IFGP_IFGP,IFGP,IFGP,IFGP,"Institute of Forest Genetics, Pacific Southwest Research Station, USDA Forest Service",NA
 IFO_IFO,IFO,IFO,IFO,Institute for Fermentation,NA
 IFP_IFP,IFP,IFP,IFP,"Institute of Applied Ecology, Academia Sinica",NA
-IFPw_IFPw,IFPw,IFPw,IFPw,"Institute of Forestry and Pedology, Academia Sinica",xylarium
+IFPw_IFPw,IFPw,IFPw,IFPw,"Institute of Forestry and Pedology, Academia Sinica",xylarium|not in IH
 IFRD_IFRD,IFRD,IFRD,IFRD,Research Institute of Resource Insects,NA
 IFRV_IFRV,IFRV,IFRV,IFRV,Instituto Federal Goiano,not in IH
 IGA_IGA,IGA,IGA,IGA,"Northeast Institute of Geography and Agroecology, Chinese Academy of Sciences",NA
@@ -6932,9 +6932,9 @@ IGB_IGB,IGB,IGB,IGB,NA,not in IH
 IGGDC_IGGDC,IGGDC,IGGDC,IGGDC,"Institute of Geology and Geophysics, Chinese Academy of Sciences",NA
 IH_IH,IH,IH,IH,Instituto de Segunda Enseñanza de La Habana,NA
 IHAR_IHAR,IHAR,IHAR,IHAR,NA,not in IH
-IICAw_IICAw,IICAw,IICAw,IICAw,Universidad de Costa Rica,xylarium
+IICAw_IICAw,IICAw,IICAw,IICAw,Universidad de Costa Rica,xylarium|not in IH
 IJ_IJ,IJ,IJ,IJ,Natural History Museum of Jamaica (NHMJ),NA
-IJw_IJw,IJw,IJw,IJw,Institute of Jamaica,xylarium
+IJw_IJw,IJw,IJw,IJw,Institute of Jamaica,xylarium|not in IH
 ILCA_ILCA,ILCA,ILCA,ILCA,International Livestock Research Institute,NA
 ILF_ILF,ILF,ILF,ILF,Iflracombe Museum,NA
 ILH_ILH,ILH,ILH,ILH,Iowa Lakeside Laboratory,NA
@@ -6964,8 +6964,8 @@ INGU_INGU,INGU,INGU,INGU,Ingush State University,NA
 INH_INH,INH,INH,INH,Institut National d'Horticulture,NA
 INIF_INIF,INIF,INIF,INIF,INIFAP,NA
 INM_INM,INM,INM,INM,Ibaraki Nature Museum,NA
-INPA-Carpoteca_INPA-Carpoteca,INPA-Carpoteca,INPA-Carpoteca,INPA-Carpoteca,Instituto Nacional de Pesquisas da Amazônia,NA
-INPAw_INPAw,INPAw,INPAw,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium
+INPA-Carpoteca_INPA-Carpoteca,INPA-Carpoteca,INPA-Carpoteca,INPA-Carpoteca,Instituto Nacional de Pesquisas da Amazônia,carpothek|not in IH
+INPAw_INPAw,INPAw,INPAw,INPAw,Instituto Nacional de Pesquisas da Amazônia,xylarium|not in IH
 INTERCOOP_INTERCOOP,INTERCOOP,INTERCOOP,INTERCOOP,NA,not in IH
 INU_INU,INU,INU,INU,Inonu University,NA
 INV_INV,INV,INV,INV,Inverness Museum and Art Gallery,NA
@@ -7003,10 +7003,10 @@ ISTC_ISTC,ISTC,ISTC,ISTC,University of Northern Iowa,NA
 ISTE_ISTE,ISTE,ISTE,ISTE,University of Istanbul,NA
 ISTF_ISTF,ISTF,ISTF,ISTF,Istanbul University,NA
 ISTO_ISTO,ISTO,ISTO,ISTO,University of Istanbul,NA
-ISTUFw_ISTUFw,ISTUFw,ISTUFw,ISTUFw,"Faculty of Forestry, Department of Forest Biology and Wood Protection Technology",xylarium
+ISTUFw_ISTUFw,ISTUFw,ISTUFw,ISTUFw,"Faculty of Forestry, Department of Forest Biology and Wood Protection Technology",xylarium|not in IH
 ISU_ISU,ISU,ISU,ISU,Illinois State University,NA
 ITAE_ITAE,ITAE,ITAE,ITAE,Istituto Tecnico Agrario Enologico,NA
-ITAw_ITAw,ITAw,ITAw,ITAw,Instituto de Tecnologia do Amazonia/UTAM,xylarium
+ITAw_ITAw,ITAw,ITAw,ITAw,Instituto de Tecnologia do Amazonia/UTAM,xylarium|not in IH
 ITCV_ITCV,ITCV,ITCV,ITCV,Instituto Tecnológico de Ciudad Victoria,NA
 ITIC_ITIC,ITIC,ITIC,ITIC,Universidad de El Salvador,NA
 ITMH_ITMH,ITMH,ITMH,ITMH,Muhimbili University of Health and Allied Sciences,NA
@@ -7027,7 +7027,7 @@ JAC_JAC,JAC,JAC,JAC,University of Jodhpur,NA
 JACA_JACA,JACA,JACA,JACA,"Instituto Pirenaico de Ecología, C.S.I.C.",NA
 JACM_JACM,JACM,JACM,JACM,Atsugi City Museum,not in IH
 JAEN_JAEN,JAEN,JAEN,JAEN,Universidad de Jaén,NA
-JARIw_JARIw,JARIw,JARIw,JARIw,"JARI-Companhia Florestal Monte Dourado, Superintendencia de Pesquisa Florestal",xylarium
+JARIw_JARIw,JARIw,JARIw,JARIw,"JARI-Companhia Florestal Monte Dourado, Superintendencia de Pesquisa Florestal",xylarium|not in IH
 JAS_JAS,JAS,JAS,JAS,Jiangxi Academy of Sciences,NA
 JAUM_JAUM,JAUM,JAUM,JAUM,"Fundación Jardín Botánico ""Joaquín Antonio Uribe"", de Medellín",NA
 JAY_JAY,JAY,JAY,JAY,Fondation Cognacq-Jaÿ,NA
@@ -7041,7 +7041,7 @@ JBL_JBL,JBL,JBL,JBL,"Jardín Botánico Lankester, Universidad de Costa Rica",NA
 JBN_JBN,JBN,JBN,JBN,Fundacion Jardin Botanico Nacional,NA
 JBSAI_JBSAI,JBSAI,JBSAI,JBSAI,Universidad Nacional de Colombia,not in IH
 JBSD_JBSD,JBSD,JBSD,JBSD,Jardín Botánico Nacional Dr. Rafael M. Moscoso,NA
-JBSDw_JBSDw,JBSDw,JBSDw,JBSDw,"Herbarium, Botany Department",xylarium
+JBSDw_JBSDw,JBSDw,JBSDw,JBSDw,"Herbarium, Botany Department",xylarium|not in IH
 JBVN_JBVN,JBVN,JBVN,JBVN,Jardin Botanique de la Ville de Nice,NA
 JCB_JCB,JCB,JCB,JCB,Indian Institute of Science (IISc),NA
 JCE_JCE,JCE,JCE,JCE,Jiangxi College of Education,NA
@@ -7078,12 +7078,12 @@ JNU_JNU,JNU,JNU,JNU,Chonbuk National University,NA
 JNUB_JNUB,JNUB,JNUB,JNUB,Jeju National University,NA
 JOE_JOE,JOE,JOE,JOE,University of Joensuu,NA
 JOI_JOI,JOI,JOI,JOI,Universidade da Região de Joinville - Univille,NA
-JOIw_JOIw,JOIw,JOIw,JOIw,Universidade da Região de Joinville - Univille,NA
+JOIw_JOIw,JOIw,JOIw,JOIw,Universidade da Região de Joinville - Univille,xylarium|not in IH
 JOMU_JOMU,JOMU,JOMU,JOMU,John Muir National Historic Site,NA
 JONK_JONK,JONK,JONK,JONK,Jonkershoek Herbarium,NA
 JOTR_JOTR,JOTR,JOTR,JOTR,Joshua Tree National Park,NA
 JPB_JPB,JPB,JPB,JPB,"Universidade Federal da Paraíba, Cidade Universitária",NA
-JPRw_JPRw,JPRw,JPRw,JPRw,"Bernard Price Institute for Palaeontological Research, University of the Witwatersrand",xylarium
+JPRw_JPRw,JPRw,JPRw,JPRw,"Bernard Price Institute for Palaeontological Research, University of the Witwatersrand",xylarium|not in IH
 JPU_JPU,JPU,JPU,JPU,Janus Pannonius University,NA
 JRAU_JRAU,JRAU,JRAU,JRAU,University of Johannesburg,NA
 JRM_JRM,JRM,JRM,JRM,NA,not in IH
@@ -7103,7 +7103,7 @@ JUH_JUH,JUH,JUH,JUH,Jahangirnagar University,NA
 JUJ_JUJ,JUJ,JUJ,JUJ,Hebei Agricultural University,NA
 JVC_JVC,JVC,JVC,JVC,Jardín Botánico Canario Viera y Clavijo,NA
 JVR_JVR,JVR,JVR,JVR,Universidad Nacional,NA
-JWGw_JWGw,JWGw,JWGw,JWGw,Institut fur archaologische Wissenschaften,xylarium
+JWGw_JWGw,JWGw,JWGw,JWGw,Institut fur archaologische Wissenschaften,xylarium|not in IH
 JXAU_JXAU,JXAU,JXAU,JXAU,Jiangxi Agricultural University,NA
 JXCM_JXCM,JXCM,JXCM,JXCM,Jiangxi College of Traditional Chinese Medicine,NA
 JXF_JXF,JXF,JXF,JXF,Jiangxi Forestry Institute,NA
@@ -7122,12 +7122,12 @@ KANA_KANA,KANA,KANA,KANA,Kanazawa University,NA
 KAND_KAND,KAND,KAND,KAND,Kandalaksha State Nature Reserve,NA
 KANU_KANU,KANU,KANU,KANU,University of Kansas,NA
 KAR_KAR,KAR,KAR,KAR,University of Tehran,NA
-KARw_KARw,KARw,KARw,KARw,"Forest Products Laboratory, College of Natural Resources, Karaj",xylarium
+KARw_KARw,KARw,KARw,KARw,"Forest Products Laboratory, College of Natural Resources, Karaj",xylarium|not in IH
 KAS_KAS,KAS,KAS,KAS,University of Kassel,NA
 KASH_KASH,KASH,KASH,KASH,University of Kashmir,NA
 KASSEL_KASSEL,KASSEL,KASSEL,KASSEL,Naturkundemuseum im Ottoneum,NA
 KATH_KATH,KATH,KATH,KATH,National Herbarium and Plant Laboratories,NA
-KATHw_KATHw,KATHw,KATHw,KATHw,National Herbarium and Plant Laboratory,xylarium
+KATHw_KATHw,KATHw,KATHw,KATHw,National Herbarium and Plant Laboratory,xylarium|not in IH
 KATO_KATO,KATO,KATO,KATO,Karadeniz Technical University,NA
 KAW_KAW,KAW,KAW,KAW,Kawanda Research Station,NA
 KAZ_KAZ,KAZ,KAZ,KAZ,Kazan State University,NA
@@ -7153,7 +7153,7 @@ KEM_KEM,KEM,KEM,KEM,Kemerovo University,NA
 KEN_KEN,KEN,KEN,KEN,Longwood Gardens,NA
 KEND_KEND,KEND,KEND,KEND,Kendal Natural History Society,NA
 KEP_KEP,KEP,KEP,KEP,Forest Research Institute Malaysia,NA
-KEPw_KEPw,KEPw,KEPw,KEPw,Forest Research Institute Malaysia (FRIM),xylarium
+KEPw_KEPw,KEPw,KEPw,KEPw,Forest Research Institute Malaysia (FRIM),xylarium|not in IH
 KESC_KESC,KESC,KESC,KESC,Keene State College,NA
 KEVO_KEVO,KEVO,KEVO,KEVO,University of Turku,NA
 KF_KF,KF,KF,KF,Kerman University of Medical Sciences,NA
@@ -7161,10 +7161,10 @@ KFBG_KFBG,KFBG,KFBG,KFBG,Kadoorie Farm and Botanic Garden,NA
 KFI_KFI,KFI,KFI,KFI,Hongnung Arboretum,NA
 KFRA_KFRA,KFRA,KFRA,KFRA,"Klamath Falls Resource Area, BLM",NA
 KFRI_KFRI,KFRI,KFRI,KFRI,Kerala Forest Research Institute,NA
-KFRIw_KFRIw,KFRIw,KFRIw,KFRIw,Kerala Forest Research Institute,xylarium
+KFRIw_KFRIw,KFRIw,KFRIw,KFRIw,Kerala Forest Research Institute,xylarium|not in IH
 KFTA_KFTA,KFTA,KFTA,KFTA,Saint Petersburg S. M. Kirov Forestry Academy,NA
 KFUH_KFUH,KFUH,KFUH,KFUH,King Faisal University,NA
-KG_KG,KG,KG,KG,Internatinal Phytochemistry Research and Production Institute,NA
+KG_KG,KG,KG,KG,Internatinal Phytochemistry Research and Production Institute,not in IH
 KGY_KGY,KGY,KGY,KGY,Cliffe Castle Art Gallery and Museum,NA
 KH_KH,KH,KH,KH,Korea National Arboretum,NA
 KHA_KHA,KHA,KHA,KHA,"Institute for Water and Ecology Problems, Far East Branch, Russian Academy of Sciences",NA
@@ -7182,7 +7182,7 @@ KIRI_KIRI,KIRI,KIRI,KIRI,University of Rhode Island,NA
 KIS_KIS,KIS,KIS,KIS,Université de Kisangani,NA
 KISA_KISA,KISA,KISA,KISA,Institut Congolais  pour la Conservation de la Nature (I.C.C.N),NA
 KIWE_KIWE,KIWE,KIWE,KIWE,Korea Institutie of Water and Enviroment,not in IH
-K-Jw_K-Jw,K-Jw,K-Jw,K-Jw,Royal Botanic Gardens Kew,xylarium
+K-Jw_K-Jw,K-Jw,K-Jw,K-Jw,Royal Botanic Gardens Kew,xylarium|not in IH
 KKM_KKM,KKM,KKM,KKM,Kirkleatham Museum,NA
 KKU_KKU,KKU,KKU,KKU,Khon Kaen University,NA
 KL_KL,KL,KL,KL,Landesmuseum für Kärnten,NA
@@ -7226,7 +7226,7 @@ KRF_KRF,KRF,KRF,KRF,V. N. Sukachev Institute of Forest and Wood,NA
 KRFB_KRFB,KRFB,KRFB,KRFB,University of Agriculture,NA
 KRG_KRG,KRG,KRG,KRG,Westfield Museum,NA
 KRIB_KRIB,KRIB,KRIB,KRIB,Korea Research Institute of Bioscience and Biotechnology,NA
-KRM_KRM,KRM,KRM,KRM,Krasnoyarsk Regional Museum,NA
+KRM_KRM,KRM,KRM,KRM,Krasnoyarsk Regional Museum,not in IH
 KRMS_KRMS,KRMS,KRMS,KRMS,"Sternwarte Kremsmünster, Stift",NA
 KRSU_KRSU,KRSU,KRSU,KRSU,Siberian Federal University,NA
 KSAN_KSAN,KSAN,KSAN,KSAN,South African National Parks,NA
@@ -7266,7 +7266,7 @@ KWNU_KWNU,KWNU,KWNU,KWNU,Kangwon National University,NA
 KY_KY,KY,KY,KY,University of Kentucky,NA
 KYM_KYM,KYM,KYM,KYM,University of Helsinki,NA
 KYO_KYO,KYO,KYO,KYO,Kyoto University,NA
-KYOw_KYOw,KYOw,KYOw,KYOw,Kyoto University,xylarium
+KYOw_KYOw,KYOw,KYOw,KYOw,Kyoto University,xylarium|not in IH
 L_L,L,L,L,Naturalis,NA
 LA_LA,LA,LA,LA,"University of California, Los Angeles",NA
 LABEV_LABEV,LABEV,LABEV,LABEV,Universidade Federal do Acre,not in IH
@@ -7296,7 +7296,7 @@ LBE_LBE,LBE,LBE,LBE,Research Station of Medicinal Plants of the Institute of Agr
 LBG_LBG,LBG,LBG,LBG,Lushan Botanical Garden,NA
 LBL_LBL,LBL,LBL,LBL,Maria Curie-Sklodowska University,NA
 LBLC_LBLC,LBLC,LBLC,LBLC,M. Curie-Sklodowska University,NA
-LBMBP_LBMBP,LBMBP,LBMBP,LBMBP,Universidade de São Paulo,NA
+LBMBP_LBMBP,LBMBP,LBMBP,LBMBP,Universidade de São Paulo,not in IH (ex_situ_collection)
 LBV_LBV,LBV,LBV,LBV,CENAREST,NA
 LC_LC,LC,LC,LC,Lewis & Clark College,NA
 LCDI_LCDI,LCDI,LCDI,LCDI,Luther College,NA
@@ -7331,7 +7331,7 @@ LES_LES,LES,LES,LES,Leeds Museums and Galleries,NA
 LET_LET,LET,LET,LET,Letchworth Naturalist's Society,NA
 LEUN_LEUN,LEUN,LEUN,LEUN,Bischöfliches Gymnasium Josephinum,NA
 LEV_LEV,LEV,LEV,LEV,Ministry of Agriculture and Fisheries,NA
-LEw_LEw,LEw,LEw,LEw,"Botanical Museum, Komarov Botanical Institute of the Russian Academy of Sciences",xylarium
+LEw_LEw,LEw,LEw,LEw,"Botanical Museum, Komarov Botanical Institute of the Russian Academy of Sciences",xylarium|not in IH
 LEYN_LEYN,LEYN,LEYN,LEYN,Leyton Reference Library,NA
 LFCC_LFCC,LFCC,LFCC,LFCC,Lord Fairfax Community College,NA
 LFG_LFG,LFG,LFG,LFG,"Centre de Recherche de la Nature, des Forêts et du Bois",NA
@@ -7346,7 +7346,7 @@ LIB_LIB,LIB,LIB,LIB,University of Liberia,NA
 LIG_LIG,LIG,LIG,LIG,Sociedade de Geografia de Lisboa,NA
 LIL_LIL,LIL,LIL,LIL,Fundación Miguel Lillo,NA
 LILLE_LILLE,LILLE,LILLE,LILLE,Institut Catholique de Lille,NA
-LILw_LILw,LILw,LILw,LILw,Foundation Miguel Lillo - Institut Miguel Lillo,xylarium
+LILw_LILw,LILw,LILw,LILw,Foundation Miguel Lillo - Institut Miguel Lillo,xylarium|not in IH
 LIM_LIM,LIM,LIM,LIM,Severoceské muzeum,NA
 LIMFC_LIMFC,LIMFC,LIMFC,LIMFC,Limerick Field Club,NA
 LIMK_LIMK,LIMK,LIMK,LIMK,Limerick Museum,NA
@@ -7358,10 +7358,10 @@ LIP_LIP,LIP,LIP,LIP,Université de Lille,NA
 LISC_LISC,LISC,LISC,LISC,Instituto de Investigação Científica Tropical,NA
 LISE_LISE,LISE,LISE,LISE,Estação Agronómica Nacional,NA
 LISFA_LISFA,LISFA,LISFA,LISFA,"Instituto Nacional de Investigação Agrária, I.P., L-INIA",NA
-LISFLw_LISFLw,LISFLw,LISFLw,LISFLw,"Instituto de Investigacao Cientifica Tropical, FLOR -Florestas e Produtos Florestais, Dep. Engenharia Florestal",xylarium
+LISFLw_LISFLw,LISFLw,LISFLw,LISFLw,"Instituto de Investigacao Cientifica Tropical, FLOR -Florestas e Produtos Florestais, Dep. Engenharia Florestal",xylarium|not in IH
 LISI_LISI,LISI,LISI,LISI,Instituto Superior de Agronomia,NA
 LISJC_LISJC,LISJC,LISJC,LISJC,Jardim-Museu Agrícola Tropical,NA
-LISJCw_LISJCw,LISJCw,LISJCw,LISJCw,Jardim Botânico Tropical,xylarium
+LISJCw_LISJCw,LISJCw,LISJCw,LISJCw,Jardim Botânico Tropical,xylarium|not in IH
 LISM_LISM,LISM,LISM,LISM,Missão de Estudos Agronómicos do Ultramar,NA
 LISU_LISU,LISU,LISU,LISU,Museu Nacional de História Natural e da Ciência,NA
 LISVA_LISVA,LISVA,LISVA,LISVA,Ministério da Educação,NA
@@ -7370,7 +7370,7 @@ LIV_LIV,LIV,LIV,LIV,World Museum Liverpool,NA
 LIVC_LIVC,LIVC,LIVC,LIVC,Liverpool Botanic Garden,NA
 LIVNFC_LIVNFC,LIVNFC,LIVNFC,LIVNFC,Liverpool Naturalists' Field Club,NA
 LIVU_LIVU,LIVU,LIVU,LIVU,Hartley Botanical Laboratories,NA
-LIVw_LIVw,LIVw,LIVw,LIVw,Liverpool Museum,xylarium
+LIVw_LIVw,LIVw,LIVw,LIVw,Liverpool Museum,xylarium|not in IH
 LJF_LJF,LJF,LJF,LJF,Slovenian Forestry Institute,NA
 LJM_LJM,LJM,LJM,LJM,Slovenian Museum of Natural History,NA
 LJS_LJS,LJS,LJS,LJS,Scientific Research Centre,NA
@@ -7393,7 +7393,7 @@ LNAF_LNAF,LNAF,LNAF,LNAF,Liaoning Academy of Forestry,NA
 LNAU_LNAU,LNAU,LNAU,LNAU,Luhansk National Agrarian University,NA
 LNCM_LNCM,LNCM,LNCM,LNCM,Liaoning College of Traditional Chinese Medicine,NA
 LNCN_LNCN,LNCN,LNCN,LNCN,Lincoln Memorial University,NA
-LNECw_LNECw,LNECw,LNECw,LNECw,Laboratorio Nacional de Engenharia Civil,xylarium
+LNECw_LNECw,LNECw,LNECw,LNECw,Laboratorio Nacional de Engenharia Civil,xylarium|not in IH
 LNHS_LNHS,LNHS,LNHS,LNHS,London Natural History Society,NA
 LNNU_LNNU,LNNU,LNNU,LNNU,Liaoning Normal University,NA
 LOB_LOB,LOB,LOB,LOB,California State University,NA
@@ -7409,8 +7409,8 @@ LPB_LPB,LPB,LPB,LPB,"Herbario Nacional de Bolivia, Universidad Mayor de San Andr
 LPC_LPC,LPC,LPC,LPC,Museo de La Plata,NA
 LPD_LPD,LPD,LPD,LPD,Laboratorio de Botánica de la Dirección de Agricultura,NA
 LPF_LPF,LPF,LPF,LPF,NA,not in IH
-LPFw_LPFw,LPFw,LPFw,LPFw,Laboratorio de Produtos Florestais Serviço Florestal Brasileiro/Ministério do Meio Ambiente- SFB/MMA,xylarium
-LPIw_LPIw,LPIw,LPIw,LPIw,Loyola Polytechnic Institute,xylarium
+LPFw_LPFw,LPFw,LPFw,LPFw,Laboratorio de Produtos Florestais Serviço Florestal Brasileiro/Ministério do Meio Ambiente- SFB/MMA,xylarium|not in IH
+LPIw_LPIw,LPIw,LPIw,LPIw,Loyola Polytechnic Institute,xylarium|not in IH
 LPL_LPL,LPL,LPL,LPL,The University,NA
 LPM_LPM,LPM,LPM,LPM,Living Prairie Museum,NA
 LPN_LPN,LPN,LPN,LPN,Littlehampton Museum,NA
@@ -7435,7 +7435,7 @@ LSU_LSU,LSU,LSU,LSU,Louisiana State University,NA
 LSUA_LSUA,LSUA,LSUA,LSUA,Louisiana State University of Alexandria,NA
 LSUM_LSUM,LSUM,LSUM,LSUM,Louisiana State University,NA
 LSUS_LSUS,LSUS,LSUS,LSUS,Louisiana State University,NA
-LSw_LSw,LSw,LSw,LSw,Institute of Ecology and Systematic,xylarium
+LSw_LSw,LSw,LSw,LSw,Institute of Ecology and Systematic,xylarium|not in IH
 LT_LT,LT,LT,LT,Université de Montréal,NA
 LTH_LTH,LTH,LTH,LTH,Museum of Louth Naturalists' Antiquity and Literary Society,NA
 LTHP_LTHP,LTHP,LTHP,LTHP,Louth Public Library,NA
@@ -7489,10 +7489,10 @@ MACO_MACO,MACO,MACO,MACO,Marlborough College,NA
 MAD_MAD,MAD,MAD,MAD,Forest Products Laboratory,NA
 MADJ_MADJ,MADJ,MADJ,MADJ,Jardim Botânico da Madeira,NA
 MADM_MADM,MADM,MADM,MADM,Museu de História Natural do Funchal,NA
-MADRw_MADRw,MADRw,MADRw,MADRw,Centro de Investigacion Forestal (CIFOR),xylarium
+MADRw_MADRw,MADRw,MADRw,MADRw,Centro de Investigacion Forestal (CIFOR),xylarium|not in IH
 MADS_MADS,MADS,MADS,MADS,Museu de História Natural do Seminário do Funchal,NA
 MADUG_MADUG,MADUG,MADUG,MADUG,Museo de Historia Natural Alfredo Dugés,not in IH
-MADw_MADw,MADw,MADw,MADw,Forest Products Laboratory,NA
+MADw_MADw,MADw,MADw,MADw,Forest Products Laboratory,xylarium|not in IH
 MAFST_MAFST,MAFST,MAFST,MAFST,Instituto Forestal de la Moncloa,NA
 MAG_MAG,MAG,MAG,MAG,"Institute of the Biological Problems of the North, Far-Eastern Branch of the Russian Academy of Sciences",NA
 MAH_MAH,MAH,MAH,MAH,Department of Agricultural Research,NA
@@ -7544,12 +7544,12 @@ MCJ_MCJ,MCJ,MCJ,MCJ,Missouri Southern State College,NA
 MCM_MCM,MCM,MCM,MCM,"Hamilton College, McMaster University",NA
 MCMG_MCMG,MCMG,MCMG,MCMG,Universidade Estadual de Montes Claros,not in IH
 MCN_MCN,MCN,MCN,MCN,McNeese State University,NA
-MCNAM-BH_MCNAM-BH,MCNAM-BH,MCNAM-BH,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,NA
+MCNAM-BH_MCNAM-BH,MCNAM-BH,MCNAM-BH,MCNAM-BH,Museo de Ciencias Naturales y Antropológicas “Juan Cornelio Moyano”,not in IH
 MCNS_MCNS,MCNS,MCNS,MCNS,Museo de Ciencias Naturales de Salta,NA
 MCP_MCP,MCP,MCP,MCP,Massachusetts College of Pharmacy and Allied Health Sciences,NA
 MCR_MCR,MCR,MCR,MCR,Manchester Literary and Philosophical Society,NA
 MCRBS_MCRBS,MCRBS,MCRBS,MCRBS,Manchester Botanical and Horticultural Society,NA
-MCSw_MCSw,MCSw,MCSw,MCSw,Civico Museo de Storia Naturale,xylarium
+MCSw_MCSw,MCSw,MCSw,MCSw,Civico Museo de Storia Naturale,xylarium|not in IH
 MCT_MCT,MCT,MCT,MCT,Michigan Technological University,NA
 MCTC_MCTC,MCTC,MCTC,MCTC,Michigan Technological University,NA
 MCTF_MCTF,MCTF,MCTF,MCTF,Michigan Technological University,NA
@@ -7562,7 +7562,7 @@ MDNR_MDNR,MDNR,MDNR,MDNR,Manitoba Conservation,NA
 MDQ_MDQ,MDQ,MDQ,MDQ,"Instituto de Investigaciones Marinas y Costeras, CONICET-Universidad Nacional de Mar del Plata/Facultad de Ciencias Exactas y Naturales",NA
 MDTN_MDTN,MDTN,MDTN,MDTN,Middleton Botanical Society,NA
 MEDEL_MEDEL,MEDEL,MEDEL,MEDEL,Universidad Nacional de Colombia - Sede de Medellín,NA
-MEDELw_MEDELw,MEDELw,MEDELw,MEDELw,"Departamento de Ciencias Forestales, Laboratorio de Productos Forestales LPF",xylarium
+MEDELw_MEDELw,MEDELw,MEDELw,MEDELw,"Departamento de Ciencias Forestales, Laboratorio de Productos Forestales LPF",xylarium|not in IH
 MELIT_MELIT,MELIT,MELIT,MELIT,Bogdan Khmel'nysckyi State Pedagogical University of Melitopol',NA
 MEM_MEM,MEM,MEM,MEM,University of Memphis,NA
 MEMO_MEMO,MEMO,MEMO,MEMO,Instituto Tecnológico y de Estudios Superiores de Monterrey,NA
@@ -7578,9 +7578,9 @@ MERw_MERw,MERw,MERw,MERw,Universidad de Los Andes,xylarium|not in IH
 MESA_MESA,MESA,MESA,MESA,Colorado Mesa University,NA
 METZ_METZ,METZ,METZ,METZ,Musée de la Cour d’Or – Metz Métropole,NA
 MEX_MEX,MEX,MEX,MEX,Museo de Historia Natural de la Ciudad de México,NA
-MEXFw_MEXFw,MEXFw,MEXFw,MEXFw,"Instituto Nacional de Investigaciones Forestales, Agrícolas y Pecuarias, Campo Experimental Coyoacán",xylarium
+MEXFw_MEXFw,MEXFw,MEXFw,MEXFw,"Instituto Nacional de Investigaciones Forestales, Agrícolas y Pecuarias, Campo Experimental Coyoacán",xylarium|not in IH
 MEXU_MEXU,MEXU,MEXU,MEXU,Universidad Nacional Autónoma de México,NA
-MEXUw_MEXUw,MEXUw,MEXUw,MEXUw,"Instituto de Biologia, Universidad Nacional Autonoma de Mexico",xylarium
+MEXUw_MEXUw,MEXUw,MEXUw,MEXUw,"Instituto de Biologia, Universidad Nacional Autonoma de Mexico",xylarium|not in IH
 MFA_MFA,MFA,MFA,MFA,Museo Provincial de Ciencias Naturales Florentino Ameghino,NA
 MFB_MFB,MFB,MFB,MFB,Southern Research Station,NA
 MFLU_MFLU,MFLU,MFLU,MFLU,Mae Fah Luang University,NA
@@ -7592,21 +7592,21 @@ MGA_MGA,MGA,MGA,MGA,Instituto Pedagógico de Varones,NA
 MGC_MGC,MGC,MGC,MGC,Universidad de Málaga,NA
 MGR_MGR,MGR,MGR,MGR,University of Michigan,NA
 MGS_MGS,MGS,MGS,MGS,Upper Silesian Museum,NA
-MGw_MGw,MGw,MGw,MGw,Museu Paraense Emilio Goeldi - Campus de Pesquisa,xylarium
+MGw_MGw,MGw,MGw,MGw,Museu Paraense Emilio Goeldi - Campus de Pesquisa,xylarium|not in IH
 MH_MH,MH,MH,MH,Tamil Nadu Agricultural University Campus at Coimbatore,NA
 MHA_MHA,MHA,MHA,MHA,Main Botanical Garden of the Russian Academy of Sciences,NA
 MHES_MHES,MHES,MHES,MHES,Museo de Historia Natural de El Salvador,NA
 MHL_MHL,MHL,MHL,MHL,Mildenhall and District Museum,NA
 MHLCLF_MHLCLF,MHLCLF,MHLCLF,MHLCLF,Muséum Henri Lecoq Clermont-Ferrand,NA
 MHM_MHM,MHM,MHM,MHM,Malham Tarn Field Centre,NA
-MHNC-UP_MHNC-UP,MHNC-UP,MHNC-UP,MHNC-UP,Museu de História Natural e da Ciência da Universidade do Porto,xylarium
+MHNC-UP_MHNC-UP,MHNC-UP,MHNC-UP,MHNC-UP,Museu de História Natural e da Ciência da Universidade do Porto,xylarium|not in IH
 MHNM_MHNM,MHNM,MHNM,MHNM,Muséum d'histoire naturelle de Marseille,NA
 MHU_MHU,MHU,MHU,MHU,Makerere University,NA
 MHWK_MHWK,MHWK,MHWK,MHWK,Much Wenlock Museum,NA
 MI_MI,MI,MI,MI,Università degli Studi di Milano,NA
 MICG_MICG,MICG,MICG,MICG,Universidad de San Carlos de Guatemala,NA
 MICH_MICH,MICH,MICH,MICH,University of Michigan,NA
-MICHw_MICHw,MICHw,MICHw,MICHw,"North University Building, University of Michigan",xylarium
+MICHw_MICHw,MICHw,MICHw,MICHw,"North University Building, University of Michigan",xylarium|not in IH
 MICOCL_MICOCL,MICOCL,MICOCL,MICOCL,ONG Micófilos,NA
 MID_MID,MID,MID,MID,Middlebury College,NA
 MIE_MIE,MIE,MIE,MIE,Mie Prefectural Museum,NA
@@ -7723,13 +7723,13 @@ MUFAL_MUFAL,MUFAL,MUFAL,MUFAL,NA,not in IH
 MUFE_MUFE,MUFE,MUFE,MUFE,Marmara University,NA
 MUH_MUH,MUH,MUH,MUH,Mirpur University of Science & Technology,NA
 MUHW_MUHW,MUHW,MUHW,MUHW,Marshall University,NA
-MUNw_MUNw,MUNw,MUNw,MUNw,Holzforschung Muenchen,xylarium
+MUNw_MUNw,MUNw,MUNw,MUNw,Holzforschung Muenchen,xylarium|not in IH
 MUR_MUR,MUR,MUR,MUR,Murray State University,NA
 MURU_MURU,MURU,MURU,MURU,Murdoch University,NA
 MUS_MUS,MUS,MUS,MUS,Muskingum College,NA
 MUSK_MUSK,MUSK,MUSK,MUSK,Muskegon Community College,NA
 MUST_MUST,MUST,MUST,MUST,Al-Mustansiriya University,NA
-MUw_MUw,MUw,MUw,MUw,"Department of Botany, Miami University",xylarium
+MUw_MUw,MUw,MUw,MUw,"Department of Botany, Miami University",xylarium|not in IH
 MUZ_MUZ,MUZ,MUZ,MUZ,King Abdulaziz City for Science and Technology,NA
 MVC_MVC,MVC,MVC,MVC,University of Charleston,NA
 MVDA_MVDA,MVDA,MVDA,MVDA,Ministerio de Ganadería y Agricultura,NA
@@ -7763,7 +7763,7 @@ NASC_NASC,NASC,NASC,NASC,Massachusetts College of Liberal Arts,NA
 NASU_NASU,NASU,NASU,NASU,NA,not in IH
 NAT_NAT,NAT,NAT,NAT,Seale-Hayne Agricultural College,NA
 NATC_NATC,NATC,NATC,NATC,Northwestern State University,NA
-NATw_NATw,NATw,NATw,NATw,Agricultural Research Organisation,xylarium
+NATw_NATw,NATw,NATw,NATw,Agricultural Research Organisation,xylarium|not in IH
 NAU_NAU,NAU,NAU,NAU,Nanjing Agricultural University,NA
 NAVA_NAVA,NAVA,NAVA,NAVA,Navajo Nation Department of Fish and Wildlife,NA
 NBF_NBF,NBF,NBF,NBF,NA,not in IH
@@ -7787,7 +7787,7 @@ NCE_NCE,NCE,NCE,NCE,University of Newcastle upon Tyne,NA
 NCH_NCH,NCH,NCH,NCH,Norwich Botanical Society,NA
 NCKU_NCKU,NCKU,NCKU,NCKU,National Cheng-Kung University,NA
 NCLN_NCLN,NCLN,NCLN,NCLN,New College,NA
-NCMS_NCMS,NCMS,NCMS,NCMS,North Carolina Museum of Natural Sciences,NA
+NCMS_NCMS,NCMS,NCMS,NCMS,North Carolina Museum of Natural Sciences,not in IH
 NCP_NCP,NCP,NCP,NCP,National  Collection of Passiflora,NA
 NCPF_NCPF,NCPF,NCPF,NCPF,Bristol Public Health Laboratory,NA
 NCSC_NCSC,NCSC,NCSC,NCSC,North Carolina State University,NA
@@ -7817,7 +7817,7 @@ NF_NF,NF,NF,NF,Nanjing Forestry University,NA
 NFLD_NFLD,NFLD,NFLD,NFLD,Memorial University of Newfoundland,NA
 NFM_NFM,NFM,NFM,NFM,"Provincial Museum Division, The Rooms Corporation of Newfoundland and Labrador",NA
 NFO_NFO,NFO,NFO,NFO,Niagara Parks Botanical Gardens and School of Horticulture,NA
-NFUw_NFUw,NFUw,NFUw,NFUw,Nanjing Forestry University,xylarium
+NFUw_NFUw,NFUw,NFUw,NFUw,Nanjing Forestry University,xylarium|not in IH
 NGBB_NGBB,NGBB,NGBB,NGBB,Ali Nihat Gokyigit Foundation,NA
 NGCPR_NGCPR,NGCPR,NGCPR,NGCPR,Naoroji Godrej Centre for Plant Research,NA
 NGM_NGM,NGM,NGM,NGM,Bromley House Library,NA
@@ -7842,10 +7842,10 @@ NICE_NICE,NICE,NICE,NICE,Muséum d'Histoire Naturelle,NA
 NICH_NICH,NICH,NICH,NICH,Hattori Botanical Laboratory,NA
 NIHHS_NIHHS,NIHHS,NIHHS,NIHHS,"National Institute of Horticultural and Herbal Science, RDA",NA
 NIMM_NIMM,NIMM,NIMM,NIMM,National Institute of Medicinal Materials,NA
-NINw_NINw,NINw,NINw,NINw,""" Nicaraguan Institute of Natural Resources and Environment",xylarium
+NINw_NINw,NINw,NINw,NINw,Nicaraguan Institute of Natural Resources and Environment,xylarium|not in IH
 NIPR_NIPR,NIPR,NIPR,NIPR,National Institute of Polar Research,NA
 NIT_NIT,NIT,NIT,NIT,Universidade Federal Fluminense (Fluminense Federal University - UFF),NA
-NITw_NITw,NITw,NITw,NITw,Universidade Federal Fluminense Outeiro São João Batista,xylarium
+NITw_NITw,NITw,NITw,NITw,Universidade Federal Fluminense Outeiro São João Batista,xylarium|not in IH
 NJ_NJ,NJ,NJ,NJ,Njala University College,NA
 NJM_NJM,NJM,NJM,NJM,"Muzeum Novojièínska, p.o.",NA
 NJNU_NJNU,NJNU,NJNU,NJNU,Nanjing Normal University,NA
@@ -7874,7 +7874,7 @@ NMSRC_NMSRC,NMSRC,NMSRC,NMSRC,University of Nizwa,NA
 NMSU_NMSU,NMSU,NMSU,NMSU,Northwest Missouri State University,NA
 NMTC_NMTC,NMTC,NMTC,NMTC,Inner Mongolia Normal University,NA
 NMW_NMW,NMW,NMW,NMW,National Museum Wales,NA
-NMWw_NMWw,NMWw,NMWw,NMWw,National Museum Wales,xylarium
+NMWw_NMWw,NMWw,NMWw,NMWw,National Museum Wales,xylarium|not in IH
 NNA_NNA,NNA,NNA,NNA,Nanning Arboretum,NA
 NNSU_NNSU,NNSU,NNSU,NNSU,Lobachevsky State University Nizhny Novgorod,NA
 NO_NO,NO,NO,NO,Tulane University,NA
@@ -7927,9 +7927,9 @@ NXAC_NXAC,NXAC,NXAC,NXAC,Ningxia Agricultural College,NA
 NXF_NXF,NXF,NXF,NXF,Ningxia Academy of Agriculture and Forestry Sciences,NA
 NYA_NYA,NYA,NYA,NYA,Nanyue Arboretum,NA
 NYAS_NYAS,NYAS,NYAS,NYAS,Silvicultural Research Station,NA
-NYJw_NYJw,NYJw,NYJw,NYJw,World Forestry Center,xylarium
+NYJw_NYJw,NYJw,NYJw,NYJw,World Forestry Center,xylarium|not in IH
 NYS_NYS,NYS,NYS,NYS,New York State Museum,NA
-NYw_NYw,NYw,NYw,NYw,NA,xylarium
+NYw_NYw,NYw,NYw,NYw,NA,xylarium|not in IH
 O_O,O,O,O,"Botanical Museum, University of Oslo",NA
 OAC_OAC,OAC,OAC,OAC,University of Guelph,NA
 OAKL_OAKL,OAKL,OAKL,OAKL,Oakland Museum of California,NA
@@ -7967,7 +7967,7 @@ OLP_OLP,OLP,OLP,OLP,Univerzity Palackého,NA
 OLS_OLS,OLS,OLS,OLS,University of Warmia and Mazury,NA
 OLTC_OLTC,OLTC,OLTC,OLTC,Teachers Training College,NA
 OLV_OLV,OLV,OLV,OLV,Olivet College,NA
-OLw_OLw,OLw,OLw,OLw,"Canadian Forest Service, Canadian Wood Fibre Centre",xylarium
+OLw_OLw,OLw,OLw,OLw,"Canadian Forest Service, Canadian Wood Fibre Centre",xylarium|not in IH
 OLYM_OLYM,OLYM,OLYM,OLYM,Olympic National Park,NA
 OMA_OMA,OMA,OMA,OMA,University of Nebraska Omaha,NA
 OMC_OMC,OMC,OMC,OMC,Mills College,NA
@@ -8018,7 +8018,7 @@ PA_PA,PA,PA,PA,Universidade Federal do Oeste do Pará,NA
 PAC_PAC,PAC,PAC,PAC,The Pennsylvania State University,NA
 PACA_PACA,PACA,PACA,PACA,Instituto Anchietano de Pesquisas/UNISINOS,NA
 PACMA_PACMA,PACMA,PACMA,PACMA,Pennsylvania State University,NA
-PACw_PACw,PACw,PACw,PACw,"Department of Wood and Paper Science, College of Natural Resources, North Carolina State University",xylarium
+PACw_PACw,PACw,PACw,PACw,"Department of Wood and Paper Science, College of Natural Resources, North Carolina State University",xylarium|not in IH
 PAD_PAD,PAD,PAD,PAD,Università degli Studi di Padova,NA
 PAE_PAE,PAE,PAE,PAE,Universität Basel,NA
 PAL_PAL,PAL,PAL,PAL,Orto Botanico dell'Università degli Studi di Palermo,NA
@@ -8034,7 +8034,7 @@ PAS_PAS,PAS,PAS,PAS,Java Sugar Experimental Station,NA
 PASA_PASA,PASA,PASA,PASA,Pasadena City College,NA
 PASM_PASM,PASM,PASM,PASM,Palomar College,NA
 PAT_PAT,PAT,PAT,PAT,Muséum National d'Histoire Naturelle,NA
-PATw_PATw,PATw,PATw,PATw,Natures & Societes,xylarium
+PATw_PATw,PATw,PATw,PATw,Natures & Societes,xylarium|not in IH
 PAUH_PAUH,PAUH,PAUH,PAUH,University of Texas Rio Grande Valley,NA
 PAV_PAV,PAV,PAV,PAV,Università di Pavia,NA
 PAY_PAY,PAY,PAY,PAY,Paisley Philosophical Institute,NA
@@ -8070,7 +8070,7 @@ PEUFR_PEUFR,PEUFR,PEUFR,PEUFR,Universidade Federal Rural de Pernambuco,NA
 PEY_PEY,PEY,PEY,PEY,Peking University,NA
 PFC_PFC,PFC,PFC,PFC,Pfeiffer University,NA
 PFES_PFES,PFES,PFES,PFES,"Petawawa National Forestry Institute, Canadian Forest Service",NA
-PFPw_PFPw,PFPw,PFPw,PFPw,South African Forestry Research Institute,xylarium
+PFPw_PFPw,PFPw,PFPw,PFPw,South African Forestry Research Institute,xylarium|not in IH
 PFRS_PFRS,PFRS,PFRS,PFRS,"Pacific Southwest Forest and Range Experiment Station, USDA Forest Service",NA
 PG_PG,PG,PG,PG,Plant Gateway,NA
 PGC_PGC,PGC,PGC,PGC,The Petersburg Garden Club,NA
@@ -8092,7 +8092,7 @@ PIHG_PIHG,PIHG,PIHG,PIHG,Florida Department of Agriculture and Consumer Services
 PI-IABIN_PI-IABIN,PI-IABIN,PI-IABIN,PI-IABIN,NA,not in IH
 PIN_PIN,PIN,PIN,PIN,Philosophical Institution of Newport,NA
 PINN_PINN,PINN,PINN,PINN,Pinnacles National Park,NA
-PJPSw_PJPSw,PJPSw,PJPSw,PJPSw,"Universidade Federal da Bahia; Departamento de Botânica, Instituto de Biologia; Laboratório de Anatomia Vegetal e Identificação de Madeiras",xylarium
+PJPSw_PJPSw,PJPSw,PJPSw,PJPSw,"Universidade Federal da Bahia; Departamento de Botânica, Instituto de Biologia; Laboratório de Anatomia Vegetal e Identificação de Madeiras",xylarium|not in IH
 PKDC_PKDC,PKDC,PKDC,PKDC,Divisão de Museu de História Natural,NA
 PKM_PKM,PKM,PKM,PKM,Penza State University,NA
 PLAT_PLAT,PLAT,PLAT,PLAT,"State University of New York, College at Plattsburgh",NA
@@ -8112,7 +8112,7 @@ PMHPS_PMHPS,PMHPS,PMHPS,PMHPS,Portsmouth Philosophical Society,NA
 PMK_PMK,PMK,PMK,PMK,Podunajské múzeum v Komárne (Danube Region Museum in Komárno),NA
 PMNH_PMNH,PMNH,PMNH,PMNH,Pakistan Museum of Natural History,NA
 PMNHH_PMNHH,PMNHH,PMNHH,PMNHH,Palestine Museum of Natural History,NA
-PMPw_PMPw,PMPw,PMPw,PMPw,NA,xylarium
+PMPw_PMPw,PMPw,PMPw,PMPw,NA,xylarium|not in IH
 PMS_PMS,PMS,PMS,PMS,Pacific Marine Station,NA
 PMSP_PMSP,PMSP,PMSP,PMSP,Municipal Parks of São Paulo,NA
 PNBG_PNBG,PNBG,PNBG,PNBG,University of the Philippines,NA
@@ -8146,7 +8146,7 @@ PPU_PPU,PPU,PPU,PPU,Perm State Teacher Training University,NA
 PPWD_PPWD,PPWD,PPWD,PPWD,Pepperwood Preserve,NA
 PR_PR,PR,PR,PR,National Museum in Prague,NA
 PRA_PRA,PRA,PRA,PRA,"Institute of Botany, Academy of Sciences",NA
-PRAGw_PRAGw,PRAGw,PRAGw,PRAGw,"Faculty of Agrobiology, Food and Natural Resources, Czech University of Life Sciences Prague",xylarium?|not in IH
+PRAGw_PRAGw,PRAGw,PRAGw,PRAGw,"Faculty of Agrobiology, Food and Natural Resources, Czech University of Life Sciences Prague",xylarium|not in IH
 PRB_PRB,PRB,PRB,PRB,Prague Botanical Garden,NA
 PRC_PRC,PRC,PRC,PRC,Charles University in Prague,NA
 PRE_PRE,PRE,PRE,PRE,South African National Biodiversity Institute,NA
@@ -8189,7 +8189,7 @@ PUSC_PUSC,PUSC,PUSC,PUSC,Colorado State University -- Pueblo,NA
 PUY_PUY,PUY,PUY,PUY,Musée Crozatier,NA
 PVB_PVB,PVB,PVB,PVB,Institute of Ecology of the Volga River Basin of Russian Academy of Sciences,NA
 PVNH_PVNH,PVNH,PVNH,PVNH,Forestry Department,NA
-Pw_Pw,Pw,Pw,Pw,Galerie de Botanique,xylarium
+Pw_Pw,Pw,Pw,Pw,Galerie de Botanique,xylarium|not in IH
 PWU_PWU,PWU,PWU,PWU,V.G.Korolenko Poltava National Pedagogical University,NA
 PY_PY,PY,PY,PY,Centro de Estudios y Colecciones Biológicas para la Conservación,NA
 PYU_PYU,PYU,PYU,PYU,Yunnan University,NA
@@ -8251,7 +8251,7 @@ RBE_RBE,RBE,RBE,RBE,Universidade Federal Rural do Rio de Janeiro,NA
 RBHw_RBHw,RBHw,RBHw,RBHw,"Federal Research Institute for Rural Areas, Forestry and Fisheries)",xylarium|not in IH
 RBR_RBR,RBR,RBR,RBR,Universidade Federal Rural do Rio de Janeiro,NA
 RBS_RBS,RBS,RBS,RBS,Royal Botanic Society,NA
-RBw_RBw,RBw,RBw,RBw,Instituto de Pesquisas Jardim Botanico do Rio de Janeiro,xylarium
+RBw_RBw,RBw,RBw,RBw,Instituto de Pesquisas Jardim Botanico do Rio de Janeiro,xylarium|not in IH
 RBY_RBY,RBY,RBY,RBY,East Divisional Library,NA
 RCAM_RCAM,RCAM,RCAM,RCAM,Rutgers University,NA
 RCHM_RCHM,RCHM,RCHM,RCHM,Rochdale Museum Service,NA
@@ -8277,12 +8277,12 @@ REP_REP,REP,REP,REP,Desert Experiment Station of the W.I.R.,NA
 RESC_RESC,RESC,RESC,RESC,Shasta College,NA
 RET_RET,RET,RET,RET,Herbarium Amanitarum Rooseveltensis,NA
 REU_REU,REU,REU,REU,Université de la Réunion,NA
-REYw_REYw,REYw,REYw,REYw,NA,xylarium
+REYw_REYw,REYw,REYw,REYw,NA,xylarium|not in IH
 RFA_RFA,RFA,RFA,RFA,Universidade Federal do Rio de Janeiro,NA
 RFE_RFE,RFE,RFE,RFE,Radcliffe Literary and Scientific Society Museum,NA
 RFFP_RFFP,RFFP,RFFP,RFFP,Universidade do Estado do Rio de Janeiro,NA
 RFNS_RFNS,RFNS,RFNS,RFNS,Rochdale Field Naturalists' Society,NA
-RFw_RFw,RFw,RFw,RFw,NA,xylarium
+RFw_RFw,RFw,RFw,RFw,NA,xylarium|not in IH
 RGY_RGY,RGY,RGY,RGY,Rugby School Natural History Society Museum,NA
 RHK_RHK,RHK,RHK,RHK,St. Berchmans College,NA
 RHM_RHM,RHM,RHM,RHM,Public Reference Library,NA
@@ -8326,22 +8326,22 @@ ROZ_ROZ,ROZ,ROZ,ROZ,Stredoceské muzeum,NA
 RPM_RPM,RPM,RPM,RPM,Reading Public Museum,NA
 RPN_RPN,RPN,RPN,RPN,Ripon Mechanics Institute,NA
 RPPR_RPPR,RPPR,RPPR,RPPR,Internationl Institute of Tropical Forestry,NA
-RPPRw_RPPRw,RPPRw,RPPRw,RPPRw,NA,xylarium
+RPPRw_RPPRw,RPPRw,RPPRw,RPPRw,NA,xylarium|not in IH
 RPSC_RPSC,RPSC,RPSC,RPSC,Río Palenque Science Center,NA
 RPTN_RPTN,RPTN,RPTN,RPTN,Repton School,NA
 RRCBI_RRCBI,RRCBI,RRCBI,RRCBI,"Regional Research Centre (Ay.), Mysore University",NA
 RRLB_RRLB,RRLB,RRLB,RRLB,Institute of Minerals and Materials Technology,NA
 RRLH_RRLH,RRLH,RRLH,RRLH,Indian Institute of Integrative Medicine,NA
 RSA_RSA,RSA,RSA,RSA,Rancho Santa Ana Botanic Garden,NA
-RSAw_RSAw,RSAw,RSAw,RSAw,NA,xylarium
+RSAw_RSAw,RSAw,RSAw,RSAw,NA,xylarium|not in IH
 RSDR_RSDR,RSDR,RSDR,RSDR,"Desert Institute, Turkmenistan Academy of Sciences",NA
-RSPF_RSPF,RSPF,RSPF,RSPF,Museu Zoobotânico Augusto Ruschi,not in IH
+RSPF_RSPF,RSPF,RSPF,RSPF,Museu Zoobotânico Augusto Ruschi,NA
 RSU_RSU,RSU,RSU,RSU,Ryazan State University,NA
 RSY_RSY,RSY,RSY,RSY,"Buteshire Natural History Society, The Museum",NA
 RTE_RTE,RTE,RTE,RTE,Holmesdale Natural History Club Museum,NA
 RTHM_RTHM,RTHM,RTHM,RTHM,Rotherham Heritage Services,NA
-R-Tipos_R-Tipos,R-Tipos,R-Tipos,R-Tipos,Museu Nacional,NA
-RTIw_RTIw,RTIw,RTIw,RTIw,NA,xylarium
+R-Tipos_R-Tipos,R-Tipos,R-Tipos,R-Tipos,Museu Nacional,not in IH
+RTIw_RTIw,RTIw,RTIw,RTIw,NA,xylarium|not in IH
 RU_RU,RU,RU,RU,University of Reading,NA
 RUBL_RUBL,RUBL,RUBL,RUBL,University of Rajasthan,NA
 RUEB_RUEB,RUEB,RUEB,RUEB,Eidgenössische Technische Hochschule ETH,NA
@@ -8380,13 +8380,13 @@ SALK_SALK,SALK,SALK,SALK,University of South Carolina Salkehatchie,NA
 SALLE_SALLE,SALLE,SALLE,SALLE,Instituto Geobiológico La Salle,NA
 SAM_SAM,SAM,SAM,SAM,South African Museum Herbarium,NA
 SAMES_SAMES,SAMES,SAMES,SAMES,Universidade Federal do Espírito Santo,NA
-SAMEScarpo_SAMEScarpo,SAMEScarpo,SAMEScarpo,SAMEScarpo,Universidade Federal do Espírito Santo,carpothek
+SAMEScarpo_SAMEScarpo,SAMEScarpo,SAMEScarpo,SAMEScarpo,Universidade Federal do Espírito Santo,carpothek|not in IH
 SAMF_SAMF,SAMF,SAMF,SAMF,Samford University,NA
 SAMU_SAMU,SAMU,SAMU,SAMU,Savaria Museum,NA
 SAN_SAN,SAN,SAN,SAN,Forest Research Centre,NA
 SANDC_SANDC,SANDC,SANDC,SANDC,North-West University,NA
 SANU_SANU,SANU,SANU,SANU,Shaanxi Normal University,NA
-SANw_SANw,SANw,SANw,SANw,Forest Research Centre,xylarium
+SANw_SANw,SANw,SANw,SANw,Forest Research Centre,xylarium|not in IH
 SAP_SAP,SAP,SAP,SAP,Hokkaido University,NA
 SAPA_SAPA,SAPA,SAPA,SAPA,Hokkaido University Museum,NA
 SAPCL_SAPCL,SAPCL,SAPCL,SAPCL,St. Andrews University,NA
@@ -8397,7 +8397,7 @@ SARA_SARA,SARA,SARA,SARA,Zemaljski Muzej Bosne I. Herzegovine,NA
 SARAT_SARAT,SARAT,SARAT,SARAT,Saratov State University,NA
 SARBG_SARBG,SARBG,SARBG,SARBG,Botanical Garden of the Saratov State University of N.G.Chernyshevsky,NA
 SARC_SARC,SARC,SARC,SARC,Roanoke College,NA
-SARFw_SARFw,SARFw,SARFw,SARFw,Forest Department,xylarium
+SARFw_SARFw,SARFw,SARFw,SARFw,Forest Department,xylarium|not in IH
 SARGU_SARGU,SARGU,SARGU,SARGU,University of Sargodha,NA
 SASK_SASK,SASK,SASK,SASK,University of Saskatchewan,NA
 SASSA_SASSA,SASSA,SASSA,SASSA,Università di Sassari,NA
@@ -8407,7 +8407,7 @@ SAU_SAU,SAU,SAU,SAU,Sichuan Agricultural University,NA
 SAUF_SAUF,SAUF,SAUF,SAUF,Sichuan Agricultural University,NA
 SAUT_SAUT,SAUT,SAUT,SAUT,Sichuan Agricultural University,NA
 SAV_SAV,SAV,SAV,SAV,Slovak Academy of Sciences,NA
-SAWV_SAWV,SAWV,SAWV,SAWV,Salem International University,NA
+SAWV_SAWV,SAWV,SAWV,SAWV,Salem International University,not in IH
 SB_SB,SB,SB,SB,Saint Bernard Abbey,NA
 SBAC_SBAC,SBAC,SBAC,SBAC,Audubon Society -- Silver Bluff Audubon Center and Sanctuary,NA
 SBBG_SBBG,SBBG,SBBG,SBBG,Santa Barbara Botanic Garden,NA
@@ -8611,12 +8611,12 @@ SOUT_SOUT,SOUT,SOUT,SOUT,Long Island University,NA
 SP_SP,SP,SP,SP,Instituto de Botânica,NA
 SPA_SPA,SPA,SPA,SPA,Swedish Museum of Natural History,NA
 SPAL_SPAL,SPAL,SPAL,SPAL,"Municipio di Reggio Emilia, Musei Civici",NA
-S-PAw_S-PAw,S-PAw,S-PAw,S-PAw,Swedish Museum of Natural History,xylarium
+S-PAw_S-PAw,S-PAw,S-PAw,S-PAw,Swedish Museum of Natural History,xylarium|not in IH
 SPB_SPB,SPB,SPB,SPB,Universidade de São Paulo,NA
 SPC_SPC,SPC,SPC,SPC,Seattle Pacific University,NA
 SPF_SPF,SPF,SPF,SPF,Universidade de São Paulo,NA
 SPFR_SPFR,SPFR,SPFR,SPFR,Universidade de São Paulo,NA
-SPFw_SPFw,SPFw,SPFw,SPFw,Universidade de São Paulo,xylarium
+SPFw_SPFw,SPFw,SPFw,SPFw,Universidade de São Paulo,xylarium|not in IH
 SPH_SPH,SPH,SPH,SPH,"Fox Research Forest, New Hampshire Department of Resources and Economic Development",NA
 SPI_SPI,SPI,SPI,SPI,Stavropol State University,NA
 SPIF_SPIF,SPIF,SPIF,SPIF,Sierra Pacific Industries-Forestry,NA
@@ -8630,11 +8630,11 @@ SPR_SPR,SPR,SPR,SPR,Springfield Science Museum,NA
 SPRY_SPRY,SPRY,SPRY,SPRY,Burton Constable Foundation,NA
 SPSC_SPSC,SPSC,SPSC,SPSC,Universidade Federal de São Carlos,NA
 SPSF_SPSF,SPSF,SPSF,SPSF,Instituto Florestal,NA
-SPSFw_SPSFw,SPSFw,SPSFw,SPSFw,Instituto de Florestal de Sao Paulo,xylarium
+SPSFw_SPSFw,SPSFw,SPSFw,SPSFw,Instituto de Florestal de Sao Paulo,xylarium|not in IH
 SPSU_SPSU,SPSU,SPSU,SPSU,St. Petersburg State University,NA
 SPT_SPT,SPT,SPT,SPT,Botanic Gardens Museum,NA
 SPTS_SPTS,SPTS,SPTS,SPTS,Southport Scientific Society,NA
-SPw_SPw,SPw,SPw,SPw,Instituto de Botanica,xylarium
+SPw_SPw,SPw,SPw,SPw,Instituto de Botanica,xylarium|not in IH
 SPWH_SPWH,SPWH,SPWH,SPWH,Woods Hole Oceanographic Institution,NA
 SQB_SQB,SQB,SQB,SQB,Société québécoise de bryologie,NA
 SQF_SQF,SQF,SQF,SQF,Universidad de Chile,NA
@@ -8668,7 +8668,7 @@ STD_STD,STD,STD,STD,Prittlewell Priory Museum,NA
 STDCM_STDCM,STDCM,STDCM,STDCM,Southend Central Museum,NA
 STE_STE,STE,STE,STE,National Botanical Institute,NA
 STEU_STEU,STEU,STEU,STEU,University of Stellenbosch,NA
-STEw_STEw,STEw,STEw,STEw,University of Stellenbosch,xylarium
+STEw_STEw,STEw,STEw,STEw,University of Stellenbosch,xylarium|not in IH
 STFX_STFX,STFX,STFX,STFX,St. Francis Xavier University,NA
 STG_STG,STG,STG,STG,St. Martin's Convent,NA
 STI_STI,STI,STI,STI,Stirling Smith Art Gallery and Museum,NA
@@ -8694,7 +8694,7 @@ SUA_SUA,SUA,SUA,SUA,Sokoine University of Agriculture,NA
 SUCH_SUCH,SUCH,SUCH,SUCH,Sukhumi Botanical Garden of Georgian Academy of Sciences,NA
 SUCO_SUCO,SUCO,SUCO,SUCO,"State University of New York, College at Oneonta",NA
 SUD_SUD,SUD,SUD,SUD,Stroud District (Cowle) Museum Service,NA
-SUDENEw_SUDENEw,SUDENEw,SUDENEw,SUDENEw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium
+SUDENEw_SUDENEw,SUDENEw,SUDENEw,SUDENEw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium|not in IH
 SUFA_SUFA,SUFA,SUFA,SUFA,Sulaimania University,NA
 SUFAF_SUFAF,SUFAF,SUFAF,SUFAF,Siirt University Flora and Fauna Center,NA
 SUG_SUG,SUG,SUG,SUG,University of Tsukuba,not in IH
@@ -8713,7 +8713,7 @@ SV_SV,SV,SV,SV,Antigua Estación Experimental Agronómica,NA
 SVER_SVER,SVER,SVER,SVER,Institute of Plant and Animal Ecology,NA
 SVG_SVG,SVG,SVG,SVG,University of Stavanger,NA
 SVUTY_SVUTY,SVUTY,SVUTY,SVUTY,Sri Venkateswara University,NA
-SVw_SVw,SVw,SVw,SVw,Institute of Ecology and Systematic,xylarium
+SVw_SVw,SVw,SVw,SVw,Institute of Ecology and Systematic,xylarium|not in IH
 SWA_SWA,SWA,SWA,SWA,Swansea Museum,NA
 SWAT_SWAT,SWAT,SWAT,SWAT,University of Swat Pakistan,NA
 SWAU_SWAU,SWAU,SWAU,SWAU,Southwest Agricultural University,NA
@@ -8723,7 +8723,7 @@ SWCTU_SWCTU,SWCTU,SWCTU,SWCTU,Southwest Teachers University,NA
 SWE_SWE,SWE,SWE,SWE,"Chandos House, Stowe School",NA
 SWF_SWF,SWF,SWF,SWF,Naples Botanical Garden,NA
 SWFC_SWFC,SWFC,SWFC,SWFC,Southwest Forestry College,NA
-SWFUw_SWFUw,SWFUw,SWFUw,SWFUw,Southwest Forestry University,xylarium
+SWFUw_SWFUw,SWFUw,SWFUw,SWFUw,Southwest Forestry University,xylarium|not in IH
 SWGC_SWGC,SWGC,SWGC,SWGC,"Grenfell Campus, Memorial University of Newfoundland",NA
 SWMT_SWMT,SWMT,SWMT,SWMT,Rhodes College,NA
 SWN_SWN,SWN,SWN,SWN,Saffron Walden Museum,NA
@@ -8748,12 +8748,12 @@ SYR_SYR,SYR,SYR,SYR,Syracuse University,NA
 SYRF_SYRF,SYRF,SYRF,SYRF,State University of New York,NA
 SYS_SYS,SYS,SYS,SYS,Zhongshan (Sun Yatsen) University,NA
 SYSU_SYSU,SYSU,SYSU,SYSU,National Sun Yat-Sen University,NA
-SYSw_SYSw,SYSw,SYSw,SYSw,"Botanical Laboratories, Department of Biology, Sun Yat-Sen University",xylarium
+SYSw_SYSw,SYSw,SYSw,SYSw,"Botanical Laboratories, Department of Biology, Sun Yat-Sen University",xylarium|not in IH
 SYT_SYT,SYT,SYT,SYT,Stonyhurst College,NA
 SZ_SZ,SZ,SZ,SZ,"Sichuan University, Jianghong Ran",NA
 SZB_SZB,SZB,SZB,SZB,Haus der Natur,NA
 SZCZ_SZCZ,SZCZ,SZCZ,SZCZ,University of Szczecin,NA
-SZDw_SZDw,SZDw,SZDw,SZDw,Universitatis Szeged,xylarium
+SZDw_SZDw,SZDw,SZDw,SZDw,Universitatis Szeged,xylarium|not in IH
 SZE_SZE,SZE,SZE,SZE,Móra Ferenc Museum,NA
 SZG_SZG,SZG,SZG,SZG,Fairy Lake Botanical Garden,NA
 SZL_SZL,SZL,SZL,SZL,Landesherbar von Salzburg,NA
@@ -8767,7 +8767,7 @@ TAD_TAD,TAD,TAD,TAD,Botanical Institute of the Tajikistan Academy of Sciences,NA
 TAES_TAES,TAES,TAES,TAES,Texas A&M University,NA
 TAIC_TAIC,TAIC,TAIC,TAIC,Texas A&M University-Kingsville,NA
 TAIE_TAIE,TAIE,TAIE,TAIE,Taiwan Endemic Species Research Institute,NA
-TAIFw_TAIFw,TAIFw,TAIFw,TAIFw,Botanical Garden,xylarium
+TAIFw_TAIFw,TAIFw,TAIFw,TAIFw,Botanical Garden,xylarium|not in IH
 TAIM_TAIM,TAIM,TAIM,TAIM,Taiwan Museum,NA
 TAK_TAK,TAK,TAK,TAK,Lenin State University,NA
 TAL_TAL,TAL,TAL,TAL,Jardin botanique de Talence,NA
@@ -8777,14 +8777,14 @@ TAMU_TAMU,TAMU,TAMU,TAMU,Texas A&M University,NA
 TAMUCC_TAMUCC,TAMUCC,TAMUCC,TAMUCC,Texas A&M University-Corpus Christi,NA
 TAN_TAN,TAN,TAN,TAN,Parc Botanique et Zoologique de Tsimbazaza (PBZT),NA
 TANE_TANE,TANE,TANE,TANE,Tanta University,NA
-TANG_TANG,TANG,TANG,TANG,UNEMAT,not in IH
+TANG_TANG,TANG,TANG,TANG,UNEMAT,NA
 TAR_TAR,TAR,TAR,TAR,"Consiglio Nazionale delle Ricerche, Istituto di Ricerca sulle Acque",NA
 TARI_TARI,TARI,TARI,TARI,Research Institute of Forests and Rangelands,NA
 TASH_TASH,TASH,TASH,TASH,"Academy of Science, Uzbekistan",NA
 TASM_TASM,TASM,TASM,TASM,Uzbek Academy of Sciences,NA
 TAU_TAU,TAU,TAU,TAU,Aristotle University of Thessaloniki,NA
 TAUF_TAUF,TAUF,TAUF,TAUF,Aristotle University of Thessaloniki,NA
-TAUw_TAUw,TAUw,TAUw,TAUw,"School of Agriculture & Forestry, Aristotelian University",xylarium
+TAUw_TAUw,TAUw,TAUw,TAUw,"School of Agriculture & Forestry, Aristotelian University",xylarium|not in IH
 TAWES_TAWES,TAWES,TAWES,TAWES,Maryland Department of Natural Resources,NA
 TB_TB,TB,TB,TB,Tbilisi State University,NA
 TBGT_TBGT,TBGT,TBGT,TBGT,Tropical Botanic Garden and Research Institute,NA
@@ -8804,7 +8804,7 @@ TDY_TDY,TDY,TDY,TDY,Tyldesley Natural History Society,NA
 TEA_TEA,TEA,TEA,TEA,"Tea Research Institute, Chinese Academy of Agricultural Sciences",NA
 TEB_TEB,TEB,TEB,TEB,Teberda State Reserve,NA
 TECLA_TECLA,TECLA,TECLA,TECLA,Centro Nacional de Tecnologia Agropecuaria,NA
-TECw_TECw,TECw,TECw,TECw,"Instituto Tecnologico de Costa Rica, Escuela de Ingeniería Forestal",xylarium
+TECw_TECw,TECw,TECw,TECw,"Instituto Tecnologico de Costa Rica, Escuela de Ingeniería Forestal",xylarium|not in IH
 TEF_TEF,TEF,TEF,TEF,Centre National de la Recherche Appliquée au Developement Rural,NA
 TEFH_TEFH,TEFH,TEFH,TEFH,Universidad Nacional Autónoma de Honduras,NA
 TEH_TEH,TEH,TEH,TEH,University of Tehran,NA
@@ -8840,7 +8840,7 @@ TIC_TIC,TIC,TIC,TIC,California Department of Fish and Game,NA
 TIE_TIE,TIE,TIE,TIE,Tianjin Natural History Museum,NA
 TIK_TIK,TIK,TIK,TIK,Agricultural Research Centre,NA
 TIPR_TIPR,TIPR,TIPR,TIPR,Institute of Pharmaceutical Research,NA
-TIPw_TIPw,TIPw,TIPw,TIPw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium
+TIPw_TIPw,TIPw,TIPw,TIPw,"Universidade Federal Rural de Pernambuco (Rural Federal University of Pernambuco), Departamento de Ciencia Florestal (Forest Science Department) - Herbarium Sergio Tavares,",xylarium|not in IH
 TJDC_TJDC,TJDC,TJDC,TJDC,Tianjin Municipal Institute for Drug Control,NA
 TJMP_TJMP,TJMP,TJMP,TJMP,Tianjin Institute of Medical and Pharmaceutical Sciences,NA
 TK_TK,TK,TK,TK,Tomsk State University,NA
@@ -8867,14 +8867,14 @@ TNCS_TNCS,TNCS,TNCS,TNCS,Toyota City Nature Sanctuary,not in IH
 TNFC_TNFC,TNFC,TNFC,TNFC,Tynside Naturalists' Field Club,NA
 TNFS_TNFS,TNFS,TNFS,TNFS,"USDA Forest Service, Alaska Region",NA
 TNM_TNM,TNM,TNM,TNM,National Museum of Natural Science,NA
-TNMw_TNMw,TNMw,TNMw,TNMw,National Museum of Natural Science,xylarium
+TNMw_TNMw,TNMw,TNMw,TNMw,National Museum of Natural Science,xylarium|not in IH
 TNP_TNP,TNP,TNP,TNP,Museum of Tatra National Park,NA
 TNS_TNS,TNS,TNS,TNS,National Museum of Nature and Science,NA
 TNU_TNU,TNU,TNU,TNU,National Taiwan Normal University,NA
 TO_TO,TO,TO,TO,University of Turin,NA
 TOD_TOD,TOD,TOD,TOD,Todmorden Free Library,NA
 TOFO_TOFO,TOFO,TOFO,TOFO,University of Tokyo,NA
-TOFOw_TOFOw,TOFOw,TOFOw,TOFOw,"University Museum, University of Tokyo",xylarium
+TOFOw_TOFOw,TOFOw,TOFOw,TOFOw,"University Museum, University of Tokyo",xylarium|not in IH
 TOGO_TOGO,TOGO,TOGO,TOGO,Université du Lomé,NA
 TOGR_TOGR,TOGR,TOGR,TOGR,Museo di Storia Naturale Don Bosco,NA
 TOHO_TOHO,TOHO,TOHO,TOHO,Toho University,NA
@@ -8905,12 +8905,12 @@ TRT_TRT,TRT,TRT,TRT,Royal Ontario Museum,NA
 TRTC_TRTC,TRTC,TRTC,TRTC,Royal Ontario Museum,NA
 TRTE_TRTE,TRTE,TRTE,TRTE,"Erindale College, University of Toronto",NA
 TRTS_TRTS,TRTS,TRTS,TRTS,"Scarborough College, University of Toronto",NA
-TRTw_TRTw,TRTw,TRTw,TRTw,University of Toronto,xylarium
+TRTw_TRTw,TRTw,TRTw,TRTw,University of Toronto,xylarium|not in IH
 TRU_TRU,TRU,TRU,TRU,Royal Cornwall Museum,NA
 TRV_TRV,TRV,TRV,TRV,Transvaal Museum,NA
 TS_TS,TS,TS,TS,National University of Shandong,NA
 TSB_TSB,TSB,TSB,TSB,Department of Life Sciences,NA
-TSFw_TSFw,TSFw,TSFw,TSFw,"Bereich Biologie, Forstbotanischer Garten, Technische Universitat Dresden",xylarium
+TSFw_TSFw,TSFw,TSFw,TSFw,"Bereich Biologie, Forstbotanischer Garten, Technische Universitat Dresden",xylarium|not in IH
 TSH_TSH,TSH,TSH,TSH,University of Tsukuba,NA
 TSM_TSM,TSM,TSM,TSM,Museo Civico di Storia Naturale,NA
 TSTN_TSTN,TSTN,TSTN,TSTN,Troston Hall,NA
@@ -8939,12 +8939,12 @@ TURA_TURA,TURA,TURA,TURA,Åbo Akademi University,NA
 TURP_TURP,TURP,TURP,TURP,Turpan Eremophytes Botanical Garden,NA
 TUS_TUS,TUS,TUS,TUS,Tohoku University,NA
 TUSG_TUSG,TUSG,TUSG,TUSG,Tohoku University,NA
-TUSw_TUSw,TUSw,TUSw,TUSw,"Botanical Garden, Graduate School of Science, Tohoku University",xylarium
+TUSw_TUSw,TUSw,TUSw,TUSw,"Botanical Garden, Graduate School of Science, Tohoku University",xylarium|not in IH
 TUT_TUT,TUT,TUT,TUT,Daejeon University,NA
 TVBG_TVBG,TVBG,TVBG,TVBG,Tver State University,NA
 TVY_TVY,TVY,TVY,TVY,Turvey Abbey,NA
 Tw_Tw,Tw,Tw,Tw,Royal Museum for Central Africa,xylarium|not in IH
-TWTw_TWTw,TWTw,TWTw,TWTw,Matsunosato,xylarium
+TWTw_TWTw,TWTw,TWTw,TWTw,Matsunosato,xylarium|not in IH
 TY_TY,TY,TY,TY,Shanxi College of Traditional Chinese Medicine,NA
 TYF_TYF,TYF,TYF,TYF,Shangxi Forestry Institute,NA
 TYM_TYM,TYM,TYM,TYM,Botanic Gardens of Toyama,NA
@@ -8958,7 +8958,7 @@ UALF_UALF,UALF,UALF,UALF,Universidade Federal de Alfenas,NA
 UAM_UAM,UAM,UAM,UAM,University of Arkansas at Monticello,NA
 UAMH_UAMH,UAMH,UAMH,UAMH,UAMH Centre for Global Microfungal Biodiversity,NA
 UAMIZ_UAMIZ,UAMIZ,UAMIZ,UAMIZ,Universidad Autónoma Metropolitana Iztapalapa,NA
-UAMIZw_UAMIZw,UAMIZw,UAMIZw,UAMIZw,Universidad Autónoma Metropolitana Iztapalapa,xylarium?
+UAMIZw_UAMIZw,UAMIZw,UAMIZw,UAMIZw,Universidad Autónoma Metropolitana Iztapalapa,xylarium|not in IH
 UAPC_UAPC,UAPC,UAPC,UAPC,University of Alberta,NA
 UARK_UARK,UARK,UARK,UARK,University of Arkansas,NA
 UAS_UAS,UAS,UAS,UAS,Universidad Autónoma de Sinaloa,NA
@@ -8973,7 +8973,7 @@ UBU_UBU,UBU,UBU,UBU,National University of Mongolia,NA
 UC_UC,UC,UC,UC,University of California,NA
 UCAC_UCAC,UCAC,UCAC,UCAC,University of Central Arkansas,NA
 UCAM_UCAM,UCAM,UCAM,UCAM,Universidad Autónoma de Campeche,NA
-UCAXw_UCAXw,UCAXw,UCAXw,UCAXw,Universidade de Caxias do Sul,xylarium
+UCAXw_UCAXw,UCAXw,UCAXw,UCAXw,Universidade de Caxias do Sul,xylarium|not in IH
 UCBG_UCBG,UCBG,UCBG,UCBG,University of Botswana,NA
 UCD_UCD,UCD,UCD,UCD,NA,not in IH
 UCDAVIS_UCDAVIS,UCDAVIS,UCDAVIS,UCDAVIS,NA,not in IH
@@ -8984,13 +8984,13 @@ UCJ_UCJ,UCJ,UCJ,UCJ,Université d'Abidjan,NA
 UCMM_UCMM,UCMM,UCMM,UCMM,Pontificia Universidad Católica Madre y Maestra,NA
 UCMP_UCMP,UCMP,UCMP,UCMP,NA,not in IH
 UCNW_UCNW,UCNW,UCNW,UCNW,University of Wales,NA
-UCNWw_UCNWw,UCNWw,UCNWw,UCNWw,Natural Resources and Geography,xylarium
+UCNWw_UCNWw,UCNWw,UCNWw,UCNWw,Natural Resources and Geography,xylarium|not in IH
 UCOB_UCOB,UCOB,UCOB,UCOB,Universidad Centroccidental Lisandro Alvarado,NA
 UCSA_UCSA,UCSA,UCSA,UCSA,University College of Swansea,NA
 UCSB_UCSB,UCSB,UCSB,UCSB,University of California,NA
 UCSC_UCSC,UCSC,UCSC,UCSC,University of California Santa Cruz,NA
 UCSW_UCSW,UCSW,UCSW,UCSW,University College,NA
-UCw_UCw,UCw,UCw,UCw,"Forest Products Laboratory, University of California",xylarium
+UCw_UCw,UCw,UCw,UCw,"Forest Products Laboratory, University of California",xylarium|not in IH
 UCWI_UCWI,UCWI,UCWI,UCWI,"University of the West Indies, Mona",NA
 UDBC_UDBC,UDBC,UDBC,UDBC,Universidad Distrital “Francisco José de Caldas”,NA
 UDCA_UDCA,UDCA,UDCA,UDCA,Universidad de Ciencias Aplicadas y Ambientales (UDCA),not in IH
@@ -9000,14 +9000,14 @@ UDU_UDU,UDU,UDU,UDU,Udmurt State University,NA
 UDW_UDW,UDW,UDW,UDW,"University of KwaZulu-Natal, Westville campus",NA
 UEA_UEA,UEA,UEA,UEA,University of East Anglia,NA
 UEC_UEC,UEC,UEC,UEC,Universidade Estadual de Campinas,NA
-UEGQ_UEGQ,UEGQ,UEGQ,UEGQ,Universidade Estadual de Goiás,NA
+UEGQ_UEGQ,UEGQ,UEGQ,UEGQ,Universidade Estadual de Goiás,not in IH
 UEVH_UEVH,UEVH,UEVH,UEVH,Universidade de Évora,NA
 UFA_UFA,UFA,UFA,UFA,"Ufa Scientific Centre, Russian Academy of Sciences",NA
 UFACPZ_UFACPZ,UFACPZ,UFACPZ,UFACPZ,Universidade Federal do Acre/Parque Zoobotânico,NA
 UFH_UFH,UFH,UFH,UFH,University of Fort Hare,NA
 UFMA_UFMA,UFMA,UFMA,UFMA,Universidade Federal do Maranhão,NA
 UFP_UFP,UFP,UFP,UFP,Universidade Federal de Pernambuco,NA
-UFP-CARPOTECA_UFP-CARPOTECA,UFP-CARPOTECA,UFP-CARPOTECA,UFP-CARPOTECA,Universidade Federal de Pernambuco,carpothek
+UFP-CARPOTECA_UFP-CARPOTECA,UFP-CARPOTECA,UFP-CARPOTECA,UFP-CARPOTECA,Universidade Federal de Pernambuco,carpothek|not in IH
 UFRJ_UFRJ,UFRJ,UFRJ,UFRJ,Universidade Federal Rural do Rio de Janeiro,NA
 UFRN_UFRN,UFRN,UFRN,UFRN,Universidade Federal do Rio Grande do Norte,NA
 UFS_UFS,UFS,UFS,UFS,Nyabyeya Forestry College,NA
@@ -9017,7 +9017,7 @@ UH_UH,UH,UH,UH,University of Hyderabad,NA
 UHI_UHI,UHI,UHI,UHI,Ussishkin House,NA
 UI_UI,UI,UI,UI,"Bureau of Land Management, U.S. Department of the Interior",NA
 UIS_UIS,UIS,UIS,UIS,Universidad Industrial de Santander,NA
-UJATw_UJATw,UJATw,UJATw,UJATw,Universidad Juárez Autónoma de Tabasco,xylarium?
+UJATw_UJATw,UJATw,UJATw,UJATw,Universidad Juárez Autónoma de Tabasco,xylarium|not in IH
 UKMB_UKMB,UKMB,UKMB,UKMB,Universiti Kebangsaan Malaysia,NA
 UKMS_UKMS,UKMS,UKMS,UKMS,"Universiti Kebangsaan Malaysia, Kampus Sabah",NA
 UKSPI_UKSPI,UKSPI,UKSPI,UKSPI,S. Amanjolov East-Kazakhstan State University,NA
@@ -9062,13 +9062,13 @@ UoB-IB_UoB-IB,UoB-IB,UoB-IB,UoB-IB,NA,not in IH
 UOJ_UOJ,UOJ,UOJ,UOJ,Universidad del Oriente,NA
 UOS_UOS,UOS,UOS,UOS,University of the South,NA
 UPA_UPA,UPA,UPA,UPA,University of Patras,NA
-UPADw_UPADw,UPADw,UPADw,UPADw,"Università di Padova, Department of Land, Environment, Agriculture and Forestry (TESAF)",xylarium
+UPADw_UPADw,UPADw,UPADw,UPADw,"Università di Padova, Department of Land, Environment, Agriculture and Forestry (TESAF)",xylarium|not in IH
 UPCB_UPCB,UPCB,UPCB,UPCB,Universidade Federal do Paraná,NA
 UPCT_UPCT,UPCT,UPCT,UPCT,Universidad Politécnica De Cartagena,NA
 UPEI_UPEI,UPEI,UPEI,UPEI,University of Prince Edward Island,NA
 UPF_UPF,UPF,UPF,UPF,Université de Polynésie Française,NA
 UPM_UPM,UPM,UPM,UPM,Universiti Putra Malaysia,NA
-UPMAw_UPMAw,UPMAw,UPMAw,UPMAw,Escuela Tecnica Superior de Ingenieros de Montes,xylarium
+UPMAw_UPMAw,UPMAw,UPMAw,UPMAw,Escuela Tecnica Superior de Ingenieros de Montes,xylarium|not in IH
 UPN_UPN,UPN,UPN,UPN,Université Pédagogique Nationale de Kinshasa,not in IH
 UPNA_UPNA,UPNA,UPNA,UPNA,Universidad Pública de Navarra,NA
 UPNG_UPNG,UPNG,UPNG,UPNG,University of Papua New Guinea,NA
@@ -9110,7 +9110,7 @@ USPIY_USPIY,USPIY,USPIY,USPIY,K. D. Ushinsky Yaroslavl Pedagogical University,NA
 USSC_USSC,USSC,USSC,USSC,U.S. Soil Conservation Service,NA
 USTH_USTH,USTH,USTH,USTH,University of Santo Tomas,NA
 USUUB_USUUB,USUUB,USUUB,USUUB,Utah State University Uintah Basin,NA
-USw_USw,USw,USw,USw,"National Museum of Natural History, Smithsonian Institution",xylarium
+USw_USw,USw,USw,USw,"National Museum of Natural History, Smithsonian Institution",xylarium|not in IH
 USZ_USZ,USZ,USZ,USZ,Museo de Historia Natural Noel Kempff Mercado -- Universidad Autónoma Gabriel René Moreno,NA
 UT_UT,UT,UT,UT,University of Utah,NA
 UTC_UTC,UTC,UTC,UTC,Utah State University,NA
@@ -9132,7 +9132,7 @@ UVIC_UVIC,UVIC,UVIC,UVIC,University of Victoria,NA
 UVSC_UVSC,UVSC,UVSC,UVSC,Utah Valley University,NA
 UVST_UVST,UVST,UVST,UVST,Southwest Texas Junior College,NA
 UVV_UVV,UVV,UVV,UVV,Università di Venezia,NA
-Uw_Uw,Uw,Uw,Uw,Naturalis Biodiversity Center,xylarium
+Uw_Uw,Uw,Uw,Uw,Naturalis Biodiversity Center,xylarium|not in IH
 UWA_UWA,UWA,UWA,UWA,University of Western Australia,NA
 UWAL_UWAL,UWAL,UWAL,UWAL,University of West Alabama,NA
 UWB_UWB,UWB,UWB,UWB,University of Washington Bothell,NA
@@ -9156,7 +9156,7 @@ VALA_VALA,VALA,VALA,VALA,Universidad Politécnica,NA
 VALD_VALD,VALD,VALD,VALD,Universidad Austral de Chile,NA
 VALLE_VALLE,VALLE,VALLE,VALLE,Universidad Nacional de Colombia,NA
 VALPL_VALPL,VALPL,VALPL,VALPL,Universidad de Playa Ancha,NA
-VALw_VALw,VALw,VALw,VALw,Universitat de València,xylarium?
+VALw_VALw,VALw,VALw,VALw,Universitat de València,xylarium|not in IH
 VAN_VAN,VAN,VAN,VAN,Société Polymathique du Morbihan,NA
 VANF_VANF,VANF,VANF,VANF,Van Flora Application and Research Center,NA
 VAS_VAS,VAS,VAS,VAS,Vassar College,NA
@@ -9167,11 +9167,11 @@ VDAC_VDAC,VDAC,VDAC,VDAC,Virginia Department of Agriculture and Consumer Service
 VDB_VDB,VDB,VDB,VDB,Vanderbilt University,NA
 VEN_VEN,VEN,VEN,VEN,Universidad Central de Venezuela,NA
 VENDA_VENDA,VENDA,VENDA,VENDA,Thohoyandou Botanical Gardens,NA
-VENw_VENw,VENw,VENw,VENw,Herbario Nacional de Venezuela,xylarium
+VENw_VENw,VENw,VENw,VENw,Herbario Nacional de Venezuela,xylarium|not in IH
 VER_VER,VER,VER,VER,Museo Civico di Storia Naturale di Verona,NA
 VF_VF,VF,VF,VF,Universidad de València,NA
 VFM_VFM,VFM,VFM,VFM,Forest Inventory and Planning Institute,NA
-VFw_VFw,VFw,VFw,VFw,NA,xylarium
+VFw_VFw,VFw,VFw,VFw,NA,xylarium|not in IH
 VFWO_VFWO,VFWO,VFWO,VFWO,"U.S. Fish and Wildlife Service, Ventura Fish and Wildlife Office",NA
 VGEO_VGEO,VGEO,VGEO,VGEO,Pacific Geographical Institute of the Far Eastern Branch of the Russian Academy of Sciences,NA
 VGZ_VGZ,VGZ,VGZ,VGZ,Voronezh State Biosphere Reserve,NA
@@ -9188,7 +9188,7 @@ VIL_VIL,VIL,VIL,VIL,Université de Paris-Sud,NA
 VIST_VIST,VIST,VIST,VIST,University of the Virgin Islands,NA
 VIT_VIT,VIT,VIT,VIT,Museo de Ciencias Naturales de Alava,NA
 VLA_VLA,VLA,VLA,VLA,"Institute of Biology and Soil Science, Far Eastern Branch, Russian Academy of Sciences",NA
-VLw_VLw,VLw,VLw,VLw,University of British Columbia,xylarium
+VLw_VLw,VLw,VLw,VLw,University of British Columbia,xylarium|not in IH
 VM_VM,VM,VM,VM,"Muzeum regionu Valašsko, p. o. (Museum of the Moravian Wallachia region, state funded organisation)",NA
 VMI_VMI,VMI,VMI,VMI,Virginia Military Institute,NA
 VMIL_VMIL,VMIL,VMIL,VMIL,Virginia Military Institute,NA
@@ -9250,7 +9250,7 @@ WCU_WCU,WCU,WCU,WCU,West China University of Medical Sciences,NA
 WCUH_WCUH,WCUH,WCUH,WCUH,Western Carolina University,NA
 WCW_WCW,WCW,WCW,WCW,Whitman College,NA
 WDNE_WDNE,WDNE,WDNE,WDNE,"Bureau of Land Management, U.S. Department of the Interior, Winnemucca District",NA
-WDw_WDw,WDw,WDw,WDw,The Henry Francis du Pont Winterthur Museum,xylarium
+WDw_WDw,WDw,WDw,WDw,The Henry Francis du Pont Winterthur Museum,xylarium|not in IH
 WECO_WECO,WECO,WECO,WECO,Wesleyan University,NA
 WELC_WELC,WELC,WELC,WELC,Wellesley College,NA
 WELTU_WELTU,WELTU,WELTU,WELTU,Victoria University of Wellington,NA
@@ -9260,7 +9260,7 @@ WEWO_WEWO,WEWO,WEWO,WEWO,Weymouth Woods Sandhills Nature Preserve,NA
 WFBVA_WFBVA,WFBVA,WFBVA,WFBVA,"Federal Research and Training Centre for Forests, Natural Hazards and Landscape (BFW)",NA
 WFRC_WFRC,WFRC,WFRC,WFRC,"Warm-Temperate and Subtropical Forest Research Center, Korea Forest Research Institute",NA
 WFU_WFU,WFU,WFU,WFU,Wake Forest University,NA
-WFw_WFw,WFw,WFw,WFw,Woods and Forests Department,xylarium?|not in IH
+WFw_WFw,WFw,WFw,WFw,Woods and Forests Department,xylarium|not in IH
 WGC_WGC,WGC,WGC,WGC,University of West Georgia,NA
 WGCH_WGCH,WGCH,WGCH,WGCH,Wilton Garden Club,NA
 WGMM_WGMM,WGMM,WGMM,WGMM,Woodspring Museum,NA
@@ -9314,7 +9314,7 @@ WPBS_WPBS,WPBS,WPBS,WPBS,IGER,NA
 WPH_WPH,WPH,WPH,WPH,Waterton Lakes National Park,NA
 WPL_WPL,WPL,WPL,WPL,Whitechapel Museum,NA
 WRHM_WRHM,WRHM,WRHM,WRHM,Institute of Terrestrial Ecology,NA
-WRIw_WRIw,WRIw,WRIw,WRIw,NA,xylarium?|not in IH
+WRIw_WRIw,WRIw,WRIw,WRIw,NA,xylarium|not in IH
 WRN_WRN,WRN,WRN,WRN,Warrington Museum and Art Gallery,NA
 WRNFC_WRNFC,WRNFC,WRNFC,WRNFC,Warrington Field Naturalists' Club,NA
 WRO_WRO,WRO,WRO,WRO,University of Bristol,NA
@@ -9324,7 +9324,7 @@ WSC_WSC,WSC,WSC,WSC,Western Colorado University,NA
 WSCH_WSCH,WSCH,WSCH,WSCH,Westfield State University,NA
 WSCO_WSCO,WSCO,WSCO,WSCO,Weber State University,NA
 WSFA_WSFA,WSFA,WSFA,WSFA,Wilmington College,NA
-WSLw_WSLw,WSLw,WSLw,WSLw,"Swiss Federal Institute for Forest, Snow and Landscape",xylarium
+WSLw_WSLw,WSLw,WSLw,WSLw,"Swiss Federal Institute for Forest, Snow and Landscape",xylarium|not in IH
 WSM_WSM,WSM,WSM,WSM,Museum and Art Gallery,NA
 WSP_WSP,WSP,WSP,WSP,Washington State University,NA
 WSRP_WSRP,WSRP,WSRP,WSRP,University of Podlasie,NA
@@ -9332,7 +9332,7 @@ WSY_WSY,WSY,WSY,WSY,Royal Horticultural Society Garden Wisley,NA
 WTR_WTR,WTR,WTR,WTR,Winchester College,NA
 WTS_WTS,WTS,WTS,WTS,West Texas A&M University,NA
 WTU_WTU,WTU,WTU,WTU,University of Washington,NA
-WTUFw_WTUFw,WTUFw,WTUFw,WTUFw,University of Washington,xylarium
+WTUFw_WTUFw,WTUFw,WTUFw,WTUFw,University of Washington,xylarium|not in IH
 WTUH_WTUH,WTUH,WTUH,WTUH,"University of Washington Botanic Gardens, College of Forest Resources",NA
 WUD_WUD,WUD,WUD,WUD,Wayne State University,NA
 WUH_WUH,WUH,WUH,WUH,Wuhu School of Traditional Chinese Medicine,NA
@@ -9351,14 +9351,14 @@ WYAC_WYAC,WYAC,WYAC,WYAC,University of Wyoming,NA
 WYCO_WYCO,WYCO,WYCO,WYCO,Wytheville Community College,NA
 WYE_WYE,WYE,WYE,WYE,"University of London, Wye College",NA
 WZUH_WZUH,WZUH,WZUH,WZUH,Wenzhou university,NA
-WZw_WZw,WZw,WZw,WZw,Forest Research,xylarium
+WZw_WZw,WZw,WZw,WZw,Forest Research,xylarium|not in IH
 XAG_XAG,XAG,XAG,XAG,Xinjiang Academy of Animal Sciences,NA
 XAL_XAL,XAL,XAL,XAL,"Instituto de Ecología, A.C.",NA
 XALU_XALU,XALU,XALU,XALU,Universidad Veracruzana,NA
-XALw_XALw,XALw,XALw,XALw,"Instituto de Ecología, A.C.",xylarium
+XALw_XALw,XALw,XALw,XALw,"Instituto de Ecología, A.C.",xylarium|not in IH
 XBGH_XBGH,XBGH,XBGH,XBGH,Xian Botanical Garden,NA
 XCH_XCH,XCH,XCH,XCH,St. Xavier's College,NA
-XIAM_XIAM,XIAM,XIAM,XIAM,CCT CONICET Mendoza,not on IH (https://datos.sndb.mincyt.gob.ar/collectory/public/show/dr194)
+XIAM_XIAM,XIAM,XIAM,XIAM,CCT CONICET Mendoza,not in IH
 XIAS_XIAS,XIAS,XIAS,XIAS,Xichang Agricultural School,NA
 XIN_XIN,XIN,XIN,XIN,Southwestern Guizhou Institute of Forestry,NA
 XJA_XJA,XJA,XJA,XJA,Xinjiang Agricultural University,NA
@@ -9385,7 +9385,7 @@ YAK_YAK,YAK,YAK,YAK,"Forest Survey and Design Institute, Forestry Administrative
 YALT_YALT,YALT,YALT,YALT,The State Nikita Botanical Gardens,NA
 YAM_YAM,YAM,YAM,YAM,Yamaguchi University,NA
 YAMA_YAMA,YAMA,YAMA,YAMA,Yamagata Prefectural Museum,NA
-YANw_YANw,YANw,YANw,YANw,Northwestern College of Forestry,xylarium
+YANw_YANw,YANw,YANw,YANw,Northwestern College of Forestry,xylarium|not in IH
 YAR_YAR,YAR,YAR,YAR,Yaroslavl State University,NA
 YBDC_YBDC,YBDC,YBDC,YBDC,Yibin Institute for Drug Control,NA
 YBI_YBI,YBI,YBI,YBI,Institut National pour l'Étude et la Recherche Agronomique,NA
@@ -9446,7 +9446,7 @@ ZPB_ZPB,ZPB,ZPB,ZPB,Institute of Conservation and Natural History of the Soutpan
 ZSS_ZSS,ZSS,ZSS,ZSS,Sukkulenten-Sammlung Zürich,NA
 ZT_ZT,ZT,ZT,ZT,Eidgenössische Technische Hochschule Zürich,NA
 ZTS_ZTS,ZTS,ZTS,ZTS,"Institute of Nature Conservation, Polish Academy of Sciences",NA
-ZTw_ZTw,ZTw,ZTw,ZTw,Fachbereich Holzkunde und Holztechnologie,xylarium
+ZTw_ZTw,ZTw,ZTw,ZTw,Fachbereich Holzkunde und Holztechnologie,xylarium|not in IH
 ZULU_ZULU,ZULU,ZULU,ZULU,University of Zululand,NA
 ZV_ZV,ZV,ZV,ZV,Technical University,NA
 ZVS_ZVS,ZVS,ZVS,ZVS,Bundesamt für Naturschutz,NA
@@ -9509,7 +9509,7 @@ HST_Universidade Federal Rural de Pernambuco,HST,Universidade Federal Rural de P
 HTSA_Empresa Brasileira de Pesquisa AgropecuÃ¡ria,HTSA,Empresa Brasileira de Pesquisa AgropecuÃ¡ria,HTSA,Empresa Brasileira de Pesquisa Agropecuária,not in IH
 HTSA_Empresa Brasileira de Pesquisa Agropecuária,HTSA,Empresa Brasileira de Pesquisa Agropecuária,HTSA,Empresa Brasileira de Pesquisa Agropecuária,not in IH
 HUAZ_Universidad de la Amazonia (Uniamazonia),HUAZ,Universidad de la Amazonia (Uniamazonia),HUAZ,Universidad de la Amazonia,NA
-HUCO_Universidade Estadual do Centro-Oeste,HUCO,Universidade Estadual do Centro-Oeste,HUCO,Universidade Estadual do Centro-Oeste,not in IH
+HUCO_Universidade Estadual do Centro-Oeste,HUCO,Universidade Estadual do Centro-Oeste,HUCO,Universidade Estadual do Centro-Oeste,NA
 HUCP_UCP,HUCP,UCP,HUCP,Pontifícia Universidade Católica do Paraná,NA
 HUEMG_HUEMG,HUEMG,HUEMG,HUEMG,Universidade do Estado de Minas Gerais,not in IH
 Biologiezentrum Linz_LI,Biologiezentrum Linz,LI,LI,Oberösterreichischen Landesmuseums,NA

@@ -1,32 +1,38 @@
 #' @title Format Geographical Coordinates
 #'
-#' @description This function formats geographical coordinates to decimal
-#'   degrees
+#' @description This function formats geographical coordinates to
+#'   decimal degrees
 #'
 #' @param x a data.frame containing the geographical coordinates
-#' @param lat character. The name of the column containing the latitude. Default
-#'   to "decimalLatitude".
-#' @param lon character. The name of the column containing the longitude.
-#'   Default to "decimalLongitude".
-#' @param flag logical. Should the differences between the original and edited
-#'   coordinates be flagged? Default to TRUE.
+#' @param lat character. The name of the column containing the
+#'   latitude. Default to "decimalLatitude".
+#' @param lon character. The name of the column containing the
+#'   longitude. Default to "decimalLongitude".
+#' @param flag logical. Should the differences between the original
+#'   and edited coordinates be flagged? Default to TRUE.
 #'
-#' @return The data frame \code{x} with the edited geographical coordinates, in
-#'   decimal degrees. The new columns have the same name followed by the suffix
-#'   '.new'.
+#' @return The data frame \code{x} with the edited geographical
+#'   coordinates, in decimal degrees. The new columns have the same
+#'   name followed by the suffix '.new'.
 #'
-#' @details This is a simple function that works for standardizing common issues
-#'  in geographical coordinates, such as format and spacing. It was designed to
-#'  process coordinates already in decimal degrees. So, it does not handle all
-#'  formats and may return `NA` even if a coordinates are given and valid.
+#' @details This is a simple function that works for standardizing
+#'   common issues in geographical coordinates, such as format and
+#'   spacing. It was designed to process coordinates already in
+#'   decimal degrees. So, it does not handle all formats and may
+#'   return `NA` even if a coordinates are given and valid.
 #'
-#' Currently, the function does not differentiate missing coordinates from those
-#'  provided in a format that `prepCoord` does not handle (e.g. UTM). Function
-#'  should work fine for coordinates in the degrees + decimal minutes format.
-#'  See examples below.
+#' Currently, the function does not differentiate missing coordinates
+#' from those provided in a format that `prepCoord` does not handle
+#' (e.g. UTM). Function should work fine for coordinates in the
+#' degrees + decimal minutes format. See examples below.
 #'
-#' Note that if one of the coordinates is valid and the other is not, the
-#' function returns NAs for both coordinates.
+#' Note that if one of the coordinates is valid and the other is not,
+#' the function returns NAs for both coordinates.
+#'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @author Renato A. F. de Lima
 #'

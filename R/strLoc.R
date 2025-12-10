@@ -40,7 +40,7 @@
 #' municipality.new, locality.new, and, if chosen, locality.scrap) or
 #' change the defaults. See examples below.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @export strLoc
 #'
@@ -99,21 +99,29 @@ strLoc <- function(x,
   ## Defining a unique code for each county, state/province or county
   loc <- rep(NA, dim(x1)[1])
   # county-level
-  rep_these <- !is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])
-  if(any(rep_these))
-    loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
-                          x1[3][rep_these], sep = "_")
-  # state-level
-  rep_these <- is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])
-  if(any(rep_these))
-    loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
-                            sep = "_")
-  # country-level
-  rep_these <- is.na(loc) & !is.na(x1[1])
-  if(any(rep_these))
-    loc[rep_these] <- x1[1][rep_these]
+  if (adm.names[3] %in% names(x1)) {
+    rep_these <- !is.na(x1[1]) & !is.na(x1[2]) & !is.na(x1[3])
+    if(any(rep_these))
+      loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
+                              x1[3][rep_these], sep = "_")
+  }
 
-  ## Definig a unique code for each locality (if provided)
+  # state-level
+  if (adm.names[2] %in% names(x1)) {
+    rep_these <- is.na(loc) & !is.na(x1[1]) & !is.na(x1[2])
+    if(any(rep_these))
+      loc[rep_these] <- paste(x1[1][rep_these], x1[2][rep_these],
+                              sep = "_")
+  }
+
+  # country-level
+  if (adm.names[1] %in% names(x1)) {
+    rep_these <- is.na(loc) & !is.na(x1[1])
+    if(any(rep_these))
+      loc[rep_these] <- x1[1][rep_these]
+  }
+
+  ## Defining a unique code for each locality (if provided)
   if (loc.names[1] %in% names(x1)) {
     loc1 <- rep(NA, dim(x1)[1])
     #locality-level

@@ -39,6 +39,8 @@ spelling::spell_check_files("./vignettes/articles/plantr_tutorial.Rmd",
                                      lang = "en_US")
 spelling::spell_check_files("./vignettes/articles/atualiza_duplicatas.Rmd",
                             lang = "pt_BR")
+spelling::spell_check_files("./vignettes/articles/valida_taxonomia.Rmd",
+                            lang = "en_US")
 
 #Good practices
 goodpractice::gp()
@@ -47,6 +49,12 @@ goodpractice::gp(".", checks = c("rcmdcheck_tests_pass"))
 # In 03/10/2021: 57% of code lines were covered by test cases
 # Larger functions pending tests: checkList, formatDwc, prepDup,
 #readData, rgibif2, rspeciesLink, saveData, summaryData, summaryFlags
+
+covr::codecov()
+covr::file_coverage(source_files = "R/fixSpecies.R",
+                    test_files = "tests/testthat/test-fixSpecies.R")
+covr::file_coverage(source_files = "R/cleanName.R",
+                    test_files = "tests/testthat/test-cleanName.R")
 
 ## Checking non-ascii characters in the code
 arquivos <- list.files("R/", full.names = TRUE)

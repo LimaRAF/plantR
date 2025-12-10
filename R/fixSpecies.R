@@ -10,6 +10,17 @@
 #'   with or without infra-specific ranks (var., subsp. and f.) or
 #'   abbreviations of unspecific names (sp. or spp.).
 #'
+#' @param x a vector or data.frame containing the taxon name
+#'   information
+#' @param tax.name character. The name of the column containing the
+#'   taxon name. Defaults to "scientificName"
+#' @param author.name character. The name of the column containing the
+#'   author of scientific name. Defaults to "scientificNameAuthorship"
+#' @param rm.rank logical. Should the infra-specific rank abbreviation
+#'   be removed from the name? Defaults to FALSE
+#' @param rm.indet logical. Should the abbreviations for unspecific
+#'   names (i.e. sp. or spp.) be removed? Defaults to FALSE
+#'
 #' @return
 #' A data frame with the input vector or data frame plus new columns
 #' `scientificName.new` (suggestion for a more correct taxon name),
@@ -42,9 +53,9 @@
 #' \item{\code{conferre}}{open nomenclature cf. in the scientific name}
 #' \item{\code{affinis}}{open nomenclature aff. in the scientific name}
 #' \item{\code{indet}}{taxon identified only at genus level}
-#' \item{\code{subfamily_as_genus}}{subfamily as genus, not a valid name}
-#' \item{\code{family_as_genus}}{family as genus, not a valid name}
-#' \item{\code{order_as_genus}}{order as genus, not a valid name}
+#' \item{\code{(sub)family_as_genus}}{subfamily or family as genus, not a species-level name}
+#' \item{\code{family_as_genus}}{family as genus, not a species-level name}
+#' \item{\code{order_as_genus}}{order as genus, not a species-level name}
 #' \item{\code{incertae_sedis}}{scientific name of uncertain placement}
 #' \item{\code{species_nova}}{species name contains an indication of a new
 #' species, possibly not yet a valid name}
@@ -55,16 +66,10 @@
 #' \item{\code{abbreviated_genus}}{genus is abbreviated}
 #' \item{\code{name_w_digits}}{scientific name has digits} }
 #'
-#' @param x a vector or data.frame containing the taxon name
-#'   information
-#' @param tax.name character. The name of the column containing the
-#'   taxon name. Defaults to "scientificName"
-#' @param author.name character. The name of the column containing the
-#'   author of scientific name. Defaults to "scientificNameAuthorship"
-#' @param rm.rank logical. Should the infra-specific rank abbreviation
-#'   be removed from the name? Defaults to FALSE
-#' @param rm.indet logical. Should the abbreviations for unspecific
-#'   names (i.e. sp. or spp.) be removed? Defaults to FALSE
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
 #'
 #' @author Sara Mortara & Renato A. Ferreira de Lima
 #'
@@ -74,8 +79,6 @@
 #' Evolution 7(10): 1217-1225.
 #'
 #' @examples
-#'
-#' # Two last names are examples for which the function cannot handle yet.
 #'
 #' df <- data.frame(scientificName =
 #' c("Lindsaea lancea", "Lindsaea lancea (L.) Bedd.",
@@ -89,13 +92,13 @@
 #' "Blechnum occidentale leopoldense Dutra",
 #' "Blechnum austrobrasilianum de la Sota",
 #' "Urbanodendron Mez",
-#' "Arabidopsis thaliana × Arabidopsis arenosa"))
+#' "Arabidopsis thaliana × Arabidopsis arenosa")) # This names function cannot handle yet
 #'
 #' fixSpecies(df)
 #' fixSpecies(df, rm.rank = TRUE)
 #' fixSpecies(df, rm.rank = TRUE, rm.indet = TRUE)
 #'
-#' @importFrom stringr str_detect regex fixed str_count str_split
+#' @importFrom stringr str_detect regex fixed str_count
 #' @importFrom stringi stri_enc_mark
 #'
 #' @seealso
@@ -160,7 +163,6 @@ fixSpecies <- function(x = NULL,
   inc_string <- "inc\\. sed\\.|Incertae sedis"
   spnov_string <- " sp\\. nov\\.| spec\\. nov\\.| sp\\. n\\.| nov\\. sp\\.| nov\\. spec\\.| n\\. sp\\."
   indet_string <- " sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
-  # indet_string <- " sp\\.$| sp$| sp\\.| indet\\.| ind\\.| sp | spp\\.$"
 
   # Add other possibilities of infraspecific codes
   # "cultivar.", "subvar."
@@ -207,7 +209,8 @@ fixSpecies <- function(x = NULL,
   no_sp <- stringr::str_count(species, " ") < 1
   indet[no_sp | question] <- TRUE
 
-  digits <- stringr::str_detect(species, '\\d')
+  digits <- stringr::str_detect(species, '\\d') &
+              !stringr::str_detect(species, stringr::regex('\\d{4,4}'))
   digits[indet] <- FALSE
 
   # defining names status
@@ -229,9 +232,10 @@ fixSpecies <- function(x = NULL,
     check$species_new[case] <- fixed_cases[case]
 
   # recognizing and isolating authorship
-  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$",
+  auth_string <- grepl(" [A-Z]| \\(| [a-z][a-z] | [a-z][a-z][a-z] | [a-z]+\\.$| \\[",
                        check$species_new, perl = TRUE) &
-                  !grepl(" [A-Z+]$", check$species_new, perl = TRUE)
+                  !grepl(" [A-Z+]$", check$species_new, perl = TRUE) |
+                    grepl("wrong_case", check$species_status, fixed = TRUE)
 
   if (any(auth_string)) {
     author_split <- fixAuthors(check$species_new[auth_string])
@@ -253,26 +257,25 @@ fixSpecies <- function(x = NULL,
       paste(tax_status[id_authors_indet], "name_w_authors", sep = "|")
     check$species_status[auth_string] <-
       sub("^\\|", "", check$species_status[auth_string], perl = TRUE)
+
+    rep_these <- check$species_status[auth_string] %in% "name_w_wrong_case|name_w_authors" &
+                  !grepl("\\s.+\\s", check$species[auth_string], perl = TRUE)
+    if (any(rep_these))
+      check$species_status[auth_string][rep_these] <- "name_w_authors"
+
     check$species_new[auth_string][id_authors] <-
       squish(tax_name[id_authors])
     check$authors_new[auth_string][id_authors] <-
       squish(tax_author[id_authors])
   }
 
-  # removing open taxonomy, ranks and hybrid notation
+  # removing open taxonomy
   if (any(aff | cf))
     check$species_new[aff | cf] <- rmOpen(check$species_new[aff | cf])
 
-  if (any(hyb))
-    check$species_new[hyb] <- rmHyb(check$species_new[hyb])
-
-  if (any(subsp | var | form))
-    check$species_new[subsp | var | form] <-
-      rmInfra(check$species_new[subsp | var | form])
-
   # names not matching genus + epithet pattern
   id_not_gensp <- which(
-    lengths(stringr::str_split(check$species_new, " ")) > 2 &
+    stringr::str_count(check$species_new, " ") > 1 &
       check$species_status %in% "")
   if (length(id_not_gensp) > 0L)
     check$species_status[id_not_gensp] <- "not_Genus_epithet_format"
@@ -285,13 +288,16 @@ fixSpecies <- function(x = NULL,
 
   # order as genus
   id_ord <- endsWith(gen, "ales")
-  if (any(id_ord))
-    check$species_status[id_ord] <- "order_as_genus"
+  if (any(id_ord)) {
+    good_gen <- !grepl("thales$|uryales$", gen, perl = TRUE)
+    if (any(good_gen))
+      check$species_status[id_ord & good_gen] <- "order_as_genus"
+  }
 
   # subfamily as genus
   id_sub <- endsWith(gen, "deae")
   if (any(id_sub))
-    check$species_status[id_sub] <- "subfamily_as_genus"
+    check$species_status[id_sub] <- "(sub)family_as_genus"
 
   # abreviated genus
   abbrev_gen <- sub("\\.", "", gen, perl = TRUE)
@@ -304,7 +310,7 @@ fixSpecies <- function(x = NULL,
     "possibly_ok"
 
   # non-ascii characters
-  string_type <- stringi::stri_enc_mark(check$species_new)
+  string_type <- stringi::stri_enc_mark(rmHyb(check$species_new))
   ascii <- string_type != "ASCII"
   if (any(ascii)) {
     check$species_status[ascii] <- paste(check$species_status[ascii],
@@ -314,50 +320,52 @@ fixSpecies <- function(x = NULL,
   }
 
   # option to return names with or without infra-specific ranks
-  if (!rm.rank) {
-    rep_these <- status$variety %in% "variety"
-    if (any(rep_these))
-      check$species_new[rep_these] <-
-        addRank(check$species_new[rep_these], "var.")
+  if (rm.rank) {
 
-    rep_these <- status$subspecies %in% "subspecies"
-    if (any(rep_these))
-        check$species_new[rep_these] <-
-          addRank(check$species_new[rep_these], "subsp.")
+    if (any(hyb))
+      check$species_new[hyb] <- rmHyb(check$species_new[hyb])
 
-    rep_these <- status$forma %in% "forma"
-    if (any(rep_these))
-      check$species_new[rep_these] <-
-        addRank(check$species_new[rep_these], "f.")
-
-    rep_these <- status$hybrid %in% "hybrid"
-    if (any(rep_these)) {
-      pos_hyb <- grep("^\u00d7", check$species[rep_these])
-      if (length(pos_hyb) > 0L) {
-        check$species_new[rep_these][pos_hyb] <-
-          paste("\u00d7", check$species_new[rep_these][pos_hyb])
-        rep_these[rep_these][pos_hyb] <- FALSE
-      }
-
-      if (any(rep_these))
-        check$species_new[rep_these] <-
-          addRank(check$species_new[rep_these], "\u00d7")
-    }
-
-    check$species_new <-
-      sub(" NA$", "", check$species_new, perl = TRUE)
+    if (any(subsp | var | form))
+      check$species_new[subsp | var | form] <-
+        rmInfra(check$species_new[subsp | var | form])
   }
+
+  # fixing status for quadrinomials and pentanomials
+  rep_these <- which(subsp & var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|variety|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(subsp & var & !form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|variety", "subvariety",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(subsp & !var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("subspecies|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
+  rep_these <- which(!subsp & var & form)
+  if (length(rep_these) > 0L)
+    check$species_status[rep_these] <-
+    sub("variety|forma", "subforma",
+        check$species_status[rep_these], fixed = TRUE)
+
 
   # option to return names with or without unidentified abbreviations
   if (rm.indet) {
     indet.ids <- check$species_status %in%
-      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+      c("indet", "family_as_genus", "order_as_genus", "(sub)family_as_genus")
     check$species_new[indet.ids] <-
       sub(" sp+\\..*", "", check$species_new, perl = TRUE)[indet.ids]
 
   } else {
     indet.ids <- check$species_status %in%
-      c("indet", "family_as_genus", "order_as_genus", "subfamily_as_genus")
+      c("indet", "family_as_genus", "order_as_genus", "(sub)family_as_genus")
     sp.ids <- grepl(" sp+\\.", check$species_new, perl = TRUE)
     if (any(indet.ids & !sp.ids)) {
       check$species_new[indet.ids & !sp.ids] <-

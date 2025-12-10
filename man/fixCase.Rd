@@ -10,27 +10,28 @@ fixCase(x)
 \item{x}{the character string or vector to be standardized.}
 }
 \value{
-the character string equal to \code{x} with the first letter of the
-genus capitalized and the first letter of the (infra-)specific epithet in
-lowercase.
+the character string equal to \code{x} with the first
+letter of the genus capitalized and the first letter of the
+(infra-)specific epithet in lowercase.
 }
 \description{
 Capitalize the genus first letter and lowercase the
 (infra-)specific epithet of species names.
 }
 \details{
-The function try to fix some common upper/lowercase issues in
-species names, taking into account the possible presence of name authorities,
-as an alternative to the function \code{fixCase()} from the package \code{flora}.
+The function try to fix some common upper/lowercase issues
+in species names, taking into account the possible presence of
+name authorities, as an alternative to the function \code{fixCase()}
+from the package \strong{flora}.
 
 It works for names at any taxonomic level (e.g. genus, species and
-infra-specific) and it handle well most common combinations of species names
-and their authorities. However, the function has not been tested for a wide
-range of possibilities, so some level of double-checking may be necessary.
+infra-specific) and it handle well most common combinations of
+taxon names and their authorities. However, the function does not
+work for all range of possibilities (see examples), so some level
+of manual double-checking may be necessary.
 }
 \examples{
 
-\dontrun{
 nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
           "Lindsaea Lancea", "LINDSAEA LANCEA", "Lindsaea lancea var. Angulata",
           "Lindsaea lancea (L.) Bedd.", "Lindsaea Lancea (L.) Bedd.",
@@ -42,13 +43,11 @@ nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
           "LINDSAEA LANCEA ANGULATA Rosenst.",
           "Blechnum antillanum Proctor",
           "Blechnum occidentale leopoldense Dutra",
-          "Blechnum occidentale var. leopoldense Dutra")
-
+          "Blechnum occidentale var. leopoldense Dutra",
+          "Richterago Kuntze")
 fixCase(nomes)
-}
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }
-\keyword{internal}
