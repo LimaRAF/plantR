@@ -15,6 +15,7 @@ formatTax(
   sug.dist = 0.9,
   clean.indet = TRUE,
   use.authors = TRUE,
+  mult.matches = "all",
   replace.names = TRUE,
   clean.names = FALSE,
   split.letters = FALSE,
@@ -67,13 +68,18 @@ matching? Defaults to TRUE.}
 \item{use.authors}{logical. Should authorships be used in the name
 matching process? Default to TRUE.}
 
+\item{mult.matches}{a character declaring how to deal with multiple
+name matches. Options are 'all' (concatenate all matches in the
+same line) and 'best' (only one name match is returned per line).
+Defaults to 'all'.}
+
 \item{replace.names}{logical. If taxon names should be replaced
 based on the results of the name checking (e.g. if synonyms
 should be replaced by its accepted name. Default to TRUE.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
-TRUE.}
+FALSE.}
 
 \item{split.letters}{logical. Should fuzzy matching be performed
 separately by the input and reference name initials? Defaults to
@@ -98,7 +104,7 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "plantae"}
+belong to. Defaults to "plantae"}
 }
 \value{
 The input data frame \code{tax}, plus the new columns with
@@ -132,4 +138,7 @@ and \href{https://www.gbif.org/}{GBIF}.
 \seealso{
 \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and
 \link[plantR]{prepFamily}.
+}
+\author{
+Renato A. Ferreira de Lima
 }

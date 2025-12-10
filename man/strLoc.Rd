@@ -89,5 +89,5 @@ strLoc(df.fix)
 \link[plantR]{fixLoc} and \link[plantR]{getLoc}.
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }

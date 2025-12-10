@@ -12,21 +12,19 @@
 #' @return the vector \code{x} with the standardize notation of the
 #'   incomplete species identification
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @details The function solve most but not all possible notation of
 #'   incomplete identifications, specially when the notation to
 #'   separate morphotypes include letters instead of numbers.
 #'
 #' @examples
-#' \dontrun{
 #' taxa <- c("Indeterminada1", "Indeterminada sp1", "undeterminedA",
 #'   "Fabaceae1", "FabaceaeA", "indet", "Fabales2", "Andira sp. 2",
 #'   "Andira sp 2", "Andira sp")
 #' fixIndet(taxa)
-#' }
 #'
-#' @keywords internal
+#' @export fixIndet
 #'
 fixIndet <- function(x, rplc = "Indet. sp.") {
 
@@ -66,10 +64,10 @@ fixIndet <- function(x, rplc = "Indet. sp.") {
   x <- gsub(" (sp)([0-9]+)$", " \\1.\\2", x, perl = TRUE)
   x <- gsub(" (sp)_([0-9]+)$", " \\1.\\2", x, perl = TRUE)
 
-  x <- gsub("(.* )([0-9]+)$", "\\1sp.\\2", x, perl = TRUE)
-  x <- gsub("(.*[a-z])([0-9]+)$", "\\1 sp.\\2", x, perl = TRUE)
+  x <- gsub("(.* )(\\d{1,3})$", "\\1sp.\\2", x, perl = TRUE)
+  x <- gsub("(.*[a-z])(\\d{1,3})$", "\\1 sp.\\2", x, perl = TRUE)
 
-  x <- gsub("(.* )([A-Z])$", "\\1sp.\\2", x, perl = TRUE)
+  x <- gsub("(.* )([A-Z])$", "\\1sp.\\2", x, perl = TRUE) # Adapt code to avoid names ending with L but should actually be L.? For now, no
   x <- gsub("(.*[a-z])([A-Z])$", "\\1 sp.\\2", x, perl = TRUE)
 
   x <- gsub(" sp$", " sp.", x, perl = TRUE)

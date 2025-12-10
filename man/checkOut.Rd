@@ -16,7 +16,8 @@ checkOut(
   geo.patt = "ok_",
   cult.patt = NA,
   clas.cut = 3,
-  rob.cut = 16
+  rob.cut = 16,
+  keep.values = FALSE
 )
 }
 \arguments{
@@ -56,10 +57,13 @@ using classic Mahalanobis distances. Default to 3}
 
 \item{rob.cut}{numerical. The threshold distance for outlier detection, using
 classic Mahalanobis distances. Default to 16}
+
+\item{keep.values}{logical. Should the values of the classic and
+robust Mahalanobis distances be returned? Defaults to FALSE.}
 }
 \value{
-The input data frame with a new column containing the indication of
-spatial outliers.
+The input data frame with a new columncalled 'out.check'
+containing the indication of spatial outliers.
 }
 \description{
 This function searches for spatial outliers, i.e. records too
@@ -71,28 +75,41 @@ individuals are necessarily spatial outliers (see also the \strong{plantR}
 function \code{getCult()}).
 }
 \details{
-The function searches for spatial outliers using two different
-methods to detect outliers (Liu et al., 2018): the classic and the robust
-squared Mahalanobis distances (see help of \code{mahalanobisDist()} for
-details). They can be used separately or combined (See Examples).
+The function searches for spatial outliers using two
+different methods to detect outliers (Liu et al., 2018): the
+classic and the robust squared Mahalanobis distances (see help of
+\code{mahalanobisDist()} for details). They can be used separately or
+combined (See Examples).
 
-To detect outliers, we need thresholds to be applied to the values of
-Mahalanobis distances obtained for each species (arguments \code{clas.cut} and
-\code{rob.cut}). Ideally these thresholds should be species-specific, but this
-is not always possible. Based on the empirical distribution of some
-Atlantic Forest species with very different number of occurrences and
-spatial distribution patterns, Lima et al. (2020) noted that occurrences
-outside the species ranges often had classic and robust Mahalanobis
-distances above 3 and 16 (used here as defaults). For cultivated species,
-they used more restrictive thresholds of 2.5 and 12, respectively. They
-also mentioned that these thresholds are very conservative (i.e. only more
-extreme outliers are removed) and so some outliers may remain undetected.
+To detect outliers, we need thresholds to be applied to the
+values of Mahalanobis distances obtained for each species
+(arguments \code{clas.cut} and \code{rob.cut}). Ideally these thresholds
+should be species-specific, but this is not always possible.
+Based on the empirical distribution of some Atlantic Forest
+species with very different number of occurrences and spatial
+distribution patterns, Lima et al. (2020) noted that occurrences
+outside the species ranges often had classic and robust
+Mahalanobis distances above 3 and 16 (used here as defaults). For
+cultivated species, they used more restrictive thresholds of 2.5
+and 12, respectively. They also mentioned that these thresholds
+are very conservative (i.e. only more extreme outliers are
+removed) and so some outliers may remain undetected. From
+\strong{plantR} version 0.1.9 and above, the function has a new argument
+(\code{keep.values}) to provide users to retrieve the Mahalanobis
+distances and make their own decision a-posteriori on the best
+cut-off values to detec spatial outliers.
 
-The detection of outliers may depend on the amount of unique coordinates
-available. Therefore, the detection of spatial outliers is safer for cases
-where many unique coordinates are available. As a rule of thumb, ten unique
-coordinates per taxa should avoid possible problems (undetected true
-outliers or detection of false outliers). See Examples.
+The detection of outliers may depend on the amount of unique
+coordinates available. Therefore, the detection of spatial
+outliers is safer for cases where many unique coordinates are
+available. As a rule of thumb, ten unique coordinates per taxa
+should avoid possible problems (undetected true outliers or
+detection of false outliers). See Examples.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 

@@ -27,15 +27,12 @@ incomplete identifications, specially when the notation to
 separate morphotypes include letters instead of numbers.
 }
 \examples{
-\dontrun{
 taxa <- c("Indeterminada1", "Indeterminada sp1", "undeterminedA",
   "Fabaceae1", "FabaceaeA", "indet", "Fabales2", "Andira sp. 2",
   "Andira sp 2", "Andira sp")
 fixIndet(taxa)
-}
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }
-\keyword{internal}

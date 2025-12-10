@@ -8,7 +8,7 @@ nameMatching(
   names = NULL,
   ref.names = NULL,
   match.type = c("exact", "fuzzy"),
-  clean.names = TRUE,
+  clean.names = FALSE,
   dist.method = "jw",
   p = 0.1,
   max.dist = 0.25,
@@ -29,7 +29,7 @@ both.}
 
 \item{clean.names}{logical. Should spaces, punctuation, symbols and
 species characters be removed prior to name matching? Defaults to
-TRUE.}
+FALSE.}
 
 \item{dist.method}{fuzzy matching algorithm to be passed on to
 \code{stringdist::amatch()}. Defaults to "jw" (i.e. Jaro-Winkler)}
@@ -61,17 +61,18 @@ of the input \code{names} in \code{ref.names}
 }
 \description{
 Performs the exact and fuzzy matching between two sets
-of names (input and reference), based on cleaned names or on
-indexes. To speed up computational time for larger datasets, the
-function can parallelize the matching processes and/or perform
-matching by initial letters.
+of names (input and reference), based on raw or cleaned names. To
+speed up computational time for larger datasets, the function can
+parallelize the matching processes and/or perform matching by
+initial letters.
 }
 \details{
-By default, the argument 'clean.names' is TRUE. Both exact and
-fuzzy matches are case, space and punctuation sensitive, so cleaning
-names prior to matching can greatly increase the number of matches.
-See the internal function \code{cleanName()} on how this cleaning is
-performed.
+By default, the argument 'clean.names' is FALSE, to increase
+computaional speed. However, both exact and fuzzy matches are case,
+space and punctuation sensitive. So, cleaning names (i.e. setting
+'clean.names' to TRUE) can substantially increase the number of
+matches. See the internal function \code{cleanName()} on how this
+cleaning is performed.
 
 If 'split.letters' is TRUE, then the matching is done by chunks
 composed by the initial letter of both input and references names.

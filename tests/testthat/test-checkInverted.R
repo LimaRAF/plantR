@@ -14,9 +14,12 @@ country.gazetteer <- "country.gazet"
 tax.name <- "scientificName.new"
 output <- "new.col"
 
+brMap <- plantR::worldMap[plantR::worldMap$NAME_0 %in% "brazil", ]
+spMap <- plantR::latamMap$brazil[plantR::latamMap$brazil$NAME_1 %in% "sao paulo", ]
+
 df1 <- checkCoord(df,
-                 low.map = "plantR",
-                 high.map = "plantR",
+                 low.map = brMap,
+                 high.map = spMap,
                  keep.cols = c("geo.check", country.shape, country.gazetteer))
 
 df2 <- checkBorders(df1,
@@ -35,15 +38,16 @@ df3.1$decimalLongitude.new.new <- -47.123768
 df3.1$decimalLatitude.new.new <- -23.475389
 
 test_that("checkInverted works", {
-  expect_equal(checkInverted(df3), df3.1)
+  expect_error(checkInverted(df))
+  expect_equal(checkInverted(df3, world.map = brMap), df3.1)
 })
 
 ## Same col
 output <- "same.col"
 
 df1 <- checkCoord(df,
-                  low.map = "plantR",
-                  high.map = "plantR",
+                  low.map = brMap,
+                  high.map = spMap,
                   keep.cols = c("geo.check", country.shape, country.gazetteer))
 
 df2 <- checkBorders(df1,
@@ -60,5 +64,10 @@ df3.1$decimalLongitude.new <- -47.123768
 df3.1$decimalLatitude.new <- -23.475389
 
 test_that("checkInverted works", {
-  expect_equal(checkInverted(df3, output = output), df3.1)
+  expect_error(checkInverted(TRUE))
+  expect_error(checkInverted(data.frame(character())))
+  expect_error(checkInverted(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
+  expect_equal(checkInverted(df3, output = output, world.map = brMap),
+               df3.1)
 })

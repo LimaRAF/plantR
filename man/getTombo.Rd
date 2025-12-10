@@ -62,5 +62,5 @@ getTombo(colls, access)
 \link[plantR]{getCode}
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }

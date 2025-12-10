@@ -15,6 +15,11 @@ res1$out.check <- c(rep(FALSE, 3), rep(TRUE, 2))
 
 # Tests
 test_that("checkOut works", {
+
+  expect_error(checkOut(TRUE))
+  expect_error(checkOut(data.frame(character())))
+  expect_error(checkOut(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
   expect_equal(suppressWarnings(checkOut(df, lon = "lon", lat = "lat", n.min = 4)),
                res0)
   expect_equal(suppressWarnings(checkOut(df, lon = "lon", lat = "lat", clas.cut = NULL, n.min = 4)),

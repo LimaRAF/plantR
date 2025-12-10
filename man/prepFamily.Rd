@@ -10,7 +10,8 @@ prepFamily(
   gen.name = "genus",
   spp.name = "scientificName",
   kingdom = "plantae",
-  print = TRUE
+  print = TRUE,
+  ...
 )
 }
 \arguments{
@@ -27,10 +28,13 @@ genus names. Defaults to "genus"}
 species names. Defaults to "scientificName"}
 
 \item{kingdom}{character. The name of the kingdom that the taxa
-belong to names. Defaults to "plantae"}
+belong to. Defaults to "plantae"}
 
 \item{print}{logical. Should the automatically replaced family
 names be printed? Default to TRUE.}
+
+\item{...}{Any argument to be passed on to \code{getFamily} to obtain
+missing family names from genus names}
 }
 \value{
 the data frame \code{x} with an additional column called
@@ -62,7 +66,12 @@ are then converted to the names accepted by the APG IV or PPG I.
 
 In case there is a conflict in the original family name and the
 name found based on the genus name, the original name is replaced
-by the name from the APG IV or PPG I with a warning.
+by the name from the APG IV or PPG I, with a print and without warning.
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \examples{
 
@@ -83,5 +92,5 @@ PPG I (2016). A community-derived classification for extant lycophytes and
 ferns. Journal of Systematics and Evolution. 54 (6): 563-603.
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }

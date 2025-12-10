@@ -1,5 +1,5 @@
 Package: plantR
-Version: 0.1.9
+Version: 0.2.0
 Title: Managing Species Records from Biological Collections
 Type: Package
 Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
@@ -8,13 +8,18 @@ Authors@R: c(person("Renato A.", "Ferreira de Lima", role = c("aut", "cre"),
               person("Sara", "R. Mortara", role = "aut",
                      email = "saramortara@gmail.com"),
               person("Andrea", "Sánchez-Tapia", role = "aut",
-                     email = "andreasancheztapia@gmail.com"))
+                     email = "andreasancheztapia@gmail.com"),
+              person("Mali", "Salles", role = "ctb",
+                     email = "malicsalles@gmail.com"),
+              person("Guilherme", "Salgado Grittz", role = "ctb",
+                     email = "ggrittz@usp.br"))
 Author:
   Renato A. F. de Lima [aut, cre]
   Sara R. Mortara [aut]
   Andrea Sánchez-Tapia [aut]
   Hans ter Steege [ctb]
   Marinez Ferreira de Siqueira [ctb]
+  Mali Oz Salles [ctb]
   Guilherme Salgado Grittz [ctb]
 Maintainer: Renato A. Ferreira de Lima <raflima@usp.br>
 Depends: R (>= 3.5.0)
@@ -28,7 +33,7 @@ BugReports: https://github.com/LimaRAF/plantR/issues
 LazyData: true
 LazyDataCompression: xz
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Imports:
     countrycode,

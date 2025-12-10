@@ -17,12 +17,12 @@
 #' @param low.map a sf multipolygon object containing the global
 #'   administrative map at the lowest level (e.g. country). The
 #'   default is "plantR", the default map obtained from
-#'   [GADM]{https://gadm.org} (see `worldMap`).
+#'   [GADM](https://gadm.org) (see `worldMap`).
 #' @param high.map a sf multipolygon object or a list of sf objects
 #'   containing the regional map at the highest administrative level
 #'   (e.g. municipality). The default is "plantR", the map for all
 #'   Latin American countries and dependent territories  obtained
-#'   [GADM]{https://gadm.org} (see `latamMap`).
+#'   [GADM](https://gadm.org) (see `latamMap`).
 #' @param res.gazet Column with the locality resolution level
 #'   retrieved from the gazetteer
 #' @param dist.center Logical. Should the distance (in meters) between
@@ -34,12 +34,12 @@
 #' @param keep.cols character. Name of columns that should be kept in
 #'   the output.
 #'
-#' @importFrom dplyr select one_of rename mutate if_else filter ends_with
+#' @importFrom dplyr select one_of mutate if_else filter ends_with
 #' @importFrom tidyr separate
-#' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs
+#' @importFrom sf st_crs st_as_sf st_join st_intersects st_set_crs st_drop_geometry
 #' @importFrom spatialrisk haversine
 #'
-#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
 #' @details
 #'
@@ -64,6 +64,11 @@
 #' locality information (see function `getLoc()` and the default
 #' __plantR__ maps 'worldMap' and 'latamMap').
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
 #' @encoding UTF-8
 #'
 #' @export checkCoord
@@ -81,9 +86,8 @@ checkCoord <- function(x,
                        lat.gazet = "latitude.gazetteer",
                        keep.cols = c("geo.check", "distCentroid_m")) {
 
-  #Escaping R CMD check notes from using dplyr syntax
+  ## Escaping R CMD check notes from using dplyr syntax
   NAME_0 <- pais_latam <- pais_wo <- NULL
-  #Escaping R CMD check notes
   worldMap <- worldMap
   latamMap <- latamMap
 
@@ -101,12 +105,17 @@ checkCoord <- function(x,
     if (any(!c(lon.gazet, lat.gazet) %in% names(x)))
       stop("If 'dist.center' is TRUE, the input must contain the longitude/latitude obtained from a gazetteer: please rename or specify the correct names")
 
-  ##Preliminary edits
-  cols.x <- names(x) # original data column names
-  x$tmp.order <- 1:nrow(x)
-  x[, str.name][x[, str.name] %in% "no_loc"] <- NA #porque nao eh pais (rafl: concordo, mas nao achei nehuma funcao onde esse 'no_loc' eh gerado; melhor alterar direto na funcao que obtem o string, getLoc()?)
+  if (any(grepl("NAME_[0-4]", names(x)))) {
+    x <- x[, !grepl("NAME_[0-4]", names(x))]
+    warning("The columns starting with 'NAME_' cannot be in the input data frame and were removed")
+  }
 
-  ##Defining the country, state and county columns
+  ## Preliminary edits
+  cols.x <- names(x)
+  x$tmp.order <- 1:nrow(x)
+  x[[str.name]][x[[str.name]] %in% "no_info"] <- NA
+
+  ## Defining the country, state and county columns
   x <- tidyr::separate(
     data = x,
     col = str.name,
@@ -117,19 +126,19 @@ checkCoord <- function(x,
     fill = "right"
   )
 
-  ##Creating the geo.check column and assigning the gazetteer and missing classes
+  ## Creating the geo.check column and assigning the gazetteer and missing classes
   geo.check <- rep(NA_character_, dim(x)[1])
 
-  ids.gazet <- x[, orig.coord] %in% "coord_gazet"
+  ids.gazet <- x[[orig.coord]] %in% "coord_gazet"
   if (any(ids.gazet))
     geo.check[ids.gazet] <-
       paste0("ok_", x[ids.gazet, res.gazet], "_gazet")
 
-  ids.no.coord <- x[, orig.coord] %in% "no_coord"
+  ids.no.coord <- x[[orig.coord]] %in% "no_coord"
   if (any(ids.no.coord))
     geo.check[ids.no.coord] <- "no_cannot_check"
 
-  ids.nas.coord <- x[, orig.coord] %in% "coord_original" &
+  ids.nas.coord <- x[[orig.coord]] %in% "coord_original" &
                     (is.na(x[lon]) | is.na(x[lat]))
   if (any(ids.nas.coord))
     geo.check[ids.nas.coord] <- "no_cannot_check"
@@ -137,16 +146,14 @@ checkCoord <- function(x,
   ## Subsetting data for geographical checking
   tmp <- x[is.na(geo.check), ]
 
-  ##Getting data frame with spatial coordinates and standardizing the projection
+  ## Getting data frame with spatial coordinates and standardizing the projection
   tmp <- sf::st_as_sf(tmp, coords = c(lon, lat))
-  # set spatial coordinates
   prj <- sf::st_crs(4326)
   tmp <- sf::st_set_crs(tmp, prj)
 
-  ##Getting the global map
-  class.low.map <- class(low.map)[1]
+  ## Getting the global map
   low_map <- NULL
-  if (class.low.map == "character") {
+  if (inherits(low.map, "character")) {
     if (any(low.map %in% c("plantR", "plantr"))) {
       low_map <- worldMap
     } else {
@@ -154,17 +161,18 @@ checkCoord <- function(x,
     }
   }
 
-  if (class.low.map == "list") {
+  if (inherits(low.map, "list")) {
     if (all(sapply(low.map, function(x) class(x)[1]) %in% "sf")) {
       if(!"NAME_0" %in% names(low.map[[1]]))
         stop("The sf objects must have a column 'NAME_0': the lowest administrative level")
+
       low_map <- dplyr::bind_rows(low.map)
     } else {
       stop("The user-provided map must be an sf object or a list of sf objects")
     }
   }
 
-  if (class.low.map == "sf") {
+  if (inherits(low.map, "sf")) {
     if(!"NAME_0" %in% names(low.map))
       stop("The global map must have a column 'NAME_0': the lowest administrative level")
     low_map <- low.map
@@ -173,14 +181,14 @@ checkCoord <- function(x,
   if(is.null(low_map))
     stop("The user-provided map must be an sf object or a list of sf objects")
 
-  ##Crossing the coordinates with the global map
+  ## Crossing the coordinates with the global map
   tmp <- suppressMessages(sf::st_join(tmp,
                                       low_map,
                                       join = sf::st_intersects))
   names(tmp)[which(names(tmp) == "NAME_0")] <- "pais_wo"
 
-  ##Solving misterious problems with the country map (could not isolate the problem)
-  check_these <- grepl("\\.[0-9]", rownames(tmp))
+  ## Solving misterious problems with the country map (could not isolate the problem)
+  check_these <- grepl("\\.[0-9]", rownames(tmp), perl = TRUE)
   if (any(check_these)){
     tmp$keep_these <- rep(TRUE, dim(tmp)[1])
     dup.orders <- tmp$tmp.order[check_these]
@@ -194,13 +202,12 @@ checkCoord <- function(x,
     tmp <- tmp[tmp$keep_these, ]
   }
 
-  ##Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
+  ## Defining which coordinates fall into the sea (i.e. original coordinates but no country, state or county)
   geo.check[is.na(geo.check)][is.na(tmp$pais_wo)] <- "sea"
 
-  ##Getting the high-resolution map
-  class.high.map <- class(high.map)[1]
+  ## Getting the high-resolution map
   high_map <- NULL
-  if (class.high.map == "character") {
+  if (inherits(high.map, "character")) {
     if (any(high.map %in% c("plantR", "plantr"))) {
       high_map <- dplyr::bind_rows(latamMap)
     } else {
@@ -208,18 +215,19 @@ checkCoord <- function(x,
     }
   }
 
-  if (class.high.map == "list") {
+  if (inherits(high.map, "list")) {
     if (all(sapply(high.map, function(x) class(x)[1]) %in% "sf")) {
       if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
         stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
+
       high_map <- dplyr::bind_rows(high.map)
     } else {
       stop("The user-provided map must be an sf object or a list of sf objects")
     }
   }
 
-  if (class.high.map == "sf") {
-    if (!all(c("NAME_0", "NAME_1") %in% names(high.map[[1]])))
+  if (inherits(high.map, "sf")) {
+    if (!all(c("NAME_0", "NAME_1") %in% names(high.map)))
       stop("Ideally, the high resolution map should have the columns 'NAME_0', 'NAME_1', 'NAME_2' and 'NAME_3'")
     high_map <- high.map
   }
@@ -227,12 +235,13 @@ checkCoord <- function(x,
   if (is.null(high_map))
     stop("The user-provided map must be an sf object or a list of sf objects")
 
-  ##Comparing the spatial data frame with the selected country shapefiles
+  ## Comparing the spatial data frame with the selected country shapefiles
   x2 <- suppressMessages(
           sf::st_join(tmp, high_map, join = sf::st_intersects))
+  x2 <- sf::st_drop_geometry(x2)
 
-  ##Solving misterious problems with the map (could not isolate the problem)
-  check_these <- grepl("\\.[0-9]", rownames(x2))
+  ## Solving misterious problems with the map (could not isolate the problem)
+  check_these <- grepl("\\.[0-9]", rownames(x2), perl = TRUE)
   if (any(check_these)){
     x2$keep_these <- rep(TRUE, dim(x2)[1])
     dup.orders <- x2$tmp.order[check_these]
@@ -246,21 +255,20 @@ checkCoord <- function(x,
     x2 <- x2[x2$keep_these, ]
   }
 
-  x2 <- dplyr::rename(x2,
-                      pais_latam = NAME_0
-                      #estado = NAME_1,
-                      #municipio = NAME_2
-                      #localidade = NAME_3
-                      #vai ter um NAME_4 e talvez mais
-  )
-  #checa diferencas paises e preenche com latam se faltar no mundo
-  x2 <- dplyr::mutate(x2, NAME_0 = dplyr::if_else(is.na(pais_wo) &
-                                                    !is.na(pais_latam), pais_latam, pais_wo))
+  # checa diferencas paises e preenche com latam se faltar no mundo
+  names(x2)[which(names(x2) == "NAME_0")] <- "pais_latam"
+  x2 <- dplyr::mutate(x2,
+                  NAME_0 = dplyr::if_else(is.na(pais_wo) &
+                            !is.na(pais_latam), pais_latam, pais_wo))
   # cria o vetor para checar
-  x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, sep = "_")
-  x2$loc.coord[x2$loc.coord %in% "NA_NA_NA"] <- NA_character_
-  x2$loc.coord <- gsub("_NA_NA$", "", x2$loc.coord, perl = TRUE)
-  x2$loc.coord <- gsub("_NA$", "", x2$loc.coord, perl = TRUE)
+  x2$loc.coord <- paste(x2$NAME_0, x2$NAME_1, x2$NAME_2, x2$NAME_3,
+                        sep = "_")
+  if (any(grepl("_NA", x2$loc.coord, fixed = TRUE))) {
+    x2$loc.coord[x2$loc.coord %in% "NA_NA_NA_NA"] <- NA_character_
+    x2$loc.coord <- sub("_NA_NA_NA$", "", x2$loc.coord, perl = TRUE)
+    x2$loc.coord <- sub("_NA_NA$", "", x2$loc.coord, perl = TRUE)
+    x2$loc.coord <- sub("_NA$", "", x2$loc.coord, perl = TRUE)
+  }
 
   # recupera todas as linhas
   x3 <- suppressMessages(
@@ -271,20 +279,24 @@ checkCoord <- function(x,
 
   ### GEO-VALIDATION STEPS ###
   ##1- Validating the coordinates at different levels - exact matches
-  #1.1 Country-level: good country? All countries
+  #1.1 ADM0-level: good country? All countries
   x3$country.check <- dplyr::if_else(x3$country.gazet == x3$NAME_0,
                                      "ok_country", "bad_country",
                                      missing = "no_country")
 
-  #1.2 State-level: good state? All countries
+  #1.2 ADM1-level: good state? All countries
   x3$state.check <- dplyr::if_else(x3$state.gazet == x3$NAME_1,
                                    "ok_state", "bad_state",
                                    missing = "no_state")
 
-  #1.3 County-level. All countries
+  #1.3 ADM2-level. All countries
   x3$county.check <- dplyr::if_else(x3$county.gazet == x3$NAME_2,
                                     "ok_county", "bad_county",
                                     missing = "no_county")
+  #1.4 ADM3-level. All countries
+  x3$locality.check <- dplyr::if_else(x3$locality.gazet == x3$NAME_3,
+                                      "ok_locality", "bad_locality",
+                                      missing = "no_locality")
 
   ## Updating geo.check
   tmp1 <- apply(x3[ , c("country.check",
@@ -296,14 +308,20 @@ checkCoord <- function(x,
   repl.check <- simpGeoCheck
   geo.check <- stringr::str_replace_all(geo.check, repl.check)
 
+  ## Adding checks at the locality level (only for those already at the county level)
+  rep_these <- x3$locality.check %in% "ok_locality" &
+                geo.check %in% "ok_county"
+  if (any(rep_these))
+    geo.check[rep_these] <- "ok_locality"
+
   ## Calculating the distance between the original and the gazetter coordinates
   if (dist.center) {
     x3$distCentroid_m <- NA
     if (dim(tmp)[1] > 0) {
       ids.dist <- !grepl("ok_county|ok_locality|no_cannot_check", x3$geo.check) &
-        !(is.na(x3[, lon.gazet]) | is.na(x3[, lat.gazet]))
+                    !(is.na(x3[[lon.gazet]]) | is.na(x3[[lat.gazet]]))
       tmp2 <- x3[ids.dist, c(lat, lon, lat.gazet, lon.gazet, "distCentroid_m"), ]
-      tmp2$distCentroid_m <- # 0.4s for ~2 million (1s using fields::rdist.earth.vec)
+      tmp2$distCentroid_m <-
         spatialrisk::haversine(tmp2[, 1], tmp2[, 2], tmp2[, 3], tmp2[, 4])
       x3$distCentroid_m[ids.dist] <-
         tmp2$distCentroid_m
@@ -311,7 +329,7 @@ checkCoord <- function(x,
   }
 
   ## Preparing to return
-  #re-ordering (for safety), adding geo.check and removing unecessary columns from the tmp object
+  #re-ordering, adding geo.check and cleaning
   x3 <- x3[order(x3$tmp.order), ]
   x3$geo.check <- geo.check
   x3 <- x3[, -which(names(x3) %in% c("tmp.order"))]
@@ -321,7 +339,7 @@ checkCoord <- function(x,
   if (!is.null(keep.cols))
     new.cols <- new.cols[new.cols %in% keep.cols]
 
-  #removing unecessary column from the original data frame and returning
+  #removing unecessary columns and returning
   tmp.cols <- c("tmp.order", "country.gazet", "state.gazet", "county.gazet",
                 "locality.gazet", "sublocality.gazet")
   x <- x[, -which(names(x) %in% tmp.cols)]
@@ -332,4 +350,3 @@ checkCoord <- function(x,
     return(cbind.data.frame(x, x4))
   }
 }
-

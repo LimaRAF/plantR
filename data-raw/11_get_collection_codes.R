@@ -1,5 +1,5 @@
-
 # Getting collectionCode from multiple aggregators ------------------------
+# Codes adpat from G. Grittz codes
 
 
 #### Get collection codes from GBIF's GRSciColl ####
@@ -20,7 +20,9 @@ to_search <- c("plants", "plantas", "herbário", "herbarium", "herbaria", "herba
                "museu", "museo", "museum")
 to_search <- paste(to_search, collapse = "|")
 
-not_to_search <- c("paleonto", "mineral", "antropol", "archeol")
+not_to_search <- c("paleonto", "mineral", "antropol", "archeol",
+                   "fossil", "DNA", "aquarium", "soil", "rock",
+                   "gene", "microbiol")
 not_to_search <- paste(not_to_search, collapse = "|")
 
 # Subset
@@ -29,8 +31,9 @@ gbif_col <- gbif_col[grepl(to_search, gbif_col$name, ignore.case = TRUE) &
 
 # Removing potential animal collections
 to_search <- c("invert", "zoo", "vertebr", "herperto", "arthro", "faun", "entomo",
-                  "anfibi", "amphib", "ictio", "fish", "bird", "crustac", "mullusc",
-                  "mammal", "reptil")
+                "anfibi", "amphib", "ictio", "fish", "bird", "crustac", "mullusc",
+                "mammal", "reptil", "herpeto", "insect", "geological",
+               "mollusk", "mollusc", "coleoptera", "aves", "mamíferos")
 to_search <- paste(to_search, collapse = "|")
 
 # From name column
@@ -78,21 +81,25 @@ spLink_col <- do.call(rbind, lapply(split_content, function(x) {
 
 
 #### Get collection codes from JABOT ####
-url <- "https://jabot.jbrj.gov.br/v3/herbarios.php"
-html_content <- RCurl::getURLContent(url)
+# url <- "https://jabot.jbrj.gov.br/v3/herbarios.php"
+# html_content <- RCurl::getURLContent(url)
+html_content <- "['RB', 837331],['MBM', 347291],['UB', 293446],['UPCB', 114875],['CGMS', 98037],['R', 91065],['IBGE', 88029],['FURB', 81753],['FLOR', 81709],['VIES', 68003],['SPSF', 57477],['MBML', 57315],['HRB', 54947],['HBR', 51049],['RFA', 46746],['OUPR', 45366],['RBR', 40375],['HURB', 39467],['TEPB', 29774],['UFRN', 28121],['RON', 27084],['EFC', 26964],['PEL', 25901],['SMDB', 24946],['BHCB', 24120],['RFFP', 24114],['SJRP', 22949],['JOI', 21832],['COR', 19620],['BHZB', 19296],['SAMES', 18829],['HSTM', 17368],['MAR', 16456],['CRI', 16266],['HUENF', 16036],['HUPG', 15793],['HB', 15278],['HRJ', 14755],['UNOP', 13642],['DDMS', 13626],['MAC', 13200],['UFRR', 12138],['MFS', 11989],['HDJF', 11726],['SLUI', 11166],['HJ', 10909],['HISA', 10704],['RN', 10496],['HVC', 10307],['LUSC', 10192],['CAP', 10115],['ECT', 10037],['HERBAM', 9524],['NIT', 9389],['IRATI', 8968],['FCAB', 8761],['AFR', 8166],['HUNI', 8076],['DVPR', 7953],['HURG', 7843],['HVAT', 7784],['EVB', 7480],['MCCA', 7245],['HF', 7111],['UNIP', 7005],['BRBA', 6748],['UFG', 6675],['HACAM', 6611],['RSPF', 6341],['HUEG', 5865],['LPF', 5435],['HTO', 5355],['SHPR', 5049],['HATM', 4595],['HUVA', 4120],['UALF', 3790],['MUFAL', 3647],['GCPP', 3515],['MACK', 3512],['LAG', 3162],['CCAA', 3102],['RA-LAP', 2593],['IFRV', 2500],['HCJS', 2256],['HUNEB', 2111],['CBPM', 1915],['ARBO', 1840],['PERD', 1600],['JABU', 1595],['IBIUEMG', 1526],['HUFSP', 1353],['HDELTA', 975],['HCP', 794],['HM', 722],['SETE', 597],['HPEC', 359],['SRBM', 308],['HEPH', 220],['HIPE', 213],['PAB', 134],['LSPF', 93],['IAC', 1],['UESC', 0],['MCSJ', 0],['JAR', 0],['PALM', 0],['HEVB', 0],['HCDAL', 0],['HUFSJ', 0],['SPSC', 0],['ASE', 0]"
 
 # Convert to text
-txt <- strsplit(html_content, "\\n")[[1]]
-txt <- txt[grepl("MBM", txt)]
+# txt <- strsplit(html_content, "\\n")[[1]]
+# txt <- txt[grepl("MBM", txt)]
+txt <- strsplit(html_content, "\\],\\['")[[1]]
+txt <- gsub("',.*", "", txt)
+JABOT_col <- gsub("\\['", "", txt)
 
 # Get single ' '
 # gregexpr get the position and length of each match
-# "        ['RB', 813551],['MBM', 343090] 'MBM' on position 25 and has length 5
+# "   ,     ['RB', 813551],['MBM', 343090] 'MBM' on position 25 and has length 5
 # Then regmatches uses the position and length to extract those exact strings
-matches <- regmatches(txt, gregexpr("'(.*?)'", txt))
-
-# Finally we gsub single ' by blank space
-JABOT_col <- unlist(lapply(matches, function(x) gsub("'", "", x)))
+# matches <- regmatches(txt, gregexpr("'(.*?)'", txt))
+#
+# # Finally we gsub single ' by blank space
+# JABOT_col <- unlist(lapply(matches, function(x) gsub("'", "", x)))
 
 JABOT_col <- data.frame(my_collectionCode = JABOT_col,
                         source = "JABOT")
@@ -192,29 +199,30 @@ BIEN_col <- BIEN_col[!duplicated(BIEN_col$my_collectionCode), ]
 #### Get collection codes from SiBBr ####
 # https://collectory.sibbr.gov.br/collectory/
 # I haven't found a way to automatize this step via API or scrapping
-file_path <- here::here("data", "raw-data", "SiBBr")
-file_name <- "SiBBr_collections.txt"
-
-SiBBr_col <- read.delim(file.path(file_path, file_name))
-
-# Build collection code from names
-pattern <- gregexpr("\\(([^)]+)\\)", SiBBr_col$my_collectionCode)
-pattern <- regmatches(SiBBr_col$my_collectionCode, pattern)
-
-# Remove the parentheses
-pattern_clean <- gsub("[()]", "", unlist(pattern))
-
-
-
-# Now get collectionName
-pattern <- gregexpr("[^()]+", SiBBr_col$my_collectionCode)
-pattern <- regmatches(SiBBr_col$my_collectionCode, pattern)
-
-SiBBr_col <- do.call(rbind, lapply(pattern, function(x) {
-  data.frame(my_collectionName = trimws(x[1]),
-             my_collectionCode = trimws(x[2]),
-             source = "speciesLink", stringsAsFactors = FALSE)
-}))
+# file_path <- here::here("data", "raw-data", "SiBBr")
+# file_path <- tempdir()
+# file_name <- "SiBBr_collections.txt"
+#
+# SiBBr_col <- read.delim(file.path(file_path, file_name))
+#
+# # Build collection code from names
+# pattern <- gregexpr("\\(([^)]+)\\)", SiBBr_col$my_collectionCode)
+# pattern <- regmatches(SiBBr_col$my_collectionCode, pattern)
+#
+# # Remove the parentheses
+# pattern_clean <- gsub("[()]", "", unlist(pattern))
+#
+#
+#
+# # Now get collectionName
+# pattern <- gregexpr("[^()]+", SiBBr_col$my_collectionCode)
+# pattern <- regmatches(SiBBr_col$my_collectionCode, pattern)
+#
+# SiBBr_col <- do.call(rbind, lapply(pattern, function(x) {
+#   data.frame(my_collectionName = trimws(x[1]),
+#              my_collectionCode = trimws(x[2]),
+#              source = "speciesLink", stringsAsFactors = FALSE)
+# }))
 
 
 
@@ -355,7 +363,15 @@ missing_from_ih <- plantR_complete$index.herbariorum.or.working.code[!plantR_com
 # PARA OS QUE JÁ TINHAMOS, VER SE TEM UPDATE NO IH (SE EXISTE AGORA E SE TEM CAMPOS NOVOS PREENCHIDOS)
 
 # Merge our db with information from IH
-cols <- c("code", "organization", "address_physicalCountry", "address_physicalState")
+cols <- c("code", "organization",
+          "division", "department", "specimenTotal",
+          "currentStatus", "notes", "dateFounded",
+          "incorporatedHerbaria",
+          "location_lat", "location_lon",
+          "geography", "address_physicalCity",
+          "address_physicalStreet", "address_physicalCity",
+          "address_physicalState", "address_physicalCountry", "address_physicalZipCode")
+          # "address_physicalCountry", "address_physicalState")
 ih_herbaria <- unique(ih_herbaria[, cols])
 ih_herbaria <- ih_herbaria[!ih_herbaria$code %in% "",]
 dup_codes <- ih_herbaria$code[duplicated(ih_herbaria$code)]
@@ -363,6 +379,15 @@ if (length(dup_codes) > 0) {
   # ih_herbaria[ih_herbaria$code %in% dup_codes, ]
   ih_herbaria <- ih_herbaria[!duplicated(ih_herbaria$code), ]
 }
+
+# Fixing the classes of all variables
+classes <- sapply(ih_herbaria, class)
+class2fix <- which(classes %in% "list") # only one: incorporatedHerbaria
+lista.i <- ih_herbaria[["incorporatedHerbaria"]]
+lista.i <- lapply(lista.i, paste, collapse = "; ")
+lista.i <- as.character(unlist(lista.i))
+ih_herbaria[["incorporatedHerbaria"]] <- lista.i
+str(ih_herbaria)
 
 # Get last ID from plantR
 last_id <- max(plantR_complete$ordem.colecao)
@@ -374,9 +399,9 @@ ih_herbaria$source <- "IH"
 plantR_final <- dplyr::full_join(plantR_complete, ih_herbaria,
                             by = dplyr::join_by(index.herbariorum.or.working.code == code))
 names(plantR_final) <- gsub(".y$", "", names(plantR_final))
-col_names <- names(plantR_final)[match(names(plantR_col), names(plantR_final), nomatch = 0 )]
-col_names <- na.omit(unique(c(col_names, names(plantR_final)[!names(plantR_final) %in% col_names])))
-plantR_final <- plantR_final[, col_names]
+# col_names <- names(plantR_final)[match(names(plantR_col), names(plantR_final), nomatch = 0 )]
+# col_names <- na.omit(unique(c(col_names, names(plantR_final)[!names(plantR_final) %in% col_names])))
+# plantR_final <- plantR_final[, col_names]
 
 # All new codes to be included
 rep_these <- is.na(plantR_final$ordem.colecao)
@@ -388,18 +413,32 @@ plantR_new_codes <-
   plantR_final[!plantR_final$index.herbariorum.or.working.code %in% plantR_col$index.herbariorum.or.working.code,]
 write.csv(plantR_new_codes, "data-raw/results/new_collection_codes.csv",
           fileEncoding = "UTF-8")
+writexl::write_xlsx(plantR_new_codes, "data-raw/results/new_collection_codes.xlsx", format_headers = FALSE)
 
 # IH info to be included in the file
 plantR_final1 <- dplyr::full_join(plantR_col, ih_herbaria,
                                  by = dplyr::join_by(index.herbariorum.or.working.code == code))
 names(plantR_final1) <- gsub(".y$", "", names(plantR_final1))
-col_names <- names(plantR_final1)[match(names(plantR_col), names(plantR_final1), nomatch = 0 )]
-col_names <- na.omit(unique(c(col_names, names(plantR_final1)[!names(plantR_final1) %in% col_names])))
-plantR_final1 <- plantR_final1[, col_names]
+# col_names <- names(plantR_final1)[match(names(plantR_col), names(plantR_final1), nomatch = 0 )]
+# col_names <- na.omit(unique(c(col_names, names(plantR_final1)[!names(plantR_final1) %in% col_names])))
+# plantR_final1 <- plantR_final1[, col_names]
 plantR_old_codes <-
   plantR_final1[plantR_final$index.herbariorum.or.working.code %in% plantR_col$index.herbariorum.or.working.code,]
 write.csv(plantR_old_codes, "data-raw/results/old_collection_codes.csv",
           fileEncoding = "UTF-8")
+writexl::write_xlsx(plantR_old_codes, "data-raw/results/old_collection_codes.xlsx", format_headers = FALSE)
+
+
+## Codes from herbaria with and withour match
+cruza <- readRDS("data-raw/results/newdat_collectionCode.rds")
+cruza <- cruza[, c("collectionString", "collectionCode",	"institutionCode", "records", "collectionObs")]
+cruza1 <- aggregate(records ~ collectionString + collectionCode + institutionCode + collectionObs,
+                   sum, data = cruza)
+names(cruza1) <- c("collection.string", "collectioncode.gbif",	"institutioncode.gbif", "collectionObs", "records")
+cruza1 <- dplyr::left_join(cruza1, ih_herbaria,
+                           dplyr::join_by(collectioncode.gbif == code))
+writexl::write_xlsx(cruza1, "data-raw/results/new_collection_strings.xlsx", format_headers = FALSE)
+
 
 
 

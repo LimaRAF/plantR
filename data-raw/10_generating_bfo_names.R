@@ -28,3 +28,4 @@ dimensions <-
 path_to_save <- file.path(here::here(), "data-raw", #"raw_dictionaries",
                           "df_dim_bfo.txt")
 write(dimensions, path_to_save)
+devtools::document()

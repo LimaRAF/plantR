@@ -69,7 +69,8 @@
 #' year = c("1994","1990","1994","2020"),
 #' family = c("Salicaceae","Salicaceae","Cannabaceae","Cannabaceae"),
 #' scientificName = c("Casearia sylvestris","Casearia sylvestris",
-#' "Trema micrantha","Trema micrantha"),
+#' "Trema micranthum","Trema micranthum"),
+#' scientificNameAuthorship = c("Sw.", "Sw.", "(L.) Blume", "(L.) Blume"),
 #' country = c("brazil","brazil","brazil","brazil"),
 #' stateProvince = c("santa catarina","santa catarina",
 #' "santa catarina","santa catarina"),
@@ -115,6 +116,7 @@ checkList <- function(x,
                colYears = c("year.new", "year"),
                families = c("family.new", "family"),
                species = c("scientificName.new", "scientificName"),
+               authors = c("scientificNameAuthorship.new", "scientificNameAuthorship"),
                countries = c("country.new", "country"),
                state = c("stateProvince.new", "stateProvince"),
                county = c("municipality.new", "municipality"),
@@ -155,9 +157,10 @@ checkList <- function(x,
 
   # getting the list of taxa and the selected columns
   data.table::setindexv(dt, covs.present[["species"]])
-  checklist <- data.frame(unique(dt, by= covs.present[["species"]]))
+  checklist <- data.frame(unique(dt, by= c(covs.present[["species"]],
+                                           covs.present[["authors"]])))
   cols <-
-    c(unlist(covs.present[names(covs.present) %in% c("families", "species")]),
+    c(unlist(covs.present[names(covs.present) %in% c("families", "species", "authors")]),
             "scientific.name")
   checklist <- checklist[, names(checklist) %in% cols]
   checklist$records <- NA
@@ -203,7 +206,6 @@ checkList <- function(x,
 
 
   ## TAXONOMIC CONFIDENCE LEVEL  ##
-
   if (!is.na(covs.present[["taxonomy"]])) {
     # Proportion of validate identifications per species
     colunas <- c(covs.present[["taxonomy"]], covs.present[["species"]])
@@ -332,7 +334,7 @@ checkList <- function(x,
   }
 
   # Still too many vouchers per species?
-  # Add extra steps to downgrad vouchers from the same author,
+  # Add extra steps to downgrade vouchers from the same author,
   #or with bad coordinates for species with too many vouchers of high
   #priority from the same collector or same county?
 
@@ -437,8 +439,11 @@ checkList <- function(x,
     if (is.na(covs.present[["locality"]]) &
         any(!sapply(covs.present[c("countries","state","county")], is.na))) {
       loc.df <- dt[, .SD, .SDcols = c(unlist(covs.present[c("countries","state","county")]))]
-      loc.df <- fixLoc(data.frame(loc.df), scrap = FALSE,
-                       loc.levels = c("country", "stateProvince", "municipality"))
+      loc.df <- fixLoc(x = data.frame(loc.df),
+                       loc.levels = c("country", "stateProvince", "municipality"),
+                       fix.encoding = FALSE,
+                       scrap = FALSE,
+                       to.lower = TRUE)
       loc.df <- strLoc(loc.df)
       loc.df$loc.string  <- prepLoc(loc.df$loc.string)
       loc.df <- getLoc(loc.df)

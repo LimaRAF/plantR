@@ -112,12 +112,8 @@
 #'   prepName("A. Alvarez; A. Zamora & V. Huaraca", out = "aux")
 #'
 #'   # Multiple names separated by commas
-#'   prepName("A. Alvarez, A. Zamora & V. Huaraca") # bad output incorrect
-#'   prepName("A. Alvarez, A. Zamora & V. Huaraca", sep.in=c(",","&")) # output correct
-#'
-#'   # Multiple (last + first) names separated by commas
-#'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(",","&"))  # output incorrect
-#'   prepName("Alvarez, A., Zamora, A. & Huaraca, V.", sep.in=c(".,","&")) # output correct
+#'   prepName("A. Alvarez, A. Zamora & V. Huaraca")
+#'   prepName("Alvarez, A., Zamora, A., Huaraca, V.")
 #'
 prepName <- function(x,
                      fix.names = TRUE,
@@ -139,6 +135,8 @@ prepName <- function(x,
   # check input:
   if (is.null(x) | !class(x)[1] %in% "character")
     stop("Input need to be a string or vector of names")
+
+  x <- squish(x)
 
   # name inside brackets or parentheses? removing here and adding after editions
   bracks <- grepl('^\\[', x, perl = TRUE) & grepl('\\]$', x, perl = TRUE)
@@ -197,7 +195,7 @@ prepName <- function(x,
 
   if (fix.names) {
     patt.split <- paste(sep.out1,
-                        paste0(gsub("^ | $", "", sep.out1, perl = TRUE), "(?=\\p{Lu})"),
+                        paste0(squish(sep.out1), "(?=\\p{Lu})"),
                         sep = "|")
   } else {
     patt.split <- paste0(sep.in1, collapse = "|")
@@ -212,7 +210,8 @@ prepName <- function(x,
 
   if (output %in% c("all", "first")) {
     dt$V1 <- prepTDWG(dt$V1,
-                      format = format, pretty = pretty,
+                      format = format,
+                      pretty = pretty,
                       get.prep = get.prep,
                       get.initials = get.initials)
   }
@@ -221,7 +220,9 @@ prepName <- function(x,
     cols1 <- cols[!cols %in% c("V1", "tmp.ordem")]
     for(i in cols1)
       dt[, i] <- prepTDWG(dt[, i],
-                          format = format, pretty = pretty, get.prep = get.prep,
+                          format = format,
+                          pretty = pretty,
+                          get.prep = get.prep,
                           get.initials = get.initials)
   }
 

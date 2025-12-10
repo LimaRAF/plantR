@@ -36,6 +36,7 @@
 #'   the [World Checklist of Vascular Plants](https://powo.science.kew.org/)
 #'   and [GBIF](https://www.gbif.org/).
 #'
+#' @author Renato A. Ferreira de Lima
 #'
 #' @seealso
 #'  \link[plantR]{fixSpecies}, \link[plantR]{prepSpecies} and
@@ -54,6 +55,7 @@ formatTax <- function(tax,
                       sug.dist = 0.9,
                       clean.indet = TRUE,
                       use.authors = TRUE,
+                      mult.matches = "all",
                       replace.names = TRUE,
                       clean.names = FALSE,
                       split.letters = FALSE,
@@ -101,6 +103,7 @@ formatTax <- function(tax,
                       split.letters = split.letters,
                       parallel = parallel,
                       cores = cores,
+                      mult.matches = mult.matches,
                       drop.cols = drop.cols)
 
   if (use.suggestion) {
@@ -115,7 +118,8 @@ formatTax <- function(tax,
                      fam.name = fam.name,
                      gen.name = gen.name,
                      spp.name = spp.name,
-                     kingdom = kingdom)
+                     kingdom = kingdom,
+                     db = db)
 
   if (use.suggestion) {
     tax1$family.new[!is.na(tax1$suggestedFamily)] <-

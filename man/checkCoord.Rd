@@ -38,13 +38,13 @@ Default to 'decimalLatitude.new'}
 \item{low.map}{a sf multipolygon object containing the global
 administrative map at the lowest level (e.g. country). The
 default is "plantR", the default map obtained from
-[GADM]{https://gadm.org} (see \code{worldMap}).}
+\href{https://gadm.org}{GADM} (see \code{worldMap}).}
 
 \item{high.map}{a sf multipolygon object or a list of sf objects
 containing the regional map at the highest administrative level
 (e.g. municipality). The default is "plantR", the map for all
 Latin American countries and dependent territories  obtained
-[GADM]{https://gadm.org} (see \code{latamMap}).}
+\href{https://gadm.org}{GADM} (see \code{latamMap}).}
 
 \item{res.gazet}{Column with the locality resolution level
 retrieved from the gazetteer}
@@ -90,7 +90,12 @@ these maps which should have the same format of the locality
 information in the gazetteer used for the validation of the
 locality information (see function \code{getLoc()} and the default
 \strong{plantR} maps 'worldMap' and 'latamMap').
+
+The output of this function contains columns which are reserved
+within the \strong{plantR} workflow. These columns cannot be present in
+the input data frame. The full list of reserved columns is stored
+in the internal object \code{reservedColNames}.
 }
 \author{
-Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 }

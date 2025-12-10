@@ -5,29 +5,30 @@
 #'
 #' @param x the character string or vector to be standardized.
 #'
-#' @return the character string equal to \code{x} with the first letter of the
-#'   genus capitalized and the first letter of the (infra-)specific epithet in
-#'   lowercase.
+#' @return the character string equal to \code{x} with the first
+#'   letter of the genus capitalized and the first letter of the
+#'   (infra-)specific epithet in lowercase.
 #'
-#' @details The function try to fix some common upper/lowercase issues in
-#' species names, taking into account the possible presence of name authorities,
-#' as an alternative to the function `fixCase()` from the package `flora`.
+#' @details The function try to fix some common upper/lowercase issues
+#'   in species names, taking into account the possible presence of
+#'   name authorities, as an alternative to the function `fixCase()`
+#'   from the package __flora__.
 #'
 #' It works for names at any taxonomic level (e.g. genus, species and
-#' infra-specific) and it handle well most common combinations of species names
-#' and their authorities. However, the function has not been tested for a wide
-#' range of possibilities, so some level of double-checking may be necessary.
+#' infra-specific) and it handle well most common combinations of
+#' taxon names and their authorities. However, the function does not
+#' work for all range of possibilities (see examples), so some level
+#' of manual double-checking may be necessary.
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
-#' @keywords internal
+#' @export fixCase
 #'
 #' @importFrom stringr str_count fixed str_split regex
 #' @importFrom stringi stri_locate_all
 #'
 #' @examples
 #'
-#' \dontrun{
 #' nomes <- c("Lindsaea lancea", "lindsaea lancea", "lindsaea Lancea",
 #'           "Lindsaea Lancea", "LINDSAEA LANCEA", "Lindsaea lancea var. Angulata",
 #'           "Lindsaea lancea (L.) Bedd.", "Lindsaea Lancea (L.) Bedd.",
@@ -39,10 +40,9 @@
 #'           "LINDSAEA LANCEA ANGULATA Rosenst.",
 #'           "Blechnum antillanum Proctor",
 #'           "Blechnum occidentale leopoldense Dutra",
-#'           "Blechnum occidentale var. leopoldense Dutra")
-#'
+#'           "Blechnum occidentale var. leopoldense Dutra",
+#'           "Richterago Kuntze")
 #' fixCase(nomes)
-#' }
 #'
 fixCase <- function (x) {
 

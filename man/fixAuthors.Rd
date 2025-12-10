@@ -36,14 +36,17 @@ notation:
 
 Besides rare examples of author names starting with lower-case
 prepositions (e.g. 'de', 'van'), authorships should have
-the first letter capitalized, otherwise the function will not
-recognize the start of the authorship.
+the first letter capitalized, otherwise the function will only
+recognize the start of the authorship for very common author
+names (e.g. Kuntze, Baker, Nees, Klotzsch, Mez). The full list of
+common author names is stored in the internal \strong{plantR} object
+\code{commonAuthors}.
 
 In addition, the function is case-sensitive and it assumes that
 there are no issues related to scientific name casing (e.g.
 'Anthurium cf. Amoenum') to separate the scientific name from the
 authorship. So, please make sure there are no casing issues. See
-the \code{plantR} functions \code{fixCase()}
+the \strong{plantR} function \code{fixCase()}
 }
 \examples{
 names <- c("Lindsaea", "Lindsaea sp.",
@@ -56,7 +59,8 @@ names <- c("Lindsaea", "Lindsaea sp.",
  "Casearia sylvestris var. angustifolia",
  "Casearia sylvestris var. angustifolia Uittien",
  "Casearia sylvestris Sw. var. sylvestris",
- "Philodendron sodiroi hort.")
+ "Philodendron sodiroi hort.",
+ "Richterago kuntze")
 
 fixAuthors(names)
 

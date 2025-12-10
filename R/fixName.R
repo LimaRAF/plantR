@@ -127,10 +127,10 @@ fixName <- function(nomes = NULL,
 
   #Trying to solve cases when both initials and multiple people's names are separate by commas
   if (bad.comma) {
+    #Fixing
     check_these <- grepl("^\\p{Lu}\\.", nomes, perl = TRUE) &
       (grepl("\\p{Ll}, \\p{Lu}\\.", nomes, perl = TRUE) |
          grepl("\\p{Ll}, \\p{Lu}\\p{Ll}", nomes, perl = TRUE))
-    #Fixing
     if (any(check_these)) {
       nomes[check_these] <-
         gsub("(\\p{Ll})(,)( \\p{Lu}\\.)", "\\1__\\3",
@@ -148,6 +148,18 @@ fixName <- function(nomes = NULL,
       nomes[check_these] <-
         gsub("(\\p{Ll})(__)( \\p{Lu}\\.\\p{Lu}\\.)(,)", "\\1,\\3__",
              nomes[check_these], perl = TRUE)
+      nomes[check_these] <-
+        gsub("(\\p{Ll})(__ )(\\p{Lu}__)(\\p{Lu}\\p{Ll})", "\\1, \\3\\4",
+             nomes[check_these], perl = TRUE)
+    }
+
+    check_these1 <-
+      grepl("\\p{Lu}\\.,\\s*\\p{Lu}\\p{Ll}", nomes, perl = TRUE)
+    if (any(check_these1)) {
+      nomes[check_these1] <-
+        gsub("(?<=\\p{Lu}\\.),\\s*(?=\\p{Lu})", "\\1__\\2",
+             nomes[check_these1], perl = TRUE)
+      #Reverting particular cases?
     }
   }
 
@@ -256,6 +268,7 @@ fixName <- function(nomes = NULL,
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
   nomes <- gsub(", \\.$", "", nomes, perl = TRUE)
   nomes <- gsub(" , ", ", ", nomes, fixed = TRUE)
+  nomes <- gsub("^'|'$", "", nomes, perl = TRUE)
   nomes <- gsub("__ ,", "__ ", nomes, fixed = TRUE)
   nomes <- gsub("__,", "__", nomes, fixed = TRUE)
 

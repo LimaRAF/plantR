@@ -11,8 +11,9 @@
 #' @param habitat character. The name of the column containing the record
 #'   habitat information. Default to 'habitat'.
 #'
-#' @return The input data frame with an additional column 'cult.check'
-#' with the result of the search for records from cultivated individuals.
+#' @return The input data frame with an additional column called
+#'   'cult.check' containing the result of the search for records from
+#'   cultivated individuals.
 #'
 #' @details The input data frame \code{x} should contain at least one of the
 #'   columns containing the description of the record locality (e.g.
@@ -43,6 +44,11 @@
 #'   area' or 'Presence of exotic species'). But this list is not extensive and
 #'   so this category may need some level of double-checking by the user.
 #'
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
 #' @import data.table
 #'
 #' @examples
@@ -57,7 +63,10 @@
 #'
 #' @export getCult
 #'
-getCult <- function(x, remarks = "occurrenceRemarks", loc.name = "locality", habitat = "habitat") {
+getCult <- function(x,
+                    remarks = "occurrenceRemarks",
+                    loc.name = "locality",
+                    habitat = "habitat") {
 
   #Avoiding warnings in package check when using data.table
   cult.check <- tmp.ordem <- tmp.vrl <- NULL

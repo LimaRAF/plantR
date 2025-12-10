@@ -1,38 +1,45 @@
 #' @title Check Inverted/Swapped Coordinates
 #'
-#' @description The function detects possible inversions and/or swaps in the
-#'   geographical coordinates of the records, by creating all possible
-#'   combinations of inverted and swapped latitude/longitudes (see Details) and
-#'   crossing them with the world map. If the procedure does not found at least
-#'   one inverted/swapped coordinate, the input data is returned without edits,
-#'   even if the desired output is to produce new columns (see `output`).
+#' @description The function detects possible inversions and/or swaps
+#'   in the geographical coordinates of the records, by creating all
+#'   possible combinations of inverted and swapped latitude/longitudes
+#'   (see Details) and crossing them with the world map. If the
+#'   procedure does not found at least one inverted/swapped
+#'   coordinate, the input data is returned without edits, even if the
+#'   desired output is to produce new columns (see `output`).
 #'
 #'
 #' @param x a data frame containing the species records
-#' @param check.names The columns with the results from the coordinate checking,
-#' border checking and sea-shore checking, in that order. Defaults to 'geo.check',
-#' 'border.check' and 'shore.check'.
-#' @param country.gazetteer Name of the column with the country that comes from
-#'   the gazetteer
+#' @param check.names The columns with the results from the coordinate
+#'   checking, border checking and sea-shore checking, in that order.
+#'   Defaults to 'geo.check', 'border.check' and 'shore.check'.
+#' @param country.gazetteer Name of the column with the country that
+#'   comes from the gazetteer
 #' @param lat Column with the corrected latitude. Defaults to
 #'   'decimalLatitude.new'
 #' @param lon Column with the corrected longitude. Defaults to
 #'   'decimalLongitude.new'
-#' @param output a character string with the type of output desired: 'new.col'
-#'   (new column with the newly validated coordinates are added to the input
-#'   data) or 'same.col' (results are overwritten into the existing columns).
+#' @param output a character string with the type of output desired:
+#'   'new.col' (new column with the newly validated coordinates are
+#'   added to the input data) or 'same.col' (results are overwritten
+#'   into the existing columns).
+#' @param world.map a sf object containing the global administrative
+#'   map at the country level. The default is "plantR", the default
+#'   map obtained from [GADM](https://gadm.org) (see `worldMap`).
 #'
-#' @return if `output` is 'new.col', new columns with a suffix '.new' are added
-#'   to the data, containing the update information on the columns defined in
-#'   `check.names`, `lat` and `lon`. If `output` is 'same.col', the columns
-#'   defined by these arguments are updated with the validated information after
-#'   inverting/swapping the coordinates.
+#' @return if `output` is 'new.col', new columns with a suffix '.new'
+#'   are added to the data, containing the update information on the
+#'   columns defined in `check.names`, `lat` and `lon`. If `output` is
+#'   'same.col', the columns defined by these arguments are updated
+#'   with the validated information after inverting/swapping the
+#'   coordinates.
 #'
-#' @details Besides the newly validated geographical coordinates, the function
-#' returns a 'ok_country' followed by the information on which combination of
-#' inverted (change in coordinate signal) and/or swapped coordinates (longitude
-#' as latitude and vice-versa) the validation was acquired. This information is
-#' provided in brackets, as follows:
+#' @details Besides the newly validated geographical coordinates, the
+#'   function returns a 'ok_country' followed by the information on
+#'   which combination of inverted (change in coordinate signal)
+#'   and/or swapped coordinates (longitude as latitude and vice-versa)
+#'   the validation was acquired. This information is provided in
+#'   brackets, as follows:
 #'    - 'invert_lon': inverted longitude
 #'    - 'invert_lat': inverted latitude
 #'    - 'invert_both': inverted longitude and latitude
@@ -43,18 +50,22 @@
 #'
 #' @importFrom sf st_as_sf st_crs st_set_crs st_coordinates st_join st_intersects st_geometry
 #'
-#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. F. de Lima
+#' @author Andrea Sánchez-Tapia, Sara Mortara & Renato A. Ferreira de Lima
 #'
 #' @encoding UTF-8
 #'
 #' @export checkInverted
 #'
 checkInverted <- function(x,
-                          check.names = c("geo.check", "border.check", "shore.check"),
+                          check.names = c("geo.check",
+                                          "border.check",
+                                          "shore.check"),
                           country.gazetteer = "country.gazet",
                           lat = "decimalLatitude.new",
                           lon = "decimalLongitude.new",
-                          output = "new.col") {
+                          output = "new.col",
+                          world.map = "plantR"
+) {
 
   #Escaping R CMD check notes from using dplyr syntax
   worldMap <- worldMap
@@ -74,6 +85,35 @@ checkInverted <- function(x,
   if (!check.names[1] %in% colnames(x))
     stop("The column with the results from the coordinate checking was not found in the input data")
 
+  ##Getting the global map
+  world_map <- NULL
+  if (inherits(world.map, "character")) {
+    if (any(world.map %in% c("plantR", "plantr"))) {
+      world_map <- worldMap
+    } else {
+      stop("Please chose between the default map or a user-provided map")
+    }
+  }
+
+  if (inherits(world.map, "list")) {
+    if (all(sapply(world.map, function(x) class(x)[1]) %in% "sf")) {
+      if(!"NAME_0" %in% names(world.map[[1]]))
+        stop("The sf objects must have a column 'NAME_0': the lowest administrative level")
+
+      world_map <- dplyr::bind_rows(world.map)
+    } else {
+      stop("The user-provided map must be an sf object or a list of sf objects")
+    }
+  }
+
+  if (inherits(world.map, "sf")) {
+    if(!"NAME_0" %in% names(world.map))
+      stop("The global map must have a column 'NAME_0': the lowest administrative level")
+    world_map <- world.map
+  }
+
+  if(is.null(world_map))
+    stop("The user-provided map must be an sf object or a list of sf objects")
 
   ## Check the gazetteer country information
   if (any(grepl("_", x[, country.gazetteer], fixed = TRUE))) {
@@ -154,9 +194,9 @@ checkInverted <- function(x,
       check <- check[!bad.lat, ]
 
     ## Overlaying inverted lonlat data with the world map
-    check <- sf::st_set_crs(check, sf::st_crs(worldMap))
+    check <- sf::st_set_crs(check, sf::st_crs(world_map))
     check1 <- suppressMessages(
-      sf::st_join(check, worldMap, join = sf::st_intersects))
+      sf::st_join(check, world_map, join = sf::st_intersects))
     check1 <- check1[!is.na(check1$NAME_0),]
 
     if (dim(check1)[1] > 0) {

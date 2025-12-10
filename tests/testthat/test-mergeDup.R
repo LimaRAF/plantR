@@ -1,4 +1,4 @@
-## ADD TESTES FOR 'geo' and 'loc'
+## ADD TESTS FOR 'geo' and 'loc'
 
 ## Creating some taxonomic information for merging
 df <- data.frame(
@@ -27,6 +27,12 @@ res0 <- cbind.data.frame(df, df.out)
 
 # Tests
 test_that("mergeDup works", {
+
+  expect_error(mergeDup(TRUE))
+  expect_error(mergeDup(data.frame(character())))
+  expect_error(mergeDup(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
+
   expect_equal(mergeDup(df, info2merge = "tax",
         rec.ID = "ID",
         tax.names = c(family = "fam",

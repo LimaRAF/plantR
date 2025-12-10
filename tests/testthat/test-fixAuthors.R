@@ -22,7 +22,16 @@ test_that("fixAuthors works", {
             "Agarista coriifolia (Thunb.) Hook. f.",
             "Cirsium caput-medusae Schur ex Nyman",
             "Onoseris paniculata ex DC.",
-            "× Argyrautia degeneri Sherff")
+            "× Argyrautia degeneri Sherff",
+            "Rhynchospora vahl",
+            "Araceae Juss.",
+            "Anthurium amoenum Kunth & C.D.Bouche",
+            "Anthurium amoenum var. humile (Schott) Engl.",
+            "Magnoliopsida",
+            "Acacia arborea Benth ex (L.) Willd.",
+            "Humiriastrum aff. dentatum",
+            "Pelargonium × hortorum L.H.Bailey",
+            "Quercus xylina [Scheidw.]")
 
   res <- c("Lindsaea", "Lindsaea sp.", "Lindsaea lancea",
            "Lindsaea lancea", "Parablechnum",
@@ -44,14 +53,25 @@ test_that("fixAuthors works", {
            "Dolichos stipulosus f. angustifoliolata",
            "Agarista coriifolia", "Agarista coriifolia",
            "Cirsium caput-medusae", "Onoseris paniculata",
-           "× Argyrautia degeneri")
+           "× Argyrautia degeneri",
+           "Rhynchospora",
+           "Araceae",
+           "Anthurium amoenum",
+           "Anthurium amoenum var. humile",
+           "Magnoliopsida",
+           "Acacia arborea",
+           "Humiriastrum aff. dentatum",
+           "Pelargonium × hortorum",
+           "Quercus xylina")
   res1 <- c(NA, NA, NA, "(L.) Bedd.", "C.Presl", "Rosenst.",
             "de la Sota", "Dutra", NA, "Uittien", "Sw.", "Sw.", NA,
             "hort.", "Dahlst.apud van Soest", "sensu Hilliard non DC.",
             "Makino", "De la Soie", "Aubl.", "Aubl.", "Aubl.",
             "Aubl.", "Eggers",  "(Baker f. & DC.) Baker",
             "(Thunb.) Hook. f. ex Nied.", "(Thunb.) Hook. f.",
-            "Schur ex Nyman", "ex DC.", "Sherff")
+            "Schur ex Nyman", "ex DC.", "Sherff",
+            "Vahl", "Juss.", "Kunth & C.D.Bouche", "(Schott) Engl.",
+            NA, "Benth ex (L.) Willd.", NA, "L.H.Bailey", "[Scheidw.]")
 
   res_func <- fixAuthors(taxa)
 
@@ -60,5 +80,10 @@ test_that("fixAuthors works", {
   expect_equal(res_func$orig.name, taxa)
   expect_equal(res_func$tax.name, res)
   expect_equal(res_func$tax.author, res1)
+
+  expect_error(fixAuthors())
+  expect_error(fixAuthors(data.frame(character())))
+  expect_error(fixAuthors(data.frame(xxxx = c("Aa bb", "Bb cc"))))
+
 
 })

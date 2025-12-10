@@ -1,82 +1,97 @@
 #' @title Get Locality and Coordinates
 #'
-#' @description This function uses the __plantR__ locality strings to search for
-#'   existing localities and their respective coordinates in a
-#'   \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer}, which can be
-#'   used to replace missing coordinates and in the validation process of the
-#'   locality information and geographical coordinates provided.
+#' @description This function uses the __plantR__ locality strings to
+#'   search for existing localities and their respective coordinates
+#'   in a \href{https://en.wikipedia.org/wiki/Gazetteer}{gazetteer},
+#'   which can be used to replace missing coordinates and in the
+#'   validation process of the locality information and geographical
+#'   coordinates provided.
 #'
-#' @param x a data.frame containing the strings for locality search. See details
-#'   for the specifications of this data frame.
-#' @param str.names a vector of at least two columns names containing the
-#'   locality resolution and search string(s), in that order. Defaults to
-#'   'resol.orig', 'loc.string', 'loc.string1' and 'loc.string2'.
-#' @param gazet a data.frame containing the gazetteer. The default is "plantR",
-#'   the internal __plantR__ gazetteer (biased towards Latin America).
-#' @param gazet.names a vector of at least four columns names containing the
-#'   locality search string, latitude and longitude, in that order. If
-#'   available, the resolution of the gazetteer can be provided as a fifth name.
-#'   Defaults to columns names of the __plantR__ gazetteer: 'loc',
-#'   'loc.correct', 'latitude.gazetteer', 'longitude.gazetteer' and
-#'   'resolution.gazetteer'.
-#' @param orig.names logical. Should the original columns names of the gazetteer
-#'   be preserved. Default to FALSE.
+#' @param x a data.frame containing the strings for locality search.
+#'   See details for the specifications of this data frame.
+#' @param str.names a vector of at least two columns names containing
+#'   the locality resolution and search string(s), in that order.
+#'   Defaults to 'resol.orig', 'loc.string', 'loc.string1' and
+#'   'loc.string2'.
+#' @param gazet a data.frame containing the gazetteer. The default is
+#'   "plantR", the internal __plantR__ gazetteer (biased towards Latin
+#'   America).
+#' @param gazet.names a vector of at least four columns names
+#'   containing the locality search string, latitude and longitude, in
+#'   that order. If available, the resolution of the gazetteer can be
+#'   provided as a fifth name. Defaults to columns names of the
+#'   __plantR__ gazetteer: 'loc', 'loc.correct', 'latitude.gazetteer',
+#'   'longitude.gazetteer' and 'resolution.gazetteer'.
+#' @param orig.names logical. Should the original columns names of the
+#'   gazetteer be preserved. Default to FALSE.
 #'
-#' @return The data frame \code{x}, with the new columns retrieved from the
-#'   gazetteer. More specifically, it returns the string used for the search in
-#'   the gazetteer (column 'loc'), the string retrieved (if any, column
-#'   'loc.correct'), the geographical coordinates (in decimal degrees) and the
-#'   resolution associated with the string retrieved (columns
-#'   'latitude.gazetteer', 'longitude.gazetteer', and 'resolution.gazetteer',
-#'   respectively) and the associated resolution.
+#' @return The data frame \code{x}, with the new columns retrieved
+#'   from the gazetteer. More specifically, it returns the string used
+#'   for the search in the gazetteer (column 'loc'), the string
+#'   retrieved (if any, column 'loc.correct'), the geographical
+#'   coordinates (in decimal degrees) and the resolution associated
+#'   with the string retrieved (columns 'latitude.gazetteer',
+#'   'longitude.gazetteer', and 'resolution.gazetteer', respectively)
+#'   and the associated resolution.
 #'
-#' @details The function was initially designed as part of a larger routine to
-#'   edit and validate locality information from plant occurrence data. It is
-#'   possible to use it separately, but it may be easier to use it under the
-#'   workflow presented in the __plantR__ manual. If used separately, users must
-#'   provide a data frame with at least two columns ('resol.orig' and
-#'   'loc.string'). Other locality strings ('loc.string1' and 'loc.string2') may
-#'   also be provided and in this case, these additional strings are used to
-#'   search for information below the municipality/county level, that is, to
-#'   retrieve from the gazetteer information at the locality level or below. If
-#'   these columns have different names in \code{x}, these names can be supplied
-#'   using, the argument `str.names`. See Examples below.
+#' @details The function was initially designed as part of a larger
+#'   routine to edit and validate locality information from plant
+#'   occurrence data. It is possible to use it separately, but it may
+#'   be easier to use it under the workflow presented in the
+#'   __plantR__ manual. If used separately, users must provide a data
+#'   frame with at least two columns ('resol.orig' and 'loc.string').
+#'   Other locality strings ('loc.string1' and 'loc.string2') may also
+#'   be provided and in this case, these additional strings are used
+#'   to search for information below the municipality/county level,
+#'   that is, to retrieve from the gazetteer information at the
+#'   locality level or below. If these columns have different names in
+#'   \code{x}, these names can be supplied using, the argument
+#'   `str.names`. See Examples below.
 #'
-#'   The default __plantR__ gazetteer includes information for all countries at
-#'   the country level (i.e. administrative level 0) and at the lowest
-#'   administrative level available for all Latin at GDAM
-#'   (\url{https://gadm.org}) for 51 Latin American countries. For Brazil, the
-#'   gazetteer also contains information at the locality level (e.g. farms,
-#'   forest fragments, parks), obtained from [IBGE](https://www.ibge.gov.br/),
+#'   The default __plantR__ gazetteer includes information for all
+#'   countries at the country level (i.e. administrative level 0) and
+#'   at the lowest administrative level available for all Latin at
+#'   [GADM](https://gadm.org) for 51 Latin American countries. For
+#'   Brazil, the gazetteer also contains information at the locality
+#'   level (e.g. farms,forest fragments, parks), obtained from
+#'   [IBGE](https://www.ibge.gov.br/),
 #'   [CNCFlora](http://cncflora.jbrj.gov.br) and
 #'   [TreeCo](http://labtrop.ib.usp.br/doku.php?id=projetos:treeco:start)
-#'   databases. It also includes common spelling variants and historical changes
-#'   to locality names (currently biased for Brazil) and more common notation
-#'   variants of locality names found in the locality description of records
-#'   from GBIF, speciesLink and JABOT databases (include few type localities).
-#'   In total the gazetteer has nearly 25,000 locality names associated with a
+#'   databases. It also includes common spelling variants and
+#'   historical changes to locality names (currently biased for
+#'   Brazil) and more common notation variants of locality names found
+#'   in the locality description of records from GBIF, speciesLink and
+#'   JABOT databases (include few type localities). In total the
+#'   gazetteer has nearly 25,000 locality names associated with a
 #'   valid geographical coordinates.
 #'
-#'   A different gazetteer than the __plantR__ default can be used. This
-#'   gazetteer must be provided using the argument `gazet` and it must contain
-#'   the columns 'loc' (search string), 'loc.correct' (correct string),
-#'   'latitude.gazetteer', 'longitude.gazetteer' (in decimal degrees) and
-#'   'resolution.gazetteer' (e.g. country, state, etc). If the names for these
-#'   columns are different, they can be supplied using argument `gazet.names`.
+#'   A different gazetteer than the __plantR__ default can be used.
+#'   This gazetteer must be provided using the argument `gazet` and it
+#'   must contain the columns 'loc' (search string), 'loc.correct'
+#'   (correct string), 'latitude.gazetteer', 'longitude.gazetteer' (in
+#'   decimal degrees) and 'resolution.gazetteer' (e.g. country, state,
+#'   etc). If the names for these columns are different, they can be
+#'   supplied using argument `gazet.names`.
 #'
-#'   It is important to stress that the retrieval of locality information
-#'   depends on the completeness of the gazetteer itself. So, if a query does
-#'   not find a "valid" locality, it does not necessarily mean that the locality
-#'   does not exist or that its notation is wrong. It can simply mean that the
-#'   gazetteer is incomplete for the region you are working with. The gazetteer
-#'   is permanently being improved. If you find an error or if you want to
-#'   contribute with region-specific gazetteers, please send an email to
-#'   <raflima@usp.br>.
+#'   It is important to stress that the retrieval of locality
+#'   information depends on the completeness of the gazetteer itself.
+#'   So, if a query does not find a "valid" locality, it does not
+#'   necessarily mean that the locality does not exist or that its
+#'   notation is wrong. It can simply mean that the gazetteer is
+#'   incomplete for the region you are working with. The gazetteer is
+#'   permanently being improved. If you find an error or if you want
+#'   to contribute with region-specific gazetteers, please send an
+#'   email to <raflima@usp.br>.
 #'
-#' @author Renato A. F. de Lima
+#' The output of this function contains columns which are reserved
+#' within the __plantR__ workflow. These columns cannot be present in
+#' the input data frame. The full list of reserved columns is stored
+#' in the internal object `reservedColNames`.
+#'
+#' @author Renato A. Ferreira de Lima
 #'
 #' @importFrom dplyr left_join
-#' @importFrom stringr str_count
+#' @importFrom stringr str_count fixed
 #'
 #' @export getLoc
 #'
@@ -174,31 +189,37 @@ getLoc <- function(x,
 
   # List of columns and categories to be used in the manipulation
   cols.repl <- cols.gazet[-1]
-  resol.gazet <- c("localidade", "localidade|sublocalidade", "sublocalidade",
-                   "distrito|vila", "distrito", "distrito|bairro", "bairro",
-                   "cachoeira", "mina", "vila", "serra")
+  resol.gazet <- c("locality", "sublocality")
 
   # merging the occurrence data with the gazetteer information
-  tmp <- dplyr::left_join(data.frame(loc = x1[,2], stringsAsFactors= FALSE),
-                          dic, by = "loc")
-  # Downgrading the locality resolution for the localities not found in the gazetteer
+  tmp <- dplyr::left_join(data.frame(loc = x1[,2]), dic, by = "loc")
+  # Downgrading the locality resolution when not found in the gazetteer
   tmp1 <- tmp$loc[!is.na(tmp$loc) & is.na(tmp$loc.correct)]
   if (length(tmp1) > 0) {
-    if (any(stringr::str_count(tmp1, "_") == 1))
-      tmp1[stringr::str_count(tmp1, "_") == 1] <-
-        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 1], "_"), function(x) x[1])
-    if (any(stringr::str_count(tmp1, "_") == 2))
-      tmp1[stringr::str_count(tmp1, "_") == 2] <-
-        sapply(strsplit(tmp1[stringr::str_count(tmp1, "_") == 2], "_"), function(x) paste(x[1], x[2], sep = "_"))
 
-    tmp2 <- dplyr::left_join(data.frame(loc=tmp1, stringsAsFactors= FALSE),
+    n.under <- stringr::str_count(tmp1, stringr::fixed("_"))
+    if (any(n.under == 1))
+      tmp1[n.under == 1] <-
+        gsub("_.*", "", tmp1[n.under == 1], perl = TRUE)
+
+    if (any(n.under == 2))
+      tmp1[n.under == 2] <-
+        sapply(strsplit(tmp1[n.under == 2], "_", fixed = TRUE),
+               function(x) paste(x[1], x[2], sep = "_"))
+
+    if (any(n.under > 2))
+      tmp1[n.under > 2] <-
+        sapply(strsplit(tmp1[n.under > 2], "_", fixed = TRUE),
+             function(x) paste(x[1], x[2], sep = "_"))
+
+    tmp2 <- dplyr::left_join(data.frame(loc = tmp1),
                              dic, by = "loc")
 
     #if nothing is found in the gazetteer, we finally try at country level:
     tmp3 <- tmp2$loc[is.na(tmp2$loc.correct)]
     if (length(tmp3) > 0) {
-      tmp3 <- sapply(strsplit(tmp3,"_"), function(x) x[1])
-      tmp3 <- dplyr::left_join(data.frame(loc=tmp3, stringsAsFactors= FALSE),
+      tmp3 <- gsub("_.*", "", tmp3, perl = TRUE)
+      tmp3 <- dplyr::left_join(data.frame(loc = tmp3),
                                dic, by = "loc")
       tmp2[is.na(tmp2$loc.correct), cols.repl] <-
         tmp3[ ,cols.repl]
@@ -210,33 +231,58 @@ getLoc <- function(x,
 
   ## Getting coordinates from the gazetteer - locality level
   if ("loc.string1" %in% names(x1)) {
-    dic1 <- dic[dic$resolution.gazetteer %in% resol.gazet,]
-    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3], stringsAsFactors= FALSE),
-                             dic1, by = "loc")
-    # Replacing coordinates at county level by those found at locality level
-    tmp[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "county" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
 
-    # Replacing coordinates at state level by those found at locality level (rare but can happen due to missing counties)
-    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "state" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
-    # Replacing coordinates at country level by those found at locality level due to missing state and counties
-    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), cols.gazet] <-
-      tmp3[tmp$resolution.gazetteer %in% "country" & !is.na(tmp3$resolution.gazetteer), cols.gazet]
-    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <- "locality"
+    ## at the locality level
+    dic1 <- dic[dic$resolution.gazetteer %in% resol.gazet,]
+    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3]), dic1, by = "loc")
+
+    rep_these <- !is.na(tmp3$resolution.gazetteer)
+    if (any(rep_these)) {
+      # Replacing coordinates at county level by those found at locality level
+      tmp[tmp$resolution.gazetteer %in% "county" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "county" & rep_these, cols.gazet]
+      # Replacing coordinates at state level by those found at locality level (rare but can happen due to missing counties)
+      tmp[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet]
+      # Replacing coordinates at country level by those found at locality level due to missing state and counties
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <-
+        "locality"
+    }
+
+    ## at the county level without states
+    dic1 <- dic[dic$resolution.gazetteer %in% "county",]
+    tmp3 <- dplyr::left_join(data.frame(loc=x1[,3]), dic1, by = "loc")
+
+    rep_these <- !is.na(tmp3$resolution.gazetteer)
+    if (any(rep_these)) {
+      # Replacing coordinates at country level by those found at locality level
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp3[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% "country" & rep_these] <-
+        "county"
+    }
+
+
   }
 
   ## getting coordinates from the gazetteer - county level extracted from the locality (not 100% sure? needs validation)
   if ("loc.string2" %in% names(x1)) {
-    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4], stringsAsFactors = FALSE),
-                             dic, by = "loc")
-    # replacing coordinates at state level by those found at county level
-    tmp[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), cols.gazet] <-
-      tmp4[tmp$resolution.gazetteer %in% "state" & !is.na(tmp4$resolution.gazetteer), cols.gazet]
-    # Replacing coordinates at country level by those found at locality level due to missing state and counties
-    tmp[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), cols.gazet] <-
-      tmp4[tmp$resolution.gazetteer %in% "country" & !is.na(tmp4$resolution.gazetteer), cols.gazet]
-    tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <- "locality"
+    tmp4 <- dplyr::left_join(data.frame(loc = x1[,4]), dic,
+                             by = "loc")
+
+    rep_these <- !is.na(tmp4$resolution.gazetteer)
+    if (any(rep_these)) {
+      # replacing coordinates at state level by those found at county level
+      tmp[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet] <-
+        tmp4[tmp$resolution.gazetteer %in% "state" & rep_these, cols.gazet]
+      # Replacing coordinates at country level by those found at locality level due to missing state and counties
+      tmp[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet] <-
+        tmp4[tmp$resolution.gazetteer %in% "country" & rep_these, cols.gazet]
+      tmp$resolution.gazetteer[tmp$resolution.gazetteer %in% resol.gazet] <-
+        "locality"
+    }
   }
 
   ## Assigning the "no_info" category for localities not found at the gazetteer

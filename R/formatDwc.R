@@ -22,8 +22,8 @@
 #'  in DwC standard
 #' @param bind_data Logical. Either to bind data from different
 #'   sources after formatting
-#' @param drop Logical. Either to drop non-essential fields to the
-#'   data cleaning routine performed by plantR
+#' @param drop Logical. Either to drop or not the non-essential fields
+#'   to the data cleaning routine performed by plantR
 #' @param drop.opt Logical. Either to drop optional fields in the data
 #'   cleaning routine performed by plantR
 #' @param drop.empty Logical. Either to drop fields where all values
@@ -77,7 +77,7 @@
 #'   geographic longitude (in decimal degrees, using the spatial
 #'   reference system given in geodeticDatum) of the geographic center
 #'   of a Location. Positive values are east of the Greenwich
-#'   Meridian, negative values are west of it. Legal values lie
+#'   Meridian, negative values are west of it. Possible values lie
 #'   between -180 and 180, inclusive
 #' @param identifiedBy The name of the column containing a list
 #'   (concatenated and separated) of names of people, groups, or
@@ -87,8 +87,8 @@
 #' @param typeStatus The name of the column containing a nomenclatural
 #'   type (type status, typified scientific name, publication) applied
 #'   to the subject
-#' @param family The name of the column containing the family in which
-#'   the taxon is classified.
+#' @param family The name of the column containing the taxonomic
+#'   family in which the taxon is classified.
 #' @param scientificName The name of the column containing the full
 #'   scientific name, with authorship and date information if known.
 #'   When forming part of an Identification, this should be the name
@@ -269,29 +269,47 @@ formatDwc <- function(splink_data = NULL,
       }
     }
 
+    # Variable type issues
+    cand_cols <- c("recordNumber")
+    for (i in seq_along(cand_cols)) {
+      if (cand_cols[i] %in% names(splink_data))
+        if (inherits(splink_data[[cand_cols[i]]], "character")) {
+          rep_these <- grepl("\\.0$", splink_data[[cand_cols[i]]],
+                             perl = TRUE) &
+            suppressWarnings(!is.na(as.numeric(splink_data[[cand_cols[i]]])))
+        }
+      if (any(rep_these))
+        splink_data[[cand_cols[i]]][rep_these] <-
+          sub("\\.0$","", splink_data[[cand_cols[i]]][rep_these],
+              perl = TRUE)
+    }
+
   }
 
   # formating gbif data --------------------------------------------------------
   if (!is.null(gbif_data)) {
     # fixing problematic GBIF names
-    tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)]
-    tmp1 <- sapply(tmp,
-                   function(x)
-                     utils::tail(unlist(strsplit(x, "([a-z])\\.(?=[a-zA-Z])",
-                                                 perl = TRUE)), n = 1))
+    tmp <- names(gbif_data)[grepl("\\.\\.", names(gbif_data),
+                                  perl = TRUE)]
+    tmp1 <- gsub(".*([a-z])\\.(?=[a-zA-Z])", "", tmp, perl = TRUE)
     tmp[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)] <-
       tmp1[!duplicated(tmp1) & !tmp1 %in% names(gbif_data)]
-    names(gbif_data)[grepl("\\.\\.", names(gbif_data), perl = TRUE)] <- tmp
+    names(gbif_data)[grepl("\\.\\.", names(gbif_data),
+                           perl = TRUE)] <- tmp
 
     # required absent fields in gbif: scientificNameAuthorship
     miss.cols <- must[!must %in% names(gbif_data)]
     # Creating field scientificNameAuthorship
-    species <- as.character(unique(gbif_data$scientificName))
-    species_split <- fixAuthors(species)
-    df <- data.frame(scientificName = squish(species_split$tax.name),
-                     scientificNameAuthorship = squish(species_split$tax.author))
-    gbif_data <- suppressMessages(dplyr::left_join(gbif_data, df,
-                                                   by = 'scientificName'))
+    if (!"scientificNameAuthorship" %in% names(gbif_data)) {
+      species <- as.character(unique(gbif_data$scientificName))
+      species_split <- fixAuthors(species)
+      names(species_split) <- c("scientificName", "tax.name",
+                                "scientificNameAuthorship")
+      df <- dplyr::left_join(gbif_data, species_split,
+                             by = 'scientificName')
+      gbif_data$scientificNameAuthorship <-
+        df$scientificNameAuthorship
+    }
 
     # optional absent fields
     if (!drop.opt) {
