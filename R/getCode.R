@@ -113,6 +113,10 @@ getCode <- function(x,
   ### Crossing with the herbaria list ###
   data.table::setkeyv(dt, "cod.coll.tmp")
 
+  #Cleaning
+  dt[ , cod.coll.tmp := sub("-$|_$", "", cod.coll.tmp, perl = TRUE) ,
+      by = "cod.coll.tmp"]
+
   # Getting the search string for the data
   dt[ , collection.string := do.call(paste, c(.SD, sep="_")),
       .SDcols = c("cod.coll.tmp","cod.inst.tmp")]
