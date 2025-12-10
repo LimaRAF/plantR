@@ -56,34 +56,20 @@ names_fixed[,-c(2,4)]
 ```
 
 ``` shadebox
-#>                              scientificName
-#> 1             Apis mellifera Linnaeus, 1758
-#> 2                             Apis melifera
-#> 3                        Apis cf. mellifera
-#> 4                      Ancyloscelis armatus
-#> 5                             Centris aenea
-#> 6                              Centris rufa
-#> 7  Centris Rhodoprocta Moure & Seabra, 1960
-#> 8                        Lutjanus purpureus
-#> 9                 Parotocinclus amazonensis
-#> 10                            Panthera onca
-#> 11         Solenopsis bicolor (Emery, 1906)
-#> 12         Eucopricus columbi MacLeay, 1819
-#> 13                          Eucopricus sp.1
-#>           scientificName.new
-#> 1             Apis mellifera
-#> 2              Apis melifera
-#> 3             Apis mellifera
-#> 4       Ancyloscelis armatus
-#> 5              Centris aenea
-#> 6               Centris rufa
-#> 7        Centris rhodoprocta
-#> 8         Lutjanus purpureus
-#> 9  Parotocinclus amazonensis
-#> 10             Panthera onca
-#> 11        Solenopsis bicolor
-#> 12        Eucopricus columbi
-#> 13           Eucopricus sp.1
+#>                              scientificName        scientificName.new
+#> 1             Apis mellifera Linnaeus, 1758            Apis mellifera
+#> 2                             Apis melifera             Apis melifera
+#> 3                        Apis cf. mellifera            Apis mellifera
+#> 4                      Ancyloscelis armatus      Ancyloscelis armatus
+#> 5                             Centris aenea             Centris aenea
+#> 6                              Centris rufa              Centris rufa
+#> 7  Centris Rhodoprocta Moure & Seabra, 1960       Centris rhodoprocta
+#> 8                        Lutjanus purpureus        Lutjanus purpureus
+#> 9                 Parotocinclus amazonensis Parotocinclus amazonensis
+#> 10                            Panthera onca             Panthera onca
+#> 11         Solenopsis bicolor (Emery, 1906)        Solenopsis bicolor
+#> 12         Eucopricus columbi MacLeay, 1819        Eucopricus columbi
+#> 13                          Eucopricus sp.1           Eucopricus sp.1
 #>                scientificNameStatus
 #> 1                    name_w_authors
 #> 2                       possibly_ok
@@ -134,62 +120,34 @@ names_valid[,-c(2,3,4,9,11)]
 ```
 
 ``` shadebox
-#>                              scientificName
-#> 1             Apis mellifera Linnaeus, 1758
-#> 2                             Apis melifera
-#> 3                        Apis cf. mellifera
-#> 4                      Ancyloscelis armatus
-#> 5                             Centris aenea
-#> 6                              Centris rufa
-#> 7  Centris Rhodoprocta Moure & Seabra, 1960
-#> 8                        Lutjanus purpureus
-#> 9                 Parotocinclus amazonensis
-#> 10                            Panthera onca
-#> 11         Solenopsis bicolor (Emery, 1906)
-#> 12         Eucopricus columbi MacLeay, 1819
-#> 13                          Eucopricus sp.1
-#>                scientificNameStatus suggestedFamily
-#> 1                    name_w_authors          Apidae
-#> 2                       possibly_ok          Apidae
-#> 3                          conferre          Apidae
-#> 4                       possibly_ok          Apidae
-#> 5                       possibly_ok          Apidae
-#> 6                       possibly_ok          Apidae
-#> 7  name_w_wrong_case|name_w_authors          Apidae
-#> 8                       possibly_ok      Lutjanidae
-#> 9                       possibly_ok    Loricariidae
-#> 10                      possibly_ok         Felidae
-#> 11                   name_w_authors      Formicidae
-#> 12                   name_w_authors    Scarabaeidae
-#> 13                            indet    Scarabaeidae
-#>                suggestedName  suggestedAuthorship
-#> 1             Apis mellifera       Linnaeus, 1758
-#> 2             Apis mellifera       Linnaeus, 1758
-#> 3             Apis mellifera       Linnaeus, 1758
-#> 4     Ancyloscelis apiformis    (Fabricius, 1793)
-#> 5              Centris aenea     Lepeletier, 1841
-#> 6              Centris aenea     Lepeletier, 1841
-#> 7        Centris rhodoprocta Moure & Seabra, 1960
-#> 8       Lutjanus campechanus         (Poey, 1860)
-#> 9  Parotocinclus amazonensis      Garavello, 1977
-#> 10             Panthera onca     (Linnaeus, 1758)
-#> 11        Solenopsis bicolor        (Emery, 1906)
-#> 12     Sulcophanaeus columbi      (MacLeay, 1819)
-#> 13             Sulcophanaeus   d'Olsoufieff, 1924
-#>               tax.notes
-#> 1         name accepted
-#> 2       name misspelled
-#> 3         name accepted
-#> 4      replaced synonym
-#> 5         name accepted
-#> 6      replaced synonym
-#> 7         name accepted
-#> 8      replaced synonym
-#> 9  synonym not replaced
-#> 10        name accepted
-#> 11        name accepted
-#> 12     replaced synonym
-#> 13     replaced synonym
+#>                              scientificName             scientificNameStatus
+#> 1             Apis mellifera Linnaeus, 1758                   name_w_authors
+#> 2                             Apis melifera                      possibly_ok
+#> 3                        Apis cf. mellifera                         conferre
+#> 4                      Ancyloscelis armatus                      possibly_ok
+#> 5                             Centris aenea                      possibly_ok
+#> 6                              Centris rufa                      possibly_ok
+#> 7  Centris Rhodoprocta Moure & Seabra, 1960 name_w_wrong_case|name_w_authors
+#> 8                        Lutjanus purpureus                      possibly_ok
+#> 9                 Parotocinclus amazonensis                      possibly_ok
+#> 10                            Panthera onca                      possibly_ok
+#> 11         Solenopsis bicolor (Emery, 1906)                   name_w_authors
+#> 12         Eucopricus columbi MacLeay, 1819                   name_w_authors
+#> 13                          Eucopricus sp.1                            indet
+#>    suggestedFamily             suggestedName  suggestedAuthorship            tax.notes
+#> 1           Apidae            Apis mellifera       Linnaeus, 1758        name accepted
+#> 2           Apidae            Apis mellifera       Linnaeus, 1758      name misspelled
+#> 3           Apidae            Apis mellifera       Linnaeus, 1758        name accepted
+#> 4           Apidae    Ancyloscelis apiformis    (Fabricius, 1793)     replaced synonym
+#> 5           Apidae             Centris aenea     Lepeletier, 1841        name accepted
+#> 6           Apidae             Centris aenea     Lepeletier, 1841     replaced synonym
+#> 7           Apidae       Centris rhodoprocta Moure & Seabra, 1960        name accepted
+#> 8       Lutjanidae      Lutjanus campechanus         (Poey, 1860)     replaced synonym
+#> 9     Loricariidae Parotocinclus amazonensis      Garavello, 1977 synonym not replaced
+#> 10         Felidae             Panthera onca     (Linnaeus, 1758)        name accepted
+#> 11      Formicidae        Solenopsis bicolor        (Emery, 1906)        name accepted
+#> 12    Scarabaeidae     Sulcophanaeus columbi      (MacLeay, 1819)     replaced synonym
+#> 13    Scarabaeidae             Sulcophanaeus   d'Olsoufieff, 1924     replaced synonym
 #>                           scientificNameFull
 #> 1              Apis mellifera Linnaeus, 1758
 #> 2              Apis mellifera Linnaeus, 1758
@@ -287,48 +245,20 @@ names_valid[, c("scientificName.new","scientificNameFull","tax.notes")]
 ```
 
 ``` shadebox
-#>           scientificName.new
-#> 1             Apis mellifera
-#> 2              Apis melifera
-#> 3             Apis mellifera
-#> 4       Ancyloscelis armatus
-#> 5              Centris aenea
-#> 6               Centris rufa
-#> 7        Centris rhodoprocta
-#> 8         Lutjanus purpureus
-#> 9  Parotocinclus amazonensis
-#> 10             Panthera onca
-#> 11        Solenopsis bicolor
-#> 12        Eucopricus columbi
-#> 13           Eucopricus sp.1
-#>                           scientificNameFull
-#> 1              Apis mellifera Linnaeus, 1758
-#> 2              Apis mellifera Linnaeus, 1758
-#> 3              Apis mellifera Linnaeus, 1758
-#> 4   Ancyloscelis apiformis (Fabricius, 1793)
-#> 5             Centris aenea Lepeletier, 1841
-#> 6             Centris aenea Lepeletier, 1841
-#> 7   Centris rhodoprocta Moure & Seabra, 1960
-#> 8          Lutjanus campechanus (Poey, 1860)
-#> 9  Parotocinclus amazonensis Garavello, 1977
-#> 10            Panthera onca (Linnaeus, 1758)
-#> 11          Solenopsis bicolor (Emery, 1906)
-#> 12     Sulcophanaeus columbi (MacLeay, 1819)
-#> 13          Sulcophanaeus d'Olsoufieff, 1924
-#>               tax.notes
-#> 1         name accepted
-#> 2       name misspelled
-#> 3         name accepted
-#> 4      replaced synonym
-#> 5         name accepted
-#> 6      replaced synonym
-#> 7         name accepted
-#> 8      replaced synonym
-#> 9  synonym not replaced
-#> 10        name accepted
-#> 11        name accepted
-#> 12     replaced synonym
-#> 13     replaced synonym
+#>           scientificName.new                        scientificNameFull            tax.notes
+#> 1             Apis mellifera             Apis mellifera Linnaeus, 1758        name accepted
+#> 2              Apis melifera             Apis mellifera Linnaeus, 1758      name misspelled
+#> 3             Apis mellifera             Apis mellifera Linnaeus, 1758        name accepted
+#> 4       Ancyloscelis armatus  Ancyloscelis apiformis (Fabricius, 1793)     replaced synonym
+#> 5              Centris aenea            Centris aenea Lepeletier, 1841        name accepted
+#> 6               Centris rufa            Centris aenea Lepeletier, 1841     replaced synonym
+#> 7        Centris rhodoprocta  Centris rhodoprocta Moure & Seabra, 1960        name accepted
+#> 8         Lutjanus purpureus         Lutjanus campechanus (Poey, 1860)     replaced synonym
+#> 9  Parotocinclus amazonensis Parotocinclus amazonensis Garavello, 1977 synonym not replaced
+#> 10             Panthera onca            Panthera onca (Linnaeus, 1758)        name accepted
+#> 11        Solenopsis bicolor          Solenopsis bicolor (Emery, 1906)        name accepted
+#> 12        Eucopricus columbi     Sulcophanaeus columbi (MacLeay, 1819)     replaced synonym
+#> 13           Eucopricus sp.1          Sulcophanaeus d'Olsoufieff, 1924     replaced synonym
 ```
 
 Or, even simpler, using the wrapper `formatTax()`:

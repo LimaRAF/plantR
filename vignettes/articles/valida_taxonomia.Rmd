@@ -43,19 +43,18 @@ devtools::load_all() # for development
 
 # Introduction
 
-One of the most important steps in managing and using information from
-biological datasets is the management of taxonomic nomenclature. Taxon
-names need to be correctly spelled and we should use their currently
+One of the most important steps in using information from biological
+datasets is the management of taxonomic nomenclature. Taxon names need
+to be correctly spelled and we should use only their currently
 accepted names based on a given taxonomic backbone (Lima et al. in
 prep.). However, there are many small corrections and standardizations
 that need to be made before one can cross-validate taxonomic
-nomenclature, which can become quite burdensome as the size of the
+nomenclature, which becomes quite burdensome as the size of the
 dataset increases.
 
 __plantR__ provides tools to format, spell-check and validate taxon
-names at the family and species levels and using different taxonomic
-backbones. The default backbone used by __plantR__ is the 
-[Flora e Funga do Brasil](https://floradobrasil.jbrj.gov.br/consulta). 
+names using different taxonomic backbones. The default backbone used
+by __plantR__ is the [Flora e Funga do Brasil](https://floradobrasil.jbrj.gov.br/consulta). 
 However, any taxonomic backbone can be used, as long as it has a
 specific content and format. The companion R package __plantRdata__
 provides other backbones already in this specific format from the
