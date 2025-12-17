@@ -58,6 +58,9 @@ dic <- lapply(dic, as.data.frame)
 ### create existing named objects
 admin <- dic$admin
 collectionCodes <- dic$collectionCodes
+collectionCodes <- dic$collectionCodes
+repcols <- c("collectioncode.gbif", "institutioncode.gbif", "index.herbariorum.or.working.code")
+collectionCodes[collectionCodes$collection.string == "NA_NA", repcols] <- "NA"
 familiesSynonyms <- dic$familiesSynonyms
 fieldNames <- dic$fieldNames
 gazetteer <- dic$gazetteer
