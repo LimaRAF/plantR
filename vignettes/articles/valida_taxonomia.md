@@ -7,31 +7,32 @@
 # Introduction
 
 One of the most important steps in using information from biological
-datasets is the management of taxonomic nomenclature. Taxon names need
-to be correctly spelled and we should use only their currently accepted
-names based on a given taxonomic backbone (Lima et al. in prep.).
-However, there are many small corrections and standardizations that need
-to be made before one can cross-validate taxonomic nomenclature, which
-becomes quite burdensome as the size of the dataset increases.
+datasets is the management of taxon names. They need to be correctly
+spelled and we should use only their currently accepted names based on a
+given taxonomic backbone (Lima et al. in prep.). However, there are many
+small corrections and standardizations that need to be made before one
+can cross-validate taxonomic nomenclature, which becomes quite
+burdensome as the size of the dataset increases.
 
 **plantR** provides tools to format, spell-check and validate taxon
-names using different taxonomic backbones. The default backbone used by
+names using any taxonomic backbone. The default backbone used by
 **plantR** is the [Flora e Funga do
 Brasil](https://floradobrasil.jbrj.gov.br/consulta). However, any
 taxonomic backbone can be used, as long as it has a specific content and
 format. The companion R package **plantRdata** provides other backbones
 already in this specific format from the [World Flora
 Online](https://www.worldfloraonline.org/), the [World Checklist of
-Vascular Plants](https://powo.science.kew.org/) and
-[GBIF](https://www.gbif.org/).
+Vascular Plants](https://powo.science.kew.org/),
+[GBIF](https://www.gbif.org/) and the [Taxonomic Catalog of the
+Brazilian Fauna](https://fauna.jbrj.gov.br)
 
-To simplify the process, the management of taxonomic nomenclature in
-**plantR** can be simply done using the wrapper function `formatTax()`
-(see the section [Brief code summary](#brief-code-summary) below). But
-first, we will explain in detail each step and function to manage
-taxonomy within **plantR**. These functions can be applied individually,
-as we will show below, but the management of taxonomic nomenclature is
-potentialised when they are executed in a specific order.
+The management of taxonomy in **plantR** can be simply done using the
+wrapper function `formatTax()` (see the section [Brief code
+summary](#brief-code-summary) below). But first, we will explain in
+detail each step and function to manage taxonomy within **plantR**.
+These functions can be applied individually, as we will show below, but
+the management of taxonomic nomenclature is potentialised when they are
+executed in a specific order.
 
 <br/><br/>
 
@@ -53,21 +54,35 @@ library("plantR")
 
 For this tutorial, we will also need the global taxonomic backbones
 available from the companion R package **plantRdata**. Installing this
-package takes a couple of minutes as well because it stores some large
-files (\>10 MB).
+package takes a couple of minutes as well, as it stores some large files
+(\>10 MB).
 
 ``` r
 install_github("LimaRAF/plantRdata")
 ```
 
+If you run into problems while installing **plantRdata**, remember that
+it just stores the large files that we need for this tutorial. So, you
+can simply download and load them into R using:
+
+``` r
+temp_file <- tempfile()
+download.file("https://raw.github.com/LimaRAF/plantRdata/refs/heads/master/data/wfoNames.rda", destfile = temp_file)
+load(temp_file)
+```
+
+The code above is specific to download the World Flora Online taxonomic
+backbone. You need to change the file name to download the other
+backbones available
+[here](https://github.com/LimaRAF/plantRdata/tree/master/data).
+
 <br/><br/>
 
 # A practical example
 
-Let´s create a list of names with many common issues in biological
-datasets. This list includes issues related to format, casing, spelling,
-synonyms, typos, names with/without authors, incomplete identifications,
-etc.
+Let´s create a list of names with common issues in biological datasets.
+This list includes issues related to format, casing, spelling, synonyms,
+typos, names with/without authors, incomplete identifications, etc.
 
 ``` r
 names <- c(
@@ -116,14 +131,22 @@ head(names_fixed[,-c(2,4)], 7)
 ```
 
 ``` shadebox
-#>               scientificName scientificName.new scientificNameStatus
-#> 1               Lindsaea sp.       Lindsaea sp.                indet
-#> 2           Lindsaeaceae sp.   Lindsaeaceae sp.      family_as_genus
-#> 3            Lindsaea lancea    Lindsaea lancea          possibly_ok
-#> 4            Lindsaea lancia    Lindsaea lancia          possibly_ok
-#> 5            Lindsaea pumila    Lindsaea pumila          possibly_ok
-#> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea       name_w_authors
-#> 7            lindsaea lancea    Lindsaea lancea    name_w_wrong_case
+#>               scientificName scientificName.new
+#> 1               Lindsaea sp.       Lindsaea sp.
+#> 2           Lindsaeaceae sp.   Lindsaeaceae sp.
+#> 3            Lindsaea lancea    Lindsaea lancea
+#> 4            Lindsaea lancia    Lindsaea lancia
+#> 5            Lindsaea pumila    Lindsaea pumila
+#> 6 Lindsaea lancea (L.) Bedd.    Lindsaea lancea
+#> 7            lindsaea lancea    Lindsaea lancea
+#>   scientificNameStatus
+#> 1                indet
+#> 2      family_as_genus
+#> 3          possibly_ok
+#> 4          possibly_ok
+#> 5          possibly_ok
+#> 6       name_w_authors
+#> 7    name_w_wrong_case
 ```
 
 The output of `fixSpecies()` is a data frame that contains the columns
@@ -161,16 +184,23 @@ user’s goals. Below, some examples of their isolate use:
 
 ``` r
 plantR:::fixAnnotation(c("Lindsaea lancea var falcata", "Lindsaea Aff.lancea"))
-#> [1] "Lindsaea lancea var. falcata" "Lindsaea aff. lancea"
+#> [1] "Lindsaea lancea var. falcata"
+#> [2] "Lindsaea aff. lancea"
 plantR:::fixIndet(c("Indet1", "Blechnum sp. 2", "Blechnum sp 2", "Blechnum sp"))
-#> [1] "Indet. sp.1"   "Blechnum sp.2" "Blechnum sp.2" "Blechnum sp."
+#> [1] "Indet. sp.1"   "Blechnum sp.2" "Blechnum sp.2"
+#> [4] "Blechnum sp."
 plantR:::fixCase(c("lindsaea lancea", "Lindsaea Lancea", "LINDSAEA LANCEA"))
-#>   lindsaea lancea   Lindsaea Lancea   LINDSAEA LANCEA 
-#> "Lindsaea lancea" "Lindsaea lancea" "Lindsaea lancea"
+#>   lindsaea lancea   Lindsaea Lancea 
+#> "Lindsaea lancea" "Lindsaea lancea" 
+#>   LINDSAEA LANCEA 
+#> "Lindsaea lancea"
 plantR:::fixAuthors(c("Lindsaea lancea (L.) Bedd.", "Parablechnum C.Presl"))
-#>                    orig.name        tax.name tax.author
-#> 1 Lindsaea lancea (L.) Bedd. Lindsaea lancea (L.) Bedd.
-#> 2       Parablechnum C.Presl    Parablechnum    C.Presl
+#>                    orig.name        tax.name
+#> 1 Lindsaea lancea (L.) Bedd. Lindsaea lancea
+#> 2       Parablechnum C.Presl    Parablechnum
+#>   tax.author
+#> 1 (L.) Bedd.
+#> 2    C.Presl
 ```
 
 <br/><br/>
@@ -189,22 +219,38 @@ names_valid <- prepSpecies(names_fixed,
                            tax.names = c("scientificName.new", 
                                          "scientificNameAuthorship.new"))
 head(names_valid[,-c(2,3,4,9,11)], 7)
-#>               scientificName scientificNameStatus suggestedFamily   suggestedName
-#> 1               Lindsaea sp.                indet    Lindsaeaceae        Lindsaea
-#> 2           Lindsaeaceae sp.      family_as_genus    Lindsaeaceae    Lindsaeaceae
-#> 3            Lindsaea lancea          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 4            Lindsaea lancia          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 5            Lindsaea pumila          possibly_ok    Lindsaeaceae Lindsaea lancea
-#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors    Lindsaeaceae Lindsaea lancea
-#> 7            lindsaea lancea    name_w_wrong_case    Lindsaeaceae Lindsaea lancea
-#>   suggestedAuthorship        tax.notes         scientificNameFull
-#> 1           Pic.Serm.    name accepted         Lindsaea Pic.Serm.
-#> 2             C.Presl    name accepted       Lindsaeaceae C.Presl
-#> 3          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
-#> 4          (L.) Bedd.  name misspelled Lindsaea lancea (L.) Bedd.
-#> 5          (L.) Bedd. replaced synonym Lindsaea lancea (L.) Bedd.
-#> 6          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
-#> 7          (L.) Bedd.    name accepted Lindsaea lancea (L.) Bedd.
+#>               scientificName scientificNameStatus
+#> 1               Lindsaea sp.                indet
+#> 2           Lindsaeaceae sp.      family_as_genus
+#> 3            Lindsaea lancea          possibly_ok
+#> 4            Lindsaea lancia          possibly_ok
+#> 5            Lindsaea pumila          possibly_ok
+#> 6 Lindsaea lancea (L.) Bedd.       name_w_authors
+#> 7            lindsaea lancea    name_w_wrong_case
+#>   suggestedFamily   suggestedName
+#> 1    Lindsaeaceae        Lindsaea
+#> 2    Lindsaeaceae    Lindsaeaceae
+#> 3    Lindsaeaceae Lindsaea lancea
+#> 4    Lindsaeaceae Lindsaea lancea
+#> 5    Lindsaeaceae Lindsaea lancea
+#> 6    Lindsaeaceae Lindsaea lancea
+#> 7    Lindsaeaceae Lindsaea lancea
+#>   suggestedAuthorship        tax.notes
+#> 1           Pic.Serm.    name accepted
+#> 2             C.Presl    name accepted
+#> 3          (L.) Bedd.    name accepted
+#> 4          (L.) Bedd.  name misspelled
+#> 5          (L.) Bedd. replaced synonym
+#> 6          (L.) Bedd.    name accepted
+#> 7          (L.) Bedd.    name accepted
+#>           scientificNameFull
+#> 1         Lindsaea Pic.Serm.
+#> 2       Lindsaeaceae C.Presl
+#> 3 Lindsaea lancea (L.) Bedd.
+#> 4 Lindsaea lancea (L.) Bedd.
+#> 5 Lindsaea lancea (L.) Bedd.
+#> 6 Lindsaea lancea (L.) Bedd.
+#> 7 Lindsaea lancea (L.) Bedd.
 ```
 
 The output of the function is optimized to ease the user´s
@@ -259,10 +305,14 @@ names_bfo_wfo_wcvp <- cbind.data.frame(names_valid$scientificName.new,
 diff <- names_valid$scientificNameFull != names_valid_wfo$scientificNameFull
 diff[is.na(diff)] <- FALSE
 head(names_bfo_wfo_wcvp[diff, ], 3)
-#>   names_valid$scientificName.new names_valid$scientificNameFull
-#> 1                   Lindsaea sp.             Lindsaea Pic.Serm.
-#> 2               Lindsaeaceae sp.           Lindsaeaceae C.Presl
-#> 3                Lindsaea lancea     Lindsaea lancea (L.) Bedd.
+#>   names_valid$scientificName.new
+#> 1                   Lindsaea sp.
+#> 2               Lindsaeaceae sp.
+#> 3                Lindsaea lancea
+#>   names_valid$scientificNameFull
+#> 1             Lindsaea Pic.Serm.
+#> 2           Lindsaeaceae C.Presl
+#> 3     Lindsaea lancea (L.) Bedd.
 #>                  names_valid_wfo$scientificNameFull
 #> 1                           Lindsaea Dryand. ex Sm.
 #> 2                          Lindsaeaceae M.R.Schomb.
@@ -360,10 +410,10 @@ names_df_valid <- formatTax(names_df)
 If you use **plantR**, please cite it as:
 
 > Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
-> Siqueira, M.F. (2021). *plantR*: An R package and workflow for
+> Siqueira, M.F. (2023). *plantR*: An R package and workflow for
 > managing species records from biological collections. Methods in
 > Ecology and Evolution 14(2): 332-339.
-> <https://doi.org/10.1101/2021.04.06.437754>
+> <https://doi.org/10.1111/2041-210X.13779>
 
 And please also cite the taxonomic backbones that you used:
 
@@ -376,9 +426,6 @@ And please also cite the taxonomic backbones that you used:
 > Checklist of Vascular Plants, a continuously updated resource for
 > exploring global plant diversity. Sci. Data 8: 215.
 > <https://doi.org/10.1038/s41597-021-00997-6>
-
-> GBIF Secretariat (2023). GBIF Backbone Taxonomy. Checklist dataset.
-> accessed via GBIF.org. <https://doi.org/10.15468/39omei>
 
 > Flora e Funga do Brasil (Constantly updated): Flora e Funga do Brasil
 > project. Instituto de Pesquisas Jardim Botânico do Rio de Janeiro.
