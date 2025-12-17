@@ -8,8 +8,8 @@ getCode(
   x,
   inst.code = "institutionCode",
   col.code = "collectionCode",
-  drop = c("ordem.colecao", "collectioncode.gbif", "institutioncode.gbif",
-    "organization", "collection.string"),
+  drop = c("collectioncode.gbif", "institutioncode.gbif", "organization",
+    "collection.string"),
   print.miss = FALSE
 )
 }
@@ -41,7 +41,7 @@ The information on collection codes and names stored within
 \strong{plantR} is currently biased towards plant-related collections.
 The main sources of information used to construct the database of
 collection codes were the
-\href{http://sweetgum.nybg.org/science/ih/}{Index Herbariorum} (until 2019),
+\href{http://sweetgum.nybg.org/science/ih/}{Index Herbariorum} (until 2025),
 the
 \href{https://www.botanica.org.br/a-rede-brasileira-de-herbarios/}{Brazilian
 Herbaria Network}, the
@@ -50,17 +50,33 @@ Xylariorum} v4.1 and \href{https://www.gbif.org/}{GBIF}.
 
 There is variation in the notation of institutions and collection
 codes in GBIF and other data repositories. Sometimes, the same
-collection is referred differently between these repositories.
+collection is referred to differently between these repositories.
 Thus, this function tried to provide a common code for each
-institution. To avoid mismatches the collection codes are compared
-to the list of collections using a string which combines both the
-institution and collection code.
+institution across collections.
 
-If the collection code in not found in the Index Herbariorum, the
-same collection code is returned without modifications. A mention
-if the code is not found is stored in the 'collectionObs'. The
-argument \code{print.miss} can be set to TRUE if the user wants to print
-the table of collections not found.
+To avoid mismatches, the collection codes are first compared to the
+list of collections using a string that combines both the
+institution and collection codes. If a match is found using this
+string, no observation is made and the valid collection code is
+returned.
+
+If the institution code is not provided, a second comparison is
+made using only the collection code. If a match is found, an
+observation 'code partially found' is added to the column
+'collectionObs'.
+
+If no match is found after the two rounds of comparison, the input
+collection code is returned without modifications. In this case, an
+observation 'code not found' is provided in the column
+'collectionObs'. For missing or generic code information, the
+observation 'cannot check' is returned. See examples below.
+
+Please note that there is a collection code called "NA" in the Index
+Herbariorum. So, be cautious of potential false matches with the
+R reserved code \code{NA} (i.e., not available).
+
+The argument \code{print.miss} can be set to TRUE if the user wants to
+print the table of collections not found.
 
 The output of this function contains columns which are reserved
 within the \strong{plantR} workflow. These columns cannot be present in
@@ -69,11 +85,12 @@ in the internal object \code{reservedColNames}.
 }
 \examples{
 
-df <- data.frame(institutionCode = c("ASU", "UNEMAT", "MOBOT", "NYBG"),
-collectionCode = c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY"))
+inst <- c("ASU", "UNEMAT", "MOBOT", "NYBG", "", "")
+coll <- c("ASU-PLANTS", "NX-FANEROGAMAS", "MO", "NY", "RB", "XX")
+df <- data.frame(institutionCode = inst, collectionCode = coll)
 getCode(df)
 
 }
 \author{
-Renato A. F. de Lima
+Renato A. Ferreira de Lima
 }
