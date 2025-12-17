@@ -203,11 +203,9 @@ getCode <- function(x,
      index.herbariorum.or.working.code := cod.coll.tmp]
 
   dt1 <- data.table::as.data.table(
-    data.table::merge.data.table(x[, "temp..order", drop = FALSE],
-                                 dt,
-                                 by = "temp..order",
-                                 all.x = TRUE,
-                                 suffixes = c(".x", "")))
+          data.table::merge.data.table(
+            x[, "temp..order", drop = FALSE], dt,
+            by = "temp..order", all.x = TRUE, suffixes = c(".x", "")))
   dt1[is.na(ordem..dados), col.OBS := "cannot check"]
 
   #Making sure data is in the good order ad removing unecessary columns
@@ -221,6 +219,10 @@ getCode <- function(x,
   data.table::setnames(dt1,
                        c("index.herbariorum.or.working.code","col.OBS"),
                        c("collectionCode.new","collectionObs"))
+  x[["temp..order"]] <- NULL
+  drop1 <- names(dt1)[names(dt1) %in% names(x)]
+  dt1[ , c(drop1) := NULL]
 
-  return(data.frame(dt1))
+  dt2 <- cbind.data.frame(x, dt1)
+  return(dt2)
 }
