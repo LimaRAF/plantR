@@ -1,5 +1,5 @@
 ---
-title: "Using __plantR__ to Manage Taxonomy"
+title: "Using __plantR__ to Manage Taxon Names"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 author: 
   - Renato A. Ferreira de Lima^[Departamento de Ciências Biológicas, ESALQ, Universidade de São Paulo, https://github.com/LimaRAF]
@@ -17,7 +17,7 @@ output:
       toc_depth: 3
       df_print: null 
 vignette: >
-  %\VignetteIndexEntry{Using __plantR__ to Manage Taxonomy}
+  %\VignetteIndexEntry{Using __plantR__ to Manage Taxon Names}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 geometry: margin=3cm
@@ -44,31 +44,30 @@ devtools::load_all() # for development
 # Introduction
 
 One of the most important steps in using information from biological
-datasets is the management of taxonomic nomenclature. Taxon names need
-to be correctly spelled and we should use only their currently
-accepted names based on a given taxonomic backbone (Lima et al. in
-prep.). However, there are many small corrections and standardizations
-that need to be made before one can cross-validate taxonomic
-nomenclature, which becomes quite burdensome as the size of the
-dataset increases.
+datasets is the management of taxon names. They need to be correctly
+spelled and we should use only their currently accepted names based on
+a given taxonomic backbone (Lima et al. in prep.). However, there are
+many small corrections and standardizations that need to be made
+before one can cross-validate taxonomic nomenclature, which becomes
+quite burdensome as the size of the dataset increases.
 
 __plantR__ provides tools to format, spell-check and validate taxon
-names using different taxonomic backbones. The default backbone used
+names using any taxonomic backbone. The default backbone used
 by __plantR__ is the [Flora e Funga do Brasil](https://floradobrasil.jbrj.gov.br/consulta). 
 However, any taxonomic backbone can be used, as long as it has a
 specific content and format. The companion R package __plantRdata__
 provides other backbones already in this specific format from the
 [World Flora Online](https://www.worldfloraonline.org/), the 
-[World Checklist of Vascular Plants](https://powo.science.kew.org/) 
-and [GBIF](https://www.gbif.org/).
+[World Checklist of Vascular Plants](https://powo.science.kew.org/), 
+[GBIF](https://www.gbif.org/) and the [Taxonomic Catalog of the Brazilian Fauna](https://fauna.jbrj.gov.br)
 
-To simplify the process, the management of taxonomic nomenclature in
-__plantR__ can be simply done using the wrapper function `formatTax()`
-(see the section [Brief code summary] below). But first, we will explain 
-in detail each step and function to manage taxonomy within __plantR__.
-These functions can be applied individually, as we will show below,
-but the management of taxonomic nomenclature is potentialised when
-they are executed in a specific order.
+The management of taxonomy in __plantR__ can be simply done using the
+wrapper function `formatTax()` (see the section [Brief code summary] below). 
+But first, we will explain in detail each step and function to manage
+taxonomy within __plantR__. These functions can be applied
+individually, as we will show below, but the management of taxonomic
+nomenclature is potentialised when they are executed in a specific
+order.
 
 <br/><br/>
 
@@ -88,17 +87,31 @@ library("plantR")
 
 For this tutorial, we will also need the global taxonomic backbones 
 available from the companion R package __plantRdata__. Installing this 
-package takes a couple of minutes as well because it stores some large 
+package takes a couple of minutes as well, as it stores some large 
 files (>10 MB).
 ```{r, eval = FALSE}
 install_github("LimaRAF/plantRdata")
 ```
 
+If you run into problems while installing __plantRdata__, remember
+that it just stores the large files that we need for this tutorial.
+So, you can simply download and load them into R using:
+
+```{r, eval = FALSE}
+temp_file <- tempfile()
+download.file("https://raw.github.com/LimaRAF/plantRdata/refs/heads/master/data/wfoNames.rda", destfile = temp_file)
+load(temp_file)
+```
+
+The code above is specific to download the World Flora Online
+taxonomic backbone. You need to change the file name to download the other
+backbones available [here](https://github.com/LimaRAF/plantRdata/tree/master/data).
+
 <br/><br/>
 
 # A practical example
 
-Let´s create a list of names with many common issues in biological
+Let´s create a list of names with common issues in biological
 datasets. This list includes issues related to format, casing,
 spelling, synonyms, typos, names with/without authors, incomplete
 identifications, etc.
@@ -347,10 +360,10 @@ names_df_valid <- formatTax(names_df)
 If you use __plantR__, please cite it as: 
 
 > Lima, R.A.F., Sánchez-Tapia, A., Mortara, S.R., ter Steege, H.,
-Siqueira, M.F. (2021). *plantR*: An R package and workflow for
+Siqueira, M.F. (2023). *plantR*: An R package and workflow for
 managing species records from biological collections. Methods in
 Ecology and Evolution 14(2): 332-339.
-https://doi.org/10.1101/2021.04.06.437754
+https://doi.org/10.1111/2041-210X.13779
 
 And please also cite the taxonomic backbones that you used:
 
@@ -363,9 +376,6 @@ comprehensive global resource on the world’s plants. Taxon, 69(6):
 Checklist of Vascular Plants, a continuously updated resource for
 exploring global plant diversity. Sci. Data 8: 215.
 https://doi.org/10.1038/s41597-021-00997-6
-
-> GBIF Secretariat (2023). GBIF Backbone Taxonomy. Checklist dataset.
-accessed via GBIF.org. https://doi.org/10.15468/39omei
 
 > Flora e Funga do Brasil (Constantly updated): Flora e Funga do Brasil project. Instituto de Pesquisas Jardim Botânico do Rio de Janeiro. Dataset/Checklist. https://doi.org/10.15468/1mtkaw
 
