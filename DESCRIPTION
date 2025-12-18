@@ -54,6 +54,7 @@ Imports:
     stringr,
     tidyr
 Suggests:
+    covr,
     devtools,
     graphics,
     grDevices,
