@@ -9,8 +9,9 @@
 
 [![R-CMD-check:
 master](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://github.com/LimaRAF/plantR/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/LimaRAF/plantR/actions/workflows/test-coverage.yaml)
 <!-- [![R-CMD-check: dev](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml/badge.svg?branch=dev)](https://github.com/LimaRAF/plantR/actions/workflows/R-CMD-check.yaml?branch=dev) -->
-<!-- [![Codecov test coverage](https://codecov.io/gh/LimaRAF/plantR/graph/badge.svg)](https://app.codecov.io/gh/LimaRAF/plantR) -->
 <!-- badges: end  -->
 
 An R Package for Managing Species Records from Biological Collections
