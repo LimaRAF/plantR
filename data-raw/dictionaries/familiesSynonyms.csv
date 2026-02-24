@@ -396,7 +396,7 @@ apg_v14,plantae,Comandraceae,Santalaceae,Santalales,Magnoliopsida
 apg_v14|col_v2025,plantae,Combretaceae,Combretaceae,Myrtales,Magnoliopsida
 apg_v14|col_v2025,plantae,Commelinaceae,Commelinaceae,Commelinales,Liliopsida
 apg_v14|col_v2025,plantae,Comocladiaceae,Anacardiaceae,Sapindales,Magnoliopsida
-apg_v14,plantae,Compositae,Compositae,Asterales,Magnoliopsida
+apg_v14|col_v2025,plantae,Compositae,Asteraceae,Asterales,Magnoliopsida
 apg_v14,plantae,Compsoaceae,Calochortoideae,Liliales,NA
 apg_v14,plantae,Conantheraceae,Tecophilaeaceae,Asparagales,Liliopsida
 apg_v14|col_v2025,plantae,Connaraceae,Connaraceae,Oxalidales,Magnoliopsida
@@ -433,7 +433,7 @@ apg_v14,plantae,Crocaceae,Iridaceae,Asparagales,Liliopsida
 apg_v14,plantae,Croomiaceae,Stemonaceae,Pandanales,Liliopsida
 apg_v14|col_v2025,plantae,Crossosomataceae,Crossosomataceae,Crossosomatales,Magnoliopsida
 apg_v14,plantae,Crotonaceae,Euphorbiaceae,Malpighiales,Magnoliopsida
-apg_v14,plantae,Cruciferae,Cruciferae,Brassicales,Magnoliopsida
+apg_v14|col_v2025,plantae,Cruciferae,Brassicaceae,Brassicales,Magnoliopsida
 apg_v14|col_v2025,plantae,Cryptaceae,Elatinaceae,Malpighiales,Magnoliopsida
 apg_v14|col_v2025,plantae,Crypteroniaceae,Crypteroniaceae,Myrtales,Magnoliopsida
 apg_v14,plantae,Cryptocorynaceae,Araceae,Alismatales,Liliopsida
@@ -1895,7 +1895,6 @@ col_v2025,plantae,Amphipterygiaceae,Anacardiaceae,Sapindales,Magnoliopsida
 col_v2025,algae,Ankistrodesmaceae,Selenastraceae,Sphaeropleales,Chlorophyceae
 col_v2025,bryophyta,Anoectangiaceae,Pottiaceae,Pottiales,Bryopsida
 col_v2025,plantae,Anthemidaceae,Asteraceae,Asterales,Magnoliopsida
-col_v2025,plantae,Arceuthobiaceae,Viscaceae,Santalales,Magnoliopsida
 col_v2025,plantae,Arctotaceae,Asteraceae,Asterales,Magnoliopsida
 col_v2025,algae,Arnoldiellaceae,Cladophoraceae,Cladophorales,Ulvophyceae
 col_v2025,algae,Astermonadaceae,Asteromonadaceae,Chlamydomonadales,Chlorophyceae
@@ -1904,7 +1903,6 @@ col_v2025,algae,Astrephomenaceae,Goniaceae,Chlamydomonadales,Chlorophyceae
 col_v2025,plantae,Banksiaceae,Proteaceae,Proteales,Magnoliopsida
 col_v2025,bryophyta,Bazzaniaceae,Lepidoziaceae,Lepidoziales,Jungermanniopsida
 col_v2025,bryophyta,Bellinciniaceae,Porellaceae,Porellales,Jungermanniopsida
-col_v2025,plantae,Bifariaceae,Viscaceae,Santalales,Magnoliopsida
 col_v2025,bryophyta,Blindiaceae,Seligeriaceae,Grimmiales,Bryopsida
 col_v2025,bryophyta,Blytiaceae,Pallaviciniaceae,Pallaviciniales,Jungermanniopsida
 col_v2025,algae,Borodinellaceae,Chlorosarcinaceae,Chlamydomonadales,Chlorophyceae
@@ -1941,11 +1939,9 @@ col_v2025,algae,Codiolaceae,Ulotrichaceae,Ulotrichales,Ulvophyceae
 col_v2025,bryophyta,Codoniaceae,Fossombroniaceae,Fossombroniales,Jungermanniopsida
 col_v2025,algae,Coelastraceae,Scenedesmaceae,Sphaeropleales,Chlorophyceae
 col_v2025,algae,Coelodiscaceae,Jaoaceae,Ulvales,Ulvophyceae
-col_v2025,plantae,Compositae,Asteraceae,Asterales,Magnoliopsida
 col_v2025,bryophyta,Cordaeaceae,Moerckiaceae,Pallaviciniales,Jungermanniopsida
 col_v2025,algae,Corynomorphaceae,Halymeniaceae,Halymeniales,Florideophyceae
 col_v2025,bryophyta,Cratoneuraceae,Amblystegiaceae,Hypnales,Bryopsida
-col_v2025,plantae,Cruciferae,Brassicaceae,Brassicales,Magnoliopsida
 col_v2025,algae,Cryptonemiaceae,Halymeniaceae,Halymeniales,Florideophyceae
 col_v2025,bryophyta,Cryptothecaceae,Pterobryaceae,Hypnales,Bryopsida
 col_v2025,algae,Cyanophoraceae,Glaucocystaceae,Glaucocystales,Glaucophyceae
@@ -1988,7 +1984,6 @@ col_v2025,bryophyta,Garovagliaceae,Ptychomniaceae,Ptychomniales,Bryopsida
 col_v2025,bryophyta,Georgiaceae,Tetraphidaceae,Tetraphidales,Polytrichopsida
 col_v2025,plantae,Ginalloaceae,Viscaceae,Santalales,Magnoliopsida
 col_v2025,algae,Gloeochaetaceae,Glaucocystaceae,Glaucocystales,Glaucophyceae
-col_v2025,algae,Gloeococcaceae,Palmellopsidaceae,Chlamydomonadales,Chlorophyceae
 col_v2025,algae,Gloeocystaceae,Radiococcaceae,Sphaeropleales,Chlorophyceae
 col_v2025,algae,Gloeotilaceae,Ulotrichaceae,Ulotrichales,Ulvophyceae
 col_v2025,bryophyta,Glyphomitriaceae,Rhabdoweisiaceae,Rhabdoweisiales,Bryopsida
@@ -2077,7 +2072,6 @@ col_v2025,bryophyta,Phaeocerotaceae,Notothyladaceae,Notothyladales,Anthocerotops
 col_v2025,bryophyta,Phascaceae,Pottiaceae,Pottiales,Bryopsida
 col_v2025,plantae,Phoradendraceae,Viscaceae,Santalales,Magnoliopsida
 col_v2025,bryophyta,Phycolepidoziaceae,Cephaloziellaceae,Lophoziales,Jungermanniopsida
-col_v2025,bryophyta,Phylloglossaceae,Lycopodiaceae,Lycopodiales,Lycopodiopsida
 col_v2025,plantae,Phyllolcadaceae,Podocarpaceae,Araucariales,Pinopsida
 col_v2025,bryophyta,Physcomitrellaceae,Funariaceae,Funariales,Bryopsida
 col_v2025,bryophyta,Physcomitriaceae,Funariaceae,Funariales,Bryopsida
@@ -2755,7 +2749,6 @@ col_v2025,algae,Valoniaceae,Valoniaceae,Siphonocladales,Ulvophyceae
 col_v2025,plantae,Viridivelleraceae,Viridivelleraceae,Dicranales,Bryopsida
 col_v2025,plantae,Viscaceae,Viscaceae,Santalales,Magnoliopsida
 col_v2025,algae,Volvocaceae,Volvocaceae,Chlamydomonadales,Chlorophyceae
-col_v2025,plantae,Wiesnerellaceae,Wiesnerellaceae,Marchantiales,Marchantiopsida
 col_v2025,algae,Wislouchiaceae,Wislouchiaceae,Chlamydomonadales,Chlorophyceae
 col_v2025,algae,Wrangeliaceae,Wrangeliaceae,Ceramiales,Florideophyceae
 col_v2025,plantae,Yimaiaceae,Yimaiaceae,Ginkgoales,Ginkgoopsida
@@ -15333,7 +15326,6 @@ col_v2025,animalia,Ulrichotrypellidae,Ulrichotrypellidae,Trepostomatida,Stenolae
 col_v2025,animalia,Ulurumyiidae,Ulurumyiidae,Diptera,Insecta
 col_v2025,animalia,Ulyanidae,Ulyanidae,Coleoptera,Insecta
 col_v2025,animalia,Umagillidae,Umagillidae,Rhabdocoela,Rhabditophora
-col_v2025,animalia,Umbellulidae,Umbellulidae,Scleralcyonacea,Octocorallia
 col_v2025,animalia,Umbonulidae,Umbonulidae,Cheilostomatida,Gymnolaemata
 col_v2025,animalia,Umbraculidae,Umbraculidae,Umbraculida,Gastropoda
 col_v2025,animalia,Umbridae,Umbridae,Esociformes,Teleostei
