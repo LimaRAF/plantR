@@ -440,23 +440,21 @@ validateTax <- function(x, col.names = c(class = "class",
     if ("det.name.aux" %in% names(cols)) {
 
       if (any(!is.na(x[[cols["det.name.aux"]]]))) {
+
         other.names <- as.character(x[[cols["det.name.aux"]]])
-        lista <- lapply(strsplit(other.names, ";|\\||&", perl = TRUE),
+
+        check_this <- !is.na(other.names)
+        lista <- lapply(strsplit(other.names[check_this], ";|\\||&", perl = TRUE),
                         squish)
-        combo3 <- mapply(paste, x[[cols["family"]]], lista, sep = "_")
-        # other.names <- gsub(";.*|\\|.*", "", other.names, perl = TRUE)
-        #
-        # combo3 <- paste(x[[cols["family"]]], other.names, sep = "_")
-        # combo3 <- squish(combo3)
+        combo3 <- mapply(paste, x[[cols["family"]]][check_this], lista, sep = "_")
 
         #Crossing the occurrence and reference family-specialist combinations
         tax.check2 <-
           as.logical(sapply(combo3, function(x) any(x %in% combo)))
-        # tax.check2 <- combo3 %in% combo
-        rep.id <- x$tax.check %in% c("unknown", "FALSE", FALSE) &
-                    tax.check2 %in% TRUE
+        rep.id <- x$tax.check[check_this] %in% c("unknown", "FALSE", FALSE) &
+                    tax.check2
         if (any(rep.id))
-          x$tax.check[rep.id] <- TRUE
+          x$tax.check[check_this][rep.id] <- TRUE
       }
 
     } else {
