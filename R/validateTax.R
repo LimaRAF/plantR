@@ -439,16 +439,25 @@ validateTax <- function(x, col.names = c(class = "class",
 
     if ("det.name.aux" %in% names(cols)) {
 
-      combo3 <- paste(x[[cols["family"]]],
-                      x[[cols["det.name.aux"]]], sep = "_")
-      combo3 <- squish(combo3)
+      if (any(!is.na(x[[cols["det.name.aux"]]]))) {
+        other.names <- as.character(x[[cols["det.name.aux"]]])
+        lista <- lapply(strsplit(other.names, ";|\\||&", perl = TRUE),
+                        squish)
+        combo3 <- mapply(paste, x[[cols["family"]]], lista, sep = "_")
+        # other.names <- gsub(";.*|\\|.*", "", other.names, perl = TRUE)
+        #
+        # combo3 <- paste(x[[cols["family"]]], other.names, sep = "_")
+        # combo3 <- squish(combo3)
 
-      #Crossing the occurrence and reference family-specialist combinations
-      tax.check2 <- combo3 %in% combo
-      rep.id <- x$tax.check %in% c("unknown", "FALSE", FALSE) &
-                  tax.check2 %in% TRUE
-      if (any(rep.id))
-        x$tax.check[rep.id] <- TRUE
+        #Crossing the occurrence and reference family-specialist combinations
+        tax.check2 <-
+          as.logical(sapply(combo3, function(x) any(x %in% combo)))
+        # tax.check2 <- combo3 %in% combo
+        rep.id <- x$tax.check %in% c("unknown", "FALSE", FALSE) &
+                    tax.check2 %in% TRUE
+        if (any(rep.id))
+          x$tax.check[rep.id] <- TRUE
+      }
 
     } else {
       warning("Argument 'aux.identifier' set to TRUE but name of the auxiliary identifier is missing")
@@ -487,10 +496,13 @@ validateTax <- function(x, col.names = c(class = "class",
       #Crossing the occurrences with the names of the generalists
       # tax.check2 <- x[, cols["det.name"]] %in% generalists$tdwg.name
       tax.check2 <- combo.occs.order %in% combo.gen |
-        combo.occs.class %in% combo.gen
+                      combo.occs.class %in% combo.gen
       if (any(tax.check2))
         x$tax.check[x$tax.check %in% c(FALSE, "FALSE") &
                       tax.check2 %in% TRUE] <- generalist.class
+
+      x[[col.names["class"]]] <- NULL
+      x[[col.names["order"]]] <- NULL
     }
 
     x$tax.check <- as.character(x$tax.check)
@@ -504,14 +516,13 @@ validateTax <- function(x, col.names = c(class = "class",
       row.names(non.tax.det.df) <- NULL
       non.tax.det.df <- non.tax.det.df[order(non.tax.det.df[,2], decreasing = TRUE),]
       if (print) {
-        cat("Top people with many determinations but not in the taxonomist list: \n",
+        cat("Top people with many determinations but not in the plantR taxonomist list: \n",
             knitr::kable(utils::head(non.tax.det.df, top.det),
                          # knitr::kable(my.head.df(non.tax.det.df, top.det),
                          row.names = FALSE, col.names = c("Identifier", "Records")),"", sep = "\n")
       }
     }
   }
-
 
 
   #Assigning different levels to non preserved specimens

@@ -1,25 +1,25 @@
 # Creating a data frame with taxonomic information
 df <- data.frame(
   family.new = c("Bignoniaceae", "Bignoniaceae","Bignoniaceae",
-                 "Bignoniaceae","Bignoniaceae","Bignoniaceae","Bignoniaceae"),
-  identifiedBy.new = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA, "Hatschbach, G.", "Hatschbach, G."),
-  recordedBy.new = c(NA, NA, NA, "Gentry, A.H.", NA, NA, NA),
-  typeStatus = c(NA, NA, "isotype", NA, NA, NA, NA),
-  identifiedBy.aux = c(NA, NA, NA, NA, NA, NA, "Gentry, A.H."),
-  numTombo = c("a_1","b_3","c_7","d_5","e_3","f_4","h_8"),
-  basisOfRecord = c(rep("exsicata", 5),"obs", "exsicata"),
+                 "Bignoniaceae","Bignoniaceae","Bignoniaceae","Bignoniaceae","Bignoniaceae"),
+  identifiedBy.new = c("Gentry, A.H.", "Hatschbach, G.", NA, NA, NA, "Hatschbach, G.", "Hatschbach, G.", "Hatschbach, G."),
+  recordedBy.new = c(NA, NA, NA, "Gentry, A.H.", NA, NA, NA, NA),
+  typeStatus = c(NA, NA, "isotype", NA, NA, NA, NA, NA),
+  identifiedBy.aux = c(NA, NA, NA, NA, NA, NA, "Gentry, A.H.", "Lima, R.A.F.; Gentry, A.H."),
+  numTombo = c("a_1","b_3","c_7","d_5","e_3","f_4","h_8", "i_2"),
+  basisOfRecord = c(rep("exsicata", 5),"obs", "exsicata", "exsicata"),
   stringsAsFactors = FALSE)
 
 # Expected result
-res0 <- c("high", "low", "high", "high", "unknown", "low", "high")
-res1 <- c("high", "medium", "high", "high", "unknown", "medium", "high")
-res2 <- c("high", "low", "high", "high", "unknown", "high", "high")
-res3 <- c("high", "medium", "high", "high", "unknown", "high", "high")
-res4 <- c("high", "high", "high", "high", "unknown", "high", "high")
-res5 <- c("high", "high", "high", "high", "unknown", "medium", "high")
-res6 <- c("high", "high", "high", "high", "unknown", "unknown", "high")
-res7 <- c("high", "low", "high", "high", "unknown", "low", "low")
-res8 <- c("high", "medium", "high", "high", "unknown", "medium", "medium")
+res0 <- c("high", "low", "high", "high", "unknown", "low", "high", "high")
+res1 <- c("high", "medium", "high", "high", "unknown", "medium", "high", "high")
+res2 <- c("high", "low", "high", "high", "unknown", "high", "high", "high")
+res3 <- c("high", "medium", "high", "high", "unknown", "high", "high", "high")
+res4 <- c("high", "high", "high", "high", "unknown", "high", "high", "high")
+res5 <- c("high", "high", "high", "high", "unknown", "medium", "high", "high")
+res6 <- c("high", "high", "high", "high", "unknown", "unknown", "high", "high")
+res7 <- c("high", "low", "high", "high", "unknown", "low", "low", "low")
+res8 <- c("high", "medium", "high", "high", "unknown", "medium", "medium", "medium")
 
 
 # Tests
