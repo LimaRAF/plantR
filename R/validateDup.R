@@ -51,8 +51,10 @@ validateDup <- function(occ.df,
                                            c("species","col.last.name","col.number","col.year"),
                                            c("col.year","col.last.name","col.number","col.loc")),
                         ignore.miss = TRUE,
-                        dup.name = "dup.ID", prop.name = "dup.prop",
-                        prop = 0.75, rec.ID = "numTombo",
+                        dup.name = "dup.ID",
+                        prop.name = "dup.prop",
+                        prop = 0.75,
+                        rec.ID = "numTombo",
                         info2merge = c("tax", "geo", "loc"),
                         tax.names = c(family = "family.new",
                                       species = "scientificName.new",
@@ -105,6 +107,8 @@ validateDup <- function(occ.df,
                         tax.names = tax.names, geo.names = geo.names,
                         loc.names = loc.names, tax.level = tax.level,
                         overwrite = overwrite)
+  } else {
+    occ.df1 <- occ.df
   }
 
   # rmDup

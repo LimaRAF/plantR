@@ -151,3 +151,99 @@ checkColNames <- function(x = NULL, group = NULL) {
     return(x)
   }
 }
+
+#'
+#' @title Get Duplicate Merge Categories
+#'
+#' @param x a data frame or a data table
+#' @param dup.name character. The name of column in the input data
+#'   frame with the duplicate group ID. Default to the __plantR__
+#'   output 'dup.ID'.
+#' @param prop.name character. The name of column in the input data
+#'   frame with the proportion of duplicates found within the group
+#'   ID. Default to the __plantR__ output 'dup.prop'.
+#' @param prop numerical. The threshold value of proportion of
+#'   duplicated values retrieved (i.e. dup.prop) to enter the merging
+#'   routine. Should be between zero and one. Default to 0.75.
+#' @param rec.ID character. The name of the columns containing the
+#'   unique record identifier (see function `getTombo()`). Default to
+#'   'numTombo'.
+#'
+#' @returns a data table with an extra column called 'dup.merge'
+#'   containing the merge categories
+#'
+#' @details
+#' The merge category is a logical vector in which TRUE means that the
+#' records has a value of duplicated proportion (given in `prop.name`)
+#' equal or above the threshold defined in `prop` or records with
+#' duplicated proportion below the threshold but that have duplicated
+#' catalog numbers within the duplicated IDs defined in the argument
+#' `dup.name`.
+#'
+#' @keywords internal
+#'
+#' @importFrom data.table as.data.table setnames
+#'
+#' @noRd
+#'
+#' @examples
+#' df <- data.frame(numTombo = c("a1","b2","c3","c3","d5","d5","e7","f4","g9"),
+#'                   dup.ID = c("a1|b2","a1|b2","c3|c3","c3|c3","d5|d5|e7",
+#'                              "d5|d5|e7","d5|d5|e7","f4",NA),
+#'                   dup.prop = c(1, 1, 1, 1, 0.5, 1, 1, 1, NA))
+#' getMergeCat(df)
+#'
+getMergeCat <- function(x = NULL,
+                        dup.name = "dup.ID",
+                        prop.name = "dup.prop",
+                        prop = 0.75,
+                        rec.ID = "numTombo")
+  {
+
+  if (!inherits(x, c("data.frame", "data.table")))
+    stop("Input object needs to be a data frame or a data table!")
+
+  if (inherits(x, "data.frame")) {
+    dtb <- data.table::as.data.table(x)
+  } else {
+    dtb <- x
+  }
+
+  #Checking essential columns
+  if (!dup.name %in% names(dtb))
+    stop("Classification requires a column with the duplicate group ID")
+
+  if (!prop.name %in% names(dtb)) {
+    warning("Classification requires a column with the proportion of duplicates. Assuming to be 1")
+    dtb[, c(prop.name) := 1]
+  }
+
+  if (!rec.ID %in% names(dtb)) {
+    warning("Classification requires a column with the unique record identifier. Creating one")
+    dtb[, c(rec.ID) := .I]
+  }
+
+  # if (any(dtb[[prop.name]] > 1 | dtb[[prop.name]] < 0, na.rm = TRUE))
+  #     stop("Values provided in 'prop.name' must be between 0 and 1")
+
+  # Creating the temporary columns
+  dup.merge <- dup.rec.ID.wk <- temp.num.tombo.wk <- NULL
+  wk.cols <- c("temp.dup.ID.wk", "temp.dup.prop.wk", "temp.num.tombo.wk")
+  data.table::setnames(dtb, c(dup.name, prop.name, rec.ID), wk.cols)
+
+  # Creating the duplicate categories
+  dtb[, dup.merge := .SD >= prop, .SDcols = "temp.dup.prop.wk"][]
+
+  # Making sure that duplicated catalog numbers stay in their dup.ID
+  dtb[, dup.rec.ID.wk := duplicated(temp.num.tombo.wk) |
+                        duplicated(temp.num.tombo.wk, fromLast = TRUE),
+     by = "temp.dup.ID.wk"][]
+  dtb[dup.rec.ID.wk & !dup.merge, dup.merge := TRUE, by = "temp.dup.ID.wk"][]
+  dtb[, dup.rec.ID.wk := NULL][]
+
+  data.table::setnames(dtb, c(wk.cols, "dup.merge"),
+                       c(dup.name, prop.name, rec.ID, "dup.merge"))
+  return(dtb)
+
+}
+

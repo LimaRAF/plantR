@@ -136,9 +136,21 @@ available is then expanded for all records of the group of
 duplicates. The argument \code{prop} defines the duplicated proportion
 (given by \code{prop.name}) that should be used as a threshold. Only
 records with duplicated proportions above this threshold will be
-merged. For all other records, the output will be the same as the
-input. If no column \code{prop.name} is found in the input data, merge
-is performed for all records, with a warning.
+merged. The default is 0.75, meaning that only records with at
+least 3 out of 4 duplicate search strings matching those of other
+records will be merged (which is quite conservative).
+
+For the records below the threshold defined in \code{prop}, the output
+will be the same as the input (no merging is performed). The only
+exception of records with duplicated proportion < \code{prop} that are
+finally merged are those with duplicated catalog numbers within
+the duplicated IDs defined in the argument \code{dup.name}. Those cases
+are generally related to duplicated records within the same data
+providers (e.g. GBIF) and not among them, which are already
+flagged as virtual duplicates.
+
+If no column \code{prop.name} is found in the input data, merge is
+performed for all records, with a warning.
 
 For the merge of taxonomic information, the specimen(s) with the
 highest confidence level of the identification is used as the
