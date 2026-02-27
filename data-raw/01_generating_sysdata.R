@@ -175,7 +175,7 @@ cultivated <- c("cultivated", "cultivada", "cultivado", "cultivato", "cultivad",
                 "\\(cult\\)", "\\(cult \\)",
                 "in cultivo", "in cultis",
                 " quadra [a-z]", "quadra [a-z] do",
-                "naturalised",
+                "naturalised", "captive",
                 "em experimento de")
 
 notCultivated <- c("nativa",
@@ -183,7 +183,8 @@ notCultivated <- c("nativa",
                    "pastagem cultivada",
                    "área do arboreto",
                    "presença de exóticas",
-                   " área cultivada", " cultivated area")
+                   " área cultivada", " cultivated area",
+                   "wild", "native")
 
 missColls <- c("s/col.", "s/col", "s/c",
                "s/coletor", "s/colector", "s.coletor",
