@@ -152,6 +152,7 @@ formatDwc <- function(splink_data = NULL,
 
   # formating user data --------------------------------------------------------
   if (!is.null(user_data)) {
+    ## check if any optional columns should be included here
     user_colnames <- c(institutionCode, collectionCode,
                        catalogNumber,
                        recordNumber, recordedBy,

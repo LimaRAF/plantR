@@ -5,7 +5,7 @@
 \alias{example_intro}
 \title{Dataset for the package introductory vignette}
 \format{
-A data frame with 713 rows and 45 variables
+A data frame with about 800 rows and 46 variables
 }
 \source{
 \url{https://specieslink.net/}
@@ -16,7 +16,6 @@ data(example_intro)
 \description{
 A dataset containing the retrieved records of the species
 \emph{Euterpe edulis} downloaded from the speciesLink network
-in May 2024. Data was filtered to contain only the columns most
-relevant to \code{plantR}
+in Feb 2026 using the function \code{rspeciesLink()}.
 }
 \keyword{datasets}

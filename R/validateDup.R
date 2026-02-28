@@ -113,7 +113,7 @@ validateDup <- function(occ.df,
 
   # rmDup
   occ.df2 <- rmDup(occ.df1, rm.all = remove, rec.ID = rec.ID,
-                   print.rm = print.rm)
+                   print.rm = print.rm, prop = prop)
 
   return(occ.df2)
 }

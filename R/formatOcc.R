@@ -113,7 +113,7 @@ formatOcc <- function(x,
       x$decimalLongitude[ids] <- x$verbatimLongitude[ids]
   }
 
-  # Missing recordedBy and recordNumber stored in fields 'collector' or 'collectornumber'
+  # Missing recordedBy and recordNumber stored in fields 'collector', 'collectornumber' or 'fieldnumber'
   if ("recordedBy" %in% names(x) & "collector" %in% names(x)) {
     ids <- is.na(x$recordedBy) & !is.na(x$collector)
     if (any(ids))
@@ -123,6 +123,12 @@ formatOcc <- function(x,
     ids <- is.na(x$recordNumber) & !is.na(x$collectornumber)
     if (any(ids))
       x$recordNumber[ids] <- x$collectornumber[ids]
+  }
+
+  if ("recordNumber" %in% names(x) & "fieldnumber" %in% names(x)) {
+    ids <- is.na(x$recordNumber) & !is.na(x$fieldnumber)
+    if (any(ids))
+      x$recordNumber[ids] <- x$fieldnumber[ids]
   }
 
   ## Checking the presence of reserved columns in the input dataset

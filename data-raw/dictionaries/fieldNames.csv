@@ -23,7 +23,9 @@
 "occurrenceID","occurrenceid","An identifier for the dwc:Occurrence (as opposed to a particular digital record of the dwc:Occurrence). In the absence of a persistent global unique identifier, construct one from a combination of identifiers in the record that will most closely make the dwc:occurrenceID globally unique.",NA,NA,NA,NA,"occurrenceID"
 "catalogNumber","catalognumber","An identifier (preferably unique) for the record within the data set or collection.","catalogNumber","required","catalog_number","catalognumber","catalogNumber"
 "recordNumber","recordnumber","An identifier given to the dwc:Occurrence at the time it was recorded. Often serves as a link between field notes and a dwc:Occurrence record, such as a specimen collector's number.","recordNumber","required","record_number","recordnumber","recordNumber"
+"recordNumber","recordnumber","An identifier given to the dwc:Occurrence at the time it was recorded. Often serves as a link between field notes and a dwc:Occurrence record, such as a specimen collector's number.","recordNumber","required","record_number","collectornumber","recordNumber"
 "recordedBy","recordedby","A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original dwc:Occurrence. The primary collector or observer, especially one who applies a personal identifier (dwc:recordNumber), should be listed first.","recordedBy","required","recorded_by","recordedby","recordedBy"
+"recordedBy","recordedby","A list (concatenated and separated) of names of people, groups, or organizations responsible for recording the original dwc:Occurrence. The primary collector or observer, especially one who applies a personal identifier (dwc:recordNumber), should be listed first.","recordedBy","required","recorded_by","collector","recordedBy"
 "recordedByID","recordedbyid","A list (concatenated and separated) of the globally unique identifier for the person, people, groups, or organizations responsible for recording the original dwc:Occurrence.",NA,NA,NA,NA,NA
 "individualCount","individualcount","The number of individuals present at the time of the dwc:Occurrence.",NA,NA,NA,NA,"individualCount"
 "organismQuantity","organismquantity","A number or enumeration value for the quantity of dwc:Organisms.",NA,NA,NA,NA,"organismQuantity"
@@ -34,8 +36,8 @@
 "caste","caste","Categorisation of individuals for eusocial species (including some mammals and arthropods).",NA,NA,NA,NA,NA
 "behavior","behavior","The behavior shown by the subject at the time the dwc:Occurrence was recorded.",NA,NA,NA,NA,"behavior"
 "vitality","vitality","An indication of whether a dwc:Organism was alive or dead at the time of collection or observation.",NA,NA,NA,NA,"vitality"
-"establishmentMeans","establishmentmeans","Statement about whether a dwc:Organism has been introduced to a given place and time through the direct or indirect activity of modern humans.",NA,NA,NA,NA,"establishmentMeans"
-"degreeOfEstablishment","degreeofestablishment","The degree to which a dwc:Organism survives, reproduces, and expands its range at the given place and time.",NA,NA,NA,NA,"degreeOfEstablishment"
+"establishmentMeans","establishmentmeans","Statement about whether a dwc:Organism has been introduced to a given place and time through the direct or indirect activity of modern humans.","establishmentMeans","optional",NA,NA,"establishmentMeans"
+"degreeOfEstablishment","degreeofestablishment","The degree to which a dwc:Organism survives, reproduces, and expands its range at the given place and time.","degreeOfEstablishment","optional",NA,NA,"degreeOfEstablishment"
 "pathway","pathway","The process by which a dwc:Organism came to be in a given place at a given time.",NA,NA,NA,NA,"pathway"
 "georeferenceVerificationStatus","georeferenceverificationstatus","A categorical description of the extent to which the georeference has been verified to represent the best possible spatial description for the dcterms:Location of the dwc:Occurrence.",NA,NA,NA,NA,"georeferenceVerificationStatus"
 "occurrenceStatus","occurrencestatus","A statement about the presence or absence of a dwc:Taxon at a dcterms:Location.",NA,NA,NA,NA,"occurrenceStatus"
@@ -44,6 +46,7 @@
 "associatedReferences","associatedreferences","A list (concatenated and separated) of identifiers (publication, bibliographic reference, global unique identifier, URI) of literature associated with the dwc:Occurrence.",NA,NA,NA,NA,"associatedReferences"
 "associatedTaxa","associatedtaxa","A list (concatenated and separated) of identifiers or names of dwc:Taxon records and the associations of this dwc:Occurrence to each of them.",NA,NA,NA,NA,NA
 "otherCatalogNumbers","othercatalognumbers","A list (concatenated and separated) of previous or alternate fully qualified catalog numbers or other human-used identifiers for the same dwc:Occurrence, whether in the current or any other data set or collection.",NA,NA,NA,NA,"otherCatalogNumbers"
+"occurrenceRemarks","occurrenceremarks","Comments or notes about the dwc:Occurrence.","occurrenceRemarks","optional",NA,"notes","occurrenceRemarks"
 "occurrenceRemarks","occurrenceremarks","Comments or notes about the dwc:Occurrence.","occurrenceRemarks","optional",NA,"occurrenceremarks","occurrenceRemarks"
 "Organism","organism","A particular organism or defined group of organisms considered to be taxonomically homogeneous.",NA,NA,NA,NA,NA
 "organismID","organismid","An identifier for the dwc:Organism instance (as opposed to a particular digital record of the dwc:Organism). May be a globally unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"organismID"
@@ -68,7 +71,7 @@
 "Event","event","An action that occurs at some location during some time.",NA,NA,NA,NA,NA
 "eventID","eventid","An identifier for the set of information associated with a dwc:Event (something that occurs at a place and time). May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"eventID"
 "parentEventID","parenteventid","An identifier for the broader dwc:Event that groups this and potentially other dwc:Events.",NA,NA,NA,NA,"parentEventID"
-"eventType","eventtype","The nature of the dwc:Event.",NA,NA,NA,NA,"eventType"
+"eventType","eventtype","The nature of the dwc:Event.",NA,NA,NA,NA,NA
 "fieldNumber","fieldnumber","An identifier given to the dwc:Event in the field. Often serves as a link between field notes and the dwc:Event.",NA,NA,NA,NA,"fieldNumber"
 "projectTitle","projecttitle","A list (concatenated and separated) of titles or names for projects that contributed to a dwc:Event.",NA,NA,NA,NA,NA
 "projectID","projectid","A list (concatenated and separated) of identifiers for projects that contributed to a dwc:Event.",NA,NA,NA,NA,"projectId"
@@ -87,7 +90,7 @@
 "sampleSizeValue","samplesizevalue","A numeric value for a measurement of the size (time duration, length, area, or volume) of a sample in a sampling dwc:Event.",NA,NA,NA,NA,"sampleSizeValue"
 "sampleSizeUnit","samplesizeunit","The unit of measurement of the size (time duration, length, area, or volume) of a sample in a sampling dwc:Event.",NA,NA,NA,NA,"sampleSizeUnit"
 "samplingEffort","samplingeffort","The amount of effort expended during a dwc:Event.",NA,NA,NA,NA,"samplingEffort"
-"fieldNotes","fieldnotes","One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the dwc:Event.","fieldNotes","optional",NA,"notes","fieldNotes"
+"fieldNotes","fieldnotes","One of a) an indicator of the existence of, b) a reference to (publication, URI), or c) the text of notes taken in the field about the dwc:Event.","fieldNotes","optional",NA,NA,"fieldNotes"
 "eventRemarks","eventremarks","Comments or notes about the dwc:Event.",NA,NA,NA,NA,"eventRemarks"
 "Location","location","A spatial region or named place.",NA,NA,NA,NA,NA
 "locationID","locationid","An identifier for the set of dcterms:Location information. May be a global unique identifier or an identifier specific to the data set.",NA,NA,NA,NA,"locationID"
@@ -116,7 +119,9 @@
 "locationAccordingTo","locationaccordingto","Information about the source of this dcterms:Location information. Could be a publication (gazetteer), institution, or team of individuals.",NA,NA,NA,NA,"locationAccordingTo"
 "locationRemarks","locationremarks","Comments or notes about the dcterms:Location.",NA,NA,NA,NA,"locationRemarks"
 "decimalLatitude","decimallatitude","The geographic latitude (in decimal degrees, using the spatial reference system given in dwc:geodeticDatum) of the geographic center of a dcterms:Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.","decimalLatitude","required","latitude","decimallatitude","decimalLatitude"
+"decimalLatitude","decimallatitude","The geographic latitude (in decimal degrees, using the spatial reference system given in dwc:geodeticDatum) of the geographic center of a dcterms:Location. Positive values are north of the Equator, negative values are south of it. Legal values lie between -90 and 90, inclusive.","decimalLatitude","required","latitude","latitude","decimalLatitude"
 "decimalLongitude","decimallongitude","The geographic longitude (in decimal degrees, using the spatial reference system given in dwc:geodeticDatum) of the geographic center of a dcterms:Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.","decimalLongitude","required","longitude","decimallongitude","decimalLongitude"
+"decimalLongitude","decimallongitude","The geographic longitude (in decimal degrees, using the spatial reference system given in dwc:geodeticDatum) of the geographic center of a dcterms:Location. Positive values are east of the Greenwich Meridian, negative values are west of it. Legal values lie between -180 and 180, inclusive.","decimalLongitude","required","longitude","longitude","decimalLongitude"
 "geodeticDatum","geodeticdatum","The ellipsoid, geodetic datum, or spatial reference system (SRS) upon which the geographic coordinates given in dwc:decimalLatitude and dwc:decimalLongitude are based.",NA,NA,NA,NA,"geodeticDatum"
 "coordinateUncertaintyInMeters","coordinateuncertaintyinmeters","The horizontal distance (in meters) from the given dwc:decimalLatitude and dwc:decimalLongitude describing the smallest circle containing the whole of the dcterms:Location. Leave the value empty if the uncertainty is unknown, cannot be estimated, or is not applicable (because there are no coordinates). Zero is not a valid value for this term.",NA,NA,NA,NA,"coordinateUncertaintyInMeters"
 "coordinatePrecision","coordinateprecision","A decimal representation of the precision of the coordinates given in the dwc:decimalLatitude and dwc:decimalLongitude.","coordinatePrecision","optional",NA,"coordinateprecision","coordinatePrecision"
@@ -185,6 +190,7 @@
 "kingdom","kingdom","The full scientific name of the kingdom in which the dwc:Taxon is classified.",NA,NA,NA,NA,"kingdom"
 "phylum","phylum","The full scientific name of the phylum or division in which the dwc:Taxon is classified.",NA,NA,NA,NA,"phylum"
 "class","class","The full scientific name of the class in which the dwc:Taxon is classified.","class","optional",NA,"class","class"
+"class","class","The full scientific name of the class in which the dwc:Taxon is classified.","class","optional",NA,"taxonclass","class"
 "order","order","The full scientific name of the order in which the dwc:Taxon is classified.","order","optional",NA,"order","order"
 "superfamily","superfamily","The full scientific name of the superfamily in which the dwc:Taxon is classified.",NA,NA,NA,NA,NA
 "family","family","The full scientific name of the family in which the dwc:Taxon is classified.","family","required","family_matched","family","family"
@@ -201,6 +207,7 @@
 "taxonRank","taxonrank","The taxonomic rank of the most specific name in the dwc:scientificName.","taxonRank","optional",NA,NA,"taxonRank"
 "verbatimTaxonRank","verbatimtaxonrank","The taxonomic rank of the most specific name in the dwc:scientificName as it appears in the original record.",NA,NA,NA,NA,"verbatimTaxonRank"
 "scientificNameAuthorship","scientificnameauthorship","The authorship information for the dwc:scientificName formatted according to the conventions of the applicable dwc:nomenclaturalCode.","scientificNameAuthorship","required","name_matched_author","scientificnameauthorship",NA
+"scientificNameAuthorship","scientificnameauthorship","The authorship information for the dwc:scientificName formatted according to the conventions of the applicable dwc:nomenclaturalCode.","scientificNameAuthorship","required","name_matched_author","scientificnameauthor",NA
 "vernacularName","vernacularname","A common or vernacular name.",NA,NA,NA,NA,"vernacularName"
 "nomenclaturalCode","nomenclaturalcode","The nomenclatural code (or codes in the case of an ambiregnal name) under which the dwc:scientificName is constructed.",NA,NA,NA,NA,"nomenclaturalCode"
 "taxonomicStatus","taxonomicstatus","The status of the use of the dwc:scientificName as a label for a taxon. Requires taxonomic opinion to define the scope of a dwc:Taxon. Rules of priority then are used to define the taxonomic status of the nomenclature contained in that scope, combined with the experts opinion. It must be linked to a specific taxonomic reference that defines the concept.","taxonomicStatus","optional","scrubbed_taxonomic_status",NA,"taxonomicStatus"
@@ -247,9 +254,9 @@
 "GeorefMethod","georefmethod","A reference to the methods used for determining the coordinates and uncertainties.",NA,NA,NA,NA,NA
 "HorizontalDatum","horizontaldatum","The horizontal geodetic datum to which the DecimalLatitude and DecimalLongitude refer.",NA,NA,NA,NA,NA
 "IdentificationModifier","identificationmodifier","Additional information documenting the taxonomic determination of the cataloged item (e.g., ""cf."", ""aff."", ""subspecies in question"", etc.).",NA,NA,NA,NA,NA
-"Latitude","latitude","The latitude of the location from which the specimen was collected. This value should be expressed in decimal degrees with a datum such as WGS-84","latitude","optional",NA,"latitude",NA
+"Latitude","latitude","The latitude of the location from which the specimen was collected. This value should be expressed in decimal degrees with a datum such as WGS-84","latitude","optional",NA,NA,NA
 "LatLongComments","latlongcomments","Comments about the LatLong determination.",NA,NA,NA,NA,NA
-"Longitude","longitude","The longitude of the location from which the specimen was collected. This value should be expressed in decimal degrees with a datum such as WGS-84","longitude","optional",NA,"longitude",NA
+"Longitude","longitude","The longitude of the location from which the specimen was collected. This value should be expressed in decimal degrees with a datum such as WGS-84","longitude","optional",NA,NA,NA
 "MaximumDepth","maximumdepth","The maximum distance in meters below the surface of the water at which the collection was made; all material collected was at most this deep. Positive below the surface, negative above (e.g. collecting above sea level in tidal areas).",NA,NA,NA,NA,NA
 "MaximumElevation","maximumelevation","The maximum distance in meters above (positive) or below sea level of the collecting locality.",NA,NA,NA,NA,NA
 "MinimumDepth","minimumdepth","The minimum distance in meters below the surface of the water at which the collection was made; all material collected was at least this deep. Positive below the surface, negative above (e.g. collecting above sea level in tidal areas).",NA,NA,NA,NA,NA
