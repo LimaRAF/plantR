@@ -2,6 +2,17 @@
 
 <br/>
 
+## version 0.2.1
+
+* Improvements in `validateTax()`, which now takes into account auxiliary names of identifiers for the validation of taxonomic identifications (issues #209 and #213)
+
+* Minor improvements in `validateTax()` and accessory functions `prepDup()`, `mergeDup()` and `rmDup()` and the creation of a new internal function `getMergeCat()` to better deal with the merge and removal of duplicates (issues #211 and #212)
+
+* Changes in the internal object `fieldNames` and in the example datasets to due the changes in the names of columns in the CRIA API (issue #210)
+
+* Updates on the plantR internal dictionaries and SysData
+
+
 ## version 0.2.0
 
 * Version consolidating the changes from previous versions (0.1.8 to 0.1.10), that should require users to adapt their previous codes. Novelties and changes implemented in those versions were double-checked and some final and minor enhancements were done.
