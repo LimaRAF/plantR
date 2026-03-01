@@ -10,6 +10,8 @@
 
 * Changes in the internal object `fieldNames` and in the example datasets to due the changes in the names of columns in the CRIA API (issue #210)
 
+* Improvements in the function `checkList()` to better account for taxon authorships and some format improvements (issue #215)
+
 * Updates on the plantR internal dictionaries and SysData
 
 
