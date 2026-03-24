@@ -152,7 +152,6 @@ formatDwc <- function(splink_data = NULL,
 
   # formating user data --------------------------------------------------------
   if (!is.null(user_data)) {
-    ## check if any optional columns should be included here
     user_colnames <- c(institutionCode, collectionCode,
                        catalogNumber,
                        recordNumber, recordedBy,
@@ -171,8 +170,16 @@ formatDwc <- function(splink_data = NULL,
                               "identifiedBy", "dateIdentified",
                               "typeStatus", "family", "scientificName",
                               "scientificNameAuthorship")
-    if (any(!user_colnames %in% names(user_data)))
-      stop("user_data does not have the minimum fields required for data cleaning!")
+    check_these <- !user_colnames %in% names(user_data)
+    if (any(check_these)) {
+      miss.cols <- user_colnames[!user_colnames %in% names(user_data)]
+      if ("county" %in% miss.cols & !"municipality" %in% miss.cols) {
+        user_data[["county"]] <- user_data[["municipality"]]
+      } else {
+        stop(paste0("user_data does not have the minimum fields required for data cleaning: ",
+                    miss.cols))
+      }
+    }
 
     # Applying DwC names
     names(user_data)[match(user_colnames, names(user_data))] <-
@@ -211,12 +218,17 @@ formatDwc <- function(splink_data = NULL,
     miss.cols <- must[!must %in% names(splink_data)]
 
     # Creating field municipality
-    if (!"municipality" %in% names(splink_data))
-      splink_data$municipality <- NA_character_
+    if ("municipality" %in% miss.cols) {
+      if ("county" %in% names(splink_data)) {
+        splink_data$municipality <- splink_data$county
+      } else {
+        splink_data$municipality <- NA_character_
+      }
+    }
     # Creating field dateIdentified
-    if (!"monthIdentified" %in% names(splink_data))
+    if ("monthIdentified" %in% miss.cols)
       splink_data$monthIdentified <- NA_character_
-    if (!"dayIdentified" %in% names(splink_data))
+    if ("dayIdentified" %in% miss.cols)
       splink_data$dayIdentified <- NA_character_
 
     splink_date <- apply(X = splink_data[, c("yearIdentified",
@@ -227,12 +239,41 @@ formatDwc <- function(splink_data = NULL,
     splink_data$dateIdentified <-
       ifelse(grepl("NA-NA-NA", splink_date), NA_character_, splink_date)
 
-    if (!"decimalLatitude" %in% names(splink_data))
-      splink_data$decimalLatitude <- NA_character_
-    if (!"decimalLongitude" %in% names(splink_data))
-      splink_data$decimalLongitude <- NA_character_
-    if (!"year" %in% names(splink_data))
+    if ("decimalLatitude" %in% miss.cols) {
+      if ("latitude" %in% names(splink_data)) {
+        splink_data$decimalLatitude <- splink_data$latitude
+      } else {
+        splink_data$decimalLatitude <- NA_character_
+      }
+    }
+
+    if ("decimalLongitude" %in% miss.cols) {
+      if ("longitude" %in% names(splink_data)) {
+        splink_data$decimalLongitude <- splink_data$longitude
+      } else {
+        splink_data$decimalLongitude <- NA_character_
+      }
+    }
+
+    if ("year" %in% miss.cols)
       splink_data$year <- NA_character_
+
+    if ("recordedBy" %in% miss.cols) {
+      if ("collector" %in% names(splink_data)) {
+        splink_data$recordedBy <- splink_data$collector
+      } else {
+        splink_data$recordedBy <- NA_character_
+      }
+    }
+
+    if ("recordNumber" %in% miss.cols) {
+      if ("collectornumber" %in% names(splink_data)) {
+        splink_data$recordNumber <- splink_data$collectornumber
+      } else {
+        splink_data$recordNumber <- NA_character_
+      }
+    }
+
 
     # optional absent fields
     if (!drop.opt) {
