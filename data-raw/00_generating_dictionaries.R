@@ -283,6 +283,10 @@ collectionCodes$ordem.colecao <- NULL
 familiesSynonyms <- dic$familiesSynonyms
 familiesSynonyms$order <- NULL
 
+## Removendo sinonimias conflituosas do COL com outras referencias (e.g. APG)
+familiesSynonyms <- familiesSynonyms[!grepl("confli", familiesSynonyms$obs),]
+familiesSynonyms$obs <- NULL
+
 # Field names form different data sources and their equivalencies:
 # ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
 # fieldNames <- dic$fieldNames

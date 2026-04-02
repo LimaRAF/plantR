@@ -88,9 +88,21 @@
 #'  duplicates. The argument `prop` defines the duplicated proportion
 #'  (given by `prop.name`) that should be used as a threshold. Only
 #'  records with duplicated proportions above this threshold will be
-#'  merged. For all other records, the output will be the same as the
-#'  input. If no column `prop.name` is found in the input data, merge
-#'  is performed for all records, with a warning.
+#'  merged. The default is 0.75, meaning that only records with at
+#'  least 3 out of 4 duplicate search strings matching those of other
+#'  records will be merged (which is quite conservative).
+#'
+#'  For the records below the threshold defined in `prop`, the output
+#'  will be the same as the input (no merging is performed). The only
+#'  exception of records with duplicated proportion < `prop` that are
+#'  finally merged are those with duplicated catalog numbers within
+#'  the duplicated IDs defined in the argument `dup.name`. Those cases
+#'  are generally related to duplicated records within the same data
+#'  providers (e.g. GBIF) and not among them, which are already
+#'  flagged as virtual duplicates.
+#'
+#'  If no column `prop.name` is found in the input data, merge is
+#'  performed for all records, with a warning.
 #'
 #'  For the merge of taxonomic information, the specimen(s) with the
 #'  highest confidence level of the identification is used as the
@@ -176,8 +188,11 @@
 #' @export mergeDup
 #'
 #'
-mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
-                     prop = 0.75, rec.ID = "numTombo",
+mergeDup <- function(dups,
+                     dup.name = "dup.ID",
+                     prop.name = "dup.prop",
+                     prop = 0.75,
+                     rec.ID = "numTombo",
                      info2merge = c("tax", "geo", "loc"),
                      tax.names = c(family = "family.new",
                                    species = "scientificName.new",
@@ -197,7 +212,8 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
                                    res.gazet = "resolution.gazetteer",
                                    res.orig = "resol.orig",
                                    loc.check = "loc.check"),
-                     tax.level = "high", overwrite = FALSE) {
+                     tax.level = "high",
+                     overwrite = FALSE) {
 
   ## check input
   if (!inherits(dups, "data.frame"))
@@ -267,18 +283,26 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
 
   data.table::setkey(dt, dup.IDs) # setting 'dup.ID' as key to the data.table
 
-  #Creating the duplicate categories
+  # Creating the duplicate categories for merging
   if (!prop.name %in% names(dt)) {
     warning("The input data has no column with the proportion of duplicates. Assuming to be 1",
             call. = FALSE)
     dt[, c(prop.name) := 1]
-    dt[, dup.merge := prop.name >= prop]
+
+    dt <- getMergeCat(dt, dup.name = dup.name, prop.name = prop.name,
+                      prop = prop, rec.ID = rec.ID)
+    # dt[, dup.merge := .SD >= prop, .SDcols = prop.name]
     # dt[, dup.merge := TRUE]
   } else {
-    dt[, dup.merge := prop.name >= prop]
+
+    if (any(dt[, .SD > 1 | .SD < 0, .SDcols = prop.name], na.rm = TRUE))
+      stop(paste0("Values provided in 'prop.name' must be between 0 and 1"))
+
+    dt <- getMergeCat(dt, dup.name = dup.name, prop.name = prop.name,
+                      prop = prop, rec.ID = rec.ID)
+    # dt[, dup.merge := .SD >= prop, .SDcols = prop.name]
     # dt[, dup.merge := dup.prop >= prop]
   }
-
 
   if ("tax" %in% info2merge) {
     # creating the new columns for taxonomic check
@@ -341,30 +365,31 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
     dt[ , c("valor1", "tmp.prop.name") := NULL]
     data.table::setkey(dt, dup.IDs, prioridade.tax)
 
-    dt[same_spp == "no",
+    dt[dup.merge == TRUE & same_spp == "no",
        c(new.cols) := .SD[tax.check.wk %in%
                             tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
        by = dup.IDs, .SDcols = c(wk.cols)]
-    dt[same_spp == "sim",
+    dt[dup.merge == TRUE & same_spp == "sim",
        c("det.name.wk1", "det.year.wk1") := .SD[tax.check.wk %in% tax.level &
                                                   which.max(det.year.wk)][1],
        by = dup.IDs, .SDcols = c("det.name.wk1", "det.year.wk1")]
-    dt[same_spp == "sim",
+    dt[dup.merge == TRUE & same_spp == "sim",
        tax.check.wk1 := if (any(tax.check.wk1 %in% tax.level)) tax.level
        else tax.check.wk1, by = dup.IDs]
 
     #Defining the reference specimen for each duplicate group
     # dt[, ref.spec.tax := temp.rec.ID[1L], by = dup.IDs]
     dt[, ref.spec.tax := NA_character_]
-    dt[same_spp == "no",
+    dt[dup.merge == TRUE & same_spp == "no",
        ref.spec.tax := temp.rec.ID[tax.check.wk %in%
                                      tax.level][which.max(det.year.wk[tax.check.wk %in% tax.level])],
         by = dup.IDs]
-    dt[same_spp == "sim",
+    dt[dup.merge == TRUE & same_spp == "sim",
        ref.spec.tax := temp.rec.ID[tax.check.wk %in% tax.level &
                                                   which.max(det.year.wk)][1],
         by = dup.IDs]
-    dt[same_spp == "vazio", ref.spec.tax := temp.rec.ID[1L], by = dup.IDs]
+    dt[dup.merge == TRUE & same_spp == "vazio",
+       ref.spec.tax := temp.rec.ID[1L], by = dup.IDs]
 
     #Removing unecessary columns
     dt[, c("same_spp", "prioridade.tax", wk.cols) := NULL]
@@ -422,7 +447,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
        by = dup.IDs, .SDcols = wk.cols]
 
     #Defining the reference specimen for each duplicate group
-    dt[, ref.spec.geo := temp.rec.ID[1L], by = dup.IDs]
+    dt[dup.merge == TRUE, ref.spec.geo := temp.rec.ID[1L], by = dup.IDs]
 
     #Removing unecessary columns
     dt[, c("prioridade", wk.cols) := NULL]
@@ -431,7 +456,6 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
     new.cols1 <- paste0(geo.names, "1")
     data.table::setnames(dt, c(new.cols), c(new.cols1))
   }
-
 
   if ("loc" %in% info2merge) {
     # creating the new columns for locality check
@@ -478,7 +502,7 @@ mergeDup <- function(dups, dup.name = "dup.ID", prop.name = "dup.prop",
        by = dup.IDs, .SDcols = c(wk.cols[!wk.cols %in% "res.orig.wk"])]
 
     #Defining the reference specimen for each duplicate group
-    dt[, ref.spec.loc := temp.rec.ID[1L], by = dup.IDs]
+    dt[dup.merge == TRUE, ref.spec.loc := temp.rec.ID[1L], by = dup.IDs]
 
     #Removing unecessary columns
     dt[, c("valor", wk.cols) := NULL]

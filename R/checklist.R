@@ -106,6 +106,7 @@ checkList <- function(x,
   typeStatus <- temp.rec.numb <- ordem <- temp.pais <- NULL
   coletores <- temp.accession <- numTombo <- vchrs <- NULL
   datas <- datas.tipo <- lista.vouchs <- . <- NULL
+  tmp.rec.by <- tmp.tax.name <- NULL
 
   ## PREPARING THE TABLE ##
   # Select which co-variables will be used (priority to edited columns)
@@ -155,13 +156,25 @@ checkList <- function(x,
   if (length(changeCols) > 0)
     dt[,(changeCols):= lapply(.SD, as.character), .SDcols = changeCols]
 
+  # getting the unique taxon + author combinations
+  tax.cols <- covs.final[covs.final %in% c(covs.present[["species"]],
+                                 covs.present[["authors"]])]
+  if (length(tax.cols) > 1) {
+    dt[, tmp.tax.name := do.call(paste, .SD), .SDcols = c(tax.cols)]
+    rm.na <- paste0(rep(NA, length(tax.cols)), collapse = " ")
+    dt[tmp.tax.name == rm.na, tmp.tax.name := NA_character_]
+    dt[, tmp.tax.name := gsub("NA\\s+", "", tmp.tax.name, perl = TRUE),]
+    dt[, tmp.tax.name := gsub("\\sNA+", "", tmp.tax.name, perl = TRUE),]
+  } else {
+    dt[, tmp.tax.name := .SD, .SDcols = tax.cols[1]]
+  }
+
   # getting the list of taxa and the selected columns
-  data.table::setindexv(dt, covs.present[["species"]])
-  checklist <- data.frame(unique(dt, by= c(covs.present[["species"]],
-                                           covs.present[["authors"]])))
+  data.table::setindexv(dt, "tmp.tax.name")
+  checklist <- data.frame(unique(dt, by = c("tmp.tax.name")))
   cols <-
     c(unlist(covs.present[names(covs.present) %in% c("families", "species", "authors")]),
-            "scientific.name")
+            "scientific.name", "tmp.tax.name")
   checklist <- checklist[, names(checklist) %in% cols]
   checklist$records <- NA
   checklist$tax.CL <- NA
@@ -169,38 +182,38 @@ checkList <- function(x,
   checklist$vouchers <- NA
 
   ## NUMBER OF RECORDS PER SPECIES ##
-  records <- dt[, .N , by = c(covs.present[["species"]])]
+  records <- dt[, .N , by = c("tmp.tax.name")]
 
   if ("dup.ID" %in% names(dt)) {
 
     unicatas <- dt[is.na(dup.ID), .N ,
-                   by = c(covs.present[["species"]])]
+                   by = c("tmp.tax.name")]
     unicatas <- merge(records, unicatas,
-                      by = c(covs.present[["species"]]),
+                      by = c("tmp.tax.name"),
                       all.x = TRUE,
                       suffixes = c("", ".unis"))
     unicatas[, N := NULL]
 
     duplicatas <-
       dt[!is.na(dup.ID), .N,
-         by = c(covs.present[["species"]], "dup.ID")]
-    duplicatas <- duplicatas[, .N , by = c(covs.present[["species"]])]
+         by = c("tmp.tax.name", "dup.ID")]
+    duplicatas <- duplicatas[, .N , by = c("tmp.tax.name")]
     duplicatas <-
       data.table::merge.data.table(records, duplicatas,
-                                   by = c(covs.present[["species"]]),
+                                   by = c("tmp.tax.name"),
                                    all.x = TRUE,
                                    suffixes = c("", ".dups"))
     duplicatas[, N:= NULL]
 
-    records <- records[unicatas, on = c(covs.present[["species"]])]
-    records <- records[duplicatas, on = c(covs.present[["species"]])]
+    records <- records[unicatas, on = c("tmp.tax.name")]
+    records <- records[duplicatas, on = c("tmp.tax.name")]
 
     checklist$records <-
-      records$N[match(checklist[, covs.present[["species"]]],
+      records$N[match(checklist[, "tmp.tax.name"],
                       data.frame(records)[,1])]
   } else {
     checklist$records <-
-      records$N[match(checklist[, covs.present[["species"]]],
+      records$N[match(checklist[, "tmp.tax.name"],
                       data.frame(records)[,1])]
   }
 
@@ -208,24 +221,25 @@ checkList <- function(x,
   ## TAXONOMIC CONFIDENCE LEVEL  ##
   if (!is.na(covs.present[["taxonomy"]])) {
     # Proportion of validate identifications per species
-    colunas <- c(covs.present[["taxonomy"]], covs.present[["species"]])
+    colunas <- c(covs.present[["taxonomy"]], "tmp.tax.name")
     data.table::setkeyv(dt, cols = colunas)
     taxs <- dt[, .N,
-               by = c(covs.present[["species"]], covs.present[["taxonomy"]])]
+               by = c("tmp.tax.name", covs.present[["taxonomy"]])]
     #dt[data.table::CJ(tax.check1, scientificName.new, unique = TRUE), .N, by = .EACHI]
 
     vals <- c("unknown", "low", "medium", "high")
     all.taxs <- data.table::CJ(unique(data.frame(taxs)[,1]),
                                vals, 0, unique = TRUE)
     names(all.taxs) <- names(taxs)
-    all.taxs <- merge(all.taxs, taxs, by = c(covs.present[["species"]], covs.present[["taxonomy"]]),
+    all.taxs <- merge(all.taxs, taxs, by = c("tmp.tax.name", covs.present[["taxonomy"]]),
                       all.x = TRUE, suffixes = c(".all", ""))
     all.taxs <- all.taxs[, N.all := NULL]
     all.taxs <- all.taxs[data.frame(all.taxs)[,2] %in% "high", ]
     all.taxs[is.na(N), N := 0]
 
     # Saving the result
-    checklist$tax.CL <- round(100 * all.taxs$N[match(checklist[,1], data.frame(all.taxs)[,1])]/
+    checklist$tax.CL <- round(100 * all.taxs$N[match(checklist[["tmp.tax.name"]],
+                                                     all.taxs[["tmp.tax.name"]])]/
                                 checklist$records, 2)
   }
 
@@ -237,7 +251,7 @@ checkList <- function(x,
     dt[temp.geo.check %in% c("ok_county", "ok_locality"), temp.geo.check := "1"]
     dt[!temp.geo.check %in% "1", temp.geo.check := "0"]
 
-    colunas <- c("temp.geo.check", covs.present[["species"]])
+    colunas <- c("temp.geo.check", "tmp.tax.name")
     data.table::setkeyv(dt, cols = colunas)
     coords <- dt[, .N, by = colunas]
 
@@ -246,7 +260,8 @@ checkList <- function(x,
     coords <- coords[, temp.geo.check := NULL]
     dt[ , temp.geo.check := NULL]
 
-    checklist$geo.CL <- round(100 * coords$N[match(checklist[,1], data.frame(coords)[,1])]/
+    checklist$geo.CL <- round(100 * coords$N[match(checklist[["tmp.tax.name"]],
+                                                   coords[["tmp.tax.name"]])]/
                                 checklist$records, 2)
   }
 
@@ -268,7 +283,8 @@ checkList <- function(x,
         dt[c("s.n."), priority := priority - 3, nomatch = NULL])
     }
     temp <- data.frame(dt[, lapply(.SD, nchar),
-                          by = c(covs.present[["collectors"]]), .SDcols = c(covs.present[["collectors"]])])
+                          by = c(covs.present[["collectors"]]),
+                          .SDcols = c(covs.present[["collectors"]])])
     dt[ temp[,2] < 4, priority := priority - 3]
   }
 
@@ -299,7 +315,7 @@ checkList <- function(x,
     dt[, ordem := 1:dim(dt)[1],]
     data.table::setnames(dt, covs.present[["countries"]], "temp.pais")
     temp <- dt[, .(ordem, temp.pais, !duplicated(temp.pais, incomparables = NA_character_)),
-               by = c(covs.present[["species"]])]
+               by = c("tmp.tax.name")]
     temp$V3 <- !unlist(temp$V3)
     # temp$V4 <- !unlist(dt[, .(ordem, temp.pais, !duplicated(temp.pais, incomparables = NA_character_, fromLast = TRUE)),
     #            by = c(covs.present[["species"]])]$V3)
@@ -339,15 +355,17 @@ checkList <- function(x,
   #priority from the same collector or same county?
 
   # Organizing and filtering records based on the ranks by species
-  data.table::setorderv(dt, c(covs.present[["species"]], "priority"), c(1,-1))
+  data.table::setorderv(dt, c("tmp.tax.name", "priority"), c(1,-1))
   dt1 <- dt[dt[, .I[1:n.vouch],
-               by = c(covs.present[["species"]])]$V1]
+               by = c("tmp.tax.name")]$V1]
   dt1 <- dt1[rowSums(is.na(dt1)) < dim(dt1)[2],]
 
   ## GENERATING THE LIST OF VOUCHERS ##
   # Collector name and number
-  dt1[ , coletores := do.call(paste, c(.SD, sep=", ")),
-       .SDcols = c(covs.present[["collectors"]], covs.present[["recordNumber"]])]
+  dt1[ , tmp.rec.by := lapply(.SD, prepName, format = "init_last"),
+       .SDcols = covs.present[["collectors"]]]
+  dt1[ , coletores := do.call(paste, c(.SD, sep=" ")),
+       .SDcols = c("tmp.rec.by", covs.present[["recordNumber"]])]
 
   if (type == "short") { # Inspired in the Flora do Brail format
 
@@ -357,7 +375,7 @@ checkList <- function(x,
 
     ## Accession numbers
     if (!"temp.accession" %in% names(dt1))
-      dt1[ , temp.accession := do.call(paste, c(.SD, sep=", ")),
+      dt1[ , temp.accession := do.call(paste, c(.SD, sep=" ")),
            .SDcols = c(covs.present[["collections"]], covs.present[["catalog"]])]
 
     #correcting accessions numbers for duplicates across herbaria
@@ -385,14 +403,14 @@ checkList <- function(x,
     }
 
     #combining all voucher into a single string
-    data.table::setorderv(dt1, c(covs.present[["species"]], "vchrs"), c(1,1))
+    data.table::setorderv(dt1, c("tmp.tax.name", "vchrs"), c(1,1))
     dt2 <- dt1[ , do.call(paste, c(.SD, collapse= "; ",sep="")),
-                by = c(covs.present[["species"]]),
+                by = c("tmp.tax.name"),
                 .SDcols = "vchrs"]
 
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[,covs.present[["species"]]],
-                                data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[["tmp.tax.name"]],
+                                dt2[["tmp.tax.name"]])])
   }
 
   if (type == "selected") { # From 'species examined' in Flora Neotropica
@@ -407,8 +425,9 @@ checkList <- function(x,
 
     #collectionCode
     if (!"temp.accession" %in% names(dt1))
-      dt1[ , temp.accession := .SD,
-           .SDcols = c(covs.present[["collections"]])]
+      dt1[ , temp.accession := do.call(paste, c(.SD, sep=" ")),
+         .SDcols = c(covs.present[["collections"]], covs.present[["catalog"]])]
+
 
     #correcting accessions numbers for duplicates across herbaria
     if ("dup.ID" %in% names(dt1)) {
@@ -512,22 +531,22 @@ checkList <- function(x,
          .SDcols = c("locais", "datas", "vchrs")]
 
     #combining all voucher into a single string
-    data.table::setorderv(dt1, c(covs.present[["species"]], "lista.vouchs"), c(1,1))
+    data.table::setorderv(dt1, c("tmp.tax.name", "lista.vouchs"), c(1,1))
     dt2 <- dt1[ , do.call(paste, c(.SD, collapse= "; ",sep="")),
-                by = c(covs.present[["species"]]),
+                by = c("tmp.tax.name"),
                 .SDcols = "lista.vouchs"]
     #Saving
     checklist$vouchers <-
-      as.character(dt2$V1[match(checklist[, covs.present[["species"]]],
-                                data.frame(dt2)[,1])])
+      as.character(dt2$V1[match(checklist[["tmp.tax.name"]],
+                                dt2[["tmp.tax.name"]])])
   }
 
   # Organizing and ordering the output
   cols <- as.character(
-    c(unlist(covs.present[names(covs.present) %in% c("families", "species")]),
+    c(unlist(covs.present[names(covs.present) %in% c("families", "species", "authors")]),
       "scientific.name", "records", "tax.CL", "geo.CL","vouchers"))
-  if (all(c(covs.present[["species"]], "scientific.name") %in% names(checklist)))
-    cols <- cols[!cols %in% covs.present[["species"]]]
+  if (all(c("tmp.tax.name", "scientific.name") %in% names(checklist)))
+    cols <- cols[!cols %in% "tmp.tax.name"]
 
   cols <- cols[cols %in% names(checklist)]
   checklist <- checklist[, cols]
