@@ -50,11 +50,21 @@ goodpractice::gp(".", checks = c("rcmdcheck_tests_pass"))
 # Larger functions pending tests: checkList, formatDwc, prepDup,
 #readData, rgibif2, rspeciesLink, saveData, summaryData, summaryFlags
 
+plantr_cov <- covr::package_coverage()
+# covr::to_cobertura(plantr_cov)
+
+devtools::test_coverage_active_file("tests/testthat/test-fixSpecies.R")
+devtools::test_coverage_active_file("tests/testthat/test-prepSpecies.R")
+devtools::test_coverage_active_file("tests/testthat/test-formatTax.R")
+devtools::test_coverage_active_file("tests/testthat/test-checkInverted.R")
+
 covr::codecov()
 covr::file_coverage(source_files = "R/fixSpecies.R",
                     test_files = "tests/testthat/test-fixSpecies.R")
 covr::file_coverage(source_files = "R/cleanName.R",
                     test_files = "tests/testthat/test-cleanName.R")
+covr::file_coverage(source_files = "R/prepSpecies.R",
+                    test_files = "tests/testthat/test-prepSpecies.R")
 
 ## Checking non-ascii characters in the code
 arquivos <- list.files("R/", full.names = TRUE)
