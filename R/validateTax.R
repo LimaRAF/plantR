@@ -334,16 +334,16 @@ validateTax <- function(x, col.names = c(class = "class",
       if (col.names["class"] %in% names(cols.miss)) {
         x[[col.names["class"]]] <- tmp$class.correct
       } else {
-        rep_these <- is.na(x[[col["class"]]]) & !is.na(tmp$class.correct)
+        rep_these <- is.na(x[[col.names["class"]]]) & !is.na(tmp$class.correct)
         if (any(rep_these))
-          x[[col["class"]]][rep_these] <- tmp$class.correct[rep_these]
+          x[[col.names["class"]]][rep_these] <- tmp$class.correct[rep_these]
       }
       if ("order" %in% names(cols.miss)) {
         x[[col.names["order"]]] <- tmp$order.correct
       } else {
-        rep_these <- is.na(x[[col["order"]]]) & !is.na(tmp$order.correct)
+        rep_these <- is.na(x[[col.names["order"]]]) & !is.na(tmp$order.correct)
         if (any(rep_these))
-          x[[col["order"]]][rep_these] <- tmp$order.correct[rep_these]
+          x[[col.names["order"]]][rep_these] <- tmp$order.correct[rep_these]
       }
       message("Columns with the taxonomic class or order not found. Info added to input based on family names")
     }
