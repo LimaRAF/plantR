@@ -116,6 +116,7 @@ herbaria,Magnoliopsida,class,Agustín Rudas,"Rudas, A.",plantae
 herbaria,Verbenaceae,family,Ahmad Abid Munir,"Munir, A.A.",plantae
 aspt,Loranthaceae,family,Ainsley Calladine,"Calladine, A.",plantae
 huh,Gesneriaceae,family,Alain Chautems,"Chautems, A.",plantae
+herbaria,Loganiaceae,family,Alan E. Brant,"Brant, A.E.",plantae
 aspt,Cyatheaceae,family,Alan R. Smith,Smith,plantae
 herbaria,Blechnaceae,family,Alan R. Smith,Smith A.R.,plantae
 aspt,Cyatheaceae,family,Alan R. Smith,Smith A.R.,plantae
@@ -2171,6 +2172,7 @@ huh,Brassicaceae,family,Elias Landolt,"Landolt, E.",plantae
 huh,Dipsacaceae,family,Elias Landolt,"Landolt, E.",plantae
 huh,Ranunculaceae,family,Elias Landolt,"Landolt, E.",plantae
 rbh,Bromeliaceae,family,Elidio Armando Exposto Guarçoni,"Guarconi, E.A.E.",plantae
+cncflora_2018,Melastomataceae,family,Eliete da Silva Brito,"Brito, E.S.",plantae
 huh,Poaceae,family,Elisa Gernaela Juana Raquel Nicora,"Nicora, E.G.",plantae
 huh,Poaceae,family,Elisa Gernaela Juana Raquel Nicora,"Nicora, E.G.J.R.",plantae
 huh,Poaceae,family,Elisa Gernaela Juana Raquel Nicora,"Nicora, E.G.J.R.",plantae
@@ -2886,6 +2888,7 @@ huh,Poaceae,family,Gilberto Cortes R.,"Gilberto, C.R.",plantae
 huh,Poaceae,family,Gilberto Cortes R.,"Gilberto, C.R.",plantae
 huh,Poaceae,family,Gilberto Cortes R.,"Gilberto, C.R.",plantae
 herbaria,Lauraceae,family,Gilberto Pedralli,"Pedralli, G.",plantae
+wfoChecklistBank,Fabaceae,family,Gillian Brown,"Brown, G.",plantae
 huh,Acanthaceae,family,Gillian Sally Bidgood,"Bidgood, G.S.",plantae
 huh,Acanthaceae,family,Gillian Sally Bidgood,"Bidgood, G.S.",plantae
 huh,Acanthaceae,family,Gillian Sally Bidgood,"Bidgood, G.S.",plantae
@@ -2900,6 +2903,7 @@ huh,Asteraceae,family,Gina Paola Mendez,"Mendez, G.",plantae
 huh,Asteraceae,family,Gina Paola Mendez,"Mendez, G.P.",plantae
 rbh,Solanaceae,family,Giovana Secretti Vendruscolo,"Vendruscolo, G.",plantae
 rbh,Solanaceae,family,Giovana Secretti Vendruscolo,"Vendruscolo, G.S.",plantae
+wfoChecklistBank,Fabaceae,family,Giovani carlos Andrella,"Andrella, G.C.",plantae
 huh,Leguminosae,family,Giovanna De Martino,"Martino, G.",plantae
 herbaria,Moraceae,family,Gisela Pelissari,Pelissari,plantae
 herbaria,Moraceae,family,Gisela Pelissari,"Pelissari, G.",plantae
@@ -3974,6 +3978,8 @@ huh,Poaceae,family,John Bitting Smith Norton,"Norton, J.B.S.",plantae
 herbaria,Polygonaceae,family,John Brandbyge,Brandbyge,plantae
 herbaria,Polygonaceae,family,John Brandbyge,"Brandbyge, J.",plantae
 huh,Asteraceae,family,John Braybrooke Marshall,"Marshall, J.B.",plantae
+tropicos,Dicranaceae,family,John c. Brinda,"Brinda, J.C.",plantae
+tropicos,Pottiaceae,family,John c. Brinda,"Brinda, J.C.",plantae
 huh,Asteraceae,family,John C. La Duke,"Duke, J.C.L.",plantae
 aspt,Malvaceae,family,John C. La Duke,"Duke, J.C.L.",plantae
 huh,Asteraceae,family,John Cameron Semple,"Semple, J.C.",plantae
@@ -4022,6 +4028,9 @@ huh,Fabaceae,family,John H. Wiersema,"Wiersema, J.H.",plantae
 aspt,Nymphaeaceae,family,John H. Wiersema,"Wiersema, J.H.",plantae
 huh,Rosaceae,family,John H. Wiersema,"Wiersema, J.H.",plantae
 huh,Rosaceae,family,John H. Wiersema,"Wiersema, J.H.",plantae
+wfoChecklistBank,Catoscopiaceae,family,John j. Atwood,"Atwood, J.J.",plantae
+wfoChecklistBank,Distichiaceae,family,John j. Atwood,"Atwood, J.J.",plantae
+wfoChecklistBank,Timmiellaceae,family,John j. Atwood,"Atwood, J.J.",plantae
 huh,Betulaceae,family,John J. Furlow,"Furlow, J.J.",plantae
 aspt,Caryophyllaceae,family,John J. Schenk,"Schenk, J.J.",plantae
 aspt,Loasaceae,family,John J. Schenk,"Schenk, J.J.",plantae
@@ -6116,6 +6125,7 @@ aspt,Asteraceae,family,P. Leszek D. Vincent,"Vincent, P.L.D.",plantae
 aspt,Iridaceae,family,P. Leszek D. Vincent,"Vincent, P.L.D.",plantae
 flora_neotropica,Gentianaceae,family,P. Ruyters,"Ruyters, P.",plantae
 herbaria,Magnoliopsida,class,P.A.C.L. Assuncao,"Assuncao, P.A.C.L.",plantae
+powoReviewers,Orchidaceae,family,P.Bernet,"Bernet, P.",plantae
 huh,Cactaceae,family,Pablo Picca,"Picca, P.",plantae
 huh,Poaceae,family,Pai-Chieh Keng,"Keng, P.",plantae
 huh,Loganiaceae,family,Pakshirajan Lakshminarasimhan,"Lakshminarasimhan, P.",plantae
@@ -6373,6 +6383,8 @@ huh,Fabaceae,family,Peng-cheng Huang,"Huang, P.",plantae
 huh,Magnoliaceae,family,Peng-cheng Huang,"Huang, P.",plantae
 huh,Asteraceae,family,Per-Ola Karis,"Karis, P.",plantae
 huh,Asteraceae,family,Per-Ola Karis,"Karis, P.O.",plantae
+gbif_GSG,Betulaceae,family,Per Arvid Åsen,"Asen, P.A.",plantae
+gbif_GSG,Ericaceae,family,Per Arvid Åsen,"Asen, P.A.",plantae
 huh,Cyperaceae,family,Per Hartvig,"Hartvig, P.",plantae
 huh,Fabaceae,family,Per Lassen,"Lassen, P.",plantae
 herbaria,Fabaceae,family,"Pétala G. Ribeiro,","Ribeiro, P.G.",plantae
@@ -8236,6 +8248,34 @@ huh,Meliaceae,family,Walter A. Palacios,"Palacios, W.A.",plantae
 huh,Meliaceae,family,Walter A. Palacios,"Palacios, W.A.",plantae
 wfoChecklistBank,Cactaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
 wfoChecklistBank,Nepenthaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+wfoChecklistBank,Plumbaginaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+wfoChecklistBank,Stegnospermataceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Acanthaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Amaranthaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Apocynaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Araceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Aristolochiaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Asparagaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Asteraceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Euphorbiaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Fabaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Lamiaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Malpighiaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Malvaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Melastomataceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Moraceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Myrtaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Passifloraceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Piperaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Poaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Polygonaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Primulaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Pteridaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Verbenaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Urticaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Thymelaeaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Rubiaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
+tropicos,Solanaceae,family,Walter g. Berendsohn,"Berendsohn, W.G.",plantae
 huh,Asteraceae,family,Walter Gutermann,"Gutermann, W.",plantae
 huh,Asteraceae,family,Walter Gutermann,"Gutermann, W.",plantae
 huh,Fabaceae,family,Walter Gutermann,"Gutermann, W.",plantae
@@ -8734,6 +8774,7 @@ huh,Ulmaceae,family,Zong-Xiu Li,"Zong-Xiu, L.",plantae
 huh,Lauraceae,family,Zu-An Shen,"Shen, Z.",plantae
 huh,Poaceae,family,Zu-An Shen,"Shen, Z.",plantae
 gbif_GSG,Fagaceae,family,NA,"Bacon, J.R.",plantae
+gbif_GSG,Asteraceae,family,NA,"Bringel, J.B.",plantae
 gbif_GSG,Ericaceae,family,NA,"Elizondo, M.S.G.",plantae
 herbaria,Quillajaceae,family,NA,"Fuks, R.",plantae
 herbaria,Metteniusaceae,family,NA,"Mazine, F.F.",plantae

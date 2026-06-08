@@ -30,3 +30,18 @@ test_that("checkColNames works", {
 })
 
 
+df <- data.frame(numTombo = c("a1","b2","c3","c3","d5","d5","e7","f4","g9",
+                              "h7","i10"),
+                  dup.ID = c("a1|b2","a1|b2","c3|c3","c3|c3","d5|d5|e7",
+                             "d5|d5|e7","d5|d5|e7","f4",NA, "h7|i10", "h7|i10"),
+                  dup.prop = c(1, 1, 1, 1, 0.5, 1, 1, 1, NA, 0.5, 1))
+res <- c(rep(TRUE, 8), NA, FALSE, TRUE)
+
+test_that("getMergeCat works", {
+
+  expect_error(getMergeCat(logical()))
+  expect_error(getMergeCat(df[,-2]))
+
+  expect_equal(getMergeCat(df)$dup.merge, res)
+
+})

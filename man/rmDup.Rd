@@ -9,6 +9,7 @@ rmDup(
   dup.name = "dup.ID",
   prop.name = "dup.prop",
   rec.ID = "numTombo",
+  prop = 0.75,
   order.by = NULL,
   rm.all = FALSE,
   print.rm = TRUE
@@ -28,6 +29,10 @@ ID. Default to the \strong{plantR} output 'dup.prop'.}
 \item{rec.ID}{character. The name of the columns containing the
 unique record identifier (see function \code{getTombo()}). Default to
 'numTombo'.}
+
+\item{prop}{numerical. The threshold value of proportion of
+duplicated values retrieved (i.e. dup.prop) to enter the merging
+routine. Should be between zero and one. Default to 0.75.}
 
 \item{order.by}{character. Column name(s) used to order records
 within groups of duplicates.}
@@ -87,11 +92,10 @@ is not guaranteed that they will be grouped under the same
 duplicate group ID, and thus be excluded from the data.
 }
 \examples{
-(df <- data.frame(numTombo = c("a1", "b2", "c3", "c3", "d5", "d5", "e7", "f4", "g9"),
-                  dup.ID = c("a1|b2", "a1|b2", "c3|c3", "c3|c3", "d5|d5|e7",
-                             "d5|d5|e7", "d5|d5|e7", "f4", NA),
-                  dup.prop = c(1, 1, 1, 1, 0.5, 0.5, 1, 1, NA),
-                  stringsAsFactors = FALSE))
+(df <- data.frame(numTombo = c("a1","b2","c3","c3","d5","d5","e7","f4","g9"),
+                  dup.ID = c("a1|b2","a1|b2","c3|c3","c3|c3","d5|d5|e7",
+                             "d5|d5|e7","d5|d5|e7","f4",NA),
+                  dup.prop = c(1, 1, 1, 1, 0.5, 0.5, 1, 1, NA)))
 rmDup(df)
 rmDup(df, rm.all = TRUE)
 rmDup(df, rm.all = TRUE, print.rm = FALSE)
