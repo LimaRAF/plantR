@@ -248,6 +248,9 @@ taxonomists <- taxonomists[!grepl("\\|", taxonomists$tax, perl = TRUE), ]
 taxonomists <- rbind.data.frame(taxonomists, res_df1)
 stopifnot(!any(grepl("\\|", taxonomists$tax, perl = TRUE)))
 
+# Removendo linhas duplicadas em taxonomists
+taxonomists <- unique(taxonomists)
+
 # collection codes:
 collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
                                            "collection.string",
@@ -286,6 +289,11 @@ familiesSynonyms$order <- NULL
 ## Removendo sinonimias conflituosas do COL com outras referencias (e.g. APG)
 familiesSynonyms <- familiesSynonyms[!grepl("confli", familiesSynonyms$obs),]
 familiesSynonyms$obs <- NULL
+
+## Checando e removendo sinonimias conflituosas ou duplicadas em geral
+dupFams <- duplicated(familiesSynonyms$name)
+subset(familiesSynonyms, name %in% familiesSynonyms$name[dupFams])
+familiesSynonyms <- familiesSynonyms[!dupFams,]
 
 # Field names form different data sources and their equivalencies:
 # ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
@@ -433,5 +441,3 @@ readr::write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 #Removing data
 rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin,
    replaceNames)
-
-
