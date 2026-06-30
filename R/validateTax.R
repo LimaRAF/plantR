@@ -323,6 +323,12 @@ validateTax <- function(x, col.names = c(class = "class",
                      by.x = "tax", by.y = "name", all.x = TRUE)
   }
 
+  # Issue a warning if the taxonomist list contains repeated lines
+  if (anyDuplicated.data.frame(taxonomist.list)) {
+    taxonomist.list <- unique.data.frame(taxonomist.list)
+    warning("Taxonomist list contains duplicated entries")
+  }
+
   if(!generalist) {
 
     # autores <-
@@ -354,7 +360,12 @@ validateTax <- function(x, col.names = c(class = "class",
     if (col.names["class"] %in% names(cols.miss) |
           col.names["order"] %in% names(cols.miss)) {
 
+      # get families from familiesSynonyms table
+      if(tmp<-anyDuplicated(families.syn$name)) {
+        warning(paste("Duplicated family name in familiesSynonyms:", families.syn$name[tmp]))
+      }
       tmp <- dplyr::left_join(x, families.syn,
+                              multiple = "any", # avoid multiple matches
                               by = setNames("name", cols["family"]))
 
       if (col.names["class"] %in% names(cols.miss)) {
