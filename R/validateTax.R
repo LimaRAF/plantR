@@ -354,22 +354,27 @@ validateTax <- function(x, col.names = c(class = "class",
     if (col.names["class"] %in% names(cols.miss) |
           col.names["order"] %in% names(cols.miss)) {
 
+      # get families from familiesSynonyms table
+      if(tmp<-anyDuplicated(families.syn$name)) {
+        warning(paste("Duplicated family name in familiesSynonyms:", families.syn$name[tmp]))
+      }
       tmp <- dplyr::left_join(x, families.syn,
+                              multiple = "any", # avoid multiple matches
                               by = setNames("name", cols["family"]))
 
       if (col.names["class"] %in% names(cols.miss)) {
         x[[col.names["class"]]] <- tmp$class.correct
       } else {
-        rep_these <- is.na(x[[col["class"]]]) & !is.na(tmp$class.correct)
+        rep_these <- is.na(x[[col.names["class"]]]) & !is.na(tmp$class.correct)
         if (any(rep_these))
-          x[[col["class"]]][rep_these] <- tmp$class.correct[rep_these]
+          x[[col.names["class"]]][rep_these] <- tmp$class.correct[rep_these]
       }
       if ("order" %in% names(cols.miss)) {
         x[[col.names["order"]]] <- tmp$order.correct
       } else {
-        rep_these <- is.na(x[[col["order"]]]) & !is.na(tmp$order.correct)
+        rep_these <- is.na(x[[col.names["order"]]]) & !is.na(tmp$order.correct)
         if (any(rep_these))
-          x[[col["order"]]][rep_these] <- tmp$order.correct[rep_these]
+          x[[col.names["order"]]][rep_these] <- tmp$order.correct[rep_these]
       }
       message("Columns with the taxonomic class or order not found. Info added to input based on family names")
     }
