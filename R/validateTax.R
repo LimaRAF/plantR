@@ -323,12 +323,6 @@ validateTax <- function(x, col.names = c(class = "class",
                      by.x = "tax", by.y = "name", all.x = TRUE)
   }
 
-  # Issue a warning if the taxonomist list contains repeated lines
-  if (anyDuplicated.data.frame(taxonomist.list)) {
-    taxonomist.list <- unique.data.frame(taxonomist.list)
-    warning("Taxonomist list contains duplicated entries")
-  }
-
   if(!generalist) {
 
     # autores <-
