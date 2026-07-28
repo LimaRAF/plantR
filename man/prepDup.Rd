@@ -16,7 +16,8 @@ prepDup(
   noYear = "s.d.",
   noName = "s.n.",
   noNumb = "s.n.",
-  ignore.miss = TRUE
+  ignore.miss = TRUE,
+  loc.miss = FALSE
 )
 }
 \arguments{
@@ -47,7 +48,11 @@ number. Default to "s.n.".}
 
 \item{ignore.miss}{logical. Should the duplicate search strings
 with missing/unknown information (e.g. 'n.d.', 's.n.', NA) be
-excluded from the duplicate search. Default to TRUE.}
+excluded from the duplicate search? Default to TRUE.}
+
+\item{loc.miss}{logical. Should the search for missing locality
+information be extend to the state/province level (i.e. ADM-level
+1)? Default to FALSE.}
 }
 \description{
 This function creates the duplicate search strings by
@@ -67,6 +72,7 @@ provided to the argument \code{col.names} and they are:
 \item 'col.number': the collector serial number (default: 'recordNumber.new')
 \item 'col.year': the collection year (default: 'year.new')
 \item 'col.loc': the collection locality (default: 'municipality.new')
+\item 'loc.str': the standard plantR locality string (default: 'loc.correct')
 }
 
 The corresponding columns that should be used to retrieve these
@@ -76,10 +82,20 @@ the names and each element is the corresponding column name in
 the input data frame.
 
 If an element named 'loc.str' containing the column name of the
-\strong{plantR} locality string (i.e. 'loc.correct') is also provided,
-it can be used to complement any missing locality information in
-the locality of the collection (i.e 'col.loc') that may have been
-retrieved in the data processing within the \strong{plantR} workflow.
+\strong{plantR} locality string (i.e. 'loc.correct') is also provided
+in \code{col.names} (the default), it can be used to complement any
+missing locality information in the locality of the collection
+(i.e 'col.loc') that may have been retrieved in the data
+processing within the \strong{plantR} workflow.
+
+This search of missing locality information based on the locality
+string is done at the municipality or locality levels (ADM-levels
+2 and 3). If the argument \code{loc.miss} is TRUE, than another search
+is performed at the state/province level (i.e. ADM-level 1) for
+those records without collection locality. But since this
+administrative level may be too wide for large countries, the
+default of \code{loc.miss} is set to FALSE. No replacement of missing
+locality information is done at the country level (i.e. ADM-level 0).
 
 The duplicate search strings are created by combining the fields
 listed above. Each combination of those fields (e.g. 'col.name'
@@ -102,8 +118,8 @@ Please note that the retrieval of duplicates greatly depends on
 the completeness of the input information and in the amount of
 differences of notation standards among collections. In addition,
 the smaller the vectors of fields to be combined to create the
-duplicate strings, the higher the number of (true and false)
-duplicates will be retrieved.
+duplicate strings, the higher the number of false duplicates will
+be retrieved.
 
 The output of this function contains columns which are reserved
 wihtin the \strong{plantR} workflow. This columns cannot be present in

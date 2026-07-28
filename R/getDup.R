@@ -181,6 +181,7 @@ getDup <- function(df = NULL, flag.ind = TRUE) {
     cols <- c(rec.ID, str_names)
     d <- data.table::melt.data.table(dt[, 1:(length(cols)),],
                                      id.vars = "numTombo", na.rm = TRUE)
+    d <- d[!is.na(numTombo), ]
 
     # convert to graph
     g <- igraph::graph_from_data_frame(d[ , .(numTombo, value)])

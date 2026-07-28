@@ -2,13 +2,13 @@
 #'
 #' A dataset containing the retrieved records of the species
 #' *Trema micrantha* and *Casearia sylvestris* downloaded from the
-#' speciesLink network in May 2024. Data was filtered to contain only
+#' speciesLink network in Feb 2026. Data was filtered to contain only
 #' preserved specimens and the columns most relevant to `plantR`
 #'
 #' @keywords datasets
 #' @name example
 #' @usage data(example)
-#' @format A data frame with 18,855 rows and 19 variables
+#' @format A data frame with around 18,000 rows and 26 variables
 #' @source \url{https://specieslink.net/}
 "example"
 
@@ -16,13 +16,12 @@
 #'
 #' A dataset containing the retrieved records of the species
 #' *Euterpe edulis* downloaded from the speciesLink network
-#' in May 2024. Data was filtered to contain only the columns most
-#' relevant to `plantR`
+#' in Feb 2026 using the function `rspeciesLink()`.
 #'
 #' @keywords datasets
 #' @name example_intro
 #' @usage data(example_intro)
-#' @format A data frame with 713 rows and 45 variables
+#' @format A data frame with about 800 rows and 46 variables
 #' @source \url{https://specieslink.net/}
 "example_intro"
 

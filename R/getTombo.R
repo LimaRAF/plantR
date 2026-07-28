@@ -38,7 +38,7 @@
 #' @seealso
 #'  \link[plantR]{getCode}
 #'
-#' @author Renato A. F. de Lima
+#' @author Renato A. Ferreira de Lima
 #'
 #' @importFrom stringr str_count
 #'
@@ -66,8 +66,8 @@ getTombo <- function(collection = NULL,
     stop("Collection codes and accession numbers must have the same size")
 
   ## Detecting NAs
-  collection[collection %in% c("", " ", NA)] <- NA_character_
-  accession[accession %in% c("", " ", NA)] <- NA_character_
+  collection[collection %in% c("", " ")] <- NA_character_
+  accession[accession %in% c("", " ")] <- NA_character_
   nas.col <- is.na(collection)
   nas.acc <- is.na(accession)
 
@@ -85,7 +85,7 @@ getTombo <- function(collection = NULL,
     col1 <- col[ids]
 
     #no numbers? then NA
-    tmb1[!grepl('\\d', tmb1)] <- NA
+    tmb1[!grepl('\\d', tmb1, perl = TRUE)] <- NA
 
     #removing separators and exclamation points
     tmb1 <- gsub('-|\\!', '', tmb1, perl = TRUE)
@@ -165,7 +165,8 @@ getTombo <- function(collection = NULL,
     as.numeric(tmb[!grepl('\\D', tmb, perl = TRUE)])
 
   #Remove GBIF data without accession and only with a datasetKey
-  tmb[!is.na(tmb) & stringr::str_count(tmb, "-") >= 3] <- NA
+  tmb[!is.na(tmb) & stringr::str_count(tmb, "-") >= 3] <-
+    NA_character_
 
   #Creating the final/edited string of the collection+accession number
   numTombo <- paste(col, tmb, sep = "_")

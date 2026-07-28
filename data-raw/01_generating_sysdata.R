@@ -58,6 +58,9 @@ dic <- lapply(dic, as.data.frame)
 ### create existing named objects
 admin <- dic$admin
 collectionCodes <- dic$collectionCodes
+collectionCodes <- dic$collectionCodes
+repcols <- c("collectioncode.gbif", "institutioncode.gbif", "index.herbariorum.or.working.code")
+collectionCodes[collectionCodes$collection.string == "NA_NA", repcols] <- "NA"
 familiesSynonyms <- dic$familiesSynonyms
 fieldNames <- dic$fieldNames
 gazetteer <- dic$gazetteer
@@ -172,7 +175,7 @@ cultivated <- c("cultivated", "cultivada", "cultivado", "cultivato", "cultivad",
                 "\\(cult\\)", "\\(cult \\)",
                 "in cultivo", "in cultis",
                 " quadra [a-z]", "quadra [a-z] do",
-                "naturalised",
+                "naturalised", "captive",
                 "em experimento de")
 
 notCultivated <- c("nativa",
@@ -180,7 +183,8 @@ notCultivated <- c("nativa",
                    "pastagem cultivada",
                    "área do arboreto",
                    "presença de exóticas",
-                   " área cultivada", " cultivated area")
+                   " área cultivada", " cultivated area",
+                   "wild", "native")
 
 missColls <- c("s/col.", "s/col", "s/c",
                "s/coletor", "s/colector", "s.coletor",
@@ -401,6 +405,22 @@ level_all1$taxon.distribution.bru <-
 # ## Edit the column to match wvcvp names exactly, that is, nchar max = 20
 # level_all1$taxon.distribution.bc <-
 #   substr(level_all1$taxon.distribution.bc, 1, 20)
+
+## Correcting BC name variants not allowed after plantR locality check workflow
+tmp <- data.frame(country = level_all1$taxon.distribution.bru[!level_all1$taxon.distribution.bru %in% plantR:::gazetteer$loc.correct[plantR:::gazetteer$resolution.gazetteer %in% "country"]])
+tmp1 <- plantR::formatLoc(tmp, loc.levels = c("country"))
+(tmp2 <- tmp1[tmp1$resolution.gazetteer %in% "country", ])
+
+# Cocos islands
+level_all1$taxon.distribution.bru[grepl("cocos", level_all1$taxon.distribution.bc)] <-
+  "cocos islands"
+# Ivory coast/cote ivoire
+level_all1$taxon.distribution.bru[grepl("ivory", level_all1$taxon.distribution.bc)] <-
+  "cote ivoire"
+# Suriname and Surinam
+level_all1$taxon.distribution.bru[grepl("urinam", level_all1$taxon.distribution.bc)] <-
+  "suriname"
+
 botanicalCountries <- level_all1
 row.names(botanicalCountries) <- NULL
 

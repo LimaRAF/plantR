@@ -46,7 +46,7 @@ opt_plantr <- c("class", "order",
                 #"collector", "collectornumber", "scientificnameauthor",
                 "latitude", "longitude",
                 "basisOfRecord", "type",
-                "fieldNotes", "occurrenceRemarks", "habitat", #"occurrenceDetails",
+                "fieldNotes", "occurrenceRemarks", "habitat", "establishmentMeans", "degreeOfEstablishment", #"occurrenceDetails",
                 "collectionID", "datasetID", "datasetName",
                 "bibliographicCitation")
 low_must <- tolower(must_plantr)
@@ -72,8 +72,9 @@ names(df_gbif)[grepl("\\.\\.", names(df_gbif), perl = TRUE)] <- tmp
 df_splink <- read.csv("data-raw/results/speciesLink.csv")
 
 ## species link (WEB based version) - INCLUDE THIS ONE
-df_splinkw <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240506233830-0032294.txt"))
-allnames <- unique(c(names(df_splink), names(df_splinkw), names(example), names(example_intro)))
+df_splinkw <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20260227153820-0020931.txt",
+                                              encoding = "UTF-8"))
+allnames <- unique(c(names(df_splink), names(df_splinkw)))#, names(example), names(example_intro)))
 
 ### Required fields for plantR
 must_splink <- c(institutionCode = "institutioncode",
@@ -96,9 +97,11 @@ must_splink <- c(institutionCode = "institutioncode",
                  scientificNameAuthorship = "scientificnameauthorship")
 ### Optional but recommended fields for plantR
 opt_splink <- c(
+                class = "taxonclass",
                 order = "order",
                 family = "family",
                 genus = "genus",
+                scientificNameAuthorship = "scientificnameauthor",
                 # acceptedScientificName = "",
                 # taxonRank = "",
                 # taxonomicStatus = "",
@@ -107,8 +110,8 @@ opt_splink <- c(
                 month = "monthcollected",
                 day = "daycollected",
                 # verbatimEventDate = "",
-                collector = "collector",
-                collectornumber = "collectornumber",
+                recordedBy = "collector",
+                recordNumber = "collectornumber",
                 # scientificnameauthor = "scientificnameauthor",
                 dayIdentified = "dayidentified",
                 monthIdentified = "monthidentified",
@@ -120,12 +123,12 @@ opt_splink <- c(
                 verbatimLatitude = "verbatimlatitude",
                 verbatimLongitude = "verbatimlongitude",
                 coordinatePrecision = "coordinateprecision",
-                latitude = "latitude",
-                longitude = "longitude",
+                decimalLatitude = "latitude",
+                decimalLongitude = "longitude",
                 # verbatimElevation = "",
                 basisOfRecord = "basisofrecord",
                 # type = "",
-                fieldNotes = "notes",
+                occurrenceRemarks = "notes",
                 occurrenceRemarks = "occurrenceremarks",
                 # habitat = "",
                 #"occurrenceDetails = "",
@@ -137,10 +140,12 @@ opt_splink <- c(
 
 allnames[allnames %in% c(must_splink, opt_splink)]
 sort(allnames[!allnames %in% c(must_splink, opt_splink)])
-# Check these: "collector", "collectornumber",
+# Check these:
+# col2check <- c("scientificnameauthor", "fieldnumber", "collector", "collectornumber")
+# allnames[, col2check]
 
 length(c(must_splink, opt_splink)) == length(c(must_splink, opt_splink)[c(must_splink, opt_splink) %in% allnames]) # ok!
-c(must_splink, opt_splink)[!c(must_splink, opt_splink) %in% allnames] # ok!
+c(must_splink, opt_splink)[!c(must_splink, opt_splink) %in% allnames] # ok! Tem que estar vazio
 
 ## Bien data and data dictionary -----------------------------------------------
 df_bien <- read.csv("data-raw/results/bien.csv")

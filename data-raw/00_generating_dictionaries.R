@@ -138,14 +138,14 @@ dl <- googledrive::drive_download( googledrive::as_id(link),
                                    overwrite = TRUE)
 dados <- as.data.frame(readxl::read_xlsx(path, guess_max = 10000))
 # replacing "NA"s
-empty.vec <- c("", " ", "NA")
+empty.vec <- c("", " ")
 for (i in seq_along(dados))
-  dados[[i]][dados[[i]] %in% c("", " ", "NA")] <- NA
+  dados[[i]][dados[[i]] %in% c("", " ")] <- NA
 # character to numbers
 cols2change <- c("latitude", "longitude")
 for (i in seq_along(cols2change))
   dados[[cols2change[i]]] <- as.numeric(dados[[cols2change[i]]])
-cols2change <- c("records", "total accessioned")
+cols2change <- c("records", "specimenTotal")
 for (i in seq_along(cols2change))
   dados[[cols2change[i]]] <- as.integer(dados[[cols2change[i]]])
 readr::write_csv(dados, gsub("xlsx$", "csv", path))
@@ -248,6 +248,9 @@ taxonomists <- taxonomists[!grepl("\\|", taxonomists$tax, perl = TRUE), ]
 taxonomists <- rbind.data.frame(taxonomists, res_df1)
 stopifnot(!any(grepl("\\|", taxonomists$tax, perl = TRUE)))
 
+# Removendo linhas duplicadas em taxonomists
+taxonomists <- unique(taxonomists)
+
 # collection codes:
 collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
                                            "collection.string",
@@ -259,13 +262,38 @@ collectionCodes <- dic$collectionCodes[ ,c("ordem.colecao",
                                            "organization",
                                            #"latitude","longitude","physical country",
                                            "col.OBS")]
+
+## false NA that is actually the collection code 'NA' (United States National Arboretum)
+rep_these <- collectionCodes$index.herbariorum.or.working.code %in% "\"NA\"" &
+                grepl("United States National Arboretum", collectionCodes$organization, perl = TRUE)
+if (any(rep_these)) {
+  repcols <- c("collectioncode.gbif", "institutioncode.gbif", "index.herbariorum.or.working.code")
+  collectionCodes[rep_these, repcols] <- "NA"
+}
+
 collectionCodes <-
-  collectionCodes[!is.na(collectionCodes$index.herbariorum.or.working.code),]
+  collectionCodes[!is.na(collectionCodes$collection.string),]
+
+# Remove duplicate colection strings of the type 'COL_NA' (now dealt internally in getCode)
+rm_these <- duplicated(collectionCodes$index.herbariorum.or.working.code) &
+              is.na(collectionCodes$institutioncode.gbif)
+if (any(rm_these))
+  collectionCodes <-collectionCodes[!rm_these, ]
+
 collectionCodes$ordem.colecao <- NULL
 
 # Plant families
 familiesSynonyms <- dic$familiesSynonyms
 familiesSynonyms$order <- NULL
+
+## Removendo sinonimias conflituosas do COL com outras referencias (e.g. APG)
+familiesSynonyms <- familiesSynonyms[!grepl("confli", familiesSynonyms$obs),]
+familiesSynonyms$obs <- NULL
+
+## Checando e removendo sinonimias conflituosas ou duplicadas em geral
+dupFams <- duplicated(familiesSynonyms$name)
+subset(familiesSynonyms, name %in% familiesSynonyms$name[dupFams])
+familiesSynonyms <- familiesSynonyms[!dupFams,]
 
 # Field names form different data sources and their equivalencies:
 # ATTENTION: fieldNames has its own script now data-raw/make_fieldNames.R
@@ -411,6 +439,5 @@ readr::write_csv(admin, "./data-raw/dictionaries/admin.csv")
 readr::write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 
 #Removing data
-rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin, replaceNames)
-
-
+rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin,
+   replaceNames)

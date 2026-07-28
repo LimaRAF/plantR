@@ -127,6 +127,7 @@ fixAuthors <- function(taxa = NULL,
            res[[2]][no_auth][rep_ids2][caps_and_prep], perl = TRUE)
 
     no_auth <- res[[2]] %in% NA
+
     many_names <- stringr::str_count(taxa1,
                                      stringr::fixed(" ")) > 1
     other_preps <- c(" hort", " auct", " sensu", " d'", " ined")
@@ -142,7 +143,7 @@ fixAuthors <- function(taxa = NULL,
                                          taxa2check[preps_ids1], perl = TRUE)
       }
 
-      ranks_patt <- paste0(ranks, "$", collapse = "|")
+      ranks_patt <- paste0(c(ranks, "\u00d7"), "$", collapse = "|")
       ranks_patt <- gsub("\\.", "\\\\.", ranks_patt, perl = TRUE)
       check_issues <- !grepl(" ", taxa2check, fixed = TRUE) |
         grepl(ranks_patt, taxa2check, perl = TRUE)
@@ -227,7 +228,8 @@ fixAuthors <- function(taxa = NULL,
     }
 
     no_auth <- res[[2]] %in% NA
-    ranks_patt <- paste0(" ", c(ranks, "sp.", "spp."), "$",collapse = "|")
+    ranks_patt <- paste0(" ", c(ranks, "sp.", "spp."), "$", collapse = "|")
+    ranks_patt <- paste0(c(ranks_patt, " aff. ", " cf. "), collapse = "|")
     ranks_patt <- gsub("\\.", "\\\\.", ranks_patt, perl = TRUE)
     low_names <- stringr::str_count(taxa1[no_auth],
                                     stringr::regex(" [a-z]"))
@@ -356,11 +358,31 @@ fixAuthors <- function(taxa = NULL,
       }
     }
 
+
+    no_auth <- res[[2]] %in% NA & grepl(" \\[", res[[1]], perl = TRUE)
+    if (any(no_auth)) {
+      tax <- gsub(" \\[.*", "", res[[1]][no_auth], perl = TRUE)
+      auth <- gsub("(.* )(\\[.*)", "\\2", res[[1]][no_auth],
+                   perl = TRUE)
+
+      check_these <- grep("\\s\\p{Lu}", tax, perl = TRUE)
+      if (length(check_these) > 0L) {
+        tax1 <- gsub("\\s\\p{Lu}.*", "", tax[check_these],
+                     perl = TRUE)
+        auth1 <- sub(".*? (\\p{Lu})", "\\1",
+                     res[[1]][no_auth][check_these], perl = TRUE)
+        tax[check_these] <- tax1
+        auth[check_these] <- auth1
+      }
+      res[[2]][no_auth] <- tax
+      res[[3]][no_auth] <- auth
+    }
+
     fix_these <- res[[4]] %in% "yes" &
       !res[[3]] %in% c("", NA, "NA", " ")
     if (any(fix_these))
       res[[3]][fix_these] <-
-      gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)
+        gsub("^([a-z])", "\\U\\1", res[[3]][fix_these], perl = TRUE)
 
     no_auth <- res[[2]] %in% NA
     if (any(no_auth))

@@ -13,6 +13,9 @@
 #' @param rec.ID character. The name of the columns containing the
 #'   unique record identifier (see function `getTombo()`). Default to
 #'   'numTombo'.
+#' @param prop numerical. The threshold value of proportion of
+#'   duplicated values retrieved (i.e. dup.prop) to enter the merging
+#'   routine. Should be between zero and one. Default to 0.75.
 #' @param order.by character. Column name(s) used to order records
 #'   within groups of duplicates.
 #' @param rm.all logical. Should all duplicates be removed or only the
@@ -68,11 +71,10 @@
 #' @import data.table
 #'
 #' @examples
-#' (df <- data.frame(numTombo = c("a1", "b2", "c3", "c3", "d5", "d5", "e7", "f4", "g9"),
-#'                   dup.ID = c("a1|b2", "a1|b2", "c3|c3", "c3|c3", "d5|d5|e7",
-#'                              "d5|d5|e7", "d5|d5|e7", "f4", NA),
-#'                   dup.prop = c(1, 1, 1, 1, 0.5, 0.5, 1, 1, NA),
-#'                   stringsAsFactors = FALSE))
+#' (df <- data.frame(numTombo = c("a1","b2","c3","c3","d5","d5","e7","f4","g9"),
+#'                   dup.ID = c("a1|b2","a1|b2","c3|c3","c3|c3","d5|d5|e7",
+#'                              "d5|d5|e7","d5|d5|e7","f4",NA),
+#'                   dup.prop = c(1, 1, 1, 1, 0.5, 0.5, 1, 1, NA)))
 #' rmDup(df)
 #' rmDup(df, rm.all = TRUE)
 #' rmDup(df, rm.all = TRUE, print.rm = FALSE)
@@ -83,6 +85,7 @@ rmDup <- function(df,
                   dup.name = "dup.ID",
                   prop.name = "dup.prop",
                   rec.ID = "numTombo",
+                  prop = 0.75,
                   order.by = NULL,
                   rm.all = FALSE,
                   print.rm = TRUE) {
@@ -96,7 +99,7 @@ rmDup <- function(df,
 
   #Escaping R CMD check notes from using data.table syntax
   dup.IDs <- tmp.ordem <- temp.dup.prop <- dup.entries <- NULL
-  temp.rec.ID <- rename.IDs <- NULL
+  dup.merge <- temp.rec.ID <- rename.IDs <- NULL
 
   #Checking essential columns
   if (!dup.name %in% names(df))
@@ -134,9 +137,24 @@ rmDup <- function(df,
               call. = FALSE)
       dt[, c(rec.ID) := tmp.ordem]
     } else {
-      stop("Removal of duplicated entries from the same collection needs a column unique record ID provided")
+      stop("Removal of duplicated entries from the same collection needs a column with the unique record ID")
     }
   }
+
+  dt <- getMergeCat(dt, dup.name = dup.name, prop.name = prop.name,
+                    prop = prop, rec.ID = rec.ID)
+  dt[dup.merge == TRUE & temp.dup.prop %in% "cc", dup.merge := FALSE]
+  dt[dup.merge == TRUE & is.na(dup.IDs), dup.merge := FALSE]
+  if (any(!dt$dup.merge, na.rm = T))
+    dt[dup.merge == FALSE, dup.IDs := .SD, .SDcols = c(rec.ID)]
+
+  if (any(dt$dup.merge, na.rm = T)) {
+    data.table::setkeyv(dt, rec.ID)
+    dt[dup.merge == TRUE, dup.IDs := lapply(unique(.SD), paste0, collapse = "|"),
+       .SDcols = c(rec.ID), by = dup.IDs]
+    data.table::setkey(dt, dup.IDs)
+  }
+  dt[, dup.merge := NULL]
 
   # Making sure all records have a non duplicated dup.ID and non-missing duplicate proportion
   dt[is.na(dup.IDs), temp.dup.prop := 1]
@@ -156,12 +174,12 @@ rmDup <- function(df,
 
   #removing the duplicates and putting it back into the original order
   if (rm.all) {
+
     dt1 <- unique(dt, by = "dup.IDs")
-    data.table::setorder(dt1, tmp.ordem)
+
   } else {
     dt[, temp.rec.ID := .SD, .SDcols = c(rec.ID)]
-    dt[temp.rec.ID %in% c("", " ", NA),
-        temp.rec.ID := NA_character_]
+    dt[temp.rec.ID %in% c("", " ", NA), temp.rec.ID := NA_character_]
     dt[, dup.entries := duplicated(.SD),
        by = dup.IDs, .SDcols = c("temp.rec.ID")]
 
@@ -179,8 +197,8 @@ rmDup <- function(df,
        by = dup.IDs]
     dt1 <- dt[dup.entries == FALSE, ]
     dt1[, c("dup.entries", "rename.IDs", "temp.rec.ID") := NULL, ]
-    data.table::setorder(dt1, tmp.ordem)
   }
+  data.table::setorder(dt1, tmp.ordem)
   #removing the extra column created for ranking
   dt1[, c("dup.IDs", "temp.dup.prop", "tmp.ordem") := NULL]
 

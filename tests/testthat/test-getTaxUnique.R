@@ -2,7 +2,7 @@ nomes <- c("Casearia sylvestris",
            "Casearia celtidifolia", "Casearia serrulata")
 nomes1 <- c("Lobelia","Justicia","Mappia","Eupatorium",
            "Gerardia","Cunninghamia","Phyllostachys",
-           "Struthanthus vulgaris")
+           "Struthanthus vulgaris", "Jessenia")
 orig.col <- "scientificName.new"
 df_input <- data.frame(scientificName.new = nomes)
 df_input1 <- data.frame(scientificName.new = nomes1)
@@ -34,7 +34,7 @@ test_that("getTaxUnique works", {
   expect_error(getTaxUnique(df_input, data.frame(character())))
   expect_error(getTaxUnique(df_input, df_ref))
 
-    res_func <- getTaxUnique(df_input, df_ref,
+  res_func <- getTaxUnique(df_input, df_ref,
                       match.col = tmp.match.col,
                       orig.col = orig.col,
                       name.col = "tax.name",
@@ -67,6 +67,37 @@ test_that("getTaxUnique works", {
 
   expect_equal(res_func$accepted.tax.name, res0)
   expect_equal(res_func$tax.authorship, res01)
+
+  res_func <- getTaxUnique(df_input1, df_ref,
+                           match.col = tmp.match.col,
+                           orig.col = orig.col,
+                           status.col = status.col,
+                           type.match.col = type.match.col,
+                           mult.match.col = mult.match.col,
+                           mult.matches = "all",
+                           agg.cols = agg.cols)
+
+  res0 <- c("Scaevola|Lobelia", "Justicia|Gonzalagunia", "Mappia|Cunila",
+            "Agrimonia|Eupatorium", "Agalinis|Stenandrium", "Cunninghamia|Malanea",
+            "Carex|Phyllostachys", "Struthanthus marginatus|Struthanthus rhynchophyllus",
+            "Oenocarpus")
+  expect_equal(res_func$accepted.tax.name, res0)
+
+  res_func <- getTaxUnique(df_input1, df_ref,
+                           match.col = tmp.match.col,
+                           orig.col = orig.col,
+                           status.col = status.col,
+                           type.match.col = type.match.col,
+                           mult.match.col = mult.match.col,
+                           mult.matches = "best",
+                           agg.cols = agg.cols)
+
+  res0 <- c("Lobelia", "Justicia", "Mappia", "Eupatorium",
+            "Agalinis", # both names rejected, it takes the first one
+            "Cunninghamia", "Phyllostachys",
+            "Struthanthus marginatus",# both names illegitimate, it takes the first one
+            "Oenocarpus")
+  expect_equal(res_func$accepted.tax.name, res0)
 
 
 })

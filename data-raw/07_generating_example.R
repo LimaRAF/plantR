@@ -2,31 +2,47 @@
 
 # dataset example.rda ------------------------------------------------
 ## Loading the data using plantR function
-# spp <- c("Trema micrantha", "Casearia sylvestris")
+# spp <- c("Trema micrantha", "Casearia sylvestris", "Euterpe edulis")
 # chave <- readLines("data-raw/api_key.txt")
-# df <- rspeciesLink(species = spp, key = chave,
+# df1 <- rspeciesLink(species = spp[1], key = chave,
 #                    MaxRecords = 5000,
 #                    basisOfRecord = "PreservedSpecimen",
 #                    Scope = "p", Synonyms = "flora2020")
+# df2 <- rspeciesLink(species = spp[2], key = chave,
+#                     MaxRecords = 5000,
+#                     basisOfRecord = "PreservedSpecimen",
+#                     Scope = "p", Synonyms = "flora2020")
+#
+# df3 <- rspeciesLink(species = spp[3], key = chave,
+#                     MaxRecords = 5000,
+#                     basisOfRecord = "PreservedSpecimen",
+#                     Scope = "p", Synonyms = "flora2020")
+# df <- dplyr::bind_rows(df1, df2, df3)
 ## Loading the data downloaded from their web interface
-df <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20240506233830-0032294.txt",
+dfw <- as.data.frame(data.table::fread("data-raw/results/speciesLink-20260227153820-0020931.txt",
                                       encoding = "UTF-8"))
+dfw <- dfw[!grepl("uterpe", dfw$scientificname), ]
+
+## comparing column names
+# names(df)[!names(df) %in% names(dfw)] # diferences: "collectionid", "recordedby", "decimallongitude", "decimallatitude", "scientificnameauthorship", "recordnumber", "occurrenceremarks"
+# names(dfw)[!names(dfw) %in% names(df)]# diferences: "collector", "longitude", "latitude", "scientificnameauthor"
 
 ## Filtering
-df <- df[df$basisofrecord %in% c("PreservedSpecimen"), ]
+df <- dfw[dfw$basisofrecord %in% c("PreservedSpecimen"), ]
 field_names <- read.csv("data-raw/dictionaries/fieldNames.csv")
 col.names <- field_names$speciesLink[!is.na(field_names$type)]
 col.names <- col.names[!is.na(col.names)]
 col.names <- col.names[!duplicated(col.names)]
 df.names <- names(df)[names(df) %in% col.names]
+df.names <- df.names[!df.names %in% c("verbatimlatitude", "verbatimlongitude",
+                                      "coordinateprecision")]
 example <- df[, df.names]
 
 ## Fixing non-ASCII
 col_to_check <- c("country","stateprovince","county","locality",
                   "notes", "collector", "collectornumber",
                   "identifiedby",
-                  "scientificnameauthor",
-                  "verbatimlatitude", "verbatimlongitude")
+                  "scientificnameauthor")
 for(i in seq_along(col_to_check)) {
   non_utf8 <- !Encoding(example[[col_to_check[i]]]) %in% "UTF-8"
   Encoding(example[[col_to_check[i]]][non_utf8]) <- "latin1"

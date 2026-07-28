@@ -67,7 +67,7 @@ fixIndet <- function(x, rplc = "Indet. sp.") {
   x <- gsub("(.* )(\\d{1,3})$", "\\1sp.\\2", x, perl = TRUE)
   x <- gsub("(.*[a-z])(\\d{1,3})$", "\\1 sp.\\2", x, perl = TRUE)
 
-  x <- gsub("(.* )([A-Z])$", "\\1sp.\\2", x, perl = TRUE)
+  x <- gsub("(.* )([A-Z])$", "\\1sp.\\2", x, perl = TRUE) # Adapt code to avoid names ending with L but should actually be L.? For now, no
   x <- gsub("(.*[a-z])([A-Z])$", "\\1 sp.\\2", x, perl = TRUE)
 
   x <- gsub(" sp$", " sp.", x, perl = TRUE)

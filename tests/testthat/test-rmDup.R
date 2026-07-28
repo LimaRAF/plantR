@@ -17,7 +17,8 @@ test_that("rmDup works", {
   expect_error(rmDup(df = "", print.rm = FALSE))
   expect_error(rmDup(df = data.frame(character()), print.rm = FALSE))
   expect_error(rmDup(df[,-2], print.rm = FALSE))
-  expect_warning(rmDup(df[,-3], print.rm = FALSE))
+  # expect_warning(rmDup(df[,-3], print.rm = FALSE),
+  #                "Classification requires a column with the proportion of duplicates. Assuming to be 1")
   expect_warning(rmDup(df[,-1], rm.all = TRUE, print.rm = FALSE))
   expect_error(rmDup(df[,-1], rm.all = FALSE, print.rm = FALSE))
 

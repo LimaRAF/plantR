@@ -52,7 +52,8 @@ set.
 The function provides a way to check if the species
 distribution obtained from the \strong{plantR} location string (e.g,
 \code{loc.correct} = "brazil_sao paulo_campinas") matches the species
-known distribution in a specific \code{source}.
+known distribution in a specific \code{source}. It also tags introduced
+locations.
 
 The information is returned in the column \code{dist.check}, with
 auxilliary information being returned in column \code{dist.check.obs}.
@@ -112,12 +113,16 @@ spp_names <- c(rep("Ocotea porosa", 8),
                rep("Araucaria angustifolia", 2),
                rep("Oreodaphne porosa", 2),
                "Echites hirsutus var. angustifolius",
-               "Acalypha annobonae")
+               "Acalypha annobonae",
+               "Mangifera indica",
+               "Mangifera indica")
 spp_authors <- c(rep("(Nees & Mart.) Barroso", 8),
                 rep(NA, 2),
                 "Nees & Mart.", NA,
                 "Stadelm.",
-                "Pax & K.Hoffm.")
+                "Pax & K.Hoffm.",
+                "L.",
+                "L.")
 loc <- c("brazil", "brazil_parana",
 "brazil_santa catarina_blumenau_parque são francisco",
 "paraguay",
@@ -128,7 +133,9 @@ NA,
 "brazil_espirito santo",
 "brazil_santa catarina_blumenau",
 "chile_santiago", "brazil_parana_curitiba", "brazil_minas gerais",
-"argentina_buenos aires")
+"argentina_buenos aires",
+"thailand",
+"brazil_parana_curitiba")
 
 df <- data.frame(scientificName = spp_names,
                  scientificNameAuthorship = spp_authors,
