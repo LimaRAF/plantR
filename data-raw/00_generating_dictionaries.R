@@ -280,6 +280,12 @@ rm_these <- duplicated(collectionCodes$index.herbariorum.or.working.code) &
 if (any(rm_these))
   collectionCodes <-collectionCodes[!rm_these, ]
 
+# Remove all conflicts
+rm_these <- duplicated(collectionCodes$collection.string)
+collectionCodes[which(rm_these),]
+if (any(rm_these))
+  collectionCodes <-collectionCodes[!rm_these, ]
+
 collectionCodes$ordem.colecao <- NULL
 
 # Plant families
