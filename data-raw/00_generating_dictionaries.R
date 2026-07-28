@@ -277,6 +277,12 @@ rm_these <- duplicated(collectionCodes$index.herbariorum.or.working.code) &
 if (any(rm_these))
   collectionCodes <-collectionCodes[!rm_these, ]
 
+# Remove all conflicts
+rm_these <- duplicated(collectionCodes$collection.string)
+collectionCodes[which(rm_these),]
+if (any(rm_these))
+  collectionCodes <-collectionCodes[!rm_these, ]
+
 collectionCodes$ordem.colecao <- NULL
 
 # Plant families
@@ -433,5 +439,3 @@ readr::write_csv(replaceNames, "./data-raw/dictionaries/replaceNames.csv")
 #Removing data
 rm(taxonomists, familiesSynonyms, collectionCodes, gazetteer, admin,
    replaceNames)
-
-
